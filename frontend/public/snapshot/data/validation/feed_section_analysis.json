@@ -1,0 +1,31 @@
+{
+ "case_id": "baseline",
+ "S2_aspen_C": 75.9000921,
+ "P2_bar": 20.8,
+ "vaporiser_at_aspen_states": {
+  "reference_eos_kW": 721.8207115524672,
+  "aspen_peng_rob_kW": 739.459613,
+  "aspen_minus_reference_rel": 0.02443667958708981
+ },
+ "nh3_residual_enthalpy_S2_kJ_mol": {
+  "peng_robinson_kij0": -1.0171743024855353,
+  "reference_eos": -1.4362760026316523
+ },
+ "dew_point": {
+  "pure_NH3_saturation_reference_C": 50.88334116614186,
+  "raoult_ideal_liquid_C": 60.08745224565854,
+  "aspen_peng_rob_C (S2 - 10 K superheat)": 65.9000921,
+  "peng_robinson_kij_NH3_H2O_+0.00_C": 52.67844861581665,
+  "peng_robinson_kij_NH3_H2O_-0.25_C": 65.13896932769632
+ },
+ "fehe_gap_split_kW": {
+  "python_kW": 633.0381054137328,
+  "aspen_kW": 612.213344,
+  "gap_python_minus_aspen_kW": 20.824761413732745,
+  "a_inlet_temperature_dew_point": 8.673307235092352,
+  "b_PR_vs_reference_residual_at_S2": 11.618430465161799,
+  "c_reference_vs_PR_residual_at_S3": 0.7435152056759782,
+  "d_remainder_ideal_gas_cp_and_PR_constants": -0.2104914921973846,
+  "NASA_PR_kij0_between_aspen_S2_S3_kW": 611.9920740442343
+ }
+}

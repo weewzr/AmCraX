@@ -1,0 +1,11 @@
+reactor_temperature_C,nh3_conversion,h2_product_kmol_h,cracker_duty_kW,heater_duty_kW,source
+350.0,0.757473481,96.3847131,1094.97727,64.6318987,aspen_plus_v15 (native Sensitivity block STEMP)
+400.0,0.860360069,109.476517,1256.48117,66.3899007,aspen_plus_v15 (native Sensitivity block STEMP)
+450.0,0.91945501,116.996053,1355.63048,68.1900078,aspen_plus_v15 (native Sensitivity block STEMP)
+500.0,0.952097199,121.149608,1415.94254,70.0125934,aspen_plus_v15 (native Sensitivity block STEMP)
+550.0,0.970315552,123.467802,1454.21953,71.8403886,aspen_plus_v15 (native Sensitivity block STEMP)
+600.0,0.980810364,124.803215,1479.99984,73.6573244,aspen_plus_v15 (native Sensitivity block STEMP)
+650.0,0.987092033,125.602526,1498.37255,75.4487729,aspen_plus_v15 (native Sensitivity block STEMP)
+700.0,0.990999583,126.099742,1512.06317,77.2020258,aspen_plus_v15 (native Sensitivity block STEMP)
+750.0,0.993519866,126.420435,1522.57908,78.9066145,aspen_plus_v15 (native Sensitivity block STEMP)
+800.0,0.99519998,126.634221,1530.79269,80.5543971,aspen_plus_v15 (native Sensitivity block STEMP)

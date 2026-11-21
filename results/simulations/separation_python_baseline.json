@@ -1,0 +1,1001 @@
+{
+  "model": "reduced-order model",
+  "case_id": "python_baseline",
+  "input_source": "python_model",
+  "feed_stream": "S7",
+  "feed_kmol_h": {
+    "NH3": 1.9106450942664033,
+    "H2": 146.83403235860038,
+    "N2": 48.9446774528668,
+    "H2O": 0.2
+  },
+  "feed_pressure_bar": 19.5,
+  "feed_temperature_C": 40.0,
+  "rows": [
+    {
+      "option": "PSA (cho2026_5A)",
+      "basis": "cho2026nickel p. 6, Table 3 (original source Yanez et al. 2020, ref. [55] there)",
+      "h2_recovery": 0.756,
+      "h2_purity_mole_frac": 0.9911,
+      "product_h2_kg_h": 223.77584059819785,
+      "membrane_area_m2": null,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 19.5,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 0.0,
+      "h2_loss_kmol_h": 35.827503895498495,
+      "h2_loss_lhv_kW": 2406.6727658424497,
+      "h2_loss_fraction": 0.24400000000000002
+    },
+    {
+      "option": "PSA (hansen2024_cha_AC)",
+      "basis": "hansen2024hysys p. 2, Sec. 2 (original Cha et al. 2021)",
+      "h2_recovery": 0.71,
+      "h2_purity_mole_frac": 0.99,
+      "product_h2_kg_h": 210.15985029724928,
+      "membrane_area_m2": null,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 19.5,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 0.0,
+      "h2_loss_kmol_h": 42.58186938399412,
+      "h2_loss_lhv_kW": 2860.3897626816,
+      "h2_loss_fraction": 0.29000000000000004
+    },
+    {
+      "option": "PSA (kum2026_lumped)",
+      "basis": "kum2026heatintegrated p. 3, Sec. 2; Appendix I",
+      "h2_recovery": 0.8,
+      "h2_purity_mole_frac": 0.99,
+      "product_h2_kg_h": 236.7998313208443,
+      "membrane_area_m2": null,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 19.5,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 0.0,
+      "h2_loss_kmol_h": 29.366806471720068,
+      "h2_loss_lhv_kW": 1972.6825949528268,
+      "h2_loss_fraction": 0.19999999999999996
+    },
+    {
+      "option": "PSA (amcrax_baseline)",
+      "basis": "assumption: AmCraX baseline CaseInputs.psa_h2_recovery. No local source supports 0.85 numerically (literature 0.71-0.81); kept only so the Aspen baseline can be reproduced and compared.",
+      "h2_recovery": 0.85,
+      "h2_purity_mole_frac": 0.999607996863975,
+      "product_h2_kg_h": 251.59982077839706,
+      "membrane_area_m2": null,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 19.5,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 0.0,
+      "h2_loss_kmol_h": 22.025104853790054,
+      "h2_loss_lhv_kW": 1479.5119462146204,
+      "h2_loss_fraction": 0.15
+    },
+    {
+      "option": "Pd-Ag membrane (R=0.756)",
+      "basis": "richard2024technoeconomic p. 7, Table 2, row [53]",
+      "h2_recovery": 0.7559999999997369,
+      "h2_purity_mole_frac": 1.0,
+      "product_h2_kg_h": 223.77584059811997,
+      "membrane_area_m2": 23.649199600618513,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 1.0,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 1.625793691455924,
+      "h2_loss_kmol_h": 35.82750389553713,
+      "h2_loss_lhv_kW": 2406.672765845045,
+      "h2_loss_fraction": 0.24400000000026312
+    },
+    {
+      "option": "Pd-Ag membrane (R=0.9)",
+      "basis": "richard2024technoeconomic p. 7, Table 2, row [53]",
+      "h2_recovery": 0.9000000003441538,
+      "h2_purity_mole_frac": 1.0,
+      "product_h2_kg_h": 266.3998103378193,
+      "membrane_area_m2": 31.063603071770554,
+      "feed_pressure_bar": 19.5,
+      "product_pressure_bar": 1.0,
+      "compression_power_kW": 0.0,
+      "energy_kWh_per_kgH2": 0.0,
+      "energy_kWh_per_kgH2_incl_product_recompression": 1.6257936914559237,
+      "h2_loss_kmol_h": 14.683403185326553,
+      "h2_loss_lhv_kW": 986.341294081883,
+      "h2_loss_fraction": 0.09999999965584623
+    }
+  ],
+  "psa": {
+    "cho2026_5A": {
+      "model": "reduced-order model",
+      "basis": "cho2026_5A",
+      "basis_source": "cho2026nickel p. 6, Table 3 (original source Yanez et al. 2020, ref. [55] there)",
+      "h2_recovery": 0.756,
+      "h2_purity_mole_frac": 0.9911,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "product_kmol_h": {
+        "H2": 111.00652846310189,
+        "N2": 0.9968298893367057
+      },
+      "tailgas_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 35.827503895498495,
+        "N2": 47.94784756353009,
+        "H2O": 0.2
+      },
+      "tailgas_mole_frac": {
+        "NH3": 0.022246293586181857,
+        "H2": 0.41715186797962334,
+        "N2": 0.558273170106106,
+        "H2O": 0.0023286683280887783
+      },
+      "feed_pressure_bar": 19.5,
+      "required_feed_pressure_bar": 7.0,
+      "required_feed_pressure_source": "cho2026nickel p. 6, Table 3 (original source Yanez et al. 2020, ref. [55] there)",
+      "tailgas_pressure_bar": 1.2,
+      "pressure_ratio_feed_to_tail": 16.25,
+      "compression_power_kW": 0.0,
+      "compression_stages": 0,
+      "compression_eta": null,
+      "product_h2_kg_h": 223.77584059819785,
+      "specific_energy_kWh_per_kgH2": 0.0,
+      "h2_loss_kmol_h": 35.827503895498495,
+      "h2_loss_lhv_kW": 2406.6727658424497,
+      "nh3_in_product_ppm": 0.0,
+      "notes": [
+        "reduced-order model: literature operating point applied as a fixed split; not a designed PSA"
+      ]
+    },
+    "hansen2024_cha_AC": {
+      "model": "reduced-order model",
+      "basis": "hansen2024_cha_AC",
+      "basis_source": "hansen2024hysys p. 2, Sec. 2 (original Cha et al. 2021)",
+      "h2_recovery": 0.71,
+      "h2_purity_mole_frac": 0.99,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "product_kmol_h": {
+        "H2": 104.25216297460626,
+        "N2": 1.0530521512586501
+      },
+      "tailgas_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 42.58186938399412,
+        "N2": 47.89162530160815,
+        "H2O": 0.2
+      },
+      "tailgas_mole_frac": {
+        "NH3": 0.020636850963990382,
+        "H2": 0.4599261761813446,
+        "N2": 0.5172767756494467,
+        "H2O": 0.0021601972052181623
+      },
+      "feed_pressure_bar": 19.5,
+      "required_feed_pressure_bar": 2.5,
+      "required_feed_pressure_source": "hansen2024hysys p. 2, Sec. 2 (original Cha et al. 2021)",
+      "tailgas_pressure_bar": 1.2,
+      "pressure_ratio_feed_to_tail": 16.25,
+      "compression_power_kW": 0.0,
+      "compression_stages": 0,
+      "compression_eta": null,
+      "product_h2_kg_h": 210.15985029724928,
+      "specific_energy_kWh_per_kgH2": 0.0,
+      "h2_loss_kmol_h": 42.58186938399412,
+      "h2_loss_lhv_kW": 2860.3897626816,
+      "nh3_in_product_ppm": 0.0,
+      "notes": [
+        "reduced-order model: literature operating point applied as a fixed split; not a designed PSA",
+        "tail-gas pressure 1.2 bar taken from cho2026nickel p. 6 Table 3 (labelled 'Assumed' there)"
+      ]
+    },
+    "kum2026_lumped": {
+      "model": "reduced-order model",
+      "basis": "kum2026_lumped",
+      "basis_source": "kum2026heatintegrated p. 3, Sec. 2; Appendix I",
+      "h2_recovery": 0.8,
+      "h2_purity_mole_frac": 0.99,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "product_kmol_h": {
+        "H2": 117.46722588688031,
+        "N2": 1.1865376352210142
+      },
+      "tailgas_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 29.366806471720068,
+        "N2": 47.758139817645784,
+        "H2O": 0.2
+      },
+      "tailgas_mole_frac": {
+        "NH3": 0.024113470485954958,
+        "H2": 0.37062645660755916,
+        "N2": 0.6027359546850206,
+        "H2O": 0.002524118221465236
+      },
+      "feed_pressure_bar": 19.5,
+      "required_feed_pressure_bar": 7.0,
+      "required_feed_pressure_source": "cho2026nickel p. 6, Table 3 (PSA inlet 40 degC, 7 bar)",
+      "tailgas_pressure_bar": 1.2,
+      "pressure_ratio_feed_to_tail": 16.25,
+      "compression_power_kW": 0.0,
+      "compression_stages": 0,
+      "compression_eta": null,
+      "product_h2_kg_h": 236.7998313208443,
+      "specific_energy_kWh_per_kgH2": 0.0,
+      "h2_loss_kmol_h": 29.366806471720068,
+      "h2_loss_lhv_kW": 1972.6825949528268,
+      "nh3_in_product_ppm": 0.0,
+      "notes": [
+        "reduced-order model: literature operating point applied as a fixed split; not a designed PSA",
+        "basis reports no purity; product purity set to spec 0.99 (chopra2026decentralized p. 4, Sec. 2.2)",
+        "tail-gas pressure 1.2 bar taken from cho2026nickel p. 6 Table 3 (labelled 'Assumed' there)"
+      ]
+    },
+    "amcrax_baseline": {
+      "model": "reduced-order model",
+      "basis": "amcrax_baseline",
+      "basis_source": "assumption: AmCraX baseline CaseInputs.psa_h2_recovery. No local source supports 0.85 numerically (literature 0.71-0.81); kept only so the Aspen baseline can be reproduced and compared.",
+      "h2_recovery": 0.85,
+      "h2_purity_mole_frac": 0.999607996863975,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "product_kmol_h": {
+        "H2": 124.80892750481033,
+        "N2": 0.048944677452862545
+      },
+      "tailgas_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 22.025104853790054,
+        "N2": 48.89573277541393,
+        "H2O": 0.2
+      },
+      "tailgas_mole_frac": {
+        "NH3": 0.026161937605744,
+        "H2": 0.3015837010620047,
+        "N2": 0.6695158163576506,
+        "H2O": 0.002738544974600732
+      },
+      "feed_pressure_bar": 19.5,
+      "required_feed_pressure_bar": 7.0,
+      "required_feed_pressure_source": "cho2026nickel p. 6, Table 3 (PSA inlet 40 degC, 7 bar)",
+      "tailgas_pressure_bar": 1.2,
+      "pressure_ratio_feed_to_tail": 16.25,
+      "compression_power_kW": 0.0,
+      "compression_stages": 0,
+      "compression_eta": null,
+      "product_h2_kg_h": 251.59982077839706,
+      "specific_energy_kWh_per_kgH2": 0.0,
+      "h2_loss_kmol_h": 22.025104853790054,
+      "h2_loss_lhv_kW": 1479.5119462146204,
+      "nh3_in_product_ppm": 0.0,
+      "notes": [
+        "reduced-order model: literature operating point applied as a fixed split; not a designed PSA",
+        "tail-gas pressure 1.2 bar taken from cho2026nickel p. 6 Table 3 (labelled 'Assumed' there)",
+        "purity 0.999608 = simulated H2PROD purity of the input case (python_model)"
+      ]
+    }
+  },
+  "membrane": {
+    "R0.756": {
+      "model": "reduced-order model",
+      "permeability_set": "richard_ref53",
+      "permeability_source": "richard2024technoeconomic p. 7, Table 2, row [53]",
+      "T_K": 673.15,
+      "feed_pressure_bar": 19.5,
+      "permeate_pressure_bar": 1.0,
+      "area_m2": 23.649199600618513,
+      "n_exponent": 0.5,
+      "flux_multiplier": 1.0,
+      "permeance_mol_m2_s_Pa_n": 0.0016892873177780077,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "permeate_kmol_h": {
+        "H2": 111.00652846306326
+      },
+      "retentate_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 35.82750389553713,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "retentate_mole_frac": {
+        "NH3": 0.02199105591399174,
+        "H2": 0.4123657731045147,
+        "N2": 0.5633412200875274,
+        "H2O": 0.0023019508939660254
+      },
+      "h2_recovery": 0.7559999999997369,
+      "max_recovery_at_pinch": 0.9812049896037044,
+      "h2_purity_mole_frac": 1.0,
+      "purity_basis": "infinite selectivity assumed (richard2024technoeconomic p. 7); measured Pd-Ag in NH3 service >99.999 % H2, NH3 < 0.01 ppm (cechetto2023membrane pp. 15, 17, Tables 8, 10)",
+      "product_h2_kg_h": 223.77584059811997,
+      "h2_loss_kmol_h": 35.82750389553713,
+      "h2_loss_lhv_kW": 2406.672765845045,
+      "in_pd_window": true,
+      "profile": [
+        {
+          "area_m2": 0.0,
+          "h2_retentate_kmol_h": 146.83403235860038,
+          "y_h2_retentate": 0.7420006620798077,
+          "flux_mol_m2_s": 1.4977970302501256,
+          "recovery": 0.0
+        },
+        {
+          "area_m2": 0.5912299900154628,
+          "h2_retentate_kmol_h": 143.65219955684748,
+          "y_h2_retentate": 0.7377845396241658,
+          "flux_mol_m2_s": 1.4920158015966891,
+          "recovery": 0.021669586747997016
+        },
+        {
+          "area_m2": 1.1824599800309257,
+          "h2_retentate_kmol_h": 140.48286766616977,
+          "y_h2_retentate": 0.7334457295943102,
+          "flux_mol_m2_s": 1.4860490685023733,
+          "recovery": 0.043254037162990144
+        },
+        {
+          "area_m2": 1.7736899700463886,
+          "h2_retentate_kmol_h": 137.32644019407343,
+          "y_h2_retentate": 0.7289794839786508,
+          "flux_mol_m2_s": 1.4798886232035233,
+          "recovery": 0.06475060319332071
+        },
+        {
+          "area_m2": 2.3649199600618513,
+          "h2_retentate_kmol_h": 134.1833385667947,
+          "y_h2_retentate": 0.7243808487919674,
+          "flux_mol_m2_s": 1.4735258172361982,
+          "recovery": 0.08615641475342684
+        },
+        {
+          "area_m2": 2.956149950077314,
+          "h2_retentate_kmol_h": 131.0540031095032,
+          "y_h2_retentate": 0.7196446565103589,
+          "flux_mol_m2_s": 1.4669515355663927,
+          "recovery": 0.10746847304825724
+        },
+        {
+          "area_m2": 3.5473799400927772,
+          "h2_retentate_kmol_h": 127.9388940724632,
+          "y_h2_retentate": 0.7147655186221048,
+          "flux_mol_m2_s": 1.4601561692872322,
+          "recovery": 0.12868364358469142
+        },
+        {
+          "area_m2": 4.13860993010824,
+          "h2_retentate_kmol_h": 124.83849270256569,
+          "y_h2_retentate": 0.7097378183840344,
+          "flux_mol_m2_s": 1.4531295868393952,
+          "recovery": 0.149798648873967
+        },
+        {
+          "area_m2": 4.729839920123703,
+          "h2_retentate_kmol_h": 121.7533023878768,
+          "y_h2_retentate": 0.7045557039393484,
+          "flux_mol_m2_s": 1.4458611037869191,
+          "recovery": 0.17081006063683535
+        },
+        {
+          "area_m2": 5.321069910139165,
+          "h2_retentate_kmol_h": 118.68384989099225,
+          "y_h2_retentate": 0.6992130819670147,
+          "flux_mol_m2_s": 1.4383394511837433,
+          "recovery": 0.19171429140391172
+        },
+        {
+          "area_m2": 5.912299900154628,
+          "h2_retentate_kmol_h": 115.63068660058718,
+          "y_h2_retentate": 0.6937036119097015,
+          "flux_mol_m2_s": 1.430552742373623,
+          "recovery": 0.21250758599210762
+        },
+        {
+          "area_m2": 6.503529890170091,
+          "h2_retentate_kmol_h": 112.59438989839424,
+          "y_h2_retentate": 0.6880207011416075,
+          "flux_mol_m2_s": 1.4224884384867447,
+          "recovery": 0.23318601219494905
+        },
+        {
+          "area_m2": 7.0947598801855545,
+          "h2_retentate_kmol_h": 109.57556457383222,
+          "y_h2_retentate": 0.6821575011990985,
+          "flux_mol_m2_s": 1.4141333125409656,
+          "recovery": 0.2537454511483751
+        },
+        {
+          "area_m2": 7.685989870201017,
+          "h2_retentate_kmol_h": 106.57484433717978,
+          "y_h2_retentate": 0.6761069054465734,
+          "flux_mol_m2_s": 1.40547341238514,
+          "recovery": 0.27418158702540407
+        },
+        {
+          "area_m2": 8.27721986021648,
+          "h2_retentate_kmol_h": 103.59289339909279,
+          "y_h2_retentate": 0.6698615484520942,
+          "flux_mol_m2_s": 1.396494022561817,
+          "recovery": 0.29448989627897304
+        },
+        {
+          "area_m2": 8.868449850231942,
+          "h2_retentate_kmol_h": 100.63040813940594,
+          "y_h2_retentate": 0.6634138075081051,
+          "flux_mol_m2_s": 1.387179625373012,
+          "recovery": 0.31466563627671285
+        },
+        {
+          "area_m2": 9.459679840247405,
+          "h2_retentate_kmol_h": 97.68811885381768,
+          "y_h2_retentate": 0.656755806734973,
+          "flux_mol_m2_s": 1.3775138614159526,
+          "recovery": 0.33470383340530874
+        },
+        {
+          "area_m2": 10.050909830262869,
+          "h2_retentate_kmol_h": 94.76679158926054,
+          "y_h2_retentate": 0.6498794243280622,
+          "flux_mol_m2_s": 1.367479490013743,
+          "recovery": 0.35459927057087426
+        },
+        {
+          "area_m2": 10.64213982027833,
+          "h2_retentate_kmol_h": 91.86723006094923,
+          "y_h2_retentate": 0.6427763035611641,
+          "flux_mol_m2_s": 1.3570583500267714,
+          "recovery": 0.37434647414306754
+        },
+        {
+          "area_m2": 11.233369810293794,
+          "h2_retentate_kmol_h": 88.99027765144942,
+          "y_h2_retentate": 0.6354378682747798,
+          "flux_mol_m2_s": 1.3462313216893618,
+          "recovery": 0.3939397003406133
+        },
+        {
+          "area_m2": 11.824599800309256,
+          "h2_retentate_kmol_h": 86.13681949004534,
+          "y_h2_retentate": 0.6278553436879978,
+          "flux_mol_m2_s": 1.3349782902768559,
+          "recovery": 0.4133729210699557
+        },
+        {
+          "area_m2": 12.41582979032472,
+          "h2_retentate_kmol_h": 83.30778461236682,
+          "y_h2_retentate": 0.620019783507043,
+          "flux_mol_m2_s": 1.323278112617623,
+          "recovery": 0.4326398092173125
+        },
+        {
+          "area_m2": 13.007059780340182,
+          "h2_retentate_kmol_h": 80.50414816807358,
+          "y_h2_retentate": 0.6119221043564765,
+          "flux_mol_m2_s": 1.3111085875692343,
+          "recovery": 0.45173372361343933
+        },
+        {
+          "area_m2": 13.598289770355645,
+          "h2_retentate_kmol_h": 77.72693372448774,
+          "y_h2_retentate": 0.6035531289384314,
+          "flux_mol_m2_s": 1.2984464321940967,
+          "recovery": 0.4706476933449474
+        },
+        {
+          "area_m2": 14.189519760371109,
+          "h2_retentate_kmol_h": 74.97721555536943,
+          "y_h2_retentate": 0.5949036390458966,
+          "flux_mol_m2_s": 1.2852672650306716,
+          "recovery": 0.48937440216680217
+        },
+        {
+          "area_m2": 14.78074975038657,
+          "h2_retentate_kmol_h": 72.25612100524478,
+          "y_h2_retentate": 0.5859644403120878,
+          "flux_mol_m2_s": 1.2715455991103701,
+          "recovery": 0.5079061724002801
+        },
+        {
+          "area_m2": 15.371979740402034,
+          "h2_retentate_kmol_h": 69.56483285384992,
+          "y_h2_retentate": 0.5767264403083577,
+          "flux_mol_m2_s": 1.2572548471421257,
+          "recovery": 0.526234948830135
+        },
+        {
+          "area_m2": 15.963209730417496,
+          "h2_retentate_kmol_h": 66.9045916119568,
+          "y_h2_retentate": 0.5671807417706665,
+          "flux_mol_m2_s": 1.2423673417654437,
+          "recovery": 0.544352283069082
+        },
+        {
+          "area_m2": 16.55443972043296,
+          "h2_retentate_kmol_h": 64.27669779243719,
+          "y_h2_retentate": 0.5573187533105571,
+          "flux_mol_m2_s": 1.2268543749777467,
+          "recovery": 0.5622493180909203
+        },
+        {
+          "area_m2": 17.145669710448423,
+          "h2_retentate_kmol_h": 61.68251407559866,
+          "y_h2_retentate": 0.547132319755383,
+          "flux_mol_m2_s": 1.210686260948293,
+          "recovery": 0.5799167734837067
+        },
+        {
+          "area_m2": 17.736899700463884,
+          "h2_retentate_kmol_h": 59.12346728240191,
+          "y_h2_retentate": 0.5366138743570857,
+          "flux_mol_m2_s": 1.1938324271207317,
+          "recovery": 0.5973449320113361
+        },
+        {
+          "area_m2": 18.328129690479347,
+          "h2_retentate_kmol_h": 56.6010501416687,
+          "y_h2_retentate": 0.5257566154981197,
+          "flux_mol_m2_s": 1.1762615398341998,
+          "recovery": 0.6145236275781303
+        },
+        {
+          "area_m2": 18.91935968049481,
+          "h2_retentate_kmol_h": 54.116822739892356,
+          "y_h2_retentate": 0.514554710205844,
+          "flux_mol_m2_s": 1.1579416711067785,
+          "recovery": 0.631442235355034
+        },
+        {
+          "area_m2": 19.510589670510274,
+          "h2_retentate_kmol_h": 51.6724135723204,
+          "y_h2_retentate": 0.503003526839478,
+          "flux_mol_m2_s": 1.1388405144522737,
+          "recovery": 0.6480896646213106
+        },
+        {
+          "area_m2": 20.101819660525738,
+          "h2_retentate_kmol_h": 49.26952004736682,
+          "y_h2_retentate": 0.4910998988207519,
+          "flux_mol_m2_s": 1.1189256582235936,
+          "recovery": 0.6644543553292874
+        },
+        {
+          "area_m2": 20.693049650541198,
+          "h2_retentate_kmol_h": 46.90990838876331,
+          "y_h2_retentate": 0.47884242134292304,
+          "flux_mol_m2_s": 1.0981649268397393,
+          "recovery": 0.6805242787707471
+        },
+        {
+          "area_m2": 21.28427964055666,
+          "h2_retentate_kmol_h": 44.59541268162874,
+          "y_h2_retentate": 0.4662317814387172,
+          "flux_mol_m2_s": 1.0765267998014822,
+          "recovery": 0.6962869440735842
+        },
+        {
+          "area_m2": 21.875509630572125,
+          "h2_retentate_kmol_h": 42.327932962808774,
+          "y_h2_retentate": 0.4532711215909834,
+          "flux_mol_m2_s": 1.0539809205777018,
+          "recovery": 0.7117294112073771
+        },
+        {
+          "area_m2": 22.46673962058759,
+          "h2_retentate_kmol_h": 40.1094321099439,
+          "y_h2_retentate": 0.439966435063841,
+          "flux_mol_m2_s": 1.0304987070120075,
+          "recovery": 0.7268383121701104
+        },
+        {
+          "area_m2": 23.05796961060305,
+          "h2_retentate_kmol_h": 37.94193131608866,
+          "y_h2_retentate": 0.42632698953161946,
+          "flux_mol_m2_s": 1.0060540755034015,
+          "recovery": 0.7415998818078748
+        },
+        {
+          "area_m2": 23.649199600618513,
+          "h2_retentate_kmol_h": 35.82750389553713,
+          "y_h2_retentate": 0.4123657731045148,
+          "flux_mol_m2_s": 0.9806242906443335,
+          "recovery": 0.7559999999997369
+        }
+      ],
+      "notes": [
+        "reduced-order model: isothermal, isobaric plug flow, ideal Sieverts flux, pure-H2 permeate",
+        "permeability richard_ref53: Pe0 4.57e-08 mol/(m s Pa^0.5), Ea 9.23 kJ/mol, 5.2 um (richard2024technoeconomic p. 7, Table 2, row [53])"
+      ]
+    },
+    "R0.9": {
+      "model": "reduced-order model",
+      "permeability_set": "richard_ref53",
+      "permeability_source": "richard2024technoeconomic p. 7, Table 2, row [53]",
+      "T_K": 673.15,
+      "feed_pressure_bar": 19.5,
+      "permeate_pressure_bar": 1.0,
+      "area_m2": 31.063603071770554,
+      "n_exponent": 0.5,
+      "flux_multiplier": 1.0,
+      "permeance_mol_m2_s_Pa_n": 0.0016892873177780077,
+      "feed_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 146.83403235860038,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "permeate_kmol_h": {
+        "H2": 132.15062917327384
+      },
+      "retentate_kmol_h": {
+        "NH3": 1.9106450942664033,
+        "H2": 14.683403185326553,
+        "N2": 48.9446774528668,
+        "H2O": 0.2
+      },
+      "retentate_mole_frac": {
+        "NH3": 0.029064224670892664,
+        "H2": 0.22336002138350455,
+        "N2": 0.7445334071740217,
+        "H2O": 0.0030423467715810343
+      },
+      "h2_recovery": 0.9000000003441538,
+      "max_recovery_at_pinch": 0.9812049896037044,
+      "h2_purity_mole_frac": 1.0,
+      "purity_basis": "infinite selectivity assumed (richard2024technoeconomic p. 7); measured Pd-Ag in NH3 service >99.999 % H2, NH3 < 0.01 ppm (cechetto2023membrane pp. 15, 17, Tables 8, 10)",
+      "product_h2_kg_h": 266.3998103378193,
+      "h2_loss_kmol_h": 14.683403185326553,
+      "h2_loss_lhv_kW": 986.341294081883,
+      "in_pd_window": true,
+      "profile": [
+        {
+          "area_m2": 0.0,
+          "h2_retentate_kmol_h": 146.83403235860038,
+          "y_h2_retentate": 0.7420006620798077,
+          "flux_mol_m2_s": 1.4977970302501256,
+          "recovery": 0.0
+        },
+        {
+          "area_m2": 0.7765900767942638,
+          "h2_retentate_kmol_h": 142.65719925222442,
+          "y_h2_retentate": 0.7364376754125632,
+          "flux_mol_m2_s": 1.490165475763237,
+          "recovery": 0.028445947027969876
+        },
+        {
+          "area_m2": 1.5531801535885277,
+          "h2_retentate_kmol_h": 138.5021511099384,
+          "y_h2_retentate": 0.7306604611143036,
+          "flux_mol_m2_s": 1.4822094612626897,
+          "recovery": 0.05674352951306072
+        },
+        {
+          "area_m2": 2.3297702303827914,
+          "h2_retentate_kmol_h": 134.36982139981637,
+          "y_h2_retentate": 0.7246580401105677,
+          "flux_mol_m2_s": 1.4739099182339763,
+          "recovery": 0.08488639015472732
+        },
+        {
+          "area_m2": 3.1063603071770554,
+          "h2_retentate_kmol_h": 130.26119876028034,
+          "y_h2_retentate": 0.7184188060801623,
+          "flux_mol_m2_s": 1.465246418007587,
+          "recovery": 0.11286779591971985
+        },
+        {
+          "area_m2": 3.8829503839713193,
+          "h2_retentate_kmol_h": 126.1773309742729,
+          "y_h2_retentate": 0.7119304962560595,
+          "flux_mol_m2_s": 1.4561970662075296,
+          "recovery": 0.14068061097633922
+        },
+        {
+          "area_m2": 4.659540460765583,
+          "h2_retentate_kmol_h": 122.11932918881969,
+          "y_h2_retentate": 0.7051801632898357,
+          "flux_mol_m2_s": 1.4467383896649342,
+          "recovery": 0.1683172679574858
+        },
+        {
+          "area_m2": 5.436130537559847,
+          "h2_retentate_kmol_h": 118.08837254970122,
+          "y_h2_retentate": 0.6981541492403596,
+          "flux_mol_m2_s": 1.4368452160150849,
+          "recovery": 0.19576973639664175
+        },
+        {
+          "area_m2": 6.212720614354111,
+          "h2_retentate_kmol_h": 114.08571309287257,
+          "y_h2_retentate": 0.6908380624520866,
+          "flux_mol_m2_s": 1.4264905456240453,
+          "recovery": 0.22302948941529677
+        },
+        {
+          "area_m2": 6.989310691148375,
+          "h2_retentate_kmol_h": 110.1126810492714,
+          "y_h2_retentate": 0.6832167588612349,
+          "flux_mol_m2_s": 1.4156454163961631,
+          "recovery": 0.2500874675950294
+        },
+        {
+          "area_m2": 7.765900767942639,
+          "h2_retentate_kmol_h": 106.17069052362966,
+          "y_h2_retentate": 0.6752743292920956,
+          "flux_mol_m2_s": 1.404278761865526,
+          "recovery": 0.2769340403024694
+        },
+        {
+          "area_m2": 8.542490844736902,
+          "h2_retentate_kmol_h": 102.26124558883286,
+          "y_h2_retentate": 0.6669940948465811,
+          "flux_mol_m2_s": 1.3923572635442285,
+          "recovery": 0.30355896418421013
+        },
+        {
+          "area_m2": 9.319080921531166,
+          "h2_retentate_kmol_h": 98.38594679241305,
+          "y_h2_retentate": 0.6583586129000942,
+          "flux_mol_m2_s": 1.37984519888973,
+          "recovery": 0.3299513388549232
+        },
+        {
+          "area_m2": 10.09567099832543,
+          "h2_retentate_kmol_h": 94.54649809257802,
+          "y_h2_retentate": 0.649349696845697,
+          "flux_mol_m2_s": 1.3667042869684392,
+          "recovery": 0.3560995596601537
+        },
+        {
+          "area_m2": 10.872261075119694,
+          "h2_retentate_kmol_h": 90.74471422604005,
+          "y_h2_retentate": 0.6399484534069443,
+          "flux_mol_m2_s": 1.3528935347125999,
+          "recovery": 0.38199126749838297
+        },
+        {
+          "area_m2": 11.648851151913957,
+          "h2_retentate_kmol_h": 86.98252849821672,
+          "y_h2_retentate": 0.6301353421507564,
+          "flux_mol_m2_s": 1.338369087737082,
+          "recovery": 0.4076132957665657
+        },
+        {
+          "area_m2": 12.425441228708221,
+          "h2_retentate_kmol_h": 83.26200098717133,
+          "y_h2_retentate": 0.6198902628215808,
+          "flux_mol_m2_s": 1.323084091110042,
+          "recovery": 0.4329516144879304
+        },
+        {
+          "area_m2": 13.202031305502485,
+          "h2_retentate_kmol_h": 79.58532709782065,
+          "y_h2_retentate": 0.6091926771193511,
+          "flux_mol_m2_s": 1.3069885670630708,
+          "recovery": 0.4579912720543142
+        },
+        {
+          "area_m2": 13.97862138229675,
+          "h2_retentate_kmol_h": 75.95484645614296,
+          "y_h2_retentate": 0.5980217729982215,
+          "flux_mol_m2_s": 1.2900293191143841,
+          "recovery": 0.48271633465295805
+        },
+        {
+          "area_m2": 14.755211459091013,
+          "h2_retentate_kmol_h": 72.37305195874808,
+          "y_h2_retentate": 0.5863566805321538,
+          "flux_mol_m2_s": 1.2721498741628439,
+          "recovery": 0.5071098246352217
+        },
+        {
+          "area_m2": 15.531801535885277,
+          "h2_retentate_kmol_h": 68.84259899961424,
+          "y_h2_retentate": 0.5741767506184247,
+          "flux_mol_m2_s": 1.2532904785509202,
+          "recovery": 0.5311536576787201
+        },
+        {
+          "area_m2": 16.30839161267954,
+          "h2_retentate_kmol_h": 65.36631452816084,
+          "y_h2_retentate": 0.5614619083726343,
+          "flux_mol_m2_s": 1.2333881666959403,
+          "recovery": 0.5548285810981326
+        },
+        {
+          "area_m2": 17.084981689473803,
+          "h2_retentate_kmol_h": 61.94720584479189,
+          "y_h2_retentate": 0.5481930955557142,
+          "flux_mol_m2_s": 1.212376927269759,
+          "recovery": 0.5781141139439429
+        },
+        {
+          "area_m2": 17.861571766268067,
+          "h2_retentate_kmol_h": 58.58846873120025,
+          "y_h2_retentate": 0.53435281695497,
+          "flux_mol_m2_s": 1.1901879965785707,
+          "recovery": 0.6009884916317317
+        },
+        {
+          "area_m2": 18.63816184306233,
+          "h2_retentate_kmol_h": 55.293494550024604,
+          "y_h2_retentate": 0.5199258069745125,
+          "flux_mol_m2_s": 1.1667503161933173,
+          "recovery": 0.6234286175906008
+        },
+        {
+          "area_m2": 19.414751919856595,
+          "h2_retentate_kmol_h": 52.06587579150263,
+          "y_h2_retentate": 0.5048998327242615,
+          "flux_mol_m2_s": 1.141991199326751,
+          "recovery": 0.6454100254881884
+        },
+        {
+          "area_m2": 20.19134199665086,
+          "h2_retentate_kmol_h": 48.90940937042292,
+          "y_h2_retentate": 0.4892666486692523,
+          "flux_mol_m2_s": 1.1158372584848182,
+          "recovery": 0.6669068567770747
+        },
+        {
+          "area_m2": 20.967932073445123,
+          "h2_retentate_kmol_h": 45.828096951383586,
+          "y_h2_retentate": 0.47302311570541933,
+          "flux_mol_m2_s": 1.088215656663816,
+          "recovery": 0.6878918584796372
+        },
+        {
+          "area_m2": 21.744522150239387,
+          "h2_retentate_kmol_h": 42.826141192863716,
+          "y_h2_retentate": 0.4561724912115769,
+          "flux_mol_m2_s": 1.059055751211509,
+          "recovery": 0.7083364087674644
+        },
+        {
+          "area_m2": 22.52111222703365,
+          "h2_retentate_kmol_h": 39.90793678421533,
+          "y_h2_retentate": 0.43872588864526224,
+          "flux_mol_m2_s": 1.0282912078836648,
+          "recovery": 0.728210578003119
+        },
+        {
+          "area_m2": 23.297702303827915,
+          "h2_retentate_kmol_h": 37.078054809045234,
+          "y_h2_retentate": 0.420703891321441,
+          "flux_mol_m2_s": 0.9958626656175514,
+          "recovery": 0.7474832352319207
+        },
+        {
+          "area_m2": 24.07429238062218,
+          "h2_retentate_kmol_h": 34.341218802352714,
+          "y_h2_retentate": 0.40213828639512517,
+          "flux_mol_m2_s": 0.9617210315634508,
+          "recovery": 0.7661222112426631
+        },
+        {
+          "area_m2": 24.850882457416443,
+          "h2_retentate_kmol_h": 31.702270625071165,
+          "y_h2_retentate": 0.3830738595684407,
+          "flux_mol_m2_s": 0.9258314755143912,
+          "recovery": 0.7840945309759839
+        },
+        {
+          "area_m2": 25.627472534210707,
+          "h2_retentate_kmol_h": 29.166124144917433,
+          "y_h2_retentate": 0.3635701591979341,
+          "flux_mol_m2_s": 0.8881781704671864,
+          "recovery": 0.8013667289767847
+        },
+        {
+          "area_m2": 26.40406261100497,
+          "h2_retentate_kmol_h": 26.73770459978684,
+          "y_h2_retentate": 0.3437031001414814,
+          "flux_mol_m2_s": 0.8487697852734198,
+          "recovery": 0.8179052623543867
+        },
+        {
+          "area_m2": 27.180652687799235,
+          "h2_retentate_kmol_h": 24.421871616298514,
+          "y_h2_retentate": 0.3235662359601965,
+          "flux_mol_m2_s": 0.8076456723411808,
+          "recovery": 0.8336770350578193
+        },
+        {
+          "area_m2": 27.9572427645935,
+          "h2_retentate_kmol_h": 22.22332411468014,
+          "y_h2_retentate": 0.3032714866752727,
+          "flux_mol_m2_s": 0.7648826014119539,
+          "recovery": 0.848650045512569
+        },
+        {
+          "area_m2": 28.733832841387763,
+          "h2_retentate_kmol_h": 20.1464859184731,
+          "y_h2_retentate": 0.282949076050572,
+          "flux_mol_m2_s": 0.7206017667457902,
+          "recovery": 0.8627941656654158
+        },
+        {
+          "area_m2": 29.510422918182027,
+          "h2_retentate_kmol_h": 18.195371889747566,
+          "y_h2_retentate": 0.2627464177464952,
+          "flux_mol_m2_s": 0.6749756393305187,
+          "recovery": 0.876082052658538
+        },
+        {
+          "area_m2": 30.28701299497629,
+          "h2_retentate_kmol_h": 16.373435798167314,
+          "y_h2_retentate": 0.24282570523276542,
+          "flux_mol_m2_s": 0.6282340506249888,
+          "recovery": 0.8884901849035933
+        },
+        {
+          "area_m2": 31.063603071770554,
+          "h2_retentate_kmol_h": 14.683403185326553,
+          "y_h2_retentate": 0.22336002138350455,
+          "flux_mol_m2_s": 0.580668698116179,
+          "recovery": 0.9000000003441537
+        }
+      ],
+      "notes": [
+        "reduced-order model: isothermal, isobaric plug flow, ideal Sieverts flux, pure-H2 permeate",
+        "permeability richard_ref53: Pe0 4.57e-08 mol/(m s Pa^0.5), Ea 9.23 kJ/mol, 5.2 um (richard2024technoeconomic p. 7, Table 2, row [53])"
+      ]
+    }
+  },
+  "ammonia_slip": {
+    "model": "reduced-order model",
+    "nh3_cracked_gas_kmol_h": 1.9106450942664033,
+    "nh3_cracked_gas_ppm": 9655.118109695979,
+    "limit_ppm": 0.1,
+    "limit_source": "cechetto2023membrane p. 5, Sec. 2 text, quoting ISO 14687:2019 (their ref. 35); limit applies to stationary and vehicle use",
+    "product_kmol_h": 146.83403235860038,
+    "nh3_allowed_in_product_kmol_h": 1.4683403235860038e-05,
+    "required_nh3_removal_factor": 0.9999923149499194,
+    "meets_limit_without_removal": false,
+    "removal_evidence": [
+      "TSA zeolite 4A: < 0.1 (cho2026nickel p. 6, Table 3)",
+      "TSA (Kum): 0.9857 (kum2026heatintegrated p. 6, 12, Eq. 11; Table 7)",
+      "clinoptilolite: < 0.025 from ~1000 (cechetto2023membrane p. 14, Sec. 4.3.6)"
+    ],
+    "notes": [
+      "reduced-order model: requirement only - NH3 removal unit (TSA/adsorber) not designed"
+    ]
+  },
+  "notes": [
+    "reduced-order models; PSA rows apply literature operating points (no interpolation); membrane row uses ideal Sieverts flux with literature Pd-Ag permeability. Neither is a designed or validated unit.",
+    "input python_model case 'python_baseline', feed stream S7",
+    "energy = cracked-gas compression to the PSA feed requirement (zero if already above); the 'incl. product recompression' column adds compression of the H2 product to 19 bar (eta as for the cracked-gas compressor), which is what the membrane permeate at low pressure needs to match the PSA product pressure",
+    "membrane heating not counted: the membrane is assumed placed where the effluent is at the membrane temperature (upstream of COOLER); the cooled stream composition is used"
+  ],
+  "metadata": {
+    "model": "reduced-order model",
+    "input_file": "results\\simulations\\python_baseline.json",
+    "input_source": "python_model",
+    "parameters": "backend/amcrax/data/separation.yaml",
+    "disclaimer": "reduced-order models; literature PSA points applied as splits and ideal Sieverts membrane - not designed or validated separation units"
+  }
+}

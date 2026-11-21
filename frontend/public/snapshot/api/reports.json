@@ -1,0 +1,185 @@
+{
+ "count": 18,
+ "reports": [
+  {
+   "key": "technical_report_pdf",
+   "title": "Technical report (PDF)",
+   "kind": "report",
+   "file": "AmCraX_Technical_Report.pdf",
+   "path": "docs/technical_report/AmCraX_Technical_Report.pdf",
+   "bytes": 5847225,
+   "modified_utc": "2026-11-21T12:52:29+00:00",
+   "url": "/files/technical_report_pdf"
+  },
+  {
+   "key": "technical_report_docx",
+   "title": "Technical report (Word)",
+   "kind": "report",
+   "file": "AmCraX_Technical_Report.docx",
+   "path": "docs/technical_report/AmCraX_Technical_Report.docx",
+   "bytes": 7068557,
+   "modified_utc": "2026-11-21T12:52:30+00:00",
+   "url": "/files/technical_report_docx"
+  },
+  {
+   "key": "pitch_deck_pptx",
+   "title": "Pitch deck (PowerPoint)",
+   "kind": "deck",
+   "file": "AmCraX_Pitch_Deck.pptx",
+   "path": "docs/pitch_deck/AmCraX_Pitch_Deck.pptx",
+   "bytes": 1234994,
+   "modified_utc": "2026-11-21T12:52:48+00:00",
+   "url": "/files/pitch_deck_pptx"
+  },
+  {
+   "key": "pitch_deck_pdf",
+   "title": "Pitch deck (PDF)",
+   "kind": "deck",
+   "file": "AmCraX_Pitch_Deck.pdf",
+   "path": "docs/pitch_deck/AmCraX_Pitch_Deck.pdf",
+   "bytes": 744875,
+   "modified_utc": "2026-11-21T12:52:51+00:00",
+   "url": "/files/pitch_deck_pdf"
+  },
+  {
+   "key": "speaker_script",
+   "title": "Pitch deck speaker script",
+   "kind": "deck",
+   "file": "speaker_script.md",
+   "path": "docs/pitch_deck/speaker_script.md",
+   "bytes": 8528,
+   "modified_utc": "2026-11-21T12:52:55+00:00",
+   "url": "/files/speaker_script"
+  },
+  {
+   "key": "validation_matrix",
+   "title": "Validation matrix",
+   "kind": "validation",
+   "file": "validation_matrix.md",
+   "path": "docs/validation/validation_matrix.md",
+   "bytes": 127232,
+   "modified_utc": "2026-11-21T14:41:48+00:00",
+   "url": "/files/validation_matrix"
+  },
+  {
+   "key": "discrepancy_analysis",
+   "title": "Discrepancy analysis",
+   "kind": "validation",
+   "file": "discrepancy_analysis.md",
+   "path": "docs/validation/discrepancy_analysis.md",
+   "bytes": 20813,
+   "modified_utc": "2026-11-21T14:18:22+00:00",
+   "url": "/files/discrepancy_analysis"
+  },
+  {
+   "key": "api_docs",
+   "title": "API documentation",
+   "kind": "docs",
+   "file": "api.md",
+   "path": "docs/api.md",
+   "bytes": 16125,
+   "modified_utc": "2026-11-21T13:50:51+00:00",
+   "url": "/files/api_docs"
+  },
+  {
+   "key": "developer_guide",
+   "title": "Developer guide",
+   "kind": "docs",
+   "file": "developer_guide.md",
+   "path": "docs/developer_guide.md",
+   "bytes": 20086,
+   "modified_utc": "2026-11-21T13:50:51+00:00",
+   "url": "/files/developer_guide"
+  },
+  {
+   "key": "readme",
+   "title": "README",
+   "kind": "docs",
+   "file": "README.md",
+   "path": "README.md",
+   "bytes": 21619,
+   "modified_utc": "2026-11-21T12:54:45+00:00",
+   "url": "/files/readme"
+  },
+  {
+   "key": "aspen_baseline_apw",
+   "title": "Aspen Plus model: baseline (.apw)",
+   "kind": "aspen_model",
+   "file": "baseline.apw",
+   "path": "aspen/models/baseline.apw",
+   "bytes": 1305600,
+   "modified_utc": "2026-11-21T07:45:47+00:00",
+   "url": "/files/aspen_baseline_apw"
+  },
+  {
+   "key": "aspen_baseline_bkp",
+   "title": "Aspen Plus backup: baseline (.bkp)",
+   "kind": "aspen_model",
+   "file": "baseline.bkp",
+   "path": "aspen/models/baseline.bkp",
+   "bytes": 135422,
+   "modified_utc": "2026-11-21T13:41:31+00:00",
+   "url": "/files/aspen_baseline_bkp"
+  },
+  {
+   "key": "aspen_baseline_inp",
+   "title": "Aspen Plus input: baseline (.inp)",
+   "kind": "aspen_model",
+   "file": "baseline.inp",
+   "path": "aspen/models/baseline.inp",
+   "bytes": 4071,
+   "modified_utc": "2026-11-21T07:45:36+00:00",
+   "url": "/files/aspen_baseline_inp"
+  },
+  {
+   "key": "aspen_baseline_no_hi_apw",
+   "title": "Aspen Plus model: no heat integration (.apw)",
+   "kind": "aspen_model",
+   "file": "baseline_no_hi.apw",
+   "path": "aspen/models/baseline_no_hi.apw",
+   "bytes": 1241600,
+   "modified_utc": "2026-11-21T07:46:04+00:00",
+   "url": "/files/aspen_baseline_no_hi_apw"
+  },
+  {
+   "key": "aspen_baseline_no_hi_bkp",
+   "title": "Aspen Plus backup: no heat integration (.bkp)",
+   "kind": "aspen_model",
+   "file": "baseline_no_hi.bkp",
+   "path": "aspen/models/baseline_no_hi.bkp",
+   "bytes": 114812,
+   "modified_utc": "2026-11-21T13:41:31+00:00",
+   "url": "/files/aspen_baseline_no_hi_bkp"
+  },
+  {
+   "key": "aspen_baseline_no_hi_inp",
+   "title": "Aspen Plus input: no heat integration (.inp)",
+   "kind": "aspen_model",
+   "file": "baseline_no_hi.inp",
+   "path": "aspen/models/baseline_no_hi.inp",
+   "bytes": 3616,
+   "modified_utc": "2026-11-21T07:45:47+00:00",
+   "url": "/files/aspen_baseline_no_hi_inp"
+  },
+  {
+   "key": "literature_summary",
+   "title": "Literature summary",
+   "kind": "research",
+   "file": "literature_summary.md",
+   "path": "research/literature_summary.md",
+   "bytes": 8079,
+   "modified_utc": "2026-11-21T07:57:02+00:00",
+   "url": "/files/literature_summary"
+  },
+  {
+   "key": "references_apa",
+   "title": "References (APA)",
+   "kind": "research",
+   "file": "references_apa.md",
+   "path": "research/references_apa.md",
+   "bytes": 13214,
+   "modified_utc": "2026-11-21T08:18:14+00:00",
+   "url": "/files/references_apa"
+  }
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "name": "aspen_native_STEMP_baseline_no_hi",
+ "category": "sensitivity",
+ "columns": [
+  "reactor_temperature_C",
+  "nh3_conversion",
+  "h2_product_kmol_h",
+  "cracker_duty_kW",
+  "heater_duty_kW",
+  "source"
+ ],
+ "rows": [
+  {
+   "reactor_temperature_C": 350.0,
+   "nh3_conversion": 0.757473481,
+   "h2_product_kmol_h": 96.3847131,
+   "cracker_duty_kW": 1094.97727,
+   "heater_duty_kW": 336.289626,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 400.0,
+   "nh3_conversion": 0.860360069,
+   "h2_product_kmol_h": 109.476517,
+   "cracker_duty_kW": 1256.48117,
+   "heater_duty_kW": 402.542414,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 450.0,
+   "nh3_conversion": 0.91945501,
+   "h2_product_kmol_h": 116.996053,
+   "cracker_duty_kW": 1355.63048,
+   "heater_duty_kW": 470.616215,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 500.0,
+   "nh3_conversion": 0.952097199,
+   "h2_product_kmol_h": 121.149608,
+   "cracker_duty_kW": 1415.94254,
+   "heater_duty_kW": 540.529829,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 550.0,
+   "nh3_conversion": 0.970315552,
+   "h2_product_kmol_h": 123.467802,
+   "cracker_duty_kW": 1454.21953,
+   "heater_duty_kW": 612.285664,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 600.0,
+   "nh3_conversion": 0.980810364,
+   "h2_product_kmol_h": 124.803215,
+   "cracker_duty_kW": 1479.99984,
+   "heater_duty_kW": 685.870669,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 650.0,
+   "nh3_conversion": 0.987092033,
+   "h2_product_kmol_h": 125.602526,
+   "cracker_duty_kW": 1498.37255,
+   "heater_duty_kW": 761.25761,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 700.0,
+   "nh3_conversion": 0.990999583,
+   "h2_product_kmol_h": 126.099742,
+   "cracker_duty_kW": 1512.06317,
+   "heater_duty_kW": 838.406876,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 750.0,
+   "nh3_conversion": 0.993519866,
+   "h2_product_kmol_h": 126.420435,
+   "cracker_duty_kW": 1522.57908,
+   "heater_duty_kW": 917.268637,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  },
+  {
+   "reactor_temperature_C": 800.0,
+   "nh3_conversion": 0.99519998,
+   "h2_product_kmol_h": 126.634221,
+   "cracker_duty_kW": 1530.79269,
+   "heater_duty_kW": 997.785119,
+   "source": "aspen_plus_v15 (native Sensitivity block STEMP)"
+  }
+ ],
+ "count": 10,
+ "source_note": "results/sensitivity/aspen_native_STEMP_baseline_no_hi.csv; values as stored, no post-processing; source column: aspen_plus_v15 (native Sensitivity block STEMP)"
+}

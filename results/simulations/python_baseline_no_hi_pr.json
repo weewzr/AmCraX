@@ -1,0 +1,554 @@
+{
+  "schema_version": "1.0",
+  "case_id": "python_baseline_no_hi_pr",
+  "source": "python_model",
+  "created_utc": "2026-11-21T15:02:06+00:00",
+  "model_file": "amcrax.process_model",
+  "inputs": {
+    "case_id": "python_baseline_no_hi_pr",
+    "feed_total_kmol_h": 100.0,
+    "feed_h2o_mole_frac": 0.002,
+    "reactor_temperature_C": 600.0,
+    "reactor_pressure_bar": 20.0,
+    "heat_integration": false,
+    "fehe_hot_end_approach_K": 50.0,
+    "psa_feed_temperature_C": 40.0,
+    "psa_h2_recovery": 0.85,
+    "psa_n2_slip": 0.001,
+    "burner_excess_air": 0.15,
+    "stack_temperature_C": 150.0,
+    "property_method": "PENG-ROB"
+  },
+  "status": {
+    "converged": true,
+    "has_errors": false,
+    "has_warnings": false,
+    "messages": [],
+    "engine_time_s": 0.004308200001105433
+  },
+  "streams": {
+    "FEED": {
+      "id": "FEED",
+      "name": "Liquid ammonia feed",
+      "source_block": null,
+      "dest_block": "PUMP",
+      "phase": "liquid",
+      "temperature_C": -33.280728939219614,
+      "pressure_bar": 1.013,
+      "vapor_fraction": 0.0,
+      "mole_flow_kmol_h": 100.0,
+      "mass_flow_kg_h": 1703.246956,
+      "enthalpy_flow_kW": -1998.5313012367812,
+      "mole_frac": {
+        "NH3": 0.998,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.9978845956616523,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002115404338347751,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 99.8,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "S1": {
+      "id": "S1",
+      "name": "Pressurised liquid ammonia",
+      "source_block": "PUMP",
+      "dest_block": "VAPORIZR",
+      "phase": "liquid",
+      "temperature_C": -32.77654969368916,
+      "pressure_bar": 21.0,
+      "vapor_fraction": 0.0,
+      "mole_flow_kmol_h": 100.0,
+      "mass_flow_kg_h": 1703.246956,
+      "enthalpy_flow_kW": -1996.6816597966044,
+      "mole_frac": {
+        "NH3": 0.998,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.9978845956616523,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002115404338347751,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 99.8,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "S2": {
+      "id": "S2",
+      "name": "Ammonia vapour",
+      "source_block": "VAPORIZR",
+      "dest_block": "HEATER",
+      "phase": "vapor",
+      "temperature_C": 70.08745224565854,
+      "pressure_bar": 20.8,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 100.0,
+      "mass_flow_kg_h": 1703.246956,
+      "enthalpy_flow_kW": -1283.04013994383,
+      "mole_frac": {
+        "NH3": 0.998,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.9978845956616523,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002115404338347751,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 99.8,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "S4": {
+      "id": "S4",
+      "name": "Reactor feed",
+      "source_block": "HEATER",
+      "dest_block": "CRACKER",
+      "phase": "vapor",
+      "temperature_C": 600.0,
+      "pressure_bar": 20.2,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 100.0,
+      "mass_flow_kg_h": 1703.246956,
+      "enthalpy_flow_kW": -577.0853073952466,
+      "mole_frac": {
+        "NH3": 0.998,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.9978845956616523,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.002115404338347751,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 99.8,
+        "H2": 0.0,
+        "N2": 0.0,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "S5": {
+      "id": "S5",
+      "name": "Hot cracked gas",
+      "source_block": "CRACKER",
+      "dest_block": "COOLER",
+      "phase": "vapor",
+      "temperature_C": 600.0,
+      "pressure_bar": 20.0,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 197.87768233474483,
+      "mass_flow_kg_h": 1703.2489135536468,
+      "enthalpy_flow_kW": 902.2550667942153,
+      "mole_frac": {
+        "NH3": 0.009714676473738068,
+        "H2": 0.7419559485932898,
+        "N2": 0.24731864953109658,
+        "H2O": 0.0010107254018756138,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.01922093167805028,
+        "H2": 0.17376467470039356,
+        "N2": 0.8048989917144546,
+        "H2O": 0.002115401907101534,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 1.9223176652551606,
+        "H2": 146.81652350211726,
+        "N2": 48.938841167372416,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "S7": {
+      "id": "S7",
+      "name": "PSA feed",
+      "source_block": "COOLER",
+      "dest_block": "PSA",
+      "phase": "vapor",
+      "temperature_C": 40.0,
+      "pressure_bar": 19.5,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 197.87768233474483,
+      "mass_flow_kg_h": 1703.2489135536468,
+      "enthalpy_flow_kW": -15.684924279475128,
+      "mole_frac": {
+        "NH3": 0.009714676473738068,
+        "H2": 0.7419559485932898,
+        "N2": 0.24731864953109658,
+        "H2O": 0.0010107254018756138,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.01922093167805028,
+        "H2": 0.17376467470039356,
+        "N2": 0.8048989917144546,
+        "H2O": 0.002115401907101534,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 1.9223176652551606,
+        "H2": 146.81652350211726,
+        "N2": 48.938841167372416,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "H2PROD": {
+      "id": "H2PROD",
+      "name": "Hydrogen product",
+      "source_block": "PSA",
+      "dest_block": null,
+      "phase": "vapor",
+      "temperature_C": 40.0,
+      "pressure_bar": 19.0,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 124.84298381796704,
+      "mass_flow_kg_h": 252.940762720989,
+      "enthalpy_flow_kW": 14.882403874974123,
+      "mole_frac": {
+        "NH3": 0.0,
+        "H2": 0.999607996863975,
+        "N2": 0.0003920031360250882,
+        "H2O": 0.0,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.0,
+        "H2": 0.9945799826077447,
+        "N2": 0.005420017392255257,
+        "H2O": 0.0,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 0.0,
+        "H2": 124.79404497679967,
+        "N2": 0.04893884116737242,
+        "H2O": 0.0,
+        "O2": 0.0
+      }
+    },
+    "TAILGAS": {
+      "id": "TAILGAS",
+      "name": "PSA tail gas (N2-rich off-gas)",
+      "source_block": "PSA",
+      "dest_block": "BURNER",
+      "phase": "vapor",
+      "temperature_C": 40.0,
+      "pressure_bar": 1.3,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 73.03469851677781,
+      "mass_flow_kg_h": 1450.3081508326577,
+      "enthalpy_flow_kW": -29.165150013909635,
+      "mole_frac": {
+        "NH3": 0.026320607934234963,
+        "H2": 0.30153446200997885,
+        "N2": 0.6694065056621528,
+        "H2O": 0.0027384243936333257,
+        "O2": 0.0
+      },
+      "mass_frac": {
+        "NH3": 0.022573155214864027,
+        "H2": 0.030610511279364427,
+        "N2": 0.9443319952650112,
+        "H2O": 0.0024843382407603496,
+        "O2": 0.0
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 1.9223176652551606,
+        "H2": 22.022478525317595,
+        "N2": 48.889902326205046,
+        "H2O": 0.2,
+        "O2": 0.0
+      }
+    },
+    "AIR": {
+      "id": "AIR",
+      "name": "Combustion air",
+      "source_block": null,
+      "dest_block": "BURNER",
+      "phase": "vapor",
+      "temperature_C": 25.0,
+      "pressure_bar": 1.3,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 68.19487684923901,
+      "mass_flow_kg_h": 1967.444974189413,
+      "enthalpy_flow_kW": -0.17679954398611955,
+      "mole_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.79,
+        "H2O": 0.0,
+        "O2": 0.21
+      },
+      "mass_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.7670824885424203,
+        "H2O": 0.0,
+        "O2": 0.23291751145757963
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 53.87395271089882,
+        "H2O": 0.0,
+        "O2": 14.32092413834019
+      }
+    },
+    "FLUE": {
+      "id": "FLUE",
+      "name": "Hot flue gas",
+      "source_block": "BURNER",
+      "dest_block": "FLUEHX",
+      "phase": "vapor",
+      "temperature_C": 1368.5869215215562,
+      "pressure_bar": 1.2,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 130.6989155196718,
+      "mass_flow_kg_h": 3417.7531634684237,
+      "enthalpy_flow_kW": -29.341949557895756,
+      "mole_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.7936180147884973,
+        "H2O": 0.1920900026092533,
+        "O2": 0.014291982602249476
+      },
+      "mass_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.850175587458038,
+        "H2O": 0.13233571524263155,
+        "O2": 0.017488697299330547
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 103.72501386973144,
+        "H2O": 25.105955023200334,
+        "O2": 1.8679466267400233
+      }
+    },
+    "STACK": {
+      "id": "STACK",
+      "name": "Stack gas",
+      "source_block": "FLUEHX",
+      "dest_block": null,
+      "phase": "vapor",
+      "temperature_C": 150.0,
+      "pressure_bar": 1.1,
+      "vapor_fraction": 1.0,
+      "mole_flow_kmol_h": 130.6989155196718,
+      "mass_flow_kg_h": 3417.7531634684237,
+      "enthalpy_flow_kW": -1549.9817591314447,
+      "mole_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.7936180147884973,
+        "H2O": 0.1920900026092533,
+        "O2": 0.014291982602249476
+      },
+      "mass_frac": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 0.850175587458038,
+        "H2O": 0.13233571524263155,
+        "O2": 0.017488697299330547
+      },
+      "component_mole_flow_kmol_h": {
+        "NH3": 0.0,
+        "H2": 0.0,
+        "N2": 103.72501386973144,
+        "H2O": 25.105955023200334,
+        "O2": 1.8679466267400233
+      }
+    }
+  },
+  "blocks": {
+    "PUMP": {
+      "id": "PUMP",
+      "name": "Ammonia feed pump",
+      "block_type": "Pump",
+      "duty_kW": 0.0,
+      "power_kW": 1.8496414401767731,
+      "outlet_temperature_C": -32.77654969368916,
+      "outlet_pressure_bar": 21.0,
+      "details": {
+        "efficiency": 0.75,
+        "fluid_power_kW": 1.3872310801325798,
+        "efficiency_source": "assumption"
+      }
+    },
+    "VAPORIZR": {
+      "id": "VAPORIZR",
+      "name": "Ammonia vaporiser",
+      "block_type": "Heater",
+      "duty_kW": 713.6415198527745,
+      "power_kW": null,
+      "outlet_temperature_C": 70.08745224565854,
+      "outlet_pressure_bar": 20.8,
+      "details": {
+        "dew_point_C": 60.08745224565854,
+        "superheat_K": 10.0,
+        "vle_model": "Raoult (ideal liquid), CoolProp Psat"
+      }
+    },
+    "HEATER": {
+      "id": "HEATER",
+      "name": "Fired trim preheater",
+      "block_type": "Heater",
+      "duty_kW": 705.9548325485833,
+      "power_kW": null,
+      "outlet_temperature_C": 600.0,
+      "outlet_pressure_bar": 20.2,
+      "details": {
+        "s4_basis_minus_reference_real_gas_kW": -0.5829317188970435,
+        "basis_note": "inlet on the real-gas reference basis, outlet on the eos=pr gas basis; the duty includes the basis difference at S4 (s4_basis_minus_reference_real_gas_kW)"
+      }
+    },
+    "CRACKER": {
+      "id": "CRACKER",
+      "name": "Ammonia cracking reactor",
+      "block_type": "RGibbs",
+      "duty_kW": 1479.3403741894617,
+      "power_kW": null,
+      "outlet_temperature_C": 600.0,
+      "outlet_pressure_bar": 20.0,
+      "details": {
+        "conversion": 0.9807382999473431,
+        "K_eq": 658.4463022758003,
+        "eos": "pr",
+        "extent_kmol_h": 97.87768233474483
+      }
+    },
+    "COOLER": {
+      "id": "COOLER",
+      "name": "Cracked-gas cooler",
+      "block_type": "Heater",
+      "duty_kW": -917.9399910736904,
+      "power_kW": null,
+      "outlet_temperature_C": 40.0,
+      "outlet_pressure_bar": 19.5,
+      "details": {
+        "raoult_dew_sum": 0.2790690639796207
+      }
+    },
+    "PSA": {
+      "id": "PSA",
+      "name": "Hydrogen purification (reduced-order PSA)",
+      "block_type": "Sep",
+      "duty_kW": 1.4021781405396165,
+      "power_kW": null,
+      "outlet_temperature_C": 40.0,
+      "outlet_pressure_bar": 19.0,
+      "details": {
+        "h2_recovery": 0.85,
+        "n2_slip": 0.001
+      }
+    },
+    "BURNER": {
+      "id": "BURNER",
+      "name": "Tail-gas burner",
+      "block_type": "RStoic",
+      "duty_kW": 0.0,
+      "power_kW": null,
+      "outlet_temperature_C": 1368.5869215215562,
+      "outlet_pressure_bar": 1.2,
+      "details": {
+        "adiabatic_flame_temperature_C": 1368.5869215215562,
+        "air_kmol_h": 68.19487684923901,
+        "excess_air": 0.15
+      }
+    },
+    "FLUEHX": {
+      "id": "FLUEHX",
+      "name": "Flue-gas heat recovery",
+      "block_type": "Heater",
+      "duty_kW": -1520.639809573549,
+      "power_kW": null,
+      "outlet_temperature_C": 150.0,
+      "outlet_pressure_bar": 1.1,
+      "details": {
+        "flame_below_stack_temperature": "no",
+        "signed_heat_released_kW": 1520.639809573549
+      }
+    }
+  },
+  "kpis": {
+    "nh3_conversion": 0.9807382999473431,
+    "h2_in_cracked_gas_kmol_h": 146.81652350211726,
+    "h2_product_kmol_h": 124.79404497679967,
+    "h2_product_kg_h": 251.56981938783093,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "h2_yield_overall": 0.8336275549552417,
+    "reactor_duty_kW": 1479.3403741894617,
+    "preheat_duty_kW": 705.9548325485833,
+    "vaporiser_duty_kW": 713.6415198527745,
+    "recovered_heat_kW": 0.0,
+    "total_external_heating_kW": 2898.9367265908195,
+    "cooling_duty_kW": 917.9399910736904,
+    "pump_power_kW": 1.8496414401767731,
+    "tailgas_combustion_heat_kW": 1520.639809573549,
+    "tailgas_lhv_kW": 1648.49948006008,
+    "specific_heat_demand_kWh_per_kgH2": 11.523388352565826,
+    "net_fuel_heat_deficit_kW": 1378.2969170172705,
+    "lhv_efficiency": 0.8248819587734285
+  },
+  "balances": {
+    "mass_in_kg_h": 3670.691930189413,
+    "mass_out_kg_h": 3670.6939261894127,
+    "mass_closure_rel": -5.437666896238447e-7,
+    "n_atoms_in_kmol_h": 207.54790542179762,
+    "n_atoms_out_kmol_h": 207.54790542179762,
+    "h_atoms_in_kmol_h": 299.79999999999995,
+    "h_atoms_out_kmol_h": 299.8,
+    "energy_in_kW": -1535.0993552564707,
+    "energy_out_kW": -1535.0993552564705,
+    "energy_closure_rel": -4.25879635916105e-17
+  },
+  "notes": [
+    "Independent AmCraX Python process model (amcrax.process_model); NOT an Aspen Plus result.",
+    "Cracker equilibrium eos=pr; gas enthalpies NASA-7 ideal gas + Peng-Robinson residual (formation-enthalpy reference, 298.15 K).",
+    "Liquid/vaporising NH3 from CoolProp (Gao et al. JPCRD 2020 EOS) anchored to NASA ideal gas at 298.15 K, 1 Pa.",
+    "Feed-section VLE by Raoult's law (ideal NH3-H2O liquid): ASSUMPTION; Aspen PENG-ROB dew point may differ.",
+    "Pump efficiency 0.75 (ASSUMPTION). PSA is a reduced-order component splitter."
+  ]
+}

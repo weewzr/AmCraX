@@ -1,0 +1,359 @@
+{
+ "count": 3,
+ "source": "literature",
+ "catalysts": [
+  {
+   "id": "ni_takahashi_microkinetic",
+   "label": "Ni/MgO microkinetic (Takahashi & Fujitani 2016)",
+   "metal": "Ni",
+   "composition": "30 wt% Ni/MgO, impregnation, calcined 600 degC, 22-42 mesh powder",
+   "form": "takahashi_microkinetic",
+   "usable": true,
+   "rate_law_text": "Elementary steps NH3+s<=>NH3(a) (k1, k-1=k1/K1); NH3(a)+3s->N(a)+3H(a) (k2, irreversible); 2N(a)->N2+2s (k3, irreversible); 2H(a)<=>H2+2s (k4, k-4=k4/K4). r1=k1*(pNH3/ptot)*th_s - k-1*th_NH3; r2=k2*th_NH3*th_s^3; r3=k3*th_N^2; r4=k4*th_H^2 - k-4*(pH2/ptot)*th_s^2; th_s=1-th_NH3-th_N-th_H; QSS r1=r2, r2=2r3, 3r2=2r4; r_NH3 = r2 [mol s-1 g-1]. k_i=A_i exp(-Ea_i/RT), k1=A1 (Ea1=0); K1=A5 exp(-Ea5/RT); K4=A6 exp(-Ea4/RT).",
+   "rate_unit_published": "mol s^-1 g_cat^-1",
+   "pressure_basis": "mole fractions p_i/p_total (atm in the source; ratio is unit free)",
+   "parameters": {
+    "A1": {
+     "value": 75.5,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k1)"
+    },
+    "A2": {
+     "value": 7540000000000000.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k2)"
+    },
+    "Ea2": {
+     "value": 144.0,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k2)"
+    },
+    "A3": {
+     "value": 3120000.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k3)"
+    },
+    "Ea3": {
+     "value": 127.8,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k3)"
+    },
+    "A4": {
+     "value": 39200.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k4)"
+    },
+    "Ea4": {
+     "value": 109.0,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k4; also used for K4, Eq. 25)"
+    },
+    "A5": {
+     "value": 2.26e-14,
+     "unit": "-",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K1)"
+    },
+    "Ea5": {
+     "value": -79.4,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K1)"
+    },
+    "A6": {
+     "value": 4130000.0,
+     "unit": "-",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K4)"
+    }
+   },
+   "validity": {
+    "T_min_K": 623.15,
+    "T_max_K": 923.15,
+    "P_min_bar": 1.01325,
+    "P_max_bar": 1.01325,
+    "note": "fit 350-450 degC, X<20 %, 1 atm; validated 500-650 degC at 1 atm (Figs. 1, 3, 5)"
+   },
+   "experimental_basis": "Lab fixed-bed quartz reactor, 1 atm, Ar balance, H2 yield by GC-TCD; catalyst mass not reported; SV 15000-30000 h^-1",
+   "limitations": [
+    "Steps 2 and 3 irreversible in the source: rate does not vanish at equilibrium (AmCraX approach factor optional, see below).",
+    "Mole-fraction basis: no intrinsic total-pressure dependence; use at 20 bar is an unvalidated extrapolation.",
+    "Nomenclature lists T in degC; T in K reproduces Table 2 (used here).",
+    "Table 1 reproduces Table 2 at 500 degC only within 2-7 % (paper rounding); not tuned."
+   ],
+   "source": {
+    "citekey": "takahashi2016kinetic",
+    "page": "2-5",
+    "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)"
+   },
+   "irreversible_published": true,
+   "amcrax_extensions": [
+    "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+   ],
+   "extra": {
+    "reference_values_773K": {
+     "k_minus1": 15000000000.0,
+     "k2": 1510000.0,
+     "k3": 0.00748,
+     "k4": 0.00179,
+     "k_minus4": 0.00949,
+     "K4": 0.189,
+     "unit": "mol s^-1 g^-1 (K4 dimensionless)",
+     "citekey": "takahashi2016kinetic",
+     "page": 5,
+     "locator": "Table 2; K4 in Sec. 4.2"
+    }
+   },
+   "rate_unit_amcrax": "mol NH3 kg_cat^-1 s^-1",
+   "provenance": "literature"
+  },
+  {
+   "id": "ru_takahashi_microkinetic",
+   "label": "Ru/MgO microkinetic (Takahashi & Fujitani 2016)",
+   "metal": "Ru",
+   "composition": "5 wt% Ru/MgO, impregnation (RuCl3), calcined 600 degC, 22-42 mesh powder",
+   "form": "takahashi_microkinetic",
+   "usable": true,
+   "rate_law_text": "Same elementary-step model as ni_takahashi_microkinetic with Ru parameters (Table 1).",
+   "rate_unit_published": "mol s^-1 g_cat^-1",
+   "pressure_basis": "mole fractions p_i/p_total",
+   "parameters": {
+    "A1": {
+     "value": 83.6,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k1)"
+    },
+    "A2": {
+     "value": 134000000000000.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k2)"
+    },
+    "Ea2": {
+     "value": 105.8,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k2)"
+    },
+    "A3": {
+     "value": 626000.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k3)"
+    },
+    "Ea3": {
+     "value": 123.5,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k3)"
+    },
+    "A4": {
+     "value": 718.0,
+     "unit": "mol s^-1 g^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k4)"
+    },
+    "Ea4": {
+     "value": 67.8,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (k4; also K4)"
+    },
+    "A5": {
+     "value": 3.49e-13,
+     "unit": "-",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K1)"
+    },
+    "Ea5": {
+     "value": -64.0,
+     "unit": "kJ mol^-1",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K1)"
+    },
+    "A6": {
+     "value": 15100.0,
+     "unit": "-",
+     "citekey": "takahashi2016kinetic",
+     "page": 4,
+     "locator": "Table 1 (K4)"
+    }
+   },
+   "validity": {
+    "T_min_K": 573.15,
+    "T_max_K": 823.15,
+    "P_min_bar": 1.01325,
+    "P_max_bar": 1.01325,
+    "note": "fit 300-400 degC, X<20 %, 1 atm; validated 450-550 degC at 1 atm (Figs. 2, 4, 5)"
+   },
+   "experimental_basis": "Lab fixed-bed quartz reactor, 1 atm, Ar balance; catalyst mass not reported; SV 15000-30000 h^-1",
+   "limitations": [
+    "Steps 2 and 3 irreversible: equilibrium approach factor is an AmCraX extension.",
+    "Mole-fraction basis: no total-pressure dependence; 20 bar use is extrapolation.",
+    "N2 recombinative desorption is rate limiting on Ru (pp. 6-7)."
+   ],
+   "source": {
+    "citekey": "takahashi2016kinetic",
+    "page": "2-5",
+    "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)"
+   },
+   "irreversible_published": true,
+   "amcrax_extensions": [
+    "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+   ],
+   "extra": {
+    "reference_values_773K": {
+     "k_minus1": 11700000000.0,
+     "k2": 9970000.0,
+     "k3": 0.00302,
+     "k4": 0.0194,
+     "k_minus4": 0.0475,
+     "K4": 0.407,
+     "unit": "mol s^-1 g^-1 (K4 dimensionless)",
+     "citekey": "takahashi2016kinetic",
+     "page": 5,
+     "locator": "Table 2; K4 in Sec. 4.2"
+    }
+   },
+   "rate_unit_amcrax": "mol NH3 kg_cat^-1 s^-1",
+   "provenance": "literature"
+  },
+  {
+   "id": "ru_kum_temkin_pyzhev",
+   "label": "Ru/Al2O3 Temkin-Pyzhev (Kum et al. 2026, fit to Di Carlo et al. 2014)",
+   "metal": "Ru",
+   "composition": "Ru (8 wt%)/Al2O3 commercial beads (Hypermec 10010)",
+   "form": "temkin_pyzhev",
+   "usable": true,
+   "rate_law_text": "r = ko*exp(-Ea/(R*T)) * [ (P_NH3^2/P_H2^3)^beta - (P_N2/Keq^2)*(P_H2^3/P_NH3^2)^(1-beta) ], P in bar, r in mol g_cat^-1 s^-1 (per mol NH3)",
+   "rate_unit_published": "mol g_cat^-1 s^-1",
+   "pressure_basis": "partial pressures in bar",
+   "parameters": {
+    "ko": {
+     "value": 55245.9,
+     "unit": "mol g_cat^-1 s^-1 bar^0.27",
+     "citekey": "kum2026heatintegrated",
+     "page": 5,
+     "locator": "Table 1"
+    },
+    "Ea": {
+     "value": 114224,
+     "unit": "J mol^-1",
+     "citekey": "kum2026heatintegrated",
+     "page": 5,
+     "locator": "Table 1"
+    },
+    "beta": {
+     "value": 0.27,
+     "unit": "-",
+     "citekey": "kum2026heatintegrated",
+     "page": 5,
+     "locator": "Table 1 (beta in Eq. 2)"
+    }
+   },
+   "validity": {
+    "T_min_K": 623.15,
+    "T_max_K": 723.15,
+    "P_min_bar": 1.0,
+    "P_max_bar": 10.0,
+    "note": "fit to 36 points of dicarlo2014ammonia, GHSV 300-2400 h^-1, MAPE 0.81 % (p. 9); source applies it up to 773 K / 13 bar"
+   },
+   "experimental_basis": "Kinetic fit by kum2026heatintegrated to experimental data of dicarlo2014ammonia (commercial Ru/Al2O3)",
+   "limitations": [
+    "Keq basis ambiguous in the source; AmCraX reading is an assumption (see equilibrium_constant).",
+    "Extrapolation above 723 K and above 10 bar is unvalidated.",
+    "Rate is singular at P_H2 -> 0; the PFR starts from a small H2 seed (numerical assumption).",
+    "Nomenclature lists R in m3 bar/(mol K); J/(mol K) is required because Ea is in J/mol."
+   ],
+   "source": {
+    "citekey": "kum2026heatintegrated",
+    "page": "4-5, 9",
+    "locator": "Eqs. 2-4 (p. 4); Table 1 (p. 5); Sec. 4.1, Fig. 4a (p. 9)"
+   },
+   "irreversible_published": false,
+   "amcrax_extensions": [
+    "[assumption] dGr is read as J per 2 mol NH3 (2NH3 -> N2 + 3H2), verified against Cantera gri30 to <0.5 kJ (research synthesis check). The driving force of Eq. 2 vanishes at equilibrium only if Keq^2 = exp(-dGr/RT) (Keq per mol NH3, 1 bar standard state). AmCraX therefore uses Keq^2 = exp(-dGr/(R*T))."
+   ],
+   "extra": {
+    "equilibrium_constant": {
+     "published": "Keq = exp(-dGr/(R*T)); dGr = 95117 - 193.67*T - 0.035293*T^2 + 9.22e-6*T^3 (Eqs. 3-4, p. 4; unit of dGr not printed)",
+     "dGr_coefficients_J": [
+      95117.0,
+      -193.67,
+      -0.035293,
+      9.22e-06
+     ],
+     "citekey": "kum2026heatintegrated",
+     "page": 4,
+     "locator": "Eqs. 3-4",
+     "assumption": true,
+     "assumption_text": "dGr is read as J per 2 mol NH3 (2NH3 -> N2 + 3H2), verified against Cantera gri30 to <0.5 kJ (research synthesis check). The driving force of Eq. 2 vanishes at equilibrium only if Keq^2 = exp(-dGr/RT) (Keq per mol NH3, 1 bar standard state). AmCraX therefore uses Keq^2 = exp(-dGr/(R*T)).",
+     "options": "keq_basis='published' (Eq. 4 with the above reading) or 'amcrax_thermo' (Kp from amcrax.thermodynamics, NASA7/GRI-Mech 3.0)"
+    },
+    "bed_properties": {
+     "eps_b": {
+      "value": 0.36,
+      "unit": "-",
+      "citekey": "kum2026heatintegrated",
+      "page": 5,
+      "locator": "Table 1"
+     },
+     "rho_cat_kg_m3": {
+      "value": 980.0,
+      "unit": "kg m^-3",
+      "citekey": "kum2026heatintegrated",
+      "page": 5,
+      "locator": "Table 1; used as (1-eps_b)*rho_cat in Table 2 mass balance, i.e. particle density"
+     },
+     "dp_m": {
+      "value": 0.0006,
+      "unit": "m",
+      "citekey": "kum2026heatintegrated",
+      "page": 5,
+      "locator": "Table 1"
+     },
+     "tube_inner_diameter_m": {
+      "value": 0.126,
+      "unit": "m",
+      "citekey": "kum2026heatintegrated",
+      "page": 5,
+      "locator": "Table 1 (Din)"
+     }
+    }
+   },
+   "rate_unit_amcrax": "mol NH3 kg_cat^-1 s^-1",
+   "provenance": "literature"
+  }
+ ],
+ "notes": [
+  "Rate laws are literature models (see each source citation); validity ranges and limitations are listed per catalyst.",
+  "Evaluating them at conditions outside the validity range is an extrapolation and is labelled python_model."
+ ]
+}

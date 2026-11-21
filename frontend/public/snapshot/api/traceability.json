@@ -1,0 +1,1051 @@
+[
+ {
+  "model_component": "kinetics.ni_takahashi_microkinetic",
+  "governing_equations": [
+   "r1 = k1*(p_NH3/p_total)*theta_s - (k1/K1)*theta_NH3",
+   "r2 = k2*theta_NH3*theta_s^3",
+   "r3 = k3*theta_N^2",
+   "r4 = k4*theta_H^2 - (k4/K4)*(p_H2/p_total)*theta_s^2",
+   "theta_s = 1 - theta_NH3 - theta_N - theta_H",
+   "QSS: r1 = r2, r2 = 2 r3, 3 r2 = 2 r4",
+   "k_i = A_i exp(-Ea_i/(R T)), T in K; K1 = A5 exp(-Ea5/RT); K4 = A6 exp(-Ea4/RT)"
+  ],
+  "parameters": [
+   {
+    "name": "A1",
+    "value": 75.5,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea1",
+    "value": 0.0,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A2",
+    "value": 7540000000000000.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea2",
+    "value": 144.0,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A3",
+    "value": 3120000.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea3",
+    "value": 127.8,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A4",
+    "value": 39200.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea4",
+    "value": 109.0,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A5 (K1)",
+    "value": 2.26e-14,
+    "unit": "-"
+   },
+   {
+    "name": "Ea5 (K1)",
+    "value": -79.4,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A6 (K4)",
+    "value": 4130000.0,
+    "unit": "-"
+   }
+  ],
+  "source_citekey": "takahashi2016kinetic",
+  "page": "2-4",
+  "locator": "Eqs. 5-14 and 20-25; Table 1 (p. 4)",
+  "operating_range": "fit 350-450 degC, 1 atm, X<20 %; validated 500-650 degC, 1 atm, SV 2000-20000 h-1, pNH3 0.1-1 atm, pH2 0-0.7 atm",
+  "catalyst_reactor_assumptions": "30 wt% Ni/MgO, 22-42 mesh, isothermal quartz fixed bed; rate per g catalyst",
+  "experimental_basis": "Laboratory fixed-bed experiments (authors), H2 yield from H2 production",
+  "limitations": [
+   "Fitted at 1 atm and <20 % conversion; rate depends on mole fractions only (no total-pressure effect) - 20 bar use is extrapolation",
+   "Steps 2 and 3 irreversible: model can exceed equilibrium; equilibrium cap required (label as assumption)",
+   "Catalyst mass / bed density / SV basis not reported",
+   "Table 1 reproduces Table 2 at 500 degC only within 2-7 % (rounding); use ~10 % tolerance, do not tune",
+   "Nomenclature lists T in degC; K is required"
+  ],
+  "validation_data": [
+   {
+    "description": "H2 yield vs T, pure NH3 1 atm, SV 15000 h-1 (Fig. 3a, approx.)",
+    "T_C": [
+     500,
+     550,
+     600,
+     650
+    ],
+    "X_pct": [
+     29.5,
+     62,
+     94,
+     99
+    ],
+    "page": 5
+   },
+   {
+    "description": "H2 yield vs pNH3 at 500 degC (Fig. 3b)",
+    "p_NH3_atm": [
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ],
+    "X_pct": [
+     70.5,
+     47,
+     35.5,
+     30
+    ],
+    "page": 5
+   },
+   {
+    "description": "H2 inhibition at 500 degC, pNH3 0.3 atm (Fig. 5a)",
+    "p_H2_atm": [
+     0,
+     0.1,
+     0.3,
+     0.5,
+     0.7
+    ],
+    "X_pct": [
+     61,
+     54,
+     37,
+     27,
+     23
+    ],
+    "page": 5
+   },
+   {
+    "description": "Table 2 constants at 500 degC",
+    "k_minus1": 15000000000.0,
+    "k2": 1510000.0,
+    "k3": 0.00748,
+    "k4": 0.00179,
+    "k_minus4": 0.00949,
+    "K4": 0.189,
+    "page": 5
+   },
+   {
+    "description": "Order-of-magnitude integral check (different, undisclosed industrial Ni catalyst): 534 degC, 1 atm, 0.5 g, 490 mL/min NH3 -> X 90.4-91.9 %",
+    "citekey": "purcel2024stability",
+    "page": 2
+   }
+  ],
+  "usable": true,
+  "implemented_in": "backend/amcrax/kinetics/rate_laws.py (takahashi_coverages, rate_mol_per_kgcat_s); data backend/amcrax/data/kinetics.yaml; PFR backend/amcrax/reactor/pfr.py; tests tests/test_kinetics.py, tests/test_reactor.py; validation scripts/run_kinetics_study.py -> results/validation/kinetics_validation.csv"
+ },
+ {
+  "model_component": "kinetics.ru_takahashi_microkinetic",
+  "governing_equations": [
+   "r1 = k1*(p_NH3/p_total)*theta_s - (k1/K1)*theta_NH3",
+   "r2 = k2*theta_NH3*theta_s^3",
+   "r3 = k3*theta_N^2",
+   "r4 = k4*theta_H^2 - (k4/K4)*(p_H2/p_total)*theta_s^2",
+   "theta_s = 1 - theta_NH3 - theta_N - theta_H",
+   "QSS: r1 = r2, r2 = 2 r3, 3 r2 = 2 r4",
+   "k_i = A_i exp(-Ea_i/(R T)), T in K; K1 = A5 exp(-Ea5/RT); K4 = A6 exp(-Ea4/RT)"
+  ],
+  "parameters": [
+   {
+    "name": "A1",
+    "value": 83.6,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea1",
+    "value": 0.0,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A2",
+    "value": 134000000000000.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea2",
+    "value": 105.8,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A3",
+    "value": 626000.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea3",
+    "value": 123.5,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A4",
+    "value": 718.0,
+    "unit": "mol s-1 g-1"
+   },
+   {
+    "name": "Ea4",
+    "value": 67.8,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A5 (K1)",
+    "value": 3.49e-13,
+    "unit": "-"
+   },
+   {
+    "name": "Ea5 (K1)",
+    "value": -64.0,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "A6 (K4)",
+    "value": 15100.0,
+    "unit": "-"
+   }
+  ],
+  "source_citekey": "takahashi2016kinetic",
+  "page": "2-4",
+  "locator": "Eqs. 5-14 and 20-25; Table 1 (p. 4)",
+  "operating_range": "fit 300-400 degC, 1 atm, X<20 %; validated 450-550 degC, 1 atm",
+  "catalyst_reactor_assumptions": "5 wt% Ru/MgO, 22-42 mesh, isothermal fixed bed; rate per g catalyst",
+  "experimental_basis": "Laboratory fixed-bed experiments (authors)",
+  "limitations": [
+   "Fitted at 1 atm and <20 % conversion; rate depends on mole fractions only (no total-pressure effect) - 20 bar use is extrapolation",
+   "Steps 2 and 3 irreversible: model can exceed equilibrium; equilibrium cap required (label as assumption)",
+   "Catalyst mass / bed density / SV basis not reported",
+   "Table 1 reproduces Table 2 at 500 degC only within 2-7 % (rounding); use ~10 % tolerance, do not tune",
+   "Nomenclature lists T in degC; K is required"
+  ],
+  "validation_data": [
+   {
+    "description": "H2 yield vs T, pure NH3 1 atm, SV 15000 h-1 (Fig. 4a, approx.)",
+    "T_C": [
+     450,
+     500,
+     550
+    ],
+    "X_pct": [
+     42.5,
+     85.5,
+     99.5
+    ],
+    "page": 5
+   },
+   {
+    "description": "H2 yield vs pNH3 at 450 degC (Fig. 4b)",
+    "p_NH3_atm": [
+     0.25,
+     0.5,
+     0.75,
+     1.0
+    ],
+    "X_pct": [
+     92.5,
+     64.5,
+     50,
+     42.5
+    ],
+    "page": 5
+   },
+   {
+    "description": "H2 inhibition at 450 degC, pNH3 0.3 atm (Fig. 5b)",
+    "p_H2_atm": [
+     0,
+     0.1,
+     0.3,
+     0.5,
+     0.7
+    ],
+    "X_pct": [
+     89,
+     81,
+     68,
+     59,
+     53
+    ],
+    "page": 5
+   },
+   {
+    "description": "Table 2 constants at 500 degC",
+    "k_minus1": 11700000000.0,
+    "k2": 9970000.0,
+    "k3": 0.00302,
+    "k4": 0.0194,
+    "k_minus4": 0.0475,
+    "K4": 0.407,
+    "page": 5
+   }
+  ],
+  "usable": true,
+  "implemented_in": "backend/amcrax/kinetics/rate_laws.py (takahashi_coverages, rate_mol_per_kgcat_s); data backend/amcrax/data/kinetics.yaml; PFR backend/amcrax/reactor/pfr.py; tests tests/test_kinetics.py, tests/test_reactor.py; validation scripts/run_kinetics_study.py -> results/validation/kinetics_validation.csv"
+ },
+ {
+  "model_component": "kinetics.ru_kum_temkin_pyzhev",
+  "governing_equations": [
+   "r = ko exp(-Ea/(R T)) [ (P_NH3^2/P_H2^3)^beta - (P_N2/Keq^2)(P_H2^3/P_NH3^2)^(1-beta) ]  [mol g_cat-1 s-1], P in bar",
+   "dGr = 95117 - 193.67 T - 0.035293 T^2 + 9.22e-6 T^3 (J per 2 mol NH3; basis verified vs Cantera by synthesis agent)",
+   "ASSUMPTION: Keq^2 = exp(-dGr/(R T)) (Keq per mol NH3, 1 bar standard state)"
+  ],
+  "parameters": [
+   {
+    "name": "ko",
+    "value": 55245.9,
+    "unit": "mol g_cat-1 s-1 bar^0.27"
+   },
+   {
+    "name": "Ea",
+    "value": 114224,
+    "unit": "J/mol"
+   },
+   {
+    "name": "beta",
+    "value": 0.27,
+    "unit": "-"
+   },
+   {
+    "name": "eps_b",
+    "value": 0.36,
+    "unit": "-"
+   },
+   {
+    "name": "rho_cat",
+    "value": 980,
+    "unit": "kg/m3"
+   },
+   {
+    "name": "dp",
+    "value": 0.0006,
+    "unit": "m"
+   }
+  ],
+  "source_citekey": "kum2026heatintegrated",
+  "page": "4-5, 9",
+  "locator": "Eqs. 2-4 (p. 4); Table 1 (p. 5); Fig. 4a (p. 9)",
+  "operating_range": "fit 623-723 K, 1-10 bar, GHSV 300-2400 h-1",
+  "catalyst_reactor_assumptions": "Ru (8 wt%)/Al2O3 Hypermec 10010 beads; fired multi-tube reactor, 2D model in source",
+  "experimental_basis": "Parameters fitted by kum2026heatintegrated to experimental data of dicarlo2014ammonia (36 points, MAPE 0.81 %)",
+  "limitations": [
+   "Keq basis ambiguous in source; AmCraX reading is an assumption",
+   "Extrapolation above 723 K / 10 bar unvalidated",
+   "Rate singular at P_H2 = 0; needs H2 seed (numerical assumption)",
+   "Nomenclature unit of R wrong (m3 bar/mol/K)"
+  ],
+  "validation_data": [
+   {
+    "description": "Commercial Ru/Al2O3, 500 degC, WHSV 286 NmL/(gcat h): X at 1/5/10 bar",
+    "X_pct": [
+     99.7,
+     98.5,
+     97.2
+    ],
+    "citekey": "maccarrone2025comprehensive",
+    "page": 12,
+    "locator": "Table 2",
+    "original_source": "dicarlo2014ammonia"
+   },
+   {
+    "description": "Plant-scale steady state X 96.3 % at GHSV 1800 h-1, preheat 623.15 K, 13 bar (source simulation, not experiment)",
+    "citekey": "kum2026heatintegrated",
+    "page": 10
+   }
+  ],
+  "usable": true,
+  "implemented_in": "backend/amcrax/kinetics/rate_laws.py (rate_mol_per_kgcat_s, kum_keq); data backend/amcrax/data/kinetics.yaml; PFR backend/amcrax/reactor/pfr.py; tests tests/test_kinetics.py, tests/test_reactor.py; validation scripts/run_kinetics_study.py -> results/validation/kinetics_validation.csv"
+ },
+ {
+  "model_component": "kinetics.not_usable",
+  "governing_equations": [
+   "Temkin-Pyzhev forms (chopra2026decentralized Eq. 2; mehr2026highcapacity Eq. 4; ahmad2025gtcc Eq. 2)",
+   "Tamaru (su2023review Eq. 4)",
+   "Itoh LH (maccarrone Table 4)",
+   "Sayas / Im power laws (maccarrone Table 5)"
+  ],
+  "parameters": [],
+  "source_citekey": "maccarrone2025comprehensive",
+  "page": "19-20",
+  "locator": "Tables 4-5; see model_parameters.yaml kinetics.* usable:false",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "beta or pre-exponential missing, units ambiguous, or parameters only in unavailable supplementary files; see reasons in model_parameters.yaml"
+  ],
+  "validation_data": [],
+  "usable": false,
+  "implemented_in": null
+ },
+ {
+  "model_component": "reactor.pfr_catalyst_mass",
+  "governing_equations": [
+   "dF/dm = -r1 + r3 + r4",
+   "dy_NH3/dm = (-r1 - y_NH3(-r1 + r3 + r4))/F",
+   "dy_N2/dm = (r3 - y_N2(-r1 + r3 + r4))/F",
+   "dy_H2/dm = (r4 - y_H2(-r1 + r3 + r4))/F"
+  ],
+  "parameters": [],
+  "source_citekey": "takahashi2016kinetic",
+  "page": "2-3",
+  "locator": "Eqs. 15-19",
+  "operating_range": "1 atm laboratory bed",
+  "catalyst_reactor_assumptions": "isothermal plug flow over catalyst mass m [g], F in mol/s",
+  "experimental_basis": null,
+  "limitations": [
+   "No pressure drop, no heat balance, no transport limitations"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "reactor.fired_tube_reference",
+  "governing_equations": [
+   "2D tube mass/energy balances, Ergun momentum, wall conduction, 1D flue gas with radiation (Table 2)"
+  ],
+  "parameters": [
+   {
+    "name": "L_tube",
+    "value": 3,
+    "unit": "m"
+   },
+   {
+    "name": "D_in",
+    "value": 0.126,
+    "unit": "m"
+   },
+   {
+    "name": "D_out",
+    "value": 0.146,
+    "unit": "m"
+   },
+   {
+    "name": "N_tube",
+    "value": 336,
+    "unit": "-"
+   },
+   {
+    "name": "P_in",
+    "value": 13,
+    "unit": "bar"
+   },
+   {
+    "name": "k_wall",
+    "value": 29.58,
+    "unit": "W/m/K"
+   }
+  ],
+  "source_citekey": "kum2026heatintegrated",
+  "page": "4-5, 10-12",
+  "locator": "Table 1; Table 2; Sec. 4.2",
+  "operating_range": "GHSV 1800 h-1, preheat 623.15 K",
+  "catalyst_reactor_assumptions": "Ru/Al2O3 beads, SMR-reformer geometry (Vo et al. 2019)",
+  "experimental_basis": "simulation",
+  "limitations": [
+   "Boundary conditions and heat-transfer correlations in supplementary material only"
+  ],
+  "validation_data": [
+   {
+    "description": "heat duty 79.25 kJ/mol NH3; X 96.3 %; hot spot 705 K; dP > 2 bar",
+    "page": "10-12"
+   }
+  ],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "thermodynamics.equilibrium_benchmarks",
+  "governing_equations": [
+   "NH3 <=> 0.5 N2 + 1.5 H2; Kp = yN2^0.5 yH2^1.5 / yNH3 * Ptot (maccarrone Eq. 2)"
+  ],
+  "parameters": [
+   {
+    "name": "X_eq 5 bar 400/450/500 degC",
+    "value": [
+     95.9,
+     97.8,
+     98.7
+    ],
+    "unit": "%"
+   },
+   {
+    "name": "X_eq 1 bar 350/400/450 degC",
+    "value": [
+     98.2,
+     99.1,
+     99.7
+    ],
+    "unit": "%"
+   },
+   {
+    "name": "X_eq 4 bar 400/425/450 degC",
+    "value": [
+     96.7,
+     97.6,
+     98.2
+    ],
+    "unit": "%"
+   }
+  ],
+  "source_citekey": "cechetto2023membrane",
+  "page": "3, 9",
+  "locator": "Fig. 2; Table 3",
+  "operating_range": "1-20 bar, 200-500 degC",
+  "catalyst_reactor_assumptions": "pure NH3 feed, ideal Gibbs minimisation (Aspen Plus V11)",
+  "experimental_basis": "calculation",
+  "limitations": [
+   "Table 3 calculation source not stated explicitly",
+   "Fig. 2 values approximate"
+  ],
+  "validation_data": [
+   {
+    "description": "xu2025review Fig. 4a at 3 MPa (approx.)",
+    "T_C": [
+     300,
+     350,
+     400,
+     500,
+     600
+    ],
+    "X_pct": [
+     52,
+     69,
+     80,
+     92,
+     97
+    ],
+    "page": 6
+   },
+   {
+    "description": "Do NOT use ahmad2025gtcc Fig. 19b (inconsistent with ideal-gas equilibrium)"
+   }
+  ],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "thermodynamics.reaction_enthalpy",
+  "governing_equations": [
+   "dH_r(298 K) per mol NH3"
+  ],
+  "parameters": [
+   {
+    "name": "dH_r cechetto",
+    "value": 45.92,
+    "unit": "kJ/mol NH3"
+   },
+   {
+    "name": "dH_r kum",
+    "value": 46.11,
+    "unit": "kJ/mol NH3"
+   },
+   {
+    "name": "dH_r cho/xu",
+    "value": 45.6,
+    "unit": "kJ/mol NH3"
+   }
+  ],
+  "source_citekey": "cechetto2023membrane",
+  "page": 3,
+  "locator": "Eq. 1 (others: kum2026heatintegrated Table 1 p. 5; cho2026nickel Eq. 1 p. 2; xu2025review Eq. 1 p. 5)",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Literature spread 45.6-46.2 kJ/mol; compute from NIST/GRI-Mech data (nist_webbook, smith_grimech30) in the thermodynamics module and compare"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "thermodynamics.kp_correlations",
+  "governing_equations": [
+   "maccarrone Eqs. 3-5 (misprinted; corrected readings in model_parameters.yaml)",
+   "kum Eq. 4 dGr(T) (usable, per 2 mol NH3)"
+  ],
+  "parameters": [],
+  "source_citekey": "maccarrone2025comprehensive",
+  "page": 4,
+  "locator": "Eqs. 3-5",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Corrected readings are interpretations; trace wang1999kinetics and Shacham & Brauner 2015 before use"
+  ],
+  "validation_data": [],
+  "usable": false,
+  "implemented_in": null
+ },
+ {
+  "model_component": "separation.psa",
+  "governing_equations": [
+   "reduced-order split: H2 recovery R_H2, product purity"
+  ],
+  "parameters": [
+   {
+    "name": "R_H2 (cho, from Yanez 2020)",
+    "value": 0.756,
+    "unit": "-"
+   },
+   {
+    "name": "purity (cho)",
+    "value": 0.9911,
+    "unit": "mol frac"
+   },
+   {
+    "name": "R_H2 (kum lumped)",
+    "value": 0.8,
+    "unit": "-"
+   },
+   {
+    "name": "R_H2 (Cha 2021 via hansen)",
+    "value": 0.71,
+    "unit": "-"
+   }
+  ],
+  "source_citekey": "cho2026nickel",
+  "page": 6,
+  "locator": "Table 3 (others: kum2026heatintegrated p. 3; hansen2024hysys p. 2)",
+  "operating_range": "zeolite 5A, 40 degC, 7 bar, desorption 1.2 bar",
+  "catalyst_reactor_assumptions": "black-box PSA in source",
+  "experimental_basis": "literature PSA performance (yanez2020psa)",
+  "limitations": [
+   "AmCraX baseline recovery 0.85 is not supported by any local source (literature 0.71-0.81): label as assumption"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": "backend/amcrax/separation/psa.py (psa_performance); compression.py (compression_power_kW); data: backend/amcrax/data/separation.yaml; tests/test_separation.py"
+ },
+ {
+  "model_component": "separation.nh3_removal_tsa",
+  "governing_equations": [
+   "Toth isotherm + LDF (kum Table 4)"
+  ],
+  "parameters": [
+   {
+    "name": "outlet NH3",
+    "value": 0.1,
+    "unit": "ppm"
+   },
+   {
+    "name": "H2 recovery TSA",
+    "value": 98.57,
+    "unit": "%"
+   },
+   {
+    "name": "electricity",
+    "value": 61.32,
+    "unit": "kJ/mol NH3 removed"
+   },
+   {
+    "name": "heat",
+    "value": 36.08,
+    "unit": "kJ/mol NH3 removed"
+   }
+  ],
+  "source_citekey": "kum2026heatintegrated",
+  "page": "6, 12",
+  "locator": "Eq. 11; Table 7",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": "zeolite 4A, 3 beds, regeneration 623.15 K",
+  "experimental_basis": "simulation",
+  "limitations": [
+   "ISO 14687 limit 0.1 ppm NH3 (as quoted by cechetto2023membrane p. 5)"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": "backend/amcrax/separation/slip.py (ammonia_slip: removal requirement only, TSA not designed); tests/test_separation.py"
+ },
+ {
+  "model_component": "separation.membrane_sieverts",
+  "governing_equations": [
+   "J_H2 = (Pe/delta)(p_ret^0.5 - p_perm^0.5)",
+   "Pe = Pe0 exp(-Ea/(R T))"
+  ],
+  "parameters": [
+   {
+    "name": "Pe0 (as printed)",
+    "value": 693000000.0,
+    "unit": "mol m-1 s-1 Pa-0.5"
+   },
+   {
+    "name": "Ea",
+    "value": 9.99,
+    "unit": "kJ/mol"
+   },
+   {
+    "name": "delta",
+    "value": 5e-06,
+    "unit": "m"
+   },
+   {
+    "name": "CP factor",
+    "value": 0.15,
+    "unit": "-"
+   }
+  ],
+  "source_citekey": "richard2024technoeconomic",
+  "page": "6-7",
+  "locator": "Eqs. 1-2; Tables 2-3",
+  "operating_range": "Pd membranes 350-500 degC (maccarrone p. 29); never above 500 degC (cechetto p. 10)",
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Pe0 likely misprinted (6.93e-8 probable); original Fernandez 2015 not verified",
+   "Use membrane reactor results only as literature benchmarks"
+  ],
+  "validation_data": [
+   {
+    "description": "MR benchmarks cechetto Table 8 p. 15: Kim 2022 X 99.4 / R 97.5 %; Cechetto 2021 99.3 / 93.5 %; Jiang 2021 >99.1 / >90.6 %"
+   }
+  ],
+  "usable": false,
+  "implemented_in": "backend/amcrax/separation/membrane.py (membrane_separator; uses Richard Table 2 rows [53]/[54], row [52] rejected); tests/test_separation.py"
+ },
+ {
+  "model_component": "heat_integration.pinch",
+  "governing_equations": [
+   "Problem-table / composite-curve targeting with MITA (linnhoff1983pinch)"
+  ],
+  "parameters": [
+   {
+    "name": "MITA",
+    "value": 10,
+    "unit": "K"
+   },
+   {
+    "name": "max recoverable",
+    "value": 6081,
+    "unit": "kW"
+   },
+   {
+    "name": "HEN recovered",
+    "value": 5750,
+    "unit": "kW"
+   },
+   {
+    "name": "conventional recovered",
+    "value": 1108,
+    "unit": "kW"
+   },
+   {
+    "name": "min cooling",
+    "value": 3871,
+    "unit": "kW"
+   }
+  ],
+  "source_citekey": "kum2026heatintegrated",
+  "page": 13,
+  "locator": "Fig. 9a-c",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Plant-specific values (different scale); use as qualitative comparator only"
+  ],
+  "validation_data": [
+   {
+    "description": "Feed/effluent integration raises process efficiency 65.7 -> 75.3 % (Realpe 2024 via xu2025review p. 30)"
+   }
+  ],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "process_model.burner_tailgas",
+  "governing_equations": [
+   "4 NH3 + 3 O2 -> 2 N2 + 6 H2O; 2 H2 + O2 -> 2 H2O (cho Eqs. 25-27)"
+  ],
+  "parameters": [
+   {
+    "name": "excess air Ni / Ru",
+    "value": "15 / 30",
+    "unit": "%"
+   },
+   {
+    "name": "product gas burned (chopra)",
+    "value": 0.18,
+    "unit": "fraction"
+   }
+  ],
+  "source_citekey": "cho2026nickel",
+  "page": "8, 13",
+  "locator": "Eqs. 25-27; Table 7",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "NOx formation strongly case dependent (1517 / 863 mg/Nm3 in cho Table 7)"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": null
+ },
+ {
+  "model_component": "economics.lcoh",
+  "governing_equations": [
+   "LCOH = (C_C*CRF + C_AO + C_NOx)/(m_H2*3600*OH)",
+   "CRF = d(1+d)^PL/((1+d)^PL - 1)",
+   "C_C = ISBL + OSBL + Eng + Cont"
+  ],
+  "parameters": [
+   {
+    "name": "discount rate",
+    "value": 0.085,
+    "unit": "-"
+   },
+   {
+    "name": "plant life",
+    "value": 25,
+    "unit": "yr"
+   },
+   {
+    "name": "operating hours",
+    "value": 8000,
+    "unit": "h/yr"
+   },
+   {
+    "name": "OSBL",
+    "value": 0.12,
+    "unit": "frac ISBL"
+   },
+   {
+    "name": "engineering",
+    "value": 0.1,
+    "unit": "frac ISBL+OSBL"
+   },
+   {
+    "name": "contingency",
+    "value": 0.18,
+    "unit": "frac ISBL+OSBL"
+   },
+   {
+    "name": "NH3 price",
+    "value": 450,
+    "unit": "USD/t"
+   },
+   {
+    "name": "electricity",
+    "value": 0.084,
+    "unit": "USD/kWh"
+   },
+   {
+    "name": "Ni catalyst",
+    "value": 33.4,
+    "unit": "USD/kg"
+   },
+   {
+    "name": "Ru catalyst",
+    "value": 542,
+    "unit": "USD/kg"
+   },
+   {
+    "name": "catalyst life",
+    "value": 2,
+    "unit": "yr (assumed by source)"
+   },
+   {
+    "name": "NOx SCR",
+    "value": 4,
+    "unit": "USD/kg"
+   }
+  ],
+  "source_citekey": "cho2026nickel",
+  "page": 7,
+  "locator": "Eqs. 15-23; Table 4",
+  "operating_range": "630 kg/h NH3, USD 2024",
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Installed-cost correlations only in SI (not available)"
+  ],
+  "validation_data": [
+   {
+    "description": "LCOH Ni-24.34 bar 5.439, Ru-10 bar 5.293 USD/kg H2",
+    "page": 13,
+    "locator": "Fig. 8(d)"
+   },
+   {
+    "description": "kum2026heatintegrated most probable 6.44 USD/kg (NH3 0.5 USD/kg)",
+    "page": 16
+   }
+  ],
+  "usable": true,
+  "implemented_in": "backend/amcrax/economics/lcoh.py (compute_lcoh, crf; Cho Eqs. 15-17 structure, CAPEX from capacity scaling instead of ISBL factors - Cho SI not available; NOx cost not included); defaults backend/amcrax/data/economics.yaml; tests/test_economics.py"
+ },
+ {
+  "model_component": "economics.cracker_capex_correlation",
+  "governing_equations": [
+   "CAPEX[MUSD] = 18.171 * Size[t H2/h]^0.7451"
+  ],
+  "parameters": [
+   {
+    "name": "a",
+    "value": 18.171,
+    "unit": "MUSD"
+   },
+   {
+    "name": "b",
+    "value": 0.7451,
+    "unit": "-"
+   }
+  ],
+  "source_citekey": "ahmad2025gtcc",
+  "page": 7,
+  "locator": "Fig. 6",
+  "operating_range": "0.007-200 t H2/h, R2 0.9158",
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": "fit to SMR + cracker cost data adapted from cesaro2021ammonia",
+  "limitations": [
+   "Cost year not stated",
+   "SMR-analogy fit"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": "backend/amcrax/economics/lcoh.py (estimate_capex, default capex_method 'ahmad2025_correlation'); backend/amcrax/data/economics.yaml capex_references; tests/test_economics.py::test_capex_capacity_exponent_rule"
+ },
+ {
+  "model_component": "economics.factor_method",
+  "governing_equations": [
+   "TCI = 5.93 PEC",
+   "OPEX = C_RM + 2.3125 C_L + C_U + 0.137 FCI + 0.1 TCI (reconstructed)"
+  ],
+  "parameters": [
+   {
+    "name": "TCI/PEC",
+    "value": 5.93,
+    "unit": "-"
+   },
+   {
+    "name": "discount",
+    "value": 0.1,
+    "unit": "-"
+   },
+   {
+    "name": "life",
+    "value": 25,
+    "unit": "yr"
+   },
+   {
+    "name": "uptime",
+    "value": 4000,
+    "unit": "h/yr"
+   },
+   {
+    "name": "NH3",
+    "value": 0.52,
+    "unit": "USD/kg"
+   }
+  ],
+  "source_citekey": "farokhi2025costoptimization",
+  "page": "3, 5",
+  "locator": "Eqs. 1-4; Tables 4-5",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Eq. 3 reconstructed from garbled glyphs",
+   "units printed USD but consistent with kUSD"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": "Partial: only the Table 5 TCI (10096 kUSD, 500 kmol/h NH3) is used as a CAPEX reference point (capex_method 'farokhi2025_point' in backend/amcrax/economics/lcoh.py); the reconstructed Eq. 3 OPEX factors are NOT implemented"
+ },
+ {
+  "model_component": "environmental.carbon_intensity",
+  "governing_equations": [
+   "CI = sum(activity_i * EF_i) per kg H2"
+  ],
+  "parameters": [
+   {
+    "name": "grid EF",
+    "value": 0.207,
+    "unit": "kg CO2/kWh"
+   },
+   {
+    "name": "N2O GWP",
+    "value": 300,
+    "unit": "-"
+   },
+   {
+    "name": "Haber-Bosch CO2",
+    "value": "2.0-4.6",
+    "unit": "t CO2/t NH3"
+   }
+  ],
+  "source_citekey": "kum2026heatintegrated",
+  "page": 17,
+  "locator": "Sec. 4.7 (Haber-Bosch: cechetto2023membrane p. 19)",
+  "operating_range": null,
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Grid factor is European; boundary of kum result is electricity only (0.38 kg CO2/kg H2)"
+  ],
+  "validation_data": [
+   {
+    "description": "chopra2026decentralized cradle-to-gate GWP: grey NH3 17.91, solar-PV NH3 3.214, grid NH3 112.79, SMR 13.48 kg CO2-eq/kg H2 (India, EF 3.0)",
+    "page": 8
+   }
+  ],
+  "usable": true,
+  "implemented_in": [
+   "backend/amcrax/environmental/__init__.py::carbon_intensity",
+   "backend/amcrax/environmental/__init__.py::compare_scenarios",
+   "backend/amcrax/data/environmental.yaml",
+   "scripts/run_environmental.py",
+   "tests/test_environmental.py"
+  ]
+ },
+ {
+  "model_component": "catalyst.stability",
+  "governing_equations": [
+   "X(t) linear decline (su2023review Fig. 3a, from yamazaki2022evaluation)"
+  ],
+  "parameters": [
+   {
+    "name": "Ni ref X max",
+    "value": 91.9,
+    "unit": "%"
+   },
+   {
+    "name": "Ni ref X 800 h",
+    "value": 90.4,
+    "unit": "%"
+   },
+   {
+    "name": "derived rate (agent)",
+    "value": -0.0027,
+    "unit": "pct-points/h"
+   }
+  ],
+  "source_citekey": "purcel2024stability",
+  "page": 2,
+  "locator": "text; Fig. 3",
+  "operating_range": "534 degC, 1 atm, 60,000 mL g-1 h-1",
+  "catalyst_reactor_assumptions": null,
+  "experimental_basis": null,
+  "limitations": [
+   "Industrial catalyst composition undisclosed",
+   "Single T, 1 atm, 800 h only"
+  ],
+  "validation_data": [],
+  "usable": true,
+  "implemented_in": null
+ }
+]

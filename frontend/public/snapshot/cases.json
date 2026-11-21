@@ -1,0 +1,122 @@
+[
+ {
+  "case_id": "baseline",
+  "source": "aspen_plus_v15",
+  "file": "cases/baseline.json"
+ },
+ {
+  "case_id": "baseline_no_hi",
+  "source": "aspen_plus_v15",
+  "file": "cases/baseline_no_hi.json"
+ },
+ {
+  "case_id": "opt_opt_conv",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_conv.json"
+ },
+ {
+  "case_id": "opt_opt_eff",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_eff.json"
+ },
+ {
+  "case_id": "opt_opt_h2",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_h2.json"
+ },
+ {
+  "case_id": "opt_opt_heat",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_heat.json"
+ },
+ {
+  "case_id": "opt_opt_lcoh",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_lcoh.json"
+ },
+ {
+  "case_id": "opt_opt_lcoh_tp",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_opt_lcoh_tp.json"
+ },
+ {
+  "case_id": "opt_par_1",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_par_1.json"
+ },
+ {
+  "case_id": "opt_par_2",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_par_2.json"
+ },
+ {
+  "case_id": "opt_par_3",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_par_3.json"
+ },
+ {
+  "case_id": "opt_par_4",
+  "source": "aspen_plus_v15",
+  "file": "cases/opt_par_4.json"
+ },
+ {
+  "case_id": "python_baseline",
+  "source": "python_model",
+  "file": "cases/python_baseline.json"
+ },
+ {
+  "case_id": "python_baseline_no_hi",
+  "source": "python_model",
+  "file": "cases/python_baseline_no_hi.json"
+ },
+ {
+  "case_id": "python_baseline_no_hi_pr",
+  "source": "python_model",
+  "file": "cases/python_baseline_no_hi_pr.json"
+ },
+ {
+  "case_id": "python_baseline_pr",
+  "source": "python_model",
+  "file": "cases/python_baseline_pr.json"
+ },
+ {
+  "case_id": "scn_fuel_cell_grade",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_fuel_cell_grade.json"
+ },
+ {
+  "case_id": "scn_high_pressure",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_high_pressure.json"
+ },
+ {
+  "case_id": "scn_high_recovery",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_high_recovery.json"
+ },
+ {
+  "case_id": "scn_high_temperature",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_high_temperature.json"
+ },
+ {
+  "case_id": "scn_low_pressure",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_low_pressure.json"
+ },
+ {
+  "case_id": "scn_low_recovery",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_low_recovery.json"
+ },
+ {
+  "case_id": "scn_low_temperature",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_low_temperature.json"
+ },
+ {
+  "case_id": "scn_tight_fehe",
+  "source": "aspen_plus_v15",
+  "file": "cases/scn_tight_fehe.json"
+ }
+]

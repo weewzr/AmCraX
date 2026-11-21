@@ -1,0 +1,202 @@
+[
+ {
+  "id": "opt_lcoh",
+  "label": "Minimise LCOH (USD/kg H2) (4 variables)",
+  "why": "single-objective optimum (exact reported optimum_inputs); driver: variable bounds: psa_h2_recovery=upper, fehe_hot_end_approach_K=lower; PSA feed-pressure requirement kink: PSA feed pressure = 7 bar (cho2026nickel p. 6 Table 3), below which cracked-gas compression is charged; the optimum pressure is set by this literature requirement",
+  "inputs": {
+   "case_id": "opt_lcoh",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 529.1,
+   "reactor_pressure_bar": 7.5,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "opt_eff",
+  "label": "Maximise LHV efficiency (4 variables)",
+  "why": "single-objective optimum (exact reported optimum_inputs); driver: variable bounds: reactor_pressure_bar=lower, psa_h2_recovery=upper, fehe_hot_end_approach_K=lower; note: 1-D objective scan is flat in reactor_temperature_C (value not uniquely determined)",
+  "inputs": {
+   "case_id": "opt_eff",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 462.3,
+   "reactor_pressure_bar": 5.0,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "opt_heat",
+  "label": "Minimise external heating per kg H2 (kWh/kg) (4 variables)",
+  "why": "single-objective optimum (exact reported optimum_inputs); driver: variable bounds: reactor_pressure_bar=lower, psa_h2_recovery=upper, fehe_hot_end_approach_K=lower",
+  "inputs": {
+   "case_id": "opt_heat",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 418.2,
+   "reactor_pressure_bar": 5.0,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "opt_h2",
+  "label": "Maximise H2 production (kg/h, fixed 100 kmol/h feed) (4 variables)",
+  "why": "single-objective optimum (exact reported optimum_inputs); driver: variable bounds: reactor_temperature_C=upper, reactor_pressure_bar=lower, psa_h2_recovery=upper; note: 1-D objective scan is flat in reactor_pressure_bar, fehe_hot_end_approach_K (value not uniquely determined)",
+  "inputs": {
+   "case_id": "opt_h2",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 800.0,
+   "reactor_pressure_bar": 5.0,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 122.5,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "opt_conv",
+  "label": "Maximise NH3 conversion (4 variables)",
+  "why": "single-objective optimum (exact reported optimum_inputs); driver: variable bounds: reactor_temperature_C=upper, reactor_pressure_bar=lower; note: 1-D objective scan is flat in reactor_pressure_bar, psa_h2_recovery, fehe_hot_end_approach_K (value not uniquely determined)",
+  "inputs": {
+   "case_id": "opt_conv",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 800.0,
+   "reactor_pressure_bar": 5.0,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 99.5,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.876,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "opt_lcoh_tp",
+  "label": "Min LCOH, T and P only",
+  "why": "recovery/approach fixed at baseline; driver: PSA feed-pressure requirement kink: PSA feed pressure = 7 bar (cho2026nickel p. 6 Table 3), below which cracked-gas compression is charged; the optimum pressure is set by this literature requirement",
+  "inputs": {
+   "case_id": "opt_lcoh_tp",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 527.2,
+   "reactor_pressure_bar": 7.5,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 50.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.85,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "par_1",
+  "label": "Pareto point 1 (lcoh_USD_per_kg vs h2_yield_overall)",
+  "why": "non-dominated grid point, lcoh_USD_per_kg=3.805, h2_yield_overall=0.9362",
+  "inputs": {
+   "case_id": "par_1",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 525.0,
+   "reactor_pressure_bar": 7.5,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "par_2",
+  "label": "Pareto point 2 (lcoh_USD_per_kg vs h2_yield_overall)",
+  "why": "non-dominated grid point, lcoh_USD_per_kg=3.807, h2_yield_overall=0.9454",
+  "inputs": {
+   "case_id": "par_2",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 650.0,
+   "reactor_pressure_bar": 7.5,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "par_3",
+  "label": "Pareto point 3 (lcoh_USD_per_kg vs h2_yield_overall)",
+  "why": "non-dominated grid point, lcoh_USD_per_kg=3.811, h2_yield_overall=0.9477",
+  "inputs": {
+   "case_id": "par_3",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 750.0,
+   "reactor_pressure_bar": 7.5,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ },
+ {
+  "id": "par_4",
+  "label": "Pareto point 4 (lcoh_USD_per_kg vs h2_yield_overall)",
+  "why": "non-dominated grid point, lcoh_USD_per_kg=3.838, h2_yield_overall=0.9489",
+  "inputs": {
+   "case_id": "par_4",
+   "feed_total_kmol_h": 100.0,
+   "feed_h2o_mole_frac": 0.002,
+   "reactor_temperature_C": 800.0,
+   "reactor_pressure_bar": 5.0,
+   "heat_integration": true,
+   "fehe_hot_end_approach_K": 20.0,
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.95,
+   "psa_n2_slip": 0.001,
+   "burner_excess_air": 0.15,
+   "stack_temperature_C": 150.0,
+   "property_method": "PENG-ROB"
+  }
+ }
+]

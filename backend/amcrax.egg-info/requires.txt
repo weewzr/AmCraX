@@ -1,0 +1,16 @@
+numpy
+scipy
+pandas
+matplotlib
+cantera
+pydantic>=2
+pyyaml
+fastapi
+uvicorn[standard]
+
+[:platform_system == "Windows"]
+pywin32
+
+[dev]
+pytest
+httpx

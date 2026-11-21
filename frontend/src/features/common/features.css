@@ -1,0 +1,27 @@
+.series-src{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--text-2);margin-top:6px}
+.series-chip i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:middle}
+.grid-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(420px,100%),1fr));gap:var(--gap)}
+.controls{display:flex;flex-wrap:wrap;gap:10px 16px;align-items:end}
+.field{display:flex;flex-direction:column;gap:3px;font-size:12px;color:var(--muted)}
+.field input,.field select{min-height:32px;background:var(--surface-2);color:var(--text);border:1px solid var(--border-strong);border-radius:var(--r-sm);padding:4px 8px;font:inherit;width:110px}
+.field select{width:auto}
+.field input[type=range]{padding:0;width:180px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{cursor:pointer;border:1px solid var(--border-strong);background:var(--surface-2);color:var(--text-2);border-radius:999px;padding:3px 10px;font:inherit;font-size:13px}
+.chip[aria-pressed=true]{border-color:var(--primary);color:var(--text);background:var(--surface);font-weight:600}
+.notice{border-left:4px solid var(--info)}
+.notice-warn{border-left-color:var(--warn)}
+.notice-error{border-left-color:var(--error)}
+.section-h{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;justify-content:space-between}
+.section-h h2{margin:0}
+.kv{display:grid;grid-template-columns:minmax(150px,auto) 1fr;gap:4px 14px;font-size:13px;margin:0}
+.kv dt{color:var(--muted)}.kv dd{margin:0}
+.toggle{display:inline-flex;border:1px solid var(--border-strong);border-radius:var(--r-sm);overflow:hidden}
+.toggle button{background:var(--surface-2);color:var(--text-2);border:0;padding:5px 12px;font:inherit;cursor:pointer;min-height:32px}
+.toggle button[aria-pressed=true]{background:var(--primary);color:var(--primary-ink);font-weight:600}
+.wrap-cell{white-space:pre-line;min-width:180px;max-width:360px}
+.dev-bad{color:var(--warn);font-weight:600}
+
+.link-btn{background:none;border:0;padding:0 2px;color:var(--primary);cursor:pointer;font:inherit;text-decoration:underline}
+.clamp{white-space:normal}
+td.clamp-cell{min-width:160px;max-width:340px;vertical-align:top}

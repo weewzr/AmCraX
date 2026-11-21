@@ -1,0 +1,1793 @@
+{
+ "name": "aspen_vs_python_baseline",
+ "category": "validation",
+ "columns": [
+  "quantity",
+  "a",
+  "b",
+  "abs_diff",
+  "rel_diff"
+ ],
+ "rows": [
+  {
+   "quantity": "stream.AIR.temperature_C",
+   "a": 25.0,
+   "b": 25.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.AIR.pressure_bar",
+   "a": 1.3,
+   "b": 1.3,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.AIR.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.AIR.mole_flow_kmol_h",
+   "a": 68.1697693,
+   "b": 68.15412707016216,
+   "abs_diff": -0.015642229837837363,
+   "rel_diff": -0.00022945992040840547
+  },
+  {
+   "quantity": "stream.AIR.mass_flow_kg_h",
+   "a": 1966.72492,
+   "b": 1966.2693294526198,
+   "abs_diff": -0.455590547380325,
+   "rel_diff": -0.00023164934900012606
+  },
+  {
+   "quantity": "stream.AIR.enthalpy_flow_kW",
+   "a": -0.197839525,
+   "b": 0.021385743711376123,
+   "abs_diff": 0.2192252687113761,
+   "rel_diff": 1.1080964165849878
+  },
+  {
+   "quantity": "stream.AIR.flow_kmol_h.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.mole_frac.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.flow_kmol_h.N2",
+   "a": 53.8541177,
+   "b": 53.84176038542811,
+   "abs_diff": -0.012357314571893596,
+   "rel_diff": -0.00022945904788063395
+  },
+  {
+   "quantity": "stream.AIR.mole_frac.N2",
+   "a": 0.79,
+   "b": 0.79,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.AIR.flow_kmol_h.H2O",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.mole_frac.H2O",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.AIR.flow_kmol_h.O2",
+   "a": 14.3156515,
+   "b": 14.312366684734053,
+   "abs_diff": -0.0032848152659461505,
+   "rel_diff": -0.00022945621901637872
+  },
+  {
+   "quantity": "stream.AIR.mole_frac.O2",
+   "a": 0.21,
+   "b": 0.21,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.temperature_C",
+   "a": -32.9617036,
+   "b": -33.280728939219614,
+   "abs_diff": -0.31902533921961407,
+   "rel_diff": -0.009678666585049144
+  },
+  {
+   "quantity": "stream.FEED.pressure_bar",
+   "a": 1.013,
+   "b": 1.013,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.vapor_fraction",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.mole_flow_kmol_h",
+   "a": 100.0,
+   "b": 100.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.246956,
+   "abs_diff": -0.005984000000125889,
+   "rel_diff": -3.513277364503412e-06
+  },
+  {
+   "quantity": "stream.FEED.enthalpy_flow_kW",
+   "a": -2004.36602,
+   "b": -1998.5313012367812,
+   "abs_diff": 5.834718763218689,
+   "rel_diff": 0.0029110046293933326
+  },
+  {
+   "quantity": "stream.FEED.flow_kmol_h.NH3",
+   "a": 99.8,
+   "b": 99.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.mole_frac.NH3",
+   "a": 0.998,
+   "b": 0.998,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.flow_kmol_h.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.mole_frac.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.mole_frac.H2O",
+   "a": 0.002,
+   "b": 0.002,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FEED.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FEED.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FLUE.temperature_C",
+   "a": 1368.90092,
+   "b": 1368.7406408709053,
+   "abs_diff": -0.16027912909476072,
+   "rel_diff": -0.00011708599706015298
+  },
+  {
+   "quantity": "stream.FLUE.pressure_bar",
+   "a": 1.2,
+   "b": 1.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FLUE.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.FLUE.mole_flow_kmol_h",
+   "a": 130.669219,
+   "b": 130.65071864030412,
+   "abs_diff": -0.018500359695877933,
+   "rel_diff": -0.00014158161989074054
+  },
+  {
+   "quantity": "stream.FLUE.mass_flow_kg_h",
+   "a": 3417.01851,
+   "b": 3416.5473538468646,
+   "abs_diff": -0.47115615313532544,
+   "rel_diff": -0.00013788516268099625
+  },
+  {
+   "quantity": "stream.FLUE.enthalpy_flow_kW",
+   "a": -29.2613041,
+   "b": -28.862381576010648,
+   "abs_diff": 0.39892252398935213,
+   "rel_diff": 0.013633108169958568
+  },
+  {
+   "quantity": "stream.FLUE.flow_kmol_h.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FLUE.mole_frac.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FLUE.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FLUE.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.FLUE.flow_kmol_h.N2",
+   "a": 103.705175,
+   "b": 103.69281570797524,
+   "abs_diff": -0.012359292024754609,
+   "rel_diff": -0.00011917719655508617
+  },
+  {
+   "quantity": "stream.FLUE.mole_frac.N2",
+   "a": 0.79364655,
+   "b": 0.7936643348549275,
+   "abs_diff": 1.778485492753834e-05,
+   "rel_diff": 2.240903702981931e-05
+  },
+  {
+   "quantity": "stream.FLUE.flow_kmol_h.H2O",
+   "a": 25.0967853,
+   "b": 25.091072495189657,
+   "abs_diff": -0.005712804810343641,
+   "rel_diff": -0.0002276309392639081
+  },
+  {
+   "quantity": "stream.FLUE.mole_frac.H2O",
+   "a": 0.192063482,
+   "b": 0.19204695355919285,
+   "abs_diff": -1.652844080715643e-05,
+   "rel_diff": -8.605717565381028e-05
+  },
+  {
+   "quantity": "stream.FLUE.flow_kmol_h.O2",
+   "a": 1.8672589,
+   "b": 1.8668304371392228,
+   "abs_diff": -0.0004284628607771346,
+   "rel_diff": -0.00022946087485625833
+  },
+  {
+   "quantity": "stream.FLUE.mole_frac.O2",
+   "a": 0.0142899675,
+   "b": 0.014288711585879703,
+   "abs_diff": -1.2559141202971719e-06,
+   "rel_diff": -8.788782201899143e-05
+  },
+  {
+   "quantity": "stream.H2PROD.temperature_C",
+   "a": 40.0,
+   "b": 40.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.H2PROD.pressure_bar",
+   "a": 19.0,
+   "b": 19.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.H2PROD.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.H2PROD.mole_flow_kmol_h",
+   "a": 124.852157,
+   "b": 124.8578721822632,
+   "abs_diff": 0.005715182263188012,
+   "rel_diff": 4.5775598920473696e-05
+  },
+  {
+   "quantity": "stream.H2PROD.mass_flow_kg_h",
+   "a": 252.959352,
+   "b": 252.9709276057552,
+   "abs_diff": 0.011575605755211882,
+   "rel_diff": 4.576073453576795e-05
+  },
+  {
+   "quantity": "stream.H2PROD.enthalpy_flow_kW",
+   "a": 15.4313546,
+   "b": 15.031242786877282,
+   "abs_diff": -0.4001118131227184,
+   "rel_diff": -0.025928495812202926
+  },
+  {
+   "quantity": "stream.H2PROD.flow_kmol_h.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.H2PROD.mole_frac.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.H2PROD.flow_kmol_h.H2",
+   "a": 124.803215,
+   "b": 124.80892750481033,
+   "abs_diff": 0.00571250481033303,
+   "rel_diff": 4.577209657886642e-05
+  },
+  {
+   "quantity": "stream.H2PROD.mole_frac.H2",
+   "a": 0.999607997,
+   "b": 0.999607996863975,
+   "abs_diff": -1.360250800885865e-10,
+   "rel_diff": -1.3607842323873134e-10
+  },
+  {
+   "quantity": "stream.H2PROD.flow_kmol_h.N2",
+   "a": 0.0489424371,
+   "b": 0.0489446774528668,
+   "abs_diff": 2.240352866798856e-06,
+   "rel_diff": 4.5775261706345554e-05
+  },
+  {
+   "quantity": "stream.H2PROD.mole_frac.N2",
+   "a": 0.000392003136,
+   "b": 0.00039200313602508825,
+   "abs_diff": 2.50882756409887e-14,
+   "rel_diff": 6.400019116425819e-11
+  },
+  {
+   "quantity": "stream.H2PROD.flow_kmol_h.H2O",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.H2PROD.mole_frac.H2O",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.H2PROD.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.H2PROD.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.temperature_C",
+   "a": -32.5423474,
+   "b": -32.77654969368916,
+   "abs_diff": -0.23420229368916523,
+   "rel_diff": -0.0071968469517710715
+  },
+  {
+   "quantity": "stream.S1.pressure_bar",
+   "a": 21.0,
+   "b": 21.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.vapor_fraction",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.mole_flow_kmol_h",
+   "a": 100.0,
+   "b": 100.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.246956,
+   "abs_diff": -0.005984000000125889,
+   "rel_diff": -3.513277364503412e-06
+  },
+  {
+   "quantity": "stream.S1.enthalpy_flow_kW",
+   "a": -2002.52074,
+   "b": -1996.6816597966044,
+   "abs_diff": 5.839080203395497,
+   "rel_diff": 0.00291586503288625
+  },
+  {
+   "quantity": "stream.S1.flow_kmol_h.NH3",
+   "a": 99.8,
+   "b": 99.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.mole_frac.NH3",
+   "a": 0.998,
+   "b": 0.998,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.flow_kmol_h.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.mole_frac.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.mole_frac.H2O",
+   "a": 0.002,
+   "b": 0.002,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S1.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S1.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.temperature_C",
+   "a": 75.9000921,
+   "b": 70.08745224565854,
+   "abs_diff": -5.812639854341455,
+   "rel_diff": -0.0765827773526701
+  },
+  {
+   "quantity": "stream.S2.pressure_bar",
+   "a": 20.8,
+   "b": 20.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.mole_flow_kmol_h",
+   "a": 100.0,
+   "b": 100.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.246956,
+   "abs_diff": -0.005984000000125889,
+   "rel_diff": -3.513277364503412e-06
+  },
+  {
+   "quantity": "stream.S2.enthalpy_flow_kW",
+   "a": -1263.06113,
+   "b": -1283.04013994383,
+   "abs_diff": -19.97900994382985,
+   "rel_diff": -0.015817927944492955
+  },
+  {
+   "quantity": "stream.S2.flow_kmol_h.NH3",
+   "a": 99.8,
+   "b": 99.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.mole_frac.NH3",
+   "a": 0.998,
+   "b": 0.998,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.flow_kmol_h.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.mole_frac.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.mole_frac.H2O",
+   "a": 0.002,
+   "b": 0.002,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S2.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S2.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.temperature_C",
+   "a": 550.0,
+   "b": 550.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.pressure_bar",
+   "a": 20.5,
+   "b": 20.5,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.mole_flow_kmol_h",
+   "a": 100.0,
+   "b": 100.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.246956,
+   "abs_diff": -0.005984000000125889,
+   "rel_diff": -3.513277364503412e-06
+  },
+  {
+   "quantity": "stream.S3.enthalpy_flow_kW",
+   "a": -650.847781,
+   "b": -645.818742312065,
+   "abs_diff": 5.029038687935099,
+   "rel_diff": 0.007726904561629133
+  },
+  {
+   "quantity": "stream.S3.flow_kmol_h.NH3",
+   "a": 99.8,
+   "b": 99.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.mole_frac.NH3",
+   "a": 0.998,
+   "b": 0.998,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.flow_kmol_h.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.mole_frac.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.mole_frac.H2O",
+   "a": 0.002,
+   "b": 0.002,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S3.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S3.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.temperature_C",
+   "a": 600.0,
+   "b": 600.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.pressure_bar",
+   "a": 20.2,
+   "b": 20.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.mole_flow_kmol_h",
+   "a": 100.0,
+   "b": 100.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.246956,
+   "abs_diff": -0.005984000000125889,
+   "rel_diff": -3.513277364503412e-06
+  },
+  {
+   "quantity": "stream.S4.enthalpy_flow_kW",
+   "a": -577.190457,
+   "b": -572.912769180168,
+   "abs_diff": 4.277687819832067,
+   "rel_diff": 0.007411224090685316
+  },
+  {
+   "quantity": "stream.S4.flow_kmol_h.NH3",
+   "a": 99.8,
+   "b": 99.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.mole_frac.NH3",
+   "a": 0.998,
+   "b": 0.998,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.flow_kmol_h.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.mole_frac.N2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.mole_frac.H2O",
+   "a": 0.002,
+   "b": 0.002,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S4.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S4.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S5.temperature_C",
+   "a": 600.0,
+   "b": 600.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S5.pressure_bar",
+   "a": 20.0,
+   "b": 20.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S5.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S5.mole_flow_kmol_h",
+   "a": 197.884874,
+   "b": 197.8893549057336,
+   "abs_diff": 0.004480905733601048,
+   "rel_diff": 2.2644003268289463e-05
+  },
+  {
+   "quantity": "stream.S5.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.2489137870982,
+   "abs_diff": -0.004026212901862891,
+   "rel_diff": -2.3638373416592436e-06
+  },
+  {
+   "quantity": "stream.S5.enthalpy_flow_kW",
+   "a": 902.80938,
+   "b": 901.2886050562252,
+   "abs_diff": -1.5207749437748816,
+   "rel_diff": -0.001684491740410231
+  },
+  {
+   "quantity": "stream.S5.flow_kmol_h.NH3",
+   "a": 1.91512572,
+   "b": 1.9106450942664033,
+   "abs_diff": -0.004480625733596755,
+   "rel_diff": -0.0023395987463406603
+  },
+  {
+   "quantity": "stream.S5.mole_frac.NH3",
+   "a": 0.00967797932,
+   "b": 0.009655118109695979,
+   "abs_diff": -2.286121030402148e-05,
+   "rel_diff": -0.002362188381285101
+  },
+  {
+   "quantity": "stream.S5.flow_kmol_h.H2",
+   "a": 146.827311,
+   "b": 146.83403235860038,
+   "abs_diff": 0.006721358600373151,
+   "rel_diff": 4.57773050163205e-05
+  },
+  {
+   "quantity": "stream.S5.mole_frac.H2",
+   "a": 0.741983499,
+   "b": 0.7420006620798077,
+   "abs_diff": 1.7163079807702708e-05,
+   "rel_diff": 2.313134972790373e-05
+  },
+  {
+   "quantity": "stream.S5.flow_kmol_h.N2",
+   "a": 48.9424371,
+   "b": 48.9446774528668,
+   "abs_diff": 0.0022403528667993555,
+   "rel_diff": 4.577526170635576e-05
+  },
+  {
+   "quantity": "stream.S5.mole_frac.N2",
+   "a": 0.247327833,
+   "b": 0.24733355402660262,
+   "abs_diff": 5.7210266026230805e-06,
+   "rel_diff": 2.3131349728128174e-05
+  },
+  {
+   "quantity": "stream.S5.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S5.mole_frac.H2O",
+   "a": 0.00101068867,
+   "b": 0.0010106657838935896,
+   "abs_diff": -2.2886106410381982e-08,
+   "rel_diff": -2.2644071403691488e-05
+  },
+  {
+   "quantity": "stream.S5.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S5.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S6.temperature_C",
+   "a": 228.380183,
+   "b": 212.27627115932552,
+   "abs_diff": -16.10391184067447,
+   "rel_diff": -0.07051361299887596
+  },
+  {
+   "quantity": "stream.S6.pressure_bar",
+   "a": 19.7,
+   "b": 19.7,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S6.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S6.mole_flow_kmol_h",
+   "a": 197.884874,
+   "b": 197.8893549057336,
+   "abs_diff": 0.004480905733601048,
+   "rel_diff": 2.2644003268289463e-05
+  },
+  {
+   "quantity": "stream.S6.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.2489137870982,
+   "abs_diff": -0.004026212901862891,
+   "rel_diff": -2.3638373416592436e-06
+  },
+  {
+   "quantity": "stream.S6.enthalpy_flow_kW",
+   "a": 290.596036,
+   "b": 264.0672074244602,
+   "abs_diff": -26.52882857553982,
+   "rel_diff": -0.09129108896564514
+  },
+  {
+   "quantity": "stream.S6.flow_kmol_h.NH3",
+   "a": 1.91512572,
+   "b": 1.9106450942664033,
+   "abs_diff": -0.004480625733596755,
+   "rel_diff": -0.0023395987463406603
+  },
+  {
+   "quantity": "stream.S6.mole_frac.NH3",
+   "a": 0.00967797932,
+   "b": 0.009655118109695979,
+   "abs_diff": -2.286121030402148e-05,
+   "rel_diff": -0.002362188381285101
+  },
+  {
+   "quantity": "stream.S6.flow_kmol_h.H2",
+   "a": 146.827311,
+   "b": 146.83403235860038,
+   "abs_diff": 0.006721358600373151,
+   "rel_diff": 4.57773050163205e-05
+  },
+  {
+   "quantity": "stream.S6.mole_frac.H2",
+   "a": 0.741983499,
+   "b": 0.7420006620798077,
+   "abs_diff": 1.7163079807702708e-05,
+   "rel_diff": 2.313134972790373e-05
+  },
+  {
+   "quantity": "stream.S6.flow_kmol_h.N2",
+   "a": 48.9424371,
+   "b": 48.9446774528668,
+   "abs_diff": 0.0022403528667993555,
+   "rel_diff": 4.577526170635576e-05
+  },
+  {
+   "quantity": "stream.S6.mole_frac.N2",
+   "a": 0.247327833,
+   "b": 0.24733355402660262,
+   "abs_diff": 5.7210266026230805e-06,
+   "rel_diff": 2.3131349728128174e-05
+  },
+  {
+   "quantity": "stream.S6.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S6.mole_frac.H2O",
+   "a": 0.00101068867,
+   "b": 0.0010106657838935896,
+   "abs_diff": -2.2886106410381982e-08,
+   "rel_diff": -2.2644071403691488e-05
+  },
+  {
+   "quantity": "stream.S6.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S6.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S7.temperature_C",
+   "a": 40.0,
+   "b": 40.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S7.pressure_bar",
+   "a": 19.5,
+   "b": 19.5,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S7.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S7.mole_flow_kmol_h",
+   "a": 197.884874,
+   "b": 197.8893549057336,
+   "abs_diff": 0.004480905733601048,
+   "rel_diff": 2.2644003268289463e-05
+  },
+  {
+   "quantity": "stream.S7.mass_flow_kg_h",
+   "a": 1703.25294,
+   "b": 1703.2489137870982,
+   "abs_diff": -0.004026212901862891,
+   "rel_diff": -2.3638373416592436e-06
+  },
+  {
+   "quantity": "stream.S7.enthalpy_flow_kW",
+   "a": -14.3579827,
+   "b": -13.852524532844738,
+   "abs_diff": 0.5054581671552629,
+   "rel_diff": 0.03520398218304462
+  },
+  {
+   "quantity": "stream.S7.flow_kmol_h.NH3",
+   "a": 1.91512572,
+   "b": 1.9106450942664033,
+   "abs_diff": -0.004480625733596755,
+   "rel_diff": -0.0023395987463406603
+  },
+  {
+   "quantity": "stream.S7.mole_frac.NH3",
+   "a": 0.00967797932,
+   "b": 0.009655118109695979,
+   "abs_diff": -2.286121030402148e-05,
+   "rel_diff": -0.002362188381285101
+  },
+  {
+   "quantity": "stream.S7.flow_kmol_h.H2",
+   "a": 146.827311,
+   "b": 146.83403235860038,
+   "abs_diff": 0.006721358600373151,
+   "rel_diff": 4.57773050163205e-05
+  },
+  {
+   "quantity": "stream.S7.mole_frac.H2",
+   "a": 0.741983499,
+   "b": 0.7420006620798077,
+   "abs_diff": 1.7163079807702708e-05,
+   "rel_diff": 2.313134972790373e-05
+  },
+  {
+   "quantity": "stream.S7.flow_kmol_h.N2",
+   "a": 48.9424371,
+   "b": 48.9446774528668,
+   "abs_diff": 0.0022403528667993555,
+   "rel_diff": 4.577526170635576e-05
+  },
+  {
+   "quantity": "stream.S7.mole_frac.N2",
+   "a": 0.247327833,
+   "b": 0.24733355402660262,
+   "abs_diff": 5.7210266026230805e-06,
+   "rel_diff": 2.3131349728128174e-05
+  },
+  {
+   "quantity": "stream.S7.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.S7.mole_frac.H2O",
+   "a": 0.00101068867,
+   "b": 0.0010106657838935896,
+   "abs_diff": -2.2886106410381982e-08,
+   "rel_diff": -2.2644071403691488e-05
+  },
+  {
+   "quantity": "stream.S7.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.S7.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.STACK.temperature_C",
+   "a": 150.0,
+   "b": 150.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.STACK.pressure_bar",
+   "a": 1.1,
+   "b": 1.1,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.STACK.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.STACK.mole_flow_kmol_h",
+   "a": 130.669219,
+   "b": 130.65071864030412,
+   "abs_diff": -0.018500359695877933,
+   "rel_diff": -0.00014158161989074054
+  },
+  {
+   "quantity": "stream.STACK.mass_flow_kg_h",
+   "a": 3417.01851,
+   "b": 3416.5473538468646,
+   "abs_diff": -0.47115615313532544,
+   "rel_diff": -0.00013788516268099625
+  },
+  {
+   "quantity": "stream.STACK.enthalpy_flow_kW",
+   "a": -1549.51077,
+   "b": -1548.6601442249294,
+   "abs_diff": 0.8506257750707391,
+   "rel_diff": 0.0005489640934026803
+  },
+  {
+   "quantity": "stream.STACK.flow_kmol_h.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.STACK.mole_frac.NH3",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.STACK.flow_kmol_h.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.STACK.mole_frac.H2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.STACK.flow_kmol_h.N2",
+   "a": 103.705175,
+   "b": 103.69281570797524,
+   "abs_diff": -0.012359292024754609,
+   "rel_diff": -0.00011917719655508617
+  },
+  {
+   "quantity": "stream.STACK.mole_frac.N2",
+   "a": 0.79364655,
+   "b": 0.7936643348549275,
+   "abs_diff": 1.778485492753834e-05,
+   "rel_diff": 2.240903702981931e-05
+  },
+  {
+   "quantity": "stream.STACK.flow_kmol_h.H2O",
+   "a": 25.0967853,
+   "b": 25.091072495189657,
+   "abs_diff": -0.005712804810343641,
+   "rel_diff": -0.0002276309392639081
+  },
+  {
+   "quantity": "stream.STACK.mole_frac.H2O",
+   "a": 0.192063482,
+   "b": 0.19204695355919285,
+   "abs_diff": -1.652844080715643e-05,
+   "rel_diff": -8.605717565381028e-05
+  },
+  {
+   "quantity": "stream.STACK.flow_kmol_h.O2",
+   "a": 1.8672589,
+   "b": 1.8668304371392228,
+   "abs_diff": -0.0004284628607771346,
+   "rel_diff": -0.00022946087485625833
+  },
+  {
+   "quantity": "stream.STACK.mole_frac.O2",
+   "a": 0.0142899675,
+   "b": 0.014288711585879703,
+   "abs_diff": -1.2559141202971719e-06,
+   "rel_diff": -8.788782201899143e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.temperature_C",
+   "a": 40.0,
+   "b": 40.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.TAILGAS.pressure_bar",
+   "a": 1.3,
+   "b": 1.3,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.TAILGAS.vapor_fraction",
+   "a": 1.0,
+   "b": 1.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_flow_kmol_h",
+   "a": 73.0327171,
+   "b": 73.03148272347039,
+   "abs_diff": -0.0012343765296094489,
+   "rel_diff": -1.6901692537596263e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.mass_flow_kg_h",
+   "a": 1450.29359,
+   "b": 1450.277986181343,
+   "abs_diff": -0.015603818656927615,
+   "rel_diff": -1.075907579301072e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.enthalpy_flow_kW",
+   "a": -29.0634646,
+   "b": -28.883767319722025,
+   "abs_diff": 0.17969728027797416,
+   "rel_diff": 0.006182927009946851
+  },
+  {
+   "quantity": "stream.TAILGAS.flow_kmol_h.NH3",
+   "a": 1.91512572,
+   "b": 1.9106450942664033,
+   "abs_diff": -0.004480625733596755,
+   "rel_diff": -0.0023395987463406603
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_frac.NH3",
+   "a": 0.0262228464,
+   "b": 0.026161937605744,
+   "abs_diff": -6.0908794255999654e-05,
+   "rel_diff": -0.0023227377122568837
+  },
+  {
+   "quantity": "stream.TAILGAS.flow_kmol_h.H2",
+   "a": 22.0240967,
+   "b": 22.025104853790054,
+   "abs_diff": 0.0010081537900532567,
+   "rel_diff": 4.577503467160388e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_frac.H2",
+   "a": 0.3015648,
+   "b": 0.3015837010620047,
+   "abs_diff": 1.890106200469477e-05,
+   "rel_diff": 6.267661877213377e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.flow_kmol_h.N2",
+   "a": 48.8934947,
+   "b": 48.89573277541393,
+   "abs_diff": 0.002238075413934837,
+   "rel_diff": 4.577450287951777e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_frac.N2",
+   "a": 0.669473855,
+   "b": 0.6695158163576506,
+   "abs_diff": 4.196135765055509e-05,
+   "rel_diff": 6.267811257626347e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.flow_kmol_h.H2O",
+   "a": 0.2,
+   "b": 0.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_frac.H2O",
+   "a": 0.00273849869,
+   "b": 0.002738544974600732,
+   "abs_diff": 4.628460073194396e-08,
+   "rel_diff": 1.6901450747797858e-05
+  },
+  {
+   "quantity": "stream.TAILGAS.flow_kmol_h.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "stream.TAILGAS.mole_frac.O2",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.BURNER.duty_kW",
+   "a": 0.0,
+   "b": 0.0,
+   "abs_diff": 0.0,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.BURNER.outlet_temperature_C",
+   "a": 1368.90092,
+   "b": 1368.7406408709053,
+   "abs_diff": -0.16027912909476072,
+   "rel_diff": -0.00011708599706015298
+  },
+  {
+   "quantity": "block.BURNER.outlet_pressure_bar",
+   "a": 1.2,
+   "b": 1.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.COOLER.duty_kW",
+   "a": -304.954018,
+   "b": -277.9197319573049,
+   "abs_diff": 27.0342860426951,
+   "rel_diff": 0.08865036840634478
+  },
+  {
+   "quantity": "block.COOLER.outlet_temperature_C",
+   "a": 40.0,
+   "b": 40.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.COOLER.outlet_pressure_bar",
+   "a": 19.5,
+   "b": 19.5,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.CRACKER.duty_kW",
+   "a": 1479.99984,
+   "b": 1474.2013742363931,
+   "abs_diff": -5.798465763606828,
+   "rel_diff": -0.0039178826962622025
+  },
+  {
+   "quantity": "block.CRACKER.outlet_temperature_C",
+   "a": 600.0,
+   "b": 600.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.CRACKER.outlet_pressure_bar",
+   "a": 20.0,
+   "b": 20.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.FEHE.duty_kW",
+   "a": 612.213344,
+   "b": 637.221397631765,
+   "abs_diff": 25.008053631764938,
+   "rel_diff": 0.04084859285877463
+  },
+  {
+   "quantity": "block.FEHE.outlet_temperature_C",
+   "a": null,
+   "b": 550.0,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.FEHE.outlet_pressure_bar",
+   "a": null,
+   "b": 20.5,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.FLUEHX.duty_kW",
+   "a": -1520.24946,
+   "b": -1519.7977626489187,
+   "abs_diff": 0.45169735108129316,
+   "rel_diff": 0.0002971205469668729
+  },
+  {
+   "quantity": "block.FLUEHX.outlet_temperature_C",
+   "a": 150.0,
+   "b": 150.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.FLUEHX.outlet_pressure_bar",
+   "a": 1.1,
+   "b": 1.1,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.HEATER.duty_kW",
+   "a": 73.6573244,
+   "b": 72.90597313189699,
+   "abs_diff": -0.7513512681030079,
+   "rel_diff": -0.01020063210581415
+  },
+  {
+   "quantity": "block.HEATER.outlet_temperature_C",
+   "a": 600.0,
+   "b": 600.0,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.HEATER.outlet_pressure_bar",
+   "a": 20.2,
+   "b": 20.2,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "block.PSA.duty_kW",
+   "a": 0.725872812,
+   "b": -5.329070518200751e-15,
+   "abs_diff": -0.7258728120000053,
+   "rel_diff": -1.0000000000000073
+  },
+  {
+   "quantity": "block.PSA.outlet_temperature_C",
+   "a": null,
+   "b": 40.0,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.PSA.outlet_pressure_bar",
+   "a": null,
+   "b": 19.0,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.PUMP.duty_kW",
+   "a": null,
+   "b": 0.0,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.PUMP.power_kW",
+   "a": 1.84528517,
+   "b": 1.8496414401767731,
+   "abs_diff": 0.004356270176773203,
+   "rel_diff": 0.002360757159704049
+  },
+  {
+   "quantity": "block.PUMP.outlet_temperature_C",
+   "a": null,
+   "b": -32.77654969368916,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.PUMP.outlet_pressure_bar",
+   "a": null,
+   "b": 21.0,
+   "abs_diff": null,
+   "rel_diff": null
+  },
+  {
+   "quantity": "block.VAPORIZR.duty_kW",
+   "a": 739.459613,
+   "b": 713.6415198527745,
+   "abs_diff": -25.818093147225454,
+   "rel_diff": -0.03491481169942604
+  },
+  {
+   "quantity": "block.VAPORIZR.outlet_temperature_C",
+   "a": 75.9000921,
+   "b": 70.08745224565854,
+   "abs_diff": -5.812639854341455,
+   "rel_diff": -0.0765827773526701
+  },
+  {
+   "quantity": "block.VAPORIZR.outlet_pressure_bar",
+   "a": 20.8,
+   "b": 20.8,
+   "abs_diff": 0.0,
+   "rel_diff": 0.0
+  },
+  {
+   "quantity": "kpi.nh3_conversion",
+   "a": 0.9808103635270541,
+   "b": 0.9808552595764889,
+   "abs_diff": 4.4896049434806073e-05,
+   "rel_diff": 4.577444438225258e-05
+  },
+  {
+   "quantity": "kpi.h2_in_cracked_gas_kmol_h",
+   "a": 146.827311,
+   "b": 146.83403235860038,
+   "abs_diff": 0.006721358600373151,
+   "rel_diff": 4.57773050163205e-05
+  },
+  {
+   "quantity": "kpi.h2_product_kmol_h",
+   "a": 124.803215,
+   "b": 124.80892750481033,
+   "abs_diff": 0.00571250481033303,
+   "rel_diff": 4.577209657886642e-05
+  },
+  {
+   "quantity": "kpi.h2_product_kg_h",
+   "a": 251.5883050542,
+   "b": 251.59982077839706,
+   "abs_diff": 0.011515724197067811,
+   "rel_diff": 4.5772096578920725e-05
+  },
+  {
+   "quantity": "kpi.h2_purity_mole_frac",
+   "a": 0.999607997,
+   "b": 0.999607996863975,
+   "abs_diff": -1.360250800885865e-10,
+   "rel_diff": -1.3607842323873134e-10
+  },
+  {
+   "quantity": "kpi.h2_yield_overall",
+   "a": 0.8336888109552438,
+   "b": 0.8337269706400157,
+   "abs_diff": 3.81596847718324e-05,
+   "rel_diff": 4.577209657894879e-05
+  },
+  {
+   "quantity": "kpi.reactor_duty_kW",
+   "a": 1479.99984,
+   "b": 1474.2013742363931,
+   "abs_diff": -5.798465763606828,
+   "rel_diff": -0.0039178826962622025
+  },
+  {
+   "quantity": "kpi.preheat_duty_kW",
+   "a": 73.6573244,
+   "b": 72.90597313189699,
+   "abs_diff": -0.7513512681030079,
+   "rel_diff": -0.01020063210581415
+  },
+  {
+   "quantity": "kpi.vaporiser_duty_kW",
+   "a": 739.459613,
+   "b": 713.6415198527745,
+   "abs_diff": -25.818093147225454,
+   "rel_diff": -0.03491481169942604
+  },
+  {
+   "quantity": "kpi.recovered_heat_kW",
+   "a": 612.213344,
+   "b": 637.221397631765,
+   "abs_diff": 25.008053631764938,
+   "rel_diff": 0.04084859285877463
+  },
+  {
+   "quantity": "kpi.total_external_heating_kW",
+   "a": 2293.1167774,
+   "b": 2260.7488672210648,
+   "abs_diff": -32.36791017893529,
+   "rel_diff": -0.01411524720325623
+  },
+  {
+   "quantity": "kpi.cooling_duty_kW",
+   "a": 304.954018,
+   "b": 277.9197319573049,
+   "abs_diff": -27.0342860426951,
+   "rel_diff": -0.08865036840634478
+  },
+  {
+   "quantity": "kpi.pump_power_kW",
+   "a": 1.84528517,
+   "b": 1.8496414401767731,
+   "abs_diff": 0.004356270176773203,
+   "rel_diff": 0.002360757159704049
+  },
+  {
+   "quantity": "kpi.tailgas_combustion_heat_kW",
+   "a": 1520.24946,
+   "b": 1519.7977626489187,
+   "abs_diff": -0.45169735108129316,
+   "rel_diff": -0.0002971205469668729
+  },
+  {
+   "quantity": "kpi.tailgas_lhv_kW",
+   "a": 1647.9752879639445,
+   "b": 1647.6487145100639,
+   "abs_diff": -0.3265734538806555,
+   "rel_diff": -0.00019816647510784792
+  },
+  {
+   "quantity": "kpi.specific_heat_demand_kWh_per_kgH2",
+   "a": 9.114560300829528,
+   "b": 8.985494744101096,
+   "abs_diff": -0.12906555672843112,
+   "rel_diff": -0.014160371149959335
+  },
+  {
+   "quantity": "kpi.net_fuel_heat_deficit_kW",
+   "a": 772.8673174,
+   "b": 740.951104572146,
+   "abs_diff": -31.916212827853997,
+   "rel_diff": -0.041295850024067784
+  },
+  {
+   "quantity": "kpi.lhv_efficiency",
+   "a": 0.8772018962224742,
+   "b": 0.8801810326212175,
+   "abs_diff": 0.002979136398743254,
+   "rel_diff": 0.0033961809836166737
+  }
+ ],
+ "count": 254,
+ "source_note": "results/validation/aspen_vs_python_baseline.csv; values as stored, no post-processing"
+}

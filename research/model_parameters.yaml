@@ -1,0 +1,551 @@
+# AmCraX curated parameter registry (research synthesis, 2026-11-21)
+#
+# Every value is copied from research/notes/<citekey>.json (which were checked against the PDFs by the
+# extraction agents) and carries citekey + page + locator. Values computed by AmCraX agents (not paper data)
+# are marked `kind: amcrax_check`. Assumptions are marked `assumption: true` with a rationale.
+# Provenance label to use in code (amcrax.schemas.DataSource): literature (unless stated otherwise).
+# Literature results are benchmarks/comparators only, never AmCraX results.
+# Units follow docs/developer_guide.md where possible; where the paper unit differs, the paper unit is kept
+# and stated explicitly (do not silently convert).
+
+meta:
+  version: 1
+  generated_by: research synthesis agent
+  references: research/references.json
+  traceability: research/traceability.json
+  gas_constant_J_per_mol_K: 8.314   # value used by takahashi2016kinetic / maccarrone2025comprehensive Eq. 13 / su2023review Eq. 3
+
+# ---------------------------------------------------------------------------------------------------------
+kinetics:
+  # ---------------- USABLE ----------------
+  ni_takahashi_microkinetic:
+    usable: true
+    usable_conditions: >-
+      Fitted at 1 atm, <20 % conversion, 350-450 degC; validated to high conversion at 500-650 degC, 1 atm.
+      Rate uses mole fractions only (p_i/p_total), so it has no intrinsic total-pressure dependence; use at
+      20 bar is an unvalidated extrapolation that must be labelled. Steps 2 and 3 are irreversible, so the model
+      can exceed equilibrium: the reactor model must cap conversion at equilibrium (labelled assumption).
+    catalyst: 30 wt% Ni/MgO, 22-42 mesh powder
+    source: {citekey: takahashi2016kinetic, page: 2-4, locator: "Eqs. 5-14, 20-25; Table 1 (p. 4)"}
+    mechanism:
+      - "NH3(g) + s <=> NH3(a)         (k1, k_-1 = k1/K1)"
+      - "NH3(a) + 3s -> N(a) + 3H(a)   (k2, irreversible, lumped dehydrogenation)"
+      - "2N(a) -> N2(g) + 2s           (k3, irreversible)"
+      - "2H(a) <=> H2(g) + 2s          (k4, k_-4 = k4/K4)"
+    rate_expressions:
+      r1: "k1*(p_NH3/p_total)*theta_s - (k1/K1)*theta_NH3"
+      r2: "k2*theta_NH3*theta_s**3"
+      r3: "k3*theta_N**2"
+      r4: "k4*theta_H**2 - (k4/K4)*(p_H2/p_total)*theta_s**2"
+      site_balance: "theta_s = 1 - theta_NH3 - theta_N - theta_H"
+      quasi_steady_state: "r1 = r2;  r2 = 2*r3;  3*r2 = 2*r4   (Eqs. 12-14)"
+      nh3_consumption_rate: "r_NH3 = r2 = r1  [mol NH3 s^-1 g_cat^-1]"
+      temperature_dependence: "k_i = A_i*exp(-Ea_i/(R*T)), T in K (nomenclature says degC; K reproduces Table 2)"
+      K4_note: "K4 = A6*exp(-Ea4/(R*T)) uses the same Ea as k4, so k_-4 = A4/A6 is T-independent"
+    pfr_equations: "dF/dm = -r1 + r3 + r4; dy_i/dm = (nu_i_rate - y_i*(-r1 + r3 + r4))/F, m = catalyst mass [g], F [mol/s] (Eqs. 15-19, pp. 2-3)"
+    rate_basis: per gram catalyst
+    rate_unit: mol s^-1 g_cat^-1
+    pressure_unit: atm (used only as p_i/p_total)
+    parameters:
+      A1: {value: 75.5,     unit: mol s^-1 g^-1}
+      Ea1: {value: 0.0,     unit: kJ/mol, note: non-activated adsorption}
+      A2: {value: 7.54e15,  unit: mol s^-1 g^-1}
+      Ea2: {value: 144.0,   unit: kJ/mol}
+      A3: {value: 3.12e6,   unit: mol s^-1 g^-1}
+      Ea3: {value: 127.8,   unit: kJ/mol}
+      A4: {value: 3.92e4,   unit: mol s^-1 g^-1}
+      Ea4: {value: 109.0,   unit: kJ/mol}
+      A5_K1: {value: 2.26e-14, unit: "-"}
+      Ea5_K1: {value: -79.4, unit: kJ/mol, note: "negative = exothermic adsorption; K1 = A5*exp(+79400/(R*T))"}
+      A6_K4: {value: 4.13e6, unit: "-", note: uses Ea4}
+    reference_values_500C:   # Table 2, p. 5 - use for unit tests with ~10 % tolerance (see check below)
+      k_minus1: 1.50e10
+      k2: 1.51e6
+      k3: 7.48e-3
+      k4: 1.79e-3
+      k_minus4: 9.49e-3
+      K4: 0.189
+      unit: "mol s^-1 g^-1 (K4 dimensionless)"
+      locator: "Table 2 (p. 5); K4 in text Sec. 4.2"
+    amcrax_check: "Table 1 evaluated at 773.15 K gives values 2-7 % below Table 2 (k_-4 exact); likely rounding. Do not tune (extraction agent check, takahashi2016kinetic notes)."
+    validation_data: "Fig. 3a-c, Fig. 5a (p. 5), Fig. 1a (p. 3): see traceability.json kinetics.ni_takahashi_microkinetic"
+    known_gaps:
+      - Catalyst mass, bed density and SV basis not reported; conversion-vs-SV figures need a labelled W/F assumption.
+      - Figure readings approximate (+/-2 percentage points); 'H2 yield' treated as NH3 conversion.
+
+  ru_takahashi_microkinetic:
+    usable: true
+    usable_conditions: >-
+      Fitted at 1 atm, <20 % conversion, 300-400 degC; validated at 450-550 degC, 1 atm. Same caveats as the Ni
+      model (mole-fraction basis, no pressure dependence, no reverse of steps 2/3, equilibrium cap required).
+    catalyst: 5 wt% Ru/MgO, 22-42 mesh powder
+    source: {citekey: takahashi2016kinetic, page: 2-4, locator: "Eqs. 5-14, 20-25; Table 1 (p. 4)"}
+    rate_expressions: same_as ni_takahashi_microkinetic
+    rate_basis: per gram catalyst
+    rate_unit: mol s^-1 g_cat^-1
+    pressure_unit: atm (used only as p_i/p_total)
+    parameters:
+      A1: {value: 83.6,     unit: mol s^-1 g^-1}
+      Ea1: {value: 0.0,     unit: kJ/mol}
+      A2: {value: 1.34e14,  unit: mol s^-1 g^-1}
+      Ea2: {value: 105.8,   unit: kJ/mol}
+      A3: {value: 6.26e5,   unit: mol s^-1 g^-1}
+      Ea3: {value: 123.5,   unit: kJ/mol}
+      A4: {value: 7.18e2,   unit: mol s^-1 g^-1}
+      Ea4: {value: 67.8,    unit: kJ/mol}
+      A5_K1: {value: 3.49e-13, unit: "-"}
+      Ea5_K1: {value: -64.0, unit: kJ/mol}
+      A6_K4: {value: 1.51e4, unit: "-", note: uses Ea4}
+    reference_values_500C:
+      k_minus1: 1.17e10
+      k2: 9.97e6
+      k3: 3.02e-3
+      k4: 1.94e-2
+      k_minus4: 4.75e-2
+      K4: 0.407
+      unit: "mol s^-1 g^-1 (K4 dimensionless)"
+      locator: "Table 2 (p. 5); K4 in text Sec. 4.2"
+    rate_determining_step: "N2 recombinative desorption limits Ru; NH3 dehydrogenation controls Ni (pp. 6-7)"
+    validation_data: "Fig. 4a-c, Fig. 5b (p. 5), Fig. 2a (p. 3)"
+
+  ru_kum_temkin_pyzhev:
+    usable: true
+    usable_conditions: >-
+      Fitted to Di Carlo et al. (2014) data, 623-723 K (350-450 degC), 1-10 bar, GHSV 300-2400 h^-1 (MAPE 0.81 %,
+      36 points). Use above 723 K or above 10 bar is extrapolation (the source paper itself applies it to 773 K and
+      13 bar). Pressure dependent and reversible, so it is the preferred rate law for the 20 bar baseline,
+      with a labelled extrapolation flag.
+    catalyst: Ru (8 wt%)/Al2O3 commercial beads (Hypermec 10010)
+    source: {citekey: kum2026heatintegrated, page: 4-5, locator: "Eq. 2-4 (p. 4); Table 1 (p. 5); Fig. 4a (p. 9)"}
+    experimental_data_source: dicarlo2014ammonia
+    rate_expression: "r = ko*exp(-Ea/(R*T)) * [ (P_NH3**2/P_H2**3)**beta - (P_N2/Keq**2)*(P_H2**3/P_NH3**2)**(1-beta) ]"
+    rate_basis: per gram catalyst
+    rate_unit: mol g_cat^-1 s^-1
+    pressure_unit: bar (partial pressures)
+    parameters:
+      ko: {value: 55245.9, unit: "mol g_cat^-1 s^-1 bar^0.27", locator: "Table 1 p. 5 (confirmed in extracted text)"}
+      Ea: {value: 114224, unit: J/mol}
+      beta: {value: 0.27, unit: "-"}
+    equilibrium_constant:
+      as_printed: "Keq = exp(-dGr/(R*T)); dGr = 95117 - 193.67*T - 0.035293*T**2 + 9.22e-6*T**3  (T in K; unit of dGr not printed)"
+      locator: "Eqs. 3-4, p. 4"
+      basis_issue: >-
+        AmCraX check (Cantera 3.2.0 gri30 thermo, synthesis agent): Eq. 4 matches dG for 2NH3 -> N2 + 3H2 in J
+        (-37.04 vs -36.94 kJ at 623 K; -71.45 vs -71.12 kJ at 773 K; -94.76 vs -94.23 kJ at 873 K). The driving force
+        in Eq. 2 is zero at equilibrium only if Keq**2 = P_N2*P_H2**3/P_NH3**2, i.e. Keq is per mol NH3.
+      assumption: true
+      assumption_text: "Use Keq**2 = exp(-dGr/(R*T)) with dGr from Eq. 4 (per 2 mol NH3), standard state 1 bar."
+      rationale: Only reading consistent with both the stoichiometry of the driving force and the thermodynamics check.
+    known_gaps:
+      - "Nomenclature lists R in m3 bar/mol/K; J/(mol K) is required in the exponent (Ea in J/mol)."
+      - Rate singular at P_H2 -> 0 (reactor inlet); integrator needs a small H2 seed or analytic start (labelled numerical assumption).
+    bed_properties: {eps_b: 0.36, rho_cat_kg_m3: 980, dp_m: 0.0006, locator: "Table 1 p. 5 (from Chiuta 2016 / Di Carlo 2014)"}
+
+  # ---------------- NOT USABLE (kept for completeness / sanity ranges only) ----------------
+  ru_k_cao_sayas_power_law:
+    usable: false
+    reason: "Orders and E_app are usable as sanity checks, but K0 = 8584.8 printed as mol gcat^-1 s^-1 with no pressure unit; original paper not in local library."
+    catalyst: Ru (3 wt%)-10%K/CaO
+    rate_expression: "-r_NH3 = k*p_NH3**alpha*p_H2**gamma*[1 - (1/K_eq)*(p_H2**3*p_N2/p_NH3**2)]  (K_eq per 2 mol NH3 inferred, not stated)"
+    parameters: {E_app_kJ_mol: 111, alpha: 0.5, gamma: -1.2, K0_as_printed: 8584.8}
+    source: {citekey: maccarrone2025comprehensive, page: 19-20, locator: "Table 4 (p. 19); Table 5 (p. 20)"}
+    original_source: sayas2020high
+  ni_ba_al_o_im_power_law:
+    usable: false
+    reason: "Power-law orders and E_app only; no pre-exponential factor."
+    catalyst: 20 wt% Ni/Ba-Al-O
+    rate_expression: "r = k*p_NH3**alpha*p_H2**gamma"
+    parameters: {E_app_kJ_mol: 76.5, alpha: 0.47, gamma: -0.32, T_C: 450, rds: H2 desorption}
+    other_supports: {Sr: {E_app: 81.1, alpha: 0.58, gamma: -0.38}, Ca: {E_app: 87.2, alpha: 0.70, gamma: -0.42}, Mg: {E_app: 89.3, alpha: 0.39, gamma: -0.62}}
+    source: {citekey: maccarrone2025comprehensive, page: 20, locator: Table 5}
+    original_source: im2020ammonia
+  ru_al2o3_dicarlo_temkin_review_entry:
+    usable: false
+    reason: "Review reprints K0 = 1.5e-9 'mol m-3 s-1' (implausible, no pressure unit). Use ru_kum_temkin_pyzhev (fit to the same data) instead."
+    parameters: {E_app_kJ_mol: 117, beta: 0.27}
+    source: {citekey: maccarrone2025comprehensive, page: 20, locator: Table 5}
+    original_source: dicarlo2014ammonia
+  chopra_temkin_pyzhev:
+    usable: false
+    reason: "beta not reported; Table 1 malformed in publisher PDF; catalyst printed as Li2NH; units of r and P not stated."
+    parameters: {k0_s_inv: 2.92e6, E0_kJ_mol: 141.5}
+    source: {citekey: chopra2026decentralized, page: 3-4, locator: "Eq. 2; Table 1"}
+  mehr_temkin_pyzhev_ni:
+    usable: false
+    reason: "No pre-exponential factor; alpha/beta confusion (0.209 vs 0.5 vs 0.21); cited sources unreliable."
+    parameters: {Ea_kJ_mol: 95.6, beta_probable: 0.209}
+    source: {citekey: mehr2026highcapacity, page: 5-7, locator: "Eq. 4; Sec. 2.7"}
+  tamaru_langmuir:
+    usable: false
+    reason: "Energy units of 49600/39600 not stated (likely cal/mol, unverified); rate per surface area (molecules cm^-2 s^-1); metal not stated in the reviews."
+    rate_expression: "r = k_R*K*P_NH3/(1 + K*P_NH3); k_R = 1.57e28*exp(-49600/(R*T)); K = 6.7e-9*exp(39600/(R*T)) [Torr^-1]"
+    source: {citekey: su2023review, page: 16, locator: Eq. 4}
+    also_in: {citekey: xu2025review, page: 8, locator: Fig. 6}
+    original_source: tamaru1988new
+  itoh_langmuir_hinshelwood:
+    usable: false
+    reason: "No numerical kf, kn, kp in the local library; kf unit printed as mmol s/(kg_cat MPa)."
+    rate_expression: "r = kf*(p_NH3**2 - p_H2**3*p_N2/kp)/(p_H2**1.5 + sqrt(kn*p_NH3**2))**2, p in MPa"
+    source: {citekey: maccarrone2025comprehensive, page: 19, locator: Table 4}
+    original_source: itoh2014kinetic
+  mccabe_ni_zero_first_order:
+    usable: false
+    reason: Functional form only, no parameter values in local library.
+    source: {citekey: xu2025review, page: 8, locator: Fig. 6}
+    original_source: mccabe1983kinetics
+  supplementary_only:
+    usable: false
+    entries:
+      - {citekey: cho2026nickel, what: "Ni/Al2O3 (Collins 1993) and Ru-K/CaO kinetics", locator: "Supplementary S1 (not in repository)"}
+      - {citekey: richard2024technoeconomic, what: "Temkin-Pyzhev-like k0, E0, beta (Eq. 4)", locator: "Supplementary S4 (not in repository)"}
+      - {citekey: ahmad2025gtcc, what: "Temkin-Pyzhev k0, E0, beta (Eq. 2)", locator: "not reported"}
+
+  sanity_ranges:
+    ru_apparent_activation_energy_kJ_mol: {range: [41.55, 98.2], citekey: su2023review, page: 6, locator: Table 2}
+    ru_tof_s_inv: {range: [0.04, 11.4], citekey: su2023review, page: 6, locator: Table 2}
+    ni_ru_ceo2_activation_energy_kJ_mol: {range: [107, 124], citekey: su2023review, page: 19, locator: text Sec. 3.2}
+    n2_desorption_ea_ni_pt_kJ_mol: {range: [125, 210], citekey: takahashi2016kinetic, page: 4, locator: text Sec. 3}
+
+  stability:
+    ni_industrial_reference:
+      conditions: "534 degC, 1 atm, 490 mL/min NH3 + 10 mL/min Ar, 500 mg catalyst + 4.5 g SiC, 60,000 mL g^-1 h^-1"
+      X_after_reduction_pct: 80
+      X_max_pct_at_250h: 91.9
+      X_at_800h_pct: 90.4
+      source: {citekey: purcel2024stability, page: 2, locator: "text; Fig. 3"}
+      derived_rate_pct_points_per_h: {value: -0.0027, kind: amcrax_check, note: "(90.4-91.9)/(800-250), derived by extraction agent"}
+    ni_al2o3_coprecipitated:
+      X_max_pct: 54.1
+      deactivation_over_800h_pct: {value: 13.5, note: relative vs absolute basis ambiguous}
+      d_Ni_nm: {fresh: 3.5, after_1000h: 5.0}
+      S_BET_m2_g: {reduced: 169, after_1000h: 150}
+      source: {citekey: purcel2024stability, page: 2-4, locator: "text; Table 1"}
+    ru_mgo_endurance:
+      statement: ">1000 h at 873-973 K, linear deactivation X = -k*t + X0, k Arrhenius"
+      source: {citekey: su2023review, page: 6, locator: "Fig. 3a"}
+      original_source: yamazaki2022evaluation
+
+# ---------------------------------------------------------------------------------------------------------
+thermodynamics:
+  reaction: "NH3 <=> 0.5 N2 + 1.5 H2"
+  reaction_enthalpy_kJ_per_mol_NH3:
+    - {value: 45.92, citekey: cechetto2023membrane, page: 3, locator: Eq. 1, note: printed as formation enthalpy}
+    - {value: 45.984, citekey: maccarrone2025comprehensive, page: 3, locator: Eq. 1, note: "uncited; dS 99.046 J/(mol K), dG 16.610 kJ/mol - internally inconsistent by ~0.16 kJ/mol"}
+    - {value: 46.11, citekey: kum2026heatintegrated, page: 5, locator: Table 1, note: "46110 J/mol NH3 at 298 K"}
+    - {value: 45.6, citekey: cho2026nickel, page: 2, locator: Eq. 1}
+    - {value: 45.6, citekey: xu2025review, page: 5, locator: Eq. 1, note: "printed 91.2 kJ for 2NH3"}
+    - {value: 45.9, citekey: richard2024technoeconomic, page: 7, locator: Eq. 3}
+    - {value: 46.2, citekey: mehr2026highcapacity, page: 2, locator: Eq. 1, note: "92.4 kJ per 2 NH3"}
+    - {value: 46.0, citekey: purcel2024stability, page: 1, locator: Eq. 1, note: "92 kJ per 2 NH3"}
+    - {value: 46.22, citekey: chopra2026decentralized, page: 3, locator: Eq. 1, note: "printed kJ/mol H2; physically per mol NH3"}
+  reference_thermo_data: {citekeys: [nist_webbook, nist_janaf, smith_grimech30, goodwin2018cantera], note: "use for the independent thermodynamics module; the literature values above are cross-checks"}
+  equilibrium_conversion_benchmarks:    # pure NH3 feed; kind: equilibrium
+    cechetto_aspen_v11:
+      method: "Aspen Plus V11 RGibbs (Fig. 2); Table 3 source presumably the same calculation"
+      p_1bar: {T_C: [325, 350, 375, 400, 450], X_pct: [97.3, 98.2, 98.7, 99.1, 99.7]}
+      p_4bar: {T_C: [400, 425, 450], X_pct: [96.7, 97.6, 98.2]}
+      p_5bar: {T_C: [350, 400, 425, 450, 475, 500], X_pct: [91.9, 95.9, 97.0, 97.8, 98.3, 98.7]}
+      statements: [">99 % at 1 bar above 400 degC", ">95 % at 1-20 bar above 500 degC"]
+      fig2_200C_approx: {p_bar: [1, 5, 10, 20], X_pct: [75, 43, 32, 24], note: read from figure}
+      source: {citekey: cechetto2023membrane, page: "3, 9", locator: "Fig. 2; Table 3"}
+    xu_fig4a_approx:
+      p_0p1MPa: {T_C: [100, 150, 200, 250, 300, 350, 400], X_pct: [20, 48, 74, 89, 95, 98, 99]}
+      p_3MPa: {T_C: [300, 350, 400, 500, 600], X_pct: [52, 69, 80, 92, 97]}
+      note: read from figure (approximate); data originally from Sun et al. 2022
+      source: {citekey: xu2025review, page: "5-6", locator: "Fig. 4(a)"}
+    hansen_hsc_quoted: {T_C: [400, 500], X_pct: [99.1, 99.7], note: pressure not stated, source: {citekey: hansen2024hysys, page: 2, locator: Table 1}}
+    not_valid_benchmark:
+      - {citekey: ahmad2025gtcc, locator: "Fig. 19(b) p. 19", reason: "systematically above ideal-gas equilibrium (96.4 vs 93.1 % at 500 degC/30 bar per extraction agent check)"}
+  kp_correlations:
+    note: "Maccarrone Eqs. 3-5 are misprinted; corrected readings by the extraction agent reproduce Fig. 1a but are interpretations - trace originals before use."
+    eq3_yin2004: {corrected: "Kp = exp(-dG0/(R*T)), dG0 = 40100 - 25.46*T*ln(T) + 0.00917*T**2 - 103000/T + 64.81*T [J/mol NH3]", page: 4}
+    eq4_shacham2015: {reading: "Kp = 1/10**[2.10 + (1/4.571)*(9591/T - 0.00046*T + 0.85e-6*T**2) - (4.98/1.985)*log10(T)]", page: 4}
+    eq5_wang1999: {corrected: "Kp = 10**-(2250.322/T - 0.85340 - 1.52049*log10(T) - 2.58987e-4*T + 1.48961e-7*T**2)", page: 4, original_source: wang1999kinetics}
+    amcrax_check_values: {T_K: [500, 700, 873], eq3: [2.97, 102, 647], eq4: [3.01, 105, 663], eq5: [3.54, 118, 726], kind: amcrax_check}
+    source: {citekey: maccarrone2025comprehensive, page: 4, locator: "Eqs. 3-5"}
+  kum_dGr_correlation: {expr: "dGr = 95117 - 193.67*T - 0.035293*T**2 + 9.22e-6*T**3 [J per 2 mol NH3, basis verified vs Cantera]", citekey: kum2026heatintegrated, page: 4, locator: "Eq. 4"}
+  heating_values:
+    LHV_NH3_MJ_kg: [{value: 18.6, citekey: cechetto2023membrane, page: 2, locator: Table 1}, {value: 18.6, citekey: xu2025review, page: 4, locator: Table 1}, {value: 18.8, citekey: ahmad2025gtcc, page: 7, locator: Eq. 7}, {value: 18, citekey: richard2024technoeconomic, page: 10, locator: "Eq. 12 (rounded)"}]
+    LHV_H2_MJ_kg: [{value: 120, citekey: xu2025review, page: 4, locator: Table 1}, {value: 120, citekey: richard2024technoeconomic, page: 10, locator: Eq. 12}]
+  other:
+    nh3_combustion_enthalpy_kJ_per_mol_NH3: {value: -317, note: "to H2O(g)", citekey: xu2025review, page: 6, locator: Eq. 3}
+    h2_content_of_nh3_wt_pct: {value: 17.8, citekey: xu2025review, page: 3, locator: Sec. 1}
+    theoretical_specific_nh3_kg_per_kg_H2: {value: 5.632, citekey: cho2026nickel, page: 10, locator: Sec. 4.1}
+    liquid_nh3_saturation_pressure_25C_bar: {value: 9.9, citekey: cechetto2023membrane, page: 2, locator: Table 1}
+
+# ---------------------------------------------------------------------------------------------------------
+process:
+  operating_points:
+    - {label: "Ni optimum (TEA-optimal)", T_C: 735.52, P_bar: 24.34, catalyst: Ni/Al2O3, conversion_min: 0.97, citekey: cho2026nickel, page: 13, locator: Table 7}
+    - {label: "Ru optimum", T_C: 566.69, P_bar: 10, catalyst: Ru-K/CaO, citekey: cho2026nickel, page: 13, locator: Table 7}
+    - {label: "Ni optimal T vs P", P_bar: [1.2, 5, 10, 20, 30], T_C: [653.15, 684.5, 701.59, 727.93, 746.98], citekey: cho2026nickel, page: 9, locator: Table 5}
+    - {label: "Ru optimal T vs P", P_bar: [1.2, 5, 10, 20, 30], T_C: [482.5, 535.33, 566.69, 616.84, 639.35], citekey: cho2026nickel, page: 9, locator: Table 5}
+    - {label: "Fired multi-tube Ru/Al2O3", P_in_bar: 13, GHSV_h_inv: 1800, preheat_K: 623.15, X_pct: 96.3, hot_spot_K: 705, heat_duty_kJ_per_mol_NH3: 79.25, citekey: kum2026heatintegrated, page: "3, 10, 12", locator: "Sec. 2; Sec. 4.2; Fig. 5"}
+    - {label: "FTR / MR (power generation)", inlet_T_C: [400, 460], P_bar: [10, 25], citekey: richard2024technoeconomic, page: 6, locator: Table 1}
+    - {label: "Exhaust-heated Ru cracker", T_C: 500, P_bar: 10, X_pct: 97, GHSV_h_inv: 1200, citekey: ahmad2025gtcc, page: 5, locator: "Table 2; Sec. 2.2 (conversion from Di Carlo 2014)"}
+    - {label: "Large Ni/Al2O3 fired cracker (contextual only)", T_in_C: 480, T_out_C: 760, P_bar: "17.5 (text) / 21 (Table 6)", citekey: mehr2026highcapacity, page: "5, 8", locator: "Sec. 2.4.2; Table 6"}
+    - {label: "Small HRS six-zone fired cracker", T_in_C: 300, T_out_C: 470, X: 0.99, catalyst_kg: 42.88, citekey: chopra2026decentralized, page: "4-6", locator: "Fig. 4; Sec. 3.1"}
+  pressure_guidance:
+    - {statement: "NH3 pressure >= 20 bar recommended in industrial thermochemical-recuperation systems (heat deficit at 1-10 bar)", citekey: xu2025review, page: 29, locator: Sec. 4.2, original: "Pashchenko & Mustafin 2022"}
+    - {statement: "Ru-10%K/CaO at 500 degC: X = 98/80/65/60 % at 1/10/20/40 bar", citekey: maccarrone2025comprehensive, page: 13, locator: Table 2, original_source: sayas2020high}
+    - {statement: "Commercial Ru/Al2O3 at 500 degC, 286 NmL/(gcat h): X = 99.7/98.5/97.2 % at 1/5/10 bar", citekey: maccarrone2025comprehensive, page: 12, locator: Table 2, original_source: dicarlo2014ammonia}
+  equipment_efficiencies:
+    compressor_isentropic: [{value: 0.75, citekey: cho2026nickel, page: 5, locator: Table 2}, {value: 0.85, citekey: ahmad2025gtcc, page: 5, locator: Table 2}, {value: 0.70, citekey: richard2024technoeconomic, page: 6, locator: Table 1}]
+    expander_isentropic: {value: 0.85, citekey: cho2026nickel, page: 5, locator: Table 2}
+    pump_efficiency: [{value: 0.75, citekey: cho2026nickel, page: 5, locator: Table 2}, {value: 0.70, citekey: richard2024technoeconomic, page: 6, locator: Table 1}]
+    compressor_part_load: {expr: "eta = eta_max*exp(-((Q - Q_design)/(sigma*Q_design))**2)", eta_max: 0.8, sigma: 0.2, citekey: mehr2026highcapacity, page: 6, locator: Eq. 5}
+  heat_integration:
+    dT_min_K:
+      - {value: 5, citekey: ahmad2025gtcc, page: 5, locator: Table 2}
+      - {value: 10, citekey: cho2026nickel, page: 5, locator: Table 2}
+      - {value: 10, citekey: kum2026heatintegrated, page: 13, locator: "Fig. 9a (MITA)"}
+      - {value: 20, citekey: farokhi2025costoptimization, page: 3, locator: Sec. 3}
+      - {value: "15 (gas-water) / 30 (gas-gas)", citekey: richard2024technoeconomic, page: 6, locator: Table 1}
+    U_W_m2_K:
+      - {value: 60, service: gas/gas, citekey: richard2024technoeconomic, page: 6, locator: Table 1}
+      - {value: 70, service: gas/liquid, citekey: richard2024technoeconomic, page: 6, locator: Table 1}
+      - {value: 50, note: "printed kW/m2 degC, likely W/m2/K", citekey: farokhi2025costoptimization, page: 3, locator: Sec. 3}
+    pinch_results_kum:
+      max_recoverable_kW: 6081
+      recovered_conventional_kW: 1108
+      recovered_HEN_kW: 5750
+      min_cooling_kW: 3871
+      net_energy_HEN_kJ_per_mol_NH3: 36.79
+      energy_conversion_rate_pct: {HEN: 84.19, conventional: 79.58}
+      citekey: kum2026heatintegrated
+      page: "13, 15"
+      locator: "Fig. 9a-c; Fig. 10b; Fig. 12"
+    realpe_feed_effluent:
+      efficiency_pct: {without: 65.7, with: 75.3}
+      pre_cracker_heat_load_reduction_pct: 15
+      citekey: xu2025review
+      page: 30
+      locator: Sec. 5
+      original: Realpe et al. 2024 (Appl. Energy 376, 124244) - not verified online
+    burner_fuel:
+      - {statement: "18 % of product gas burned in furnace at steady state; CNG only at start-up (61.7 kg/h)", citekey: chopra2026decentralized, page: "4, 6", locator: "Sec. 2.2; Sec. 3.1"}
+      - {statement: "Ru-10 bar optimum needs no NH3 make-up fuel; Ni-24.34 bar needs 1.736 kmol/h NH3 fuel (6.7 MJ/kg H2)", citekey: cho2026nickel, page: 13, locator: "Table 7; Fig. 8a"}
+      - {statement: "Off-gas combustion alone insufficient to heat the cracker (qualitative)", citekey: cechetto2023membrane, page: 6, locator: "text Sec. 4 (qualitative; supplementary fuel required)"}
+      - {statement: "At 100 % load PSA purge gas alone covers furnace duty; 192 kg/h NH3 slipstream at 50 % load", citekey: mehr2026highcapacity, page: 11, locator: Sec. 3.2.2}
+      - {statement: "Furnace ~680-690 degC needed to hold a 534 degC lab bed", citekey: purcel2024stability, page: 2, locator: Fig. 1}
+    burner_excess_air:
+      - {value: "15 % (Ni) / 30 % (Ru)", citekey: cho2026nickel, page: 13, locator: Table 7}
+      - {value: "1.2 x stoichiometric O2", citekey: kum2026heatintegrated, page: 5, locator: Sec. 3.1.1}
+  plant_efficiency_benchmarks:
+    - {value_pct: [79.25, 80.82], label: "LHV energy efficiency Ni-24.34 / Ru-10 bar", citekey: cho2026nickel, page: 13, locator: "Fig. 8(b)"}
+    - {value_pct: [75.35, 77.0], label: "exergy efficiency Ni / Ru", citekey: cho2026nickel, page: 13, locator: "Fig. 8(b)"}
+    - {value_pct: 68.5, label: "FTR thermal efficiency", citekey: richard2024technoeconomic, page: 14, locator: Fig. 10}
+    - {value_pct: 85, label: "membrane reactor thermal efficiency at min LCOH", citekey: richard2024technoeconomic, page: 12, locator: Table 6}
+    - {value_pct: 83.6, label: "Ru/La-Al2O3 reformer efficiency", citekey: xu2025review, page: 31, locator: "Sec. 5, Fig. 23"}
+  h2_yield_benchmarks_kg_H2_per_kg_NH3:
+    - {value: [0.1316, 0.141], label: "HYSYS base / improved", citekey: hansen2024hysys, page: "4-5", locator: "Tables 3-4"}
+    - {value: [0.128, 0.14], label: "base / final case", citekey: farokhi2025costoptimization, page: "1, 5", locator: "Abstract; Table 7"}
+  specific_nh3_consumption_kg_per_kg_H2: {value: [8.011, 7.639], label: "Ni-24.34 / Ru-10 bar, feed+fuel", citekey: cho2026nickel, page: 13, locator: Table 7}
+
+# ---------------------------------------------------------------------------------------------------------
+separation:
+  product_spec_ISO14687_2019:   # as quoted; ISO standard page not verified online (HTTP 403 to automated check)
+    NH3_max_ppm: 0.1
+    N2_max_ppm_vehicle: 300
+    N2_max_vol_pct_stationary: 50
+    citekey: cechetto2023membrane
+    page: 5
+    locator: text Sec. 2
+  psa:
+    note: "No source supports the AmCraX baseline H2 recovery 0.85 numerically. Literature range 0.71-0.81; treat 0.85 as an assumption (label it) or change baseline (coordinator decision)."
+    recovery_data:
+      - {recovery: 0.756, purity: 0.9911, adsorbent: zeolite 5A 4-bed, conditions: "40 degC, 7 bar; desorption 1.2 bar", citekey: cho2026nickel, page: 6, locator: Table 3, original_source: yanez2020psa}
+      - {recovery: 0.80, purity: null, conditions: "lumped 4-bed PSA assumption", citekey: kum2026heatintegrated, page: 3, locator: "Sec. 2; Appendix I", original_source: devkota2024techno}
+      - {recovery: 0.71, purity: 0.99, adsorbent: activated carbon, conditions: "2.5 bar, 20 degC", citekey: hansen2024hysys, page: 2, locator: Sec. 2, original: "Cha et al. 2021"}
+      - {recovery: 0.79, purity: null, citekey: hansen2024hysys, page: 2, locator: Sec. 2, original: "Lee et al. 2023"}
+      - {recovery: 0.81, purity: 0.9996, reliability: "low - same paper reports 0.25 at 99.81 % in validation", citekey: mehr2026highcapacity, page: 8, locator: Table 6}
+    feed_pressure_bar: [{value: 15, citekey: chopra2026decentralized, page: 4, locator: Sec. 2.2}, {value: 7, citekey: cho2026nickel, page: 6, locator: Table 3}]
+    product_purity: {value: 0.99, citekey: chopra2026decentralized, page: 4, locator: Sec. 2.2}
+    h2_n2_separation_factor_5A: {value: 16, conditions: 10 bar, citekey: mehr2026highcapacity, page: 5, locator: Sec. 2.4.3, original_source: yanez2020psa}
+  nh3_removal:
+    tsa_zeolite_4A:
+      outlet_NH3_ppm_max: 0.1
+      inlet: "61.05 degC, 10 bar; regeneration 350 degC"
+      citekey: cho2026nickel
+      page: 6
+      locator: Table 3
+    tsa_kum:
+      H2_recovery_pct: 98.57
+      energy_kJ_per_mol_NH3_removed: {electricity: 61.32, heat: 36.08, cooling: 36.32}
+      purge_to_feed: 0.1
+      regeneration_K: 623.15
+      feed: "1160.38 kmol/h, 334.15 K, 10.03 bar, y_NH3 0.019"
+      citekey: kum2026heatintegrated
+      page: "6, 12"
+      locator: "Eq. 11; Table 7"
+    polishing:
+      - {method: clinoptilolite, NH3_ppm: "~1000 -> <0.025", citekey: cechetto2023membrane, page: 14, locator: Sec. 4.3.6}
+      - {method: water bubbler, NH3_ppm: "4.2 -> 1.8", citekey: cechetto2023membrane, page: 15, locator: text}
+      - {method: activated carbon at 70 degC, capacity_mg_NH3_per_g: 0.5, citekey: chopra2026decentralized, page: 4, locator: Sec. 2.2}
+  membrane:
+    sieverts_flux: {expr: "J_H2 = (Pe/delta)*(p_H2_ret**n - p_H2_perm**n)", n: 0.5, Pe: "Pe0*exp(-Ea/(R*T))", units: "J mol m-2 s-1, Pe mol m-1 s-1 Pa-0.5, p in Pa", citekey: richard2024technoeconomic, page: "6-7", locator: "Eqs. 1-2"}
+    pd_ag_permeability:
+      Pe0_as_printed: 6.93e8
+      Pe0_probable: 6.93e-8
+      Pe0_unit: mol m-1 s-1 Pa-0.5
+      Ea_kJ_mol: 9.99
+      thickness_um: 5
+      usable: false
+      reason: "Pre-exponential printed 6.93e8 (likely typo for 6.93e-8); original Fernandez et al. 2015 not verified - must be traced before use"
+      citekey: richard2024technoeconomic
+      page: 7
+      locator: Table 2
+    concentration_polarisation_factor: {value: 0.15, citekey: richard2024technoeconomic, page: 7, locator: Table 3}
+    pd_limits:
+      - {statement: "embrittlement below 300 degC and 2 MPa; defects above 550 degC; MR should never exceed 500 degC", citekey: cechetto2023membrane, page: "6, 10", locator: "Sec. 4.1.1; Sec. 4.3.1"}
+      - {statement: "Pd membrane operating window 350-500 degC", citekey: maccarrone2025comprehensive, page: 29, locator: Sec. 5.5}
+    hydrogen_recovery_factor: {expr: ["HRF = H2_perm/(H2_perm + H2_ret)", "HRF = H2_perm/(1.5*NH3_feed)"], citekey: maccarrone2025comprehensive, page: 23, locator: Table 6}
+    mr_benchmarks:
+      - {ref: "Kim 2022", membrane: "Pd 5 um", T_C: 430, P_bar: 5, permeate: vacuum, X_pct: 99.4, R_H2_pct: 97.5, citekey: cechetto2023membrane, page: 15, locator: Table 8}
+      - {ref: "Cechetto 2021", membrane: "Pd-Ag 4.61 um", T_C: 400, P_bar: 4, permeate: vacuum, X_pct: 99.3, R_H2_pct: 93.5, citekey: cechetto2023membrane, page: "13, 15", locator: "Tables 6, 8"}
+      - {ref: "Jiang 2021", membrane: "Pd-Ag 1.8 um", T_C: 450, P_bar: 7, X_pct: 99.1, R_H2_pct: 90.6, purity: ">99.999 %, NH3 <0.01 ppm", citekey: cechetto2023membrane, page: "15, 17", locator: "Tables 8, 10"}
+    not_available: "No permeance values in cechetto2023membrane or maccarrone2025comprehensive."
+
+# ---------------------------------------------------------------------------------------------------------
+economics:
+  financial:
+    discount_rate:
+      - {value: 0.085, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 0.10, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+      - {value: 0.10, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+      - {value: 0.10, citekey: chopra2026decentralized, page: 4, locator: Table 2}
+      - {value: 0.10, citekey: ahmad2025gtcc, page: 8, locator: Eq. 12}
+    plant_life_yr:
+      - {value: 25, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 25, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+      - {value: 25, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+      - {value: 20, citekey: chopra2026decentralized, page: 4, locator: Table 2}
+      - {value: 20, citekey: mehr2026highcapacity, page: 13, locator: Table 9}
+    operating_hours_h_per_yr:
+      - {value: 8000, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 7000, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+      - {value: 4000, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+      - {value: 7920, note: "330 d/yr", citekey: chopra2026decentralized, page: 8, locator: Sec. 3.2}
+      - {value: 7884, note: "availability 0.9 x 8760", citekey: mehr2026highcapacity, page: 13, locator: Table 9}
+    crf_formula: {expr: "CRF = i*(1+i)**n/((1+i)**n - 1)", citekey: cho2026nickel, page: 7, locator: "Eqs. 16-17"}
+    capital_charge_factor_direct: {value: 0.153, note: "i, n not stated", citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+  lcoh_formula: {expr: "LCOH = (CAPEX*CRF + OPEX + C_NOx)/(m_H2*3600*OH)", citekey: cho2026nickel, page: 7, locator: Eq. 15}
+  capex_factors:
+    cho_method: {OSBL_frac_ISBL: 0.12, engineering_frac_ISBL_OSBL: 0.10, contingency_frac_ISBL_OSBL: 0.18, citekey: cho2026nickel, page: 7, locator: Table 4}
+    farokhi_method: {TCI_over_PEC: 5.93, direct_pct_PEC: 360, indirect_pct_PEC: 144, working_capital_pct_PEC: 89, citekey: farokhi2025costoptimization, page: "3, 5", locator: "Sec. 3; Table 5", original_source: devkota2024techno}
+    kum_peters_method: {PEC_frac_FCI: 0.27, working_capital_frac_FCI: 0.15, maintenance_frac_FCI: 0.05, Fm_stainless: 3, Fp_7_50bar: 1.5, citekey: kum2026heatintegrated, page: "7-8", locator: "Sec. 3.4.1; Table 5"}
+    ahmad_method: {sum_f_indirect: 2.06, citekey: ahmad2025gtcc, page: 7, locator: Eq. 9}
+    richard_tpc: {expr: "TPC = sum(C_i)*(1+%TIC)*(1+%IC)*(1+%C&OC)", citekey: richard2024technoeconomic, page: 7, locator: Eq. 5}
+    location_factor_india: {value: 0.65, citekey: chopra2026decentralized, page: 4, locator: Eq. 5 text}
+  scaling:
+    exponent:
+      - {value: 0.8, scope: all equipment, citekey: chopra2026decentralized, page: 4, locator: Eq. 5}
+      - {value: 0.7451, scope: "NH3 cracker CAPEX vs t-H2/h", citekey: ahmad2025gtcc, page: 7, locator: Fig. 6}
+    cracker_capex_correlation:
+      expr: "CAPEX [MUSD] = 18.171*Size[t H2/h]**0.7451"
+      range_t_H2_per_h: [0.007, 200]
+      R2: 0.9158
+      cost_year: not stated
+      citekey: ahmad2025gtcc
+      page: 7
+      locator: Fig. 6
+      original_source: cesaro2021ammonia
+  cepci:
+    - {year: 2001, value: 397, citekey: chopra2026decentralized, page: 4, locator: Eq. 4}
+    - {year: 2010, value: 532.9, citekey: kum2026heatintegrated, page: 7, locator: Sec. 3.4.1}
+    - {year: 2021, value: 701, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+    - {year: 2024, value: 720.2, citekey: kum2026heatintegrated, page: 7, locator: Sec. 3.4.1}
+    - {year: 2024, value: 800.3, citekey: ahmad2025gtcc, page: 7, locator: Eq. 8, note: "conflicts with Kum 720.2 for the same year; CEPCI not independently verified"}
+    - {year: 2025, value: 798.8, citekey: chopra2026decentralized, page: 4, locator: Eq. 4}
+  capex_data_points:
+    - {label: "NH3 cracking plant 400 kg H2/d at 350 bar", value: 0.71, unit: MUSD, cost_year: 2025, currency: USD, location: India, capacity_kg_H2_per_d: 400, citekey: chopra2026decentralized, page: 7, locator: Sec. 3.2}
+    - {label: "TCI share compressor/PSA/cracker/HX/adsorber", value_pct: [44, 26, 21, 5, 4], citekey: chopra2026decentralized, page: 5, locator: "Fig. 5(a)"}
+    - {label: "Base case PEC / TCI, 500 kmol/h NH3", value: [1702, 10096], unit: kUSD, note: "unit printed USD, inferred kUSD", cost_year: not stated, citekey: farokhi2025costoptimization, page: 5, locator: Table 5}
+    - {label: "1000 t/d NH3 plant (contextual, inconsistent)", value: 642.7, unit: MEUR, citekey: mehr2026highcapacity, page: 14, locator: Sec. 3.3.2}
+    - {label: "Unit CAPEX contribution Ni-24.34 bar", value: 0.586, unit: USD/kg H2, cost_year: 2024, citekey: cho2026nickel, page: 13, locator: "Fig. 8(d)"}
+    - {label: "Unit CAPEX contribution Ru-10 bar", value: 0.549, unit: USD/kg H2, cost_year: 2024, citekey: cho2026nickel, page: 13, locator: "Fig. 8(d)"}
+    - {label: "Cracking reactor cost at full cracking (GTCC)", value: 45, unit: MUSD, citekey: ahmad2025gtcc, page: 15, locator: "Fig. 17(b)"}
+  opex_factors:
+    maintenance:
+      - {value: 0.03, basis: annualized CAPEX, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 0.03, basis: FCI, citekey: chopra2026decentralized, page: 4, locator: Table 2}
+      - {value: 0.05, basis: FCI, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+      - {value: 0.025, basis: TPC/TCI, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+    insurance:
+      - {value: 0.015, basis: FCI, citekey: chopra2026decentralized, page: 4, locator: Table 2}
+      - {value: 0.02, basis: TPC/TCI, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+    cho_fixed_opex: {operating_charges_frac_labor: 0.15, plant_overhead_frac_labor_maint: 0.25, G_and_A_frac_fixed_opex: 0.06, operator_salary_USD_yr: 34167, citekey: cho2026nickel, page: 7, locator: Table 4}
+    farokhi_opex: {expr: "OPEX = C_RM + 2.3125*C_L + C_U + 0.137*FCI + 0.1*TCI (reconstructed from garbled glyphs)", operators: 15, citekey: farokhi2025costoptimization, page: 3, locator: Eq. 3}
+  prices:
+    nh3:
+      - {value: 450, unit: USD/t, range: [300, 610], year: 2024, citekey: cho2026nickel, page: 7, locator: "Table 4; Table 8"}
+      - {value: 500, unit: USD/t, note: "MC SD 50", citekey: kum2026heatintegrated, page: 8, locator: "Tables 5-6"}
+      - {value: 520, unit: USD/t, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+      - {value: 480, unit: USD/t, note: Japan, citekey: ahmad2025gtcc, page: 8, locator: Sec. 2.4}
+      - {value: 450, unit: EUR/t, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+      - {value: "1000 / 709 / 463", unit: USD/t, note: "current / 2030 / 2050 scenarios", citekey: cho2026nickel, page: 17, locator: Fig. 11}
+    electricity:
+      - {value: 0.084, unit: USD/kWh, range: [0.042, 0.126], citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 0.0775, unit: USD/kWh, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+      - {value: 0.080, unit: USD/kWh, year: 2025, citekey: chopra2026decentralized, page: 4, locator: Table 2}
+      - {value: 0.060, unit: EUR/kWh, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+    cooling_water:
+      - {value: 2.125e-7, unit: USD/kJ, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 2.12e-7, unit: USD/kJ, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+    fired_heat: {value: 4.25e-6, unit: USD/kJ, citekey: kum2026heatintegrated, page: 8, locator: Table 5}
+    nox_scr_cost: {value: 4, unit: USD/kg NOx, range: [3, 6], citekey: cho2026nickel, page: 7, locator: "Table 4; Table 8"}
+    adsorbent:
+      - {value: 10, unit: USD/kg, lifetime_yr: 4, citekey: cho2026nickel, page: 7, locator: Table 4}
+      - {value: 3.41, unit: USD/kg, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+    h2_selling_price:
+      - {value: 9, unit: USD/kg, citekey: kum2026heatintegrated, page: 7, locator: Sec. 3.4.1}
+      - {value: 9.06, unit: USD/kg, citekey: farokhi2025costoptimization, page: 5, locator: Table 4}
+  catalyst:
+    - {catalyst: "Ni/Al2O3 8 wt%", price_USD_kg: 33.4, range: [16.7, 66.8], lifetime_yr: 2, lifetime_note: "assumed by authors; sensitivity 1-4 yr (ordering appears inverted)", citekey: cho2026nickel, page: 7, locator: "Tables 4, 8"}
+    - {catalyst: "Ru-K/CaO 3 wt%", price_USD_kg: 542, range: [271, 1084], lifetime_yr: 2, citekey: cho2026nickel, page: 7, locator: "Tables 4, 8"}
+    - {catalyst: "Ru-based 4 wt%", price_USD_kg: 25, citekey: kum2026heatintegrated, page: 7, locator: Sec. 3.4.1, original_source: devkota2024techno}
+    - {catalyst: "cracking catalyst (type ambiguous)", price_USD_kg: 24, citekey: chopra2026decentralized, page: 4, locator: Table 2, original_source: devkota2024techno}
+    - {catalyst: "Ru-based", price_EUR_kg: 143, lifetime_yr: 5, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+    - {catalyst: "Pd membrane", price_EUR_m2: 6000, lifetime_yr: 3, citekey: richard2024technoeconomic, page: 9, locator: Table 5}
+  reported_lcoh:   # literature benchmarks only
+    - {value: [5.439, 5.293], unit: USD/kg H2, label: "Ni-24.34 bar / Ru-10 bar, 630 kg/h NH3", cost_year: 2024, citekey: cho2026nickel, page: 13, locator: "Fig. 8(d)"}
+    - {value: [1.995, 1.856], unit: USD/kg H2, label: "reconversion cost (LCOH minus NH3 feed) Ni / Ru", citekey: cho2026nickel, page: 13, locator: "Fig. 8(d)"}
+    - {value: 6.44, unit: USD/kg H2, label: "most probable (Monte Carlo), NH3 0.5 USD/kg", citekey: kum2026heatintegrated, page: 16, locator: "Fig. 13a"}
+    - {value: [4.34, 6.27], unit: USD/kg H2, label: "NH3 0.284 / 0.475 USD/kg", citekey: kum2026heatintegrated, page: 17, locator: Table 8}
+    - {value: [5.5, 5.1], unit: USD/kg H2, label: "base / heat-recovery case", citekey: farokhi2025costoptimization, page: 5, locator: "Sec. 5.2-5.3"}
+    - {value: 5.1, unit: EUR/kg H2, label: "FTR, NH3 450 EUR/t", citekey: richard2024technoeconomic, page: 14, locator: Fig. 10}
+    - {value: 4.45, unit: EUR/kg H2, label: "membrane reactor minimum", citekey: richard2024technoeconomic, page: 12, locator: Table 6}
+    - {value: 6.84, unit: USD/kg H2, label: "grey NH3, decentralised 400 kg/d, 350 bar incl. supply", citekey: chopra2026decentralized, page: 6, locator: Fig. 7}
+    - {value: [11.24, 17.12], unit: USD/kg H2, label: "electrolytic-NH3 scenarios I-IV range", citekey: chopra2026decentralized, page: 6, locator: Fig. 7}
+    - {value: 2.94, unit: USD/kg H2, label: "SMR reference", citekey: chopra2026decentralized, page: 6, locator: Fig. 7}
+    - {value: 8.36, unit: EUR/kg H2, label: "1000 t/d NH3 (contextual; breakdown inconsistent)", citekey: mehr2026highcapacity, page: 14, locator: Table 10}
+    - {value: 6.0, unit: USD/kg H2, label: "multi-bed cracker; NH3 62 % of cost", citekey: maccarrone2025comprehensive, page: 33, locator: Sec. 6, original_source: devkota2024techno}
+    - {value: 6.05, unit: USD/kg H2, label: "Devkota et al. 2024 (quoted)", citekey: farokhi2025costoptimization, page: 5, locator: Sec. 5.4, original_source: devkota2024techno}
+    - {value: 7.72, unit: USD/kg H2, label: "membrane reactor, import terminal (Kanaan 2023, quoted)", citekey: maccarrone2025comprehensive, page: 34, locator: Sec. 6}
+  lcoh_structure: {nh3_share_pct: {cho_Ni: 63.3, note_cho: "3.443/5.439, derived by synthesis agent from Fig. 8(d)", richard_MR: 70, richard_FTR: 65}, citekeys: [cho2026nickel, richard2024technoeconomic], page: "13; 14", locator: "Fig. 8(d); Fig. 10a"}
+
+# ---------------------------------------------------------------------------------------------------------
+environmental:
+  emission_factors:
+    grid_electricity_kgCO2_per_kWh: {value: 0.207, citekey: kum2026heatintegrated, page: 17, locator: Sec. 4.7, original: "European Environment Agency; Li et al. 2023"}
+    n2o_gwp100: {value: 300, citekey: kum2026heatintegrated, page: 17, locator: Sec. 4.7}
+    haber_bosch_tCO2_per_t_NH3: {range: [2.0, 4.6], note: fossil-H2 based, citekey: cechetto2023membrane, page: 19, locator: Sec. 6}
+    haber_bosch_energy_GJ_per_t_NH3: {range: [28, 37], citekey: cechetto2023membrane, page: 19, locator: Sec. 6}
+    h2_compression_1_to_700bar: {kWh_per_kg: 6.0, kgCO2_per_kg: 1.3, citekey: maccarrone2025comprehensive, page: 24, locator: Sec. 5.2, original: "Cerrillo et al. 2022"}
+    cracking_heat_source_kgCO2_per_kg_H2: {coal: 1.11, solar: 0.055, wind: 0.014, citekey: maccarrone2025comprehensive, page: 33, locator: Sec. 6, original_source: devkota2024techno}
+  carbon_intensity_results_kgCO2eq_per_kg_H2:   # literature, cradle-to-gate unless stated
+    - {scenario: "grey NH3 cracking (V)", value: 17.91, boundary: "cradle-to-gate incl. NH3 synthesis, transport, cracking, compression to 350 bar, dispensing; EF 3.0; India grid", citekey: chopra2026decentralized, page: 8, locator: "Sec. 3.3; Fig. 8(a)"}
+    - {scenario: "solar PV NH3 (II)", value: 3.214, boundary: same, citekey: chopra2026decentralized, page: 8, locator: "Sec. 3.3"}
+    - {scenario: "grid electrolytic NH3 (I)", value: 112.79, boundary: same, citekey: chopra2026decentralized, page: 8, locator: "Sec. 3.3"}
+    - {scenario: "grid+solar NH3 (III)", value: 78.05, citekey: chopra2026decentralized, page: 8, locator: Sec. 3.3}
+    - {scenario: "off-grid PV+battery NH3 (IV)", value: 9.96, citekey: chopra2026decentralized, page: 8, locator: Sec. 3.3}
+    - {scenario: "solar PEMWE (VI)", value: 1.21, citekey: chopra2026decentralized, page: 8, locator: Sec. 3.3}
+    - {scenario: "SMR", value: 13.48, citekey: chopra2026decentralized, page: 8, locator: Sec. 3.3}
+    - {scenario: "indirect CO2 from cracker electricity only", value: 0.38, boundary: "gate-to-gate electricity, 0.207 kg/kWh", citekey: kum2026heatintegrated, page: 17, locator: Sec. 4.7}
+    - {scenario: "SMR / coal gasification / fossil-NH3 (quoted, unverified sources)", value: "8.5-9.5 / 11-12 / 9-10", reliability: low, citekey: mehr2026highcapacity, page: 15, locator: Table 11}
+  nox:
+    - {value_mg_Nm3: [1517, 863], label: "boiler flue gas Ni-24.34 / Ru-10 bar", citekey: cho2026nickel, page: 13, locator: Table 7}
+    - {value_kg_per_kg_H2: 0.018, label: "membrane reactor cracking step", citekey: richard2024technoeconomic, page: 12, locator: Table 6}
+  other:
+    h2_loss_transport_handling_frac: {value: 0.05, citekey: chopra2026decentralized, page: 5, locator: Sec. 2.4}
+    nh3_boil_off_pct_per_day: {value: 0.04, citekey: chopra2026decentralized, page: 3, locator: Sec. 2}

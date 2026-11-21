@@ -1,0 +1,128 @@
+{
+ "name": "lcoh_tornado_baseline_no_hi",
+ "category": "sensitivity",
+ "columns": [
+  "parameter",
+  "base_value",
+  "low_value",
+  "high_value",
+  "lcoh_base_USD_per_kg",
+  "lcoh_at_low_USD_per_kg",
+  "lcoh_at_high_USD_per_kg",
+  "swing_USD_per_kg",
+  "range_source",
+  "process_data_source"
+ ],
+ "rows": [
+  {
+   "parameter": "nh3_price_USD_per_t",
+   "base_value": 450.0,
+   "low_value": 300.0,
+   "high_value": 610.0,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 2.9594581795449937,
+   "lcoh_at_high_USD_per_kg": 5.383998026626586,
+   "swing_USD_per_kg": 2.4245398470815926,
+   "range_source": "cho2026nickel p.7 Table 8",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "capex_multiplier",
+   "base_value": 1.0,
+   "low_value": 0.5,
+   "high_value": 1.5,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 3.8649187132196374,
+   "lcoh_at_high_USD_per_kg": 4.40032653014286,
+   "swing_USD_per_kg": 0.5354078169232226,
+   "range_source": "cho2026nickel p.7 Table 8 (CAPEX -50 %/+50 %)",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "maintenance_frac_capex_per_yr",
+   "base_value": 0.03,
+   "low_value": 0.025,
+   "high_value": 0.05,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.111231245335663,
+   "lcoh_at_high_USD_per_kg": 4.218188127063595,
+   "swing_USD_per_kg": 0.10695688172793183,
+   "range_source": "library range: richard 0.025 - kum 0.05",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "operating_hours_h_per_yr",
+   "base_value": 8000.0,
+   "low_value": 7000.0,
+   "high_value": 8000.0,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.219726104467574,
+   "lcoh_at_high_USD_per_kg": 4.132622621681249,
+   "swing_USD_per_kg": 0.08710348278632463,
+   "range_source": "library range: kum2026heatintegrated 7000 - cho2026nickel 8000",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "discount_rate",
+   "base_value": 0.1,
+   "low_value": 0.085,
+   "high_value": 0.1,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.092402346989964,
+   "lcoh_at_high_USD_per_kg": 4.132622621681249,
+   "swing_USD_per_kg": 0.04022027469128542,
+   "range_source": "library range: cho2026nickel 0.085 - kum/farokhi/chopra/ahmad 0.10",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "plant_life_yr",
+   "base_value": 25.0,
+   "low_value": 20.0,
+   "high_value": 25.0,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.156166220992407,
+   "lcoh_at_high_USD_per_kg": 4.132622621681249,
+   "swing_USD_per_kg": 0.023543599311158125,
+   "range_source": "library range: chopra2026decentralized/mehr 20 - cho/kum/farokhi 25",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "catalyst_price_USD_per_kg",
+   "base_value": 33.4,
+   "low_value": 16.7,
+   "high_value": 66.8,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.131591491643009,
+   "lcoh_at_high_USD_per_kg": 4.134684881757727,
+   "swing_USD_per_kg": 0.0030933901147180975,
+   "range_source": "cho2026nickel p.7 Table 8 (-50 %/+100 %)",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "catalyst_lifetime_yr",
+   "base_value": 2.0,
+   "low_value": 1.0,
+   "high_value": 4.0,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.134684881757727,
+   "lcoh_at_high_USD_per_kg": 4.131591491643009,
+   "swing_USD_per_kg": 0.0030933901147180975,
+   "range_source": "cho2026nickel p.7 Table 8",
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "parameter": "electricity_price_USD_per_kWh",
+   "base_value": 0.084,
+   "low_value": 0.042,
+   "high_value": 0.126,
+   "lcoh_base_USD_per_kg": 4.132622621681249,
+   "lcoh_at_low_USD_per_kg": 4.132314570887221,
+   "lcoh_at_high_USD_per_kg": 4.132930672475276,
+   "swing_USD_per_kg": 0.0006161015880552512,
+   "range_source": "cho2026nickel p.7 Table 8",
+   "process_data_source": "aspen_plus_v15"
+  }
+ ],
+ "count": 9,
+ "source_note": "results/sensitivity/lcoh_tornado_baseline_no_hi.csv; values as stored, no post-processing"
+}

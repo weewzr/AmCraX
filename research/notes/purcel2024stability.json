@@ -1,0 +1,45 @@
+{
+  "citekey": "purcel2024stability",
+  "apa7": "Purcel, M., Müller, A. S., Diehl, P., Kappis, K., Trunschke, A., & Muhler, M. (2025). Long-term stability of ammonia decomposition over nickel-based catalysts. Energy Technology, 13(2), 2400678. https://doi.org/10.1002/ente.202400678",
+  "doi": "10.1002/ente.202400678",
+  "url": "https://doi.org/10.1002/ente.202400678",
+  "doi_verified": true,
+  "year": 2025,
+  "year_note": "Published online 2024 (copyright 2024); journal issue Energy Technol. 2025, 13(2). Citekey uses 2024.",
+  "type": "article",
+  "equations": [
+    {"id": "eq1", "name": "overall reaction and standard enthalpy", "expression": "2NH3 <=> 3H2 + N2, dH0 = +92 kJ/mol (per 2 mol NH3)", "variables": {"dH0": "standard reaction enthalpy [kJ mol^-1]"}, "page": 1, "applies_to": "general"},
+    {"id": "eq2", "name": "NH3 conversion with volume expansion", "expression": "X_NH3 = (1 - y_NH3/y_NH3_0)/(1 + y_NH3)", "variables": {"X_NH3": "NH3 conversion [-]", "y_NH3": "effluent NH3 mole fraction [-]", "y_NH3_0": "inlet NH3 mole fraction [-] (0.98 here, Ar internal standard)"}, "page": 2, "applies_to": "2NH3 -> N2 + 3H2 with inert"}
+  ],
+  "parameters": [
+    {"name": "standard reaction enthalpy", "symbol": "dH0", "value": 92, "unit": "kJ per 2 mol NH3", "kind": "thermodynamic", "catalyst": "-", "conditions": "standard state", "page": 1, "locator": "Eq. 1", "is_original_to_this_paper": false, "original_source": "not cited in the paper (textbook value)"},
+    {"name": "Ni content of coprecipitated Ni/Al2O3 (XRF)", "symbol": "w_Ni", "value": 51.2, "unit": "wt%", "kind": "catalyst", "catalyst": "Ni/Al2O3 (coprecipitated LDH-derived)", "conditions": "calcined precursor; nominal 50 wt%", "page": 3, "locator": "Section 2.2", "is_original_to_this_paper": true},
+    {"name": "Ni crystallite size, fresh", "symbol": "d_Ni", "value": 3.5, "unit": "nm", "kind": "catalyst", "catalyst": "51.2 wt% Ni/Al2O3", "conditions": "Scherrer on 52 deg reflection, reduced+passivated", "page": 3, "locator": "Section 2.2", "is_original_to_this_paper": true},
+    {"name": "Ni crystallite size, after 1000 h TOS", "symbol": "d_Ni", "value": 5.0, "unit": "nm", "kind": "catalyst", "catalyst": "51.2 wt% Ni/Al2O3", "conditions": "after 1000 h NH3 decomposition, passivated", "page": 3, "locator": "Section 2.2", "is_original_to_this_paper": true},
+    {"name": "BET surface area (precursor / reduced / after 1000 h)", "symbol": "S_BET", "value": "275 / 169 / 150", "unit": "m^2 g^-1", "kind": "catalyst", "catalyst": "51.2 wt% Ni/Al2O3", "conditions": "", "page": 4, "locator": "Table 1", "is_original_to_this_paper": true},
+    {"name": "pore volume (precursor / reduced / after 1000 h)", "symbol": "V_p", "value": "0.604 / 0.296 / 0.319", "unit": "mL g^-1", "kind": "catalyst", "catalyst": "51.2 wt% Ni/Al2O3", "conditions": "BJH", "page": 4, "locator": "Table 1", "is_original_to_this_paper": true},
+    {"name": "pore diameter (precursor / reduced / after 1000 h)", "symbol": "d_p", "value": "5.4 / 4.7 / 5.4", "unit": "nm", "kind": "catalyst", "catalyst": "51.2 wt% Ni/Al2O3", "conditions": "BJH", "page": 4, "locator": "Table 1", "is_original_to_this_paper": true},
+    {"name": "TPR reduction peak maximum", "symbol": "T_red,max", "value": 640, "unit": "degC", "kind": "catalyst", "catalyst": "NiO-Al2O3 precursor", "conditions": "4.69% H2/Ar, 5 K/min", "page": 3, "locator": "Section 2.2; Fig. S1", "is_original_to_this_paper": true},
+    {"name": "gas hourly space velocity of long-term test", "symbol": "GHSV", "value": 60000, "unit": "mL g_cat^-1 h^-1 (normal conditions 273 K, 1 bar)", "kind": "process", "catalyst": "Ni reference catalyst", "conditions": "500 mL/min total, 500 mg catalyst", "page": 2, "locator": "Fig. 2 legend", "is_original_to_this_paper": true},
+    {"name": "derived linear deactivation rate of reference catalyst (DERIVED by agent, not stated)", "symbol": "dX/dt", "value": -0.0027, "unit": "percentage points h^-1", "kind": "catalyst", "catalyst": "Ni industrial reference catalyst", "conditions": "534 C, 1 atm, 98% NH3; computed (90.4-91.9)/(800-250)", "page": 2, "locator": "derived from text values, Fig. 3", "is_original_to_this_paper": false, "original_source": "derived by AmCraX research agent from values stated in this paper"}
+  ],
+  "benchmarks": [
+    {"description": "Ni industrial reference catalyst, NH3 conversion directly after reduction", "conditions": "534 C, 1 atm, 490 mL/min NH3 + 10 mL/min Ar, 500 mg catalyst (200-300 um) + 4.5 g SiC, GHSV 60,000 mL g^-1 h^-1", "value": 80, "unit": "%", "page": 2, "locator": "text; Fig. 3", "kind": "experimental"},
+    {"description": "Ni reference catalyst, maximum conversion", "conditions": "same; at 250 h TOS", "value": 91.9, "unit": "%", "page": 2, "locator": "text; Fig. 3", "kind": "experimental"},
+    {"description": "Ni reference catalyst, conversion after 800 h TOS", "conditions": "same", "value": 90.4, "unit": "%", "page": 2, "locator": "text; Fig. 3", "kind": "experimental"},
+    {"description": "Coprecipitated 51.2 wt% Ni/Al2O3, maximum conversion", "conditions": "534 C, same flow and catalyst mass", "value": 54.1, "unit": "%", "page": 2, "locator": "text; Fig. 3", "kind": "experimental"},
+    {"description": "Coprecipitated Ni/Al2O3, total deactivation over 800 h relative to maximum conversion", "conditions": "534 C", "value": 13.5, "unit": "% (relative vs absolute basis ambiguous)", "page": 2, "locator": "text", "kind": "experimental"},
+    {"description": "Reference catalyst light-off: temperature for 90% conversion (read from figure, approximate +/-5 C except 534 C stated)", "conditions": "1 atm, 98% NH3, 1 C/min ramp", "value": {"12000": 495, "36000": 527, "60000": 534}, "unit": "degC vs GHSV [mL g^-1 h^-1]", "page": 2, "locator": "Fig. 2", "kind": "experimental"},
+    {"description": "Reference catalyst light-off: temperature for 50% conversion (read from figure, approximate +/-5 C)", "conditions": "1 atm, 98% NH3", "value": {"12000": 460, "36000": 480, "60000": 485}, "unit": "degC vs GHSV [mL g^-1 h^-1]", "page": 2, "locator": "Fig. 2", "kind": "experimental"},
+    {"description": "Furnace setpoint needed to hold 534 C bed (read from figure, approximate)", "conditions": "490 mL/min NH3, 500 mg reference catalyst", "value": "680-690", "unit": "degC", "page": 2, "locator": "Fig. 1", "kind": "experimental"},
+    {"description": "Literature Ni stability tests (cited)", "conditions": "various, 1 atm", "value": {"Nix(MgyAlzOn) LDH [21]": "150 h, 550/620 C", "90 mol% Ni/Al2O3 [22]": "72 h, 600 C", "40 wt% Ni/Y2O3 [18]": "50 h, 550 C", "La-Ni/Al2O3 [23]": "15 h, 700 C", "40 wt% Ni/BaZrO3 [24]": "35 h, 550 C", "CeO2-Ni/Al2O3 [25]": "180 h, 500 C, 15% NH3", "Ni/Zr-Al2O3 [26]": "5 h, 800 C", "NiO/Al2O3 [27]": "20 h, 600 C", "Ni/Al2O3 [28]": "24 h, 600 C"}, "unit": "duration, temperature", "page": 4, "locator": "Table 2", "kind": "experimental"}
+  ],
+  "limitations": [
+    "Industrial reference catalyst (Clariant) composition, Ni loading and reduction protocol undisclosed.",
+    "Single temperature (534 C) and atmospheric pressure only; no H2 co-feed, pressure or cycling tests.",
+    "800 h test is short relative to industrial catalyst life; deactivation linear or plateauing beyond 800 h is unknown.",
+    "No kinetic model or rate parameters reported.",
+    "Internal text inconsistencies: conversion after 1 h is 91.3% (p. 2) vs 90.1% (p. 4); deactivation window 550 h (p. 2) vs 496 h (p. 4); deactivation percentages not explicitly relative or absolute."
+  ],
+  "relevance": "Ni catalyst long-term stability evidence for AmCraX (catalyst replacement interval assumptions in economics; ~1.5 percentage points loss over ~550 h at 534 C for industrial Ni, 13.5% loss with sintering for unpromoted Ni/Al2O3), plus a well-defined integral-PFR data point with known catalyst mass and flow (534 C, 1 atm, 0.5 g, 490 mL/min NH3) for order-of-magnitude checks of Ni kinetics, and evidence of the large heat-supply temperature approach (furnace ~680-690 C for a 534 C bed)."
+}

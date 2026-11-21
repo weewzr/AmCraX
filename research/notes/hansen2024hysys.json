@@ -1,0 +1,49 @@
+{
+  "citekey": "hansen2024hysys",
+  "apa7": "Hansen, P. M., Attanayake, C., Farrokhi, V., Gholizadefalah, M., Samaei, L., Sanidanesh, Z., & Øi, L. E. (2024). Simulation of ammonia cracker process with Aspen HYSYS. In Proceedings of SIMS EUROSIM 2024 (Linköping Electronic Conference Proceedings No. 212, pp. 79-84). https://doi.org/10.3384/ecp212.011",
+  "doi": "10.3384/ecp212.011",
+  "url": "https://doi.org/10.3384/ecp212.011",
+  "doi_verified": true,
+  "year": 2024,
+  "type": "conference",
+  "equations": [
+    {"id": "Eq1", "name": "Ammonia cracking", "expression": "2 NH3(g) -> N2(g) + 3 H2(g)", "variables": {}, "page": 2, "applies_to": "cracker (Gibbs reactor)"},
+    {"id": "Eq2", "name": "Ammonia combustion", "expression": "4 NH3 + 3 O2 -> 2 N2 + 6 H2O + heat", "variables": {}, "page": 3, "applies_to": "furnace (Gibbs reactor)"}
+  ],
+  "parameters": [
+    {"name": "NH3 total feed", "symbol": "", "value": 500, "unit": "kmol/h", "kind": "process", "catalyst": "none (equilibrium)", "conditions": "both cases", "page": 4, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "Property package", "symbol": "", "value": "Peng-Robinson (SRK tested, similar)", "unit": "-", "kind": "thermodynamic", "catalyst": "", "conditions": "Aspen HYSYS V12", "page": 3, "locator": "Sec. 3; p. 6", "is_original_to_this_paper": true},
+    {"name": "Cracker temperature, base case", "symbol": "T", "value": 437, "unit": "degC", "kind": "process", "catalyst": "none", "conditions": "Gibbs reactor; pressure not stated", "page": 5, "locator": "Sec. 4.3", "is_original_to_this_paper": true},
+    {"name": "Cracker temperature, improved case", "symbol": "T", "value": 466, "unit": "degC", "kind": "process", "catalyst": "none", "conditions": "Gibbs reactor", "page": 5, "locator": "Sec. 4.3", "is_original_to_this_paper": true},
+    {"name": "H2 product pressure", "symbol": "", "value": 30, "unit": "bar", "kind": "process", "catalyst": "", "conditions": "25.5 degC", "page": 3, "locator": "Table 2", "is_original_to_this_paper": true},
+    {"name": "NH3 feed condition", "symbol": "", "value": "-27.6 degC, 1.3 bar", "unit": "", "kind": "process", "catalyst": "", "conditions": "Table 2 flow 592.33 kmol/h (inconsistent with 500)", "page": 3, "locator": "Table 2", "is_original_to_this_paper": true},
+    {"name": "Flue gas outlet temperature", "symbol": "", "value": 139, "unit": "degC", "kind": "process", "catalyst": "", "conditions": "1.01 bar", "page": 3, "locator": "Table 2", "is_original_to_this_paper": true},
+    {"name": "PSA/adsorber separation efficiency (assumption)", "symbol": "", "value": 100, "unit": "%", "kind": "separation", "catalyst": "", "conditions": "ideal component splitter", "page": 3, "locator": "Assumption 3", "is_original_to_this_paper": true},
+    {"name": "PSA H2 recovery (Cha et al. 2021)", "symbol": "", "value": 71, "unit": "%", "kind": "separation", "catalyst": "activated carbon", "conditions": "2.5 bar, 20 degC, purity 99 mol%", "page": 2, "locator": "Sec. 2", "is_original_to_this_paper": false, "original_source": "Cha et al. 2021, Renew. Sustain. Energy Rev. 152, 111562"},
+    {"name": "PSA H2 recovery (Lee et al. 2023)", "symbol": "", "value": 79, "unit": "%", "kind": "separation", "catalyst": "", "conditions": "", "page": 2, "locator": "Sec. 2", "is_original_to_this_paper": false, "original_source": "Lee et al. 2023, Chem. Eng. J. 457, 141203"}
+  ],
+  "benchmarks": [
+    {"description": "Equilibrium NH3 conversion at 400 degC (HSC Chemistry, quoted)", "conditions": "pressure not stated", "value": 99.1, "unit": "%", "page": 2, "locator": "Table 1", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion at 500 degC (quoted)", "conditions": "pressure not stated", "value": 99.7, "unit": "%", "page": 2, "locator": "Table 1", "kind": "equilibrium"},
+    {"description": "Base case cracker conversion", "conditions": "Gibbs reactor, 437 degC", "value": 99.42, "unit": "%", "page": 4, "locator": "Table 3", "kind": "equilibrium"},
+    {"description": "Base case NH3 burned in furnace", "conditions": "500 kmol/h feed", "value": 129.3, "unit": "kmol/h", "page": 4, "locator": "Table 3", "kind": "simulation"},
+    {"description": "Base case H2 production", "conditions": "500 kmol/h NH3", "value": 556.1, "unit": "kmol/h", "page": 4, "locator": "Table 3", "kind": "simulation"},
+    {"description": "Base case H2 yield", "conditions": "", "value": 0.1316, "unit": "kg H2/kg NH3", "page": 4, "locator": "Table 3", "kind": "simulation"},
+    {"description": "Improved case cracker conversion", "conditions": "466 degC", "value": 99.6, "unit": "%", "page": 5, "locator": "Table 4", "kind": "equilibrium"},
+    {"description": "Improved case NH3 burned", "conditions": "", "value": 103.3, "unit": "kmol/h", "page": 5, "locator": "Table 4", "kind": "simulation"},
+    {"description": "Improved case H2 production", "conditions": "", "value": 595.1, "unit": "kmol/h", "page": 5, "locator": "Table 4", "kind": "simulation"},
+    {"description": "Improved case H2 yield", "conditions": "", "value": 0.141, "unit": "kg H2/kg NH3", "page": 5, "locator": "Table 4", "kind": "simulation"},
+    {"description": "Restelli et al. 2023 yield (quoted)", "conditions": "", "value": 0.140, "unit": "kg H2/kg NH3", "page": 5, "locator": "Table 5", "kind": "simulation"},
+    {"description": "Devkota et al. 2023 yield (quoted)", "conditions": "", "value": 0.129, "unit": "kg H2/kg NH3", "page": 5, "locator": "Table 5", "kind": "simulation"},
+    {"description": "Lee et al. 2023 yield (quoted)", "conditions": "", "value": 0.127, "unit": "kg H2/kg NH3", "page": 5, "locator": "Table 5", "kind": "simulation"}
+  ],
+  "limitations": [
+    "Equilibrium (Gibbs) cracker without kinetics; optimistic conversion.",
+    "Ideal 100 % component splitter instead of adsorber and PSA; overestimates H2.",
+    "Furnace modelled as Gibbs reactor (HYSYS furnace limitation with NH3).",
+    "Ideal heaters/coolers, no heat-exchanger design, no pinch, no TEA.",
+    "Table 2 NH3 flow (592.33 kmol/h) inconsistent with 500 kmol/h basis; cracker pressure not stated.",
+    "Improved-case 'total conversion 74.35 %' likely a typo for 79.35 %."
+  ],
+  "relevance": "Low-fidelity reference flowsheet (HYSYS, PR, Gibbs cracker + Gibbs furnace, ideal splitters) giving H2 yield benchmarks 0.131-0.141 kg/kg and NH3 fuel fractions for sanity checks of the AmCraX Aspen Plus model."
+}

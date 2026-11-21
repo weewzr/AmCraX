@@ -1,0 +1,40 @@
+.venv/
+node_modules/
+__pycache__/
+*.pyc
+.pytest_cache/
+frontend/dist/
+# Research papers are copyrighted - keep them out of version control
+*.pdf
+!docs/**/*.pdf
+research/extracted/
+# Aspen scratch
+aspen/runs/
+*.his
+*.appdf
+*.def
+*.cpm
+docs/reference_projects/_clones/
+*.ads
+*.for
+aspen/models/*.his
+logs/
+docs/pitch_deck/preview/
+*.tsbuildinfo
+results/validation/pytest_junit.xml
+aspen/screenshots/originals/
+docs/reference_projects/kasco_assets/
+docs/pitch_deck/build/
+docs/technical_report/generated/
+aspen/models/_*
+aspen/models/*backup*
+# Aspen documents are binary and embed the Windows user and host names; the .inp and sanitised .bkp files reproduce the models
+*.apw
+# internal working notes (handover, progress log, design briefs)
+docs/internal/
+# generated at build time by frontend/scripts/prepare_site.mjs from docs/
+frontend/public/downloads/
+# full-page QA captures of the public site (phone, tablet, full HD)
+docs/screenshots/qa/
+# first edition of the report sections (kept locally for reference)
+docs/technical_report/sections_v1/

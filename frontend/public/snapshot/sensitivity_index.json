@@ -1,0 +1,19 @@
+[
+ "aspen_feed_rate",
+ "aspen_feed_water",
+ "aspen_fehe_approach",
+ "aspen_native_STEMP_baseline",
+ "aspen_native_STEMP_baseline_no_hi",
+ "aspen_no_hi_temperature",
+ "aspen_pressure",
+ "aspen_psa_recovery",
+ "aspen_temperature",
+ "aspen_tp_map",
+ "lcoh_tornado_baseline",
+ "lcoh_tornado_baseline_no_hi",
+ "lcoh_vs_ammonia_price_baseline",
+ "lcoh_vs_ammonia_price_baseline_no_hi",
+ "membrane_recovery_vs_area",
+ "pfr_temperature_sweep",
+ "psa_recovery_cases"
+]

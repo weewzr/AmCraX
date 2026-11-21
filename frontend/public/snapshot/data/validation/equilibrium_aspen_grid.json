@@ -1,0 +1,1698 @@
+{
+ "name": "equilibrium_aspen_grid",
+ "category": "validation",
+ "columns": [
+  "T_C",
+  "P_bar",
+  "property_method",
+  "nh3_conversion",
+  "y_NH3",
+  "y_H2",
+  "y_N2",
+  "heat_duty_kJ_per_mol_NH3_fed"
+ ],
+ "rows": [
+  {
+   "T_C": 250.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.897757669,
+   "y_NH3": 0.0538753356,
+   "y_H2": 0.709593498,
+   "y_N2": 0.236531166,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.11209968000001
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9590397252,
+   "y_NH3": 0.0209083432,
+   "y_H2": 0.734318743,
+   "y_N2": 0.244772914,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.9160944
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9821117601,
+   "y_NH3": 0.0090248392,
+   "y_H2": 0.743231371,
+   "y_N2": 0.24774379,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.768132040000005
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99138969357,
+   "y_NH3": 0.0043237677,
+   "y_H2": 0.746757174,
+   "y_N2": 0.248919058,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.86475792
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99547531018,
+   "y_NH3": 0.00226747472,
+   "y_H2": 0.748299394,
+   "y_N2": 0.249433131,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.636492440000005
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9974369452,
+   "y_NH3": 0.00128317182,
+   "y_H2": 0.749037621,
+   "y_N2": 0.249679207,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.2409724
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99845298224,
+   "y_NH3": 0.000774107661,
+   "y_H2": 0.749419419,
+   "y_N2": 0.249806473,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.74139436
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999014654431,
+   "y_NH3": 0.000492915631,
+   "y_H2": 0.749630313,
+   "y_N2": 0.249876771,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.16621308
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999342968908,
+   "y_NH3": 0.000328623504,
+   "y_H2": 0.749753532,
+   "y_N2": 0.249917844,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.53004996000001
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999544314751,
+   "y_NH3": 0.000227894548,
+   "y_H2": 0.749829079,
+   "y_N2": 0.249943026,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.84155724
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999673030749,
+   "y_NH3": 0.000163511357,
+   "y_H2": 0.749877366,
+   "y_N2": 0.249959122,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.10659356
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999758346415,
+   "y_NH3": 0.000120841393,
+   "y_H2": 0.749909369,
+   "y_N2": 0.24996979,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.329592319999996
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999816716286,
+   "y_NH3": 9.16502561e-05,
+   "y_H2": 0.749931262,
+   "y_N2": 0.249977087,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.51418268
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 1.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999857781901,
+   "y_NH3": 7.11141064e-05,
+   "y_H2": 0.749946664,
+   "y_N2": 0.249982221,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.663489080000005
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.6726564850000001,
+   "y_NH3": 0.195702774,
+   "y_H2": 0.603222919,
+   "y_N2": 0.201074306,
+   "heat_duty_kJ_per_mol_NH3_fed": 33.892402716
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.834095014,
+   "y_NH3": 0.0904560476,
+   "y_H2": 0.682157964,
+   "y_N2": 0.227385988,
+   "heat_duty_kJ_per_mol_NH3_fed": 42.628305600000004
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9189842768,
+   "y_NH3": 0.0422180235,
+   "y_H2": 0.718336482,
+   "y_N2": 0.239445494,
+   "heat_duty_kJ_per_mol_NH3_fed": 47.58091524
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9590054578,
+   "y_NH3": 0.0209262011,
+   "y_H2": 0.734305349,
+   "y_N2": 0.24476845,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.238123120000004
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9779550739,
+   "y_NH3": 0.0111453118,
+   "y_H2": 0.741641016,
+   "y_N2": 0.247213672,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.77027556
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9873707335,
+   "y_NH3": 0.00635476122,
+   "y_H2": 0.745233929,
+   "y_N2": 0.24841131,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.75749276
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99233222204,
+   "y_NH3": 0.00384864426,
+   "y_H2": 0.747113517,
+   "y_N2": 0.249037839,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.460304199999996
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99510025287,
+   "y_NH3": 0.00245589018,
+   "y_H2": 0.748158082,
+   "y_N2": 0.249386027,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.9975826
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99672665549,
+   "y_NH3": 0.00163935534,
+   "y_H2": 0.748770483,
+   "y_N2": 0.249590161,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.42674652
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99772715286,
+   "y_NH3": 0.0011377165,
+   "y_H2": 0.749146713,
+   "y_N2": 0.249715571,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.777668760000005
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99836796886,
+   "y_NH3": 0.000816681998,
+   "y_H2": 0.749387489,
+   "y_N2": 0.24979583,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.06724484
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9987932368,
+   "y_NH3": 0.00060374589,
+   "y_H2": 0.749547191,
+   "y_N2": 0.249849064,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.305912240000005
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999084426965,
+   "y_NH3": 0.000457996182,
+   "y_H2": 0.749656503,
+   "y_N2": 0.249885501,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.50070284
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 5.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.999289406371,
+   "y_NH3": 0.000355423095,
+   "y_H2": 0.749733433,
+   "y_N2": 0.249911144,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.65674016
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.5387670929999999,
+   "y_NH3": 0.299741858,
+   "y_H2": 0.525193607,
+   "y_N2": 0.175064536,
+   "heat_duty_kJ_per_mol_NH3_fed": 27.25665534
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.729499675,
+   "y_NH3": 0.156403802,
+   "y_H2": 0.632697149,
+   "y_N2": 0.21089905,
+   "heat_duty_kJ_per_mol_NH3_fed": 37.389923280000005
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.854621229,
+   "y_NH3": 0.0783873112,
+   "y_H2": 0.691209517,
+   "y_N2": 0.230403172,
+   "heat_duty_kJ_per_mol_NH3_fed": 44.34489684
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.922559773,
+   "y_NH3": 0.04027975,
+   "y_H2": 0.719790188,
+   "y_N2": 0.239930063,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.41415792
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9572617978,
+   "y_NH3": 0.0218357106,
+   "y_H2": 0.733623217,
+   "y_N2": 0.244541072,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.7504168
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.975188346,
+   "y_NH3": 0.0125616649,
+   "y_H2": 0.740578751,
+   "y_N2": 0.246859584,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.173954
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9848285881,
+   "y_NH3": 0.00764368872,
+   "y_H2": 0.744267233,
+   "y_N2": 0.248089078,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.11647612
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99026685708,
+   "y_NH3": 0.0048903708,
+   "y_H2": 0.746332222,
+   "y_N2": 0.248777407,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.7897222
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99348250169,
+   "y_NH3": 0.00326940332,
+   "y_H2": 0.747547948,
+   "y_N2": 0.249182649,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.29880180000001
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9954681365,
+   "y_NH3": 0.00227107786,
+   "y_H2": 0.748296692,
+   "y_N2": 0.249432231,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.698282999999996
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99674292994,
+   "y_NH3": 0.00163119148,
+   "y_H2": 0.748776606,
+   "y_N2": 0.249592202,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.01822832
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99759021514,
+   "y_NH3": 0.00120634595,
+   "y_H2": 0.749095241,
+   "y_N2": 0.249698414,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.27634544
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99817095836,
+   "y_NH3": 0.000915357933,
+   "y_H2": 0.749313482,
+   "y_N2": 0.249771161,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.48382532
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 10.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99858004941,
+   "y_NH3": 0.000710479719,
+   "y_H2": 0.74946714,
+   "y_N2": 0.24982238,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.64825064
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.407449496,
+   "y_NH3": 0.421010136,
+   "y_H2": 0.434242398,
+   "y_N2": 0.144747466,
+   "heat_duty_kJ_per_mol_NH3_fed": 20.805775128
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.59948085,
+   "y_NH3": 0.250405718,
+   "y_H2": 0.562195712,
+   "y_N2": 0.187398571,
+   "heat_duty_kJ_per_mol_NH3_fed": 30.927966480000002
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.757303065,
+   "y_NH3": 0.138107615,
+   "y_H2": 0.646419289,
+   "y_N2": 0.215473096,
+   "heat_duty_kJ_per_mol_NH3_fed": 39.48476292
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.8602469500000001,
+   "y_NH3": 0.0751260738,
+   "y_H2": 0.693655445,
+   "y_N2": 0.231218482,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.314004600000004
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.919384483,
+   "y_NH3": 0.0420007131,
+   "y_H2": 0.718499465,
+   "y_N2": 0.239499822,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.89322432
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.952053379,
+   "y_NH3": 0.0245621465,
+   "y_H2": 0.73157839,
+   "y_N2": 0.243859463,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.07064292
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9702876833,
+   "y_NH3": 0.0150801921,
+   "y_H2": 0.738689856,
+   "y_N2": 0.246229952,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.452601560000005
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.980792051,
+   "y_NH3": 0.00969710527,
+   "y_H2": 0.742727171,
+   "y_N2": 0.247575724,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.38339632
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.98707958,
+   "y_NH3": 0.00650221568,
+   "y_H2": 0.745123338,
+   "y_N2": 0.248374446,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.04674744
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99099083325,
+   "y_NH3": 0.00452496646,
+   "y_H2": 0.746606275,
+   "y_N2": 0.248868758,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.541055160000006
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99351353124,
+   "y_NH3": 0.00325378717,
+   "y_H2": 0.74755966,
+   "y_N2": 0.249186553,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.920745360000005
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99519526776,
+   "y_NH3": 0.00240815138,
+   "y_H2": 0.748193886,
+   "y_N2": 0.249397962,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.2173184
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99635027314,
+   "y_NH3": 0.00182819964,
+   "y_H2": 0.74862885,
+   "y_N2": 0.24954295,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.449978120000004
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 20.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99716501356,
+   "y_NH3": 0.00141950536,
+   "y_H2": 0.748935371,
+   "y_N2": 0.249645124,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.631095200000004
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.33746112500000003,
+   "y_NH3": 0.495370566,
+   "y_H2": 0.378472075,
+   "y_N2": 0.126157358,
+   "heat_duty_kJ_per_mol_NH3_fed": 17.410642164000002
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.518431372,
+   "y_NH3": 0.317148761,
+   "y_H2": 0.512138429,
+   "y_N2": 0.17071281,
+   "heat_duty_kJ_per_mol_NH3_fed": 26.942150952000002
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.6858616310000001,
+   "y_NH3": 0.186336982,
+   "y_H2": 0.610247263,
+   "y_N2": 0.203415754,
+   "heat_duty_kJ_per_mol_NH3_fed": 35.949092543999996
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.8085346680000001,
+   "y_NH3": 0.105867659,
+   "y_H2": 0.670599256,
+   "y_N2": 0.223533085,
+   "heat_duty_kJ_per_mol_NH3_fed": 42.76129788
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.885456934,
+   "y_NH3": 0.0607508262,
+   "y_H2": 0.70443688,
+   "y_N2": 0.234812293,
+   "heat_duty_kJ_per_mol_NH3_fed": 47.24087904
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9303967013,
+   "y_NH3": 0.0360564741,
+   "y_H2": 0.722957644,
+   "y_N2": 0.240985881,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.04372744
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9563287346,
+   "y_NH3": 0.0223230711,
+   "y_H2": 0.733257697,
+   "y_N2": 0.244419232,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.8182812
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9715621094,
+   "y_NH3": 0.0144240399,
+   "y_H2": 0.73918197,
+   "y_N2": 0.24639399,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.9889904
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9807870097,
+   "y_NH3": 0.00969967505,
+   "y_H2": 0.742725244,
+   "y_N2": 0.247575081,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.79961608
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.986566603,
+   "y_NH3": 0.00676211763,
+   "y_H2": 0.744928412,
+   "y_N2": 0.248309471,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.38582100000001
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99031122055,
+   "y_NH3": 0.00486797208,
+   "y_H2": 0.746349021,
+   "y_N2": 0.248783007,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.82397376
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99281490463,
+   "y_NH3": 0.00360550062,
+   "y_H2": 0.747295875,
+   "y_N2": 0.249098625,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.15842528
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99453782344,
+   "y_NH3": 0.00273856755,
+   "y_H2": 0.747946074,
+   "y_N2": 0.249315358,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.416006
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 30.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99575482942,
+   "y_NH3": 0.00212710024,
+   "y_H2": 0.748404675,
+   "y_N2": 0.249468225,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.61370504
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.29172209000000004,
+   "y_NH3": 0.54832066,
+   "y_H2": 0.338759505,
+   "y_N2": 0.112919835,
+   "heat_duty_kJ_per_mol_NH3_fed": 15.218838576
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.46124794599999996,
+   "y_NH3": 0.368693113,
+   "y_H2": 0.473480165,
+   "y_N2": 0.157826722,
+   "heat_duty_kJ_per_mol_NH3_fed": 24.158584404
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.630261865,
+   "y_NH3": 0.226796776,
+   "y_H2": 0.579902418,
+   "y_N2": 0.193300806,
+   "heat_duty_kJ_per_mol_NH3_fed": 33.221413548
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.764599842,
+   "y_NH3": 0.133401439,
+   "y_H2": 0.649948921,
+   "y_N2": 0.21664964,
+   "heat_duty_kJ_per_mol_NH3_fed": 40.6088604
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.854792525,
+   "y_NH3": 0.0782877186,
+   "y_H2": 0.691284211,
+   "y_N2": 0.23042807,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.757152
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.910051751,
+   "y_NH3": 0.0470920481,
+   "y_H2": 0.714680964,
+   "y_N2": 0.238226988,
+   "heat_duty_kJ_per_mol_NH3_fed": 49.08431664
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9429083782,
+   "y_NH3": 0.0293846186,
+   "y_H2": 0.727961536,
+   "y_N2": 0.242653845,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.21117504
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9625645535,
+   "y_NH3": 0.0190747593,
+   "y_H2": 0.735693931,
+   "y_N2": 0.24523131,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.605825120000006
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9746007896,
+   "y_NH3": 0.0128629597,
+   "y_H2": 0.74035278,
+   "y_N2": 0.24678426,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.55719064
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9821940177,
+   "y_NH3": 0.00898296644,
+   "y_H2": 0.743262775,
+   "y_N2": 0.247754258,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.232505280000005
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.9871354329,
+   "y_NH3": 0.00647392568,
+   "y_H2": 0.745144556,
+   "y_N2": 0.248381519,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.72788652
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99044887905,
+   "y_NH3": 0.00479847589,
+   "y_H2": 0.746401143,
+   "y_N2": 0.248800381,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.099658160000004
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99273349103,
+   "y_NH3": 0.00364650316,
+   "y_H2": 0.747265123,
+   "y_N2": 0.249088374,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.38190824
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 40.0,
+   "property_method": "PENG-ROB",
+   "nh3_conversion": 0.99434943514,
+   "y_NH3": 0.00283328727,
+   "y_H2": 0.747875035,
+   "y_N2": 0.249291678,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.59608196000001
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.8978156939999999,
+   "y_NH3": 0.0538431139,
+   "y_H2": 0.709617665,
+   "y_N2": 0.236539222,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.09060408
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9590559896,
+   "y_NH3": 0.0208998674,
+   "y_H2": 0.734325099,
+   "y_N2": 0.244775033,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.895275240000004
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9821170508,
+   "y_NH3": 0.0090221459,
+   "y_H2": 0.743233391,
+   "y_N2": 0.247744464,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.74928964
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99139166233,
+   "y_NH3": 0.00432277479,
+   "y_H2": 0.746757919,
+   "y_N2": 0.248919306,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.84792468
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99547612879,
+   "y_NH3": 0.00226706355,
+   "y_H2": 0.748299702,
+   "y_N2": 0.249433234,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.621458839999995
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99743731817,
+   "y_NH3": 0.00128298486,
+   "y_H2": 0.749037761,
+   "y_N2": 0.249679254,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.22750696
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99845316578,
+   "y_NH3": 0.000774015745,
+   "y_H2": 0.749419488,
+   "y_N2": 0.249806496,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.72929008
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999014750865,
+   "y_NH3": 0.000492867366,
+   "y_H2": 0.749630349,
+   "y_N2": 0.249876783,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.155293920000005
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999343022546,
+   "y_NH3": 0.000328596667,
+   "y_H2": 0.749753552,
+   "y_N2": 0.249917851,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.5201676
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999544346112,
+   "y_NH3": 0.000227878861,
+   "y_H2": 0.749829091,
+   "y_N2": 0.24994303,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.832586760000005
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999673049905,
+   "y_NH3": 0.000163501776,
+   "y_H2": 0.749877374,
+   "y_N2": 0.249959125,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.09842948
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999758358589,
+   "y_NH3": 0.000120835305,
+   "y_H2": 0.749909374,
+   "y_N2": 0.249969791,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.32214464
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999816724305,
+   "y_NH3": 9.16462459e-05,
+   "y_H2": 0.749931265,
+   "y_N2": 0.249977088,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.50737436
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 1.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999857787359,
+   "y_NH3": 7.11113768e-05,
+   "y_H2": 0.749946666,
+   "y_N2": 0.249982222,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.65725424000001
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.6737541069999999,
+   "y_NH3": 0.194918651,
+   "y_H2": 0.603811012,
+   "y_N2": 0.201270337,
+   "heat_duty_kJ_per_mol_NH3_fed": 33.837657264
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.834483585,
+   "y_NH3": 0.090225073,
+   "y_H2": 0.682331195,
+   "y_N2": 0.227443732,
+   "heat_duty_kJ_per_mol_NH3_fed": 42.54423624
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.919117848,
+   "y_NH3": 0.0421454848,
+   "y_H2": 0.718390886,
+   "y_N2": 0.239463629,
+   "heat_duty_kJ_per_mol_NH3_fed": 47.493908999999995
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9590554451,
+   "y_NH3": 0.0209001511,
+   "y_H2": 0.734324887,
+   "y_N2": 0.244774962,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.15680128
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9779757919,
+   "y_NH3": 0.0111347207,
+   "y_H2": 0.741648959,
+   "y_N2": 0.24721632,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.69638052
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9873801428,
+   "y_NH3": 0.00634999661,
+   "y_H2": 0.745237503,
+   "y_N2": 0.248412501,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.6908132
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99233684124,
+   "y_NH3": 0.00384631685,
+   "y_H2": 0.747115262,
+   "y_N2": 0.249038421,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.40015504
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99510267653,
+   "y_NH3": 0.0024546724,
+   "y_H2": 0.748158996,
+   "y_N2": 0.249386332,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.94322548
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99672800206,
+   "y_NH3": 0.00163867985,
+   "y_H2": 0.74877099,
+   "y_N2": 0.24959033,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.377502480000004
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9977279392,
+   "y_NH3": 0.00113732243,
+   "y_H2": 0.749147008,
+   "y_N2": 0.249715669,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.73294308
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99836844909,
+   "y_NH3": 0.000816441488,
+   "y_H2": 0.749387669,
+   "y_N2": 0.24979589,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.026524519999995
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99879354196,
+   "y_NH3": 0.000603593126,
+   "y_H2": 0.749547305,
+   "y_N2": 0.249849102,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.268756280000005
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999084627936,
+   "y_NH3": 0.000457895604,
+   "y_H2": 0.749656578,
+   "y_N2": 0.249885526,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.46673036
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 5.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.999289543153,
+   "y_NH3": 0.000355354656,
+   "y_H2": 0.749733484,
+   "y_N2": 0.249911161,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.62562284
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.5418622550000001,
+   "y_NH3": 0.297132732,
+   "y_H2": 0.527150451,
+   "y_N2": 0.175716817,
+   "heat_duty_kJ_per_mol_NH3_fed": 27.21371058
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.73086882,
+   "y_NH3": 0.155489068,
+   "y_H2": 0.633383199,
+   "y_N2": 0.211127733,
+   "heat_duty_kJ_per_mol_NH3_fed": 37.26167436
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.855142325,
+   "y_NH3": 0.0780843996,
+   "y_H2": 0.6914367,
+   "y_N2": 0.2304789,
+   "heat_duty_kJ_per_mol_NH3_fed": 44.188078680000004
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9227606903,
+   "y_NH3": 0.0401710468,
+   "y_H2": 0.719871715,
+   "y_N2": 0.239957238,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.25865376
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9573454896,
+   "y_NH3": 0.0217920191,
+   "y_H2": 0.733655986,
+   "y_N2": 0.244551995,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.605850520000004
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9752263176,
+   "y_NH3": 0.0125421994,
+   "y_H2": 0.74059335,
+   "y_N2": 0.24686445,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.04223324
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9848471975,
+   "y_NH3": 0.0076342413,
+   "y_H2": 0.744274319,
+   "y_N2": 0.24809144,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.99711848
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99027660676,
+   "y_NH3": 0.00488544819,
+   "y_H2": 0.746335914,
+   "y_N2": 0.248778638,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.6816106
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99348791311,
+   "y_NH3": 0.0032666799,
+   "y_H2": 0.74754999,
+   "y_N2": 0.24918333,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.20073636
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99547129558,
+   "y_NH3": 0.00226949114,
+   "y_H2": 0.748297882,
+   "y_N2": 0.249432627,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.60914916
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99674485819,
+   "y_NH3": 0.00163022421,
+   "y_H2": 0.748777332,
+   "y_N2": 0.249592444,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.93703824
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99759144,
+   "y_NH3": 0.00120573204,
+   "y_H2": 0.749095701,
+   "y_N2": 0.249698567,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.202237280000006
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99817176495,
+   "y_NH3": 0.000914953901,
+   "y_H2": 0.749313785,
+   "y_N2": 0.249771262,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.41605028
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 10.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99858059841,
+   "y_NH3": 0.000710204829,
+   "y_H2": 0.749467346,
+   "y_N2": 0.249822449,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.58615928
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.41481108200000005,
+   "y_NH3": 0.413616295,
+   "y_H2": 0.439787778,
+   "y_N2": 0.146595926,
+   "heat_duty_kJ_per_mol_NH3_fed": 20.832875172
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.603667116,
+   "y_NH3": 0.247141617,
+   "y_H2": 0.564643787,
+   "y_N2": 0.188214596,
+   "heat_duty_kJ_per_mol_NH3_fed": 30.77658666
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.7591953220000001,
+   "y_NH3": 0.136883423,
+   "y_H2": 0.647337433,
+   "y_N2": 0.215779144,
+   "heat_duty_kJ_per_mol_NH3_fed": 39.23017452
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.861035749,
+   "y_NH3": 0.0746703825,
+   "y_H2": 0.693997213,
+   "y_N2": 0.231332404,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.030555
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9197214583,
+   "y_NH3": 0.0418178071,
+   "y_H2": 0.718636645,
+   "y_N2": 0.239545548,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.61702188
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9522070837,
+   "y_NH3": 0.0244814788,
+   "y_H2": 0.731638891,
+   "y_N2": 0.24387963,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.813828640000004
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9703629802,
+   "y_NH3": 0.015041401,
+   "y_H2": 0.738718949,
+   "y_N2": 0.24623965,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.21768608
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9808314405,
+   "y_NH3": 0.00967702711,
+   "y_H2": 0.74274223,
+   "y_N2": 0.247580743,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.16960024
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9871014138,
+   "y_NH3": 0.00649115647,
+   "y_H2": 0.745131633,
+   "y_N2": 0.248377211,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.852314320000005
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99100356668,
+   "y_NH3": 0.00451854204,
+   "y_H2": 0.746611093,
+   "y_N2": 0.248870364,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.36406044
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99352129851,
+   "y_NH3": 0.00324987824,
+   "y_H2": 0.747562591,
+   "y_N2": 0.24918753,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.75936708
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99520020012,
+   "y_NH3": 0.00240567331,
+   "y_H2": 0.748195745,
+   "y_N2": 0.249398582,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.069916760000005
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99635352088,
+   "y_NH3": 0.00182656984,
+   "y_H2": 0.748630073,
+   "y_N2": 0.249543358,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.31510592
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 20.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99716722383,
+   "y_NH3": 0.00141839709,
+   "y_H2": 0.748936202,
+   "y_N2": 0.249645401,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.50748344
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.3488437,
+   "y_NH3": 0.482751485,
+   "y_H2": 0.387936386,
+   "y_N2": 0.129312129,
+   "heat_duty_kJ_per_mol_NH3_fed": 17.519824296
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.52586458,
+   "y_NH3": 0.310732307,
+   "y_H2": 0.51695077,
+   "y_N2": 0.172316923,
+   "heat_duty_kJ_per_mol_NH3_fed": 26.810002368
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.689661587,
+   "y_NH3": 0.183668976,
+   "y_H2": 0.612248268,
+   "y_N2": 0.204082756,
+   "heat_duty_kJ_per_mol_NH3_fed": 35.637132636
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.81024217,
+   "y_NH3": 0.104824555,
+   "y_H2": 0.671381584,
+   "y_N2": 0.223793861,
+   "heat_duty_kJ_per_mol_NH3_fed": 42.37414596
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.886210992,
+   "y_NH3": 0.0603267652,
+   "y_H2": 0.704754926,
+   "y_N2": 0.234918309,
+   "heat_duty_kJ_per_mol_NH3_fed": 46.84563864
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9307445367,
+   "y_NH3": 0.0358698222,
+   "y_H2": 0.723097633,
+   "y_N2": 0.241032544,
+   "heat_duty_kJ_per_mol_NH3_fed": 49.66849584
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9564995851,
+   "y_NH3": 0.0222337972,
+   "y_H2": 0.733324652,
+   "y_N2": 0.244441551,
+   "heat_duty_kJ_per_mol_NH3_fed": 51.47166168
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9716514807,
+   "y_NH3": 0.014378058,
+   "y_H2": 0.739216457,
+   "y_N2": 0.246405486,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.67196648
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9808365156,
+   "y_NH3": 0.00967444018,
+   "y_H2": 0.74274417,
+   "y_N2": 0.24758139,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.51052636
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9865954571,
+   "y_NH3": 0.00674749499,
+   "y_H2": 0.744939379,
+   "y_N2": 0.248313126,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.12224196
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99032881402,
+   "y_NH3": 0.00485908957,
+   "y_H2": 0.746355683,
+   "y_N2": 0.248785228,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.58340844000001
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99282607345,
+   "y_NH3": 0.0035998759,
+   "y_H2": 0.747300093,
+   "y_N2": 0.249100031,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.93854304
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99454517694,
+   "y_NH3": 0.00273487065,
+   "y_H2": 0.747948847,
+   "y_N2": 0.249316282,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.214711279999996
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 30.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9957598338,
+   "y_NH3": 0.0021245874,
+   "y_H2": 0.748406559,
+   "y_N2": 0.249468853,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.429140960000005
+  },
+  {
+   "T_C": 250.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.30681060000000004,
+   "y_NH3": 0.530443662,
+   "y_H2": 0.352167253,
+   "y_N2": 0.117389084,
+   "heat_duty_kJ_per_mol_NH3_fed": 15.408814283999998
+  },
+  {
+   "T_C": 300.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.47202046099999995,
+   "y_NH3": 0.358676767,
+   "y_H2": 0.480992425,
+   "y_N2": 0.160330808,
+   "heat_duty_kJ_per_mol_NH3_fed": 24.064883172000002
+  },
+  {
+   "T_C": 350.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.63629148,
+   "y_NH3": 0.222276119,
+   "y_H2": 0.583292911,
+   "y_N2": 0.19443097,
+   "heat_duty_kJ_per_mol_NH3_fed": 32.879319767999995
+  },
+  {
+   "T_C": 400.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.767492802,
+   "y_NH3": 0.131546334,
+   "y_H2": 0.65134025,
+   "y_N2": 0.217113417,
+   "heat_duty_kJ_per_mol_NH3_fed": 40.138434360000005
+  },
+  {
+   "T_C": 450.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.8561153,
+   "y_NH3": 0.0775192684,
+   "y_H2": 0.691860549,
+   "y_N2": 0.230620183,
+   "heat_duty_kJ_per_mol_NH3_fed": 45.254762639999996
+  },
+  {
+   "T_C": 500.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9106707811,
+   "y_NH3": 0.0467528052,
+   "y_H2": 0.714935396,
+   "y_N2": 0.238311799,
+   "heat_duty_kJ_per_mol_NH3_fed": 48.59727444
+  },
+  {
+   "T_C": 550.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9432138931,
+   "y_NH3": 0.0292227773,
+   "y_H2": 0.728082917,
+   "y_N2": 0.242694306,
+   "heat_duty_kJ_per_mol_NH3_fed": 50.75672508
+  },
+  {
+   "T_C": 600.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9627245431,
+   "y_NH3": 0.0189916904,
+   "y_H2": 0.735756232,
+   "y_N2": 0.245252077,
+   "heat_duty_kJ_per_mol_NH3_fed": 52.188048720000005
+  },
+  {
+   "T_C": 650.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9746894089,
+   "y_NH3": 0.0128175048,
+   "y_H2": 0.740386871,
+   "y_N2": 0.246795624,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.17516476
+  },
+  {
+   "T_C": 700.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9822456525,
+   "y_NH3": 0.00895668381,
+   "y_H2": 0.743282487,
+   "y_N2": 0.247760829,
+   "heat_duty_kJ_per_mol_NH3_fed": 53.88362244
+  },
+  {
+   "T_C": 750.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.9871669084,
+   "y_NH3": 0.00645798375,
+   "y_H2": 0.745156512,
+   "y_N2": 0.248385504,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.40913568
+  },
+  {
+   "T_C": 800.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99046885757,
+   "y_NH3": 0.00478839063,
+   "y_H2": 0.746408707,
+   "y_N2": 0.248802902,
+   "heat_duty_kJ_per_mol_NH3_fed": 54.80810532
+  },
+  {
+   "T_C": 850.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99274664322,
+   "y_NH3": 0.00363987906,
+   "y_H2": 0.747270091,
+   "y_N2": 0.24909003,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.11486096
+  },
+  {
+   "T_C": 900.0,
+   "P_bar": 40.0,
+   "property_method": "IDEAL",
+   "nh3_conversion": 0.99435838609,
+   "y_NH3": 0.00282878641,
+   "y_H2": 0.74787841,
+   "y_N2": 0.249292803,
+   "heat_duty_kJ_per_mol_NH3_fed": 55.351128960000004
+  }
+ ],
+ "count": 168,
+ "source_note": "results/validation/equilibrium_aspen_grid.csv; values as stored, no post-processing"
+}

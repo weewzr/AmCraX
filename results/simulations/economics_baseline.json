@@ -1,0 +1,614 @@
+{
+  "case_id": "baseline",
+  "source": "python_model",
+  "input_source": "aspen_plus_v15",
+  "input_file": "results\\simulations\\baseline.json",
+  "lcoh_USD_per_kg": 3.918842228473241,
+  "breakdown_USD_per_kg": {
+    "capex": 0.3557202556202969,
+    "fixed_opex": 0.251941863807503,
+    "ammonia_feed": 3.0400449449954747,
+    "imported_heat": 0.2675295342291495,
+    "electricity": 0.0006161015880551653,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047
+  },
+  "annual_costs_USD_per_yr": {
+    "capex": 715960.449479658,
+    "fixed_opex": 507085.01190020615,
+    "ammonia_feed": 6118718.040000001,
+    "imported_heat": 538458.4165492104,
+    "electricity": 1240.03163424,
+    "cooling_water": 1866.31859016,
+    "catalyst": 4150.724137777777,
+    "fixed_opex.maintenance": 194964.04954189007,
+    "fixed_opex.insurance": 97482.02477094503,
+    "fixed_opex.labour": 109756.0,
+    "fixed_opex.plant_overhead": 76180.01238547251,
+    "fixed_opex.g_and_a": 28702.92520189846,
+    "total": 7887478.992291253
+  },
+  "annual_h2_kg": 2012706.4404336,
+  "h2_product_kg_h": 251.5883050542,
+  "crf": 0.11016807219002081,
+  "capex": {
+    "method": "ahmad2025_correlation",
+    "capacity_kg_H2_h": 251.5883050542,
+    "total_capex_USD": 6498801.651396336,
+    "capex_multiplier": 1.0,
+    "estimate_class": "Preliminary order-of-magnitude estimate (AACE class 4-5 type, capacity-factored from literature plant-level data); NOT a detailed engineering estimate",
+    "cost_basis": "nominal USD, mixed source cost years (2024-2025 or not stated); no CEPCI escalation (conflicting 2024 CEPCI in library)",
+    "selected": {
+      "method": "ahmad2025_correlation",
+      "reference_capacity_kg_H2_h": null,
+      "reference_capex_USD": null,
+      "scaled_capex_USD": 6498801.651396336,
+      "exponent": 0.7451,
+      "cost_year": "not stated",
+      "citekey": "ahmad2025gtcc",
+      "page": "7",
+      "locator": "Fig. 6",
+      "adjustments": [],
+      "source": "literature"
+    },
+    "alternatives": [
+      {
+        "method": "chopra2026_point",
+        "reference_capacity_kg_H2_h": 16.666666666666668,
+        "reference_capex_USD": 611692.3076923077,
+        "scaled_capex_USD": 4622617.611022565,
+        "exponent": 0.7451,
+        "cost_year": "2025",
+        "citekey": "chopra2026decentralized",
+        "page": "7",
+        "locator": "Sec. 3.2",
+        "adjustments": [
+          "350 bar compressor share 44% removed (derived)",
+          "India location factor 0.65 removed (derived)"
+        ],
+        "source": "literature"
+      },
+      {
+        "method": "farokhi2025_point",
+        "reference_capacity_kg_H2_h": 1089.952,
+        "reference_capex_USD": 10096000.0,
+        "scaled_capex_USD": 3386347.810847987,
+        "exponent": 0.7451,
+        "cost_year": "not stated",
+        "citekey": "farokhi2025costoptimization",
+        "page": "5",
+        "locator": "Table 5; base-case H2/NH3 0.128 kg/kg in the results table preceding Sec. 5 (p. 5) and Abstract (p. 1)",
+        "adjustments": [
+          "reference H2 capacity derived as 0.128 kg/kg x 500 kmol/h x M_NH3",
+          "kUSD unit inferred"
+        ],
+        "source": "literature"
+      }
+    ],
+    "equipment_breakdown_USD": {
+      "psa": 3017300.766719728,
+      "cracker": 2437050.619273626,
+      "heat_exchangers": 580250.1474461014,
+      "adsorber": 464200.1179568811
+    },
+    "equipment_breakdown_note": "Indicative split only: share of TCI for a 400 kg/d NH3 cracking plant; compressor removed and remaining shares renormalised for AmCraX (no compression) - derived (chopra2026decentralized p.5 Fig. 5(a))"
+  },
+  "kg_nh3_feed_per_kg_h2": 6.755655433323276,
+  "kg_nh3_fuel_per_kg_h2": 0.5945100760647768,
+  "stoichiometric_floor_kg_nh3_per_kg_h2": 5.6321143454306135,
+  "reconversion_cost_USD_per_kg": 0.8787972834777662,
+  "cost_basis": "nominal USD, mixed source cost years (2024-2025 or not stated); no CEPCI escalation (conflicting 2024 CEPCI in library)",
+  "assumptions": {
+    "nh3_price_USD_per_t": 450.0,
+    "electricity_price_USD_per_kWh": 0.084,
+    "heat_import_mode": "ammonia_fuel",
+    "ammonia_fuel_heat_efficiency": 1.0,
+    "fired_heat_price_USD_per_kJ": 4.25e-06,
+    "credit_heat_surplus": false,
+    "cooling_water_price_USD_per_kJ": 2.125e-07,
+    "catalyst": "Ni",
+    "catalyst_price_USD_per_kg": null,
+    "catalyst_lifetime_yr": 2.0,
+    "catalyst_space_velocity_mL_NH3_per_gcat_h": 9000.0,
+    "normal_molar_volume_L_per_mol": 22.414,
+    "catalyst_mass_kg": null,
+    "capex_method": "ahmad2025_correlation",
+    "capex_fixed_USD": null,
+    "capacity_exponent": 0.7451,
+    "chopra_exclude_compressor": true,
+    "chopra_remove_location_factor": true,
+    "capex_multiplier": 1.0,
+    "maintenance_frac_capex_per_yr": 0.03,
+    "insurance_frac_capex_per_yr": 0.015,
+    "labour_USD_per_yr": 109756.0,
+    "plant_overhead_frac_labour_maint": 0.25,
+    "g_and_a_frac_fixed_opex": 0.06,
+    "plant_life_yr": 25.0,
+    "discount_rate": 0.1,
+    "operating_hours_h_per_yr": 8000.0,
+    "compression_power_kW": 0.0
+  },
+  "provenance": {
+    "nh3_price_USD_per_t": {
+      "value": 450.0,
+      "unit": "USD/t NH3",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4 (renewable NH3 'Assumed' by the authors at parity with commercial NH3)",
+      "note": "No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library."
+    },
+    "electricity_price_USD_per_kWh": {
+      "value": 0.084,
+      "unit": "USD/kWh",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4; range 0.042-0.126 Table 8",
+      "note": null
+    },
+    "heat_import_mode": {
+      "value": "ammonia_fuel",
+      "unit": "-",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "Imported heat (KPIs.net_fuel_heat_deficit_kW) is supplied by burning additional NH3, as in the carbon-free cho2026nickel design (feed + fuel NH3, p. 13 Table 7). Option 'fired_heat' prices it at the kum2026heatintegrated fired-heat utility price instead."
+    },
+    "ammonia_fuel_heat_efficiency": {
+      "value": 1.0,
+      "unit": "fraction of NH3 LHV delivered as process heat",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "net_fuel_heat_deficit_kW is already on a 'heat released cooling flue gas to stack T' basis for the tail gas; no library source gives a fired-heater efficiency for extra NH3 fuel. 1.0 on LHV is optimistic (a lower bound on fuel NH3); lower it to test."
+    },
+    "fired_heat_price_USD_per_kJ": {
+      "value": 4.25e-06,
+      "unit": "USD/kJ",
+      "source": "literature",
+      "citekey": "kum2026heatintegrated",
+      "page": "8",
+      "locator": "Table 5",
+      "note": null
+    },
+    "credit_heat_surplus": {
+      "value": false,
+      "unit": "-",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "A negative heat deficit (surplus tail-gas heat) is not credited unless the caller enables it; no export market/price for low-grade heat is in the library."
+    },
+    "cooling_water_price_USD_per_kJ": {
+      "value": 2.125e-07,
+      "unit": "USD/kJ (heat removed)",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4",
+      "note": null
+    },
+    "catalyst": {
+      "value": "Ni",
+      "unit": "Ni | Ru",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "Baseline 600 degC / 20 bar is closest to the cho2026nickel Ni case (Ni-24.34 bar); Ru selectable."
+    },
+    "catalyst_price_USD_per_kg": {
+      "value": 33.4,
+      "unit": "USD/kg cat",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4 (Ni/Al2O3 8 wt%, 'Calculated'); range 16.7-66.8 Table 8",
+      "note": null
+    },
+    "catalyst_lifetime_yr": {
+      "value": 2.0,
+      "unit": "yr",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4 ('Assumed' by the authors); range 1-4 yr Table 8",
+      "note": null
+    },
+    "catalyst_space_velocity_mL_NH3_per_gcat_h": {
+      "value": 9000.0,
+      "unit": "mL NH3 /(g cat h)",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "6",
+      "locator": "Table 3 (multi-tubular reactor, 'Selected')",
+      "note": "Used only to size the catalyst inventory for replacement cost (the AmCraX CRACKER is an RGibbs equilibrium block with no catalyst mass). Gas volume converted at 0 degC, 1.01325 bar (22.414 L/mol) - basis of the 'mL' not stated in the source: assumption."
+    },
+    "normal_molar_volume_L_per_mol": {
+      "value": 22.414,
+      "unit": "L/mol",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "Ideal gas at 0 degC, 1.01325 bar, used to convert the Cho space velocity; source does not state the reference state."
+    },
+    "catalyst_mass_kg": {
+      "value": null,
+      "unit": "",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "AmCraX option (see economics.yaml)"
+    },
+    "capex_method": {
+      "value": "ahmad2025_correlation",
+      "unit": "ahmad2025_correlation | chopra2026_point | farokhi2025_point | fixed",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "The ahmad2025gtcc correlation is the only plant-level fit across 0.007-200 t H2/h (covers the AmCraX 0.25 t/h); the two point estimates are reported alongside as a spread."
+    },
+    "capex_fixed_USD": {
+      "value": null,
+      "unit": "",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "AmCraX option (see economics.yaml)"
+    },
+    "capacity_exponent": {
+      "value": 0.7451,
+      "unit": "-",
+      "source": "literature",
+      "citekey": "ahmad2025gtcc",
+      "page": "7",
+      "locator": "Fig. 6 (plant-level NH3-cracker CAPEX vs t H2/h)",
+      "note": null
+    },
+    "chopra_exclude_compressor": {
+      "value": true,
+      "unit": "",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "AmCraX option (see economics.yaml)"
+    },
+    "chopra_remove_location_factor": {
+      "value": true,
+      "unit": "",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "AmCraX option (see economics.yaml)"
+    },
+    "capex_multiplier": {
+      "value": 1.0,
+      "unit": "-",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "Neutral multiplier for sensitivity; cho2026nickel Table 8 (p. 7) varies CAPEX -50 % / +50 %."
+    },
+    "maintenance_frac_capex_per_yr": {
+      "value": 0.03,
+      "unit": "1/yr of CAPEX (FCI basis)",
+      "source": "literature",
+      "citekey": "chopra2026decentralized",
+      "page": "4",
+      "locator": "Table 2",
+      "note": null
+    },
+    "insurance_frac_capex_per_yr": {
+      "value": 0.015,
+      "unit": "1/yr of CAPEX (FCI basis)",
+      "source": "literature",
+      "citekey": "chopra2026decentralized",
+      "page": "4",
+      "locator": "Table 2",
+      "note": null
+    },
+    "labour_USD_per_yr": {
+      "value": 109756.0,
+      "unit": "USD/yr",
+      "source": "literature",
+      "citekey": "chopra2026decentralized",
+      "page": "4",
+      "locator": "Table 2 (4 per shift: 3 operators, 1 manager; India basis, 400 kg H2/d plant)",
+      "note": "Small-plant, Indian labour basis; cho2026nickel gives 34,167 USD/operator-yr (p. 7 Table 4) but the operator count is only in its SI (not available)."
+    },
+    "plant_overhead_frac_labour_maint": {
+      "value": 0.25,
+      "unit": "fraction of (labour + maintenance)",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4",
+      "note": null
+    },
+    "g_and_a_frac_fixed_opex": {
+      "value": 0.06,
+      "unit": "fraction of (labour + maintenance + insurance + overhead)",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4 ('6 % of annual fixed OPEX'; applied to the other fixed items - AmCraX interpretation)",
+      "note": null
+    },
+    "plant_life_yr": {
+      "value": 25.0,
+      "unit": "yr",
+      "source": "literature",
+      "citekey": "kum2026heatintegrated",
+      "page": "8",
+      "locator": "Table 5",
+      "note": null
+    },
+    "discount_rate": {
+      "value": 0.1,
+      "unit": "-",
+      "source": "literature",
+      "citekey": "kum2026heatintegrated",
+      "page": "8",
+      "locator": "Table 5 (also farokhi2025costoptimization p.5 Table 4, chopra2026decentralized p.4 Table 2, ahmad2025gtcc p.8 Eq. 12)",
+      "note": null
+    },
+    "operating_hours_h_per_yr": {
+      "value": 8000.0,
+      "unit": "h/yr",
+      "source": "literature",
+      "citekey": "cho2026nickel",
+      "page": "7",
+      "locator": "Table 4",
+      "note": null
+    },
+    "compression_power_kW": {
+      "value": 0.0,
+      "unit": "kW",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "The AmCraX flowsheet has no cracked-gas compressor (PSA at cracker pressure); a caller may supply compression power."
+    },
+    "psa_h2_recovery": {
+      "value": 0.85,
+      "unit": "",
+      "source": "assumption",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "Not an economics input: taken from SimulationResult.inputs. No library source supports 0.85; literature range 0.71-0.81 (research/model_parameters.yaml separation.psa). Echoed so every LCOH carries this label."
+    },
+    "process_data": {
+      "value": "baseline",
+      "unit": "",
+      "source": "aspen_plus_v15",
+      "citekey": null,
+      "page": null,
+      "locator": null,
+      "note": "SimulationResult KPIs"
+    }
+  },
+  "notes": [
+    "Ammonia feed priced on contained NH3: 1699.64 kg/h of the 1703.25 kg/h feed stream (feed water is not priced).",
+    "CAPEX is a plant-level correlation on hydrogen capacity: it does not respond to heat-integration choices (exchanger area), PSA size or catalyst volume.",
+    "Catalyst inventory 248.5 kg (Ni) sized from the cho2026nickel space velocity (the AmCraX cracker is an equilibrium block).",
+    "PSA H2 recovery 0.85 taken from the simulation inputs (assumption; literature 0.71-0.81).",
+    "Excluded: NOx after-treatment, TSA NH3 polishing, H2 compression/storage, land, taxes, working capital beyond the source CAPEX basis."
+  ],
+  "tornado": [
+    {
+      "parameter": "nh3_price_USD_per_t",
+      "unit": "",
+      "base_value": 450.0,
+      "low_value": 300.0,
+      "high_value": 610.0,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 2.8163174020650326,
+      "lcoh_at_high": 5.094868709975329,
+      "source_of_range": "cho2026nickel p.7 Table 8",
+      "swing": 2.2785513079102966
+    },
+    {
+      "parameter": "capex_multiplier",
+      "unit": "",
+      "base_value": 1.0,
+      "low_value": 0.5,
+      "high_value": 1.5,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.6511383200116296,
+      "lcoh_at_high": 4.186546136934853,
+      "source_of_range": "cho2026nickel p.7 Table 8 (CAPEX -50 %/+50 %)",
+      "swing": 0.535407816923223
+    },
+    {
+      "parameter": "maintenance_frac_capex_per_yr",
+      "unit": "",
+      "base_value": 0.03,
+      "low_value": 0.025,
+      "high_value": 0.05,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.8974508521276547,
+      "lcoh_at_high": 4.004407733855587,
+      "source_of_range": "library range: richard 0.025 - kum 0.05",
+      "swing": 0.10695688172793183
+    },
+    {
+      "parameter": "operating_hours_h_per_yr",
+      "unit": "",
+      "base_value": 8000.0,
+      "low_value": 7000.0,
+      "high_value": 8000.0,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 4.005945711259566,
+      "lcoh_at_high": 3.918842228473241,
+      "source_of_range": "library range: kum2026heatintegrated 7000 - cho2026nickel 8000",
+      "swing": 0.08710348278632551
+    },
+    {
+      "parameter": "discount_rate",
+      "unit": "",
+      "base_value": 0.1,
+      "low_value": 0.085,
+      "high_value": 0.1,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.878621953781956,
+      "lcoh_at_high": 3.918842228473241,
+      "source_of_range": "library range: cho2026nickel 0.085 - kum/farokhi/chopra/ahmad 0.10",
+      "swing": 0.040220274691284974
+    },
+    {
+      "parameter": "plant_life_yr",
+      "unit": "",
+      "base_value": 25.0,
+      "low_value": 20.0,
+      "high_value": 25.0,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.9423858277843995,
+      "lcoh_at_high": 3.918842228473241,
+      "source_of_range": "library range: chopra2026decentralized/mehr 20 - cho/kum/farokhi 25",
+      "swing": 0.02354359931115857
+    },
+    {
+      "parameter": "catalyst_price_USD_per_kg",
+      "unit": "",
+      "base_value": 33.4,
+      "low_value": 16.7,
+      "high_value": 66.8,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.917811098435002,
+      "lcoh_at_high": 3.92090448854972,
+      "source_of_range": "cho2026nickel p.7 Table 8 (-50 %/+100 %)",
+      "swing": 0.0030933901147180975
+    },
+    {
+      "parameter": "catalyst_lifetime_yr",
+      "unit": "",
+      "base_value": 2.0,
+      "low_value": 1.0,
+      "high_value": 4.0,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.92090448854972,
+      "lcoh_at_high": 3.917811098435002,
+      "source_of_range": "cho2026nickel p.7 Table 8",
+      "swing": 0.0030933901147180975
+    },
+    {
+      "parameter": "electricity_price_USD_per_kWh",
+      "unit": "",
+      "base_value": 0.084,
+      "low_value": 0.042,
+      "high_value": 0.126,
+      "lcoh_base": 3.918842228473241,
+      "lcoh_at_low": 3.9185341776792133,
+      "lcoh_at_high": 3.9191502792672686,
+      "source_of_range": "cho2026nickel p.7 Table 8",
+      "swing": 0.0006161015880552512
+    }
+  ],
+  "literature_benchmarks": [
+    {
+      "value": 5.439,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 450,
+      "label": "Cho Ni-24.34 bar",
+      "citekey": "cho2026nickel",
+      "page": 13,
+      "locator": "Fig. 8(d)",
+      "source": "literature"
+    },
+    {
+      "value": 5.293,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 450,
+      "label": "Cho Ru-10 bar",
+      "citekey": "cho2026nickel",
+      "page": 13,
+      "locator": "Fig. 8(d)",
+      "source": "literature"
+    },
+    {
+      "value": 6.44,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 500,
+      "label": "Kum Monte-Carlo most probable",
+      "citekey": "kum2026heatintegrated",
+      "page": 16,
+      "locator": "Fig. 13a",
+      "source": "literature"
+    },
+    {
+      "value": 4.34,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 284,
+      "label": "Kum NH3 0.284 USD/kg",
+      "citekey": "kum2026heatintegrated",
+      "page": 17,
+      "locator": "Table 8",
+      "source": "literature"
+    },
+    {
+      "value": 6.27,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 475,
+      "label": "Kum NH3 0.475 USD/kg",
+      "citekey": "kum2026heatintegrated",
+      "page": 17,
+      "locator": "Table 8",
+      "source": "literature"
+    },
+    {
+      "value": 5.5,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 520,
+      "label": "Farokhi base",
+      "citekey": "farokhi2025costoptimization",
+      "page": 5,
+      "locator": "Sec. 5.2",
+      "source": "literature"
+    },
+    {
+      "value": 5.1,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": 520,
+      "label": "Farokhi heat recovery",
+      "citekey": "farokhi2025costoptimization",
+      "page": 5,
+      "locator": "Sec. 5.3",
+      "source": "literature"
+    },
+    {
+      "value": 1.995,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": null,
+      "label": "Cho Ni reconversion cost (LCOH minus NH3 feed)",
+      "kind": "reconversion",
+      "citekey": "cho2026nickel",
+      "page": 13,
+      "locator": "Fig. 8(d)",
+      "source": "literature"
+    },
+    {
+      "value": 1.856,
+      "unit": "USD/kg",
+      "nh3_price_USD_per_t": null,
+      "label": "Cho Ru reconversion cost",
+      "kind": "reconversion",
+      "citekey": "cho2026nickel",
+      "page": 13,
+      "locator": "Fig. 8(d)",
+      "source": "literature"
+    }
+  ]
+}

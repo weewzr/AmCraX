@@ -1,0 +1,236 @@
+source_file,check,status,metric,value,tolerance,detail
+results/simulations/baseline.json,BAL-ASPEN-baseline.mass,pass,relative mass imbalance,5.44962352e-10,1e-06,"in 3669.98 kg/h, out 3669.98 kg/h"
+results/simulations/baseline.json,BAL-ASPEN-baseline.elements,pass,max relative element imbalance,3.468452356e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.508 out 207.508 kmol/h; O: in 28.8313 out 28.8313 kmol/h
+results/simulations/baseline.json,BAL-ASPEN-baseline.energy,pass,relative energy imbalance (balances.energy_closure_rel),3.21846356e-09,0.0001,"in -1534.0794021430002 kW, out -1534.0794154 kW"
+results/simulations/baseline.json,NONNEG-ASPEN-baseline,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/baseline.json,UNITS-ASPEN-baseline,pass,max |sum(y) - 1|,5.000000414e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/baseline.json,CONV-ASPEN-baseline,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/baseline_no_hi.json,BAL-ASPEN-baseline_no_hi.mass,pass,relative mass imbalance,5.44962352e-10,1e-06,"in 3669.98 kg/h, out 3669.98 kg/h"
+results/simulations/baseline_no_hi.json,BAL-ASPEN-baseline_no_hi.elements,pass,max relative element imbalance,3.468452356e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.508 out 207.508 kmol/h; O: in 28.8313 out 28.8313 kmol/h
+results/simulations/baseline_no_hi.json,BAL-ASPEN-baseline_no_hi.energy,pass,relative energy imbalance (balances.energy_closure_rel),2.406113068e-09,0.0001,"in -1534.0794025430002 kW, out -1534.0794154 kW"
+results/simulations/baseline_no_hi.json,NONNEG-ASPEN-baseline_no_hi,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/baseline_no_hi.json,UNITS-ASPEN-baseline_no_hi,pass,max |sum(y) - 1|,5.000000414e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/baseline_no_hi.json,CONV-ASPEN-baseline_no_hi,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_conv.json,BAL-ASPEN-opt_opt_conv.mass,pass,relative mass imbalance,-6.285133629e-10,1e-06,"in 3182.11 kg/h, out 3182.11 kg/h"
+results/simulations/opt_opt_conv.json,BAL-ASPEN-opt_opt_conv.elements,pass,max relative element imbalance,6.671111784e-10,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 180.79 out 180.79 kmol/h; O: in 21.729 out 21.729 kmol/h
+results/simulations/opt_opt_conv.json,BAL-ASPEN-opt_opt_conv.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.309834425e-09,0.0001,"in -1140.0572737916998 kW, out -1140.0572789999999 kW"
+results/simulations/opt_opt_conv.json,NONNEG-ASPEN-opt_opt_conv,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_conv.json,UNITS-ASPEN-opt_opt_conv,pass,max |sum(y) - 1|,2.819999789e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_conv.json,CONV-ASPEN-opt_opt_conv,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_eff.json,BAL-ASPEN-opt_opt_eff.mass,pass,relative mass imbalance,1.195680172e-09,1e-06,"in 2509.03 kg/h, out 2509.03 kg/h"
+results/simulations/opt_opt_eff.json,BAL-ASPEN-opt_opt_eff.elements,pass,max relative element imbalance,1.844025451e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 143.929 out 143.929 kmol/h; O: in 11.9304 out 11.9304 kmol/h
+results/simulations/opt_opt_eff.json,BAL-ASPEN-opt_opt_eff.energy,pass,relative energy imbalance (balances.energy_closure_rel),8.372366753e-10,0.0001,"in -595.9684132960001 kW, out -595.9684158 kW"
+results/simulations/opt_opt_eff.json,NONNEG-ASPEN-opt_opt_eff,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_eff.json,UNITS-ASPEN-opt_opt_eff,pass,max |sum(y) - 1|,9.800000811e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_eff.json,CONV-ASPEN-opt_opt_eff,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_h2.json,BAL-ASPEN-opt_opt_h2.mass,pass,relative mass imbalance,1.733045614e-09,1e-06,"in 2308.08 kg/h, out 2308.08 kg/h"
+results/simulations/opt_opt_h2.json,BAL-ASPEN-opt_opt_h2.elements,pass,max relative element imbalance,8.651609137e-10,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 132.923 out 132.923 kmol/h; O: in 9.00492 out 9.00492 kmol/h
+results/simulations/opt_opt_h2.json,BAL-ASPEN-opt_opt_h2.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.405539435e-09,0.0001,"in -433.5253630042 kW, out -433.52536769999995 kW"
+results/simulations/opt_opt_h2.json,NONNEG-ASPEN-opt_opt_h2,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_h2.json,UNITS-ASPEN-opt_opt_h2,pass,max |sum(y) - 1|,7.300000604e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_h2.json,CONV-ASPEN-opt_opt_h2,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_heat.json,BAL-ASPEN-opt_opt_heat.mass,pass,relative mass imbalance,1.128281963e-09,1e-06,"in 2658.91 kg/h, out 2658.91 kg/h"
+results/simulations/opt_opt_heat.json,BAL-ASPEN-opt_opt_heat.elements,pass,max relative element imbalance,3.401283674e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 152.137 out 152.137 kmol/h; O: in 14.1123 out 14.1123 kmol/h
+results/simulations/opt_opt_heat.json,BAL-ASPEN-opt_opt_heat.energy,pass,relative energy imbalance (balances.energy_closure_rel),-3.951631124e-10,0.0001,"in -717.1219169036999 kW, out -717.1219156999999 kW"
+results/simulations/opt_opt_heat.json,NONNEG-ASPEN-opt_opt_heat,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_heat.json,UNITS-ASPEN-opt_opt_heat,pass,max |sum(y) - 1|,2.999999138e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_heat.json,CONV-ASPEN-opt_opt_heat,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_lcoh.json,BAL-ASPEN-opt_opt_lcoh.mass,pass,relative mass imbalance,3.263359396e-09,1e-06,"in 2451.46 kg/h, out 2451.46 kg/h"
+results/simulations/opt_opt_lcoh.json,BAL-ASPEN-opt_opt_lcoh.elements,pass,max relative element imbalance,1.200800349e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 140.776 out 140.776 kmol/h; O: in 11.0923 out 11.0923 kmol/h
+results/simulations/opt_opt_lcoh.json,BAL-ASPEN-opt_opt_lcoh.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.398554275e-09,0.0001,"in -549.3672223947998 kW, out -549.3672266 kW"
+results/simulations/opt_opt_lcoh.json,NONNEG-ASPEN-opt_opt_lcoh,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_lcoh.json,UNITS-ASPEN-opt_opt_lcoh,pass,max |sum(y) - 1|,7.600000629e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_lcoh.json,CONV-ASPEN-opt_opt_lcoh,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_opt_lcoh_tp.json,BAL-ASPEN-opt_opt_lcoh_tp.mass,pass,relative mass imbalance,2.209853819e-09,1e-06,"in 3620.15 kg/h, out 3620.15 kg/h"
+results/simulations/opt_opt_lcoh_tp.json,BAL-ASPEN-opt_opt_lcoh_tp.elements,pass,max relative element imbalance,3.942780522e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 204.779 out 204.779 kmol/h; O: in 28.1059 out 28.1059 kmol/h
+results/simulations/opt_opt_lcoh_tp.json,BAL-ASPEN-opt_opt_lcoh_tp.energy,pass,relative energy imbalance (balances.energy_closure_rel),7.648092098e-10,0.0001,"in -1494.090050615 kW, out -1494.0900537 kW"
+results/simulations/opt_opt_lcoh_tp.json,NONNEG-ASPEN-opt_opt_lcoh_tp,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_opt_lcoh_tp.json,UNITS-ASPEN-opt_opt_lcoh_tp,pass,max |sum(y) - 1|,3.000000248e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_opt_lcoh_tp.json,CONV-ASPEN-opt_opt_lcoh_tp,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_par_1.json,BAL-ASPEN-opt_par_1.mass,pass,relative mass imbalance,2.847917726e-09,1e-06,"in 2457.94 kg/h, out 2457.94 kg/h"
+results/simulations/opt_par_1.json,BAL-ASPEN-opt_par_1.elements,pass,max relative element imbalance,7.151431608e-10,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 141.13 out 141.13 kmol/h; O: in 11.1866 out 11.1866 kmol/h
+results/simulations/opt_par_1.json,BAL-ASPEN-opt_par_1.energy,pass,relative energy imbalance (balances.energy_closure_rel),-5.490869962e-10,0.0001,"in -554.6009372517998 kW, out -554.6009356 kW"
+results/simulations/opt_par_1.json,NONNEG-ASPEN-opt_par_1,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_par_1.json,UNITS-ASPEN-opt_par_1,pass,max |sum(y) - 1|,6.599999436e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_par_1.json,CONV-ASPEN-opt_par_1,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_par_2.json,BAL-ASPEN-opt_par_2.mass,pass,relative mass imbalance,8.512396242e-10,1e-06,"in 2349.51 kg/h, out 2349.51 kg/h"
+results/simulations/opt_par_2.json,BAL-ASPEN-opt_par_2.elements,pass,max relative element imbalance,1.601067321e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 135.193 out 135.193 kmol/h; O: in 9.60818 out 9.60818 kmol/h
+results/simulations/opt_par_2.json,BAL-ASPEN-opt_par_2.energy,pass,relative energy imbalance (balances.energy_closure_rel),-3.446855764e-10,0.0001,"in -466.95802123569973 kW, out -466.95802019999996 kW"
+results/simulations/opt_par_2.json,NONNEG-ASPEN-opt_par_2,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_par_2.json,UNITS-ASPEN-opt_par_2,pass,max |sum(y) - 1|,7.399999502e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_par_2.json,CONV-ASPEN-opt_par_2,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_par_3.json,BAL-ASPEN-opt_par_3.mass,pass,relative mass imbalance,0,1e-06,"in 2321.98 kg/h, out 2321.98 kg/h"
+results/simulations/opt_par_3.json,BAL-ASPEN-opt_par_3.elements,pass,max relative element imbalance,3.135423818e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 133.685 out 133.685 kmol/h; O: in 9.2073 out 9.2073 kmol/h
+results/simulations/opt_par_3.json,BAL-ASPEN-opt_par_3.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.438188394e-09,0.0001,"in -444.69797605239995 kW, out -444.6979804 kW"
+results/simulations/opt_par_3.json,NONNEG-ASPEN-opt_par_3,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_par_3.json,UNITS-ASPEN-opt_par_3,pass,max |sum(y) - 1|,4.500000372e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_par_3.json,CONV-ASPEN-opt_par_3,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/opt_par_4.json,BAL-ASPEN-opt_par_4.mass,pass,relative mass imbalance,1.733045614e-09,1e-06,"in 2308.08 kg/h, out 2308.08 kg/h"
+results/simulations/opt_par_4.json,BAL-ASPEN-opt_par_4.elements,pass,max relative element imbalance,8.651609137e-10,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 132.923 out 132.923 kmol/h; O: in 9.00492 out 9.00492 kmol/h
+results/simulations/opt_par_4.json,BAL-ASPEN-opt_par_4.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.257512359e-09,0.0001,"in -433.52536390420005 kW, out -433.52536769999995 kW"
+results/simulations/opt_par_4.json,NONNEG-ASPEN-opt_par_4,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/opt_par_4.json,UNITS-ASPEN-opt_par_4,pass,max |sum(y) - 1|,7.300000604e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/opt_par_4.json,CONV-ASPEN-opt_par_4,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/python_baseline.json,BAL-PY-python_baseline.mass,pass,relative mass imbalance,5.439406066e-07,1e-06,"in 3669.52 kg/h, out 3669.52 kg/h"
+results/simulations/python_baseline.json,BAL-PY-python_baseline.elements,pass,max relative element imbalance,1.232522651e-16,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.484 out 207.484 kmol/h; O: in 28.8247 out 28.8247 kmol/h
+results/simulations/python_baseline.json,BAL-PY-python_baseline.energy,informational,relative energy imbalance (balances.energy_closure_rel),0,0.0001,"in -1533.628901438052 kW, out -1533.628901438052 kW"
+results/simulations/python_baseline.json,NONNEG-PY-python_baseline,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/python_baseline.json,UNITS-PY-python_baseline,pass,max |sum(y) - 1|,1.110223025e-16,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/python_baseline.json,CONV-PY-python_baseline,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/python_baseline_no_hi.json,BAL-PY-python_baseline_no_hi.mass,pass,relative mass imbalance,5.439406066e-07,1e-06,"in 3669.52 kg/h, out 3669.52 kg/h"
+results/simulations/python_baseline_no_hi.json,BAL-PY-python_baseline_no_hi.elements,pass,max relative element imbalance,1.232522651e-16,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.484 out 207.484 kmol/h; O: in 28.8247 out 28.8247 kmol/h
+results/simulations/python_baseline_no_hi.json,BAL-PY-python_baseline_no_hi.energy,informational,relative energy imbalance (balances.energy_closure_rel),0,0.0001,"in -1533.628901438052 kW, out -1533.628901438052 kW"
+results/simulations/python_baseline_no_hi.json,NONNEG-PY-python_baseline_no_hi,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/python_baseline_no_hi.json,UNITS-PY-python_baseline_no_hi,pass,max |sum(y) - 1|,1.110223025e-16,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/python_baseline_no_hi.json,CONV-PY-python_baseline_no_hi,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/python_baseline_no_hi_pr.json,BAL-PY-python_baseline_no_hi_pr.mass,pass,relative mass imbalance,5.437663939e-07,1e-06,"in 3670.69 kg/h, out 3670.69 kg/h"
+results/simulations/python_baseline_no_hi_pr.json,BAL-PY-python_baseline_no_hi_pr.elements,pass,max relative element imbalance,1.896044658e-16,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.548 out 207.548 kmol/h; O: in 28.8418 out 28.8418 kmol/h
+results/simulations/python_baseline_no_hi_pr.json,BAL-PY-python_baseline_no_hi_pr.energy,informational,relative energy imbalance (balances.energy_closure_rel),-2.553515026e-17,0.0001,"in 903.4804453907689 kW, out 903.4804453907691 kW"
+results/simulations/python_baseline_no_hi_pr.json,NONNEG-PY-python_baseline_no_hi_pr,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/python_baseline_no_hi_pr.json,UNITS-PY-python_baseline_no_hi_pr,pass,max |sum(y) - 1|,1.110223025e-16,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/python_baseline_no_hi_pr.json,CONV-PY-python_baseline_no_hi_pr,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/python_baseline_pr.json,BAL-PY-python_baseline_pr.mass,pass,relative mass imbalance,5.437663939e-07,1e-06,"in 3670.69 kg/h, out 3670.69 kg/h"
+results/simulations/python_baseline_pr.json,BAL-PY-python_baseline_pr.elements,pass,max relative element imbalance,1.896044658e-16,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.548 out 207.548 kmol/h; O: in 28.8418 out 28.8418 kmol/h
+results/simulations/python_baseline_pr.json,BAL-PY-python_baseline_pr.energy,informational,relative energy imbalance (balances.energy_closure_rel),-2.976176153e-17,0.0001,"in 271.20627109562497 kW, out 271.2062710956252 kW"
+results/simulations/python_baseline_pr.json,NONNEG-PY-python_baseline_pr,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/python_baseline_pr.json,UNITS-PY-python_baseline_pr,pass,max |sum(y) - 1|,1.110223025e-16,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/python_baseline_pr.json,CONV-PY-python_baseline_pr,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_fuel_cell_grade.json,BAL-ASPEN-scn_fuel_cell_grade.mass,pass,relative mass imbalance,-9.411964998e-10,1e-06,"in 4249.91 kg/h, out 4249.91 kg/h"
+results/simulations/scn_fuel_cell_grade.json,BAL-ASPEN-scn_fuel_cell_grade.elements,pass,max relative element imbalance,3.219413074e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 239.268 out 239.268 kmol/h; O: in 37.2739 out 37.2739 kmol/h
+results/simulations/scn_fuel_cell_grade.json,BAL-ASPEN-scn_fuel_cell_grade.energy,pass,relative energy imbalance (balances.energy_closure_rel),8.87145417e-11,0.0001,"in -2002.872114593 kW, out -2002.872115 kW"
+results/simulations/scn_fuel_cell_grade.json,NONNEG-ASPEN-scn_fuel_cell_grade,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_fuel_cell_grade.json,UNITS-ASPEN-scn_fuel_cell_grade,pass,max |sum(y) - 1|,3.000000248e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_fuel_cell_grade.json,CONV-ASPEN-scn_fuel_cell_grade,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_high_pressure.json,BAL-ASPEN-scn_high_pressure.mass,pass,relative mass imbalance,5.190709653e-10,1e-06,"in 3853.04 kg/h, out 3853.04 kg/h"
+results/simulations/scn_high_pressure.json,BAL-ASPEN-scn_high_pressure.elements,pass,max relative element imbalance,2.668445472e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 217.534 out 217.534 kmol/h; O: in 31.4963 out 31.4963 kmol/h
+results/simulations/scn_high_pressure.json,BAL-ASPEN-scn_high_pressure.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.895502706e-09,0.0001,"in -1681.5894246079997 kW, out -1681.5894326 kW"
+results/simulations/scn_high_pressure.json,NONNEG-ASPEN-scn_high_pressure,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_high_pressure.json,UNITS-ASPEN-scn_high_pressure,pass,max |sum(y) - 1|,4.200000348e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_high_pressure.json,CONV-ASPEN-scn_high_pressure,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_high_recovery.json,BAL-ASPEN-scn_high_recovery.mass,pass,relative mass imbalance,-3.498860747e-10,1e-06,"in 2858.07 kg/h, out 2858.07 kg/h"
+results/simulations/scn_high_recovery.json,BAL-ASPEN-scn_high_recovery.elements,pass,max relative element imbalance,3.335557208e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 163.044 out 163.044 kmol/h; O: in 17.0117 out 17.0117 kmol/h
+results/simulations/scn_high_recovery.json,BAL-ASPEN-scn_high_recovery.energy,pass,relative energy imbalance (balances.energy_closure_rel),2.089041176e-09,0.0001,"in -877.7408226660001 kW, out -877.7408299 kW"
+results/simulations/scn_high_recovery.json,NONNEG-ASPEN-scn_high_recovery,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_high_recovery.json,UNITS-ASPEN-scn_high_recovery,pass,max |sum(y) - 1|,3.869999876e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_high_recovery.json,CONV-ASPEN-scn_high_recovery,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_high_temperature.json,BAL-ASPEN-scn_high_temperature.mass,pass,relative mass imbalance,2.52273376e-09,1e-06,"in 3567.56 kg/h, out 3567.56 kg/h"
+results/simulations/scn_high_temperature.json,BAL-ASPEN-scn_high_temperature.elements,pass,max relative element imbalance,3.657604813e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 201.899 out 201.899 kmol/h; O: in 27.3403 out 27.3403 kmol/h
+results/simulations/scn_high_temperature.json,BAL-ASPEN-scn_high_temperature.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.042036197e-10,0.0001,"in -1451.284595172 kW, out -1451.2845956 kW"
+results/simulations/scn_high_temperature.json,NONNEG-ASPEN-scn_high_temperature,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_high_temperature.json,UNITS-ASPEN-scn_high_temperature,pass,max |sum(y) - 1|,8.500000703e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_high_temperature.json,CONV-ASPEN-scn_high_temperature,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_low_pressure.json,BAL-ASPEN-scn_low_pressure.mass,pass,relative mass imbalance,1.701504446e-09,1e-06,"in 3526.29 kg/h, out 3526.29 kg/h"
+results/simulations/scn_low_pressure.json,BAL-ASPEN-scn_low_pressure.elements,pass,max relative element imbalance,1.334222736e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 199.639 out 199.639 kmol/h; O: in 26.7395 out 26.7395 kmol/h
+results/simulations/scn_low_pressure.json,BAL-ASPEN-scn_low_pressure.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.957205974e-09,0.0001,"in -1418.2767307471 kW, out -1418.2767386 kW"
+results/simulations/scn_low_pressure.json,NONNEG-ASPEN-scn_low_pressure,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_low_pressure.json,UNITS-ASPEN-scn_low_pressure,pass,max |sum(y) - 1|,5.400000447e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_low_pressure.json,CONV-ASPEN-scn_low_pressure,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_low_recovery.json,BAL-ASPEN-scn_low_recovery.mass,pass,relative mass imbalance,1.656368623e-09,1e-06,"in 4829.84 kg/h, out 4829.84 kg/h"
+results/simulations/scn_low_recovery.json,BAL-ASPEN-scn_low_recovery.elements,pass,max relative element imbalance,3.062355517e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 271.029 out 271.029 kmol/h; O: in 45.7164 out 45.7164 kmol/h
+results/simulations/scn_low_recovery.json,BAL-ASPEN-scn_low_recovery.energy,pass,relative energy imbalance (balances.energy_closure_rel),1.690896986e-09,0.0001,"in -2471.70952895 kW, out -2471.7095375 kW"
+results/simulations/scn_low_recovery.json,NONNEG-ASPEN-scn_low_recovery,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_low_recovery.json,UNITS-ASPEN-scn_low_recovery,pass,max |sum(y) - 1|,6.999999469e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_low_recovery.json,CONV-ASPEN-scn_low_recovery,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_low_temperature.json,BAL-ASPEN-scn_low_temperature.mass,pass,relative mass imbalance,7.578445488e-10,1e-06,"in 3958.6 kg/h, out 3958.6 kg/h"
+results/simulations/scn_low_temperature.json,BAL-ASPEN-scn_low_temperature.elements,pass,max relative element imbalance,2.421824205e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 223.314 out 223.314 kmol/h; O: in 33.033 out 33.033 kmol/h
+results/simulations/scn_low_temperature.json,BAL-ASPEN-scn_low_temperature.energy,pass,relative energy imbalance (balances.energy_closure_rel),-1.373381451e-09,0.0001,"in -1767.394913092 kW, out -1767.3949073 kW"
+results/simulations/scn_low_temperature.json,NONNEG-ASPEN-scn_low_temperature,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_low_temperature.json,UNITS-ASPEN-scn_low_temperature,pass,max |sum(y) - 1|,7.000000579e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_low_temperature.json,CONV-ASPEN-scn_low_temperature,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/simulations/scn_tight_fehe.json,BAL-ASPEN-scn_tight_fehe.mass,pass,relative mass imbalance,5.44962352e-10,1e-06,"in 3669.98 kg/h, out 3669.98 kg/h"
+results/simulations/scn_tight_fehe.json,BAL-ASPEN-scn_tight_fehe.elements,pass,max relative element imbalance,3.468452356e-09,1e-06,H: in 299.8 out 299.8 kmol/h; N: in 207.508 out 207.508 kmol/h; O: in 28.8313 out 28.8313 kmol/h
+results/simulations/scn_tight_fehe.json,BAL-ASPEN-scn_tight_fehe.energy,pass,relative energy imbalance (balances.energy_closure_rel),3.139785321e-09,0.0001,"in -1534.0794027430002 kW, out -1534.0794154 kW"
+results/simulations/scn_tight_fehe.json,NONNEG-ASPEN-scn_tight_fehe,pass,most negative flow (kmol/h or kg/h),0,1e-09,all flows >= 0
+results/simulations/scn_tight_fehe.json,UNITS-ASPEN-scn_tight_fehe,pass,max |sum(y) - 1|,5.000000414e-10,1e-06,"all stream fractions, T, P, KPI fractions in range"
+results/simulations/scn_tight_fehe.json,CONV-ASPEN-scn_tight_fehe,pass,1 if not converged/has errors,0,0,"converged=True, has_errors=False, has_warnings=False"
+results/sensitivity/aspen_feed_rate.csv,run feed_rate_000,,mass/energy closure,-1.089924456e-10,-5.305111617e-10,converged=True
+results/sensitivity/aspen_feed_rate.csv,run feed_rate_001,,mass/energy closure,-2.179849531e-09,1.022809566e-09,converged=True
+results/sensitivity/aspen_feed_rate.csv,run feed_rate_002,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_feed_rate.csv,run feed_rate_003,,mass/energy closure,1.816541997e-10,-8.445320704e-10,converged=True
+results/sensitivity/aspen_feed_rate.csv,run feed_rate_004,,mass/energy closure,6.812030014e-10,-4.855496936e-11,converged=True
+results/sensitivity/aspen_feed_water.csv,run feed_water_000,,mass/energy closure,-8.165694884e-10,-1.03360548e-09,converged=True
+results/sensitivity/aspen_feed_water.csv,run feed_water_001,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_feed_water.csv,run feed_water_002,,mass/energy closure,1.364596894e-09,1.895842638e-10,converged=True
+results/sensitivity/aspen_feed_water.csv,run feed_water_003,,mass/energy closure,2.736527219e-10,-2.52189461e-10,converged=True
+results/sensitivity/aspen_feed_water.csv,run feed_water_004,,mass/energy closure,-1.251150049e-16,1.784117102e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_000,,mass/energy closure,-5.449623523e-10,3.139785321e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_001,,mass/energy closure,-5.449623523e-10,3.215529955e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_002,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_003,,mass/energy closure,-5.449623523e-10,3.067564191e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_004,,mass/energy closure,-5.449623523e-10,3.016246772e-09,converged=True
+results/sensitivity/aspen_fehe_approach.csv,run fehe_approach_005,,mass/energy closure,-5.449623523e-10,2.920426992e-09,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_000,,mass/energy closure,-1.024440582e-09,9.063519323e-10,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_001,,mass/energy closure,-9.331173734e-10,1.732120858e-09,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_002,,mass/energy closure,-7.578445493e-10,-1.200380965e-09,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_003,,mass/energy closure,-2.648677289e-10,1.799756436e-09,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_004,,mass/energy closure,-5.449623523e-10,2.406113068e-09,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_005,,mass/energy closure,2.772513884e-10,5.071286682e-10,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_006,,mass/energy closure,-2.522733767e-09,9.996886598e-10,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_007,,mass/energy closure,-3.387700947e-09,3.381133637e-10,converged=True
+results/sensitivity/aspen_no_hi_temperature.csv,run no_hi_temperature_008,,mass/energy closure,-1.98562554e-09,6.189737589e-10,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_000,,mass/energy closure,-1.701504449e-09,1.957205974e-09,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_001,,mass/energy closure,-1.398668613e-09,1.652154845e-09,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_002,,mass/energy closure,-2.760356792e-10,1.574809788e-10,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_003,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_004,,mass/energy closure,-1.614368169e-09,1.158484599e-09,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_005,,mass/energy closure,-1.063073957e-09,8.655342277e-10,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_006,,mass/energy closure,-5.25191054e-10,-1.094369399e-09,converged=True
+results/sensitivity/aspen_pressure.csv,run pressure_007,,mass/energy closure,-5.190709655e-10,1.895502706e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_000,,mass/energy closure,-1.109103431e-09,2.254033212e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_001,,mass/energy closure,-1.656368626e-09,1.690896986e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_002,,mass/energy closure,0,3.331031733e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_003,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_004,,mass/energy closure,-1.294479238e-09,4.472207396e-09,converged=True
+results/sensitivity/aspen_psa_recovery.csv,run psa_recovery_005,,mass/energy closure,-2.788718343e-09,2.480169573e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_000,,mass/energy closure,-1.024440582e-09,9.730499338e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_001,,mass/energy closure,-1.541725879e-09,6.995513077e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_002,,mass/energy closure,-9.331173734e-10,2.006075341e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_003,,mass/energy closure,-9.759730951e-10,6.805962766e-11,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_004,,mass/energy closure,-7.578445493e-10,-1.373381451e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_005,,mass/energy closure,-2.33517036e-09,2.591412053e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_006,,mass/energy closure,-2.648677289e-10,2.172193762e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_007,,mass/energy closure,-2.960367224e-09,2.03977114e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_008,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_009,,mass/energy closure,-2.201104254e-09,1.419030841e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_010,,mass/energy closure,2.772513884e-10,6.521017628e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_011,,mass/energy closure,-8.368264741e-10,-1.029961317e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_012,,mass/energy closure,-2.522733767e-09,1.042036197e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_013,,mass/energy closure,-1.125630155e-09,-3.524048403e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_014,,mass/energy closure,-3.387700947e-09,1.084091892e-09,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_015,,mass/energy closure,2.830485794e-10,5.386289857e-10,converged=True
+results/sensitivity/aspen_temperature.csv,run temperature_016,,mass/energy closure,-1.98562554e-09,4.332909836e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_000,,mass/energy closure,-1.351912572e-09,-3.81674046e-11,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_001,,mass/energy closure,-1.109905449e-09,1.595728109e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_002,,mass/energy closure,-1.406830919e-09,2.233454066e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_003,,mass/energy closure,-1.701504449e-09,1.957205974e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_004,,mass/energy closure,-1.994325261e-09,1.557742045e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_005,,mass/energy closure,-2.571493143e-09,-7.707211358e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_006,,mass/energy closure,8.587434379e-10,2.943129162e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_007,,mass/energy closure,-1.53598798e-09,2.770011082e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_008,,mass/energy closure,-1.073465023e-09,1.475716094e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_009,,mass/energy closure,-2.204196797e-09,2.263679238e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_010,,mass/energy closure,-1.398668613e-09,1.652154845e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_011,,mass/energy closure,1.129134565e-09,2.502788585e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_012,,mass/energy closure,-2.55493337e-09,3.820022202e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_013,,mass/energy closure,5.698338264e-10,2.718852935e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_014,,mass/energy closure,-9.331173734e-10,2.006075341e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_015,,mass/energy closure,-7.578445493e-10,-1.373381451e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_016,,mass/energy closure,-2.648677289e-10,2.172193762e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_017,,mass/energy closure,-5.449623523e-10,3.21846356e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_018,,mass/energy closure,2.772513884e-10,6.521017628e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_019,,mass/energy closure,-2.522733767e-09,1.042036197e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_020,,mass/energy closure,-3.387700947e-09,1.084091892e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_021,,mass/energy closure,-1.512695766e-09,2.282399199e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_022,,mass/energy closure,-1.436743495e-09,-8.36299402e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_023,,mass/energy closure,-5.107693698e-10,4.526244725e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_024,,mass/energy closure,-1.063073957e-09,8.655342277e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_025,,mass/energy closure,-1.634863976e-09,1.181184032e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_026,,mass/energy closure,-2.768558166e-09,4.300254453e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_027,,mass/energy closure,-1.398842473e-09,6.525183507e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_028,,mass/energy closure,-1.013058522e-09,3.022401671e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_029,,mass/energy closure,-6.848583701e-10,3.475557156e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_030,,mass/energy closure,-2.468860035e-10,-8.668908657e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_031,,mass/energy closure,-5.190709655e-10,1.895502706e-09,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_032,,mass/energy closure,-2.67941497e-09,5.327805091e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_033,,mass/energy closure,-1.641182323e-09,5.578791496e-10,converged=True
+results/sensitivity/aspen_tp_map.csv,run tp_map_034,,mass/energy closure,-8.318829495e-10,1.467047264e-09,converged=True

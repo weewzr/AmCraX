@@ -1,0 +1,6 @@
+.opt-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(440px,100%),1fr));gap:var(--gap)}
+.opt-card table.compact{width:100%;font-size:13px;margin:8px 0}
+.opt-card .unit{color:var(--muted)}
+table.heat{border-collapse:collapse;font-size:12px;font-variant-numeric:tabular-nums}
+table.heat th,table.heat td{padding:4px 8px;border:1px solid var(--border)}
+table.heat th{background:var(--surface-2);font-weight:600}

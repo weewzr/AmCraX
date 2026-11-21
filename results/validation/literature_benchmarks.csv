@@ -1,0 +1,65 @@
+id,quantity,conditions,literature_value,unit,citekey,page,amcrax_value,deviation,tolerance,status,note
+LIT-DH-0,dH_rxn 298 K,"298.15 K, per mol NH3",45.92,kJ/mol,cechetto2023membrane,3,45.89893409,-0.02106590618,0.5,pass,printed as formation enthalpy
+LIT-DH-1,dH_rxn 298 K,"298.15 K, per mol NH3",45.984,kJ/mol,maccarrone2025comprehensive,3,45.89893409,-0.08506590618,0.5,pass,"uncited; dS 99.046 J/(mol K), dG 16.610 kJ/mol - internally inconsistent by ~0.16 kJ/mol"
+LIT-DH-2,dH_rxn 298 K,"298.15 K, per mol NH3",46.11,kJ/mol,kum2026heatintegrated,5,45.89893409,-0.2110659062,0.5,pass,46110 J/mol NH3 at 298 K
+LIT-DH-3,dH_rxn 298 K,"298.15 K, per mol NH3",45.6,kJ/mol,cho2026nickel,2,45.89893409,0.2989340938,0.5,pass,
+LIT-DH-4,dH_rxn 298 K,"298.15 K, per mol NH3",45.6,kJ/mol,xu2025review,5,45.89893409,0.2989340938,0.5,pass,printed 91.2 kJ for 2NH3
+LIT-DH-5,dH_rxn 298 K,"298.15 K, per mol NH3",45.9,kJ/mol,richard2024technoeconomic,7,45.89893409,-0.001065906181,0.5,pass,
+LIT-DH-6,dH_rxn 298 K,"298.15 K, per mol NH3",46.2,kJ/mol,mehr2026highcapacity,2,45.89893409,-0.3010659062,0.5,pass,92.4 kJ per 2 NH3
+LIT-DH-7,dH_rxn 298 K,"298.15 K, per mol NH3",46,kJ/mol,purcel2024stability,1,45.89893409,-0.1010659062,0.5,pass,92 kJ per 2 NH3
+LIT-DH-8,dH_rxn 298 K,"298.15 K, per mol NH3",46.22,kJ/mol,chopra2026decentralized,3,45.89893409,-0.3210659062,0.5,pass,printed kJ/mol H2; physically per mol NH3
+LIT-CECH-1-325,equilibrium conversion,"pure NH3, 325 C, 1 bar",97.3,%,cechetto2023membrane,9,97.32476282,0.02476281987,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 97.32
+LIT-CECH-1-350,equilibrium conversion,"pure NH3, 350 C, 1 bar",98.2,%,cechetto2023membrane,9,98.21065914,0.01065914049,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 98.21
+LIT-CECH-1-375,equilibrium conversion,"pure NH3, 375 C, 1 bar",98.7,%,cechetto2023membrane,9,98.77336104,0.07336104497,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 98.77
+LIT-CECH-1-400,equilibrium conversion,"pure NH3, 400 C, 1 bar",99.1,%,cechetto2023membrane,9,99.13908031,0.03908031443,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 99.14
+LIT-CECH-1-450,equilibrium conversion,"pure NH3, 450 C, 1 bar",99.7,%,cechetto2023membrane,9,99.5476822,-0.1523178019,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 99.55
+LIT-CECH-4-400,equilibrium conversion,"pure NH3, 400 C, 4 bar",96.7,%,cechetto2023membrane,9,96.68389095,-0.01610904926,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 96.68
+LIT-CECH-4-425,equilibrium conversion,"pure NH3, 425 C, 4 bar",97.6,%,cechetto2023membrane,9,97.59570761,-0.004292386901,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 97.59
+LIT-CECH-4-450,equilibrium conversion,"pure NH3, 450 C, 4 bar",98.2,%,cechetto2023membrane,9,98.22668888,0.02668888191,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 98.22
+LIT-CECH-5-350,equilibrium conversion,"pure NH3, 350 C, 5 bar",91.9,%,cechetto2023membrane,9,91.90749856,0.007498562776,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 91.88
+LIT-CECH-5-400,equilibrium conversion,"pure NH3, 400 C, 5 bar",95.9,%,cechetto2023membrane,9,95.90515553,0.00515553061,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 95.89
+LIT-CECH-5-425,equilibrium conversion,"pure NH3, 425 C, 5 bar",97,%,cechetto2023membrane,9,97.02125018,0.0212501849,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 97.01
+LIT-CECH-5-450,equilibrium conversion,"pure NH3, 450 C, 5 bar",97.8,%,cechetto2023membrane,9,97.79790778,-0.00209221528,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 97.79
+LIT-CECH-5-475,equilibrium conversion,"pure NH3, 475 C, 5 bar",98.3,%,cechetto2023membrane,9,98.3459011,0.045901102,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 98.34
+LIT-CECH-5-500,equilibrium conversion,"pure NH3, 500 C, 5 bar",98.7,%,cechetto2023membrane,9,98.73831134,0.03831134392,0.3,pass,Table 3; Aspen V11 RGibbs; AmCraX PR 98.74
+LIT-CECH-S1,equilibrium statement,>99 % at 1 bar above 400 C (checked at 400 C),99,% (lower bound),cechetto2023membrane,3,99.13908031,0.1390803144,0,pass,
+LIT-CECH-S2,equilibrium statement,">95 % at 1-20 bar above 500 C (checked at 500 C, 20 bar)",95,% (lower bound),cechetto2023membrane,3,95.22177412,0.221774119,0,pass,
+LIT-CECH-F2-1,equilibrium conversion (figure reading),"200 C, 1 bar",75,%,cechetto2023membrane,3,74.34001867,-0.659981335,3,pass,read from figure
+LIT-CECH-F2-5,equilibrium conversion (figure reading),"200 C, 5 bar",43,%,cechetto2023membrane,3,44.51079473,1.510794731,3,pass,read from figure
+LIT-CECH-F2-10,equilibrium conversion (figure reading),"200 C, 10 bar",32,%,cechetto2023membrane,3,33.15908568,1.159085678,3,pass,read from figure
+LIT-CECH-F2-20,equilibrium conversion (figure reading),"200 C, 20 bar",24,%,cechetto2023membrane,3,24.11938262,0.1193826203,3,pass,read from figure
+LIT-XU-1-100,equilibrium conversion (figure reading),"100 C, 1 bar",20,%,xu2025review,5-6,20.89123798,0.8912379761,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-150,equilibrium conversion (figure reading),"150 C, 1 bar",48,%,xu2025review,5-6,47.02285371,-0.9771462932,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-200,equilibrium conversion (figure reading),"200 C, 1 bar",74,%,xu2025review,5-6,74.34001867,0.340018665,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-250,equilibrium conversion (figure reading),"250 C, 1 bar",89,%,xu2025review,5-6,89.7608686,0.7608685998,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-300,equilibrium conversion (figure reading),"300 C, 1 bar",95,%,xu2025review,5-6,95.90031454,0.9003145375,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-350,equilibrium conversion (figure reading),"350 C, 1 bar",98,%,xu2025review,5-6,98.21065914,0.2106591405,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-1-400,equilibrium conversion (figure reading),"400 C, 1 bar",99,%,xu2025review,5-6,99.13908031,0.1390803144,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-30-300,equilibrium conversion (figure reading),"300 C, 30 bar",52,%,xu2025review,5-6,52.56034093,0.5603409257,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-30-350,equilibrium conversion (figure reading),"350 C, 30 bar",69,%,xu2025review,5-6,68.95529562,-0.04470438482,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-30-400,equilibrium conversion (figure reading),"400 C, 30 bar",80,%,xu2025review,5-6,81.02280958,1.022809582,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-30-500,equilibrium conversion (figure reading),"500 C, 30 bar",92,%,xu2025review,5-6,93.07594667,1.075946668,3,pass,"Fig. 4(a), read from figure"
+LIT-XU-30-600,equilibrium conversion (figure reading),"600 C, 30 bar",97,%,xu2025review,5-6,97.16587773,0.1658777331,3,pass,"Fig. 4(a), read from figure"
+LIT-HANSEN-400,equilibrium conversion,"400 C, pressure not stated",99.1,%,hansen2024hysys,2,,,,not_comparable,pressure not stated; AmCraX at 1 bar would be 99.14
+LIT-HANSEN-500,equilibrium conversion,"500 C, pressure not stated",99.7,%,hansen2024hysys,2,,,,not_comparable,pressure not stated; AmCraX at 1 bar would be 99.74
+LIT-INVALID-ahmad2025gtcc,equilibrium conversion,"500 C, 30 bar",96.4,%,ahmad2025gtcc,19,93.07594667,-3.324053332,,not_comparable,systematically above ideal-gas equilibrium (96.4 vs 93.1 % at 500 degC/30 bar per extraction agent check)
+LIT-NC-hansen2024hysys,process result,Gibbs cracker 437 C conversion 99.42 % (pressure not stated),,,hansen2024hysys,,,,,not_comparable,conditions under-specified for a like-for-like comparison
+LIT-NC-farokhi2025costoptimization,process result,"Gibbs cracker conversion 98.15 % (T, P not stated in benchmark)",,,farokhi2025costoptimization,,,,,not_comparable,conditions under-specified for a like-for-like comparison
+LIT-NC-kum2026heatintegrated,process result,cracker duty 79.25 kJ/mol NH3 (fired kinetic reactor incl. preheat; boundary differs from AmCraX isothermal RGibbs),,,kum2026heatintegrated,,,,,not_comparable,conditions under-specified for a like-for-like comparison
+LIT-MACC-T0,T at which dG_rxn = 0,1 bar standard state,450,K,maccarrone2025comprehensive,4,455.9333969,5.933396914,15,pass,read from Fig. 1b text (rounded)
+LIT-KUM-DG-623.15,dG_rxn per 2 mol NH3,623.15 K,-37.04224735,kJ,kum2026heatintegrated,4,-36.93829332,0.1039540314,1,pass,Eq. 4 correlation (basis per 2 mol NH3 verified by research agent)
+LIT-KUM-DG-773.15,dG_rxn per 2 mol NH3,773.15 K,-71.45463207,kJ,kum2026heatintegrated,4,-71.11745434,0.3371777318,1,pass,Eq. 4 correlation (basis per 2 mol NH3 verified by research agent)
+LIT-KUM-DG-873.15,dG_rxn per 2 mol NH3,873.15 K,-94.75543866,kJ,kum2026heatintegrated,4,-94.2301548,0.5252838579,1,pass,Eq. 4 correlation (basis per 2 mol NH3 verified by research agent)
+LIT-MACC-eq3-500,Kp (per mol NH3),500 K,2.97,-,maccarrone2025comprehensive,4,3.160889999,0.1908899987,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq3-700,Kp (per mol NH3),700 K,102,-,maccarrone2025comprehensive,4,106.7045181,4.704518132,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq3-873,Kp (per mol NH3),873 K,647,-,maccarrone2025comprehensive,4,657.6019669,10.60196687,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq4-500,Kp (per mol NH3),500 K,3.01,-,maccarrone2025comprehensive,4,3.160889999,0.1508899987,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq4-700,Kp (per mol NH3),700 K,105,-,maccarrone2025comprehensive,4,106.7045181,1.704518132,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq4-873,Kp (per mol NH3),873 K,663,-,maccarrone2025comprehensive,4,657.6019669,-5.398033133,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq5-500,Kp (per mol NH3),500 K,3.54,-,maccarrone2025comprehensive,4,3.160889999,-0.3791100013,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq5-700,Kp (per mol NH3),700 K,118,-,maccarrone2025comprehensive,4,106.7045181,-11.29548187,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-MACC-eq5-873,Kp (per mol NH3),873 K,726,-,maccarrone2025comprehensive,4,657.6019669,-68.39803313,,informational,"misprinted correlation, corrected reading by extraction agent; informational"
+LIT-NH3-COMB,NH3 combustion enthalpy to H2O(g),standard,-317,kJ/mol,xu2025review,6,-316.8379984,0.1620016303,1,pass,
+LIT-LHV-H2,LHV of H2,standard,120,MJ/kg,xu2025review,4,119.9605135,-0.03948647737,0.5,pass,
+LIT-NH3-PER-H2,theoretical NH3 per kg H2,standard,5.632,kg/kg,cho2026nickel,10,5.632114345,0.0001143454306,0.005,pass,
+LIT-H-CONTENT,H content of NH3,standard,17.8,wt%,xu2025review,3,17.75532134,-0.04467866475,0.1,pass,

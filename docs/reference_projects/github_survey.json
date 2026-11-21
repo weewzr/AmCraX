@@ -1,0 +1,199 @@
+{
+  "survey_date": "2026-11-21",
+  "method": "one GitHub REST call per repo; shallow clone and code read for 5 Aspen repos; nothing executed against Aspen",
+  "repos": [
+    {
+      "repo": "pywin32/pywin32",
+      "canonical": "mhammond/pywin32",
+      "exists": true,
+      "spdx_api": null,
+      "last_push": "2026-11-12T02:11:09Z",
+      "stars": 5637,
+      "archived": false,
+      "description": "Python for Windows (pywin32) Extensions",
+      "url": "https://github.com/mhammond/pywin32",
+      "reuse_decision": "dependency",
+      "licence_compatibility": "PSF-style, not machine-verified (API returned none)"
+    },
+    {
+      "repo": "Cantera/cantera",
+      "canonical": "Cantera/cantera",
+      "exists": true,
+      "spdx_api": "NOASSERTION",
+      "last_push": "2026-11-01T20:37:29Z",
+      "stars": 888,
+      "archived": false,
+      "description": "Chemical kinetics, thermodynamics, and transport tool suite",
+      "url": "https://github.com/Cantera/cantera",
+      "reuse_decision": "dependency (optional cross-check)",
+      "licence_compatibility": "BSD-3-Clause per project, API NOASSERTION"
+    },
+    {
+      "repo": "scipy/scipy",
+      "canonical": "scipy/scipy",
+      "exists": true,
+      "spdx_api": "BSD-3-Clause",
+      "last_push": "2026-11-20T19:12:52Z",
+      "stars": 15231,
+      "archived": false,
+      "description": "SciPy library main repository",
+      "url": "https://github.com/scipy/scipy",
+      "reuse_decision": "dependency",
+      "licence_compatibility": "BSD-3-Clause"
+    },
+    {
+      "repo": "pyomo/pyomo",
+      "canonical": "Pyomo/pyomo",
+      "exists": true,
+      "spdx_api": "NOASSERTION",
+      "last_push": "2026-11-21T05:42:37Z",
+      "stars": 2563,
+      "archived": false,
+      "description": "An object-oriented algebraic modeling language in Python for structured optimization problems.",
+      "url": "https://github.com/Pyomo/pyomo",
+      "reuse_decision": "dependency (optional)",
+      "licence_compatibility": "BSD-3-Clause per project, API NOASSERTION"
+    },
+    {
+      "repo": "plotly/plotly.py",
+      "canonical": "plotly/plotly.py",
+      "exists": true,
+      "spdx_api": "MIT",
+      "last_push": "2026-11-19T23:40:31Z",
+      "stars": 18916,
+      "archived": false,
+      "description": "The interactive graphing library for Python :sparkles:",
+      "url": "https://github.com/plotly/plotly.py",
+      "reuse_decision": "dependency",
+      "licence_compatibility": "MIT"
+    },
+    {
+      "repo": "xyflow/xyflow",
+      "canonical": "xyflow/xyflow",
+      "exists": true,
+      "spdx_api": "MIT",
+      "last_push": "2026-11-19T14:01:55Z",
+      "stars": 39101,
+      "archived": false,
+      "description": "React Flow |\u00a0Svelte Flow |\u00a0Vue Flow - Powerful open source libraries for building node-based UIs with React (https://reactflow.dev), Svelte (https://svelteflow.dev) and Vue (https://vueflow.dev). Ready out-of-the-box and infinitely customizable.",
+      "url": "https://github.com/xyflow/xyflow",
+      "reuse_decision": "dependency (npm)",
+      "licence_compatibility": "MIT"
+    },
+    {
+      "repo": "EPEL-SNU/Aspen_Plus_MCP",
+      "canonical": "EPEL-SNU/Aspen_Plus_MCP",
+      "exists": true,
+      "spdx_api": "MIT",
+      "last_push": "2026-10-07T13:13:01Z",
+      "stars": 8,
+      "archived": false,
+      "description": null,
+      "url": "https://github.com/EPEL-SNU/Aspen_Plus_MCP",
+      "reuse_decision": "pattern reference only",
+      "licence_compatibility": "MIT"
+    },
+    {
+      "repo": "beykal-lab/aspen-python-automation",
+      "canonical": "beykal-lab/aspen-python-automation",
+      "exists": true,
+      "spdx_api": "CC-BY-4.0",
+      "last_push": "2026-04-12T21:43:39Z",
+      "stars": 7,
+      "archived": false,
+      "description": "Automatic Sampling & Optimization Wrapper for Aspen Plus",
+      "url": "https://github.com/beykal-lab/aspen-python-automation",
+      "reuse_decision": "pattern reference only",
+      "licence_compatibility": "CC-BY-4.0 (attribution if copied; nothing copied)"
+    },
+    {
+      "repo": "zwang1995/Aspen-Plus-Automation",
+      "canonical": "zwang1995/Aspen-Plus-Automation",
+      "exists": true,
+      "spdx_api": "MIT",
+      "last_push": "2024-10-17T14:20:06Z",
+      "stars": 37,
+      "archived": false,
+      "description": "Automation of process simulation in Aspen Plus",
+      "url": "https://github.com/zwang1995/Aspen-Plus-Automation",
+      "reuse_decision": "pattern reference only",
+      "licence_compatibility": "MIT"
+    },
+    {
+      "repo": "adk23333/py2aspen",
+      "canonical": "adk23333/py2aspen",
+      "exists": true,
+      "spdx_api": "BSD-3-Clause",
+      "last_push": "2026-08-21T12:40:00Z",
+      "stars": 13,
+      "archived": false,
+      "description": "A Python wrapper for Aspen Plus built on comtypes \u2728",
+      "url": "https://github.com/adk23333/py2aspen",
+      "reuse_decision": "not used",
+      "licence_compatibility": "BSD-3-Clause"
+    },
+    {
+      "repo": "thirakorn-mokkawes-59/aspen-mcp",
+      "canonical": "thirakorn-mokkawes-59/aspen-mcp",
+      "exists": true,
+      "spdx_api": "MIT",
+      "last_push": "2026-06-07T17:00:33Z",
+      "stars": 2,
+      "archived": false,
+      "description": "MCP server for Aspen Plus v15. 85 tools for process simulation via COM automation.",
+      "url": "https://github.com/thirakorn-mokkawes-59/aspen-mcp",
+      "reuse_decision": "pattern reference only",
+      "licence_compatibility": "MIT"
+    }
+  ],
+  "aspen_com_cheatsheet": {
+    "progid": [
+      "Apwn.Document",
+      "Apwn.Document.41.0 (V15)",
+      "Apwn.Document.38.0 (V12, zwang v1)"
+    ],
+    "open": {
+      "bkp": "app.InitFromArchive2(abs_path)",
+      "apw": "app.InitFromFile(abs_path) (aspen-mcp, py2aspen); InitFromFile2 not used by any"
+    },
+    "dialogs_visibility": "app.SuppressDialogs = True; app.Visible = False; app.RefreshOff (aspen-mcp)",
+    "run": "app.Engine.Reinit(); app.Engine.Run2() (sync per EPEL); app.Run2() in aspen-mcp/py2aspen; Engine.Run() async in zwang v1; Engine.Stop(); Engine.IsRunning; Engine.Ready",
+    "close": "app.Quit() (zwang) vs app.Close() (others); orphan process behaviour untested",
+    "stream_inputs": [
+      "\\Data\\Streams\\<s>\\Input\\TEMP\\MIXED",
+      "\\Data\\Streams\\<s>\\Input\\PRES\\MIXED",
+      "\\Data\\Streams\\<s>\\Input\\TOTFLOW\\MIXED",
+      "\\Data\\Streams\\<s>\\Input\\FLOW\\MIXED\\<c>"
+    ],
+    "stream_outputs": [
+      "\\Data\\Streams\\<s>\\Output\\TEMP_OUT\\MIXED",
+      "\\Data\\Streams\\<s>\\Output\\PRES_OUT\\MIXED",
+      "\\Data\\Streams\\<s>\\Output\\MOLEFRAC\\MIXED\\<c>",
+      "\\Data\\Streams\\<s>\\Output\\MASSFLOW\\MIXED\\<c>",
+      "\\Data\\Streams\\<s>\\Output\\MOLEFLMX\\MIXED",
+      "\\Data\\Streams\\<s>\\Output\\STR_MAIN\\TEMP\\MIXED",
+      "\\Data\\Streams\\<s>\\Output\\STR_MAIN\\MOLEFLOW\\MIXED\\<c>",
+      "\\Data\\Streams\\<s>\\Output\\RES_TEMP"
+    ],
+    "block_inputs": [
+      "\\Data\\Blocks\\<b>\\Input\\TEMP",
+      "\\Data\\Blocks\\<b>\\Input\\PRES",
+      "\\Data\\Blocks\\<b>\\Input\\HEATOPT"
+    ],
+    "block_outputs": [
+      "\\Data\\Blocks\\<b>\\Output\\QNET",
+      "\\Data\\Blocks\\<b>\\Output\\QCALC",
+      "\\Data\\Blocks\\<b>\\Output\\B_VFRAC",
+      "\\Data\\Blocks\\<b>\\Output\\REB_DUTY"
+    ],
+    "convergence": [
+      "\\Data\\Blocks\\<b>\\Output\\BLKSTAT (semantics disputed)",
+      "\\Data\\Blocks\\<b>\\Output\\BLKMSG",
+      "\\Data\\Blocks\\<b>\\Output\\PER_ERROR",
+      "\\Data\\Results Summary\\Run-Status\\Output\\UOSSTAT",
+      "\\Data\\Results Summary\\Run-Status\\Output\\PER_ERROR",
+      "\\Data\\Results Summary\\Run-Status\\Output\\RUNID",
+      "\\Data\\Convergence\\Tear"
+    ]
+  }
+}

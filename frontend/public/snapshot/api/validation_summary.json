@@ -1,0 +1,279 @@
+{
+ "count": 137,
+ "by_status": {
+  "pass": 105,
+  "informational": 10,
+  "fail": 22
+ },
+ "by_category": {
+  "thermodynamics (equilibrium)": {
+   "pass": 8,
+   "informational": 4
+  },
+  "Aspen Plus RGibbs (IDEAL) / automation": {
+   "pass": 1
+  },
+  "Aspen Plus RGibbs (IDEAL)": {
+   "pass": 1
+  },
+  "process model (flowsheet)": {
+   "fail": 20,
+   "pass": 24,
+   "informational": 1
+  },
+  "Aspen Plus flowsheet": {
+   "pass": 20
+  },
+  "Aspen Plus flowsheet (internal consistency)": {
+   "pass": 11
+  },
+  "Aspen Plus flowsheet (independent physics)": {
+   "pass": 4,
+   "informational": 1
+  },
+  "literature benchmarks": {
+   "pass": 7,
+   "informational": 3
+  },
+  "thermodynamics / constants": {
+   "pass": 4
+  },
+  "kinetics": {
+   "pass": 2,
+   "fail": 2,
+   "informational": 1
+  },
+  "optimisation": {
+   "pass": 3
+  },
+  "economics": {
+   "pass": 7
+  },
+  "environmental": {
+   "pass": 4
+  },
+  "api": {
+   "pass": 1
+  },
+  "aspen_layer": {
+   "pass": 1
+  },
+  "heat_integration": {
+   "pass": 1
+  },
+  "process_model": {
+   "pass": 1
+  },
+  "reactor": {
+   "pass": 1
+  },
+  "scenarios": {
+   "pass": 1
+  },
+  "separation": {
+   "pass": 1
+  },
+  "thermodynamics": {
+   "pass": 1
+  },
+  "validation_checks": {
+   "pass": 1
+  }
+ },
+ "meta": {
+  "generated_utc": "2026-11-21T14:41:48+00:00",
+  "generator": "scripts/build_validation_matrix.py"
+ },
+ "file_summary": {
+  "n_items": 137,
+  "pass": 105,
+  "fail": 22,
+  "not_run": 0,
+  "informational": 10,
+  "by_family": {
+   "THERMO": {
+    "n_items": 3,
+    "pass": 2,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 1
+   },
+   "EQ": {
+    "n_items": 11,
+    "pass": 8,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 3
+   },
+   "FS": {
+    "n_items": 20,
+    "pass": 0,
+    "fail": 20,
+    "not_run": 0,
+    "informational": 0
+   },
+   "FS-PRIMARY": {
+    "n_items": 20,
+    "pass": 20,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "FEEDSEC": {
+    "n_items": 1,
+    "pass": 0,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 1
+   },
+   "BAL-ASPEN": {
+    "n_items": 20,
+    "pass": 20,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "BAL-PY": {
+    "n_items": 4,
+    "pass": 4,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "SENS": {
+    "n_items": 8,
+    "pass": 8,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "STEMP": {
+    "n_items": 2,
+    "pass": 2,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "FEED-PROP": {
+    "n_items": 1,
+    "pass": 1,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "PHYS": {
+    "n_items": 5,
+    "pass": 4,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 1
+   },
+   "LIT": {
+    "n_items": 14,
+    "pass": 11,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 3
+   },
+   "KIN": {
+    "n_items": 4,
+    "pass": 1,
+    "fail": 2,
+    "not_run": 0,
+    "informational": 1
+   },
+   "OPT": {
+    "n_items": 2,
+    "pass": 2,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "ECON": {
+    "n_items": 6,
+    "pass": 6,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "ENV": {
+    "n_items": 3,
+    "pass": 3,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   },
+   "PYTEST": {
+    "n_items": 13,
+    "pass": 13,
+    "fail": 0,
+    "not_run": 0,
+    "informational": 0
+   }
+  },
+  "failure_root_causes": [
+   {
+    "cause": "feed_section_enthalpy",
+    "description": "Different feed-section property models (a model-form difference in both directions, not a data error). Aspen uses PENG-ROB for the liquid, the vaporisation and the NH3-H2O dew point; the Python model uses the reference EOS for ammonia (CoolProp, Gao et al. 2020) and an ideal-liquid (Raoult) dew point. At identical states (Aspen baseline S1 -> S2) the Aspen vaporiser duty is +2.4 % relative to the reference EOS (739.46 vs 721.8 kW); the NH3 vapour residual enthalpy at S2 is -1.017 kJ/mol with PR (k_ij = 0) against -1.436 kJ/mol with the reference EOS, which is the more accurate model for pure-ammonia enthalpy. The vaporiser outlet temperature is set by the 0.2 mol% water and the VLE model: at 20.8 bar the dew point is 50.9 C for pure NH3, 52.7 C with PR k_ij = 0, 60.1 C with Raoult, 65.1 C with PR k_ij(NH3-H2O) = -0.25 and 65.9 C in Aspen; no reference NH3-H2O mixture model was available to arbitrate. Of the 20.8 kW baseline FEHE gap (Python 633.0, Aspen 612.2 kW) 8.7 kW come from the inlet temperature (dew point), 11.6 kW from the PR vs reference residual enthalpy at S2, 0.7 kW from the residual at S3 and -0.2 kW remain (ideal-gas cp sources, PR constants). The FS-<case> items therefore measure this model-form difference; they keep their 2 % tolerance and fail.",
+    "n_items": 20,
+    "items": [
+     "FS-baseline",
+     "FS-baseline_no_hi",
+     "FS-opt_opt_conv",
+     "FS-opt_opt_eff",
+     "FS-opt_opt_h2",
+     "FS-opt_opt_heat",
+     "FS-opt_opt_lcoh",
+     "FS-opt_opt_lcoh_tp",
+     "FS-opt_par_1",
+     "FS-opt_par_2",
+     "FS-opt_par_3",
+     "FS-opt_par_4",
+     "FS-scn_fuel_cell_grade",
+     "FS-scn_high_pressure",
+     "FS-scn_high_recovery",
+     "FS-scn_high_temperature",
+     "FS-scn_low_pressure",
+     "FS-scn_low_recovery",
+     "FS-scn_low_temperature",
+     "FS-scn_tight_fehe"
+    ]
+   },
+   {
+    "cause": "kinetics_figure_predictions",
+    "description": "Takahashi (2016) microkinetic predictions: with W/F inferred from a single anchor point per catalyst (catalyst mass not reported; assumption) the PFR under-predicts conversion by more than 0.05 at diluted NH3 (p_NH3 0.25-0.3 atm) and with H2 co-feed (Figs. 3b, 5a, 5b), while the pure-NH3 temperature series agree; figure readings are approximate. Systematic, not tuned (developer guide 4.4).",
+    "n_items": 2,
+    "items": [
+     "KIN-NI-PRED",
+     "KIN-RU-PRED"
+    ]
+   }
+  ],
+  "failing_ids": [
+   "FS-baseline",
+   "FS-baseline_no_hi",
+   "FS-opt_opt_conv",
+   "FS-opt_opt_eff",
+   "FS-opt_opt_h2",
+   "FS-opt_opt_heat",
+   "FS-opt_opt_lcoh",
+   "FS-opt_opt_lcoh_tp",
+   "FS-opt_par_1",
+   "FS-opt_par_2",
+   "FS-opt_par_3",
+   "FS-opt_par_4",
+   "FS-scn_fuel_cell_grade",
+   "FS-scn_high_pressure",
+   "FS-scn_high_recovery",
+   "FS-scn_high_temperature",
+   "FS-scn_low_pressure",
+   "FS-scn_low_recovery",
+   "FS-scn_low_temperature",
+   "FS-scn_tight_fehe",
+   "KIN-NI-PRED",
+   "KIN-RU-PRED"
+  ],
+  "not_run_ids": []
+ },
+ "source": "results/validation/validation_matrix.json"
+}

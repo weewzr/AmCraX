@@ -1,0 +1,305 @@
+{
+ "count": 60,
+ "figures": [
+  {
+   "name": "aspen_conversion_vs_pressure.png",
+   "url": "/figures/aspen_conversion_vs_pressure.png",
+   "size_bytes": 134589
+  },
+  {
+   "name": "aspen_conversion_vs_temperature.png",
+   "url": "/figures/aspen_conversion_vs_temperature.png",
+   "size_bytes": 164166
+  },
+  {
+   "name": "aspen_duties_vs_temperature.png",
+   "url": "/figures/aspen_duties_vs_temperature.png",
+   "size_bytes": 138416
+  },
+  {
+   "name": "aspen_feed_rate_scaling.png",
+   "url": "/figures/aspen_feed_rate_scaling.png",
+   "size_bytes": 234575
+  },
+  {
+   "name": "aspen_feed_water_effect.png",
+   "url": "/figures/aspen_feed_water_effect.png",
+   "size_bytes": 303061
+  },
+  {
+   "name": "aspen_fehe_approach_effect.png",
+   "url": "/figures/aspen_fehe_approach_effect.png",
+   "size_bytes": 197664
+  },
+  {
+   "name": "aspen_h2_and_efficiency_vs_pressure.png",
+   "url": "/figures/aspen_h2_and_efficiency_vs_pressure.png",
+   "size_bytes": 173897
+  },
+  {
+   "name": "aspen_heat_integration_vs_none.png",
+   "url": "/figures/aspen_heat_integration_vs_none.png",
+   "size_bytes": 210690
+  },
+  {
+   "name": "aspen_psa_recovery_tradeoff.png",
+   "url": "/figures/aspen_psa_recovery_tradeoff.png",
+   "size_bytes": 238650
+  },
+  {
+   "name": "aspen_tp_map_conversion.png",
+   "url": "/figures/aspen_tp_map_conversion.png",
+   "size_bytes": 172798
+  },
+  {
+   "name": "aspen_tp_map_specific_heat.png",
+   "url": "/figures/aspen_tp_map_specific_heat.png",
+   "size_bytes": 171669
+  },
+  {
+   "name": "ci_breakdown_baseline.png",
+   "url": "/figures/ci_breakdown_baseline.png",
+   "size_bytes": 140609
+  },
+  {
+   "name": "ci_breakdown_baseline_no_hi.png",
+   "url": "/figures/ci_breakdown_baseline_no_hi.png",
+   "size_bytes": 142419
+  },
+  {
+   "name": "ci_scenarios_baseline.png",
+   "url": "/figures/ci_scenarios_baseline.png",
+   "size_bytes": 136099
+  },
+  {
+   "name": "ci_scenarios_baseline_no_hi.png",
+   "url": "/figures/ci_scenarios_baseline_no_hi.png",
+   "size_bytes": 137764
+  },
+  {
+   "name": "equilibrium_composition_vs_T.png",
+   "url": "/figures/equilibrium_composition_vs_T.png",
+   "size_bytes": 147923
+  },
+  {
+   "name": "equilibrium_conversion_vs_T.png",
+   "url": "/figures/equilibrium_conversion_vs_T.png",
+   "size_bytes": 189454
+  },
+  {
+   "name": "equilibrium_deviation_vs_pressure.png",
+   "url": "/figures/equilibrium_deviation_vs_pressure.png",
+   "size_bytes": 258988
+  },
+  {
+   "name": "equilibrium_K_and_dH_vs_T.png",
+   "url": "/figures/equilibrium_K_and_dH_vs_T.png",
+   "size_bytes": 135399
+  },
+  {
+   "name": "equilibrium_parity_aspen_python.png",
+   "url": "/figures/equilibrium_parity_aspen_python.png",
+   "size_bytes": 230349
+  },
+  {
+   "name": "equilibrium_pr_vs_ideal.png",
+   "url": "/figures/equilibrium_pr_vs_ideal.png",
+   "size_bytes": 178843
+  },
+  {
+   "name": "hi_composite_baseline.png",
+   "url": "/figures/hi_composite_baseline.png",
+   "size_bytes": 233671
+  },
+  {
+   "name": "hi_composite_baseline_no_hi.png",
+   "url": "/figures/hi_composite_baseline_no_hi.png",
+   "size_bytes": 233779
+  },
+  {
+   "name": "hi_configuration_comparison_baseline.png",
+   "url": "/figures/hi_configuration_comparison_baseline.png",
+   "size_bytes": 161841
+  },
+  {
+   "name": "hi_configuration_comparison_baseline_no_hi.png",
+   "url": "/figures/hi_configuration_comparison_baseline_no_hi.png",
+   "size_bytes": 162054
+  },
+  {
+   "name": "hi_grand_composite_baseline.png",
+   "url": "/figures/hi_grand_composite_baseline.png",
+   "size_bytes": 210781
+  },
+  {
+   "name": "hi_grand_composite_baseline_no_hi.png",
+   "url": "/figures/hi_grand_composite_baseline_no_hi.png",
+   "size_bytes": 210970
+  },
+  {
+   "name": "kinetics_validation.png",
+   "url": "/figures/kinetics_validation.png",
+   "size_bytes": 207408
+  },
+  {
+   "name": "lcoh_breakdown_baseline.png",
+   "url": "/figures/lcoh_breakdown_baseline.png",
+   "size_bytes": 90070
+  },
+  {
+   "name": "lcoh_breakdown_baseline_no_hi.png",
+   "url": "/figures/lcoh_breakdown_baseline_no_hi.png",
+   "size_bytes": 91258
+  },
+  {
+   "name": "lcoh_tornado_baseline.png",
+   "url": "/figures/lcoh_tornado_baseline.png",
+   "size_bytes": 120020
+  },
+  {
+   "name": "lcoh_tornado_baseline_no_hi.png",
+   "url": "/figures/lcoh_tornado_baseline_no_hi.png",
+   "size_bytes": 122134
+  },
+  {
+   "name": "lcoh_vs_ammonia_price_baseline.png",
+   "url": "/figures/lcoh_vs_ammonia_price_baseline.png",
+   "size_bytes": 111443
+  },
+  {
+   "name": "lcoh_vs_ammonia_price_baseline_no_hi.png",
+   "url": "/figures/lcoh_vs_ammonia_price_baseline_no_hi.png",
+   "size_bytes": 112366
+  },
+  {
+   "name": "opt_lcoh_landscape.png",
+   "url": "/figures/opt_lcoh_landscape.png",
+   "size_bytes": 202264
+  },
+  {
+   "name": "opt_objective_flatness.png",
+   "url": "/figures/opt_objective_flatness.png",
+   "size_bytes": 134246
+  },
+  {
+   "name": "opt_pareto_carbon_nh3.png",
+   "url": "/figures/opt_pareto_carbon_nh3.png",
+   "size_bytes": 167159
+  },
+  {
+   "name": "opt_pareto_h2_carbon.png",
+   "url": "/figures/opt_pareto_h2_carbon.png",
+   "size_bytes": 118058
+  },
+  {
+   "name": "opt_pareto_lcoh_ci_overlays.png",
+   "url": "/figures/opt_pareto_lcoh_ci_overlays.png",
+   "size_bytes": 111969
+  },
+  {
+   "name": "opt_pareto_lcoh_h2.png",
+   "url": "/figures/opt_pareto_lcoh_h2.png",
+   "size_bytes": 111395
+  },
+  {
+   "name": "opt_pareto_lcoh_lhv.png",
+   "url": "/figures/opt_pareto_lcoh_lhv.png",
+   "size_bytes": 114063
+  },
+  {
+   "name": "opt_pareto_lcoh_nh3.png",
+   "url": "/figures/opt_pareto_lcoh_nh3.png",
+   "size_bytes": 170215
+  },
+  {
+   "name": "opt_pareto_lhv_carbon.png",
+   "url": "/figures/opt_pareto_lhv_carbon.png",
+   "size_bytes": 111928
+  },
+  {
+   "name": "opt_pareto_lhv_h2.png",
+   "url": "/figures/opt_pareto_lhv_h2.png",
+   "size_bytes": 110293
+  },
+  {
+   "name": "opt_pareto_lhv_nh3.png",
+   "url": "/figures/opt_pareto_lhv_nh3.png",
+   "size_bytes": 165256
+  },
+  {
+   "name": "pfr_catalyst_mass_vs_T.png",
+   "url": "/figures/pfr_catalyst_mass_vs_T.png",
+   "size_bytes": 118894
+  },
+  {
+   "name": "pfr_profiles_ni_takahashi_microkinetic.png",
+   "url": "/figures/pfr_profiles_ni_takahashi_microkinetic.png",
+   "size_bytes": 92263
+  },
+  {
+   "name": "pfr_profiles_ru_kum_temkin_pyzhev.png",
+   "url": "/figures/pfr_profiles_ru_kum_temkin_pyzhev.png",
+   "size_bytes": 87382
+  },
+  {
+   "name": "pfr_profiles_ru_takahashi_microkinetic.png",
+   "url": "/figures/pfr_profiles_ru_takahashi_microkinetic.png",
+   "size_bytes": 92730
+  },
+  {
+   "name": "scenario_ci.png",
+   "url": "/figures/scenario_ci.png",
+   "size_bytes": 232299
+  },
+  {
+   "name": "scenario_kpis.png",
+   "url": "/figures/scenario_kpis.png",
+   "size_bytes": 318424
+  },
+  {
+   "name": "scenario_lcoh.png",
+   "url": "/figures/scenario_lcoh.png",
+   "size_bytes": 168607
+  },
+  {
+   "name": "sep_comparison_baseline.png",
+   "url": "/figures/sep_comparison_baseline.png",
+   "size_bytes": 138735
+  },
+  {
+   "name": "sep_comparison_python_baseline.png",
+   "url": "/figures/sep_comparison_python_baseline.png",
+   "size_bytes": 133294
+  },
+  {
+   "name": "sep_membrane_profile_baseline.png",
+   "url": "/figures/sep_membrane_profile_baseline.png",
+   "size_bytes": 142114
+  },
+  {
+   "name": "sep_membrane_profile_python_baseline.png",
+   "url": "/figures/sep_membrane_profile_python_baseline.png",
+   "size_bytes": 142480
+  },
+  {
+   "name": "sep_membrane_recovery_vs_area.png",
+   "url": "/figures/sep_membrane_recovery_vs_area.png",
+   "size_bytes": 290043
+  },
+  {
+   "name": "validation_eos_effect.png",
+   "url": "/figures/validation_eos_effect.png",
+   "size_bytes": 429800
+  },
+  {
+   "name": "validation_lnK_offset.png",
+   "url": "/figures/validation_lnK_offset.png",
+   "size_bytes": 260038
+  },
+  {
+   "name": "validation_parity_by_method.png",
+   "url": "/figures/validation_parity_by_method.png",
+   "size_bytes": 446461
+  }
+ ]
+}

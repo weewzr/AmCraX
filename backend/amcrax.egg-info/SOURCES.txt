@@ -1,0 +1,9 @@
+pyproject.toml
+amcrax/__init__.py
+amcrax/paths.py
+amcrax/schemas.py
+amcrax.egg-info/PKG-INFO
+amcrax.egg-info/SOURCES.txt
+amcrax.egg-info/dependency_links.txt
+amcrax.egg-info/requires.txt
+amcrax.egg-info/top_level.txt

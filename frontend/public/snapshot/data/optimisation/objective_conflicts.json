@@ -1,0 +1,266 @@
+{
+ "created_utc": "2026-11-21T14:39:26+00:00",
+ "engine": "python_model",
+ "method": "Spearman rank correlation of objectives expressed in minimisation sense over the feasible design grid (negative = improving one worsens the other), plus the pairwise non-dominated set.",
+ "caveat": "Correlations depend on the grid ranges/spacing; the non-dominated set size is the direct test.",
+ "pairs": [
+  {
+   "pair": [
+    "lcoh_USD_per_kg",
+    "lhv_efficiency"
+   ],
+   "senses": [
+    "min",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.9906232785575918,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 4,
+   "n_distinct_non_dominated": 4,
+   "front_ranges": {
+    "lcoh_USD_per_kg": [
+     3.804565863661019,
+     3.827078417347712
+    ],
+    "lhv_efficiency": [
+     0.901791930733711,
+     0.9030978579632573
+    ]
+   },
+   "classification": "aligned globally; local trade-off (4 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "lcoh_USD_per_kg",
+    "h2_yield_overall"
+   ],
+   "senses": [
+    "min",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.9636644982433032,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 15,
+   "n_distinct_non_dominated": 15,
+   "front_ranges": {
+    "lcoh_USD_per_kg": [
+     3.804565863661019,
+     3.8379115806205113
+    ],
+    "h2_yield_overall": [
+     0.9361996613399425,
+     0.9488560092347215
+    ]
+   },
+   "classification": "aligned globally; local trade-off (15 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "lcoh_USD_per_kg",
+    "carbon_intensity_kgCO2e_per_kgH2"
+   ],
+   "senses": [
+    "min",
+    "min"
+   ],
+   "spearman_rho_min_sense": 0.9969479620548425,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 2,
+   "n_distinct_non_dominated": 2,
+   "front_ranges": {
+    "lcoh_USD_per_kg": [
+     3.804565863661019,
+     3.805108418487927
+    ],
+    "carbon_intensity_kgCO2e_per_kgH2": [
+     18.984241399405928,
+     18.98595511261398
+    ]
+   },
+   "classification": "aligned"
+  },
+  {
+   "pair": [
+    "lcoh_USD_per_kg",
+    "nh3_conversion"
+   ],
+   "senses": [
+    "min",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.0511314269785323,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 15,
+   "n_distinct_non_dominated": 15,
+   "front_ranges": {
+    "lcoh_USD_per_kg": [
+     3.804565863661019,
+     3.8379115806205113
+    ],
+    "nh3_conversion": [
+     0.9854733277262551,
+     0.9987957991944437
+    ]
+   },
+   "classification": "weak globally; local trade-off (15 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "lhv_efficiency",
+    "h2_yield_overall"
+   ],
+   "senses": [
+    "max",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.9469105323865291,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 14,
+   "n_distinct_non_dominated": 14,
+   "front_ranges": {
+    "lhv_efficiency": [
+     0.8992014431829145,
+     0.9030978579632573
+    ],
+    "h2_yield_overall": [
+     0.9343015300820672,
+     0.9488560092347215
+    ]
+   },
+   "classification": "aligned globally; local trade-off (14 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "lhv_efficiency",
+    "carbon_intensity_kgCO2e_per_kgH2"
+   ],
+   "senses": [
+    "max",
+    "min"
+   ],
+   "spearman_rho_min_sense": 0.9938692212315692,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 2,
+   "n_distinct_non_dominated": 2,
+   "front_ranges": {
+    "lhv_efficiency": [
+     0.9018732787795787,
+     0.9030978579632573
+    ],
+    "carbon_intensity_kgCO2e_per_kgH2": [
+     18.984241399405928,
+     19.08688626558631
+    ]
+   },
+   "classification": "aligned"
+  },
+  {
+   "pair": [
+    "lhv_efficiency",
+    "nh3_conversion"
+   ],
+   "senses": [
+    "max",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.055942393043410164,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 14,
+   "n_distinct_non_dominated": 14,
+   "front_ranges": {
+    "lhv_efficiency": [
+     0.8992014431829145,
+     0.9030978579632573
+    ],
+    "nh3_conversion": [
+     0.9834752948232286,
+     0.9987957991944437
+    ]
+   },
+   "classification": "weak globally; local trade-off (14 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "h2_yield_overall",
+    "carbon_intensity_kgCO2e_per_kgH2"
+   ],
+   "senses": [
+    "max",
+    "min"
+   ],
+   "spearman_rho_min_sense": 0.9431951970518668,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 16,
+   "n_distinct_non_dominated": 16,
+   "front_ranges": {
+    "h2_yield_overall": [
+     0.9322060934767583,
+     0.9488560092347215
+    ],
+    "carbon_intensity_kgCO2e_per_kgH2": [
+     18.984241399405928,
+     19.168064024843925
+    ]
+   },
+   "classification": "aligned globally; local trade-off (16 distinct non-dominated points)"
+  },
+  {
+   "pair": [
+    "h2_yield_overall",
+    "nh3_conversion"
+   ],
+   "senses": [
+    "max",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.16666201677124193,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 6,
+   "n_distinct_non_dominated": 1,
+   "front_ranges": {
+    "h2_yield_overall": [
+     0.9488560092347215,
+     0.9488560092347215
+    ],
+    "nh3_conversion": [
+     0.9987957991944437,
+     0.9987957991944437
+    ]
+   },
+   "classification": "no trade-off (single non-dominated point)"
+  },
+  {
+   "pair": [
+    "carbon_intensity_kgCO2e_per_kgH2",
+    "nh3_conversion"
+   ],
+   "senses": [
+    "min",
+    "max"
+   ],
+   "spearman_rho_min_sense": 0.03247265550726378,
+   "n_feasible_points": 4752,
+   "n_non_dominated": 16,
+   "n_distinct_non_dominated": 16,
+   "front_ranges": {
+    "carbon_intensity_kgCO2e_per_kgH2": [
+     18.984241399405928,
+     19.168064024843925
+    ],
+    "nh3_conversion": [
+     0.9812695720807982,
+     0.9987957991944437
+    ]
+   },
+   "classification": "weak globally; local trade-off (16 distinct non-dominated points)"
+  }
+ ],
+ "constraints": {
+  "fehe_min_internal_dT_K": 0.0,
+  "min_nh3_conversion": 0.95,
+  "max_cracked_gas_nh3_mole_frac": null,
+  "min_h2_purity": null,
+  "thermal_self_sufficiency": false
+ },
+ "n_feasible": 4752
+}

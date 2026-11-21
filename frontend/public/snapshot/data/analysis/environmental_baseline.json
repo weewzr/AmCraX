@@ -1,0 +1,959 @@
+{
+ "input_file": "baseline.json",
+ "comparison": {
+  "case_id": "baseline",
+  "input_source": "aspen_plus_v15",
+  "source": "python_model",
+  "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+  "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+  "grid": "singapore_2024",
+  "transport_distance_km": 5000.0,
+  "rows": [
+   {
+    "nh3_route": "green",
+    "heating_option": "natural_gas",
+    "heating_label": "imported natural gas",
+    "total_kgCO2e_per_kgH2": 0.9949210576641045,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 0.0,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.6204115226599174
+    }
+   },
+   {
+    "nh3_route": "green",
+    "heating_option": "self_firing",
+    "heating_label": "tail gas + extra NH3 self-firing",
+    "total_kgCO2e_per_kgH2": 0.4072075891877498,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 0.0,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.03269805418356272
+    }
+   },
+   {
+    "nh3_route": "green",
+    "heating_option": "electric",
+    "heating_label": "electric heating",
+    "total_kgCO2e_per_kgH2": 1.6094344315643319,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 0.0,
+     "transport": 0.37156104883278024,
+     "electricity": 1.2378733827315516,
+     "external_heat": 0.0
+    }
+   },
+   {
+    "nh3_route": "blue",
+    "heating_option": "natural_gas",
+    "heating_label": "imported natural gas",
+    "total_kgCO2e_per_kgH2": 8.831481360319104,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 7.836560302655,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.6204115226599174
+    }
+   },
+   {
+    "nh3_route": "blue",
+    "heating_option": "self_firing",
+    "heating_label": "tail gas + extra NH3 self-firing",
+    "total_kgCO2e_per_kgH2": 8.93339958007789,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 7.836560302655,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.7223297424187035
+    }
+   },
+   {
+    "nh3_route": "blue",
+    "heating_option": "electric",
+    "heating_label": "electric heating",
+    "total_kgCO2e_per_kgH2": 9.445994734219331,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 7.836560302655,
+     "transport": 0.37156104883278024,
+     "electricity": 1.2378733827315516,
+     "external_heat": 0.0
+    }
+   },
+   {
+    "nh3_route": "grey",
+    "heating_option": "natural_gas",
+    "heating_label": "imported natural gas",
+    "total_kgCO2e_per_kgH2": 18.559625184304625,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 17.56470412664052,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.6204115226599174
+    }
+   },
+   {
+    "nh3_route": "grey",
+    "heating_option": "self_firing",
+    "heating_label": "tail gas + extra NH3 self-firing",
+    "total_kgCO2e_per_kgH2": 19.51763791359669,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 17.56470412664052,
+     "transport": 0.37156104883278024,
+     "electricity": 0.002948486171406863,
+     "external_heat": 1.5784242519519822
+    }
+   },
+   {
+    "nh3_route": "grey",
+    "heating_option": "electric",
+    "heating_label": "electric heating",
+    "total_kgCO2e_per_kgH2": 19.174138558204852,
+    "breakdown_kgCO2e_per_kgH2": {
+     "upstream_ammonia": 17.56470412664052,
+     "transport": 0.37156104883278024,
+     "electricity": 1.2378733827315516,
+     "external_heat": 0.0
+    }
+   }
+  ],
+  "reference_lines": [
+   {
+    "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+    "value_kgCO2e_per_kgH2": 3.382886481338175,
+    "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+    "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+   },
+   {
+    "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+    "value_kgCO2e_per_kgH2": 4.0,
+    "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+    "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+   }
+  ],
+  "notes": [
+   "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "Input simulation source: aspen_plus_v15.",
+   "Heat deficit 772.9 kW after tail-gas firing; feed 6.756 kg NH3/kg H2."
+  ]
+ },
+ "scenarios": {
+  "green/natural_gas": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "green/natural_gas",
+   "nh3_route": "green",
+   "heating_option": "natural_gas",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 0.9949210576641045,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 0.0,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 0.6204115226599174
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 2.7823223426400006,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.green",
+     "value": 0.0,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results (renewable NH3: WTG GHG emissions zero)",
+     "note": "Zero only because Lee et al. exclude manufacture of solar panels / wind turbines (manuscript p. 9). kum2026heatintegrated p. 17 quotes 'below 0.01 kg CO2/kg NH3' for renewable or nuclear NH3. The true cradle-to-gate value of renewable NH3 is >0; this is a boundary limitation, not a claim that green NH3 is emission-free."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.natural_gas_combustion",
+     "value": 56100.0,
+     "unit": "kg CO2/TJ (LHV basis)",
+     "provenance": "literature",
+     "source": "ipcc2006v2ch2, p. 2.16, Table 2.2, Natural Gas, default CO2 EF",
+     "note": "Combustion CO2 only. CH4 (1 kg/TJ) and N2O (0.1 kg/TJ) from the same table are < 0.1 % of the CO2e and are not counted. Upstream natural-gas supply-chain emissions (extraction, LNG, methane leakage) are EXCLUDED - no sourced factor in the AmCraX registry; this underestimates the natural-gas case."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Natural gas: combustion CO2 only; upstream gas supply chain excluded (CI is a lower bound).",
+    "Green NH3 factor is 0 under Lee et al. (2022) boundary (equipment manufacture excluded).",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "green/self_firing": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "green/self_firing",
+   "nh3_route": "green",
+   "heating_option": "self_firing",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 0.4072075891877498,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 0.0,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 0.03269805418356272
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 149.57178237478067,
+   "kg_nh3_per_kg_h2": 7.350165509388053,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.green",
+     "value": 0.0,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results (renewable NH3: WTG GHG emissions zero)",
+     "note": "Zero only because Lee et al. exclude manufacture of solar panels / wind turbines (manuscript p. 9). kum2026heatintegrated p. 17 quotes 'below 0.01 kg CO2/kg NH3' for renewable or nuclear NH3. The true cradle-to-gate value of renewable NH3 is >0; this is a boundary limitation, not a claim that green NH3 is emission-free."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Self-firing: extra NH3 burnt for the heat deficit; its upstream and transport emissions are booked under external_heat. NH3/tail-gas combustion N2O and NOx are outside the model.",
+    "Green NH3 factor is 0 under Lee et al. (2022) boundary (equipment manufacture excluded).",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "green/electric": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "green/electric",
+   "nh3_route": "green",
+   "heating_option": "electric",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 1.6094344315643319,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 0.0,
+    "transport": 0.37156104883278024,
+    "electricity": 1.2378733827315516,
+    "external_heat": 0.0
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 774.7126025700001,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.green",
+     "value": 0.0,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results (renewable NH3: WTG GHG emissions zero)",
+     "note": "Zero only because Lee et al. exclude manufacture of solar panels / wind turbines (manuscript p. 9). kum2026heatintegrated p. 17 quotes 'below 0.01 kg CO2/kg NH3' for renewable or nuclear NH3. The true cradle-to-gate value of renewable NH3 is >0; this is a boundary limitation, not a claim that green NH3 is emission-free."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.electric_heater_efficiency",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: resistive electric heating converts electricity to process heat with efficiency 1 (first-law ideal)."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Green NH3 factor is 0 under Lee et al. (2022) boundary (equipment manufacture excluded).",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "blue/natural_gas": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "blue/natural_gas",
+   "nh3_route": "blue",
+   "heating_option": "natural_gas",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 8.831481360319104,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 7.836560302655,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 0.6204115226599174
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 2.7823223426400006,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.blue",
+     "value": 1.16,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (carbon-capturing NH3 version 1: process CO2 captured)",
+     "note": "Capture of aMDEA process CO2 only (1.49 t CO2/t NH3 captured)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.natural_gas_combustion",
+     "value": 56100.0,
+     "unit": "kg CO2/TJ (LHV basis)",
+     "provenance": "literature",
+     "source": "ipcc2006v2ch2, p. 2.16, Table 2.2, Natural Gas, default CO2 EF",
+     "note": "Combustion CO2 only. CH4 (1 kg/TJ) and N2O (0.1 kg/TJ) from the same table are < 0.1 % of the CO2e and are not counted. Upstream natural-gas supply-chain emissions (extraction, LNG, methane leakage) are EXCLUDED - no sourced factor in the AmCraX registry; this underestimates the natural-gas case."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Natural gas: combustion CO2 only; upstream gas supply chain excluded (CI is a lower bound).",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "blue/self_firing": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "blue/self_firing",
+   "nh3_route": "blue",
+   "heating_option": "self_firing",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 8.93339958007789,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 7.836560302655,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 0.7223297424187035
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 149.57178237478067,
+   "kg_nh3_per_kg_h2": 7.350165509388053,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.blue",
+     "value": 1.16,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (carbon-capturing NH3 version 1: process CO2 captured)",
+     "note": "Capture of aMDEA process CO2 only (1.49 t CO2/t NH3 captured)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Self-firing: extra NH3 burnt for the heat deficit; its upstream and transport emissions are booked under external_heat. NH3/tail-gas combustion N2O and NOx are outside the model.",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "blue/electric": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "blue/electric",
+   "nh3_route": "blue",
+   "heating_option": "electric",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 9.445994734219331,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 7.836560302655,
+    "transport": 0.37156104883278024,
+    "electricity": 1.2378733827315516,
+    "external_heat": 0.0
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 774.7126025700001,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.blue",
+     "value": 1.16,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (carbon-capturing NH3 version 1: process CO2 captured)",
+     "note": "Capture of aMDEA process CO2 only (1.49 t CO2/t NH3 captured)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.electric_heater_efficiency",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: resistive electric heating converts electricity to process heat with efficiency 1 (first-law ideal)."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "grey/natural_gas": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "grey/natural_gas",
+   "nh3_route": "grey",
+   "heating_option": "natural_gas",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 18.559625184304625,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 0.6204115226599174
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 2.7823223426400006,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.grey",
+     "value": 2.6,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (conventional NG-based NH3, WTG)",
+     "note": "Natural-gas SMR + Haber-Bosch, no capture. Within the range in kum2026heatintegrated p. 17 (gray NH3 approx. 2.6) and cechetto2023membrane p. 19 (2.0-4.6 t CO2/t NH3)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.natural_gas_combustion",
+     "value": 56100.0,
+     "unit": "kg CO2/TJ (LHV basis)",
+     "provenance": "literature",
+     "source": "ipcc2006v2ch2, p. 2.16, Table 2.2, Natural Gas, default CO2 EF",
+     "note": "Combustion CO2 only. CH4 (1 kg/TJ) and N2O (0.1 kg/TJ) from the same table are < 0.1 % of the CO2e and are not counted. Upstream natural-gas supply-chain emissions (extraction, LNG, methane leakage) are EXCLUDED - no sourced factor in the AmCraX registry; this underestimates the natural-gas case."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Natural gas: combustion CO2 only; upstream gas supply chain excluded (CI is a lower bound).",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "grey/self_firing": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "grey/self_firing",
+   "nh3_route": "grey",
+   "heating_option": "self_firing",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 19.51763791359669,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 1.5784242519519822
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 149.57178237478067,
+   "kg_nh3_per_kg_h2": 7.350165509388053,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 1.84528517,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.grey",
+     "value": 2.6,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (conventional NG-based NH3, WTG)",
+     "note": "Natural-gas SMR + Haber-Bosch, no capture. Within the range in kum2026heatintegrated p. 17 (gray NH3 approx. 2.6) and cechetto2023membrane p. 19 (2.0-4.6 t CO2/t NH3)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.fired_heater_efficiency_lhv",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=..."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Self-firing: extra NH3 burnt for the heat deficit; its upstream and transport emissions are booked under external_heat. NH3/tail-gas combustion N2O and NOx are outside the model.",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  },
+  "grey/electric": {
+   "case_id": "baseline",
+   "input_source": "aspen_plus_v15",
+   "source": "python_model",
+   "method": "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+   "system_boundary": "Cradle-to-gate of H2 at the cracker/PSA outlet: upstream NH3 production, NH3 sea transport, process electricity, external heat supply. Excluded: plant construction and equipment manufacture, catalyst/adsorbent manufacture, N2O/NOx/NH3 slip from tail-gas or NH3 combustion, H2 leakage, H2 compression/storage/delivery, NH3 boil-off, upstream natural-gas supply chain.",
+   "scenario": "grey/electric",
+   "nh3_route": "grey",
+   "heating_option": "electric",
+   "grid": "singapore_2024",
+   "total_kgCO2e_per_kgH2": 19.174138558204852,
+   "breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 1.2378733827315516,
+    "external_heat": 0.0
+   },
+   "h2_product_kg_h": 251.5883050542,
+   "nh3_feed_kg_h": 1699.6439,
+   "nh3_fuel_kg_h": 0.0,
+   "kg_nh3_per_kg_h2": 6.755655433323276,
+   "heat_deficit_kW": 772.8673174,
+   "electricity_kW": 774.7126025700001,
+   "natural_gas_GJ_h": 0.0,
+   "transport_distance_km": 5000.0,
+   "factors": [
+    {
+     "name": "upstream_ammonia.grey",
+     "value": 2.6,
+     "unit": "kg CO2e/kg NH3",
+     "provenance": "literature",
+     "source": "lee2022ammonia, p. 13, LCA results; Fig. 8 (conventional NG-based NH3, WTG)",
+     "note": "Natural-gas SMR + Haber-Bosch, no capture. Within the range in kum2026heatintegrated p. 17 (gray NH3 approx. 2.6) and cechetto2023membrane p. 19 (2.0-4.6 t CO2/t NH3)."
+    },
+    {
+     "name": "transport.ship_ef",
+     "value": 0.011,
+     "unit": "kg CO2e/(t km)",
+     "provenance": "literature",
+     "source": "glec2023v3, Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+     "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo."
+    },
+    {
+     "name": "transport.distance_km",
+     "value": 5000.0,
+     "unit": "km",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted."
+    },
+    {
+     "name": "electricity.singapore_2024",
+     "value": 0.402,
+     "unit": "kg CO2/kWh",
+     "provenance": "literature",
+     "source": "ema2025ses, Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+     "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid."
+    },
+    {
+     "name": "heating.electric_heater_efficiency",
+     "value": 1.0,
+     "unit": "-",
+     "provenance": "assumption",
+     "source": null,
+     "note": "ASSUMPTION: resistive electric heating converts electricity to process heat with efficiency 1 (first-law ideal)."
+    }
+   ],
+   "reference_lines": [
+    {
+     "label": "EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+     "value_kgCO2e_per_kgH2": 3.382886481338175,
+     "source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+     "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only."
+    },
+    {
+     "label": "IEA low-emission H2 (as quoted by Kum et al.)",
+     "value_kgCO2e_per_kgH2": 4.0,
+     "source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+     "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.)."
+    }
+   ],
+   "notes": [
+    "Simplified carbon-intensity accounting (activity x emission factor); NOT a life-cycle assessment.",
+    "Input simulation source: aspen_plus_v15.",
+    "Electricity covers the feed pump only (plus electric heating if chosen); PSA/compressor power is not in the simulation result and is therefore not counted."
+   ]
+  }
+ }
+}

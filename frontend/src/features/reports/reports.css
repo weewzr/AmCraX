@@ -1,0 +1,4 @@
+.shot-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:var(--gap);margin-top:8px}
+.shot{margin:0;font-size:12px}.shot img{width:100%;height:auto;border:1px solid var(--border);border-radius:var(--r-sm);background:#fff;display:block}
+.shot figcaption{margin-top:4px}.shot-missing{border:1px dashed var(--border-strong);padding:20px;color:var(--muted)}
+.refs li{margin-bottom:6px;font-size:13px}

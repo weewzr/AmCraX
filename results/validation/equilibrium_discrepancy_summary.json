@@ -1,0 +1,146 @@
+{
+  "n_points": 84,
+  "dG_offset_aspen_minus_python_J_mol": {
+    "mean": 1.3380649634769197,
+    "min": -10.334411508438778,
+    "max": 11.641818247762869,
+    "std": 5.661874794099436,
+    "n_resolved_points_X_lt_0.999": 75
+  },
+  "dG_offset_janaf_minus_python_J_mol": {
+    "mean": -12.039746033775398,
+    "min": -14.944685667656904,
+    "max": -9.692360391682564
+  },
+  "dG_offset_aspen_minus_janaf_J_mol": {
+    "mean": 13.302445010958166,
+    "min": 4.610274159218126,
+    "max": 23.664248252174765
+  },
+  "mean_abs_dG_vs_janaf_J_mol": {
+    "aspen": 13.302445010958166,
+    "python": 11.964380047481251
+  },
+  "dH_aspen_minus_python_kJ_mol": {
+    "mean": -0.02729653264410078,
+    "min": -0.050081899824704124,
+    "max": -0.0010514501427394407
+  },
+  "mean_abs_dH_vs_janaf_kJ_mol": {
+    "aspen": 0.011315151414882152,
+    "python": 0.01834905847715567
+  },
+  "max_abs_dX_ideal_vs_ideal_pp": {
+    "T_C": 250.0,
+    "P_bar": 10.0,
+    "value": 0.045466804820293305
+  },
+  "max_abs_dX_pr_vs_pr_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -0.18534426224442457
+  },
+  "max_abs_dX_aspenPR_vs_pythonIdeal_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -1.4758486591698095
+  },
+  "mean_abs_dX_ideal_vs_ideal_pp": 0.005037843972097563,
+  "mean_abs_dX_pr_vs_pr_pp": 0.02262562132175601,
+  "mean_abs_dX_aspenPR_vs_pythonIdeal_pp": 0.09760563357262304,
+  "max_abs_eos_effect_aspen_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -1.508851
+  },
+  "max_abs_eos_effect_python_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -1.2905043969253849
+  },
+  "max_abs_eos_effect_diff_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -0.21834660307461506
+  },
+  "max_abs_eos_effect_diff_with_boston_mathias_pp": {
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "value": -0.17690385829145505
+  },
+  "aspen_ideal_duty_anomalies": [],
+  "max_abs_residual_dX_ideal_minus_predicted_pp": {
+    "T_C": 250.0,
+    "P_bar": 1.0,
+    "value": -1.7395842133990924e-05
+  },
+  "dG_offset_max_spread_over_P_at_fixed_T_J_mol": 0.0009380114943366991,
+  "dH_aspen_minus_python_median_kJ_mol": -0.031047548445897633,
+  "dXdlnK_range": [
+    0.0001420127345650442,
+    0.19185340566516035
+  ],
+  "dG_offset_max_abs_resolved_J_mol": 11.641818247762869,
+  "kij_sensitivity_250C_40bar": {
+    "note": "SENSITIVITY ONLY - not a calibration and not used anywhere in AmCraX (every model keeps k_ij = 0). Range +/-0.3 is illustrative: research/ holds no sourced Peng-Robinson k_ij for NH3-H2 or NH3-N2 (mehr2026highcapacity only states 'default binary interaction parameters'), and Aspen's EOS-LIT PRKBV values could not be read (aspen_binary_parameters.json). The 'needed' k_ij is the single value of one pair (the other pairs at 0) that would make Python PR reproduce Aspen PENG-ROB at this point.",
+    "T_C": 250.0,
+    "P_bar": 40.0,
+    "X_aspen_peng_rob": 0.29172209000000004,
+    "X_python_pr_kij0": 0.2935755326224443,
+    "pairs": {
+      "NH3-H2": {
+        "gap_aspen_minus_python_pp_vs_kij": {
+          "-0.3": -0.2290039412810807,
+          "-0.2": -0.2144752051896237,
+          "-0.1": -0.19992199368705776,
+          "+0.0": -0.18534426224442457,
+          "+0.1": -0.17074196617041792,
+          "+0.2": -0.15611506061161684,
+          "+0.3": -0.14146350055289636
+        },
+        "kij_needed_to_close_gap": 1.256947864019722,
+        "needed_within_illustrative_range": false,
+        "dX_dkij_pp_per_0p1": -0.014590008161763368
+      },
+      "NH3-N2": {
+        "gap_aspen_minus_python_pp_vs_kij": {
+          "-0.3": -0.2057464181750568,
+          "-0.2": -0.1989510416926965,
+          "-0.1": -0.19215032456207926,
+          "+0.0": -0.18534426224442457,
+          "+0.1": -0.17853285019322485,
+          "+0.2": -0.17171608385432302,
+          "+0.3": -0.1648939586658238
+        },
+        "kij_needed_to_close_gap": 2.693433263663036,
+        "needed_within_illustrative_range": false,
+        "dX_dkij_pp_per_0p1": -0.006808736615626643
+      },
+      "H2-N2": {
+        "gap_aspen_minus_python_pp_vs_kij": {
+          "-0.3": -0.20203258055576656,
+          "-0.2": -0.19646704837332774,
+          "-0.1": -0.19090427641117458,
+          "+0.0": -0.18534426224442457,
+          "+0.1": -0.17978700345135934,
+          "+0.2": -0.17423249761350235,
+          "+0.3": -0.16868074231561891
+        },
+        "kij_needed_to_close_gap": null,
+        "needed_within_illustrative_range": false,
+        "dX_dkij_pp_per_0p1": -0.005558636177416254
+      }
+    },
+    "gap_kij0_aspen_minus_python_pp": -0.18534426224442457,
+    "all_three_pairs_equal_kij": {
+      "-0.3": -0.26599151941612,
+      "-0.2": -0.23915899154745013,
+      "-0.1": -0.21227661345419868,
+      "+0.0": -0.18534426224442457,
+      "+0.1": -0.1583618147592114,
+      "+0.2": -0.1313291475744327,
+      "+0.3": -0.1042461370026948
+    },
+    "max_gap_reduction_within_range_pp": 0.08109812524172977
+  }
+}

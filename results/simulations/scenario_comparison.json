@@ -1,0 +1,2724 @@
+{
+ "engine": "evaluate_result on stored Aspen results (else python_model)",
+ "created_utc": "2026-11-21T14:40:39+00:00",
+ "settings": {
+  "nh3_origin": "grey",
+  "heat_source": "ammonia",
+  "grid": "singapore_2024",
+  "price_policy": "sourced",
+  "nh3_price": {
+   "price_USD_per_t": 450.0,
+   "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+   "price_source": "cho2026nickel p. 7 Table 4 (renewable NH3 'Assumed' by the authors at parity with commercial NH3)",
+   "variants": []
+  }
+ },
+ "provenance": {
+  "process": "per-row 'source' (aspen_plus_v15 or python_model)",
+  "lcoh": "amcrax.economics (data/economics.yaml)",
+  "carbon_intensity": "amcrax.environmental - simplified carbon-intensity accounting, NOT an LCA",
+  "compression": "amcrax.separation reduced-order compression when PSA feed < 7 bar"
+ },
+ "notes": [
+  "aspen_minus_python = evaluate_result(Aspen) - evaluate_result(Python) at the same inputs: model-form difference, not an error bar.",
+  "Low-pressure scenario: cracked-gas compression to the 7 bar PSA requirement is added by the evaluator (electricity only; no compressor CAPEX)."
+ ],
+ "metric_names": [
+  "lcoh_USD_per_kg",
+  "carbon_intensity_kgCO2e_per_kgH2",
+  "lhv_efficiency",
+  "nh3_conversion",
+  "h2_yield_overall",
+  "h2_product_kg_h",
+  "h2_purity_mole_frac",
+  "nh3_feed_kg_per_kgH2",
+  "nh3_total_kg_per_kgH2",
+  "total_external_heating_kW",
+  "net_fuel_heat_deficit_kW",
+  "specific_heat_demand_kWh_per_kgH2",
+  "cracked_gas_nh3_mole_frac",
+  "compression_power_kW",
+  "recovered_heat_kW"
+ ],
+ "rows": [
+  {
+   "id": "baseline",
+   "label": "Baseline (600 degC, 20 bar, heat-integrated)",
+   "rationale": "High-temperature operation typical of Ni-based catalysts; PSA-compatible pressure.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/baseline.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {},
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 124.803215,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.8336888109552438,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 73.6573244,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 612.213344,
+    "total_external_heating_kW": 2293.1167774,
+    "cooling_duty_kW": 304.954018,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1520.24946,
+    "tailgas_lhv_kW": 1647.9752879639445,
+    "specific_heat_demand_kWh_per_kgH2": 9.114560300829528,
+    "net_fuel_heat_deficit_kW": 772.8673174,
+    "lhv_efficiency": 0.8772018962224742
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.918842228473241,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.51763791359669,
+    "lhv_efficiency": 0.8772018962224742,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.8336888109552438,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.755655433323276,
+    "nh3_total_kg_per_kgH2": 7.350165509388052,
+    "total_external_heating_kW": 2293.1167774,
+    "net_fuel_heat_deficit_kW": 772.8673174,
+    "specific_heat_demand_kWh_per_kgH2": 9.114560300829528,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 612.213344
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3557202556202969,
+    "fixed_opex": 0.251941863807503,
+    "ammonia_feed": 3.0400449449954747,
+    "imported_heat": 0.2675295342291495,
+    "electricity": 0.0006161015880551653,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 1.5784242519519822
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.9090137317111937,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.460115296039778,
+    "lhv_efficiency": 0.8797946430655599,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.8337269706400157,
+    "h2_product_kg_h": 251.59982077839706,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "nh3_feed_kg_per_kgH2": 6.7553462269633515,
+    "nh3_total_kg_per_kgH2": 7.328497169295418,
+    "total_external_heating_kW": 2264.9321594390967,
+    "net_fuel_heat_deficit_kW": 745.134396790178,
+    "specific_heat_demand_kWh_per_kgH2": 9.002121513568142,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 633.0381054137328
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.009828496762047223,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.05752261755691279,
+    "lhv_efficiency": -0.002592746843085636,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -3.81596847718324e-05,
+    "h2_product_kg_h": -0.011515724197067811,
+    "h2_purity_mole_frac": 1.360250800885865e-10,
+    "nh3_feed_kg_per_kgH2": 0.0003092063599243744,
+    "nh3_total_kg_per_kgH2": 0.021668340092634075,
+    "total_external_heating_kW": 28.184617960903324,
+    "net_fuel_heat_deficit_kW": 27.73292060982203,
+    "specific_heat_demand_kWh_per_kgH2": 0.1124387872613859,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.824761413732745
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.918842228473241,
+     "lcoh_at_base_price_USD_per_kg": 3.918842228473241,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.51763791359669,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.5784242519519822
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.6983135671728733,
+     "lcoh_at_base_price_USD_per_kg": 3.6983135671728733,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.559625184304625,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.6204115226599174
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.90935670248054,
+     "lcoh_at_base_price_USD_per_kg": 3.90935670248054,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.174138558204852,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 1.2378733827315516,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.918842228473241,
+     "lcoh_at_base_price_USD_per_kg": 3.918842228473241,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.93339958007789,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.7223297424187035
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.6983135671728733,
+     "lcoh_at_base_price_USD_per_kg": 3.6983135671728733,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.831481360319104,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.6204115226599174
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.90935670248054,
+     "lcoh_at_base_price_USD_per_kg": 3.90935670248054,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.445994734219331,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 1.2378733827315516,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.961433258636671,
+     "lcoh_at_base_price_USD_per_kg": 3.918842228473241,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.4072075891877498,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.03269805418356272
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.413924055500675,
+     "lcoh_at_base_price_USD_per_kg": 3.6983135671728733,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.9949210576641045,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.6204115226599174
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.624967190808342,
+     "lcoh_at_base_price_USD_per_kg": 3.90935670248054,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.6094344315643319,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 1.2378733827315516,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.0,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.0,
+    "lhv_efficiency": 0.0,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": 0.0,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": 0.0,
+    "specific_heat_demand_kWh_per_kgH2": 0.0,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.0,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.0,
+    "lhv_efficiency": 0.0,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": 0.0,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": 0.0,
+    "specific_heat_demand_kWh_per_kgH2": 0.0,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.0
+   }
+  },
+  {
+   "id": "scn_low_temperature",
+   "label": "Low-temperature cracking (500 degC)",
+   "rationale": "Temperature window associated with Ru-based catalysts; lower equilibrium conversion, lower sensible duty.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_low_temperature.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "reactor_temperature_C": 500.0
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9520971991983967,
+    "h2_in_cracked_gas_kmol_h": 142.528951,
+    "h2_product_kmol_h": 121.149608,
+    "h2_product_kg_h": 244.22307177504,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.8092826185704743,
+    "reactor_duty_kW": 1415.94254,
+    "preheat_duty_kW": 70.0125934,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 470.517236,
+    "total_external_heating_kW": 2225.4147464,
+    "cooling_duty_kW": 274.284033,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1716.70357,
+    "tailgas_lhv_kW": 1856.835142089889,
+    "specific_heat_demand_kWh_per_kgH2": 9.112221585886386,
+    "net_fuel_heat_deficit_kW": 508.7111763999999,
+    "lhv_efficiency": 0.8757267227473434
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.9306577478950566,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.550492285989492,
+    "lhv_efficiency": 0.8757267227473434,
+    "nh3_conversion": 0.9520971991983967,
+    "h2_yield_overall": 0.8092826185704743,
+    "h2_product_kg_h": 244.22307177504,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.959391214133874,
+    "nh3_total_kg_per_kgH2": 7.36250654611259,
+    "total_external_heating_kW": 2225.4147464,
+    "net_fuel_heat_deficit_kW": 508.7111763999999,
+    "specific_heat_demand_kWh_per_kgH2": 9.112221585886386,
+    "cracked_gas_nh3_mole_frac": 0.0245139815,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 470.517236
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3584245627682835,
+    "fixed_opex": 0.2554869417667756,
+    "ammonia_feed": 3.131726046360244,
+    "imported_heat": 0.18140189939042176,
+    "electricity": 0.0006346818634022343,
+    "cooling_water": 0.0008591624195042358,
+    "catalyst": 0.002124453326425028
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 18.094417156748076,
+    "transport": 0.3827665167773631,
+    "electricity": 0.0030374060605678353,
+    "external_heat": 1.070271206403488
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.920411935484502,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.490689406412738,
+    "lhv_efficiency": 0.8784134972586105,
+    "nh3_conversion": 0.9522632869397345,
+    "h2_yield_overall": 0.8094237938987745,
+    "h2_product_kg_h": 244.2656752754058,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "nh3_feed_kg_per_kgH2": 6.9581773946899315,
+    "nh3_total_kg_per_kgH2": 7.339979420260897,
+    "total_external_heating_kW": 2197.3193061743,
+    "net_fuel_heat_deficit_kW": 481.89891104721823,
+    "specific_heat_demand_kWh_per_kgH2": 8.995612272157585,
+    "cracked_gas_nh3_mole_frac": 0.02442691088546613,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 491.32839737882864
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.010245812410554667,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.05980287957675401,
+    "lhv_efficiency": -0.002686774511267087,
+    "nh3_conversion": -0.0001660877413377504,
+    "h2_yield_overall": -0.00014117532830015822,
+    "h2_product_kg_h": -0.04260350036580007,
+    "h2_purity_mole_frac": 1.360250800885865e-10,
+    "nh3_feed_kg_per_kgH2": 0.0012138194439428318,
+    "nh3_total_kg_per_kgH2": 0.02252712585169281,
+    "total_external_heating_kW": 28.095440225699804,
+    "net_fuel_heat_deficit_kW": 26.81226535278165,
+    "specific_heat_demand_kWh_per_kgH2": 0.11660931372880157,
+    "cracked_gas_nh3_mole_frac": 8.707061453386983e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.811161378828615
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.9306577478950566,
+     "lcoh_at_base_price_USD_per_kg": 3.9306577478950566,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.550492285989492,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.094417156748076,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 1.070271206403488
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.7811254050635226,
+     "lcoh_at_base_price_USD_per_kg": 3.7811254050635226,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.900899226163325,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.094417156748076,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 0.42067814657732144
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.9242259629455885,
+     "lcoh_at_base_price_USD_per_kg": 3.9242259629455885,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.317578055839142,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.094417156748076,
+      "transport": 0.3827665167773631,
+      "electricity": 0.8403943823137033,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.9306577478950566,
+     "lcoh_at_base_price_USD_per_kg": 3.9306577478950566,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.948482859587363,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.072893808395294,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 0.4897851283541385
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.7811254050635226,
+     "lcoh_at_base_price_USD_per_kg": 3.7811254050635226,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.879375877810546,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.072893808395294,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 0.42067814657732144
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.9242259629455885,
+     "lcoh_at_base_price_USD_per_kg": 3.9242259629455885,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.29605470748636,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.072893808395294,
+      "transport": 0.3827665167773631,
+      "electricity": 0.8403943823137033,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.980036348256981,
+     "lcoh_at_base_price_USD_per_kg": 3.9306577478950566,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.40797526609676027,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 0.02217134325882932
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.608790572837154,
+     "lcoh_at_base_price_USD_per_kg": 3.7811254050635226,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.8064820694152524,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3827665167773631,
+      "electricity": 0.0030374060605678353,
+      "external_heat": 0.42067814657732144
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.751891130719219,
+     "lcoh_at_base_price_USD_per_kg": 3.9242259629455885,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.2231608990910665,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3827665167773631,
+      "electricity": 0.8403943823137033,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.01181551942181569,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.03285437239280142,
+    "lhv_efficiency": -0.0014751734751308199,
+    "nh3_conversion": -0.028713164328657337,
+    "h2_yield_overall": -0.024406192384769487,
+    "h2_product_kg_h": -7.36523327915998,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.2037357808105984,
+    "nh3_total_kg_per_kgH2": 0.012341036724537346,
+    "total_external_heating_kW": -67.70203100000026,
+    "net_fuel_heat_deficit_kW": -264.15614100000016,
+    "specific_heat_demand_kWh_per_kgH2": -0.0023387149431410847,
+    "cracked_gas_nh3_mole_frac": 0.01483600218,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -141.69610799999998
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.00301505361353089,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.0016833170355063244,
+    "lhv_efficiency": -0.0016816806729253687,
+    "nh3_conversion": -0.02927493978081863,
+    "h2_yield_overall": -0.029274942957198596,
+    "h2_product_kg_h": -0.029274942957198583,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.030157811158580017,
+    "nh3_total_kg_per_kgH2": 0.001679014807050898,
+    "total_external_heating_kW": -0.02952402235561798,
+    "net_fuel_heat_deficit_kW": -0.3417871800927575,
+    "specific_heat_demand_kWh_per_kgH2": -0.00025659108788037043,
+    "cracked_gas_nh3_mole_frac": 1.5329648565523077,
+    "compression_power_kW": null,
+    "recovered_heat_kW": -0.2314489048445177
+   }
+  },
+  {
+   "id": "scn_high_temperature",
+   "label": "High-temperature cracking (700 degC)",
+   "rationale": "Higher equilibrium conversion and lower ammonia slip at the cost of higher heat demand.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_high_temperature.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "reactor_temperature_C": 700.0
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9909995831162325,
+    "h2_in_cracked_gas_kmol_h": 148.352638,
+    "h2_product_kmol_h": 126.099742,
+    "h2_product_kg_h": 254.20194790296003,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.842349645958584,
+    "reactor_duty_kW": 1512.06317,
+    "preheat_duty_kW": 77.2020258,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 761.20485,
+    "total_external_heating_kW": 2328.7248087999997,
+    "cooling_duty_kW": 327.424965,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1450.53476,
+    "tailgas_lhv_kW": 1573.8587977304442,
+    "specific_heat_demand_kWh_per_kgH2": 9.160924328121103,
+    "net_fuel_heat_deficit_kW": 878.1900487999997,
+    "lhv_efficiency": 0.8766537384468314
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.918796405736569,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.529850930416647,
+    "lhv_efficiency": 0.8766537384468314,
+    "nh3_conversion": 0.9909995831162325,
+    "h2_yield_overall": 0.842349645958584,
+    "h2_product_kg_h": 254.20194790296003,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.686195420692953,
+    "nh3_total_kg_per_kgH2": 7.35477693403608,
+    "total_external_heating_kW": 2328.7248087999997,
+    "net_fuel_heat_deficit_kW": 878.1900487999997,
+    "specific_heat_demand_kWh_per_kgH2": 9.160924328121103,
+    "cracked_gas_nh3_mole_frac": 0.00451600636,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 761.20485
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3547843842668323,
+    "fixed_opex": 0.25072621906539094,
+    "ammonia_feed": 3.0087879393118295,
+    "imported_heat": 0.30086168100440713,
+    "electricity": 0.000609766980775347,
+    "cooling_water": 0.0009853586893858858,
+    "catalyst": 0.00204105641794801
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.384108093801682,
+    "transport": 0.36774074813811247,
+    "electricity": 0.0029181705508534465,
+    "external_heat": 1.775083917926002
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.909362566578154,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.474601944509722,
+    "lhv_efficiency": 0.8791405948970105,
+    "nh3_conversion": 0.9910170931855443,
+    "h2_yield_overall": 0.8423645292077127,
+    "h2_product_kg_h": 254.2064393287448,
+    "h2_purity_mole_frac": 0.9996079968639748,
+    "nh3_feed_kg_per_kgH2": 6.686077286193316,
+    "nh3_total_kg_per_kgH2": 7.333964947852363,
+    "total_external_heating_kW": 2301.2952483983086,
+    "net_fuel_heat_deficit_kW": 851.0234560860106,
+    "specific_heat_demand_kWh_per_kgH2": 9.05285977206198,
+    "cracked_gas_nh3_mole_frac": 0.004507180987215833,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 781.6400549247262
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.009433839158415225,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.05524898590692473,
+    "lhv_efficiency": -0.002486856450179098,
+    "nh3_conversion": -1.751006931183241e-05,
+    "h2_yield_overall": -1.4883249128683218e-05,
+    "h2_product_kg_h": -0.004491425784777903,
+    "h2_purity_mole_frac": 1.3602519111088895e-10,
+    "nh3_feed_kg_per_kgH2": 0.00011813449963682388,
+    "nh3_total_kg_per_kgH2": 0.020811986183717046,
+    "total_external_heating_kW": 27.429560401691106,
+    "net_fuel_heat_deficit_kW": 27.166592713989075,
+    "specific_heat_demand_kWh_per_kgH2": 0.10806455605912291,
+    "cracked_gas_nh3_mole_frac": 8.825372784166882e-06,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.435204924726236
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.918796405736569,
+     "lcoh_at_base_price_USD_per_kg": 3.918796405736569,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.529850930416647,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.384108093801682,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 1.775083917926002
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.6707915492273435,
+     "lcoh_at_base_price_USD_per_kg": 3.6707915492273435,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.45247709582704,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.384108093801682,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 0.6977100833363941
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.908129055293942,
+     "lcoh_at_base_price_USD_per_kg": 3.908129055293942,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.143554165893452,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.384108093801682,
+      "transport": 0.36774074813811247,
+      "electricity": 1.391705323953658,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.918796405736569,
+     "lcoh_at_base_price_USD_per_kg": 3.918796405736569,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.938972145404689,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.7559866880038255,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 0.8123265387118992
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.6707915492273435,
+     "lcoh_at_base_price_USD_per_kg": 3.6707915492273435,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.824355690029185,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.7559866880038255,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 0.6977100833363941
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.908129055293942,
+     "lcoh_at_base_price_USD_per_kg": 3.908129055293942,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.515432760095596,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.7559866880038255,
+      "transport": 0.36774074813811247,
+      "electricity": 1.391705323953658,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.963923719456413,
+     "lcoh_at_base_price_USD_per_kg": 3.918796405736569,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.40743090192283793,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 0.036771983233871985
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.348199030608468,
+     "lcoh_at_base_price_USD_per_kg": 3.6707915492273435,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.06836900202536,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.36774074813811247,
+      "electricity": 0.0029181705508534465,
+      "external_heat": 0.6977100833363941
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.585536536675066,
+     "lcoh_at_base_price_USD_per_kg": 3.908129055293942,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.7594460720917706,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.36774074813811247,
+      "electricity": 1.391705323953658,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": -4.5822736671752295e-05,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.012213016819956124,
+    "lhv_efficiency": -0.0005481577756428768,
+    "nh3_conversion": 0.0101892195891784,
+    "h2_yield_overall": 0.00866083500334014,
+    "h2_product_kg_h": 2.613642848760037,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": -0.06946001263032286,
+    "nh3_total_kg_per_kgH2": 0.004611424648027551,
+    "total_external_heating_kW": 35.60803139999962,
+    "net_fuel_heat_deficit_kW": 105.32273139999961,
+    "specific_heat_demand_kWh_per_kgH2": 0.04636402729157574,
+    "cracked_gas_nh3_mole_frac": -0.00516197296,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 148.99150599999996
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": -1.1692927145373898e-05,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.0006257425654693644,
+    "lhv_efficiency": -0.0006248935142564422,
+    "nh3_conversion": 0.010388572519296537,
+    "h2_yield_overall": 0.010388570518796481,
+    "h2_product_kg_h": 0.010388570518796478,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": -0.010281757753318948,
+    "nh3_total_kg_per_kgH2": 0.0006273905862578979,
+    "total_external_heating_kW": 0.015528224184192224,
+    "net_fuel_heat_deficit_kW": 0.13627530758360362,
+    "specific_heat_demand_kWh_per_kgH2": 0.005086808991472259,
+    "cracked_gas_nh3_mole_frac": -0.5333730099353012,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.24336533572845476
+   }
+  },
+  {
+   "id": "scn_low_pressure",
+   "label": "Low-pressure cracking (5 bar)",
+   "rationale": "Thermodynamically favourable; the PSA would then need cracked-gas compression (not included in the Aspen flowsheet; evaluated in amcrax.separation).",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_low_pressure.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "reactor_pressure_bar": 5.0
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9951050979559118,
+    "h2_in_cracked_gas_kmol_h": 148.967233,
+    "h2_product_kmol_h": 126.622148,
+    "h2_product_kg_h": 255.25505571024001,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.845839331997328,
+    "reactor_duty_kW": 1496.98848,
+    "preheat_duty_kW": 73.1324928,
+    "vaporiser_duty_kW": 728.86408,
+    "recovered_heat_kW": 627.838415,
+    "total_external_heating_kW": 2298.9850527999997,
+    "cooling_duty_kW": 290.799816,
+    "pump_power_kW": 0.46042113,
+    "tailgas_combustion_heat_kW": 1422.44472,
+    "tailgas_lhv_kW": 1543.9952447147778,
+    "specific_heat_demand_kWh_per_kgH2": 9.006619071278093,
+    "net_fuel_heat_deficit_kW": 876.5403327999998,
+    "lhv_efficiency": 0.8805620884053118
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.932928859322972,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.586331163149925,
+    "lhv_efficiency": 0.8805620884053118,
+    "nh3_conversion": 0.9951050979559118,
+    "h2_yield_overall": 0.845839331997328,
+    "h2_product_kg_h": 255.25505571024001,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.6586101312304615,
+    "nh3_total_kg_per_kgH2": 7.323182496462539,
+    "total_external_heating_kW": 2298.9850527999997,
+    "net_fuel_heat_deficit_kW": 876.5403327999998,
+    "specific_heat_demand_kWh_per_kgH2": 9.006619071278093,
+    "cracked_gas_nh3_mole_frac": 0.00245099381,
+    "compression_power_kW": 90.51809064828487,
+    "recovered_heat_kW": 627.838415
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.354410702912933,
+    "fixed_opex": 0.250242423528574,
+    "ammonia_feed": 2.996374559053708,
+    "imported_heat": 0.299057564354435,
+    "electricity": 0.02993944612815498,
+    "cooling_water": 0.0008715277298661379,
+    "catalyst": 0.002032635615300794
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.3123863411992,
+    "transport": 0.3662235572176754,
+    "electricity": 0.14328163504188457,
+    "external_heat": 1.764439629691166
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.924611810697605,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.53759458147996,
+    "lhv_efficiency": 0.8827747412064898,
+    "nh3_conversion": 0.9951088598415241,
+    "h2_yield_overall": 0.8458425308652955,
+    "h2_product_kg_h": 255.25602105577357,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "nh3_feed_kg_per_kgH2": 6.658584949220951,
+    "nh3_total_kg_per_kgH2": 7.304825425033107,
+    "total_external_heating_kW": 2274.6410851258784,
+    "net_fuel_heat_deficit_kW": 852.3646387415561,
+    "specific_heat_demand_kWh_per_kgH2": 8.911214222166647,
+    "cracked_gas_nh3_mole_frac": 0.0024491055248784884,
+    "compression_power_kW": 90.51826401435416,
+    "recovered_heat_kW": 646.1401243530032
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.008317048625366752,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.04873658166996364,
+    "lhv_efficiency": -0.0022126528011779945,
+    "nh3_conversion": -3.7618856122412225e-06,
+    "h2_yield_overall": -3.1988679675132303e-06,
+    "h2_product_kg_h": -0.0009653455335580929,
+    "h2_purity_mole_frac": 1.360250800885865e-10,
+    "nh3_feed_kg_per_kgH2": 2.5182009510515968e-05,
+    "nh3_total_kg_per_kgH2": 0.018357071429432104,
+    "total_external_heating_kW": 24.34396767412136,
+    "net_fuel_heat_deficit_kW": 24.175694058443696,
+    "specific_heat_demand_kWh_per_kgH2": 0.09540484911144631,
+    "cracked_gas_nh3_mole_frac": 1.888285121511707e-06,
+    "compression_power_kW": -0.00017336606929063691,
+    "recovered_heat_kW": -18.30170935300316
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.932928859322972,
+     "lcoh_at_base_price_USD_per_kg": 3.932928859322972,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.586331163149925,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.3123863411992,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 1.764439629691166
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.6864111635894505,
+     "lcoh_at_base_price_USD_per_kg": 3.6864111635894505,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.51541779925482,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.3123863411992,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 0.6935262657960597
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.9223254756323764,
+     "lcoh_at_base_price_USD_per_kg": 3.9223254756323764,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.202350826635705,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.3123863411992,
+      "transport": 0.3662235572176754,
+      "electricity": 1.5237409282188306,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.932928859322972,
+     "lcoh_at_base_price_USD_per_kg": 3.932928859322972,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.04094836824387,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.723987752227335,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 0.8074554237569741
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.6864111635894505,
+     "lcoh_at_base_price_USD_per_kg": 3.6864111635894505,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.927019210282955,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.723987752227335,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 0.6935262657960597
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.9223254756323764,
+     "lcoh_at_base_price_USD_per_kg": 3.9223254756323764,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.613952237663842,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.723987752227335,
+      "transport": 0.3662235572176754,
+      "electricity": 1.5237409282188306,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.960679232377369,
+     "lcoh_at_base_price_USD_per_kg": 3.932928859322972,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.5460566723473242,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 0.03655148008776426
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.348646735766205,
+     "lcoh_at_base_price_USD_per_kg": 3.6864111635894505,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.2030314580556196,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3662235572176754,
+      "electricity": 0.14328163504188457,
+      "external_heat": 0.6935262657960597
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.584561047809131,
+     "lcoh_at_base_price_USD_per_kg": 3.9223254756323764,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.8899644854365059,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.3662235572176754,
+      "electricity": 1.5237409282188306,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.014086630849730941,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.06869324955323464,
+    "lhv_efficiency": 0.0033601921828375625,
+    "nh3_conversion": 0.014294734428857758,
+    "h2_yield_overall": 0.01215052104208414,
+    "h2_product_kg_h": 3.6667506560400227,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": -0.09704530209281437,
+    "nh3_total_kg_per_kgH2": -0.026983012925513528,
+    "total_external_heating_kW": 5.868275399999675,
+    "net_fuel_heat_deficit_kW": 103.67301539999971,
+    "specific_heat_demand_kWh_per_kgH2": -0.10794122955143415,
+    "cracked_gas_nh3_mole_frac": -0.007226985510000001,
+    "compression_power_kW": 90.51809064828487,
+    "recovered_heat_kW": 15.625071000000048
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.003594589939697321,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.00351954728627179,
+    "lhv_efficiency": 0.003830580163252813,
+    "nh3_conversion": 0.01457441209884143,
+    "h2_yield_overall": 0.014574408199340022,
+    "h2_product_kg_h": 0.014574408199340147,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": -0.014365046152905308,
+    "nh3_total_kg_per_kgH2": -0.003671075554836048,
+    "total_external_heating_kW": 0.0025590826676752543,
+    "net_fuel_heat_deficit_kW": 0.13414076784714574,
+    "specific_heat_demand_kWh_per_kgH2": -0.011842724825860254,
+    "cracked_gas_nh3_mole_frac": -0.746745293727286,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.025522264669879603
+   }
+  },
+  {
+   "id": "scn_high_pressure",
+   "label": "High-pressure cracking (40 bar)",
+   "rationale": "Delivers hydrogen at pressure from pumped liquid ammonia; equilibrium conversion penalty.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_high_pressure.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "reactor_pressure_bar": 40.0
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9625985571142285,
+    "h2_in_cracked_gas_kmol_h": 144.101004,
+    "h2_product_kmol_h": 122.485853,
+    "h2_product_kg_h": 246.91678134564003,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.8182087708750836,
+    "reactor_duty_kW": 1458.49042,
+    "preheat_duty_kW": 74.3517512,
+    "vaporiser_duty_kW": 733.200314,
+    "recovered_heat_kW": 611.8583,
+    "total_external_heating_kW": 2266.0424852,
+    "cooling_duty_kW": 303.643372,
+    "pump_power_kW": 3.69177055,
+    "tailgas_combustion_heat_kW": 1644.85404,
+    "tailgas_lhv_kW": 1780.448156721,
+    "specific_heat_demand_kWh_per_kgH2": 9.177353085726237,
+    "net_fuel_heat_deficit_kW": 621.1884452000002,
+    "lhv_efficiency": 0.874625916437295
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.9325457229226686,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.574272670223998,
+    "lhv_efficiency": 0.874625916437295,
+    "nh3_conversion": 0.9625985571142285,
+    "h2_yield_overall": 0.8182087708750836,
+    "h2_product_kg_h": 246.91678134564003,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.883468554617184,
+    "nh3_total_kg_per_kgH2": 7.370343569308583,
+    "total_external_heating_kW": 2266.0424852,
+    "net_fuel_heat_deficit_kW": 621.1884452000002,
+    "specific_heat_demand_kWh_per_kgH2": 9.177353085726237,
+    "cracked_gas_nh3_mole_frac": 0.0190376637,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 611.8583
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.35742377837664113,
+    "fixed_opex": 0.25416938656458565,
+    "ammonia_feed": 3.0975608495777336,
+    "imported_heat": 0.21909375661112943,
+    "electricity": 0.0012559240587455352,
+    "cooling_water": 0.0009407508809813898,
+    "catalyst": 0.0021012768528516365
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.89701824200468,
+    "transport": 0.37859077050394513,
+    "electricity": 0.006010493709710775,
+    "external_heat": 1.2926531640056638
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.922031478600829,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.512908710144412,
+    "lhv_efficiency": 0.8773760297966015,
+    "nh3_conversion": 0.9627699208772192,
+    "h2_yield_overall": 0.8183544327456365,
+    "h2_product_kg_h": 246.96073878232605,
+    "h2_purity_mole_frac": 0.9996079968639748,
+    "nh3_feed_kg_per_kgH2": 6.882243341108909,
+    "nh3_total_kg_per_kgH2": 7.347226026163776,
+    "total_external_heating_kW": 2236.8976732520127,
+    "net_fuel_heat_deficit_kW": 593.3623283607817,
+    "specific_heat_demand_kWh_per_kgH2": 9.057705626737857,
+    "cracked_gas_nh3_mole_frac": 0.018948785188610654,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 632.0399270585721
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.010514244321839783,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.06136396007958567,
+    "lhv_efficiency": -0.0027501133593064164,
+    "nh3_conversion": -0.00017136376299076161,
+    "h2_yield_overall": -0.00014566187055287116,
+    "h2_product_kg_h": -0.04395743668601426,
+    "h2_purity_mole_frac": 1.3602519111088895e-10,
+    "nh3_feed_kg_per_kgH2": 0.0012252135082748694,
+    "nh3_total_kg_per_kgH2": 0.02311754314480652,
+    "total_external_heating_kW": 29.144811947987364,
+    "net_fuel_heat_deficit_kW": 27.826116839218457,
+    "specific_heat_demand_kWh_per_kgH2": 0.11964745898838025,
+    "cracked_gas_nh3_mole_frac": 8.887851138934463e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.181627058572076
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.9325457229226686,
+     "lcoh_at_base_price_USD_per_kg": 3.9325457229226686,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.574272670223998,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.89701824200468,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 1.2926531640056638
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.751943409297975,
+     "lcoh_at_base_price_USD_per_kg": 3.751943409297975,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.78970655363929,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.89701824200468,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 0.508087047420956
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.924777535648835,
+     "lcoh_at_base_price_USD_per_kg": 3.924777535648835,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.292963302332538,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.89701824200468,
+      "transport": 0.37859077050394513,
+      "electricity": 1.0173542898239132,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.9325457229226686,
+     "lcoh_at_base_price_USD_per_kg": 3.9325457229226686,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.96097793041964,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.984823523355933,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 0.5915531428500493
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.751943409297975,
+     "lcoh_at_base_price_USD_per_kg": 3.751943409297975,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.877511834990546,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.984823523355933,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 0.508087047420956
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.924777535648835,
+     "lcoh_at_base_price_USD_per_kg": 3.924777535648835,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.380768583683793,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.984823523355933,
+      "transport": 0.37859077050394513,
+      "electricity": 1.0173542898239132,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.986234686042389,
+     "lcoh_at_base_price_USD_per_kg": 3.9325457229226686,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.41137939002168283,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 0.026778125808026926
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.5378511143374265,
+     "lcoh_at_base_price_USD_per_kg": 3.751943409297975,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.8926883116346119,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37859077050394513,
+      "electricity": 0.006010493709710775,
+      "external_heat": 0.508087047420956
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.710685240688286,
+     "lcoh_at_base_price_USD_per_kg": 3.924777535648835,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.3959450603278583,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37859077050394513,
+      "electricity": 1.0173542898239132,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.013703494449427644,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.056634756627307326,
+    "lhv_efficiency": -0.0025759797851792055,
+    "nh3_conversion": -0.018211806412825604,
+    "h2_yield_overall": -0.01548004008016024,
+    "h2_product_kg_h": -4.67152370855996,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.12781312129390798,
+    "nh3_total_kg_per_kgH2": 0.020178059920530345,
+    "total_external_heating_kW": -27.074292199999945,
+    "net_fuel_heat_deficit_kW": -151.6788721999999,
+    "specific_heat_demand_kWh_per_kgH2": 0.06279278489670936,
+    "cracked_gas_nh3_mole_frac": 0.009359684379999999,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -0.3550440000000208
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.003496822186374788,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.0029017218619397335,
+    "lhv_efficiency": -0.0029365871144057475,
+    "nh3_conversion": -0.01856812192250379,
+    "h2_yield_overall": -0.018568127431653005,
+    "h2_product_kg_h": -0.018568127431652943,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.018919425739721826,
+    "nh3_total_kg_per_kgH2": 0.0027452524565273763,
+    "total_external_heating_kW": -0.011806765563286113,
+    "net_fuel_heat_deficit_kW": -0.1962547371135607,
+    "specific_heat_demand_kWh_per_kgH2": 0.006889282952134785,
+    "cracked_gas_nh3_mole_frac": 0.9671114259004222,
+    "compression_power_kW": null,
+    "recovered_heat_kW": -0.0005799350887719638
+   }
+  },
+  {
+   "id": "baseline_no_hi",
+   "label": "No feed/effluent heat recovery",
+   "rationale": "Reference configuration to quantify the benefit of the feed/effluent exchanger.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/baseline_no_hi.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "heat_integration": false
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 124.803215,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.8336888109552438,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 685.870669,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 0.0,
+    "total_external_heating_kW": 2905.330122,
+    "cooling_duty_kW": 917.167363,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1520.24946,
+    "tailgas_lhv_kW": 1647.9752879639445,
+    "specific_heat_demand_kWh_per_kgH2": 11.547953794490173,
+    "net_fuel_heat_deficit_kW": 1385.0806619999998,
+    "lhv_efficiency": 0.8243926235562486
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 4.132622621681249,
+    "carbon_intensity_kgCO2e_per_kgH2": 20.767959111983124,
+    "lhv_efficiency": 0.8243926235562486,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.8336888109552438,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.755655433323276,
+    "nh3_total_kg_per_kgH2": 7.821096280908367,
+    "total_external_heating_kW": 2905.330122,
+    "net_fuel_heat_deficit_kW": 1385.0806619999998,
+    "specific_heat_demand_kWh_per_kgH2": 11.547953794490173,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3557202556202969,
+    "fixed_opex": 0.251941863807503,
+    "ammonia_feed": 3.0400449449954747,
+    "imported_heat": 0.4794483814132907,
+    "electricity": 0.0006161015880551653,
+    "cooling_water": 0.002788814180149774,
+    "catalyst": 0.0020622600764787047
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 2.828745450338415
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 4.130055860533751,
+    "carbon_intensity_kgCO2e_per_kgH2": 20.75290765766655,
+    "lhv_efficiency": 0.8249904314192541,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.8337269706400157,
+    "h2_product_kg_h": 251.59982077839706,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "nh3_feed_kg_per_kgH2": 6.7553462269633515,
+    "nh3_total_kg_per_kgH2": 7.815424612469345,
+    "total_external_heating_kW": 2897.9702648528296,
+    "net_fuel_heat_deficit_kW": 1378.1725022039109,
+    "specific_heat_demand_kWh_per_kgH2": 11.518173009373049,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.0025667611474977647,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.015051454316573398,
+    "lhv_efficiency": -0.0005978078630054506,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -3.81596847718324e-05,
+    "h2_product_kg_h": -0.011515724197067811,
+    "h2_purity_mole_frac": 1.360250800885865e-10,
+    "nh3_feed_kg_per_kgH2": 0.0003092063599243744,
+    "nh3_total_kg_per_kgH2": 0.005671668439021893,
+    "total_external_heating_kW": 7.35985714717026,
+    "net_fuel_heat_deficit_kW": 6.908159796088967,
+    "specific_heat_demand_kWh_per_kgH2": 0.029780785117123898,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 4.132622621681249,
+     "lcoh_at_base_price_USD_per_kg": 4.132622621681249,
+     "carbon_intensity_kgCO2e_per_kgH2": 20.767959111983124,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 2.828745450338415
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.737406033649748,
+     "lcoh_at_base_price_USD_per_kg": 3.737406033649748,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.05107333428433,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.1118596726396213
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 4.1156233019719,
+     "lcoh_at_base_price_USD_per_kg": 4.1156233019719,
+     "carbon_intensity_kgCO2e_per_kgH2": 20.152362742656432,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 2.2160975671831307,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 4.132622621681249,
+     "lcoh_at_base_price_USD_per_kg": 4.132622621681249,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.50558046747507,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.2945106298158846
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.737406033649748,
+     "lcoh_at_base_price_USD_per_kg": 3.737406033649748,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.322929510298808,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.1118596726396213
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 4.1156233019719,
+     "lcoh_at_base_price_USD_per_kg": 4.1156233019719,
+     "carbon_intensity_kgCO2e_per_kgH2": 10.42421891867091,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 2.2160975671831307,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 8.43422557618085,
+     "lcoh_at_base_price_USD_per_kg": 4.132622621681249,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.43310878162136707,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.05859924661717997
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.45301652197755,
+     "lcoh_at_base_price_USD_per_kg": 3.737406033649748,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.4863692076438084,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.1118596726396213
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.831233790299702,
+     "lcoh_at_base_price_USD_per_kg": 4.1156233019719,
+     "carbon_intensity_kgCO2e_per_kgH2": 2.587658616015911,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 2.2160975671831307,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.21378039320800823,
+    "carbon_intensity_kgCO2e_per_kgH2": 1.250321198386434,
+    "lhv_efficiency": -0.05280927266622559,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": 0.4709307715203144,
+    "total_external_heating_kW": 612.2133445999998,
+    "net_fuel_heat_deficit_kW": 612.2133445999998,
+    "specific_heat_demand_kWh_per_kgH2": 2.4333934936606454,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -612.213344
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.0545519264987853,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.064061092019512,
+    "lhv_efficiency": -0.06020195908563358,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": 0.06407077104846341,
+    "total_external_heating_kW": 0.26697870367253795,
+    "net_fuel_heat_deficit_kW": 0.7921325314409002,
+    "specific_heat_demand_kWh_per_kgH2": 0.266978703672538,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": -1.0
+   }
+  },
+  {
+   "id": "scn_tight_fehe",
+   "label": "Tight heat recovery (20 K approach)",
+   "rationale": "Larger exchanger area in return for less trim heating.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_tight_fehe.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "fehe_hot_end_approach_K": 20.0
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 124.803215,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "h2_yield_overall": 0.8336888109552438,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 29.7178988,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 656.15277,
+    "total_external_heating_kW": 2249.1773518,
+    "cooling_duty_kW": 261.014593,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1520.24946,
+    "tailgas_lhv_kW": 1647.9752879639445,
+    "specific_heat_demand_kWh_per_kgH2": 8.939912176424325,
+    "net_fuel_heat_deficit_kW": 728.9278918,
+    "lhv_efficiency": 0.8812535146192206
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.903498904509813,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.427900576511203,
+    "lhv_efficiency": 0.8812535146192206,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.8336888109552438,
+    "h2_product_kg_h": 251.5883050542,
+    "h2_purity_mole_frac": 0.999607997,
+    "nh3_feed_kg_per_kgH2": 6.755655433323276,
+    "nh3_total_kg_per_kgH2": 7.316366135721203,
+    "total_external_heating_kW": 2249.1773518,
+    "net_fuel_heat_deficit_kW": 728.9278918,
+    "specific_heat_demand_kWh_per_kgH2": 8.939912176424325,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 656.15277
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3557202556202969,
+    "fixed_opex": 0.251941863807503,
+    "ammonia_feed": 3.0400449449954747,
+    "imported_heat": 0.25231981607906695,
+    "electricity": 0.0006161015880551653,
+    "cooling_water": 0.0007936623429375364,
+    "catalyst": 0.0020622600764787047
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 17.56470412664052,
+    "transport": 0.37156104883278024,
+    "electricity": 0.002948486171406863,
+    "external_heat": 1.4886869148664954
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.8936977085577333,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.370537631145012,
+    "lhv_efficiency": 0.8838630177735689,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.8337269706400157,
+    "h2_product_kg_h": 251.59982077839706,
+    "h2_purity_mole_frac": 0.999607996863975,
+    "nh3_feed_kg_per_kgH2": 6.7553462269633515,
+    "nh3_total_kg_per_kgH2": 7.294757935813397,
+    "total_external_heating_kW": 2221.068908885069,
+    "net_fuel_heat_deficit_kW": 701.2711462361503,
+    "specific_heat_demand_kWh_per_kgH2": 8.827784145527401,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 676.9013559677604
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.009801195952079844,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.05736294536619013,
+    "lhv_efficiency": -0.0026095031543482694,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -3.81596847718324e-05,
+    "h2_product_kg_h": -0.011515724197067811,
+    "h2_purity_mole_frac": 1.360250800885865e-10,
+    "nh3_feed_kg_per_kgH2": 0.0003092063599243744,
+    "nh3_total_kg_per_kgH2": 0.021608199907805492,
+    "total_external_heating_kW": 28.108442914930947,
+    "net_fuel_heat_deficit_kW": 27.656745563849654,
+    "specific_heat_demand_kWh_per_kgH2": 0.11212803089692436,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.74858596776039
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.903498904509813,
+     "lcoh_at_base_price_USD_per_kg": 3.903498904509813,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.427900576511203,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 1.4886869148664954
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.695507845056128,
+     "lcoh_at_base_price_USD_per_kg": 3.695507845056128,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.52435324909975,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.5851395874550427
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.8945526542171574,
+     "lcoh_at_base_price_USD_per_kg": 3.8945526542171574,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.103930012193963,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 17.56470412664052,
+      "transport": 0.37156104883278024,
+      "electricity": 1.16766483672066,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.903498904509813,
+     "lcoh_at_base_price_USD_per_kg": 3.903498904509813,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.892333341072668,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.6812635034134807
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.695507845056128,
+     "lcoh_at_base_price_USD_per_kg": 3.695507845056128,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.79620942511423,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.5851395874550427
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.8945526542171574,
+     "lcoh_at_base_price_USD_per_kg": 3.8945526542171574,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.375786188208439,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.836560302655,
+      "transport": 0.37156104883278024,
+      "electricity": 1.16766483672066,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.927500279156475,
+     "lcoh_at_base_price_USD_per_kg": 3.903498904509813,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.40534862363607305,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.03083908863188596
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.41111833338393,
+     "lcoh_at_base_price_USD_per_kg": 3.695507845056128,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.9596491224592298,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 0.002948486171406863,
+      "external_heat": 0.5851395874550427
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.610163142544959,
+     "lcoh_at_base_price_USD_per_kg": 3.8945526542171574,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.5392258855534402,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.37156104883278024,
+      "electricity": 1.16766483672066,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": -0.015343323963427746,
+    "carbon_intensity_kgCO2e_per_kgH2": -0.08973733708548792,
+    "lhv_efficiency": 0.004051618396746393,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": -0.0337993736668496,
+    "total_external_heating_kW": -43.93942560000005,
+    "net_fuel_heat_deficit_kW": -43.93942560000005,
+    "specific_heat_demand_kWh_per_kgH2": -0.17464812440520205,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 43.939426000000026
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": -0.003915269630389131,
+    "carbon_intensity_kgCO2e_per_kgH2": -0.004597756013445339,
+    "lhv_efficiency": 0.004618798037480335,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.0,
+    "h2_product_kg_h": 0.0,
+    "h2_purity_mole_frac": 0.0,
+    "nh3_feed_kg_per_kgH2": 0.0,
+    "nh3_total_kg_per_kgH2": -0.004598450691168669,
+    "total_external_heating_kW": -0.019161442641320605,
+    "net_fuel_heat_deficit_kW": -0.056852482451731176,
+    "specific_heat_demand_kWh_per_kgH2": -0.019161442641320515,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.07177142809876426
+   }
+  },
+  {
+   "id": "scn_high_recovery",
+   "label": "High PSA recovery (0.92)",
+   "rationale": "More product hydrogen, less tail-gas fuel: more imported heat.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_high_recovery.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "psa_h2_recovery": 0.92
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 135.081127,
+    "h2_product_kg_h": 272.30734229676005,
+    "h2_purity_mole_frac": 0.999637812,
+    "h2_yield_overall": 0.9023455377421511,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 73.6573244,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 612.213344,
+    "total_external_heating_kW": 2293.1167774,
+    "cooling_duty_kW": 304.954018,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 864.014244,
+    "tailgas_lhv_kW": 957.5679827009444,
+    "specific_heat_demand_kWh_per_kgH2": 8.421061136504228,
+    "net_fuel_heat_deficit_kW": 1429.1025334,
+    "lhv_efficiency": 0.8884378342217621
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.8605883103568144,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.270853348373294,
+    "lhv_efficiency": 0.8884378342217621,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.9023455377421511,
+    "h2_product_kg_h": 272.30734229676005,
+    "h2_purity_mole_frac": 0.999637812,
+    "nh3_feed_kg_per_kgH2": 6.241638163938052,
+    "nh3_total_kg_per_kgH2": 7.257299135045038,
+    "total_external_heating_kW": 2293.1167774,
+    "net_fuel_heat_deficit_kW": 1429.1025334,
+    "specific_heat_demand_kWh_per_kgH2": 8.421061136504228,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 612.213344
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3486165193955647,
+    "fixed_opex": 0.24285589177392716,
+    "ammonia_feed": 2.8087371737721236,
+    "imported_heat": 0.45704743699814376,
+    "electricity": 0.0005692242925682003,
+    "cooling_water": 0.0008567151432727846,
+    "catalyst": 0.0019053489812139942
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 16.228259226238936,
+    "transport": 0.34329009901659285,
+    "electricity": 0.0027241448287192442,
+    "external_heat": 2.6965798782890475
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.8514820947676123,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.21755883685828,
+    "lhv_efficiency": 0.8909014890129275,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.90238683881037,
+    "h2_product_kg_h": 272.31980601897095,
+    "h2_purity_mole_frac": 0.9996378123868163,
+    "nh3_feed_kg_per_kgH2": 6.241352492303096,
+    "nh3_total_kg_per_kgH2": 7.237223497536741,
+    "total_external_heating_kW": 2264.9321594390967,
+    "net_fuel_heat_deficit_kW": 1401.3208719023314,
+    "specific_heat_demand_kWh_per_kgH2": 8.317177485361869,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 633.0381054137328
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.009106215589202105,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.053294511515012744,
+    "lhv_efficiency": -0.0024636547911653928,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -4.1301068218868586e-05,
+    "h2_product_kg_h": -0.012463722210895867,
+    "h2_purity_mole_frac": -3.8681624570102713e-10,
+    "nh3_feed_kg_per_kgH2": 0.00028567163495551995,
+    "nh3_total_kg_per_kgH2": 0.020075637508297106,
+    "total_external_heating_kW": 28.184617960903324,
+    "net_fuel_heat_deficit_kW": 27.781661497668665,
+    "specific_heat_demand_kWh_per_kgH2": 0.10388365114235931,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.824761413732745
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.8605883103568144,
+     "lcoh_at_base_price_USD_per_kg": 3.8605883103568144,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.270853348373294,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 16.228259226238936,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 2.6965798782890475
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.483837161283185,
+     "lcoh_at_base_price_USD_per_kg": 3.483837161283185,
+     "carbon_intensity_kgCO2e_per_kgH2": 17.63418447068784,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 16.228259226238936,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 1.059911000603593
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.844383238434437,
+     "lcoh_at_base_price_USD_per_kg": 3.844383238434437,
+     "carbon_intensity_kgCO2e_per_kgH2": 18.684019074375417,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 16.228259226238936,
+      "transport": 0.34329009901659285,
+      "electricity": 2.1124697491198874,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.8605883103568144,
+     "lcoh_at_base_price_USD_per_kg": 3.8605883103568144,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.820342593908439,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.24030027016814,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 1.2340280798949876
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.483837161283185,
+     "lcoh_at_base_price_USD_per_kg": 3.483837161283185,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.646225514617045,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.24030027016814,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 1.059911000603593
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.844383238434437,
+     "lcoh_at_base_price_USD_per_kg": 3.844383238434437,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.69606011830462,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 7.24030027016814,
+      "transport": 0.34329009901659285,
+      "electricity": 2.1124697491198874,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.852102834631585,
+     "lcoh_at_base_price_USD_per_kg": 3.8605883103568144,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.4018755972561963,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 0.05586135341088422
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 6.916738151449113,
+     "lcoh_at_base_price_USD_per_kg": 3.483837161283185,
+     "carbon_intensity_kgCO2e_per_kgH2": 1.405925244448905,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.34329009901659285,
+      "electricity": 0.0027241448287192442,
+      "external_heat": 1.059911000603593
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.277284228600365,
+     "lcoh_at_base_price_USD_per_kg": 3.844383238434437,
+     "carbon_intensity_kgCO2e_per_kgH2": 2.45575984813648,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.34329009901659285,
+      "electricity": 2.1124697491198874,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": -0.05825391811642655,
+    "carbon_intensity_kgCO2e_per_kgH2": -0.24678456522339687,
+    "lhv_efficiency": 0.011235937999287904,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.06865672678690726,
+    "h2_product_kg_h": 20.719037242560063,
+    "h2_purity_mole_frac": 2.98149999999886e-05,
+    "nh3_feed_kg_per_kgH2": -0.5140172693852243,
+    "nh3_total_kg_per_kgH2": -0.09286637434301426,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": 656.235216,
+    "specific_heat_demand_kWh_per_kgH2": -0.6934991643252992,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": -0.014865083797752672,
+    "carbon_intensity_kgCO2e_per_kgH2": -0.012644181960742178,
+    "lhv_efficiency": 0.012808839159689034,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": 0.08235294259046144,
+    "h2_product_kg_h": 0.08235294259046157,
+    "h2_purity_mole_frac": 2.9826692152792572e-05,
+    "nh3_feed_kg_per_kgH2": -0.07608695772874348,
+    "nh3_total_kg_per_kgH2": -0.0126345963535651,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": 0.8490916891241286,
+    "specific_heat_demand_kWh_per_kgH2": -0.07608695772874342,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.0
+   }
+  },
+  {
+   "id": "scn_low_recovery",
+   "label": "Low PSA recovery (0.75)",
+   "rationale": "More tail-gas fuel: approaches thermal self-sufficiency of the cracker.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_low_recovery.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "psa_h2_recovery": 0.75
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 110.120484,
+    "h2_product_kg_h": 221.98968128592003,
+    "h2_purity_mole_frac": 0.999555753,
+    "h2_yield_overall": 0.7356077755511022,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 73.6573244,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 612.213344,
+    "total_external_heating_kW": 2293.1167774,
+    "cooling_duty_kW": 304.954018,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 2457.72705,
+    "tailgas_lhv_kW": 2634.271442178167,
+    "specific_heat_demand_kWh_per_kgH2": 10.329834991053,
+    "net_fuel_heat_deficit_kW": -164.61027259999992,
+    "lhv_efficiency": 0.8421009337131129
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 4.084123777615767,
+    "carbon_intensity_kgCO2e_per_kgH2": 20.3311087839496,
+    "lhv_efficiency": 0.8421009337131129,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.7356077755511022,
+    "h2_product_kg_h": 221.98968128592003,
+    "h2_purity_mole_frac": 0.999555753,
+    "nh3_feed_kg_per_kgH2": 7.656409478830141,
+    "nh3_total_kg_per_kgH2": 7.656409478830141,
+    "total_external_heating_kW": 2293.1167774,
+    "net_fuel_heat_deficit_kW": -164.61027259999992,
+    "specific_heat_demand_kWh_per_kgH2": 10.329834991053,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 612.213344
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3672521641399014,
+    "fixed_opex": 0.26740096754525844,
+    "ammonia_feed": 3.445384265473564,
+    "imported_heat": 0.0,
+    "electricity": 0.0006982484653435615,
+    "cooling_water": 0.0010509039087700906,
+    "catalyst": 0.0023372280829304037
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 19.90666464495837,
+    "transport": 0.4211025213356578,
+    "electricity": 0.0033416176555727587,
+    "external_heat": 0.0
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 4.083878609080897,
+    "carbon_intensity_kgCO2e_per_kgH2": 20.33018615003456,
+    "lhv_efficiency": 0.8421390594564518,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.7356414446823667,
+    "h2_product_kg_h": 221.99984186329152,
+    "h2_purity_mole_frac": 0.9995557529986673,
+    "nh3_feed_kg_per_kgH2": 7.656059057225132,
+    "nh3_total_kg_per_kgH2": 7.656059057225132,
+    "total_external_heating_kW": 2264.9321594390967,
+    "net_fuel_heat_deficit_kW": -192.27485337004055,
+    "specific_heat_demand_kWh_per_kgH2": 10.202404382043893,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 633.0381054137328
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.0002451685348701105,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.000922633915038773,
+    "lhv_efficiency": -3.8125743338945917e-05,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -3.36691312644577e-05,
+    "h2_product_kg_h": -0.010160577371493673,
+    "h2_purity_mole_frac": 1.332711718760038e-12,
+    "nh3_feed_kg_per_kgH2": 0.00035042160500875497,
+    "nh3_total_kg_per_kgH2": 0.00035042160500875497,
+    "total_external_heating_kW": 28.184617960903324,
+    "net_fuel_heat_deficit_kW": 27.66458077004063,
+    "specific_heat_demand_kWh_per_kgH2": 0.12743060900910663,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.824761413732745
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 20.3311087839496,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 19.90666464495837,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 20.3311087839496,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 19.90666464495837,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 20.3311087839496,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 19.90666464495837,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.305879134434194,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.881434995442962,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.305879134434194,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.881434995442962,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 4.084123777615767,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.305879134434194,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.881434995442962,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 8.295148990972345,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.42444413899123057,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 8.295148990972345,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.42444413899123057,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 8.295148990972345,
+     "lcoh_at_base_price_USD_per_kg": 4.084123777615767,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.42444413899123057,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.4211025213356578,
+      "electricity": 0.0033416176555727587,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.16528154914252635,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.8134708703529085,
+    "lhv_efficiency": -0.035100962509361344,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": -0.09808103540414159,
+    "h2_product_kg_h": -29.598623768279964,
+    "h2_purity_mole_frac": -5.2244000000034596e-05,
+    "nh3_feed_kg_per_kgH2": 0.900754045506865,
+    "nh3_total_kg_per_kgH2": 0.30624396944208865,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": -937.47759,
+    "specific_heat_demand_kWh_per_kgH2": 1.2152746902234721,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.042176117206667724,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.04167875610532847,
+    "lhv_efficiency": -0.04001469064364529,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": -0.11764705740953865,
+    "h2_product_kg_h": -0.11764705740953856,
+    "h2_purity_mole_frac": -5.2264487836059797e-05,
+    "nh3_feed_kg_per_kgH2": 0.13333333151714066,
+    "nh3_total_kg_per_kgH2": 0.04166490796036311,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": -1.2129864582109187,
+    "specific_heat_demand_kWh_per_kgH2": 0.1333333315171406,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.0
+   }
+  },
+  {
+   "id": "scn_fuel_cell_grade",
+   "label": "Fuel-cell-grade product (N2 slip 0.0005, recovery 0.80)",
+   "rationale": "The baseline product (392 ppm N2, 99.961 mol% H2) misses the 99.97 % / 300 ppm limits quoted for ISO 14687 fuel-cell hydrogen; a tighter N2 slip at a literature-typical recovery represents a purity-driven PSA operating point.",
+   "source": "aspen_plus_v15",
+   "source_note": "stored Aspen result results/simulations/scn_fuel_cell_grade.json",
+   "converged": true,
+   "inputs_differing_from_baseline": {
+    "psa_h2_recovery": 0.8,
+    "psa_n2_slip": 0.0005
+   },
+   "stored_kpis": {
+    "nh3_conversion": 0.9808103635270541,
+    "h2_in_cracked_gas_kmol_h": 146.827311,
+    "h2_product_kmol_h": 117.461849,
+    "h2_product_kg_h": 236.78899216212002,
+    "h2_purity_mole_frac": 0.99979171,
+    "h2_yield_overall": 0.7846482899131597,
+    "reactor_duty_kW": 1479.99984,
+    "preheat_duty_kW": 73.6573244,
+    "vaporiser_duty_kW": 739.459613,
+    "recovered_heat_kW": 612.213344,
+    "total_external_heating_kW": 2293.1167774,
+    "cooling_duty_kW": 304.954018,
+    "pump_power_kW": 1.84528517,
+    "tailgas_combustion_heat_kW": 1988.96661,
+    "tailgas_lhv_kW": 2141.1233650710556,
+    "specific_heat_demand_kWh_per_kgH2": 9.684220353579587,
+    "net_fuel_heat_deficit_kW": 304.1501674000001,
+    "lhv_efficiency": 0.8681806634171293
+   },
+   "metrics": {
+    "lcoh_USD_per_kg": 3.966257104597954,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.720402222873453,
+    "lhv_efficiency": 0.8681806634171293,
+    "nh3_conversion": 0.9808103635270541,
+    "h2_yield_overall": 0.7846482899131597,
+    "h2_product_kg_h": 236.78899216212002,
+    "h2_purity_mole_frac": 0.99979171,
+    "nh3_feed_kg_per_kgH2": 7.177883923068186,
+    "nh3_total_kg_per_kgH2": 7.426466838533088,
+    "total_external_heating_kW": 2293.1167774,
+    "net_fuel_heat_deficit_kW": 304.1501674000001,
+    "specific_heat_demand_kWh_per_kgH2": 9.684220353579587,
+    "cracked_gas_nh3_mole_frac": 0.00967797932,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 612.213344
+   },
+   "lcoh_breakdown_USD_per_kg": {
+    "capex": 0.3612599708900563,
+    "fixed_opex": 0.2592560746699601,
+    "ammonia_feed": 3.230047765380684,
+    "imported_heat": 0.11186231195920604,
+    "electricity": 0.0006546079396033534,
+    "cooling_water": 0.0009852224195045169,
+    "catalyst": 0.0021911513389397453
+   },
+   "ci_breakdown_kgCO2e_per_kgH2": {
+    "upstream_ammonia": 18.662498199977286,
+    "transport": 0.39478361576875026,
+    "electricity": 0.003132766568101763,
+    "external_heat": 0.6599876405593156
+   },
+   "python_metrics": {
+    "lcoh_USD_per_kg": 3.955835145224532,
+    "carbon_intensity_kgCO2e_per_kgH2": 19.65940554553594,
+    "lhv_efficiency": 0.870874134077324,
+    "nh3_conversion": 0.9808552595764889,
+    "h2_yield_overall": 0.7846842076611912,
+    "h2_product_kg_h": 236.7998313208443,
+    "h2_purity_mole_frac": 0.999791710060404,
+    "nh3_feed_kg_per_kgH2": 7.17755536614856,
+    "nh3_total_kg_per_kgH2": 7.403489840679084,
+    "total_external_heating_kW": 2264.9321594390967,
+    "net_fuel_heat_deficit_kW": 276.45163678920017,
+    "specific_heat_demand_kWh_per_kgH2": 9.564754108166149,
+    "cracked_gas_nh3_mole_frac": 0.009655118109695979,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 633.0381054137328
+   },
+   "aspen_minus_python": {
+    "lcoh_USD_per_kg": 0.010421959373422052,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.06099667733751346,
+    "lhv_efficiency": -0.0026934706601946523,
+    "nh3_conversion": -4.4896049434806073e-05,
+    "h2_yield_overall": -3.591774803146652e-05,
+    "h2_product_kg_h": -0.01083915872428065,
+    "h2_purity_mole_frac": -6.040401512308335e-11,
+    "nh3_feed_kg_per_kgH2": 0.00032855691962563327,
+    "nh3_total_kg_per_kgH2": 0.022976997854003756,
+    "total_external_heating_kW": 28.184617960903324,
+    "net_fuel_heat_deficit_kW": 27.698530610799935,
+    "specific_heat_demand_kWh_per_kgH2": 0.11946624541343809,
+    "cracked_gas_nh3_mole_frac": 2.286121030402148e-05,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": -20.824761413732745
+   },
+   "overlays": [
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.966257104597954,
+     "lcoh_at_base_price_USD_per_kg": 3.966257104597954,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.720402222873453,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.662498199977286,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.6599876405593156
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.8740473006321685,
+     "lcoh_at_base_price_USD_per_kg": 3.8740473006321685,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.319827687827285,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.662498199977286,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.259413105513148
+     }
+    },
+    {
+     "nh3_origin": "grey",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: no sourced colour-specific price in data/economics.yaml",
+     "lcoh_USD_per_kg": 3.9622909149555654,
+     "lcoh_at_base_price_USD_per_kg": 3.9622909149555654,
+     "carbon_intensity_kgCO2e_per_kgH2": 19.576774596258907,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 18.662498199977286,
+      "transport": 0.39478361576875026,
+      "electricity": 0.5194927805128706,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.966257104597954,
+     "lcoh_at_base_price_USD_per_kg": 3.966257104597954,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.026289975385803,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.326345350759095,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.30202824228985625
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.8740473006321685,
+     "lcoh_at_base_price_USD_per_kg": 3.8740473006321685,
+     "carbon_intensity_kgCO2e_per_kgH2": 8.983674838609096,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.326345350759095,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.259413105513148
+     }
+    },
+    {
+     "nh3_origin": "blue",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 450.0,
+     "price_basis": "base price kept: No library paper gives separate grey/blue/green NH3 prices; the Cho Fig. 11 renewable-NH3 scenarios (current/2030/2050) and the 300-610 USD/t conventional range are the only colour-specific values. A 'blue' price is not available in the library.",
+     "lcoh_USD_per_kg": 3.9622909149555654,
+     "lcoh_at_base_price_USD_per_kg": 3.9622909149555654,
+     "carbon_intensity_kgCO2e_per_kgH2": 9.240621747040715,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 8.326345350759095,
+      "transport": 0.39478361576875026,
+      "electricity": 0.5194927805128706,
+      "external_heat": 0.0
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_ammonia",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 8.050813865791152,
+     "lcoh_at_base_price_USD_per_kg": 3.966257104597954,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.4115884426874216,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.013672060350569625
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_natural_gas",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.82188345831967,
+     "lcoh_at_base_price_USD_per_kg": 3.8740473006321685,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.65732948785,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.39478361576875026,
+      "electricity": 0.003132766568101763,
+      "external_heat": 0.259413105513148
+     }
+    },
+    {
+     "nh3_origin": "green",
+     "heat_source": "tail_gas_plus_electric",
+     "nh3_price_USD_per_t": 1000.0,
+     "price_basis": "sourced colour-specific price",
+     "lcoh_USD_per_kg": 7.910127072643068,
+     "lcoh_at_base_price_USD_per_kg": 3.9622909149555654,
+     "carbon_intensity_kgCO2e_per_kgH2": 0.9142763962816209,
+     "ci_breakdown_kgCO2e_per_kgH2": {
+      "upstream_ammonia": 0.0,
+      "transport": 0.39478361576875026,
+      "electricity": 0.5194927805128706,
+      "external_heat": 0.0
+     }
+    }
+   ],
+   "delta_vs_baseline": {
+    "lcoh_USD_per_kg": 0.04741487612471307,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.2027643092767626,
+    "lhv_efficiency": -0.009021232805344948,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": -0.04904052104208412,
+    "h2_product_kg_h": -14.799312892079968,
+    "h2_purity_mole_frac": 0.00018371299999997426,
+    "nh3_feed_kg_per_kgH2": 0.42222848974491,
+    "nh3_total_kg_per_kgH2": 0.07630132914503562,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": -468.71714999999995,
+    "specific_heat_demand_kWh_per_kgH2": 0.5696600527500593,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": 0.0,
+    "recovered_heat_kW": 0.0
+   },
+   "delta_rel_vs_baseline": {
+    "lcoh_USD_per_kg": 0.012099205163251912,
+    "carbon_intensity_kgCO2e_per_kgH2": 0.010388772974188115,
+    "lhv_efficiency": -0.01028410089421079,
+    "nh3_conversion": 0.0,
+    "h2_yield_overall": -0.058823532711076335,
+    "h2_product_kg_h": -0.058823532711076265,
+    "h2_purity_mole_frac": 0.00018378504428869056,
+    "nh3_feed_kg_per_kgH2": 0.06250000372461348,
+    "nh3_total_kg_per_kgH2": 0.01038089945696858,
+    "total_external_heating_kW": 0.0,
+    "net_fuel_heat_deficit_kW": -0.6064652230046543,
+    "specific_heat_demand_kWh_per_kgH2": 0.06250000372461344,
+    "cracked_gas_nh3_mole_frac": 0.0,
+    "compression_power_kW": null,
+    "recovered_heat_kW": 0.0
+   }
+  }
+ ]
+}

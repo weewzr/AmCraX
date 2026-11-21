@@ -1,0 +1,1792 @@
+{
+  "exported_utc": "2026-11-21T14:41:53+00:00",
+  "files": [
+    {
+      "path": "flowsheet.json",
+      "source": "config/flowsheet.json",
+      "bytes": 6416,
+      "how": "GET /api/flowsheet"
+    },
+    {
+      "path": "cases/baseline.json",
+      "source": "results/simulations/baseline.json",
+      "bytes": 14902,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/baseline_no_hi.json",
+      "source": "results/simulations/baseline_no_hi.json",
+      "bytes": 12849,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_conv.json",
+      "source": "results/simulations/opt_opt_conv.json",
+      "bytes": 14928,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_eff.json",
+      "source": "results/simulations/opt_opt_eff.json",
+      "bytes": 14890,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_h2.json",
+      "source": "results/simulations/opt_opt_h2.json",
+      "bytes": 14929,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_heat.json",
+      "source": "results/simulations/opt_opt_heat.json",
+      "bytes": 14925,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_lcoh.json",
+      "source": "results/simulations/opt_opt_lcoh.json",
+      "bytes": 14897,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_opt_lcoh_tp.json",
+      "source": "results/simulations/opt_opt_lcoh_tp.json",
+      "bytes": 14906,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_par_1.json",
+      "source": "results/simulations/opt_par_1.json",
+      "bytes": 14919,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_par_2.json",
+      "source": "results/simulations/opt_par_2.json",
+      "bytes": 14924,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_par_3.json",
+      "source": "results/simulations/opt_par_3.json",
+      "bytes": 14897,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/opt_par_4.json",
+      "source": "results/simulations/opt_par_4.json",
+      "bytes": 14939,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/python_baseline.json",
+      "source": "results/simulations/python_baseline.json",
+      "bytes": 16511,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/python_baseline_no_hi.json",
+      "source": "results/simulations/python_baseline_no_hi.json",
+      "bytes": 14252,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/python_baseline_no_hi_pr.json",
+      "source": "results/simulations/python_baseline_no_hi_pr.json",
+      "bytes": 13937,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/python_baseline_pr.json",
+      "source": "results/simulations/python_baseline_pr.json",
+      "bytes": 15968,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_fuel_cell_grade.json",
+      "source": "results/simulations/scn_fuel_cell_grade.json",
+      "bytes": 14939,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_high_pressure.json",
+      "source": "results/simulations/scn_high_pressure.json",
+      "bytes": 14913,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_high_recovery.json",
+      "source": "results/simulations/scn_high_recovery.json",
+      "bytes": 14927,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_high_temperature.json",
+      "source": "results/simulations/scn_high_temperature.json",
+      "bytes": 14951,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_low_pressure.json",
+      "source": "results/simulations/scn_low_pressure.json",
+      "bytes": 14941,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_low_recovery.json",
+      "source": "results/simulations/scn_low_recovery.json",
+      "bytes": 14937,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_low_temperature.json",
+      "source": "results/simulations/scn_low_temperature.json",
+      "bytes": 14939,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases/scn_tight_fehe.json",
+      "source": "results/simulations/scn_tight_fehe.json",
+      "bytes": 14925,
+      "how": "GET /api/cases/<id>"
+    },
+    {
+      "path": "cases.json",
+      "source": "index of cases/",
+      "bytes": 2679,
+      "how": "index"
+    },
+    {
+      "path": "data/sensitivity.json",
+      "source": "results/sensitivity/",
+      "bytes": 15416,
+      "how": "GET /api/data/sensitivity"
+    },
+    {
+      "path": "data/sensitivity/aspen_feed_rate.json",
+      "source": "results/sensitivity/aspen_feed_rate.csv",
+      "bytes": 9420,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_feed_rate.csv",
+      "source": "results/sensitivity/aspen_feed_rate.csv",
+      "bytes": 3198,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_feed_water.json",
+      "source": "results/sensitivity/aspen_feed_water.csv",
+      "bytes": 9404,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_feed_water.csv",
+      "source": "results/sensitivity/aspen_feed_water.csv",
+      "bytes": 3180,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_fehe_approach.json",
+      "source": "results/sensitivity/aspen_fehe_approach.csv",
+      "bytes": 11065,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_fehe_approach.csv",
+      "source": "results/sensitivity/aspen_fehe_approach.csv",
+      "bytes": 3691,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_native_STEMP_baseline.json",
+      "source": "results/sensitivity/aspen_native_STEMP_baseline.csv",
+      "bytes": 2944,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_native_STEMP_baseline.csv",
+      "source": "results/sensitivity/aspen_native_STEMP_baseline.csv",
+      "bytes": 1092,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_native_STEMP_baseline_no_hi.json",
+      "source": "results/sensitivity/aspen_native_STEMP_baseline_no_hi.csv",
+      "bytes": 2955,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_native_STEMP_baseline_no_hi.csv",
+      "source": "results/sensitivity/aspen_native_STEMP_baseline_no_hi.csv",
+      "bytes": 1091,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_no_hi_temperature.json",
+      "source": "results/sensitivity/aspen_no_hi_temperature.csv",
+      "bytes": 15915,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_no_hi_temperature.csv",
+      "source": "results/sensitivity/aspen_no_hi_temperature.csv",
+      "bytes": 5065,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_pressure.json",
+      "source": "results/sensitivity/aspen_pressure.csv",
+      "bytes": 14271,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_pressure.csv",
+      "source": "results/sensitivity/aspen_pressure.csv",
+      "bytes": 4619,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_psa_recovery.json",
+      "source": "results/sensitivity/aspen_psa_recovery.csv",
+      "bytes": 11045,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_psa_recovery.csv",
+      "source": "results/sensitivity/aspen_psa_recovery.csv",
+      "bytes": 3673,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_temperature.json",
+      "source": "results/sensitivity/aspen_temperature.csv",
+      "bytes": 28984,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_temperature.csv",
+      "source": "results/sensitivity/aspen_temperature.csv",
+      "bytes": 9029,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/aspen_tp_map.json",
+      "source": "results/sensitivity/aspen_tp_map.csv",
+      "bytes": 58141,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/aspen_tp_map.csv",
+      "source": "results/sensitivity/aspen_tp_map.csv",
+      "bytes": 17604,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/lcoh_tornado_baseline.json",
+      "source": "results/sensitivity/lcoh_tornado_baseline.csv",
+      "bytes": 4294,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/lcoh_tornado_baseline.csv",
+      "source": "results/sensitivity/lcoh_tornado_baseline.csv",
+      "bytes": 1720,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/lcoh_tornado_baseline_no_hi.json",
+      "source": "results/sensitivity/lcoh_tornado_baseline_no_hi.csv",
+      "bytes": 4304,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/lcoh_tornado_baseline_no_hi.csv",
+      "source": "results/sensitivity/lcoh_tornado_baseline_no_hi.csv",
+      "bytes": 1718,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/lcoh_vs_ammonia_price_baseline.json",
+      "source": "results/sensitivity/lcoh_vs_ammonia_price_baseline.csv",
+      "bytes": 5691,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/lcoh_vs_ammonia_price_baseline.csv",
+      "source": "results/sensitivity/lcoh_vs_ammonia_price_baseline.csv",
+      "bytes": 1704,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/lcoh_vs_ammonia_price_baseline_no_hi.json",
+      "source": "results/sensitivity/lcoh_vs_ammonia_price_baseline_no_hi.csv",
+      "bytes": 5703,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/lcoh_vs_ammonia_price_baseline_no_hi.csv",
+      "source": "results/sensitivity/lcoh_vs_ammonia_price_baseline_no_hi.csv",
+      "bytes": 1704,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/membrane_recovery_vs_area.json",
+      "source": "results/sensitivity/membrane_recovery_vs_area.csv",
+      "bytes": 101525,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/membrane_recovery_vs_area.csv",
+      "source": "results/sensitivity/membrane_recovery_vs_area.csv",
+      "bytes": 33504,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/pfr_temperature_sweep.json",
+      "source": "results/sensitivity/pfr_temperature_sweep.csv",
+      "bytes": 16066,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/pfr_temperature_sweep.csv",
+      "source": "results/sensitivity/pfr_temperature_sweep.csv",
+      "bytes": 6031,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/sensitivity/psa_recovery_cases.json",
+      "source": "results/sensitivity/psa_recovery_cases.csv",
+      "bytes": 9845,
+      "how": "GET /api/data/sensitivity/<name>"
+    },
+    {
+      "path": "sensitivity/psa_recovery_cases.csv",
+      "source": "results/sensitivity/psa_recovery_cases.csv",
+      "bytes": 4099,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "data/validation.json",
+      "source": "results/validation/",
+      "bytes": 7076,
+      "how": "GET /api/data/validation"
+    },
+    {
+      "path": "data/validation/aspen_binary_parameters.json",
+      "source": "results/validation/aspen_binary_parameters.json",
+      "bytes": 17357,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/aspen_internal_consistency.json",
+      "source": "results/validation/aspen_internal_consistency.csv",
+      "bytes": 68049,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/aspen_vs_python_baseline.json",
+      "source": "results/validation/aspen_vs_python_baseline.csv",
+      "bytes": 38886,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/aspen_vs_python_flowsheet.json",
+      "source": "results/validation/aspen_vs_python_flowsheet.csv",
+      "bytes": 2121731,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/equilibrium_aspen_grid.json",
+      "source": "results/validation/equilibrium_aspen_grid.csv",
+      "bytes": 41570,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/equilibrium_comparison.json",
+      "source": "results/validation/equilibrium_comparison.csv",
+      "bytes": 334224,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/equilibrium_discrepancy.json",
+      "source": "results/validation/equilibrium_discrepancy.csv",
+      "bytes": 137011,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/equilibrium_discrepancy_summary.json",
+      "source": "results/validation/equilibrium_discrepancy_summary.json",
+      "bytes": 4699,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/equilibrium_python_grid.json",
+      "source": "results/validation/equilibrium_python_grid.csv",
+      "bytes": 96618,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/feed_section_analysis.json",
+      "source": "results/validation/feed_section_analysis.json",
+      "bytes": 1118,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/independent_physics_checks.json",
+      "source": "results/validation/independent_physics_checks.csv",
+      "bytes": 15690,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/kinetics_validation.json",
+      "source": "results/validation/kinetics_validation.csv",
+      "bytes": 19460,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/literature_benchmarks.json",
+      "source": "results/validation/literature_benchmarks.csv",
+      "bytes": 25479,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/validation/validation_matrix.json",
+      "source": "results/validation/validation_matrix.json",
+      "bytes": 170491,
+      "how": "GET /api/data/validation/<name>"
+    },
+    {
+      "path": "data/optimisation.json",
+      "source": "results/optimisation/",
+      "bytes": 6869,
+      "how": "GET /api/data/optimisation"
+    },
+    {
+      "path": "data/optimisation/aspen_verification.json",
+      "source": "results/optimisation/aspen_verification.json",
+      "bytes": 76547,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/candidates_for_aspen.json",
+      "source": "results/optimisation/candidates_for_aspen.json",
+      "bytes": 7257,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/design_grid.json",
+      "source": "results/optimisation/design_grid.csv",
+      "bytes": 7592634,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/objective_conflicts.json",
+      "source": "results/optimisation/objective_conflicts.json",
+      "bytes": 6176,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/pareto.json",
+      "source": "results/optimisation/pareto.json",
+      "bytes": 271608,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/scenario_comparison.json",
+      "source": "results/optimisation/scenario_comparison.csv",
+      "bytes": 45405,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/optimisation/single_objective.json",
+      "source": "results/optimisation/single_objective.json",
+      "bytes": 307955,
+      "how": "GET /api/data/optimisation/<name>"
+    },
+    {
+      "path": "data/analysis.json",
+      "source": "results/simulations/",
+      "bytes": 2457,
+      "how": "GET /api/data/analysis"
+    },
+    {
+      "path": "data/analysis/economics_baseline.json",
+      "source": "results/simulations/economics_baseline.json",
+      "bytes": 19765,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/economics_baseline_no_hi.json",
+      "source": "results/simulations/economics_baseline_no_hi.json",
+      "bytes": 19780,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/environmental_baseline.json",
+      "source": "results/simulations/environmental_baseline.json",
+      "bytes": 48874,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/environmental_baseline_no_hi.json",
+      "source": "results/simulations/environmental_baseline_no_hi.json",
+      "bytes": 48999,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/heat_integration_baseline.json",
+      "source": "results/simulations/heat_integration_baseline.json",
+      "bytes": 92650,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/heat_integration_baseline_no_hi.json",
+      "source": "results/simulations/heat_integration_baseline_no_hi.json",
+      "bytes": 92927,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/pfr_baseline.json",
+      "source": "results/simulations/pfr_baseline.json",
+      "bytes": 454262,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/scenario_comparison.json",
+      "source": "results/simulations/scenario_comparison.json",
+      "bytes": 114734,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/separation_baseline.json",
+      "source": "results/simulations/separation_baseline.json",
+      "bytes": 33676,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "data/analysis/separation_python_baseline.json",
+      "source": "results/simulations/separation_python_baseline.json",
+      "bytes": 33934,
+      "how": "GET /api/data/analysis/<name>"
+    },
+    {
+      "path": "sensitivity_index.json",
+      "source": "index",
+      "bytes": 477,
+      "how": "index"
+    },
+    {
+      "path": "scenarios_definitions.json",
+      "source": "config/scenarios.json",
+      "bytes": 3550,
+      "how": "GET /api/scenarios/definitions"
+    },
+    {
+      "path": "validation_matrix.json",
+      "source": "results/validation/validation_matrix.json",
+      "bytes": 178820,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "references.json",
+      "source": "research/references.json",
+      "bytes": 31022,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_conversion_vs_pressure.png",
+      "source": "results/figures/aspen_conversion_vs_pressure.png",
+      "bytes": 134589,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_conversion_vs_temperature.png",
+      "source": "results/figures/aspen_conversion_vs_temperature.png",
+      "bytes": 164166,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_duties_vs_temperature.png",
+      "source": "results/figures/aspen_duties_vs_temperature.png",
+      "bytes": 138416,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_feed_rate_scaling.png",
+      "source": "results/figures/aspen_feed_rate_scaling.png",
+      "bytes": 234575,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_feed_water_effect.png",
+      "source": "results/figures/aspen_feed_water_effect.png",
+      "bytes": 303061,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_fehe_approach_effect.png",
+      "source": "results/figures/aspen_fehe_approach_effect.png",
+      "bytes": 197664,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_h2_and_efficiency_vs_pressure.png",
+      "source": "results/figures/aspen_h2_and_efficiency_vs_pressure.png",
+      "bytes": 173897,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_heat_integration_vs_none.png",
+      "source": "results/figures/aspen_heat_integration_vs_none.png",
+      "bytes": 210690,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_psa_recovery_tradeoff.png",
+      "source": "results/figures/aspen_psa_recovery_tradeoff.png",
+      "bytes": 238650,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_tp_map_conversion.png",
+      "source": "results/figures/aspen_tp_map_conversion.png",
+      "bytes": 172798,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/aspen_tp_map_specific_heat.png",
+      "source": "results/figures/aspen_tp_map_specific_heat.png",
+      "bytes": 171669,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/ci_breakdown_baseline.png",
+      "source": "results/figures/ci_breakdown_baseline.png",
+      "bytes": 140609,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/ci_breakdown_baseline_no_hi.png",
+      "source": "results/figures/ci_breakdown_baseline_no_hi.png",
+      "bytes": 142419,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/ci_scenarios_baseline.png",
+      "source": "results/figures/ci_scenarios_baseline.png",
+      "bytes": 136099,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/ci_scenarios_baseline_no_hi.png",
+      "source": "results/figures/ci_scenarios_baseline_no_hi.png",
+      "bytes": 137764,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_composition_vs_T.png",
+      "source": "results/figures/equilibrium_composition_vs_T.png",
+      "bytes": 147923,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_conversion_vs_T.png",
+      "source": "results/figures/equilibrium_conversion_vs_T.png",
+      "bytes": 189454,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_deviation_vs_pressure.png",
+      "source": "results/figures/equilibrium_deviation_vs_pressure.png",
+      "bytes": 258988,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_K_and_dH_vs_T.png",
+      "source": "results/figures/equilibrium_K_and_dH_vs_T.png",
+      "bytes": 135399,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_parity_aspen_python.png",
+      "source": "results/figures/equilibrium_parity_aspen_python.png",
+      "bytes": 230349,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/equilibrium_pr_vs_ideal.png",
+      "source": "results/figures/equilibrium_pr_vs_ideal.png",
+      "bytes": 178843,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_composite_baseline.png",
+      "source": "results/figures/hi_composite_baseline.png",
+      "bytes": 233671,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_composite_baseline_no_hi.png",
+      "source": "results/figures/hi_composite_baseline_no_hi.png",
+      "bytes": 233779,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_configuration_comparison_baseline.png",
+      "source": "results/figures/hi_configuration_comparison_baseline.png",
+      "bytes": 161841,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_configuration_comparison_baseline_no_hi.png",
+      "source": "results/figures/hi_configuration_comparison_baseline_no_hi.png",
+      "bytes": 162054,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_grand_composite_baseline.png",
+      "source": "results/figures/hi_grand_composite_baseline.png",
+      "bytes": 210781,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/hi_grand_composite_baseline_no_hi.png",
+      "source": "results/figures/hi_grand_composite_baseline_no_hi.png",
+      "bytes": 210970,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/kinetics_validation.png",
+      "source": "results/figures/kinetics_validation.png",
+      "bytes": 207408,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_breakdown_baseline.png",
+      "source": "results/figures/lcoh_breakdown_baseline.png",
+      "bytes": 90070,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_breakdown_baseline_no_hi.png",
+      "source": "results/figures/lcoh_breakdown_baseline_no_hi.png",
+      "bytes": 91258,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_tornado_baseline.png",
+      "source": "results/figures/lcoh_tornado_baseline.png",
+      "bytes": 120020,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_tornado_baseline_no_hi.png",
+      "source": "results/figures/lcoh_tornado_baseline_no_hi.png",
+      "bytes": 122134,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_vs_ammonia_price_baseline.png",
+      "source": "results/figures/lcoh_vs_ammonia_price_baseline.png",
+      "bytes": 111443,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/lcoh_vs_ammonia_price_baseline_no_hi.png",
+      "source": "results/figures/lcoh_vs_ammonia_price_baseline_no_hi.png",
+      "bytes": 112366,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_lcoh_landscape.png",
+      "source": "results/figures/opt_lcoh_landscape.png",
+      "bytes": 202264,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_objective_flatness.png",
+      "source": "results/figures/opt_objective_flatness.png",
+      "bytes": 134246,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_carbon_nh3.png",
+      "source": "results/figures/opt_pareto_carbon_nh3.png",
+      "bytes": 167159,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_h2_carbon.png",
+      "source": "results/figures/opt_pareto_h2_carbon.png",
+      "bytes": 118058,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lcoh_ci_overlays.png",
+      "source": "results/figures/opt_pareto_lcoh_ci_overlays.png",
+      "bytes": 111969,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lcoh_h2.png",
+      "source": "results/figures/opt_pareto_lcoh_h2.png",
+      "bytes": 111395,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lcoh_lhv.png",
+      "source": "results/figures/opt_pareto_lcoh_lhv.png",
+      "bytes": 114063,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lcoh_nh3.png",
+      "source": "results/figures/opt_pareto_lcoh_nh3.png",
+      "bytes": 170215,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lhv_carbon.png",
+      "source": "results/figures/opt_pareto_lhv_carbon.png",
+      "bytes": 111928,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lhv_h2.png",
+      "source": "results/figures/opt_pareto_lhv_h2.png",
+      "bytes": 110293,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/opt_pareto_lhv_nh3.png",
+      "source": "results/figures/opt_pareto_lhv_nh3.png",
+      "bytes": 165256,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/pfr_catalyst_mass_vs_T.png",
+      "source": "results/figures/pfr_catalyst_mass_vs_T.png",
+      "bytes": 118894,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/pfr_profiles_ni_takahashi_microkinetic.png",
+      "source": "results/figures/pfr_profiles_ni_takahashi_microkinetic.png",
+      "bytes": 92263,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/pfr_profiles_ru_kum_temkin_pyzhev.png",
+      "source": "results/figures/pfr_profiles_ru_kum_temkin_pyzhev.png",
+      "bytes": 87382,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/pfr_profiles_ru_takahashi_microkinetic.png",
+      "source": "results/figures/pfr_profiles_ru_takahashi_microkinetic.png",
+      "bytes": 92730,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/scenario_ci.png",
+      "source": "results/figures/scenario_ci.png",
+      "bytes": 232299,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/scenario_kpis.png",
+      "source": "results/figures/scenario_kpis.png",
+      "bytes": 318424,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/scenario_lcoh.png",
+      "source": "results/figures/scenario_lcoh.png",
+      "bytes": 168607,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/sep_comparison_baseline.png",
+      "source": "results/figures/sep_comparison_baseline.png",
+      "bytes": 138735,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/sep_comparison_python_baseline.png",
+      "source": "results/figures/sep_comparison_python_baseline.png",
+      "bytes": 133294,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/sep_membrane_profile_baseline.png",
+      "source": "results/figures/sep_membrane_profile_baseline.png",
+      "bytes": 142114,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/sep_membrane_profile_python_baseline.png",
+      "source": "results/figures/sep_membrane_profile_python_baseline.png",
+      "bytes": 142480,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/sep_membrane_recovery_vs_area.png",
+      "source": "results/figures/sep_membrane_recovery_vs_area.png",
+      "bytes": 290043,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/validation_eos_effect.png",
+      "source": "results/figures/validation_eos_effect.png",
+      "bytes": 429800,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/validation_lnK_offset.png",
+      "source": "results/figures/validation_lnK_offset.png",
+      "bytes": 260038,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "figures/validation_parity_by_method.png",
+      "source": "results/figures/validation_parity_by_method.png",
+      "bytes": 446461,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "api/validation.json",
+      "source": "api: validation",
+      "bytes": 170491,
+      "how": "GET /api/validation"
+    },
+    {
+      "path": "api/validation_summary.json",
+      "source": "api: validation/summary",
+      "bytes": 6708,
+      "how": "GET /api/validation/summary"
+    },
+    {
+      "path": "api/references.json",
+      "source": "api: references",
+      "bytes": 30320,
+      "how": "GET /api/references"
+    },
+    {
+      "path": "api/traceability.json",
+      "source": "api: traceability",
+      "bytes": 27631,
+      "how": "GET /api/traceability"
+    },
+    {
+      "path": "api/figures.json",
+      "source": "api: figures",
+      "bytes": 8146,
+      "how": "GET /api/figures"
+    },
+    {
+      "path": "api/reports.json",
+      "source": "api: reports",
+      "bytes": 5378,
+      "how": "GET /api/reports"
+    },
+    {
+      "path": "api/screenshots.json",
+      "source": "api: screenshots",
+      "bytes": 29521,
+      "how": "GET /api/screenshots"
+    },
+    {
+      "path": "api/kinetics_catalysts.json",
+      "source": "api: kinetics/catalysts",
+      "bytes": 12886,
+      "how": "GET /api/kinetics/catalysts"
+    },
+    {
+      "path": "api/economics_defaults.json",
+      "source": "api: economics/defaults",
+      "bytes": 16604,
+      "how": "GET /api/economics/defaults"
+    },
+    {
+      "path": "api/environment_factors.json",
+      "source": "api: environment/factors",
+      "bytes": 9634,
+      "how": "GET /api/environment/factors"
+    },
+    {
+      "path": "api/optimisation_results.json",
+      "source": "api: optimisation/results",
+      "bytes": 695687,
+      "how": "GET /api/optimisation/results"
+    },
+    {
+      "path": "api/scenarios_comparison.json",
+      "source": "api: scenarios/comparison",
+      "bytes": 114734,
+      "how": "GET /api/scenarios/comparison"
+    },
+    {
+      "path": "aspen-screenshots/01_flowsheet.png",
+      "source": "aspen/screenshots/01_flowsheet.png",
+      "bytes": 131978,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/02_components.png",
+      "source": "aspen/screenshots/02_components.png",
+      "bytes": 118337,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/03_property_method.png",
+      "source": "aspen/screenshots/03_property_method.png",
+      "bytes": 123325,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/04_feed_stream.png",
+      "source": "aspen/screenshots/04_feed_stream.png",
+      "bytes": 147802,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/05_reactor_setup.png",
+      "source": "aspen/screenshots/05_reactor_setup.png",
+      "bytes": 141574,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/06_reactor_products.png",
+      "source": "aspen/screenshots/06_reactor_products.png",
+      "bytes": 135778,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/07_heat_exchanger_setup.png",
+      "source": "aspen/screenshots/07_heat_exchanger_setup.png",
+      "bytes": 153087,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/08_separation_setup.png",
+      "source": "aspen/screenshots/08_separation_setup.png",
+      "bytes": 137585,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/09_burner_setup.png",
+      "source": "aspen/screenshots/09_burner_setup.png",
+      "bytes": 143778,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/10_stream_results.png",
+      "source": "aspen/screenshots/10_stream_results.png",
+      "bytes": 174672,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/11_reactor_results.png",
+      "source": "aspen/screenshots/11_reactor_results.png",
+      "bytes": 134400,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/12_heat_exchanger_results.png",
+      "source": "aspen/screenshots/12_heat_exchanger_results.png",
+      "bytes": 146235,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/13_sensitivity_input.png",
+      "source": "aspen/screenshots/13_sensitivity_input.png",
+      "bytes": 162646,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/14_sensitivity_results.png",
+      "source": "aspen/screenshots/14_sensitivity_results.png",
+      "bytes": 171327,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/15_run_status.png",
+      "source": "aspen/screenshots/15_run_status.png",
+      "bytes": 135458,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/16_calculator.png",
+      "source": "aspen/screenshots/16_calculator.png",
+      "bytes": 169611,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/check_pfd_no_hi.png",
+      "source": "docs/screenshots/check_pfd_no_hi.png",
+      "bytes": 232255,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/check_pfd_overlays.png",
+      "source": "docs/screenshots/check_pfd_overlays.png",
+      "bytes": 241451,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_economics.png",
+      "source": "docs/screenshots/dashboard_economics.png",
+      "bytes": 203538,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_environment.png",
+      "source": "docs/screenshots/dashboard_environment.png",
+      "bytes": 204946,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_heat.png",
+      "source": "docs/screenshots/dashboard_heat.png",
+      "bytes": 202837,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_heat_integration.png",
+      "source": "docs/screenshots/dashboard_heat_integration.png",
+      "bytes": 568214,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_optimisation.png",
+      "source": "docs/screenshots/dashboard_optimisation.png",
+      "bytes": 284100,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_overview.png",
+      "source": "docs/screenshots/dashboard_overview.png",
+      "bytes": 201686,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_pfd.png",
+      "source": "docs/screenshots/dashboard_pfd.png",
+      "bytes": 218720,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_pfd_equipment_panel.png",
+      "source": "docs/screenshots/dashboard_pfd_equipment_panel.png",
+      "bytes": 258556,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_pfd_stream_panel.png",
+      "source": "docs/screenshots/dashboard_pfd_stream_panel.png",
+      "bytes": 275769,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_reactor.png",
+      "source": "docs/screenshots/dashboard_reactor.png",
+      "bytes": 187858,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_reports.png",
+      "source": "docs/screenshots/dashboard_reports.png",
+      "bytes": 278042,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_sensitivity.png",
+      "source": "docs/screenshots/dashboard_sensitivity.png",
+      "bytes": 208552,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_simulation.png",
+      "source": "docs/screenshots/dashboard_simulation.png",
+      "bytes": 187130,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_simulation_run.png",
+      "source": "docs/screenshots/dashboard_simulation_run.png",
+      "bytes": 136400,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/dashboard_validation.png",
+      "source": "docs/screenshots/dashboard_validation.png",
+      "bytes": 233859,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_about_desktop.png",
+      "source": "docs/screenshots/site_about_desktop.png",
+      "bytes": 495991,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_about_fullhd.png",
+      "source": "docs/screenshots/site_about_fullhd.png",
+      "bytes": 510219,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_about_phone.png",
+      "source": "docs/screenshots/site_about_phone.png",
+      "bytes": 433704,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_about_tablet.png",
+      "source": "docs/screenshots/site_about_tablet.png",
+      "bytes": 462170,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_architecture_desktop.png",
+      "source": "docs/screenshots/site_architecture_desktop.png",
+      "bytes": 579416,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_architecture_fullhd.png",
+      "source": "docs/screenshots/site_architecture_fullhd.png",
+      "bytes": 596448,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_architecture_phone.png",
+      "source": "docs/screenshots/site_architecture_phone.png",
+      "bytes": 483454,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_architecture_tablet.png",
+      "source": "docs/screenshots/site_architecture_tablet.png",
+      "bytes": 516051,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_calculator_desktop.png",
+      "source": "docs/screenshots/site_calculator_desktop.png",
+      "bytes": 110509,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_calculator_fullhd.png",
+      "source": "docs/screenshots/site_calculator_fullhd.png",
+      "bytes": 151105,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_calculator_phone.png",
+      "source": "docs/screenshots/site_calculator_phone.png",
+      "bytes": 48237,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_calculator_tablet.png",
+      "source": "docs/screenshots/site_calculator_tablet.png",
+      "bytes": 101513,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_docs_desktop.png",
+      "source": "docs/screenshots/site_docs_desktop.png",
+      "bytes": 436464,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_docs_fullhd.png",
+      "source": "docs/screenshots/site_docs_fullhd.png",
+      "bytes": 449573,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_docs_phone.png",
+      "source": "docs/screenshots/site_docs_phone.png",
+      "bytes": 427974,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_docs_tablet.png",
+      "source": "docs/screenshots/site_docs_tablet.png",
+      "bytes": 416601,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_home_desktop.png",
+      "source": "docs/screenshots/site_home_desktop.png",
+      "bytes": 242141,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_home_fullhd.png",
+      "source": "docs/screenshots/site_home_fullhd.png",
+      "bytes": 831481,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_home_mobile.png",
+      "source": "docs/screenshots/site_home_mobile.png",
+      "bytes": 92080,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_home_phone.png",
+      "source": "docs/screenshots/site_home_phone.png",
+      "bytes": 727633,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_home_tablet.png",
+      "source": "docs/screenshots/site_home_tablet.png",
+      "bytes": 813109,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_methodology_desktop.png",
+      "source": "docs/screenshots/site_methodology_desktop.png",
+      "bytes": 219306,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_methodology_fullhd.png",
+      "source": "docs/screenshots/site_methodology_fullhd.png",
+      "bytes": 1593026,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_methodology_phone.png",
+      "source": "docs/screenshots/site_methodology_phone.png",
+      "bytes": 1505676,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_methodology_tablet.png",
+      "source": "docs/screenshots/site_methodology_tablet.png",
+      "bytes": 1698114,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_pfd_desktop.png",
+      "source": "docs/screenshots/site_pfd_desktop.png",
+      "bytes": 518505,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_pfd_fullhd.png",
+      "source": "docs/screenshots/site_pfd_fullhd.png",
+      "bytes": 536879,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_pfd_phone.png",
+      "source": "docs/screenshots/site_pfd_phone.png",
+      "bytes": 426313,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_pfd_tablet.png",
+      "source": "docs/screenshots/site_pfd_tablet.png",
+      "bytes": 477688,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_desktop.png",
+      "source": "docs/screenshots/site_platform_desktop.png",
+      "bytes": 192941,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_economics_desktop.png",
+      "source": "docs/screenshots/site_platform_economics_desktop.png",
+      "bytes": 200840,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_economics_fullhd.png",
+      "source": "docs/screenshots/site_platform_economics_fullhd.png",
+      "bytes": 233169,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_economics_phone.png",
+      "source": "docs/screenshots/site_platform_economics_phone.png",
+      "bytes": 82728,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_economics_tablet.png",
+      "source": "docs/screenshots/site_platform_economics_tablet.png",
+      "bytes": 180694,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_environment_desktop.png",
+      "source": "docs/screenshots/site_platform_environment_desktop.png",
+      "bytes": 155737,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_environment_fullhd.png",
+      "source": "docs/screenshots/site_platform_environment_fullhd.png",
+      "bytes": 250594,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_environment_phone.png",
+      "source": "docs/screenshots/site_platform_environment_phone.png",
+      "bytes": 81181,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_environment_tablet.png",
+      "source": "docs/screenshots/site_platform_environment_tablet.png",
+      "bytes": 142943,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_fullhd.png",
+      "source": "docs/screenshots/site_platform_fullhd.png",
+      "bytes": 231900,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_heat_desktop.png",
+      "source": "docs/screenshots/site_platform_heat_desktop.png",
+      "bytes": 176957,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_heat_fullhd.png",
+      "source": "docs/screenshots/site_platform_heat_fullhd.png",
+      "bytes": 232321,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_heat_phone.png",
+      "source": "docs/screenshots/site_platform_heat_phone.png",
+      "bytes": 83940,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_heat_tablet.png",
+      "source": "docs/screenshots/site_platform_heat_tablet.png",
+      "bytes": 171320,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_optimisation_desktop.png",
+      "source": "docs/screenshots/site_platform_optimisation_desktop.png",
+      "bytes": 242949,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_optimisation_fullhd.png",
+      "source": "docs/screenshots/site_platform_optimisation_fullhd.png",
+      "bytes": 384582,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_optimisation_phone.png",
+      "source": "docs/screenshots/site_platform_optimisation_phone.png",
+      "bytes": 83191,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_optimisation_tablet.png",
+      "source": "docs/screenshots/site_platform_optimisation_tablet.png",
+      "bytes": 194508,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_pfd_desktop.png",
+      "source": "docs/screenshots/site_platform_pfd_desktop.png",
+      "bytes": 189997,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_pfd_fullhd.png",
+      "source": "docs/screenshots/site_platform_pfd_fullhd.png",
+      "bytes": 251846,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_pfd_phone.png",
+      "source": "docs/screenshots/site_platform_pfd_phone.png",
+      "bytes": 74743,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_pfd_tablet.png",
+      "source": "docs/screenshots/site_platform_pfd_tablet.png",
+      "bytes": 159280,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_phone.png",
+      "source": "docs/screenshots/site_platform_phone.png",
+      "bytes": 92917,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reactor_desktop.png",
+      "source": "docs/screenshots/site_platform_reactor_desktop.png",
+      "bytes": 183124,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reactor_fullhd.png",
+      "source": "docs/screenshots/site_platform_reactor_fullhd.png",
+      "bytes": 215275,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reactor_phone.png",
+      "source": "docs/screenshots/site_platform_reactor_phone.png",
+      "bytes": 97609,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reactor_tablet.png",
+      "source": "docs/screenshots/site_platform_reactor_tablet.png",
+      "bytes": 173887,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reports_desktop.png",
+      "source": "docs/screenshots/site_platform_reports_desktop.png",
+      "bytes": 204786,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reports_fullhd.png",
+      "source": "docs/screenshots/site_platform_reports_fullhd.png",
+      "bytes": 292557,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reports_phone.png",
+      "source": "docs/screenshots/site_platform_reports_phone.png",
+      "bytes": 82111,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_reports_tablet.png",
+      "source": "docs/screenshots/site_platform_reports_tablet.png",
+      "bytes": 206398,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_sensitivity_desktop.png",
+      "source": "docs/screenshots/site_platform_sensitivity_desktop.png",
+      "bytes": 177392,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_sensitivity_fullhd.png",
+      "source": "docs/screenshots/site_platform_sensitivity_fullhd.png",
+      "bytes": 245492,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_sensitivity_phone.png",
+      "source": "docs/screenshots/site_platform_sensitivity_phone.png",
+      "bytes": 85688,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_sensitivity_tablet.png",
+      "source": "docs/screenshots/site_platform_sensitivity_tablet.png",
+      "bytes": 173238,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_simulation_desktop.png",
+      "source": "docs/screenshots/site_platform_simulation_desktop.png",
+      "bytes": 163354,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_simulation_fullhd.png",
+      "source": "docs/screenshots/site_platform_simulation_fullhd.png",
+      "bytes": 220778,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_simulation_phone.png",
+      "source": "docs/screenshots/site_platform_simulation_phone.png",
+      "bytes": 80772,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_simulation_tablet.png",
+      "source": "docs/screenshots/site_platform_simulation_tablet.png",
+      "bytes": 165568,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_tablet.png",
+      "source": "docs/screenshots/site_platform_tablet.png",
+      "bytes": 170011,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_validation_desktop.png",
+      "source": "docs/screenshots/site_platform_validation_desktop.png",
+      "bytes": 168869,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_validation_fullhd.png",
+      "source": "docs/screenshots/site_platform_validation_fullhd.png",
+      "bytes": 268412,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_validation_phone.png",
+      "source": "docs/screenshots/site_platform_validation_phone.png",
+      "bytes": 78624,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_platform_validation_tablet.png",
+      "source": "docs/screenshots/site_platform_validation_tablet.png",
+      "bytes": 147493,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_research_desktop.png",
+      "source": "docs/screenshots/site_research_desktop.png",
+      "bytes": 1547443,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_research_fullhd.png",
+      "source": "docs/screenshots/site_research_fullhd.png",
+      "bytes": 1583440,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_research_phone.png",
+      "source": "docs/screenshots/site_research_phone.png",
+      "bytes": 1435907,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_research_tablet.png",
+      "source": "docs/screenshots/site_research_tablet.png",
+      "bytes": 1496286,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_results_desktop.png",
+      "source": "docs/screenshots/site_results_desktop.png",
+      "bytes": 141457,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_results_fullhd.png",
+      "source": "docs/screenshots/site_results_fullhd.png",
+      "bytes": 1317482,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_results_phone.png",
+      "source": "docs/screenshots/site_results_phone.png",
+      "bytes": 1048972,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_results_tablet.png",
+      "source": "docs/screenshots/site_results_tablet.png",
+      "bytes": 1234308,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_why_desktop.png",
+      "source": "docs/screenshots/site_why_desktop.png",
+      "bytes": 609377,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_why_fullhd.png",
+      "source": "docs/screenshots/site_why_fullhd.png",
+      "bytes": 626977,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_why_phone.png",
+      "source": "docs/screenshots/site_why_phone.png",
+      "bytes": 553523,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/site_why_tablet.png",
+      "source": "docs/screenshots/site_why_tablet.png",
+      "bytes": 580676,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/snapshot_overview.png",
+      "source": "docs/screenshots/snapshot_overview.png",
+      "bytes": 216451,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/snapshot_pfd.png",
+      "source": "docs/screenshots/snapshot_pfd.png",
+      "bytes": 224041,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "dashboard-screenshots/snapshot_sensitivity.png",
+      "source": "docs/screenshots/snapshot_sensitivity.png",
+      "bytes": 234183,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-screenshots/manifest.json",
+      "source": "aspen/screenshots/manifest.json",
+      "bytes": 14173,
+      "how": "verbatim copy"
+    }
+  ],
+  "sources": [
+    "api: economics/defaults",
+    "api: environment/factors",
+    "api: kinetics/catalysts",
+    "api: optimisation/results",
+    "api: scenarios/comparison",
+    "api: validation/summary",
+    "aspen/screenshots",
+    "config/flowsheet.json",
+    "config/scenarios.json",
+    "docs/screenshots",
+    "index of cases/",
+    "research/references.json",
+    "results/figures",
+    "results/optimisation",
+    "results/sensitivity",
+    "results/simulations",
+    "results/validation"
+  ],
+  "skipped_endpoints": [],
+  "not_mirrored_same_stem_csv": [
+    "data/optimisation/aspen_verification.csv (same stem as the .json; use the live API for the CSV)",
+    "data/optimisation/pareto.csv (same stem as the .json; use the live API for the CSV)"
+  ],
+  "case_sources": [
+    "aspen_plus_v15",
+    "python_model"
+  ],
+  "note": "Real stored results only; no demonstration data."
+}

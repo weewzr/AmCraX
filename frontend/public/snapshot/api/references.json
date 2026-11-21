@@ -1,0 +1,429 @@
+[
+ {
+  "citekey": "ahmad2025gtcc",
+  "apa7": "Ahmad, A. H., Tsujimura, T., Shimura, M., Fan, Y., Ito, H., Iki, N., Kurata, O., Jo, H., & Aziz, M. (2025). Thermodynamic and preliminary techno-economic analysis of NH3 utilization in combined cycle power plant: Comparison of direct liquid, vaporized, and cracked NH3-based combustion methods. International Journal of Hydrogen Energy, 173, 151337. https://doi.org/10.1016/j.ijhydene.2025.151337",
+  "doi": "10.1016/j.ijhydene.2025.151337",
+  "url": "https://doi.org/10.1016/j.ijhydene.2025.151337",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "cechetto2023membrane",
+  "apa7": "Cechetto, V., Di Felice, L., & Gallucci, F. (2023). Advances and perspectives of H2 production from NH3 decomposition in membrane reactors. Energy & Fuels, 37(15), 10775-10798. https://doi.org/10.1021/acs.energyfuels.3c00760",
+  "doi": "10.1021/acs.energyfuels.3c00760",
+  "url": "https://doi.org/10.1021/acs.energyfuels.3c00760",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "cho2026nickel",
+  "apa7": "Cho, S., Lee, Y., & Lee, I. (2026). Comparative assessment of ammonia decomposition processes based on nickel and ruthenium catalysts: A techno-economic perspective. Energy Conversion and Management, 348, 120796. https://doi.org/10.1016/j.enconman.2025.120796",
+  "doi": "10.1016/j.enconman.2025.120796",
+  "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "chopra2026decentralized",
+  "apa7": "Chopra, M., Srivastava, N., & Arora, P. (2026). Decentralized hydrogen production via ammonia decomposition: Process simulation, techno-economic, and environmental assessment. Fuel, 415, 138463. https://doi.org/10.1016/j.fuel.2026.138463",
+  "doi": "10.1016/j.fuel.2026.138463",
+  "url": "https://doi.org/10.1016/j.fuel.2026.138463",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "farokhi2025costoptimization",
+  "apa7": "Farokhi, V., \u00d8i, L. E., & Hansen, P. M. (2025). Simulation and cost optimization of ammonia cracker process. IFAC-PapersOnLine, 59(29), 48-53. https://doi.org/10.1016/j.ifacol.2025.12.180",
+  "doi": "10.1016/j.ifacol.2025.12.180",
+  "url": "https://doi.org/10.1016/j.ifacol.2025.12.180",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "hansen2024hysys",
+  "apa7": "Hansen, P. M., Attanayake, C., Farrokhi, V., Gholizadefalah, M., Samaei, L., Sanidanesh, Z., & \u00d8i, L. E. (2024). Simulation of ammonia cracker process with Aspen HYSYS. In Proceedings of SIMS EUROSIM 2024 (Link\u00f6ping Electronic Conference Proceedings No. 212, pp. 79-84). https://doi.org/10.3384/ecp212.011",
+  "doi": "10.3384/ecp212.011",
+  "url": "https://doi.org/10.3384/ecp212.011",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "kum2026heatintegrated",
+  "apa7": "Kum, J., Ko, Y., Chang, J. H., & Lee, C.-H. (2026). Dynamic modeling and techno-economic analysis of a heat-integrated NH3 cracking plant for cost-effective H2 production under uncertainty. Applied Energy, 406, 127210. https://doi.org/10.1016/j.apenergy.2025.127210",
+  "doi": "10.1016/j.apenergy.2025.127210",
+  "url": "https://doi.org/10.1016/j.apenergy.2025.127210",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "maccarrone2025comprehensive",
+  "apa7": "Maccarrone, D., Italiano, C., Giorgianni, G., Centi, G., Perathoner, S., Vita, A., & Abate, S. (2025). A comprehensive review on hydrogen production via catalytic ammonia decomposition. Catalysts, 15(9), 811. https://doi.org/10.3390/catal15090811",
+  "doi": "10.3390/catal15090811",
+  "url": "https://doi.org/10.3390/catal15090811",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "mehr2026highcapacity",
+  "apa7": "Mehr, A. S., Scheffknecht, G., Zohourian, R., Reinm\u00f6ller, M., & Maier, J. (2026). Design, simulation, and techno-economic evaluation of a high-capacity ammonia cracking facility for pipeline-grade hydrogen production. Energy Science & Engineering, 14(9), 4197\u20134212. https://doi.org/10.1002/ese3.70618",
+  "doi": "10.1002/ese3.70618",
+  "url": "https://doi.org/10.1002/ese3.70618",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "purcel2024stability",
+  "apa7": "Purcel, M., M\u00fcller, A. S., Diehl, P., Kappis, K., Trunschke, A., & Muhler, M. (2025). Long-term stability of ammonia decomposition over nickel-based catalysts. Energy Technology, 13(2), 2400678. https://doi.org/10.1002/ente.202400678",
+  "doi": "10.1002/ente.202400678",
+  "url": "https://doi.org/10.1002/ente.202400678",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "richard2024technoeconomic",
+  "apa7": "Richard, S., Ramirez Santos, A., Olivier, P., & Gallucci, F. (2024). Techno-economic analysis of ammonia cracking for large scale power generation. International Journal of Hydrogen Energy, 71, 571-587. https://doi.org/10.1016/j.ijhydene.2024.05.308",
+  "doi": "10.1016/j.ijhydene.2024.05.308",
+  "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "su2023review",
+  "apa7": "Su, T., Guan, B., Zhou, J., Zheng, C., Guo, J., Chen, J., Zhang, Y., Yuan, Y., Xie, W., Zhou, N., Dang, H., Xu, B., & Huang, Z. (2023). Review on Ru-based and Ni-based catalysts for ammonia decomposition: Research status, reaction mechanism, and perspectives. Energy & Fuels, 37(12), 8099\u20138127. https://doi.org/10.1021/acs.energyfuels.3c00804",
+  "doi": "10.1021/acs.energyfuels.3c00804",
+  "url": "https://doi.org/10.1021/acs.energyfuels.3c00804",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "takahashi2016kinetic",
+  "apa7": "Takahashi, A., & Fujitani, T. (2016). Kinetic analysis of decomposition of ammonia over nickel and ruthenium catalysts. Journal of Chemical Engineering of Japan, 49(1), 22\u201328. https://doi.org/10.1252/jcej.14we431",
+  "doi": "10.1252/jcej.14we431",
+  "url": "https://doi.org/10.1252/jcej.14we431",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "xu2025review",
+  "apa7": "Xu, Q.-Y., Chen, Y.-F., Yao, N.-N., Zhang, J.-K., Huang, Y., Han, D., & Pan, W.-G. (2025). Recent advancements in ammonia catalytic cracking and waste heat reforming technologies: A review. Energy Conversion and Management, 326, 119530. https://doi.org/10.1016/j.enconman.2025.119530",
+  "doi": "10.1016/j.enconman.2025.119530",
+  "url": "https://doi.org/10.1016/j.enconman.2025.119530",
+  "doi_verified": true,
+  "in_local_library": true,
+  "verification": "doi.org handle responseCode=1 (extraction agent) and Crossref metadata match (synthesis agent, 2026-11-21)"
+ },
+ {
+  "citekey": "tamaru1988new",
+  "apa7": "Tamaru, K. (1988). A \"new\" general mechanism of ammonia synthesis and decomposition on transition metals. Accounts of Chemical Research, 21(2), 88-94. https://doi.org/10.1021/ar00146a007",
+  "doi": "10.1021/ar00146a007",
+  "url": "https://doi.org/10.1021/ar00146a007",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of the Tamaru rate law quoted by su2023review Eq. 4 and xu2025review Fig. 6"
+ },
+ {
+  "citekey": "dicarlo2014ammonia",
+  "apa7": "Di Carlo, A., Vecchione, L., & Del Prete, Z. (2014). Ammonia decomposition over commercial Ru/Al2O3 catalyst: An experimental evaluation at different operative pressures and temperatures. International Journal of Hydrogen Energy, 39(2), 808-814. https://doi.org/10.1016/j.ijhydene.2013.10.110",
+  "doi": "10.1016/j.ijhydene.2013.10.110",
+  "url": "https://doi.org/10.1016/j.ijhydene.2013.10.110",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Experimental data behind kum2026heatintegrated Temkin-Pyzhev fit and maccarrone Table 5 Ru/Al2O3 entry"
+ },
+ {
+  "citekey": "sayas2020high",
+  "apa7": "Sayas, S., Morlan\u00e9s, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/D0CY00686F",
+  "doi": "10.1039/D0CY00686F",
+  "url": "https://doi.org/10.1039/D0CY00686F",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of the Ru-K/CaO reversible power law (maccarrone Table 4/5) and Ru kinetics used by cho2026nickel"
+ },
+ {
+  "citekey": "im2020ammonia",
+  "apa7": "Im, Y., Muroyama, H., Matsui, T., & Eguchi, K. (2020). Ammonia decomposition over nickel catalysts supported on alkaline earth metal aluminate for H2 production. International Journal of Hydrogen Energy, 45(51), 26979-26988. https://doi.org/10.1016/j.ijhydene.2020.07.014",
+  "doi": "10.1016/j.ijhydene.2020.07.014",
+  "url": "https://doi.org/10.1016/j.ijhydene.2020.07.014",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of Ni/Ba-Al-O power-law orders and E_app quoted in maccarrone Table 5"
+ },
+ {
+  "citekey": "itoh2014kinetic",
+  "apa7": "Itoh, N., Oshima, A., Suga, E., & Sato, T. (2014). Kinetic enhancement of ammonia decomposition as a chemical hydrogen carrier in palladium membrane reactor. Catalysis Today, 236, 70-76. https://doi.org/10.1016/j.cattod.2014.02.054",
+  "doi": "10.1016/j.cattod.2014.02.054",
+  "url": "https://doi.org/10.1016/j.cattod.2014.02.054",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of the Langmuir-Hinshelwood rate law quoted by maccarrone Table 4 and xu2025review Fig. 6"
+ },
+ {
+  "citekey": "mccabe1983kinetics",
+  "apa7": "McCabe, R. W. (1983). Kinetics of ammonia decomposition on nickel. Journal of Catalysis, 79(2), 445-450. https://doi.org/10.1016/0021-9517(83)90337-8",
+  "doi": "10.1016/0021-9517(83)90337-8",
+  "url": "https://doi.org/10.1016/0021-9517(83)90337-8",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of the McCabe zero/first-order Ni model quoted by xu2025review Fig. 6"
+ },
+ {
+  "citekey": "wang1999kinetics",
+  "apa7": "Wang, W., Padban, N., Ye, Z., Andersson, A., & Bjerle, I. (1999). Kinetics of ammonia decomposition in hot gas cleaning. Industrial & Engineering Chemistry Research, 38(11), 4175-4182. https://doi.org/10.1021/ie990337d",
+  "doi": "10.1021/ie990337d",
+  "url": "https://doi.org/10.1021/ie990337d",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of the Kp(T) correlation maccarrone Eq. 5 (misprinted in the review)"
+ },
+ {
+  "citekey": "yamazaki2022evaluation",
+  "apa7": "Yamazaki, K., Matsumoto, M., Kubo, H., Fujitani, T., Ishikawa, M., & Sato, A. (2022). Evaluation of durability performance of a Ru/MgO catalyst for ammonia decomposition at an on-site hydrogen fueling station. Industrial & Engineering Chemistry Research, 61(17), 5778-5785. https://doi.org/10.1021/acs.iecr.2c00565",
+  "doi": "10.1021/acs.iecr.2c00565",
+  "url": "https://doi.org/10.1021/acs.iecr.2c00565",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of Ru/MgO >1000 h linear deactivation data quoted by su2023review Fig. 3a"
+ },
+ {
+  "citekey": "devkota2024techno",
+  "apa7": "Devkota, S., Cha, J.-Y., Shin, B.-J., Mun, J.-H., Yoon, H. C., Mazari, S. A., & Moon, J.-H. (2024). Techno-economic and environmental assessment of hydrogen production through ammonia decomposition. Applied Energy, 358, 122605. https://doi.org/10.1016/j.apenergy.2023.122605",
+  "doi": "10.1016/j.apenergy.2023.122605",
+  "url": "https://doi.org/10.1016/j.apenergy.2023.122605",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of many TEA inputs reused by cho2026nickel, chopra2026decentralized, farokhi2025costoptimization, kum2026heatintegrated, maccarrone2025comprehensive"
+ },
+ {
+  "citekey": "cesaro2021ammonia",
+  "apa7": "Cesaro, Z., Ives, M., Nayak-Luke, R., Mason, M., & Ba\u00f1ares-Alc\u00e1ntara, R. (2021). Ammonia to power: Forecasting the levelized cost of electricity from green ammonia in large-scale power plants. Applied Energy, 282, 116009. https://doi.org/10.1016/j.apenergy.2020.116009",
+  "doi": "10.1016/j.apenergy.2020.116009",
+  "url": "https://doi.org/10.1016/j.apenergy.2020.116009",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original cost data behind the ahmad2025gtcc NH3-cracker CAPEX correlation"
+ },
+ {
+  "citekey": "yanez2020psa",
+  "apa7": "Y\u00e1\u00f1ez, M., Relvas, F., Ortiz, A., Gorri, D., Mendes, A., & Ortiz, I. (2020). PSA purification of waste hydrogen from ammonia plants to fuel cell grade. Separation and Purification Technology, 240, 116334. https://doi.org/10.1016/j.seppur.2019.116334",
+  "doi": "10.1016/j.seppur.2019.116334",
+  "url": "https://doi.org/10.1016/j.seppur.2019.116334",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Original source of PSA recovery/purity used by cho2026nickel and H2/N2 separation factor quoted by mehr2026highcapacity"
+ },
+ {
+  "citekey": "peng1976new",
+  "apa7": "Peng, D.-Y., & Robinson, D. B. (1976). A new two-constant equation of state. Industrial & Engineering Chemistry Fundamentals, 15(1), 59-64. https://doi.org/10.1021/i160057a011",
+  "doi": "10.1021/i160057a011",
+  "url": "https://doi.org/10.1021/i160057a011",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Peng-Robinson EOS used in Aspen property method (cho2026nickel, richard2024technoeconomic, hansen2024hysys, mehr2026highcapacity)"
+ },
+ {
+  "citekey": "linnhoff1983pinch",
+  "apa7": "Linnhoff, B., & Hindmarsh, E. (1983). The pinch design method for heat exchanger networks. Chemical Engineering Science, 38(5), 745-763. https://doi.org/10.1016/0009-2509(83)80185-7",
+  "doi": "10.1016/0009-2509(83)80185-7",
+  "url": "https://doi.org/10.1016/0009-2509(83)80185-7",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "Pinch design method used by the heat-integration module"
+ },
+ {
+  "citekey": "bell2014coolprop",
+  "apa7": "Bell, I. H., Wronski, J., Quoilin, S., & Lemort, V. (2014). Pure and pseudo-pure fluid thermophysical property evaluation and the open-source thermophysical property library CoolProp. Industrial & Engineering Chemistry Research, 53(6), 2498-2508. https://doi.org/10.1021/ie4033999",
+  "doi": "10.1021/ie4033999",
+  "url": "https://doi.org/10.1021/ie4033999",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "reason_needed": "CoolProp property library (installed CoolProp 8.0.0 in project venv)"
+ },
+ {
+  "citekey": "goodwin2018cantera",
+  "apa7": "Goodwin, D. G., Speth, R. L., Moffat, H. K., & Weber, B. W. (2018). Cantera: An object-oriented software toolkit for chemical kinetics, thermodynamics, and transport processes (Version 2.4.0) [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.1174508",
+  "doi": "10.5281/zenodo.1174508",
+  "url": "https://doi.org/10.5281/zenodo.1174508",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, registry record (2026-11-21)",
+  "reason_needed": "Cantera toolkit (thermochemistry/equilibrium). Verified record is v2.4.0; concept DOI 10.5281/zenodo.742000 (all versions) also resolves. Project venv has cantera 3.2.0 - cite the matching version DOI if the report needs version-exact citation."
+ },
+ {
+  "citekey": "nist_webbook",
+  "apa7": "Linstrom, P. J., & Mallard, W. G. (Eds.). (n.d.). NIST Chemistry WebBook, NIST Standard Reference Database Number 69. National Institute of Standards and Technology. https://doi.org/10.18434/T4D303",
+  "doi": "10.18434/T4D303",
+  "url": "https://doi.org/10.18434/T4D303",
+  "doi_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1, registry record (2026-11-21)",
+  "reason_needed": "Thermochemical reference data (standard enthalpies) for the thermodynamics module"
+ },
+ {
+  "citekey": "nist_janaf",
+  "apa7": "National Institute of Standards and Technology. (n.d.). NIST-JANAF thermochemical tables. Retrieved November 21, 2026, from https://janaf.nist.gov/",
+  "doi": null,
+  "url": "https://janaf.nist.gov/",
+  "doi_verified": false,
+  "in_local_library": false,
+  "verification": "publisher page HTTP 200 (2026-11-21)",
+  "reason_needed": "NIST-JANAF thermochemical tables (page verified HTTP 200, title \"NIST-JANAF Thermochemical Tables\"); no DOI checked"
+ },
+ {
+  "citekey": "smith_grimech30",
+  "apa7": "Smith, G. P., Golden, D. M., Frenklach, M., Moriarty, N. W., Eiteneer, B., Goldenberg, M., Bowman, C. T., Hanson, R. K., Song, S., Gardiner, W. C., Jr., Lissianski, V. V., & Qin, Z. (n.d.). GRI-Mech 3.0. Retrieved November 21, 2026, from http://combustion.berkeley.edu/gri-mech/version30/text30.html",
+  "doi": null,
+  "url": "http://combustion.berkeley.edu/gri-mech/version30/text30.html",
+  "doi_verified": false,
+  "in_local_library": false,
+  "verification": "publisher page HTTP 200 (2026-11-21)",
+  "reason_needed": "GRI-Mech 3.0 NASA-polynomial thermo data used by Cantera gri30.yaml (page verified HTTP 200, title \"GRI-Mech 3.0\")"
+ },
+ {
+  "citekey": "bartels2008feasibility",
+  "apa7": "Bartels, J. R. (2008). A feasibility study of implementing an ammonia economy [Master's thesis, Iowa State University]. Iowa State University Digital Repository. https://dr.lib.iastate.edu/entities/publication/0d44bb27-0317-4e6f-901c-3d709853a435",
+  "doi": null,
+  "url": "https://dr.lib.iastate.edu/entities/publication/0d44bb27-0317-4e6f-901c-3d709853a435",
+  "doi_verified": false,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "Bibliographic data from xu2025review reference [41] (research/extracted/1-s2.0-S0196890425000536-main.txt line 4425); Iowa State DSpace record HTTP 200 and title/author/degree confirmed via search-engine listing of that record (2026-11-21). Not read by AmCraX: cited only as 'as cited in Xu et al., 2025'.",
+  "reason_needed": "Secondary citation in 02_introduction.md (pipeline transport cost)"
+ },
+ {
+  "citekey": "ganley2004apriori",
+  "apa7": "Ganley, J. C., Thomas, F. S., Seebauer, E. G., & Masel, R. I. (2004). A priori catalytic activity correlations: The difficult case of hydrogen production from ammonia. Catalysis Letters, 96(3\u20134), 117\u2013122. https://doi.org/10.1023/B:CATL.0000030108.50691.d4",
+  "doi": "10.1023/B:CATL.0000030108.50691.d4",
+  "url": "https://doi.org/10.1023/B:CATL.0000030108.50691.d4",
+  "doi_verified": true,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1 and Crossref metadata (title, authors, vol 96, issue 3-4, pp. 117-122, 2004) match (2026-11-21); also reference [65] of xu2025review and (53) of su2023review.",
+  "reason_needed": "Secondary citation in 04_fundamentals.md (activity order of metals)"
+ },
+ {
+  "citekey": "iso2019hydrogen",
+  "apa7": "International Organization for Standardization. (2019). Hydrogen fuel quality \u2014 Product specification (ISO Standard No. 14687:2019). https://www.iso.org/standard/69539.html",
+  "doi": null,
+  "url": "https://www.iso.org/standard/69539.html",
+  "doi_verified": false,
+  "url_verified": false,
+  "in_local_library": false,
+  "verification": "iso.org returns HTTP 403 to automated requests (2026-11-21); metadata (ISO 14687:2019, edition 1, 2019-11, ISO/TC 197; withdrawn 2025, replaced by ISO 14687:2025) confirmed through search-engine listings of iso.org, SIS and BSI. Standard not read by AmCraX: limits are quoted from cechetto2023membrane p. 5 (their ref. 35).",
+  "reason_needed": "Secondary citation (ISO, 2019, as cited in Cechetto et al., 2023) in 03, 05, 06, 08, 12"
+ },
+ {
+  "citekey": "lee2023carbonfree",
+  "apa7": "Lee, J., Ga, S., Lim, D., Lee, S., Cho, H., & Kim, J. (2023). Carbon-free green hydrogen production process with induction heating-based ammonia decomposition reactor. Chemical Engineering Journal, 457, 141203. https://doi.org/10.1016/j.cej.2022.141203",
+  "doi": "10.1016/j.cej.2022.141203",
+  "url": "https://doi.org/10.1016/j.cej.2022.141203",
+  "doi_verified": true,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1 and Crossref metadata (authors, Chem. Eng. J. 457, 141203, 2023) match (2026-11-21); also kum2026heatintegrated ref. [21] and hansen2024hysys notes original_source.",
+  "reason_needed": "Secondary citation in 10_reactor.md (induction-heated reactor) and PSA recovery 0.79 via hansen2024hysys"
+ },
+ {
+  "citekey": "lee2022ammonia",
+  "apa7": "Lee, K., Liu, X., Vyawahare, P., Sun, P., Elgowainy, A., & Wang, M. (2022). Techno-economic performances and life cycle greenhouse gas emissions of various ammonia production pathways including conventional, carbon-capturing, nuclear-powered, and renewable production. Green Chemistry, 24(12), 4830\u20134844. https://doi.org/10.1039/D2GC00843B",
+  "doi": "10.1039/D2GC00843B",
+  "url": "https://doi.org/10.1039/D2GC00843B",
+  "doi_verified": true,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1 and Crossref metadata (Green Chem. 24(12), 4830-4844, 2022) match (2026-11-21); accepted manuscript read by the environmental agent via OSTI https://www.osti.gov/pages/servlets/purl/1960296 (backend/amcrax/data/environmental.yaml).",
+  "reason_needed": "Upstream NH3 carbon intensity (backend/amcrax/data/environmental.yaml)"
+ },
+ {
+  "citekey": "ipcc2006v2ch2",
+  "apa7": "Intergovernmental Panel on Climate Change. (2006). 2006 IPCC guidelines for national greenhouse gas inventories: Vol. 2. Energy, Chapter 2: Stationary combustion (H. S. Eggleston, L. Buendia, K. Miwa, T. Ngara, & K. Tanabe, Eds.). Institute for Global Environmental Strategies. https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/2_Volume2/V2_2_Ch2_Stationary_Combustion.pdf",
+  "doi": null,
+  "url": "https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/2_Volume2/V2_2_Ch2_Stationary_Combustion.pdf",
+  "doi_verified": false,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "PDF HTTP 200, downloaded and first pages parsed (2026-11-21): 'Chapter 2: Stationary Combustion, 2006 IPCC Guidelines for National Greenhouse Gas Inventories, Volume 2: Energy'; chapter lead authors D. R. Gomez and J. D. Watterson. Group author used as recommended by the IPCC NGGIP citation form.",
+  "reason_needed": "Natural-gas combustion CO2 factor (backend/amcrax/data/environmental.yaml)"
+ },
+ {
+  "citekey": "ema2025ses",
+  "apa7": "Energy Market Authority. (2025). Singapore energy statistics: Chapter 2 \u2013 Energy transformation. Retrieved November 21, 2026, from https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2",
+  "doi": null,
+  "url": "https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2",
+  "doi_verified": false,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "URL HTTP 200 (2026-11-21) but page content is script-rendered; grid emission factor text (0.412 kg CO2/kWh in 2023, 0.402 in 2024) confirmed via search-engine extract of this page. Edition year 2025 inferred from the 2024 data year (assumption).",
+  "reason_needed": "Singapore grid emission factor (backend/amcrax/data/environmental.yaml)"
+ },
+ {
+  "citekey": "glec2023v3",
+  "apa7": "Smart Freight Centre. (2023). Global Logistics Emissions Council framework for logistics emissions accounting and reporting (Version 3.0). https://www.smartfreightcentre.org/en/our-programs/emissions-accounting/global-logistics-emissions-council/",
+  "doi": null,
+  "url": "https://www.smartfreightcentre.org/en/our-programs/emissions-accounting/global-logistics-emissions-council/",
+  "doi_verified": false,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "Smart Freight Centre GLEC page HTTP 200 (2026-11-21); v3.0 release September 2023 and title confirmed via search-engine listings (SFC news release, ECTA-hosted PDF). The emission factor used by AmCraX was read from the secondary Climatiq listing https://www.climatiq.io/data/emission-factor/f2a5f2ee-bd03-40f8-961e-474090423429 (HTTP 200); the GLEC PDF itself was not opened.",
+  "reason_needed": "Liquefied-gas tanker transport emission factor (backend/amcrax/data/environmental.yaml)"
+ },
+ {
+  "citekey": "eu2023_1185",
+  "apa7": "European Commission. (2023). Commission Delegated Regulation (EU) 2023/1185 of 10 February 2023 supplementing Directive (EU) 2018/2001 of the European Parliament and of the Council by establishing a minimum threshold for greenhouse gas emissions savings of recycled carbon fuels and by specifying a methodology for assessing greenhouse gas emissions savings from renewable liquid and gaseous transport fuels of non-biological origin and from recycled carbon fuels. Official Journal of the European Union, L 157, 20. https://eur-lex.europa.eu/eli/reg_del/2023/1185/oj/eng",
+  "doi": null,
+  "url": "https://eur-lex.europa.eu/eli/reg_del/2023/1185/oj/eng",
+  "doi_verified": false,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "EUR-Lex returns HTTP 202 with no text to automated fetch (2026-11-21); title, date and OJ L 157, 20.6.2023, p. 20 confirmed on the EFTA EEA-Lex record https://www.efta.int/eea-lex/32023r1185 and search-engine extracts of EUR-Lex. End page not verified (omitted).",
+  "reason_needed": "EU RFNBO fossil comparator 94 g CO2eq/MJ and 70 % saving (backend/amcrax/data/environmental.yaml)"
+ },
+ {
+  "citekey": "realpe2024repurposing",
+  "apa7": "Realpe, N., Lezcano, G., Kulkarni, S. R., Sayas, S., Morlanes, N., Rakib, M., Aldilaijan, R., Solami, B., Gascon, J., & Casta\u00f1o, P. (2024). The technological prospects of repurposing methane steam reformers into ammonia crackers for decarbonized H2 production. Applied Energy, 376, 124244. https://doi.org/10.1016/j.apenergy.2024.124244",
+  "doi": "10.1016/j.apenergy.2024.124244",
+  "url": "https://doi.org/10.1016/j.apenergy.2024.124244",
+  "doi_verified": true,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1 and Crossref metadata (authors, Appl. Energy 376, 124244, 2024) match (2026-11-21); xu2025review ref. [323]. Not read by AmCraX (secondary citation).",
+  "reason_needed": "Secondary citation in 05_literature_review.md (as cited in Xu et al., 2025)"
+ },
+ {
+  "citekey": "jiang2021hollow",
+  "apa7": "Jiang, J., Dong, Q., McCullough, K., Lauterbach, J., Li, S., & Yu, M. (2021). Novel hollow fiber membrane reactor for high purity H2 generation from thermal catalytic NH3 decomposition. Journal of Membrane Science, 629, 119281. https://doi.org/10.1016/j.memsci.2021.119281",
+  "doi": "10.1016/j.memsci.2021.119281",
+  "url": "https://doi.org/10.1016/j.memsci.2021.119281",
+  "doi_verified": true,
+  "url_verified": true,
+  "in_local_library": false,
+  "verification": "doi.org handle responseCode=1 and Crossref metadata (authors, J. Membr. Sci. 629, 119281, 2021) match (2026-11-21); cechetto2023membrane ref. (76). Not read by AmCraX (secondary citation).",
+  "reason_needed": "Secondary citation in 05_literature_review.md (as cited in Cechetto et al., 2023)"
+ }
+]

@@ -1,0 +1,98 @@
+{
+ "schema_version": "1.0",
+ "description": "Named process scenarios. Each is a set of overrides on amcrax.schemas.CaseInputs defaults (the baseline). Process scenarios are solved in Aspen Plus V15 by aspen/automation/run_scenarios.py (results/simulations/<id>.json) and by the Python process model. Economic / environmental overlays (ammonia price, ammonia origin, heat source) are applied on top of any solved case by amcrax.scenarios and are not Aspen cases.",
+ "process_scenarios": [
+  {
+   "id": "baseline",
+   "label": "Baseline (600 degC, 20 bar, heat-integrated)",
+   "overrides": {},
+   "rationale": "High-temperature operation typical of Ni-based catalysts; PSA-compatible pressure."
+  },
+  {
+   "id": "scn_low_temperature",
+   "label": "Low-temperature cracking (500 degC)",
+   "overrides": {
+    "reactor_temperature_C": 500.0
+   },
+   "rationale": "Temperature window associated with Ru-based catalysts; lower equilibrium conversion, lower sensible duty."
+  },
+  {
+   "id": "scn_high_temperature",
+   "label": "High-temperature cracking (700 degC)",
+   "overrides": {
+    "reactor_temperature_C": 700.0
+   },
+   "rationale": "Higher equilibrium conversion and lower ammonia slip at the cost of higher heat demand."
+  },
+  {
+   "id": "scn_low_pressure",
+   "label": "Low-pressure cracking (5 bar)",
+   "overrides": {
+    "reactor_pressure_bar": 5.0
+   },
+   "rationale": "Thermodynamically favourable; the PSA would then need cracked-gas compression (not included in the Aspen flowsheet; evaluated in amcrax.separation)."
+  },
+  {
+   "id": "scn_high_pressure",
+   "label": "High-pressure cracking (40 bar)",
+   "overrides": {
+    "reactor_pressure_bar": 40.0
+   },
+   "rationale": "Delivers hydrogen at pressure from pumped liquid ammonia; equilibrium conversion penalty."
+  },
+  {
+   "id": "baseline_no_hi",
+   "label": "No feed/effluent heat recovery",
+   "overrides": {
+    "heat_integration": false
+   },
+   "rationale": "Reference configuration to quantify the benefit of the feed/effluent exchanger."
+  },
+  {
+   "id": "scn_tight_fehe",
+   "label": "Tight heat recovery (20 K approach)",
+   "overrides": {
+    "fehe_hot_end_approach_K": 20.0
+   },
+   "rationale": "Larger exchanger area in return for less trim heating."
+  },
+  {
+   "id": "scn_high_recovery",
+   "label": "High PSA recovery (0.92)",
+   "overrides": {
+    "psa_h2_recovery": 0.92
+   },
+   "rationale": "More product hydrogen, less tail-gas fuel: more imported heat."
+  },
+  {
+   "id": "scn_low_recovery",
+   "label": "Low PSA recovery (0.75)",
+   "overrides": {
+    "psa_h2_recovery": 0.75
+   },
+   "rationale": "More tail-gas fuel: approaches thermal self-sufficiency of the cracker."
+  },
+  {
+   "id": "scn_fuel_cell_grade",
+   "label": "Fuel-cell-grade product (N2 slip 0.0005, recovery 0.80)",
+   "overrides": {
+    "psa_n2_slip": 0.0005,
+    "psa_h2_recovery": 0.8
+   },
+   "rationale": "The baseline product (392 ppm N2, 99.961 mol% H2) misses the 99.97 % / 300 ppm limits quoted for ISO 14687 fuel-cell hydrogen; a tighter N2 slip at a literature-typical recovery represents a purity-driven PSA operating point."
+  }
+ ],
+ "overlays": {
+  "ammonia_origin": [
+   "green",
+   "blue",
+   "grey"
+  ],
+  "heat_source": [
+   "tail_gas_plus_natural_gas",
+   "tail_gas_plus_ammonia",
+   "tail_gas_plus_electric"
+  ],
+  "note": "Overlay parameter values (prices, emission factors) live in backend/amcrax/data/economics.yaml and environmental.yaml with their sources."
+ }
+}

@@ -1,0 +1,18 @@
+Metadata-Version: 2.4
+Name: amcrax
+Version: 0.1.0
+Summary: AmCraX - Ammonia Cracking Simulation and Optimisation Platform (Aspen Plus V15 + Python)
+Requires-Python: >=3.11
+Requires-Dist: numpy
+Requires-Dist: scipy
+Requires-Dist: pandas
+Requires-Dist: matplotlib
+Requires-Dist: cantera
+Requires-Dist: pydantic>=2
+Requires-Dist: pyyaml
+Requires-Dist: fastapi
+Requires-Dist: uvicorn[standard]
+Requires-Dist: pywin32; platform_system == "Windows"
+Provides-Extra: dev
+Requires-Dist: pytest; extra == "dev"
+Requires-Dist: httpx; extra == "dev"

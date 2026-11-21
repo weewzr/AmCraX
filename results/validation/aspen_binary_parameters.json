@@ -1,0 +1,1185 @@
+{
+  "source": "Aspen Plus V15 variable tree, PENG-ROB equilibrium validation model",
+  "forms": {
+    "ANDKIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "ANDKIJ": null
+      },
+      "BDBANK2": {
+        "ANDKIJ": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "ANDKIJ": null
+      },
+      "COMSEARCH2": {
+        "ANDKIJ": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "ANDKIJ": null
+      },
+      "LABEL1": {
+        "ANDKIJ": "kij"
+      },
+      "LABEL10": {
+        "ANDKIJ": null
+      },
+      "LABEL11": {
+        "ANDKIJ": null
+      },
+      "LABEL12": {
+        "ANDKIJ": null
+      },
+      "LABEL2": {
+        "ANDKIJ": "lij"
+      },
+      "LABEL3": {
+        "ANDKIJ": null
+      },
+      "LABEL4": {
+        "ANDKIJ": null
+      },
+      "LABEL5": {
+        "ANDKIJ": null
+      },
+      "LABEL6": {
+        "ANDKIJ": null
+      },
+      "LABEL7": {
+        "ANDKIJ": null
+      },
+      "LABEL8": {
+        "ANDKIJ": null
+      },
+      "LABEL9": {
+        "ANDKIJ": null
+      },
+      "NEL": {
+        "ANDKIJ": 2
+      },
+      "NEL2": {
+        "ANDKIJ": null
+      },
+      "OPT_SOURCE": {
+        "ANDKIJ": null
+      },
+      "SETNO": {
+        "ANDKIJ": "1"
+      },
+      "TUNITLABEL": {
+        "ANDKIJ": "F"
+      },
+      "TUNITLABEL2": {
+        "ANDKIJ": null
+      },
+      "TUNITROW": {
+        "ANDKIJ": 22
+      },
+      "TUNITROW2": {
+        "ANDKIJ": null
+      },
+      "UNITLABEL": {
+        "ANDKIJ": null
+      },
+      "UNITLABEL2": {
+        "ANDKIJ": null
+      },
+      "UNITROW": {
+        "ANDKIJ": 0
+      },
+      "UNITROW2": {
+        "ANDKIJ": null
+      },
+      "UVAL1": {
+        "ANDKIJ": null
+      },
+      "UVAL10": {
+        "ANDKIJ": null
+      },
+      "UVAL11": {
+        "ANDKIJ": null
+      },
+      "UVAL12": {
+        "ANDKIJ": null
+      },
+      "UVAL2": {
+        "ANDKIJ": null
+      },
+      "UVAL3": {
+        "ANDKIJ": null
+      },
+      "UVAL4": {
+        "ANDKIJ": null
+      },
+      "UVAL5": {
+        "ANDKIJ": null
+      },
+      "UVAL6": {
+        "ANDKIJ": null
+      },
+      "UVAL7": {
+        "ANDKIJ": null
+      },
+      "UVAL8": {
+        "ANDKIJ": null
+      },
+      "UVAL9": {
+        "ANDKIJ": null
+      },
+      "VAL1": {
+        "ANDKIJ": null
+      },
+      "VAL10": {
+        "ANDKIJ": null
+      },
+      "VAL11": {
+        "ANDKIJ": null
+      },
+      "VAL12": {
+        "ANDKIJ": null
+      },
+      "VAL2": {
+        "ANDKIJ": null
+      },
+      "VAL3": {
+        "ANDKIJ": null
+      },
+      "VAL4": {
+        "ANDKIJ": null
+      },
+      "VAL5": {
+        "ANDKIJ": null
+      },
+      "VAL6": {
+        "ANDKIJ": null
+      },
+      "VAL7": {
+        "ANDKIJ": null
+      },
+      "VAL8": {
+        "ANDKIJ": null
+      },
+      "VAL9": {
+        "ANDKIJ": null
+      },
+      "VALALPHA": {
+        "ANDKIJ": null
+      },
+      "VALI": {
+        "ANDKIJ": null
+      },
+      "VALJ": {
+        "ANDKIJ": null
+      },
+      "VI": {
+        "ANDKIJ": null
+      },
+      "VJ": {
+        "ANDKIJ": null
+      }
+    },
+    "ANDMIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "ANDMIJ": null
+      },
+      "BDBANK2": {
+        "ANDMIJ": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "ANDMIJ": null
+      },
+      "COMSEARCH2": {
+        "ANDMIJ": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "ANDMIJ": null
+      },
+      "LABEL1": {
+        "ANDMIJ": "mij"
+      },
+      "LABEL10": {
+        "ANDMIJ": null
+      },
+      "LABEL11": {
+        "ANDMIJ": null
+      },
+      "LABEL12": {
+        "ANDMIJ": null
+      },
+      "LABEL2": {
+        "ANDMIJ": "nij"
+      },
+      "LABEL3": {
+        "ANDMIJ": null
+      },
+      "LABEL4": {
+        "ANDMIJ": null
+      },
+      "LABEL5": {
+        "ANDMIJ": null
+      },
+      "LABEL6": {
+        "ANDMIJ": null
+      },
+      "LABEL7": {
+        "ANDMIJ": null
+      },
+      "LABEL8": {
+        "ANDMIJ": null
+      },
+      "LABEL9": {
+        "ANDMIJ": null
+      },
+      "NEL": {
+        "ANDMIJ": 2
+      },
+      "NEL2": {
+        "ANDMIJ": null
+      },
+      "OPT_SOURCE": {
+        "ANDMIJ": null
+      },
+      "SETNO": {
+        "ANDMIJ": "1"
+      },
+      "TUNITLABEL": {
+        "ANDMIJ": "F"
+      },
+      "TUNITLABEL2": {
+        "ANDMIJ": null
+      },
+      "TUNITROW": {
+        "ANDMIJ": 22
+      },
+      "TUNITROW2": {
+        "ANDMIJ": null
+      },
+      "UNITLABEL": {
+        "ANDMIJ": null
+      },
+      "UNITLABEL2": {
+        "ANDMIJ": null
+      },
+      "UNITROW": {
+        "ANDMIJ": 0
+      },
+      "UNITROW2": {
+        "ANDMIJ": null
+      },
+      "UVAL1": {
+        "ANDMIJ": null
+      },
+      "UVAL10": {
+        "ANDMIJ": null
+      },
+      "UVAL11": {
+        "ANDMIJ": null
+      },
+      "UVAL12": {
+        "ANDMIJ": null
+      },
+      "UVAL2": {
+        "ANDMIJ": null
+      },
+      "UVAL3": {
+        "ANDMIJ": null
+      },
+      "UVAL4": {
+        "ANDMIJ": null
+      },
+      "UVAL5": {
+        "ANDMIJ": null
+      },
+      "UVAL6": {
+        "ANDMIJ": null
+      },
+      "UVAL7": {
+        "ANDMIJ": null
+      },
+      "UVAL8": {
+        "ANDMIJ": null
+      },
+      "UVAL9": {
+        "ANDMIJ": null
+      },
+      "VAL1": {
+        "ANDMIJ": null
+      },
+      "VAL10": {
+        "ANDMIJ": null
+      },
+      "VAL11": {
+        "ANDMIJ": null
+      },
+      "VAL12": {
+        "ANDMIJ": null
+      },
+      "VAL2": {
+        "ANDMIJ": null
+      },
+      "VAL3": {
+        "ANDMIJ": null
+      },
+      "VAL4": {
+        "ANDMIJ": null
+      },
+      "VAL5": {
+        "ANDMIJ": null
+      },
+      "VAL6": {
+        "ANDMIJ": null
+      },
+      "VAL7": {
+        "ANDMIJ": null
+      },
+      "VAL8": {
+        "ANDMIJ": null
+      },
+      "VAL9": {
+        "ANDMIJ": null
+      },
+      "VALALPHA": {
+        "ANDMIJ": null
+      },
+      "VALI": {
+        "ANDMIJ": null
+      },
+      "VALJ": {
+        "ANDMIJ": null
+      },
+      "VI": {
+        "ANDMIJ": null
+      },
+      "VJ": {
+        "ANDMIJ": null
+      }
+    },
+    "MLQKIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "ANCHOR": {
+        "MLQKIJ": null
+      },
+      "BDBANK": {
+        "MLQKIJ": null
+      },
+      "COMPNAME": " CompID j:",
+      "COMSEARCH1": {
+        "MLQKIJ": null
+      },
+      "COMSEARCH2": {
+        "MLQKIJ": null
+      },
+      "COMTYPE": 4194313,
+      "DESCRIPTION": null,
+      "SETNO": {
+        "MLQKIJ": "1"
+      },
+      "UNITLABEL": {
+        "MLQKIJ": null
+      },
+      "UNITROW": {
+        "MLQKIJ": 0
+      },
+      "UVALUE": {
+        "MLQKIJ": null
+      },
+      "VALUE": {
+        "MLQKIJ": null
+      }
+    },
+    "MUKIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "MUKIJ": null
+      },
+      "BDBANK2": {
+        "MUKIJ": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "MUKIJ": null
+      },
+      "COMSEARCH2": {
+        "MUKIJ": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "MUKIJ": null
+      },
+      "LABEL1": {
+        "MUKIJ": "aij"
+      },
+      "LABEL10": {
+        "MUKIJ": null
+      },
+      "LABEL11": {
+        "MUKIJ": null
+      },
+      "LABEL12": {
+        "MUKIJ": null
+      },
+      "LABEL2": {
+        "MUKIJ": "bij"
+      },
+      "LABEL3": {
+        "MUKIJ": "cij"
+      },
+      "LABEL4": {
+        "MUKIJ": "dij"
+      },
+      "LABEL5": {
+        "MUKIJ": "eij"
+      },
+      "LABEL6": {
+        "MUKIJ": "Tref"
+      },
+      "LABEL7": {
+        "MUKIJ": null
+      },
+      "LABEL8": {
+        "MUKIJ": null
+      },
+      "LABEL9": {
+        "MUKIJ": null
+      },
+      "NEL": {
+        "MUKIJ": 6
+      },
+      "NEL2": {
+        "MUKIJ": null
+      },
+      "OPT_SOURCE": {
+        "MUKIJ": null
+      },
+      "SETNO": {
+        "MUKIJ": "1"
+      },
+      "TUNITLABEL": {
+        "MUKIJ": "F"
+      },
+      "TUNITLABEL2": {
+        "MUKIJ": null
+      },
+      "TUNITROW": {
+        "MUKIJ": 22
+      },
+      "TUNITROW2": {
+        "MUKIJ": null
+      },
+      "UNITLABEL": {
+        "MUKIJ": null
+      },
+      "UNITLABEL2": {
+        "MUKIJ": null
+      },
+      "UNITROW": {
+        "MUKIJ": 0
+      },
+      "UNITROW2": {
+        "MUKIJ": null
+      },
+      "UVAL1": {
+        "MUKIJ": null
+      },
+      "UVAL10": {
+        "MUKIJ": null
+      },
+      "UVAL11": {
+        "MUKIJ": null
+      },
+      "UVAL12": {
+        "MUKIJ": null
+      },
+      "UVAL2": {
+        "MUKIJ": null
+      },
+      "UVAL3": {
+        "MUKIJ": null
+      },
+      "UVAL4": {
+        "MUKIJ": null
+      },
+      "UVAL5": {
+        "MUKIJ": null
+      },
+      "UVAL6": {
+        "MUKIJ": null
+      },
+      "UVAL7": {
+        "MUKIJ": null
+      },
+      "UVAL8": {
+        "MUKIJ": null
+      },
+      "UVAL9": {
+        "MUKIJ": null
+      },
+      "VAL1": {
+        "MUKIJ": null
+      },
+      "VAL10": {
+        "MUKIJ": null
+      },
+      "VAL11": {
+        "MUKIJ": null
+      },
+      "VAL12": {
+        "MUKIJ": null
+      },
+      "VAL2": {
+        "MUKIJ": null
+      },
+      "VAL3": {
+        "MUKIJ": null
+      },
+      "VAL4": {
+        "MUKIJ": null
+      },
+      "VAL5": {
+        "MUKIJ": null
+      },
+      "VAL6": {
+        "MUKIJ": null
+      },
+      "VAL7": {
+        "MUKIJ": null
+      },
+      "VAL8": {
+        "MUKIJ": null
+      },
+      "VAL9": {
+        "MUKIJ": null
+      },
+      "VALALPHA": {
+        "MUKIJ": null
+      },
+      "VALI": {
+        "MUKIJ": null
+      },
+      "VALJ": {
+        "MUKIJ": null
+      },
+      "VI": {
+        "MUKIJ": null
+      },
+      "VJ": {
+        "MUKIJ": null
+      }
+    },
+    "MULIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "MULIJ": null
+      },
+      "BDBANK2": {
+        "MULIJ": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "MULIJ": null
+      },
+      "COMSEARCH2": {
+        "MULIJ": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "MULIJ": null
+      },
+      "LABEL1": {
+        "MULIJ": "aij"
+      },
+      "LABEL10": {
+        "MULIJ": "eji"
+      },
+      "LABEL11": {
+        "MULIJ": "Tref"
+      },
+      "LABEL12": {
+        "MULIJ": null
+      },
+      "LABEL2": {
+        "MULIJ": "aji"
+      },
+      "LABEL3": {
+        "MULIJ": "bij"
+      },
+      "LABEL4": {
+        "MULIJ": "bji"
+      },
+      "LABEL5": {
+        "MULIJ": "cij"
+      },
+      "LABEL6": {
+        "MULIJ": "cji"
+      },
+      "LABEL7": {
+        "MULIJ": "dij"
+      },
+      "LABEL8": {
+        "MULIJ": "dji"
+      },
+      "LABEL9": {
+        "MULIJ": "eij"
+      },
+      "NEL": {
+        "MULIJ": 11
+      },
+      "NEL2": {
+        "MULIJ": null
+      },
+      "OPT_SOURCE": {
+        "MULIJ": null
+      },
+      "SETNO": {
+        "MULIJ": "1"
+      },
+      "TUNITLABEL": {
+        "MULIJ": "F"
+      },
+      "TUNITLABEL2": {
+        "MULIJ": null
+      },
+      "TUNITROW": {
+        "MULIJ": 22
+      },
+      "TUNITROW2": {
+        "MULIJ": null
+      },
+      "UNITLABEL": {
+        "MULIJ": null
+      },
+      "UNITLABEL2": {
+        "MULIJ": null
+      },
+      "UNITROW": {
+        "MULIJ": 0
+      },
+      "UNITROW2": {
+        "MULIJ": null
+      },
+      "UVAL1": {
+        "MULIJ": null
+      },
+      "UVAL10": {
+        "MULIJ": null
+      },
+      "UVAL11": {
+        "MULIJ": null
+      },
+      "UVAL12": {
+        "MULIJ": null
+      },
+      "UVAL2": {
+        "MULIJ": null
+      },
+      "UVAL3": {
+        "MULIJ": null
+      },
+      "UVAL4": {
+        "MULIJ": null
+      },
+      "UVAL5": {
+        "MULIJ": null
+      },
+      "UVAL6": {
+        "MULIJ": null
+      },
+      "UVAL7": {
+        "MULIJ": null
+      },
+      "UVAL8": {
+        "MULIJ": null
+      },
+      "UVAL9": {
+        "MULIJ": null
+      },
+      "VAL1": {
+        "MULIJ": null
+      },
+      "VAL10": {
+        "MULIJ": null
+      },
+      "VAL11": {
+        "MULIJ": null
+      },
+      "VAL12": {
+        "MULIJ": null
+      },
+      "VAL2": {
+        "MULIJ": null
+      },
+      "VAL3": {
+        "MULIJ": null
+      },
+      "VAL4": {
+        "MULIJ": null
+      },
+      "VAL5": {
+        "MULIJ": null
+      },
+      "VAL6": {
+        "MULIJ": null
+      },
+      "VAL7": {
+        "MULIJ": null
+      },
+      "VAL8": {
+        "MULIJ": null
+      },
+      "VAL9": {
+        "MULIJ": null
+      },
+      "VALALPHA": {
+        "MULIJ": null
+      },
+      "VALI": {
+        "MULIJ": null
+      },
+      "VALJ": {
+        "MULIJ": null
+      },
+      "VI": {
+        "MULIJ": null
+      },
+      "VJ": {
+        "MULIJ": null
+      }
+    },
+    "PRKBV-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "PRKBV": null
+      },
+      "BDBANK2": {
+        "PRKBV": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "PRKBV": null
+      },
+      "COMSEARCH2": {
+        "PRKBV": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "PRKBV": null
+      },
+      "LABEL1": {
+        "PRKBV": "kaij"
+      },
+      "LABEL10": {
+        "PRKBV": null
+      },
+      "LABEL11": {
+        "PRKBV": null
+      },
+      "LABEL12": {
+        "PRKBV": null
+      },
+      "LABEL2": {
+        "PRKBV": "kbij"
+      },
+      "LABEL3": {
+        "PRKBV": "kcij"
+      },
+      "LABEL4": {
+        "PRKBV": "Tlower"
+      },
+      "LABEL5": {
+        "PRKBV": "Tupper"
+      },
+      "LABEL6": {
+        "PRKBV": null
+      },
+      "LABEL7": {
+        "PRKBV": null
+      },
+      "LABEL8": {
+        "PRKBV": null
+      },
+      "LABEL9": {
+        "PRKBV": null
+      },
+      "NEL": {
+        "PRKBV": 5
+      },
+      "NEL2": {
+        "PRKBV": null
+      },
+      "OPT_SOURCE": {
+        "PRKBV": null
+      },
+      "SETNO": {
+        "PRKBV": "1"
+      },
+      "TUNITLABEL": {
+        "PRKBV": "F"
+      },
+      "TUNITLABEL2": {
+        "PRKBV": null
+      },
+      "TUNITROW": {
+        "PRKBV": 22
+      },
+      "TUNITROW2": {
+        "PRKBV": null
+      },
+      "UNITLABEL": {
+        "PRKBV": null
+      },
+      "UNITLABEL2": {
+        "PRKBV": null
+      },
+      "UNITROW": {
+        "PRKBV": 0
+      },
+      "UNITROW2": {
+        "PRKBV": null
+      },
+      "UVAL1": {
+        "PRKBV": null
+      },
+      "UVAL10": {
+        "PRKBV": null
+      },
+      "UVAL11": {
+        "PRKBV": null
+      },
+      "UVAL12": {
+        "PRKBV": null
+      },
+      "UVAL2": {
+        "PRKBV": null
+      },
+      "UVAL3": {
+        "PRKBV": null
+      },
+      "UVAL4": {
+        "PRKBV": null
+      },
+      "UVAL5": {
+        "PRKBV": null
+      },
+      "UVAL6": {
+        "PRKBV": null
+      },
+      "UVAL7": {
+        "PRKBV": null
+      },
+      "UVAL8": {
+        "PRKBV": null
+      },
+      "UVAL9": {
+        "PRKBV": null
+      },
+      "VAL1": {
+        "PRKBV": null
+      },
+      "VAL10": {
+        "PRKBV": null
+      },
+      "VAL11": {
+        "PRKBV": null
+      },
+      "VAL12": {
+        "PRKBV": null
+      },
+      "VAL2": {
+        "PRKBV": null
+      },
+      "VAL3": {
+        "PRKBV": null
+      },
+      "VAL4": {
+        "PRKBV": null
+      },
+      "VAL5": {
+        "PRKBV": null
+      },
+      "VAL6": {
+        "PRKBV": null
+      },
+      "VAL7": {
+        "PRKBV": null
+      },
+      "VAL8": {
+        "PRKBV": null
+      },
+      "VAL9": {
+        "PRKBV": null
+      },
+      "VALALPHA": {
+        "PRKBV": null
+      },
+      "VALI": {
+        "PRKBV": null
+      },
+      "VALJ": {
+        "PRKBV": null
+      },
+      "VI": {
+        "PRKBV": null
+      },
+      "VJ": {
+        "PRKBV": null
+      }
+    },
+    "PRLIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "BDBANK": {
+        "PRLIJ": null
+      },
+      "BDBANK2": {
+        "PRLIJ": null
+      },
+      "COMPNAME": " CompID i:",
+      "COMSEARCH1": {
+        "PRLIJ": null
+      },
+      "COMSEARCH2": {
+        "PRLIJ": null
+      },
+      "COMTYPE1": 4194313,
+      "COMTYPE2": 4194313,
+      "DEFPROPUNIT": null,
+      "DEFTUNIT": null,
+      "DESCRIPTION": null,
+      "ESTIMATE": {
+        "PRLIJ": null
+      },
+      "LABEL1": {
+        "PRLIJ": "laij"
+      },
+      "LABEL10": {
+        "PRLIJ": null
+      },
+      "LABEL11": {
+        "PRLIJ": null
+      },
+      "LABEL12": {
+        "PRLIJ": null
+      },
+      "LABEL2": {
+        "PRLIJ": "laji"
+      },
+      "LABEL3": {
+        "PRLIJ": "lbij"
+      },
+      "LABEL4": {
+        "PRLIJ": "lbji"
+      },
+      "LABEL5": {
+        "PRLIJ": "lcij"
+      },
+      "LABEL6": {
+        "PRLIJ": "lcji"
+      },
+      "LABEL7": {
+        "PRLIJ": "Tlower"
+      },
+      "LABEL8": {
+        "PRLIJ": "Tupper"
+      },
+      "LABEL9": {
+        "PRLIJ": null
+      },
+      "NEL": {
+        "PRLIJ": 8
+      },
+      "NEL2": {
+        "PRLIJ": null
+      },
+      "OPT_SOURCE": {
+        "PRLIJ": null
+      },
+      "SETNO": {
+        "PRLIJ": "1"
+      },
+      "TUNITLABEL": {
+        "PRLIJ": "F"
+      },
+      "TUNITLABEL2": {
+        "PRLIJ": null
+      },
+      "TUNITROW": {
+        "PRLIJ": 22
+      },
+      "TUNITROW2": {
+        "PRLIJ": null
+      },
+      "UNITLABEL": {
+        "PRLIJ": null
+      },
+      "UNITLABEL2": {
+        "PRLIJ": null
+      },
+      "UNITROW": {
+        "PRLIJ": 0
+      },
+      "UNITROW2": {
+        "PRLIJ": null
+      },
+      "UVAL1": {
+        "PRLIJ": null
+      },
+      "UVAL10": {
+        "PRLIJ": null
+      },
+      "UVAL11": {
+        "PRLIJ": null
+      },
+      "UVAL12": {
+        "PRLIJ": null
+      },
+      "UVAL2": {
+        "PRLIJ": null
+      },
+      "UVAL3": {
+        "PRLIJ": null
+      },
+      "UVAL4": {
+        "PRLIJ": null
+      },
+      "UVAL5": {
+        "PRLIJ": null
+      },
+      "UVAL6": {
+        "PRLIJ": null
+      },
+      "UVAL7": {
+        "PRLIJ": null
+      },
+      "UVAL8": {
+        "PRLIJ": null
+      },
+      "UVAL9": {
+        "PRLIJ": null
+      },
+      "VAL1": {
+        "PRLIJ": null
+      },
+      "VAL10": {
+        "PRLIJ": null
+      },
+      "VAL11": {
+        "PRLIJ": null
+      },
+      "VAL12": {
+        "PRLIJ": null
+      },
+      "VAL2": {
+        "PRLIJ": null
+      },
+      "VAL3": {
+        "PRLIJ": null
+      },
+      "VAL4": {
+        "PRLIJ": null
+      },
+      "VAL5": {
+        "PRLIJ": null
+      },
+      "VAL6": {
+        "PRLIJ": null
+      },
+      "VAL7": {
+        "PRLIJ": null
+      },
+      "VAL8": {
+        "PRLIJ": null
+      },
+      "VAL9": {
+        "PRLIJ": null
+      },
+      "VALALPHA": {
+        "PRLIJ": null
+      },
+      "VALI": {
+        "PRLIJ": null
+      },
+      "VALJ": {
+        "PRLIJ": null
+      },
+      "VI": {
+        "PRLIJ": null
+      },
+      "VJ": {
+        "PRLIJ": null
+      }
+    },
+    "RKTKIJ-1": {
+      "Unit Set": "SET1",
+      "User Table": 0,
+      "User Tree": 0,
+      "ANCHOR": {
+        "RKTKIJ": null
+      },
+      "BDBANK": {
+        "RKTKIJ": null
+      },
+      "COMPNAME": " CompID j:",
+      "COMSEARCH1": {
+        "RKTKIJ": null
+      },
+      "COMSEARCH2": {
+        "RKTKIJ": null
+      },
+      "COMTYPE": 4194313,
+      "DESCRIPTION": null,
+      "SETNO": {
+        "RKTKIJ": "1"
+      },
+      "UNITLABEL": {
+        "RKTKIJ": null
+      },
+      "UNITROW": {
+        "RKTKIJ": 0
+      },
+      "UVALUE": {
+        "RKTKIJ": null
+      },
+      "VALUE": {
+        "RKTKIJ": null
+      }
+    }
+  }
+}

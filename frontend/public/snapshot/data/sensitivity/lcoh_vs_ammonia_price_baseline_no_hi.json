@@ -1,0 +1,218 @@
+{
+ "name": "lcoh_vs_ammonia_price_baseline_no_hi",
+ "category": "sensitivity",
+ "columns": [
+  "nh3_price_USD_per_t",
+  "lcoh_USD_per_kg",
+  "process_data_source"
+ ],
+ "rows": [
+  {
+   "nh3_price_USD_per_t": 0.0,
+   "lcoh_USD_per_kg": 0.6131292952724835,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 25.0,
+   "lcoh_USD_per_kg": 0.8086567022951927,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 50.0,
+   "lcoh_USD_per_kg": 1.0041841093179018,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 75.0,
+   "lcoh_USD_per_kg": 1.1997115163406111,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 100.0,
+   "lcoh_USD_per_kg": 1.3952389233633202,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 125.0,
+   "lcoh_USD_per_kg": 1.5907663303860295,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 150.0,
+   "lcoh_USD_per_kg": 1.7862937374087384,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 175.0,
+   "lcoh_USD_per_kg": 1.9818211444314477,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 200.0,
+   "lcoh_USD_per_kg": 2.177348551454157,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 225.0,
+   "lcoh_USD_per_kg": 2.3728759584768664,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 250.0,
+   "lcoh_USD_per_kg": 2.5684033654995755,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 275.0,
+   "lcoh_USD_per_kg": 2.763930772522284,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 300.0,
+   "lcoh_USD_per_kg": 2.9594581795449937,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 325.0,
+   "lcoh_USD_per_kg": 3.1549855865677032,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 350.0,
+   "lcoh_USD_per_kg": 3.350512993590412,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 375.0,
+   "lcoh_USD_per_kg": 3.546040400613121,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 400.0,
+   "lcoh_USD_per_kg": 3.7415678076358305,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 425.0,
+   "lcoh_USD_per_kg": 3.937095214658539,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 450.0,
+   "lcoh_USD_per_kg": 4.132622621681249,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 475.0,
+   "lcoh_USD_per_kg": 4.328150028703957,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 500.0,
+   "lcoh_USD_per_kg": 4.523677435726667,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 525.0,
+   "lcoh_USD_per_kg": 4.719204842749376,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 550.0,
+   "lcoh_USD_per_kg": 4.914732249772085,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 575.0,
+   "lcoh_USD_per_kg": 5.110259656794794,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 600.0,
+   "lcoh_USD_per_kg": 5.305787063817504,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 625.0,
+   "lcoh_USD_per_kg": 5.501314470840212,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 650.0,
+   "lcoh_USD_per_kg": 5.696841877862923,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 675.0,
+   "lcoh_USD_per_kg": 5.892369284885631,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 700.0,
+   "lcoh_USD_per_kg": 6.08789669190834,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 725.0,
+   "lcoh_USD_per_kg": 6.283424098931048,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 750.0,
+   "lcoh_USD_per_kg": 6.478951505953758,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 775.0,
+   "lcoh_USD_per_kg": 6.6744789129764674,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 800.0,
+   "lcoh_USD_per_kg": 6.870006319999177,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 825.0,
+   "lcoh_USD_per_kg": 7.065533727021885,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 850.0,
+   "lcoh_USD_per_kg": 7.261061134044595,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 875.0,
+   "lcoh_USD_per_kg": 7.456588541067304,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 900.0,
+   "lcoh_USD_per_kg": 7.652115948090015,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 925.0,
+   "lcoh_USD_per_kg": 7.847643355112723,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 950.0,
+   "lcoh_USD_per_kg": 8.043170762135432,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 975.0,
+   "lcoh_USD_per_kg": 8.23869816915814,
+   "process_data_source": "aspen_plus_v15"
+  },
+  {
+   "nh3_price_USD_per_t": 1000.0,
+   "lcoh_USD_per_kg": 8.43422557618085,
+   "process_data_source": "aspen_plus_v15"
+  }
+ ],
+ "count": 41,
+ "source_note": "results/sensitivity/lcoh_vs_ammonia_price_baseline_no_hi.csv; values as stored, no post-processing"
+}

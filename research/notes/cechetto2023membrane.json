@@ -1,0 +1,59 @@
+{
+  "citekey": "cechetto2023membrane",
+  "apa7": "Cechetto, V., Di Felice, L., & Gallucci, F. (2023). Advances and perspectives of H2 production from NH3 decomposition in membrane reactors. Energy & Fuels, 37, 10775-10798. https://doi.org/10.1021/acs.energyfuels.3c00760",
+  "doi": "10.1021/acs.energyfuels.3c00760",
+  "url": "https://doi.org/10.1021/acs.energyfuels.3c00760",
+  "doi_verified": true,
+  "year": 2023,
+  "type": "review",
+  "equations": [
+    {"id": "eq1", "name": "Ammonia decomposition", "expression": "NH3 <-> 0.5 N2 + 1.5 H2; dH = 45.92 kJ/mol (printed with subscript f, i.e. mislabelled as formation enthalpy; it is the reaction enthalpy per mol NH3)", "variables": {"dH": "standard reaction enthalpy, kJ/mol NH3"}, "page": 3, "applies_to": "thermodynamics"},
+    {"id": "hrf_text", "name": "H2 recovery (verbal)", "expression": "Not given as an equation in this review; for formal definitions see maccarrone2025comprehensive Table 6 (HRF = H2_perm/(H2_perm+H2_ret) or H2_perm/(1.5 NH3_feed))", "variables": {}, "page": 8, "applies_to": "membrane reactors"},
+    {"id": "vol_prod", "name": "Volumetric hydrogen productivity and catalyst utilisation (definitions)", "expression": "Volumetric productivity = molar flow of H2 produced in the MR / reactor volume [mol m-3 s-1]; total catalyst utilisation = catalyst amount / membrane volume (text) reported in g/cm2 (table)", "variables": {}, "page": 11, "applies_to": "Table 8; unit/definition inconsistency for catalyst utilisation"}
+  ],
+  "parameters": [
+    {"name": "Max NH3 in H2 for PEMFC (stationary and vehicle)", "symbol": "x_NH3,max", "value": 0.1, "unit": "ppm", "kind": "separation", "catalyst": "", "conditions": "ISO 14687:2019", "page": 5, "locator": "text Sec. 2; also p. 3 and p. 12", "is_original_to_this_paper": false, "original_source": "ISO 14687:2019 Hydrogen fuel quality - Product specification (ISO, 2019)"},
+    {"name": "Max N2 in H2, vehicle PEMFC", "symbol": "x_N2,max", "value": 300, "unit": "ppm", "kind": "separation", "catalyst": "", "conditions": "ISO 14687:2019", "page": 5, "locator": "text Sec. 2", "is_original_to_this_paper": false, "original_source": "ISO 14687:2019"},
+    {"name": "Max N2 in H2, stationary PEMFC", "symbol": "x_N2,max", "value": 50, "unit": "vol %", "kind": "separation", "catalyst": "", "conditions": "ISO 14687:2019", "page": 5, "locator": "text Sec. 2", "is_original_to_this_paper": false, "original_source": "ISO 14687:2019"},
+    {"name": "Reaction enthalpy", "symbol": "dH", "value": 45.92, "unit": "kJ/mol NH3", "kind": "thermodynamic", "catalyst": "", "conditions": "standard", "page": 3, "locator": "Eq. 1", "is_original_to_this_paper": false, "original_source": "not cited (standard thermochemical value)"},
+    {"name": "Energy required for gaseous H2 extraction from NH3", "symbol": "E_ext", "value": 30.6, "unit": "kJ/mol H2", "kind": "thermodynamic", "catalyst": "", "conditions": "vs 0.907 kJ/mol H2 for liquid H2 evaporation", "page": 2, "locator": "Table 1", "is_original_to_this_paper": false, "original_source": "refs 7, 36, 38 of the review (incl. Aziz et al. 2020 Energies 13, 3062; Makepeace et al. 2019 IJHE 44, 7746)"},
+    {"name": "Liquid NH3 storage pressure at 25 C", "symbol": "P_sat", "value": 9.9, "unit": "bar", "kind": "thermodynamic", "catalyst": "", "conditions": "25 C", "page": 2, "locator": "Table 1", "is_original_to_this_paper": false, "original_source": "refs 7, 36, 38"},
+    {"name": "Liquid NH3 density", "symbol": "rho", "value": 600, "unit": "kg/m3", "kind": "thermodynamic", "catalyst": "", "conditions": "25 C, 9.9 bar", "page": 2, "locator": "Table 1", "is_original_to_this_paper": false, "original_source": "refs 7, 36, 38"},
+    {"name": "NH3 LHV", "symbol": "LHV", "value": 18.6, "unit": "MJ/kg", "kind": "thermodynamic", "catalyst": "", "conditions": "", "page": 2, "locator": "Table 1", "is_original_to_this_paper": false, "original_source": "refs 7, 36, 38"},
+    {"name": "Pd embrittlement threshold", "symbol": "T,P", "value": "below 300 C and 2 MPa", "unit": "degC; MPa", "kind": "separation", "catalyst": "pure Pd", "conditions": "", "page": 6, "locator": "Sec. 4.1.1", "is_original_to_this_paper": false, "original_source": "refs 69-71 of the review"},
+    {"name": "Pd defect formation threshold", "symbol": "T", "value": 550, "unit": "degC", "kind": "separation", "catalyst": "Pd membranes", "conditions": "loss of perm-selectivity above", "page": 6, "locator": "Sec. 4.1.1", "is_original_to_this_paper": false, "original_source": "refs 72-73 of the review"},
+    {"name": "Recommended max operating temperature of Pd-based MR", "symbol": "T_max", "value": 500, "unit": "degC", "kind": "separation", "catalyst": "Pd-based membranes", "conditions": "'should never be exceeded'", "page": 10, "locator": "Sec. 4.3.1", "is_original_to_this_paper": true},
+    {"name": "Pd-Ag selective layer thickness", "symbol": "delta", "value": 4.61, "unit": "um", "kind": "separation", "catalyst": "with ~1 um Al2O3-YSZ protective layer", "conditions": "", "page": 5, "locator": "Table 2", "is_original_to_this_paper": false, "original_source": "Cechetto et al. (2021) Fuel Process. Technol. 216, 106772"},
+    {"name": "PEMFC optimal operating pressure", "symbol": "P_FC", "value": "3-4", "unit": "bar", "kind": "process", "catalyst": "", "conditions": "", "page": 11, "locator": "Sec. 4.3.3", "is_original_to_this_paper": false, "original_source": "ref 90 of the review"},
+    {"name": "Haber-Bosch energy consumption", "symbol": "SEC", "value": "28-37", "unit": "GJ/t NH3", "kind": "environmental", "catalyst": "", "conditions": "", "page": 19, "locator": "Sec. 6", "is_original_to_this_paper": false, "original_source": "ref 102 of the review"},
+    {"name": "Haber-Bosch CO2 emissions", "symbol": "CI_NH3", "value": "2.0-4.6", "unit": "t CO2/t NH3", "kind": "environmental", "catalyst": "", "conditions": "fossil-H2 based", "page": 19, "locator": "Sec. 6", "is_original_to_this_paper": false, "original_source": "ref 103 of the review"}
+  ],
+  "benchmarks": [
+    {"description": "Equilibrium NH3 conversion (Aspen Plus V11 RGibbs)", "conditions": "1 bar, T > 400 C", "value": ">99", "unit": "%", "page": 3, "locator": "Fig. 2, text", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion (Aspen Plus V11 RGibbs)", "conditions": "1-20 bar, T > 500 C", "value": ">95", "unit": "%", "page": 3, "locator": "Fig. 2, text", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion at 200 C (read from figure, approximate)", "conditions": "1/5/10/20 bar", "value": "~75/~43/~32/~24", "unit": "%", "page": 3, "locator": "Fig. 2", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion, pure NH3", "conditions": "5 bar; 350/400/425/450/475/500 C", "value": "91.9/95.9/97.0/97.8/98.3/98.7", "unit": "%", "page": 9, "locator": "Table 3", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion, pure NH3", "conditions": "4 bar; 400/425/450 C", "value": "96.7/97.6/98.2", "unit": "%", "page": 9, "locator": "Table 3", "kind": "equilibrium"},
+    {"description": "Equilibrium NH3 conversion, pure NH3", "conditions": "1 bar; 325/350/375/400/450 C", "value": "97.3/98.2/98.7/99.1/99.7", "unit": "%", "page": 9, "locator": "Table 3", "kind": "equilibrium"},
+    {"description": "Cechetto 2021: conventional vs membrane reactor conversion, permeate 1 bar", "conditions": "2 wt% Ru/Al2O3 250 g, Pd-Ag 4.61 um, 4 bar, 500 mLN/min NH3; 400/425/450 C", "value": "CR 65.4/86.2/96.8; MR 72.2/98.0/99.5; H2 recovery 94/97/97", "unit": "%", "page": 9, "locator": "Table 3", "kind": "experimental"},
+    {"description": "Cechetto 2021: membrane reactor with permeate under vacuum (0.01 bar)", "conditions": "same; 400/425/450 C", "value": "MR 99.3/99.6/99.8; H2 recovery (as printed) 52/80/85", "unit": "%", "page": 9, "locator": "Table 3 (recovery conflicts with Table 6/8: 93.5% at 400 C)", "kind": "experimental"},
+    {"description": "Cechetto 2021 vacuum case", "conditions": "400 C, 4 bar, 500 mLN/min, 120 mLN/(gcat h)", "value": "X 99.3, R_H2 93.5", "unit": "%", "page": 13, "locator": "Table 6; Table 8", "kind": "experimental"},
+    {"description": "Kim 2022 vacuum case", "conditions": "430 C, 5 bar, 950 mLN/min, Pd ~5 um on Inconel, 2 wt% Ru/Al2O3", "value": "X 99.4, R_H2 97.5", "unit": "%", "page": 13, "locator": "Table 6; Table 8", "kind": "experimental"},
+    {"description": "Jiang 2021 Pd-Ag 1.8 um hollow-fibre MR", "conditions": "450 C, 7 bar, permeate 1 bar, 3 g Ru/Y/K/Al2O3, 250 mLN/min (GHSV 5000)", "value": "X >99.1 (99.11), R_H2 >90.6, vol. productivity >40.8 mol m-3 s-1", "unit": "%", "page": 15, "locator": "Table 8; Table 9", "kind": "experimental"},
+    {"description": "Jiang 2021 permeate purity / NH3", "conditions": "Pd-Ag 1.8 um, 450 C, 7 bar, 50-250 mL/min", "value": "purity >99.999%; NH3 <0.01 ppm; N2 <0.01%", "unit": "% / ppm", "page": 17, "locator": "Table 10; text p. 12-13", "kind": "experimental"},
+    {"description": "Cechetto 2021 permeate purity / NH3 (FTIR)", "conditions": "Pd-Ag 4.61 um, 450 C, dP 1 bar, 500 mLN/min", "value": "purity 99.995%; NH3 2.91 ppm", "unit": "% / ppm", "page": 17, "locator": "Table 10; text p. 13", "kind": "experimental"},
+    {"description": "Cechetto 2022 permeate purity / NH3 (FTIR)", "conditions": "Pd-Ag 6-8 um, 500 C", "value": "purity 99.998%; NH3 <0.75 ppm (FTIR limit)", "unit": "% / ppm", "page": 17, "locator": "Table 10; text p. 14", "kind": "experimental"},
+    {"description": "Omata 2022 V-Fe/Pd-Ag MR", "conditions": "350 C, 3 bar, 10 mL/min", "value": "NH3 0.06 ppm (ISO compliant)", "unit": "ppm", "page": 13, "locator": "text; Table 10", "kind": "experimental"},
+    {"description": "Zeolite polishing (clinoptilolite)", "conditions": "Sitar 2022", "value": "~1000 -> <0.025", "unit": "ppm NH3", "page": 14, "locator": "text Sec. 4.3.6", "kind": "experimental"},
+    {"description": "Water bubbler polishing", "conditions": "Park 2020, 300 cm3 DI water", "value": "4.2 -> 1.8", "unit": "ppm NH3", "page": 15, "locator": "text", "kind": "experimental"}
+  ],
+  "limitations": [
+    "Review of laboratory-scale experiments (mL/min to ~2.8 L/min NH3); not directly scalable.",
+    "No Sieverts-law expression, pressure exponent, permeance or permeability values are given.",
+    "No PSA performance numbers (recovery, purity); PSA only described qualitatively as most developed technology.",
+    "Many values read from figures by the review authors (footnote a) or calculated (footnote b).",
+    "Internal inconsistencies: Table 3 header labels reaction pressure as 'Permeate pressure'; Cechetto 2021 vacuum H2 recovery 52/80/85% (Table 3) vs 93.5% (Tables 6, 8); Kim 2022 conditions differ between text (472 C, 2840 mL/min, ~1 um) and tables (430 C, 950 mL/min, 5 um); Jo 2018 NH3 method Nessler (text) vs tunable diode laser (Table 10); catalyst utilisation defined per membrane volume but reported in g/cm2.",
+    "Source of equilibrium values in Table 3 not stated explicitly (presumably authors' Aspen V11 calculation as in Fig. 2)."
+  ],
+  "relevance": "Provides fuel-cell H2 quality constraints (ISO 14687:2019: NH3 <= 0.1 ppm; N2 <= 300 ppm vehicle, <= 50% stationary) for the AmCraX PSA/purification block; equilibrium conversion tables (1, 4, 5 bar; 325-500 C; Aspen V11) as cross-checks for amcrax.thermodynamics and the Aspen RGibbs CRACKER; membrane reactor benchmarks (X > 99%, H2 recovery 90-97.5% at 400-500 C, 4-7 bar) for the separation module's membrane option; qualitative statement that off-gas combustion alone is insufficient to heat the cracker, relevant to the BURNER/heat-integration design. AmCraX PSA recovery 0.85 is not supported numerically by this paper."
+}

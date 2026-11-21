@@ -1,0 +1,39 @@
+# AmCraX - top-level Python dependencies (Python 3.12), pinned to the versions installed in .venv
+# when this file was written (21 Nov 2026). Only packages that the project code, the tests or the
+# documentation / report / deck builders import are listed; transitive dependencies are resolved by pip.
+# Licences and purposes: docs/dependencies.md.
+#
+# Install (from the project root, with the venv active or via scripts\setup.ps1):
+#     python -m pip install -r requirements.txt
+#     python -m pip install -e backend        # the "amcrax" package itself (backend/pyproject.toml), editable
+# i.e. the line "-e backend" is deliberately NOT part of this file so that the pinned third-party set
+# and the editable local package stay two separate, individually repeatable steps.
+
+# --- numerical core / models ---
+numpy==2.5.5
+scipy==1.18.1
+pandas==3.1.1
+matplotlib==3.11.2
+cantera==3.2.0
+CoolProp==8.0.0
+PyYAML==6.0.4
+
+# --- API ---
+pydantic==2.14.4
+fastapi==0.165.0
+uvicorn[standard]==0.54.0
+httpx==0.28.1            # FastAPI TestClient (tests, export_snapshot.py)
+openpyxl==3.1.5          # /api/export/{case_id}?format=xlsx
+
+# --- Aspen Plus COM automation (Windows only) ---
+pywin32==312             # win32com / pythoncom (Aspen, Word and PowerPoint COM)
+pywinauto==0.6.9         # aspen/automation/capture_screenshots.py (UI Automation screenshots)
+pillow==13.0.0           # screenshot post-processing, deck figures
+
+# --- tests ---
+pytest==9.2.0
+
+# --- report / deck / research tooling (only needed to rebuild docs or re-extract the PDFs) ---
+python-docx==1.2.0       # docs/technical_report/build_report.py
+python-pptx==1.0.2       # docs/pitch_deck/build_deck.py
+pymupdf==2.1             # build_report.py, scripts/extract_papers.py (AGPL-3.0 / commercial, see docs/dependencies.md)

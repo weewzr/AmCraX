@@ -1,0 +1,86 @@
+{
+ "category": "analysis",
+ "count": 10,
+ "items": [
+  {
+   "name": "economics_baseline",
+   "file": "economics_baseline.json",
+   "name_with_extension": "economics_baseline.json",
+   "kind": "json",
+   "bytes": 21413,
+   "modified_utc": "2026-11-21T14:34:39+00:00"
+  },
+  {
+   "name": "economics_baseline_no_hi",
+   "file": "economics_baseline_no_hi.json",
+   "name_with_extension": "economics_baseline_no_hi.json",
+   "kind": "json",
+   "bytes": 21428,
+   "modified_utc": "2026-11-21T14:34:44+00:00"
+  },
+  {
+   "name": "environmental_baseline",
+   "file": "environmental_baseline.json",
+   "name_with_extension": "environmental_baseline.json",
+   "kind": "json",
+   "bytes": 52762,
+   "modified_utc": "2026-11-21T14:34:40+00:00"
+  },
+  {
+   "name": "environmental_baseline_no_hi",
+   "file": "environmental_baseline_no_hi.json",
+   "name_with_extension": "environmental_baseline_no_hi.json",
+   "kind": "json",
+   "bytes": 52887,
+   "modified_utc": "2026-11-21T14:34:46+00:00"
+  },
+  {
+   "name": "heat_integration_baseline",
+   "file": "heat_integration_baseline.json",
+   "name_with_extension": "heat_integration_baseline.json",
+   "kind": "json",
+   "bytes": 104227,
+   "modified_utc": "2026-11-21T14:34:38+00:00"
+  },
+  {
+   "name": "heat_integration_baseline_no_hi",
+   "file": "heat_integration_baseline_no_hi.json",
+   "name_with_extension": "heat_integration_baseline_no_hi.json",
+   "kind": "json",
+   "bytes": 104504,
+   "modified_utc": "2026-11-21T14:34:43+00:00"
+  },
+  {
+   "name": "pfr_baseline",
+   "file": "pfr_baseline.json",
+   "name_with_extension": "pfr_baseline.json",
+   "kind": "json",
+   "bytes": 454262,
+   "modified_utc": "2026-11-21T12:36:59+00:00"
+  },
+  {
+   "name": "scenario_comparison",
+   "file": "scenario_comparison.json",
+   "name_with_extension": "scenario_comparison.json",
+   "kind": "json",
+   "bytes": 114734,
+   "modified_utc": "2026-11-21T14:40:39+00:00"
+  },
+  {
+   "name": "separation_baseline",
+   "file": "separation_baseline.json",
+   "name_with_extension": "separation_baseline.json",
+   "kind": "json",
+   "bytes": 37662,
+   "modified_utc": "2026-11-21T14:34:48+00:00"
+  },
+  {
+   "name": "separation_python_baseline",
+   "file": "separation_python_baseline.json",
+   "name_with_extension": "separation_python_baseline.json",
+   "kind": "json",
+   "bytes": 37920,
+   "modified_utc": "2026-11-21T08:03:26+00:00"
+  }
+ ]
+}

@@ -1,0 +1,56 @@
+{
+  "citekey": "farokhi2025costoptimization",
+  "apa7": "Farokhi, V., Øi, L. E., & Hansen, P. M. (2025). Simulation and cost optimization of ammonia cracker process. IFAC-PapersOnLine, 59(29), 48-53. https://doi.org/10.1016/j.ifacol.2025.12.180",
+  "doi": "10.1016/j.ifacol.2025.12.180",
+  "url": "https://doi.org/10.1016/j.ifacol.2025.12.180",
+  "doi_verified": true,
+  "year": 2025,
+  "type": "conference",
+  "equations": [
+    {"id": "Eq1", "name": "Capital recovery factor", "expression": "CRF = i(1+i)^n / ((1+i)^n - 1)", "variables": {"i": "discount rate (10 %)", "n": "plant life (25 yr)"}, "page": 3, "applies_to": "TEA (from Byun et al. 2020)"},
+    {"id": "Eq2", "name": "Yearly CAPEX", "expression": "Yearly CAPEX = CRF * TCI", "variables": {"TCI": "total capital investment = 5.93 * PEC"}, "page": 3, "applies_to": "TEA"},
+    {"id": "Eq3", "name": "OPEX (reconstructed from garbled glyphs)", "expression": "OPEX = C_RM + 2.3125*C_L + C_U + 0.137*FCI + 0.1*TCI", "variables": {"C_RM": "raw material cost, USD/yr", "C_L": "operating labour cost, USD/yr", "C_U": "utilities cost, USD/yr", "FCI": "fixed capital investment, USD", "TCI": "total capital investment, USD"}, "page": 3, "applies_to": "TEA"},
+    {"id": "Eq4", "name": "LCOH", "expression": "LCOH = (CRF*TCI + OPEX) / annual H2 production", "variables": {"annual H2 production": "kg/yr"}, "page": 3, "applies_to": "TEA (from Makhloufi & Kezibri 2021)"}
+  ],
+  "parameters": [
+    {"name": "Heat exchanger overall U (all exchangers)", "symbol": "U", "value": 50, "unit": "printed kW/m2*degC (ambiguous; likely W/m2/K)", "kind": "process", "catalyst": "", "conditions": "for area sizing", "page": 3, "locator": "Sec. 3", "is_original_to_this_paper": true},
+    {"name": "Minimum temperature approach", "symbol": "dTmin", "value": 20, "unit": "K", "kind": "process", "catalyst": "", "conditions": "", "page": 3, "locator": "Sec. 3", "is_original_to_this_paper": true},
+    {"name": "TCI / PEC factor", "symbol": "", "value": 5.93, "unit": "-", "kind": "economic", "catalyst": "", "conditions": "percent shares from Devkota et al.", "page": 3, "locator": "Sec. 3; Table 5", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023/2024 (factor shares)"},
+    {"name": "Direct plant cost share", "symbol": "", "value": 360, "unit": "% of PEC", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 5", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Indirect plant cost share", "symbol": "", "value": 144, "unit": "% of PEC", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 5", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Working capital share", "symbol": "WCI", "value": 89, "unit": "% of PEC", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 5", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Ammonia cost", "symbol": "", "value": 0.52, "unit": "USD/kg", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023 (as stated in Table 4 title)"},
+    {"name": "Cooling water cost", "symbol": "", "value": 0.051, "unit": "USD/m3", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Water cost", "symbol": "", "value": 1.5, "unit": "USD/m3", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Discount rate", "symbol": "i", "value": 10, "unit": "%", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Plant uptime", "symbol": "", "value": 4000, "unit": "h/yr", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Plant life", "symbol": "n", "value": 25, "unit": "yr", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Adsorbent cost", "symbol": "", "value": 3.41, "unit": "USD/kg", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Number of operators", "symbol": "", "value": 15, "unit": "persons", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Labour salary", "symbol": "", "value": "34.167 as printed (presumably 34,167)", "unit": "USD/person-yr", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"},
+    {"name": "Hydrogen price", "symbol": "", "value": 9.06, "unit": "USD/kg H2", "kind": "economic", "catalyst": "", "conditions": "", "page": 5, "locator": "Table 4", "is_original_to_this_paper": false, "original_source": "Devkota et al. 2023"}
+  ],
+  "benchmarks": [
+    {"description": "Base case H2 production (no heat recovery)", "conditions": "500 kmol/h NH3, 455 to cracker, 45 burned, Gibbs cracker", "value": 535, "unit": "kmol/h", "page": 4, "locator": "Table 3 (mislabelled 'improved case'); abstract", "kind": "simulation"},
+    {"description": "Base case cracker conversion", "conditions": "Gibbs reactor", "value": 98.15, "unit": "%", "page": 4, "locator": "Table 3", "kind": "equilibrium"},
+    {"description": "Base case H2 yield", "conditions": "", "value": 0.128, "unit": "kg H2/kg NH3", "page": 1, "locator": "Abstract; Table 3", "kind": "simulation"},
+    {"description": "Final case H2 production", "conditions": "500 kmol/h NH3", "value": 586, "unit": "kmol/h", "page": 1, "locator": "Abstract; Sec. 6", "kind": "simulation"},
+    {"description": "Final case H2 yield", "conditions": "", "value": 0.140, "unit": "kg H2/kg NH3", "page": 5, "locator": "Table 7", "kind": "simulation"},
+    {"description": "Base case PEC / TCI", "conditions": "Aspen In-Plant Cost Estimator V12; unit printed USD, consistent with kUSD", "value": "1702 / 10096", "unit": "kUSD (inferred)", "page": 5, "locator": "Table 5", "kind": "simulation"},
+    {"description": "Base case yearly CAPEX / OPEX", "conditions": "CRF 10 %, 25 yr", "value": "1.112 / 22.961", "unit": "MUSD/yr", "page": 5, "locator": "Sec. 5.2", "kind": "simulation"},
+    {"description": "Base case LCOH", "conditions": "4000 h/yr, NH3 0.52 USD/kg", "value": 5.5, "unit": "USD/kg H2", "page": 5, "locator": "Sec. 5.2", "kind": "simulation"},
+    {"description": "Final case PEC / TCI", "conditions": "", "value": "1850 / 10970", "unit": "kUSD (inferred)", "page": 5, "locator": "Table 6", "kind": "simulation"},
+    {"description": "Final case yearly CAPEX / OPEX (labels swapped in text)", "conditions": "", "value": "1.208 / 23.151", "unit": "MUSD/yr", "page": 5, "locator": "Sec. 5.3", "kind": "simulation"},
+    {"description": "Final case LCOH", "conditions": "", "value": 5.1, "unit": "USD/kg H2", "page": 5, "locator": "Sec. 5.3; abstract", "kind": "simulation"},
+    {"description": "Devkota et al. 2024 LCOH (quoted)", "conditions": "", "value": 6.05, "unit": "USD/kg H2", "page": 5, "locator": "Sec. 5.4", "kind": "simulation"}
+  ],
+  "limitations": [
+    "Gibbs equilibrium cracker and furnace; ideal component splitter for adsorber/PSA; LCOH likely underestimated (authors' statement).",
+    "U value unit printed as kW/m2*degC (ambiguous, likely W/m2/K).",
+    "Labelling errors: Table 3 titled 'improved case' but contains base-case values; CAPEX and OPEX labels swapped in Sec. 5.3.",
+    "Cost table units printed as USD but consistent with kUSD.",
+    "Eq. 3 symbols garbled in extraction; reconstructed.",
+    "Uptime 4000 h/yr; no uncertainty analysis; final flowsheet details only in MSc thesis."
+  ],
+  "relevance": "Simple factor-based TEA recipe (TCI = 5.93 x PEC, OPEX formula, CRF 10 %/25 yr) and LCOH benchmarks (5.1-5.5 USD/kg) for an equilibrium-cracker NH3-to-H2 flowsheet with heat-recovery cases."
+}

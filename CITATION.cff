@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use AmCraX in your work, please cite it using the metadata in this file."
+title: "AmCraX: Ammonia Cracking Simulation and Optimisation Platform"
+type: software
+authors:
+  - name: "Wee Zhern Ray"
+repository-code: "https://github.com/weewzr/AmCraX"
+url: "https://weewzr.github.io/AmCraX/"
+license: MIT
+version: 0.1.0
+date-released: "2026-11-21"
+keywords:
+  - ammonia cracking
+  - hydrogen carrier
+  - Aspen Plus
+  - process simulation
+  - techno-economic analysis
+  - heat integration
+  - process optimisation
+  - FastAPI
+  - React
+abstract: >-
+  AmCraX simulates the decomposition of ammonia into hydrogen. It combines an Aspen Plus V15 flowsheet,
+  driven through COM automation, with independent Python models for equilibrium, kinetics, heat integration,
+  purification, techno-economics, carbon intensity and optimisation. A FastAPI service and a React dashboard
+  show the results with a provenance label on every value, and a validation matrix records the checks against
+  Aspen Plus and the literature.
