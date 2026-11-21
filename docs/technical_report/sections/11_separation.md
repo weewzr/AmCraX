@@ -34,7 +34,7 @@ For the **Aspen Plus V15 simulation** (Table 11.1) the product is 124.80 kmol/h 
 
 ## 11.4 Product specification
 
-ISO 14687:2019 requires at least 99.97 % H~2~, at most 300 ppm N~2~ and at most 0.1 ppm NH~3~ for PEM fuel-cell vehicles; stationary applications allow far more N~2~ (International Organization for Standardization, 2019, as quoted by Cechetto et al., 2023). The baseline product, 99.961 mol% with 392 ppm N~2~, misses both vehicle limits and **is not fuel-cell grade**. The purity-driven case is the **Aspen Plus V15 simulation** `scn_fuel_cell_grade` (N~2~ slip 0.0005, recovery 0.80): 99.979 mol% H~2~ with 208 ppm N~2~ and 236.8 kg/h, 14.8 kg/h less than the baseline. Its purity is again an input consequence; a real PSA would trade slip against recovery.
+ISO 14687:2019 requires at least 99.97 mol% H~2~, at most 300 ppm N~2~ and at most 0.1 ppm NH~3~ for PEM fuel-cell road vehicles (grade D); stationary applications allow far more N~2~ (ISO, 2019; Cechetto et al., 2023). The baseline product, 99.961 mol% with 392 ppm N~2~, misses both vehicle limits and **is not fuel-cell grade**. The purity-driven case is the **Aspen Plus V15 simulation** `scn_fuel_cell_grade` (N~2~ slip 0.0005, recovery 0.80): 99.979 mol% H~2~ with 208 ppm N~2~ and 236.8 kg/h, 14.8 kg/h less than the baseline. Its purity is again an input consequence; a real PSA would trade slip against recovery.
 
 <!-- data: results/simulations/scn_fuel_cell_grade.json inputs.psa_n2_slip 0.0005, inputs.psa_h2_recovery 0.8, kpis.h2_purity_mole_frac 0.99979171, streams.H2PROD.mole_frac.N2 2.0829e-4, kpis.h2_product_kg_h 236.789; 251.588 - 236.789 = 14.80; research/notes/cechetto2023membrane (ISO 14687:2019 limits) -->
 

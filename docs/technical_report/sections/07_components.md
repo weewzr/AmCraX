@@ -30,4 +30,4 @@ The pure-component parameters (critical constants, acentric factor, ideal-gas he
 * *Argon and other trace air species.* Air is binary N~2~/O~2~; this slightly changes the flue-gas heat capacity but not the process side.
 * *Carbon species and catalyst.* The feed contains no carbon, and RGibbs needs no catalyst description.
 
-Without a polishing step, NH~3~ in the product is fixed by the PSA split fraction (zero in the baseline), so compliance with the 0.1 ppm NH~3~ limit of ISO 14687:2019 (ISO, 2019, as cited in Cechetto et al., 2023, p. 10779) cannot be predicted by this model (Section 11).
+Without a polishing step, NH~3~ in the product is fixed by the PSA split fraction (zero in the baseline), so compliance with the 0.1 ppm NH~3~ limit of ISO 14687:2019 (ISO, 2019) cannot be predicted by this model (Section 11).

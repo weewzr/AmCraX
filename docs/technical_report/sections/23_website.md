@@ -4,16 +4,29 @@
 
 ## 23.1 Scope
 
-The public website presents AmCraX to readers who have neither Aspen Plus nor the local platform. It is the same React application as the dashboard (Section 22), built in a static mode, with nine sections in front of it: Overview, Why cracking, Process flow, Methodology, Results, Architecture, Research, Docs and About (Figure 23.1). The intended deployment address is https://weewzr.github.io/AmCraX/, and the source is in the repository https://github.com/weewzr/AmCraX.
-<!-- data: frontend/src/site/routes.ts SITE_ROUTES (9 entries); frontend/README.md -->
+The public website presents AmCraX to readers who have neither Aspen Plus nor the local platform. It is a static GitHub Pages build of the same React application as the dashboard (Section 22), with nine sections in front of it: Overview, Why cracking, Process flow, Methodology, Results, Architecture, Research, Docs and About (Figure 23.1). The site is built to be served at https://weewzr.github.io/AmCraX/; the source is in the repository https://github.com/weewzr/AmCraX.
+<!-- data: frontend/src/site/routes.ts SITE_ROUTES (9 entries); frontend/README.md; frontend/package.json build:pages (base /AmCraX/) -->
 
-A static GitHub Pages site can show only published results. It never runs Aspen Plus and never contacts an API: the dashboard pages open in SNAPSHOT mode, and actions that need a server stay disabled. A banner on every page says "Published results - static site. Live Aspen Plus runs need the local platform." Live runs require the local platform of Section 22.
+<!-- DEPLOYMENT-STATEMENT -->
+
+The static build shows only published results. It never runs Aspen Plus and never contacts an API or Aspen: the dashboard pages open in SNAPSHOT mode with the exported results, and actions that need a server stay disabled. A banner on every page says "Published results - static site. Live Aspen Plus runs need the local platform." Live runs require the local platform of Section 22.
+<!-- data: frontend/src/components/Shell.tsx STATIC_SITE_NOTICE -->
+
+Table: **Table 23.1.** The two builds of the AmCraX front end. *Source: frontend/README.md, frontend/package.json, docs/internal/fact_sheet.md F19.*
+
+| Property | Local platform (`npm run dev` / `npm run build`) | Public site (`npm run build:pages`) |
+|---|---|---|
+| Base path | `/` | `/AmCraX/` |
+| Data | LIVE from the API when it answers, otherwise SNAPSHOT or DEMO | Published results only (SNAPSHOT) |
+| Aspen Plus runs | Yes, through the API worker, with a licence | Never |
+| API requests | Yes | None |
+| Calculation in the browser | Ideal-gas equilibrium calculator | Ideal-gas equilibrium calculator |
 
 ![**Figure 23.1.** Landing page of the public site (1440 × 900 px): static-site banner, navigation to the nine sections, a picture of the process flow diagram and headline facts read from the exported results. Actual AmCraX website screenshot. *Source: AmCraX public site in static build showing Aspen Plus V15 results.*](../screenshots/site_home_desktop.png){width=100%}
 
 ## 23.2 How results reach the site
 
-`scripts/export_snapshot.py` copies the stored results, verbatim or in the exact form the API returns them, into `frontend/public/snapshot/`, a mirror that is committed to the repository. `npm run build:pages` first copies the report, deck and validation documents into the download folder, then compiles the strict TypeScript and builds the site with the base path `/AmCraX/`. On a push to the main branch, a GitHub Actions workflow installs the locked packages, runs the unit tests, builds the site and publishes it to GitHub Pages. It needs neither Python nor Aspen Plus, so the site is only as current as the last export.
+`scripts/export_snapshot.py` copies the stored results, verbatim or in the exact form the API returns them, into `frontend/public/snapshot/`, a mirror that is committed to the repository. `npm run build:pages` first copies the report, deck and validation documents into the download folder, then compiles the strict TypeScript and builds the site with the base path `/AmCraX/`. The GitHub Actions workflow `.github/workflows/deploy-pages.yml` is configured to run on a push to the main branch: it installs the locked packages, runs the unit tests, builds the site and uploads it to GitHub Pages. It needs neither Python nor Aspen Plus, so the site is only as current as the last export.
 <!-- data: scripts/export_snapshot.py docstring; frontend/package.json scripts (prebuild:pages, build:pages); .github/workflows/deploy-pages.yml -->
 
 ## 23.3 In-browser equilibrium calculator

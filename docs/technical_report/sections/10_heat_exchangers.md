@@ -27,7 +27,7 @@ Table: **Table 10.1.** Thermal blocks: function, Aspen model, specification and 
 
 ## 10.2 Feed/effluent exchanger
 
-FEHE uses the HeatX shortcut method in design mode, counter-current, with the cold-outlet temperature as specification (Figure 10.1). The hot side is the reactor effluent S5 (600 °C), the cold side the NH~3~ vapour S2 (75.90 °C). Calculator TLINK keeps the cold outlet 50 K below the reactor temperature, which fixes a 50 K hot-end approach at every reactor temperature; the 1 K "minimum temperature approach" in the form is only Aspen's feasibility limit. Because the effluent heats its own feed, Aspen tears stream S4 and converges it with the Wegstein block `$OLVER01` (tear error 0); there is no material recycle (Section 6).
+FEHE uses the HeatX shortcut method in design mode, counter-current, with the cold-outlet temperature as specification (Figure 10.1). The hot side is the reactor effluent S5 (600 °C), the cold side the NH~3~ vapour S2 (75.90 °C). Calculator TLINK keeps the cold outlet 50 K below the reactor temperature, which fixes a 50 K hot-end approach at every reactor temperature; the 1 K "minimum temperature approach" in the form is only Aspen's feasibility limit. Because the effluent heats its own feed, Aspen tears stream S4 and converges it with the Wegstein block `$OLVER01` (tear error 0); there is no material recycle (Section 6.5).
 
 <!-- data: aspen/models/baseline.inp BLOCK FEHE (CALC-TYPE=DESIGN, CALC-METHOD=SHORTCUT, T-COLD), CALCULATOR TLINK; aspen/models/baseline.bkp convergence summary (tear S4, $OLVER01, Wegstein) as reported in Section 6 -->
 
@@ -75,11 +75,7 @@ The exchanger removes the same 612.21 kW from the heating and the cooling demand
 
 ## 10.4 Burner and flue-gas recovery
 
-The PSA tail gas (73.03 kmol/h; 30.16 mol% H~2~, 2.62 mol% NH~3~, the rest mainly N~2~) burns in BURNER, an RStoic block at 1.2 bar with zero duty and two reactions at complete conversion of the fuel: H~2~ + 0.5 O~2~ → H~2~O and NH~3~ + 0.75 O~2~ → 0.5 N~2~ + 1.5 H~2~O (Figure 10.3). NO~x~ formation is not modelled. Calculator AIRCALC (Section 6) sets the air flow from the tail-gas fuel content:
-
-$$ F_\mathrm{air} = \frac{(1 + e)\,(0.5\,F_\mathrm{H_2} + 0.75\,F_\mathrm{NH_3})}{0.21} \qquad (10.3) $$
-
-where $F_\mathrm{air}$ is the air flow, $F_\mathrm{H_2}$ and $F_\mathrm{NH_3}$ the tail-gas flows of H~2~ and NH~3~ (all kmol/h), $e$ = 0.15 the excess-air fraction (engineering assumption) and 0.21 the O~2~ mole fraction of air. The baseline needs 68.17 kmol/h of air.
+The PSA tail gas (73.03 kmol/h; 30.16 mol% H~2~, 2.62 mol% NH~3~, the rest mainly N~2~) burns in BURNER, an RStoic block at 1.2 bar with zero duty and two reactions at complete conversion of the fuel: H~2~ + 0.5 O~2~ → H~2~O and NH~3~ + 0.75 O~2~ → 0.5 N~2~ + 1.5 H~2~O (Figure 10.3). NO~x~ formation is not modelled. The calculator block AIRCALC sets the air flow from the tail-gas fuel content by Eq. (6.1); its definition and the Aspen screenshot of its Define tab are in Section 6.4 (Figure 6.2). The baseline needs 68.17 kmol/h of air, 15 % above the stoichiometric 59.28 kmol/h.
 
 <!-- data: aspen/models/baseline.inp BLOCK BURNER, CALCULATOR AIRCALC; results/simulations/baseline.json streams.TAILGAS (73.0327 kmol/h, y_H2 0.30156, y_NH3 0.02622), streams.AIR.mole_flow_kmol_h 68.1698 -->
 

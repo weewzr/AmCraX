@@ -27,10 +27,8 @@ Here $\Delta H_r$ is the reaction enthalpy (kJ/mol NH~3~), $c_{p,i}$ the ideal-g
 The AmCraX thermodynamics package (**independent Python calculation**; GRI-Mech 3.0 NASA-7 polynomials, Smith et al., n.d., loaded through Cantera, Goodwin et al., 2018) gives $\Delta H_r^\circ$(298.15 K) = +45.899 kJ/mol and $\Delta G_r^\circ$(298.15 K) = +16.381 kJ/mol. NIST-JANAF (National Institute of Standards and Technology, n.d.) gives 45.898 and 16.367 kJ/mol. The package's 29 tests, all passing, check both values within 0.05 kJ/mol and log~10~ *K* within 0.01 from 400 to 1500 K. Published values of $\Delta H_r^\circ$ are 45.6 (Cho et al., 2026, p. 2; Xu et al., 2025, p. 5, quoted as 91.2 kJ per 2 mol), 45.92 (Cechetto et al., 2023, p. 10777), 45.984 (Maccarrone et al., 2025, p. 3) and 46.11 kJ/mol NH~3~ (Kum et al., 2026, p. 5).
 <!-- data: amcrax.thermodynamics.reaction_enthalpy_kJ_mol(298.15) = 45.8989, reaction_gibbs_kJ_mol(298.15) = 16.3811 (evaluated 2026-11-21); tests/test_thermodynamics.py, 29 passed (pytest run 2026-11-21); docs/validation/discrepancy_analysis.md section 2 (45.899 Python vs 45.898 JANAF); research/notes cho2026nickel p. 2, xu2025review p. 5, cechetto2023membrane p. 3, maccarrone2025comprehensive p. 3, kum2026heatintegrated Table 1 p. 5 -->
 
-Because $\Delta c_p > 0$, the reaction enthalpy grows with temperature, from 50.27 kJ/mol at 250 degC to 54.22 kJ/mol at 600 degC and 55.70 kJ/mol at 900 degC, while $K$ rises from 5.387 to 658.4 and 4572 (Figure 3.1). Higher temperature favours conversion but raises the heat demand per mole cracked; the cracker duty is the largest heat demand of the plant (Section 5.3).
+Because $\Delta c_p > 0$, the reaction enthalpy grows with temperature, from 50.27 kJ/mol at 250 °C to 54.22 kJ/mol at 600 °C and 55.70 kJ/mol at 900 °C, while $K$ rises from 5.387 to 658.4 and 4572 (both curves are plotted in Figure 13.1, Section 13.3). Higher temperature favours conversion but raises the heat demand per mole cracked; the cracker duty is the largest heat demand of the plant (Section 5.3).
 <!-- data: results/validation/equilibrium_python_grid.csv eos=ideal, P_bar=1, columns K_eq and dH_rxn_kJ_per_mol_NH3 at T_C = 250, 600, 900 -->
-
-![**Figure 3.1.** Equilibrium constant *K* (left, logarithmic, standard state 1 bar) and reaction enthalpy Δ*H*~r~ (right, kJ/mol NH~3~) from 250 to 900 degC. Higher temperature favours conversion but raises the heat demand per mole cracked. *Source: independent Python calculation (NASA-7 / GRI-Mech 3.0 data).*](../../results/figures/equilibrium_K_and_dH_vs_T.png){width=80%}
 
 ## 3.3 Le Chatelier trends
 
@@ -38,7 +36,7 @@ For an ideal gas, the equilibrium condition of Eq. (3.1) is
 
 $$ K(T) = \frac{y_{\mathrm{N_2}}^{1/2}\,y_{\mathrm{H_2}}^{3/2}}{y_{\mathrm{NH_3}}}\,\frac{P}{p^\circ} \qquad (3.5) $$
 
-with $y_i$ the mole fraction and $P$ the total pressure (bar). At fixed $T$ the right-hand side must stay constant, so a higher pressure must be offset by a lower product-to-reactant ratio: conversion falls with pressure because the reaction doubles the number of moles. Conversion rises with temperature because $K$ rises, and inert dilution lowers the product partial pressures and also raises conversion (Maccarrone et al., 2025, pp. 4-5). For a pure NH~3~ feed (**independent Python calculation**, ideal gas), conversion exceeds 99 % from 400 degC at 1 bar, whereas at 20 bar about 600 degC is needed to exceed 98 % (0.9808). The pressure penalty is large at low temperature: at 400 degC conversion falls from 0.9914 at 1 bar to 0.8102 at 30 bar, at 700 degC only from 0.9995 to 0.9866. Section 13 derives the closed-form equilibrium conversion, quantifies the non-ideal (Peng-Robinson) correction and compares the Python model with Aspen Plus V15.
+with $y_i$ the mole fraction and $P$ the total pressure (bar). At fixed $T$ the right-hand side must stay constant, so a higher pressure must be offset by a lower product-to-reactant ratio: conversion falls with pressure because the reaction doubles the number of moles. Conversion rises with temperature because $K$ rises, and inert dilution lowers the product partial pressures and also raises conversion (Maccarrone et al., 2025, pp. 4-5). For a pure NH~3~ feed (**independent Python calculation**, ideal gas), conversion exceeds 99 % from 400 °C at 1 bar, whereas at 20 bar about 600 °C is needed to exceed 98 % (0.9808). The pressure penalty is large at low temperature: at 400 °C conversion falls from 0.9914 at 1 bar to 0.8102 at 30 bar, at 700 °C only from 0.9995 to 0.9866. Section 13 derives the closed-form equilibrium conversion, quantifies the non-ideal (Peng-Robinson) correction and compares the Python model with Aspen Plus V15.
 <!-- data: results/validation/equilibrium_python_grid.csv eos=ideal nh3_conversion: 400 degC 1 bar 0.9914, 30 bar 0.8102; 600 degC 20 bar 0.9808 (575 degC 0.9763); 700 degC 1 bar 0.9995, 30 bar 0.9866 -->
 
 ## 3.4 Mechanism and rate-determining step
@@ -51,20 +49,20 @@ where * is a vacant surface site. Which step limits the rate depends on the meta
 
 ## 3.5 Catalyst families and operating windows
 
-Ru is the most active metal but costly; Ni is the practical non-noble choice but needs higher temperature and sinters (Xu et al., 2025, pp. 4, 15). Table 3.1 collects the operating windows that bear on the AmCraX baseline of 600 degC and 20 bar.
+Ru is the most active metal but costly; Ni is the practical non-noble choice but needs higher temperature and sinters (Xu et al., 2025, pp. 4, 15). Table 3.1 collects the operating windows that bear on the AmCraX baseline of 600 °C and 20 bar.
 
 Table: **Table 3.1.** Published catalyst operating windows and findings relevant to the AmCraX baseline. *Source: published literature as cited; none of these values is an AmCraX result.*
 
 | Topic | Finding | Source |
 |---|---|---|
-| Temperature | Typical catalysts need about 600 degC for complete conversion; research target 400-500 degC | Xu et al. (2025, p. 4) |
-| Kinetic data range | Microkinetic models fitted and tested at 1 atm over 350-650 degC (Ni/MgO) and 300-550 degC (Ru/MgO) | Takahashi and Fujitani (2016) |
-| Cost-optimal conditions | Ni/Al~2~O~3~ at 735.52 degC and 24.34 bar; Ru-K/CaO at 566.69 degC and 10 bar | Cho et al. (2026, p. 13) |
-| Pressure | Ru-10%K/CaO at 500 degC: conversion 98 % (1 bar), 80 % (10 bar), 65 % (20 bar), 60 % (40 bar) | Sayas et al. (2020, as cited in Maccarrone et al., 2025, p. 13) |
-| Ni stability | Industrial Ni at 534 degC and 1 atm: 91.9 % conversion at 250 h, 90.4 % at 800 h; sintering is the main deactivation route | Purcel et al. (2025, pp. 2-3); Su et al. (2023, pp. 8118-8119) |
-| Membrane reactors | Pd-based membranes should not exceed 500 degC | Cechetto et al. (2023, p. 10784) |
+| Temperature | Typical catalysts need about 600 °C for complete conversion; research target 400-500 °C | Xu et al. (2025, p. 4) |
+| Kinetic data range | Microkinetic models fitted and tested at 1 atm over 350-650 °C (Ni/MgO) and 300-550 °C (Ru/MgO) | Takahashi and Fujitani (2016) |
+| Cost-optimal conditions | Ni/Al~2~O~3~ at 735.52 °C and 24.34 bar; Ru-K/CaO at 566.69 °C and 10 bar | Cho et al. (2026, p. 13) |
+| Pressure | Ru-10%K/CaO at 500 °C: conversion 98 % (1 bar), 80 % (10 bar), 65 % (20 bar), 60 % (40 bar) | Sayas et al. (2020, as cited in Maccarrone et al., 2025, p. 13) |
+| Ni stability | Industrial Ni at 534 °C and 1 atm: 91.9 % conversion at 250 h, 90.4 % at 800 h; sintering is the main deactivation route | Purcel et al. (2025, pp. 2-3); Su et al. (2023, pp. 8118-8119) |
+| Membrane reactors | Pd-based membranes should not exceed 500 °C | Cechetto et al. (2023, p. 10784) |
 
 <!-- data: research/notes/xu2025review.md p. 4, p. 15; takahashi2016kinetic.md (operating ranges); cho2026nickel.md Table 7 p. 13; maccarrone2025comprehensive.md p. 13; purcel2024stability.md pp. 2-4; su2023review.md pp. 20-21 (= 8118-8119); cechetto2023membrane.md p. 10 (= 10784) -->
 
-The Sayas data show why this matters: at 500 degC and 20 bar the measured conversion (65 %) is far below the equilibrium value for pure NH~3~ (0.9522), so at elevated pressure the catalyst, not thermodynamics, can limit conversion. The equilibrium cracker of the AmCraX flowsheet therefore gives an upper bound; whether a realistic Ni or Ru bed approaches it at 20 bar is addressed in Section 14.
+The Sayas data show why this matters: at 500 °C and 20 bar the measured conversion (65 %) is far below the equilibrium value for pure NH~3~ (0.9522), so at elevated pressure the catalyst, not thermodynamics, can limit conversion. The equilibrium cracker of the AmCraX flowsheet therefore gives an upper bound; whether a realistic Ni or Ru bed approaches it at 20 bar is addressed in Section 14.
 <!-- data: results/validation/equilibrium_python_grid.csv eos=ideal, 500 degC, 20 bar: 0.9522 -->

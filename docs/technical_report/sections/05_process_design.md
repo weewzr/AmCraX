@@ -10,17 +10,17 @@ Table: **Table 5.1.** Baseline design basis and the origin of each choice. *Sour
 
 | Item | Baseline value | Origin |
 |---|---|---|
-| Feed state | Saturated liquid at 1.013 bar (Aspen bubble point -32.96 degC) | Engineering assumption: refrigerated atmospheric storage; Mehr et al. (2026) use the same boundary (liquid NH~3~ at -33 degC, 1 bar) |
+| Feed state | Saturated liquid at 1.013 bar (Aspen bubble point -32.96 °C) | Engineering assumption: refrigerated atmospheric storage; Mehr et al. (2026) use the same boundary (liquid NH~3~ at -33 °C, 1 bar) |
 | Feed composition | 99.8 mol% NH~3~, 0.2 mol% H~2~O | Engineering assumption (water as the representative impurity) |
 | Capacity basis | 100 kmol/h = 1703.25 kg/h (40.88 t/d, of which 40.79 t/d NH~3~) | Engineering assumption (round modelling basis) |
-| Reactor | Equilibrium (RGibbs), isothermal, 600 degC, 20 bar | Engineering assumption informed by literature: 20-30 bar cases in Cho et al. (2026), 17.5-21 bar in Mehr et al. (2026), 20 bar in Richard et al. (2024) |
+| Reactor | Equilibrium (RGibbs), isothermal, 600 °C, 20 bar | Engineering assumption informed by literature: 20-30 bar cases in Cho et al. (2026), 17.5-21 bar in Mehr et al. (2026), 20 bar in Richard et al. (2024) |
 | Vaporiser outlet | Dew point + 10 K | Engineering assumption |
 | Feed/effluent exchanger | Cold outlet = reactor temperature - 50 K | Engineering assumption (hot-end approach) |
-| PSA feed temperature | 40 degC | Engineering assumption |
+| PSA feed temperature | 40 °C | Engineering assumption |
 | PSA H~2~ recovery | 0.85 | **Engineering assumption above the published 0.71-0.81** (Section 4.3); reduced-order splitter (Section 11) |
 | PSA N~2~ slip | 0.001 of the N~2~ fed | Engineering assumption |
 | Burner | Adiabatic, complete combustion, 15 % excess air | Engineering assumption |
-| Stack temperature | 150 degC | Engineering assumption |
+| Stack temperature | 150 °C | Engineering assumption |
 | Property method | PENG-ROB | Literature-informed (Section 8) |
 
 <!-- data: results/simulations/baseline.json inputs; streams.FEED (temperature_C -32.9617, mass_flow_kg_h 1703.25294, component_mole_flow NH3 99.8); t/d = kg/h x 24 / 1000; NH3 99.8 x 17.0305 = 1699.64 kg/h; research/notes/mehr2026highcapacity.md (p. 3; Table 6 21 bar; text 17.5 bar), cho2026nickel.md, richard2024technoeconomic.md (Table 6, 20 bar) -->
@@ -35,13 +35,13 @@ Figure 5.1 shows the flowsheet as built and solved in Aspen Plus V15, and Figure
 
 ## 5.3 Block-by-block description
 
-**Feed conditioning.** PUMP raises the liquid from 1.013 to 21.0 bar with an assumed efficiency of 0.75. Raising the pressure of the liquid needs only 1.85 kW of shaft power; raising it after evaporation would need a gas compressor. VAPORIZR evaporates the feed at 20.8 bar and superheats it 10 K above its dew point, to 75.90 degC, so that the exchanger downstream sees only vapour; it absorbs 739.46 kW. With 0.2 mol% water the dew point is set by the NH~3~-H~2~O vapour-liquid equilibrium model, so this outlet temperature and duty depend on the property method (Section 8.3).
+**Feed conditioning.** PUMP raises the liquid from 1.013 to 21.0 bar with an assumed efficiency of 0.75. Raising the pressure of the liquid needs only 1.85 kW of shaft power; raising it after evaporation would need a gas compressor. VAPORIZR evaporates the feed at 20.8 bar and superheats it 10 K above its dew point, to 75.90 °C, so that the exchanger downstream sees only vapour; it absorbs 739.46 kW. With 0.2 mol% water the dew point is set by the NH~3~-H~2~O vapour-liquid equilibrium model, so this outlet temperature and duty depend on the property method (Section 8.3).
 
-**Preheat and cracking.** FEHE heats the vapour to 550.0 degC against the reactor effluent and recovers 612.21 kW that would otherwise be rejected to cooling water. HEATER closes the last 50 K to 600 degC with 73.66 kW. CRACKER minimises the Gibbs energy over NH~3~, H~2~, N~2~ and H~2~O at 600 degC and 20 bar, reaching an NH~3~ conversion of 0.9808 and absorbing 1480.00 kW. It is the largest heat demand of the plant (Section 9).
+**Preheat and cracking.** FEHE heats the vapour to 550.0 °C against the reactor effluent and recovers 612.21 kW that would otherwise be rejected to cooling water. HEATER closes the last 50 K to 600 °C with 73.66 kW. CRACKER minimises the Gibbs energy over NH~3~, H~2~, N~2~ and H~2~O at 600 °C and 20 bar, reaching an NH~3~ conversion of 0.9808 and absorbing 1480.00 kW. It is the largest heat demand of the plant (Section 9).
 
-**Cooling and purification.** The cracked gas (S5, 197.88 kmol/h) leaves FEHE at 228.38 degC and COOLER brings it to the PSA feed temperature of 40 degC, rejecting 304.95 kW. PSA sends 85 % of the H~2~ and 0.1 % of the N~2~ to H2PROD at 19.0 bar; all NH~3~ and H~2~O and the rest of the gas go to TAILGAS at 1.3 bar. The product purity of 99.961 mol% H~2~ follows from these assumed split fractions; it is not a prediction (Section 11).
+**Cooling and purification.** The cracked gas (S5, 197.88 kmol/h) leaves FEHE at 228.38 °C and COOLER brings it to the PSA feed temperature of 40 °C, rejecting 304.95 kW. PSA sends 85 % of the H~2~ and 0.1 % of the N~2~ to H2PROD at 19.0 bar; all NH~3~ and H~2~O and the rest of the gas go to TAILGAS at 1.3 bar. The product purity of 99.961 mol% H~2~ follows from these assumed split fractions; it is not a prediction (Section 11).
 
-**Tail-gas combustion.** BURNER burns the H~2~ and NH~3~ of the tail gas completely with air; the calculator AIRCALC sets the air flow to 68.17 kmol/h for 15 % excess air (Section 6.4). The adiabatic flame temperature is 1368.90 degC. This is the complete-combustion value; an equilibrium calculation with dissociation gives about 2.3 K less (Section 15), and NO~x~ formation is not modelled (Section 21). FLUEHX cools the flue gas to the 150 degC stack temperature and releases 1520.25 kW, the heat available from the tail gas. In Aspen this heat is not returned to the process; it is credited against the heat demand in the KPIs and the pinch analysis (Sections 5.6 and 18).
+**Tail-gas combustion.** BURNER burns the H~2~ and NH~3~ of the tail gas completely with air; the calculator AIRCALC sets the air flow to 68.17 kmol/h for 15 % excess air (Section 6.4). The adiabatic flame temperature is 1368.90 °C. This is the complete-combustion value; an equilibrium calculation with dissociation gives about 2.3 K less (Section 15), and NO~x~ formation is not modelled (Section 21). FLUEHX cools the flue gas to the 150 °C stack temperature and releases 1520.25 kW, the heat available from the tail gas. In Aspen this heat is not returned to the process; it is credited against the heat demand in the KPIs and the pinch analysis (Sections 5.6 and 18).
 <!-- data: results/simulations/baseline.json blocks.*.duty_kW, blocks.PUMP.power_kW 1.84528517, streams.S2/S3/S5/S6/H2PROD/AIR/FLUE temperature_C and flows, kpis.nh3_conversion, kpis.h2_purity_mole_frac; results/validation/independent_physics_checks.csv baseline dT_equilibrium_minus_complete_K -2.2515 -->
 
 ## 5.4 Pressure profile
@@ -71,9 +71,9 @@ Table: **Table 5.2.** Pressure profile of the baseline. *Source: Aspen Plus V15 
 
 Table 5.3 lists the streams that define the process; the full stream table and the mass, element and energy balance closures are in Section 15.
 
-Table: **Table 5.3.** Key streams of the baseline (600 degC, 20 bar). *Source: Aspen Plus V15 simulation, results/simulations/baseline.json.*
+Table: **Table 5.3.** Key streams of the baseline (600 °C, 20 bar). *Source: Aspen Plus V15 simulation, results/simulations/baseline.json.*
 
-| Stream | T (degC) | P (bar) | Flow (kmol/h) | Composition (mol%) |
+| Stream | T (°C) | P (bar) | Flow (kmol/h) | Composition (mol%) |
 |---|---|---|---|---|
 | FEED | -32.96 | 1.013 | 100.00 | NH~3~ 99.8, H~2~O 0.2 |
 | S4 (reactor feed) | 600.0 | 20.2 | 100.00 | NH~3~ 99.8, H~2~O 0.2 |
@@ -111,7 +111,7 @@ The exchanger lowers the external heating by 612.21 kW and raises the LHV effici
 ## 5.7 Design simplifications
 
 * No gas compression: the product leaves at 19.0 bar; lower-pressure designs would need recompression (Cho et al., 2026).
-* No NH~3~ polishing: the residual 1.92 kmol/h NH~3~ in S7 goes to the tail gas by specification; a real plant needs a polishing step to meet 0.1 ppm (ISO, 2019, as cited in Cechetto et al., 2023, p. 10779).
+* No NH~3~ polishing: the residual 1.92 kmol/h NH~3~ in S7 goes to the tail gas by specification; a real plant needs a polishing step to meet the 0.1 ppm limit of ISO 14687:2019 (ISO, 2019).
 * The PSA is a component splitter without isotherms, cycle or pressure-swing energy (Section 11).
 * The cracker is an equilibrium reactor with no catalyst volume or pressure drop from geometry (Sections 9 and 14).
 * The burner heat is not physically connected to the cracker or vaporiser in Aspen; the coupling is a first-law credit in the KPIs and a temperature-resolved target in the pinch analysis.

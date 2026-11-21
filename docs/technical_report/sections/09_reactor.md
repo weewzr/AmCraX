@@ -16,7 +16,7 @@ where $n_i$ is the outlet molar flow of species $i$ (kmol/h), $g_i^{\circ}(T)$ i
 
 ## 9.3 Specification
 
-CRACKER is isothermal at 600 °C and 20 bar, with the calculation option "phase equilibrium and chemical equilibrium" (Figure 9.1). The products are NH~3~, H~2~, N~2~ and H~2~O (Figure 9.2). O~2~ is excluded, so no oxygen-containing species other than water can form and the 0.2 kmol/h of feed water leaves unchanged. Calculator TLINK sets the HEATER outlet to the cracker temperature and the FEHE cold outlet to the cracker temperature minus 50 K, so one temperature input moves all three consistently (Section 6). Table 9.1 compares RGibbs with the other Aspen reactor blocks.
+CRACKER is isothermal at 600 °C and 20 bar, with the calculation option "phase equilibrium and chemical equilibrium" (Figure 9.1). The products are NH~3~, H~2~, N~2~ and H~2~O (Figure 9.2). O~2~ is excluded, so no oxygen-containing species other than water can form and the 0.2 kmol/h of feed water leaves unchanged. Calculator TLINK sets the HEATER outlet to the cracker temperature and the FEHE cold outlet to the cracker temperature minus 50 K, so one temperature input moves all three consistently (Section 6.4, Eq. (6.2)). Table 9.1 compares RGibbs with the other Aspen reactor blocks.
 
 <!-- data: aspen/models/baseline.inp BLOCK CRACKER (TEMP=600, PRES=20, PROD NH3/H2/N2/H2O), CALCULATOR TLINK; results/simulations/baseline.json streams.S4/S5.component_mole_flow_kmol_h.H2O = 0.2 -->
 

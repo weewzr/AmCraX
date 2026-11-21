@@ -44,7 +44,7 @@ It is 0.019 at the baseline and 0.19 at 250 °C and 10 bar, so data differences 
 
 ## 13.3 Results
 
-The **independent Python calculation** gives $\Delta H_r^\circ$(298.15 K) = +45.899 kJ/mol NH~3~ and $\Delta G_r^\circ$(298.15 K) = +16.381 kJ/mol. Because the heat-capacity change of reaction is positive, $\Delta H_r$ rises from 50.27 kJ/mol at 250 °C to 54.22 kJ/mol at 600 °C and 55.70 kJ/mol at 900 °C, while $K$ rises from 5.387 to 658.4 and 4572 (Figure 13.1).
+The **independent Python calculation** gives $\Delta H_r^\circ$(298.15 K) = +45.899 kJ/mol NH~3~ and $\Delta G_r^\circ$(298.15 K) = +16.381 kJ/mol. Because the heat-capacity change of reaction is positive, $\Delta H_r$ rises from 50.27 kJ/mol at 250 °C to 54.22 kJ/mol at 600 °C and 55.70 kJ/mol at 900 °C, while $K$ rises from 5.387 to 658.4 and 4572 (Figure 13.1; the same values support the discussion of fundamentals in Section 3.2).
 
 <!-- data: amcrax.thermodynamics.reaction_enthalpy_kJ_mol(298.15) = 45.8989, reaction_gibbs_kJ_mol(298.15) = 16.3811; results/validation/equilibrium_python_grid.csv K_eq, dH_rxn_kJ_per_mol_NH3 at T_C = 250, 600, 900 -->
 

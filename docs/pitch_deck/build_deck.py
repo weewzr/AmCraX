@@ -342,7 +342,6 @@ def collect() -> dict:
     S["T"] = A("Reactor temperature", "inputs.reactor_temperature_C", f"{inp['reactor_temperature_C']:.0f} °C")
     S["P"] = A("Reactor pressure", "inputs.reactor_pressure_bar", f"{inp['reactor_pressure_bar']:.0f} bar")
     S["feed"] = A("Feed basis", "inputs.feed_total_kmol_h", f"{inp['feed_total_kmol_h']:.0f} kmol/h")
-    S["feed_kg"] = A("Feed mass", "streams.FEED.mass_flow_kg_h", f"{fnum(base['streams']['FEED']['mass_flow_kg_h'], 0)} kg/h")
     S["rec"] = A("PSA H2 recovery (input)", "inputs.psa_h2_recovery", f"{inp['psa_h2_recovery']:.2f}")
     S["excess_air"] = A("Burner excess air", "inputs.burner_excess_air", f"{100*inp['burner_excess_air']:.0f}%")
     S["approach"] = A("FEHE hot-end approach", "inputs.fehe_hot_end_approach_K", f"{inp['fehe_hot_end_approach_K']:.0f} K")
@@ -353,35 +352,14 @@ def collect() -> dict:
     S["purity"] = A("H2 purity", "kpis.h2_purity_mole_frac", pct(k["h2_purity_mole_frac"], 2))
     S["lhv"] = A("LHV efficiency", "kpis.lhv_efficiency", pct(k["lhv_efficiency"]))
     S["lhv_nohi"] = A("LHV efficiency no HI", "kpis.lhv_efficiency", pct(kn["lhv_efficiency"]), fn, nohi)
-    S["yield"] = A("Overall H2 yield", "kpis.h2_yield_overall", pct(k["h2_yield_overall"]))
-    S["duty"] = A("Cracker duty", "kpis.reactor_duty_kW", f"{fnum(k['reactor_duty_kW'], 0)} kW")
     S["recovered"] = A("Recovered heat (FEHE)", "kpis.recovered_heat_kW", f"{fnum(k['recovered_heat_kW'], 0)} kW")
     S["ext"] = A("External heating", "kpis.total_external_heating_kW", f"{fnum(k['total_external_heating_kW'], 0)} kW")
     S["ext_nohi"] = A("External heating no HI", "kpis.total_external_heating_kW", f"{fnum(kn['total_external_heating_kW'], 0)} kW", fn, nohi)
     red = 1 - k["total_external_heating_kW"] / kn["total_external_heating_kW"]
     S["ext_red"] = R.num("External heating reduction (derived)", red, pct(red, 0), f"{fb} + {fn}", "kpis.total_external_heating_kW (ratio)", TAG_ASPEN)
-    S["spec"] = A("Specific heat demand", "kpis.specific_heat_demand_kWh_per_kgH2", f"{k['specific_heat_demand_kWh_per_kgH2']:.2f} kWh/kg")
-    S["spec_nohi"] = A("Specific heat demand no HI", "kpis.specific_heat_demand_kWh_per_kgH2", f"{kn['specific_heat_demand_kWh_per_kgH2']:.2f} kWh/kg", fn, nohi)
     st = base["status"]
     S["converged"] = R.num("Aspen converged", st["converged"], "Converged, no errors" if st["converged"] and not st["has_errors"] else "Check run status", fb, "status.converged/has_errors", TAG_ASPEN)
     S["engine_s"] = A("Aspen engine time", "status.engine_time_s", f"{st['engine_time_s']:.1f} s")
-    S["mass_closure"] = None
-    mc = base.get("balances", {}).get("mass_closure_rel")
-    if mc is not None:
-        S["mass_closure"] = A("Mass balance closure", "balances.mass_closure_rel", f"{abs(mc):.0e}")
-
-    # Aspen cases on disk
-    n_cases = 0
-    for f in glob.glob(str(ROOT / "results/simulations/*.json")):
-        try:
-            if load_json(Path(f)).get("source") == "aspen_plus_v15":
-                n_cases += 1
-        except Exception:  # noqa: BLE001
-            pass
-    for f in glob.glob(str(ROOT / "results/sensitivity/aspen_*.csv")):
-        n_cases += len(read_csv(Path(f)))
-    S["n_cases"] = R.num("Aspen cases on disk", n_cases, f"{n_cases}", "results/simulations/*.json + results/sensitivity/aspen_*.csv", "count(source == aspen_plus_v15) + csv rows", TAG_ASPEN)
-
     # evidence counts (F6), all computed from files at build time
     ev = {}
     sens_files = [f for f in glob.glob(str(ROOT / "results/sensitivity/aspen_*.csv")) if "native" not in Path(f).name]
@@ -412,20 +390,6 @@ def collect() -> dict:
     Ts = sorted({float(r["T_C"]) for r in rows})
     S["eq_range"] = f"{Ts[0]:.0f}-{Ts[-1]:.0f} °C, {Ps[0]:g}-{Ps[-1]:g} bar"
 
-    # Aspen vs Python flowsheet
-    f_avp = ROOT / "results/validation/aspen_vs_python_baseline.csv"
-    avp = {r["quantity"]: r for r in read_csv(f_avp)}
-    picks = [q for q in ("kpi.nh3_conversion", "kpi.h2_product_kg_h", "kpi.reactor_duty_kW", "kpi.total_external_heating_kW",
-                         "kpis.nh3_conversion", "kpis.h2_product_kg_h", "kpis.reactor_duty_kW", "kpis.total_external_heating_kW") if q in avp]
-    if not picks:
-        picks = [q for q in avp if q.startswith("kpi")][:6]
-    rd = [abs(float(avp[q]["rel_diff"])) for q in picks if avp[q]["rel_diff"] not in ("", "nan", "None")]
-    if rd:
-        S["avp_max"] = R.num("Max relative deviation Aspen vs Python flowsheet KPIs", max(rd), pct(max(rd), 1), rel(f_avp), "max |rel_diff| over " + ", ".join(picks), TAG_PY)
-        S["avp_n"] = len(picks)
-    else:
-        S["avp_max"] = None
-        R.warn("aspen_vs_python_baseline.csv: no KPI rows found")
 
     # native Aspen sensitivity (temperature)
     f_sens = ROOT / "results/sensitivity/aspen_temperature.csv"
@@ -450,6 +414,7 @@ def collect() -> dict:
     S["sw_mid"] = R.num("Sweep baseline-T conversion", mid[2], f"{pct(mid[2])} at {mid[0]:.0f} °C", S["sweep_src"], "nh3_conversion (baseline T)", TAG_ASPEN)
     S["sw_hi"] = R.num("Sweep high-T conversion", hi[2], f"{pct(hi[2])} at {hi[0]:.0f} °C", S["sweep_src"], "nh3_conversion (max T)", TAG_ASPEN)
     S["sw_gain"] = f"{100*(hi[2]-mid[2]):.1f}"
+    S["sw_hi_T"] = f"{hi[0]:.0f}"
 
     # heat integration (Python on Aspen streams)
     f_hi = ROOT / "results/simulations/heat_integration_baseline.json"
@@ -472,8 +437,6 @@ def collect() -> dict:
     S["hi_dtmin"] = R.num("dT_min", hi_["dT_min_K"], f"{hi_['dT_min_K']:.0f} K", rel(f_hi), "dT_min_K", TAG_ASPY)
     fe = hi_["fehe"]
     S["fehe_cross"] = R.num("FEHE temperature cross", fe["temperature_cross"], "no temperature cross" if not fe["temperature_cross"] else "temperature cross", rel(f_hi), "fehe.temperature_cross", TAG_ASPY)
-    S["fehe_area"] = R.num("FEHE area (order of magnitude)", fe["area_m2"], f"~{fe['area_m2']:.0f} m²", rel(f_hi), "fehe.area_m2 (U assumed)", TAG_ASM)
-    S["hi_fig"] = find_first(["results/figures/hi_composite_baseline.png"])
 
     # literature
     L = {}
@@ -485,7 +448,6 @@ def collect() -> dict:
     L["rho_nh3"] = lit("cechetto2023membrane", "Liquid NH3 density", "Liquid NH3 density")
     L["p_store"] = lit("cechetto2023membrane", "storage pressure", "Liquid NH3 storage pressure 25 C")
     L["boiloff"] = lit("chopra2026decentralized", "boil-off", "NH3 storage boil-off")
-    L["h2wt_lit"] = lit("xu2025review", "H2 content of NH3", "H2 content of NH3 (literature)")
     L["dh"] = lit("cechetto2023membrane", "Reaction enthalpy", "Reaction enthalpy (standard)")
     L["e_ext"] = lit("cechetto2023membrane", "gaseous H2 extraction", "Energy to extract H2 from NH3")
     L["topsoe"] = lit("ahmad2025gtcc", "Commercial NH3 cracking unit capacity", "Commercial cracker capacity")
@@ -1155,7 +1117,7 @@ def build_slides(S: dict) -> list[dict]:
                    kpis=k8, figure=fig, fig_title="Equilibrium conversion: Python curves, Aspen RGibbs points (PENG-ROB)",
                    takeaway=[("Like for like", f"same property basis, {S['eq_range']}"),
                              ("Kinetics", ("Ni/MgO and Ru/MgO microkinetics, Python plug-flow reactor" if pf else "kinetic plug-flow reactor pending")),
-                             ("Limit", "kinetics fitted at 1 atm, extrapolated to 20 bar")],
+                             ("Limit", f"kinetics fitted at 1 atm, extrapolated to {P}")],
                    pending=None if pf else "kinetic PFR check (results/simulations/pfr_baseline.json)",
                    source=src_line([pf["cite"]] if pf else [], [TAG_ASPEN, TAG_PY, TAG_ASPY, TAG_LIT], "results/validation/equilibrium_*_grid.csv, equilibrium_comparison.csv"
                                    + ("; results/simulations/pfr_baseline.json (Python model, literature kinetics)." if pf else ".")),
@@ -1163,7 +1125,7 @@ def build_slides(S: dict) -> list[dict]:
                           f"largest gap over {S['eq_pr_n']} points is {sp(S['eq_pr'])}; with ideal gas in both it is {sp(S['eq_id'])}. "
                           + (f"A kinetic plug-flow model then sizes the bed: about {pf['ni'].replace(' kg', '')} kilograms of nickel catalyst against "
                              f"{pf['ru'].replace(' kg', '')} of ruthenium to reach 99 percent of equilibrium. " if pf else "")
-                          + "The limit: those kinetics were fitted at one atmosphere and are extrapolated to 20 bar.")))
+                          + f"The limit: those kinetics were fitted at one atmosphere and are extrapolated to {P}.")))
 
     # 9 -------------------------------------------------------------- dashboard
     dm = S["dash_main"]
@@ -1212,7 +1174,7 @@ def build_slides(S: dict) -> list[dict]:
                    source=src_line([], [TAG_ASPEN, TAG_ASM], f"{files_aspen}; " + (tp["src"] if tp else S["sweep_src"]) + f", {S['sweep_src']}. PSA split is an assumption."),
                    notes=(f"These are the baseline results from Aspen. At {T} and {P}, {S['conv']} of the ammonia converts, giving {S['h2kg_n']} kilograms of hydrogen an hour "
                           f"with {S['ext']} of external heat. The first-law efficiency is {S['lhv']}, an upper bound. The map shows why we stop at {T}: at {P}, conversion "
-                          f"rises only {S['sw_gain']} points more by 800 degrees. The purity of {S['purity']} is set by our assumed PSA split, not predicted.")))
+                          f"rises only {S['sw_gain']} points more by {S['sw_hi_T']} degrees. The purity of {S['purity']} is set by our assumed PSA split, not predicted.")))
 
     # 12 ------------------------------------------------------------- heat integration
     sl.append(dict(id="heat", section="Heat integration", title=f"The feed/effluent exchanger cuts external heat by {S['ext_red']} in Aspen",

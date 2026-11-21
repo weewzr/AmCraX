@@ -1,7 +1,7 @@
 {
  "engine": "python_model",
  "source": "python_model",
- "created_utc": "2026-11-21T14:39:26+00:00",
+ "created_utc": "2026-11-21T15:07:03+00:00",
  "method": "non-dominated sorting of full-factorial design-grid evaluations (numpy); no interpolation",
  "n_grid_points": 6120,
  "n_feasible": 4752,

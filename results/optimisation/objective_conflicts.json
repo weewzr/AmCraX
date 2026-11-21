@@ -1,5 +1,5 @@
 {
- "created_utc": "2026-11-21T14:39:26+00:00",
+ "created_utc": "2026-11-21T15:07:03+00:00",
  "engine": "python_model",
  "method": "Spearman rank correlation of objectives expressed in minimisation sense over the feasible design grid (negative = improving one worsens the other), plus the pairwise non-dominated set.",
  "caveat": "Correlations depend on the grid ranges/spacing; the non-dominated set size is the direct test.",

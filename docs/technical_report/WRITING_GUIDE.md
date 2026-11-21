@@ -53,7 +53,7 @@ Writers only write section files. Never edit another writer's section file.
 * Every Aspen screenshot needs: figure number, concise caption, what is shown, why the setting/result matters.
 * Tables: pandoc pipe tables preceded by `Table: **Table 7.1.** Caption. *Source: ...*`.
 * Equations: display math `$$ ... \qquad (4.1) $$` (LaTeX; rendered as native Word equations). Define every symbol with units.
-* Units: SI with degC and bar (absolute); kmol/h, kg/h, kW, kJ/mol; write `H~2~`, `NH~3~`, `N~2~` for subscripts in text.
+* Units: SI with °C (write the degree sign in prose; `degC` only inside code and HTML comments) and bar (absolute); kmol/h, kg/h, kW, kJ/mol; write `H~2~`, `NH~3~`, `N~2~` for subscripts in text.
 
 ## Scientific integrity
 

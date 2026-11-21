@@ -14,7 +14,7 @@ Table: **Table 6.1.** Global settings of the generated Aspen input file. *Source
 
 | Setting | Value | Purpose |
 |---|---|---|
-| Units | `IN-UNITS MET` with bar, degC, kW | Units of the AmCraX data interface |
+| Units | `IN-UNITS MET` with bar, °C, kW | Units of the AmCraX data interface |
 | Stream class | `DEF-STREAMS CONVEN ALL` (one MIXED substream) | Vapour and liquid only; the catalyst is not a component |
 | Run mode | `RUN-MODE MODE=SIM` | Steady-state flowsheet simulation |
 | Databanks | `APV150 PURE41`, `AQUEOUS`, `INORGANIC`; `NOASPENPCD` | Pure-component data in a fixed search order (Section 7) |
@@ -29,7 +29,7 @@ Table: **Table 6.1.** Global settings of the generated Aspen input file. *Source
 
 **How it was set.** FEED is specified by pressure (1.013 bar) and vapour fraction 0, not by temperature (Figure 6.1). Aspen then computes the PENG-ROB bubble point of the 99.8/0.2 mol% NH~3~/H~2~O mixture. This keeps the feed exactly saturated whatever the composition or property method; a fixed temperature would give a subcooled or two-phase feed as soon as either changed.
 
-**Result.** The feed enters at -32.96 degC (**Aspen Plus V15 simulation**), close to the -33.28 degC of the independent Python model (Section 8.3).
+**Result.** The feed enters at -32.96 °C (**Aspen Plus V15 simulation**), close to the -33.28 °C of the independent Python model (Section 8.3).
 <!-- data: aspen/models/baseline.inp STREAM FEED (PRES=1.013 VFRAC=0. MOLE-FLOW=100.); results/simulations/baseline.json streams.FEED.temperature_C = -32.9617; results/simulations/python_baseline.json streams.FEED.temperature_C = -33.2807 -->
 
 ![**Figure 6.1.** FEED stream input in Aspen Plus V15: flash type pressure and vapour fraction (1.013 bar, 0), total flow 100 kmol/h, mole fractions NH~3~ 0.998 and H~2~O 0.002; the temperature field is left empty. Specifying the vapour fraction makes the feed a saturated liquid at its PENG-ROB bubble point. *Source: Aspen Plus V15 screenshot.*](../../aspen/screenshots/04_feed_stream.png){width=95%}
@@ -44,13 +44,13 @@ Table: **Table 6.2.** Aspen block models and specifications of the baseline. *So
 |---|---|---|
 | PUMP | Pump | Outlet 21 bar, efficiency 0.75 |
 | VAPORIZR | Heater | 20.8 bar, 10 K superheat above the dew point |
-| FEHE | HeatX, shortcut, design mode | Cold outlet 550 degC (written by TLINK), 0.3 bar drop per side |
-| HEATER | Heater | 600 degC (written by TLINK), 20.2 bar |
-| CRACKER | RGibbs | 600 degC, 20 bar; possible products NH~3~, H~2~, N~2~, H~2~O |
-| COOLER | Heater | 40 degC, 19.5 bar |
+| FEHE | HeatX, shortcut, design mode | Cold outlet 550 °C (written by TLINK), 0.3 bar drop per side |
+| HEATER | Heater | 600 °C (written by TLINK), 20.2 bar |
+| CRACKER | RGibbs | 600 °C, 20 bar; possible products NH~3~, H~2~, N~2~, H~2~O |
+| COOLER | Heater | 40 °C, 19.5 bar |
 | PSA | Sep | Split to H2PROD: H~2~ 0.85, N~2~ 0.001, others 0; H2PROD 19 bar, TAILGAS 1.3 bar |
 | BURNER | RStoic | 1.2 bar, duty 0; H~2~ + ½O~2~ → H~2~O and NH~3~ + ¾O~2~ → ½N~2~ + 1.5H~2~O, conversion 1 |
-| FLUEHX | Heater | 150 degC, 1.1 bar |
+| FLUEHX | Heater | 150 °C, 1.1 bar |
 
 <!-- data: aspen/models/baseline.inp BLOCK sections -->
 
@@ -69,7 +69,7 @@ where $F_\mathrm{air}$ is the air flow (kmol/h), $F_\mathrm{H_2}$ and $F_\mathrm
 
 $$ T_\mathrm{HEATER} = T_\mathrm{rx}, \qquad T_\mathrm{FEHE,cold\,out} = T_\mathrm{rx} - 50\ \mathrm{K} \qquad (6.2) $$
 
-Without TLINK a change of reactor temperature would leave the trim heater at its old set point and break the 50 K hot-end approach of the exchanger. In the baseline TLINK writes 600 and 550 degC, the values of Table 6.2.
+Without TLINK a change of reactor temperature would leave the trim heater at its old set point and break the 50 K hot-end approach of the exchanger. In the baseline TLINK writes 600 and 550 °C, the values of Table 6.2.
 <!-- data: aspen/models/baseline.inp CALCULATOR TLINK; aspen/models/baseline.bkp TLINK DEFV_SUM (TRX 600, THT 600, TFE 550) -->
 
 ![**Figure 6.2.** Define tab of the calculator AIRCALC in Aspen Plus V15: imported variables FH2 and FNH3 (TAILGAS component molar flows, kmol/h) and exported variable FAIR (AIR molar flow). The calculator keeps the burner at 15 % excess air whatever the tail-gas flow; TLINK, listed below it in the navigation tree, is built the same way. *Source: Aspen Plus V15 screenshot.*](../../aspen/screenshots/16_calculator.png){width=95%}
@@ -87,18 +87,18 @@ Without TLINK a change of reactor temperature would leave the trim heater at its
 
 **What and why.** Most AmCraX studies drive Aspen from Python (Section 12). The Sensitivity block STEMP repeats the reactor-temperature study with Aspen's own case-study machinery, as an internal-consistency check on the external automation.
 
-**How it was set.** STEMP varies the CRACKER temperature from 350 to 800 degC in steps of 50 K (Figure 6.3) and tabulates the NH~3~ conversion, computed by in-block Fortran as $1 - F_\mathrm{NH_3}(\mathrm{S5})/F_\mathrm{NH_3}(\mathrm{S4})$, the H~2~ product flow and the CRACKER and HEATER duties. TLINK runs in every pass, so each point is a consistent flowsheet.
+**How it was set.** STEMP varies the CRACKER temperature from 350 to 800 °C in steps of 50 K (Figure 6.3) and tabulates the NH~3~ conversion, computed by in-block Fortran as $1 - F_\mathrm{NH_3}(\mathrm{S5})/F_\mathrm{NH_3}(\mathrm{S4})$, the H~2~ product flow and the CRACKER and HEATER duties. TLINK runs in every pass, so each point is a consistent flowsheet.
 
-**Result.** All ten points converged (Figure 6.4, Table 6.3). The 600 degC row reproduces the base case. Conversion rises steeply up to about 500 degC and then flattens: from 600 to 800 degC the H~2~ product rises by only 1.83 kmol/h (1.5 %) while the CRACKER duty rises by 50.79 kW. The HEATER duty rises because TLINK keeps the trim heater closing the last 50 K at a higher temperature level. The STEMP values agree with the Python-driven Aspen temperature sweep at the nine common temperatures to a relative deviation of 4.8 × 10^-10^ (validation item STEMP-baseline, Section 16). The shape agrees with published RGibbs curves, which exceed 95 % conversion above 500 degC for 1-20 bar (Cechetto et al., 2023, p. 10777); this is a literature comparison, not a validation.
+**Result.** All ten points converged (Figure 6.4, Table 6.3). The 600 °C row reproduces the base case. Conversion rises steeply up to about 500 °C and then flattens: from 600 to 800 °C the H~2~ product rises by only 1.83 kmol/h (1.5 %) while the CRACKER duty rises by 50.79 kW. The HEATER duty rises because TLINK keeps the trim heater closing the last 50 K at a higher temperature level. The STEMP values agree with the Python-driven Aspen temperature sweep at the nine common temperatures to a relative deviation of 4.8 × 10^-10^ (validation item STEMP-baseline, Section 16). The shape agrees with published RGibbs curves, which exceed 95 % conversion above 500 °C for 1-20 bar (Cechetto et al., 2023, p. 10777); this is a literature comparison, not a validation.
 <!-- data: results/sensitivity/aspen_native_STEMP_baseline.csv (126.634221 - 124.803215 = 1.831; 1530.79269 - 1479.99984 = 50.79); results/validation/validation_matrix.json STEMP-baseline value 4.82e-10; research/notes/cechetto2023membrane.md Fig. 2 (p. 3) -->
 
-![**Figure 6.3.** Vary tab of the sensitivity block STEMP in Aspen Plus V15: manipulated variable Block-Var CRACKER TEMP, equidistant from 350 to 800 degC with an increment of 50 degC. It documents that the temperature study was also run inside Aspen, independently of the external automation. *Source: Aspen Plus V15 screenshot.*](../../aspen/screenshots/13_sensitivity_input.png){width=95%}
+![**Figure 6.3.** Vary tab of the sensitivity block STEMP in Aspen Plus V15: manipulated variable Block-Var CRACKER TEMP, equidistant from 350 to 800 °C with an increment of 50 °C. It documents that the temperature study was also run inside Aspen, independently of the external automation. *Source: Aspen Plus V15 screenshot.*](../../aspen/screenshots/13_sensitivity_input.png){width=95%}
 
 ![**Figure 6.4.** STEMP results table in Aspen Plus V15: status OK for all ten cases, with NH~3~ conversion, H~2~ product flow (kmol/h) and CRACKER and HEATER duties (kW) against reactor temperature. These are the values of Table 6.3 as displayed by Aspen. *Source: Aspen Plus V15 screenshot.*](../../aspen/screenshots/14_sensitivity_results.png){width=95%}
 
 Table: **Table 6.3.** Results of the Aspen-native sensitivity block STEMP (20 bar, baseline flowsheet with FEHE). *Source: Aspen Plus V15 simulation, results/sensitivity/aspen_native_STEMP_baseline.csv.*
 
-| Reactor T (degC) | NH~3~ conversion | H~2~ product (kmol/h) | CRACKER duty (kW) | HEATER duty (kW) |
+| Reactor T (°C) | NH~3~ conversion | H~2~ product (kmol/h) | CRACKER duty (kW) | HEATER duty (kW) |
 |---|---|---|---|---|
 | 350 | 0.7575 | 96.38 | 1094.98 | 64.63 |
 | 400 | 0.8604 | 109.48 | 1256.48 | 66.39 |

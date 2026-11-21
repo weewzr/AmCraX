@@ -92,9 +92,9 @@
 .page-hero{padding:var(--s7) 0 var(--s6);border-bottom:1px solid var(--border);background:radial-gradient(900px 260px at 90% -20%,color-mix(in srgb,var(--primary) 8%,transparent),transparent 70%)}
 .page-hero .lead{margin:var(--s4) 0 0}
 .chip-nav{display:flex;flex-wrap:wrap;gap:var(--s2);margin-top:var(--s5)}
-.chip-link,.chip{display:inline-flex;align-items:center;min-height:34px;padding:4px 13px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);color:var(--text-2)!important;font:500 13.5px var(--font-ui);text-decoration:none;cursor:pointer;transition:border-color .15s,background-color .15s}
-.chip-link:hover,.chip:hover{border-color:var(--primary);color:var(--text)!important}
-.chip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)!important}
+.site .chip-link,.site .chip{display:inline-flex;align-items:center;min-height:34px;padding:4px 13px;border:1px solid var(--border-strong);border-radius:999px;background:var(--surface);color:var(--text-2)!important;font:500 13.5px var(--font-ui);text-decoration:none;cursor:pointer;transition:border-color .15s,background-color .15s}
+.site .chip-link:hover,.site .chip:hover{border-color:var(--primary);color:var(--text)!important}
+.site .chip[aria-pressed=true]{background:var(--primary);border-color:var(--primary);color:var(--primary-ink)!important}
 @media (max-width:700px){.section{padding:var(--s7) 0}.page-hero{padding:var(--s6) 0 var(--s5)}}
 
 /* content */

@@ -14,7 +14,9 @@ export interface TraceItem {
   limitations?: string[] | string; usable?: boolean; implemented_in?: string; catalyst_reactor_assumptions?: string
 }
 
-export const fetchReports = (s?: AbortSignal) => getJson<{ count: number; reports: ReportItem[] }>('/api/reports', s).then((r) => r.reports)
+/** Solved .apw workspace files are not version-controlled or published (only .inp and .bkp are), so they are never offered as downloads. */
+export const isPublishedReport = (r: ReportItem): boolean => !/\.apw$/i.test(r.file)
+export const fetchReports = (s?: AbortSignal) => getJson<{ count: number; reports: ReportItem[] }>('/api/reports', s).then((r) => r.reports.filter(isPublishedReport))
 export const fetchFigures = (s?: AbortSignal) => getJson<{ count: number; figures: FigureItem[] }>('/api/figures', s).then((r) => r.figures)
 export const fetchShots = (s?: AbortSignal) => getJson<ShotsResponse>('/api/screenshots', s)
 export const fetchRefs = (s?: AbortSignal) => getJson<RefItem[]>('/api/references', s)

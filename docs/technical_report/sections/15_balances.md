@@ -78,7 +78,7 @@ where $H$ is an enthalpy flow, $Q$ a block duty and $W$ the pump power (all kW).
 
 * **Cracker stoichiometry.** The extent is $\xi$ = 99.800 - 1.915 = 97.885 kmol/h. Eq. (13.1) predicts 0.5$\xi$ = 48.942 kmol/h N~2~ and 1.5$\xi$ = 146.827 kmol/h H~2~; S5 contains 48.942 and 146.827 kmol/h. Water passes unchanged (0.200 kmol/h).
 * **PSA split.** H2PROD/S7 is 124.803/146.827 = 0.8500 for H~2~ and 0.0489/48.942 = 0.0010 for N~2~, the specified fractions (Section 11).
-* **Burner air.** The tail gas needs 0.5 × 22.024 + 0.75 × 1.915 = 12.448 kmol/h O~2~; Eq. (10.3) gives 1.15 × 12.448 / 0.21 = 68.170 kmol/h air, as in AIR. The flue gas holds 14.316 - 12.448 = 1.867 kmol/h O~2~, 0.200 + 22.024 + 1.5 × 1.915 = 25.097 kmol/h H~2~O and 48.893 + 53.854 + 0.5 × 1.915 = 103.705 kmol/h N~2~, matching FLUE.
+* **Burner air.** The tail gas needs 0.5 × 22.024 + 0.75 × 1.915 = 12.448 kmol/h O~2~; Eq. (6.1) gives 1.15 × 12.448 / 0.21 = 68.170 kmol/h air, as in AIR. The flue gas holds 14.316 - 12.448 = 1.867 kmol/h O~2~, 0.200 + 22.024 + 1.5 × 1.915 = 25.097 kmol/h H~2~O and 48.893 + 53.854 + 0.5 × 1.915 = 103.705 kmol/h N~2~, matching FLUE.
 
 <!-- data: results/simulations/baseline.json streams.S4/S5/S7/H2PROD/TAILGAS/AIR/FLUE component_mole_flow_kmol_h -->
 

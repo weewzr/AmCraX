@@ -12,7 +12,7 @@ Only two papers give rate laws that can be reproduced from the printed text: the
 
 ## 4.2 Reactors and heat integration
 
-Industrial designs use fired multi-tubular packed beds: 336 tubes of 3 m reaching 96.3 % conversion at 79.25 kJ/mol NH~3~ with more than 2 bar pressure drop (Kum et al., 2026, pp. 5, 10, 12), or 96 tubes of 5 m with a Ni catalyst (Mehr et al., 2026, p. 4201). Pd-membrane reactors reach more than 99 % conversion with 90-97.5 % hydrogen recovery at 400-500 degC and 4-7 bar, with the membranes limited to 500 degC (Cechetto et al., 2023, pp. 10784, 10789), and a thermal efficiency of 85 % against 68.5 % for a fired reactor, but need at least 5-6 bar (Richard et al., 2024, pp. 581-584).
+Industrial designs use fired multi-tubular packed beds: 336 tubes of 3 m reaching 96.3 % conversion at 79.25 kJ/mol NH~3~ with more than 2 bar pressure drop (Kum et al., 2026, pp. 5, 10, 12), or 96 tubes of 5 m with a Ni catalyst (Mehr et al., 2026, p. 4201). Pd-membrane reactors reach more than 99 % conversion with 90-97.5 % hydrogen recovery at 400-500 °C and 4-7 bar, with the membranes limited to 500 °C (Cechetto et al., 2023, pp. 10784, 10789), and a thermal efficiency of 85 % against 68.5 % for a fired reactor, but need at least 5-6 bar (Richard et al., 2024, pp. 581-584).
 
 Heat integration is the main efficiency lever. Feed preheat with product heat raised the yield from 0.131 to 0.141 kg H~2~/kg NH~3~ (Hansen et al., 2024, p. 83), and additional recovery lowered the LCOH from 5.5 to 5.1 USD/kg for a purchased-equipment cost rising only from 1702 to 1850 kUSD (Farokhi et al., 2025, p. 52). A pinch-based network recovers 94.56 % of the waste-heat potential against 18.22 % in a conventional plant and cuts the net energy demand by 37.1 % (Kum et al., 2026, pp. 13, 15). Feed/effluent integration plus a pre-cracker raised the process efficiency from 65.7 to 75.3 % (Realpe et al., 2024, as cited in Xu et al., 2025, p. 30). Whether tail gas alone can heat the cracker is disputed: yes at full load in Mehr et al. (2026, p. 4207), generally not in Cechetto et al. (2023, p. 10780). AmCraX follows this pattern with a feed/effluent exchanger, a tail-gas burner and a pinch analysis (Sections 10 and 18).
 
@@ -39,10 +39,10 @@ Table: **Table 4.1.** The 14 library papers and how AmCraX uses them. *Source: r
 |---|---|---|---|---|
 | Takahashi & Fujitani (2016) | Experiment + model | Ni/MgO, Ru/MgO microkinetics, 1 atm | Dehydrogenation *E*~a~ 144.0 (Ni) / 105.8 (Ru) kJ/mol | Kinetic parameters of the reactor model (Section 14) |
 | Su et al. (2023) | Review | Ru and Ni catalysts, mechanism | Ru apparent *E*~a~ 41.55-98.2 kJ/mol | Mechanism, plausibility ranges (Sections 3, 14) |
-| Maccarrone et al. (2025) | Review | Catalysts, kinetics, reactors | Ru-K/CaO conversion 98 % (1 bar) to 65 % (20 bar) at 500 degC | Reaction orders, *K*~p~ cross-checks, membrane recovery definitions |
-| Xu et al. (2025) | Review | Catalysts, waste-heat reforming | Most catalysts need about 600 degC for full conversion | Context, property data (Table 2.1) |
-| Cechetto et al. (2023) | Review | Membrane reactors, H~2~ quality | Equilibrium conversion 98.7 % at 5 bar, 500 degC; ISO NH~3~ ≤ 0.1 ppm | Equilibrium cross-check (Section 13), purity limits |
-| Purcel et al. (2025) | Experiment | Ni long-term stability | 91.9 % to 90.4 % conversion between 250 and 800 h at 534 degC | Catalyst-stability context (Section 3) |
+| Maccarrone et al. (2025) | Review | Catalysts, kinetics, reactors | Ru-K/CaO conversion 98 % (1 bar) to 65 % (20 bar) at 500 °C | Reaction orders, *K*~p~ cross-checks, membrane recovery definitions |
+| Xu et al. (2025) | Review | Catalysts, waste-heat reforming | Most catalysts need about 600 °C for full conversion | Context, property data (Table 2.1) |
+| Cechetto et al. (2023) | Review | Membrane reactors, H~2~ quality | Equilibrium conversion 98.7 % at 5 bar, 500 °C; ISO NH~3~ ≤ 0.1 ppm | Equilibrium cross-check (Section 13), purity limits |
+| Purcel et al. (2025) | Experiment | Ni long-term stability | 91.9 % to 90.4 % conversion between 250 and 800 h at 534 °C | Catalyst-stability context (Section 3) |
 | Kum et al. (2026) | Simulation + TEA | Heat-integrated plant, dynamics | 94.56 % waste-heat recovery; LCOH 6.44 USD/kg | Ru rate law, PSA recovery, heat-integration benchmark |
 | Cho et al. (2026) | Simulation + TEA | Ni vs Ru, 1.2-30 bar | LCOH 5.293 (Ru) / 5.439 (Ni) USD/kg | Closest flowsheet analogue; economic inputs, PSA benchmark |
 | Richard et al. (2024) | Simulation + TEA | Fired tubular vs membrane reactor for power | LCOH 5.1 vs 4.45 EUR/kg | Membrane parameters, cost factors |
