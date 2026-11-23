@@ -104,6 +104,14 @@ def main() -> int:
     for it in items:  # the shared convention asks for a plain list of items; provenance travels with each item
         it["provenance"] = doc["provenance"]
     OUT.write_text(json.dumps(items, indent=2), encoding="utf-8")
+    # Phase 2 (task K1): evidence_kind on every item + k1p2_ items. NOTE: this script rewrites the whole file
+    # (pre-existing behaviour); run summarise_catalyst_studies.py afterwards to restore the cat_ items.
+    import importlib.util
+    _sp = importlib.util.spec_from_file_location(
+        "kinetics_phase2_validation", ROOT / "scripts" / "research" / "kinetics_phase2_validation.py")
+    _m = importlib.util.module_from_spec(_sp)
+    _sp.loader.exec_module(_m)
+    _m.apply(("aspen_kinetic",))
     if rows:
         with open(IN / "aspen_vs_python.csv", "w", newline="", encoding="utf-8") as fh:
             w = csv.DictWriter(fh, fieldnames=list(rows[0]))

@@ -1,0 +1,1245 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T08:45:34+00:00",
+  "script": "scripts/research/kinetics_takahashi_rederivation.py",
+  "source_type": "python (independent re-implementation; literature data read from figures)",
+  "inputs_summary": "backend/amcrax/data/kinetics.yaml (Table 1, Table 2, validation sets); results/validation/kinetics_validation.csv (stored Phase 1 predictions)",
+  "model_versions": {
+   "python": "scipy LSODA, brentq"
+  }
+ },
+ "method": "Re-derivation of the two Takahashi prediction failures KIN-NI-PRED / KIN-RU-PRED (Phase 2, task K1 item 4).\n\nIndependent re-implementation of takahashi2016kinetic Eqs. 5-19 (coverage QSS + isothermal PFR over catalyst mass,\n1 atm, mole-fraction basis, total flow fixed by the space velocity), written here without amcrax.reactor, to check:\n\n  A. implementation: the same Table 1 parameters give the same predictions as the stored validation\n     (results/validation/kinetics_validation.csv) -> no hidden unit/basis error in amcrax.kinetics/amcrax.reactor;\n  B. basis alternatives that the paper leaves open, each evaluated with ONE anchor point (as Phase 1):\n       B1 SV defined on the NH3 flow instead of the total flow (diluted runs then have a larger total flow);\n       B2 the rate constants of Table 2 (500 degC, printed by the paper) instead of Table 1 evaluated at 773.15 K\n          (Table 1 reproduces Table 2 only to 2-7 %); Ni only, because all Ni dilution/H2 series are at 500 degC;\n       B3 temperature conversion T = T_C + 273 instead of 273.15.\nNo parameter is fitted. The anchor (Fig. 3a / 4a lowest temperature) fixes the unreported W/F only.\nOutput: results/research/kinetics/takahashi_rederivation.json. Deterministic; run from the AmCraX root.",
+ "tolerance": 0.05,
+ "results": {
+  "ni_takahashi_microkinetic": {
+   "A_as_implemented": {
+    "variant": "A_as_implemented",
+    "anchor": {
+     "dataset": "takahashi_ni_fig3a",
+     "T_C": 500,
+     "X": 0.295
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2499.4474761559427,
+    "n_predictions": 12,
+    "max_abs_deviation": 0.10959381413534819,
+    "worst_point": {
+     "dataset": "takahashi_ni_fig3b",
+     "T_C": 500,
+     "feed_y": {
+      "NH3": 0.25,
+      "Ar": 0.75
+     },
+     "X_literature": 0.705,
+     "X_model": 0.5954061858646518,
+     "deviation": -0.10959381413534819,
+     "anchor": false
+    },
+    "n_outside_0.05": 6,
+    "rms_deviation": 0.054527056976189134,
+    "rows": [
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.295,
+      "X_model": 0.29499999999994886,
+      "deviation": -5.112577028398846e-14,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.62,
+      "X_model": 0.6211759724665395,
+      "deviation": 0.0011759724665395543,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 600,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.94,
+      "X_model": 0.9361431028276154,
+      "deviation": -0.003856897172384577,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 650,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.99,
+      "X_model": 0.9996740587813775,
+      "deviation": 0.009674058781377504,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.705,
+      "X_model": 0.5954061858646518,
+      "deviation": -0.10959381413534819,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.47,
+      "X_model": 0.4309490665383909,
+      "deviation": -0.039050933461609094,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.355,
+      "X_model": 0.34728560071901393,
+      "deviation": -0.007714399280986051,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.3,
+      "X_model": 0.29499999999994886,
+      "deviation": -0.00500000000005113,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.61,
+      "X_model": 0.5503236663803897,
+      "deviation": -0.05967633361961033,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.54,
+      "X_model": 0.45209277922403834,
+      "deviation": -0.08790722077596169,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.37,
+      "X_model": 0.3091833391544209,
+      "deviation": -0.060816660845579074,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.27,
+      "X_model": 0.21992260382154388,
+      "deviation": -0.050077396178456135,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.23,
+      "X_model": 0.16326990357422858,
+      "deviation": -0.06673009642577143,
+      "anchor": false
+     }
+    ]
+   },
+   "B1_SV_on_NH3_flow": {
+    "variant": "B1_SV_on_NH3_flow",
+    "anchor": {
+     "dataset": "takahashi_ni_fig3a",
+     "T_C": 500,
+     "X": 0.295
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2499.4474761559427,
+    "n_predictions": 12,
+    "max_abs_deviation": 0.4455561400076183,
+    "worst_point": {
+     "dataset": "takahashi_ni_fig3b",
+     "T_C": 500,
+     "feed_y": {
+      "NH3": 0.25,
+      "Ar": 0.75
+     },
+     "X_literature": 0.705,
+     "X_model": 0.2594438599923817,
+     "deviation": -0.4455561400076183,
+     "anchor": false
+    },
+    "n_outside_0.05": 8,
+    "rms_deviation": 0.22508595557624098,
+    "rows": [
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.295,
+      "X_model": 0.29499999999994886,
+      "deviation": -5.112577028398846e-14,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.62,
+      "X_model": 0.6211759724665395,
+      "deviation": 0.0011759724665395543,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 600,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.94,
+      "X_model": 0.9361431028276154,
+      "deviation": -0.003856897172384577,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 650,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.99,
+      "X_model": 0.9996740587813775,
+      "deviation": 0.009674058781377504,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.705,
+      "X_model": 0.2594438599923817,
+      "deviation": -0.4455561400076183,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.47,
+      "X_model": 0.28402682332102436,
+      "deviation": -0.18597317667897562,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.355,
+      "X_model": 0.2919795000942436,
+      "deviation": -0.06302049990575637,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.3,
+      "X_model": 0.29499999999994886,
+      "deviation": -0.00500000000005113,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.61,
+      "X_model": 0.26725763387176604,
+      "deviation": -0.34274236612823394,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.54,
+      "X_model": 0.1949848058279433,
+      "deviation": -0.3450151941720567,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.37,
+      "X_model": 0.11462796839519304,
+      "deviation": -0.2553720316048069,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.27,
+      "X_model": 0.07533401271315211,
+      "deviation": -0.19466598728684792,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.23,
+      "X_model": 0.05355174084262971,
+      "deviation": -0.1764482591573703,
+      "anchor": false
+     }
+    ]
+   },
+   "B2_table2_constants": {
+    "variant": "B2_table2_constants",
+    "anchor": {
+     "dataset": "takahashi_ni_fig3a",
+     "T_C": 500,
+     "X": 0.295
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2336.400082080694,
+    "n_predictions": 9,
+    "max_abs_deviation": 0.10923190779493763,
+    "worst_point": {
+     "dataset": "takahashi_ni_fig3b",
+     "T_C": 500,
+     "feed_y": {
+      "NH3": 0.25,
+      "Ar": 0.75
+     },
+     "X_literature": 0.705,
+     "X_model": 0.5957680922050623,
+     "deviation": -0.10923190779493763,
+     "anchor": false
+    },
+    "n_outside_0.05": 5,
+    "rms_deviation": 0.06109470260906746,
+    "rows": [
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.295,
+      "X_model": 0.2949999999997794,
+      "deviation": -2.206013149930186e-13,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.705,
+      "X_model": 0.5957680922050623,
+      "deviation": -0.10923190779493763,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.47,
+      "X_model": 0.4312040121354296,
+      "deviation": -0.03879598786457039,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.355,
+      "X_model": 0.3473944480626593,
+      "deviation": -0.007605551937340693,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.3,
+      "X_model": 0.2949999999997794,
+      "deviation": -0.005000000000220606,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.61,
+      "X_model": 0.5506861218949345,
+      "deviation": -0.0593138781050655,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.54,
+      "X_model": 0.45415070223375614,
+      "deviation": -0.08584929776624389,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.37,
+      "X_model": 0.31323751430697244,
+      "deviation": -0.05676248569302755,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.27,
+      "X_model": 0.2244697592445536,
+      "deviation": -0.04553024075544643,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.23,
+      "X_model": 0.16762804525501668,
+      "deviation": -0.06237195474498333,
+      "anchor": false
+     }
+    ]
+   },
+   "B3_T_plus_273": {
+    "variant": "B3_T_plus_273",
+    "anchor": {
+     "dataset": "takahashi_ni_fig3a",
+     "T_C": 500,
+     "X": 0.295
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2510.2771359906756,
+    "n_predictions": 12,
+    "max_abs_deviation": 0.10959921568455966,
+    "worst_point": {
+     "dataset": "takahashi_ni_fig3b",
+     "T_C": 500,
+     "feed_y": {
+      "NH3": 0.25,
+      "Ar": 0.75
+     },
+     "X_literature": 0.705,
+     "X_model": 0.5954007843154403,
+     "deviation": -0.10959921568455966,
+     "anchor": false
+    },
+    "n_outside_0.05": 6,
+    "rms_deviation": 0.05460722294131777,
+    "rows": [
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.295,
+      "X_model": 0.29500000000049476,
+      "deviation": 4.94770890924201e-13,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.62,
+      "X_model": 0.6213401022315297,
+      "deviation": 0.001340102231529694,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 600,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.94,
+      "X_model": 0.9363254804612627,
+      "deviation": -0.0036745195387372087,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3a",
+      "T_C": 650,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.99,
+      "X_model": 0.9996785027833158,
+      "deviation": 0.009678502783315834,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.705,
+      "X_model": 0.5954007843154403,
+      "deviation": -0.10959921568455966,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.47,
+      "X_model": 0.43094026188939927,
+      "deviation": -0.039059738110600706,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.355,
+      "X_model": 0.34728129815944375,
+      "deviation": -0.00771870184055623,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig3b",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.3,
+      "X_model": 0.29500000000049476,
+      "deviation": -0.0049999999995052335,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.61,
+      "X_model": 0.5503154546356099,
+      "deviation": -0.05968454536439005,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.54,
+      "X_model": 0.4519859544727946,
+      "deviation": -0.08801404552720543,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.37,
+      "X_model": 0.3089613420880663,
+      "deviation": -0.06103865791193369,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.27,
+      "X_model": 0.2196725592871249,
+      "deviation": -0.05032744071287512,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ni_fig5a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.23,
+      "X_model": 0.16303061600596538,
+      "deviation": -0.06696938399403463,
+      "anchor": false
+     }
+    ]
+   },
+   "A_reproduces_stored_validation_max_abs_diff": 1.0027556340830301e-08
+  },
+  "ru_takahashi_microkinetic": {
+   "A_as_implemented": {
+    "variant": "A_as_implemented",
+    "anchor": {
+     "dataset": "takahashi_ru_fig4a",
+     "T_C": 450,
+     "X": 0.425
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2417.3555665464182,
+    "n_predictions": 11,
+    "max_abs_deviation": 0.11131148161935439,
+    "worst_point": {
+     "dataset": "takahashi_ru_fig5b",
+     "T_C": 450,
+     "feed_y": {
+      "NH3": 0.3,
+      "H2": 0.7,
+      "Ar": 0.0
+     },
+     "X_literature": 0.53,
+     "X_model": 0.41868851838064564,
+     "deviation": -0.11131148161935439,
+     "anchor": false
+    },
+    "n_outside_0.05": 6,
+    "rms_deviation": 0.06565784238375792,
+    "rows": [
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000107,
+      "deviation": 1.071365218763276e-14,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.855,
+      "X_model": 0.8057194442723649,
+      "deviation": -0.04928055572763512,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.995,
+      "X_model": 0.9956041995673849,
+      "deviation": 0.0006041995673848888,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.925,
+      "X_model": 0.8610061670445596,
+      "deviation": -0.06399383295544048,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.645,
+      "X_model": 0.6367346347647266,
+      "deviation": -0.008265365235273436,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.5,
+      "X_model": 0.5072291122879737,
+      "deviation": 0.007229112287973738,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000107,
+      "deviation": 1.071365218763276e-14,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.89,
+      "X_model": 0.8061561943489195,
+      "deviation": -0.08384380565108052,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.81,
+      "X_model": 0.7300404209878747,
+      "deviation": -0.07995957901212536,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.68,
+      "X_model": 0.5996600423400981,
+      "deviation": -0.08033995765990198,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.59,
+      "X_model": 0.4977629306664832,
+      "deviation": -0.09223706933351677,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.53,
+      "X_model": 0.41868851838064564,
+      "deviation": -0.11131148161935439,
+      "anchor": false
+     }
+    ]
+   },
+   "B1_SV_on_NH3_flow": {
+    "variant": "B1_SV_on_NH3_flow",
+    "anchor": {
+     "dataset": "takahashi_ru_fig4a",
+     "T_C": 450,
+     "X": 0.425
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2417.3555665464182,
+    "n_predictions": 11,
+    "max_abs_deviation": 0.5204969514883996,
+    "worst_point": {
+     "dataset": "takahashi_ru_fig4b",
+     "T_C": 450,
+     "feed_y": {
+      "NH3": 0.25,
+      "Ar": 0.75
+     },
+     "X_literature": 0.925,
+     "X_model": 0.40450304851160046,
+     "deviation": -0.5204969514883996,
+     "anchor": false
+    },
+    "n_outside_0.05": 8,
+    "rms_deviation": 0.3407651758338816,
+    "rows": [
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000107,
+      "deviation": 1.071365218763276e-14,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.855,
+      "X_model": 0.8057194442723649,
+      "deviation": -0.04928055572763512,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.995,
+      "X_model": 0.9956041995673849,
+      "deviation": 0.0006041995673848888,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.925,
+      "X_model": 0.40450304851160046,
+      "deviation": -0.5204969514883996,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.645,
+      "X_model": 0.4211969953493897,
+      "deviation": -0.22380300465061032,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.5,
+      "X_model": 0.42474810201602536,
+      "deviation": -0.07525189798397464,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000107,
+      "deviation": 1.071365218763276e-14,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.89,
+      "X_model": 0.4103087049522156,
+      "deviation": -0.4796912950477844,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.81,
+      "X_model": 0.33771097684054996,
+      "deviation": -0.4722890231594501,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.68,
+      "X_model": 0.24472638631604418,
+      "deviation": -0.4352736136839559,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.59,
+      "X_model": 0.18810930245567684,
+      "deviation": -0.40189069754432316,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.53,
+      "X_model": 0.15040364015327087,
+      "deviation": -0.3795963598467291,
+      "anchor": false
+     }
+    ]
+   },
+   "B3_T_plus_273": {
+    "variant": "B3_T_plus_273",
+    "anchor": {
+     "dataset": "takahashi_ru_fig4a",
+     "T_C": 450,
+     "X": 0.425
+    },
+    "inferred_m_over_F_total_g_s_per_mol": 2426.7619431572916,
+    "n_predictions": 11,
+    "max_abs_deviation": 0.11147354030374101,
+    "worst_point": {
+     "dataset": "takahashi_ru_fig5b",
+     "T_C": 450,
+     "feed_y": {
+      "NH3": 0.3,
+      "H2": 0.7,
+      "Ar": 0.0
+     },
+     "X_literature": 0.53,
+     "X_model": 0.418526459696259,
+     "deviation": -0.11147354030374101,
+     "anchor": false
+    },
+    "n_outside_0.05": 6,
+    "rms_deviation": 0.06569760559583146,
+    "rows": [
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000468,
+      "deviation": 4.679590048795035e-14,
+      "anchor": true
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 500,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.855,
+      "X_model": 0.8058917285971721,
+      "deviation": -0.04910827140282792,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4a",
+      "T_C": 550,
+      "feed_y": {
+       "NH3": 1.0
+      },
+      "X_literature": 0.995,
+      "X_model": 0.9956365977349775,
+      "deviation": 0.0006365977349774843,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.25,
+       "Ar": 0.75
+      },
+      "X_literature": 0.925,
+      "X_model": 0.8610288069313431,
+      "deviation": -0.06397119306865695,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.5,
+       "Ar": 0.5
+      },
+      "X_literature": 0.645,
+      "X_model": 0.6367404135008854,
+      "deviation": -0.008259586499114624,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.75,
+       "Ar": 0.25
+      },
+      "X_literature": 0.5,
+      "X_model": 0.5072301601238615,
+      "deviation": 0.007230160123861462,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig4b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 1.0,
+       "Ar": 0.0
+      },
+      "X_literature": 0.425,
+      "X_model": 0.4250000000000468,
+      "deviation": 4.679590048795035e-14,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0,
+       "Ar": 0.7
+      },
+      "X_literature": 0.89,
+      "X_model": 0.8061741202379965,
+      "deviation": -0.08382587976200351,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.1,
+       "Ar": 0.6
+      },
+      "X_literature": 0.81,
+      "X_model": 0.7300164292453905,
+      "deviation": -0.0799835707546096,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.3,
+       "Ar": 0.39999999999999997
+      },
+      "X_literature": 0.68,
+      "X_model": 0.5995667481879037,
+      "deviation": -0.08043325181209637,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.5,
+       "Ar": 0.19999999999999996
+      },
+      "X_literature": 0.59,
+      "X_model": 0.4976253054467843,
+      "deviation": -0.09237469455321567,
+      "anchor": false
+     },
+     {
+      "dataset": "takahashi_ru_fig5b",
+      "T_C": 450,
+      "feed_y": {
+       "NH3": 0.3,
+       "H2": 0.7,
+       "Ar": 0.0
+      },
+      "X_literature": 0.53,
+      "X_model": 0.418526459696259,
+      "deviation": -0.11147354030374101,
+      "anchor": false
+     }
+    ]
+   },
+   "A_reproduces_stored_validation_max_abs_diff": 4.330176495148663e-09
+  }
+ }
+}

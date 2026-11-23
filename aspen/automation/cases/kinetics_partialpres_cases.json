@@ -1,0 +1,964 @@
+[
+ {
+  "case_id": "cpp_cs_T_luc5_T600_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W200",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 200.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W500",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 500.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W200",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 200.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W500",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 500.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_05_T550_P20_W1000",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 1000.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_06_T600_P40_W1000",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 40.0,
+  "catalyst_mass_kg": 1000.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_05_T550_P20_W1000",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 1000.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_06_T600_P40_W1000",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 40.0,
+  "catalyst_mass_kg": 1000.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_00_T400_P1p013_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 400.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_01_T450_P1p013_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_02_T500_P1p013_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_03_T450_P1p013_W400",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_04_T500_P10_W400",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 10.0,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc5_07_T650_P20_W400",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_00_T400_P1p013_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 400.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_01_T450_P1p013_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_02_T500_P1p013_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_03_T450_P1p013_W400",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_04_T500_P10_W400",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 10.0,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cv_luc25_07_T650_P20_W400",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 400.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc5_T450_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc5_T500_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc5_T550_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc5_T650_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc5_T700_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 700.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc5_T550_P1p013_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc5_T550_P5_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 5.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc5_T550_P10_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 10.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc5_T550_P40_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 40.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W5",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 5.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W10",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 10.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W20",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 20.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc5_T600_P20_W50",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 50.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc5_T500_f0p95",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 500.8836,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc5_T500_f0p99",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 599.2667,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc5_T600_f0p95",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 51.0305,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc5_T600_f0p99",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 61.1594,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_OP_luc5_T572_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 572.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_AD_luc5_Tin650_P20_W100",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 0.001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "thermal_mode": "adiabatic"
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T450_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 450.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T500_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T550_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T600_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T650_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_T_luc25_T700_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 700.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc25_T550_P1p013_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 1.01325,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc25_T550_P5_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 5.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc25_T550_P10_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 10.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_P_luc25_T550_P40_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 550.0,
+  "pressure_bar": 40.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W5",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 5.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W10",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 10.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W20",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 20.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_W_luc25_T600_P20_W50",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 50.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc25_T500_f0p95",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 437.8585,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc25_T500_f0p99",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 500.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 518.53,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc25_T600_f0p95",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 60.1695,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_M_luc25_T600_f0p99",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 600.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 71.3208,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_OP_luc25_T576_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 576.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 1e-06,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001
+ },
+ {
+  "case_id": "cpp_cs_AD_luc25_Tin650_P20_W100",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw_partialpres",
+  "temperature_C": 650.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "feed_kmol_h": {
+   "NH3": 100.0
+  },
+  "h2_seed_conversion": 0.001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "thermal_mode": "adiabatic"
+ }
+]

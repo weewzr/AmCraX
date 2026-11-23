@@ -12,7 +12,8 @@
     "source_files": [
       "results/research/kinetics/validation_5Ni1Ru_CeO2.json"
     ],
-    "note": "consistency check against the fitting data, not independent validation; RMSE 0.0228"
+    "note": "consistency check against the fitting data, not independent validation; RMSE 0.0228",
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "KINR-LUC-2p5Ni0p5Ru_CeO2",
@@ -27,7 +28,8 @@
     "source_files": [
       "results/research/kinetics/validation_2p5Ni0p5Ru_CeO2.json"
     ],
-    "note": "consistency check against the fitting data, not independent validation; RMSE 0.0183"
+    "note": "consistency check against the fitting data, not independent validation; RMSE 0.0183",
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EXISTING-KIN-TABLE2",
@@ -43,7 +45,8 @@
     "original_status": "pass",
     "source_files": [
       "results/validation/validation_matrix.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EXISTING-KIN-NI-PRED",
@@ -59,7 +62,8 @@
     "original_status": "fail",
     "source_files": [
       "results/validation/validation_matrix.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EXISTING-KIN-RU-PRED",
@@ -75,7 +79,8 @@
     "original_status": "fail",
     "source_files": [
       "results/validation/validation_matrix.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EXISTING-KIN-DICARLO",
@@ -91,7 +96,8 @@
     "original_status": "informational",
     "source_files": [
       "results/validation/validation_matrix.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "KINR-ASPENFORM-ru_kum_temkin_pyzhev",
@@ -105,7 +111,8 @@
     "status": "pass",
     "source_files": [
       "results/research/kinetics/aspen_kinetics_spec.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "KINR-ASPENFORM-nire_ceo2_5ni1ru_lucentini_lhhw",
@@ -119,7 +126,8 @@
     "status": "pass",
     "source_files": [
       "results/research/kinetics/aspen_kinetics_spec.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "KINR-ASPENFORM-nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
@@ -133,7 +141,8 @@
     "status": "pass",
     "source_files": [
       "results/research/kinetics/aspen_kinetics_spec.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "KINR-ASPENAPPROX-ni_takahashi_microkinetic",
@@ -148,7 +157,8 @@
     "source_files": [
       "results/research/kinetics/aspen_kinetics_spec.json"
     ],
-    "note": "approximation fitted by AmCraX (python), not a literature law; max relative rate error 0.48"
+    "note": "approximation fitted by AmCraX (python), not a literature law; max relative rate error 0.48",
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "KINR-ASPENAPPROX-ru_takahashi_microkinetic",
@@ -163,7 +173,8 @@
     "source_files": [
       "results/research/kinetics/aspen_kinetics_spec.json"
     ],
-    "note": "approximation fitted by AmCraX (python), not a literature law; max relative rate error 0.53"
+    "note": "approximation fitted by AmCraX (python), not a literature law; max relative rate error 0.53",
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "KINR-LIT-LUC2019",
@@ -178,7 +189,8 @@
     "source_files": [
       "research/notes/lucentini2019ceo2.md"
     ],
-    "note": "confirmed; the paper has no rate law, so Ni/CeO2 and Ru/CeO2 are not modelled"
+    "note": "confirmed; the paper has no rate law, so Ni/CeO2 and Ru/CeO2 are not modelled",
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "KINR-LIT-SAYAS2020",
@@ -193,6 +205,197 @@
     "source_files": [
       "research/notes/sayas2020rukcao.md"
     ],
-    "note": "NOT VERIFIED: full text inaccessible; no Ru-K/CaO law implemented"
+    "note": "NOT VERIFIED: full text inaccessible; no Ru-K/CaO law implemented",
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-TAKAHASHI-REIMPL-NI",
+    "description": "independent re-implementation of takahashi2016kinetic Eqs. 5-19 (ni_takahashi_microkinetic) reproduces the stored Phase 1 predictions",
+    "method": "QSS coverages + isothermal PFR written without amcrax.reactor; Table 1 parameters; same anchor point; max |X_reimpl - X_stored| over all figure points",
+    "reference_source": "results/validation/kinetics_validation.csv (stored model column)",
+    "observed": 1.0027556340830301e-08,
+    "expected": 0.0,
+    "tolerance": 1e-06,
+    "unit": "conversion (fraction)",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/takahashi_rederivation.json"
+    ],
+    "note": "no implementation error in units (mol/(g s) -> x1000), basis (mole fractions p_i/p_total at 1 atm) or reactor equations: the failure of EXISTING-KIN-NI-PRED is not an AmCraX coding error",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "K1P2-TAKAHASHI-BASIS-NI",
+    "description": "the basis choices the paper leaves open (SV on total vs NH3 flow; Table 1 vs Table 2 constants; T+273 vs T+273.15) do not remove the prediction failure (ni_takahashi_microkinetic)",
+    "method": "same re-implementation, one anchor point per variant, no fitting",
+    "reference_source": "takahashi2016kinetic Figs. 3-5 (read from figures, +/-2 pp)",
+    "observed": 0.10923190779493763,
+    "expected": null,
+    "tolerance": 0.05,
+    "unit": "max |deviation| (absolute conversion), best variant",
+    "status": "informational",
+    "variants": {
+      "A_as_implemented": {
+        "max_abs_deviation": 0.10959381413534819,
+        "n_outside_0.05": 6,
+        "rms": 0.054527056976189134
+      },
+      "B1_SV_on_NH3_flow": {
+        "max_abs_deviation": 0.4455561400076183,
+        "n_outside_0.05": 8,
+        "rms": 0.22508595557624098
+      },
+      "B2_table2_constants": {
+        "max_abs_deviation": 0.10923190779493763,
+        "n_outside_0.05": 5,
+        "rms": 0.06109470260906746
+      },
+      "B3_T_plus_273": {
+        "max_abs_deviation": 0.10959921568455966,
+        "n_outside_0.05": 6,
+        "rms": 0.05460722294131777
+      }
+    },
+    "source_files": [
+      "results/research/kinetics/takahashi_rederivation.json"
+    ],
+    "note": "original failure value 0.1096 is unchanged (KIN-NI-PRED stays fail). Cause: a real limit of the published law as reproducible from the paper (catalyst mass not reported, W/F inferred from one anchor; dilution and H2 co-feed series under-predicted by up to 0.11 even with the paper's own Table 2 constants)",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-TAKAHASHI-REIMPL-RU",
+    "description": "independent re-implementation of takahashi2016kinetic Eqs. 5-19 (ru_takahashi_microkinetic) reproduces the stored Phase 1 predictions",
+    "method": "QSS coverages + isothermal PFR written without amcrax.reactor; Table 1 parameters; same anchor point; max |X_reimpl - X_stored| over all figure points",
+    "reference_source": "results/validation/kinetics_validation.csv (stored model column)",
+    "observed": 4.330176495148663e-09,
+    "expected": 0.0,
+    "tolerance": 1e-06,
+    "unit": "conversion (fraction)",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/takahashi_rederivation.json"
+    ],
+    "note": "no implementation error in units (mol/(g s) -> x1000), basis (mole fractions p_i/p_total at 1 atm) or reactor equations: the failure of EXISTING-KIN-RU-PRED is not an AmCraX coding error",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "K1P2-TAKAHASHI-BASIS-RU",
+    "description": "the basis choices the paper leaves open (SV on total vs NH3 flow; Table 1 vs Table 2 constants; T+273 vs T+273.15) do not remove the prediction failure (ru_takahashi_microkinetic)",
+    "method": "same re-implementation, one anchor point per variant, no fitting",
+    "reference_source": "takahashi2016kinetic Figs. 3-5 (read from figures, +/-2 pp)",
+    "observed": 0.11131148161935439,
+    "expected": null,
+    "tolerance": 0.05,
+    "unit": "max |deviation| (absolute conversion), best variant",
+    "status": "informational",
+    "variants": {
+      "A_as_implemented": {
+        "max_abs_deviation": 0.11131148161935439,
+        "n_outside_0.05": 6,
+        "rms": 0.06565784238375792
+      },
+      "B1_SV_on_NH3_flow": {
+        "max_abs_deviation": 0.5204969514883996,
+        "n_outside_0.05": 8,
+        "rms": 0.3407651758338816
+      },
+      "B3_T_plus_273": {
+        "max_abs_deviation": 0.11147354030374101,
+        "n_outside_0.05": 6,
+        "rms": 0.06569760559583146
+      }
+    },
+    "source_files": [
+      "results/research/kinetics/takahashi_rederivation.json"
+    ],
+    "note": "original failure value 0.1113 is unchanged (KIN-RU-PRED stays fail). Cause: a real limit of the published law as reproducible from the paper (catalyst mass not reported, W/F inferred from one anchor; dilution and H2 co-feed series under-predicted by up to 0.11 even with the paper's own Table 2 constants)",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-VALIDITY-CLASSIFICATION",
+    "description": "kinetic validity class at 20 bar for every registry law and every catalyst named by the author",
+    "method": "rule in scripts/research/kinetics_validity_classification.py applied to fitted ranges and check statuses",
+    "reference_source": "kinetics.yaml validity; research/notes",
+    "observed": {
+      "validated_at_relevant_conditions": 0,
+      "validated_against_literature": 3,
+      "extrapolated": 2,
+      "unmodelled": 3
+    },
+    "expected": null,
+    "tolerance": null,
+    "unit": "count per class",
+    "status": "informational",
+    "source_files": [
+      "results/research/kinetics/validity_classification.json"
+    ],
+    "note": "No AmCraX kinetic law is validated at 20 bar. Every kinetic result at 20 bar is a pressure extrapolation; Takahashi laws are additionally unvalidated at 1 atm (failed figure predictions).",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "literature",
+      "inputs_summary": "results/research/kinetics/validity_classification.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-SEARCH-MISSING-KINETICS",
+    "description": "Phase 2 search for complete published rate laws: Ni/CeO2, Ru/CeO2, Ru-K/CaO (Sayas 2020 and follow-ups), any law fitted at 5-40 bar",
+    "method": "web search and publisher/repository fetch, 23 November 2026",
+    "reference_source": "research/reference_additions/phase2_kinetics.json",
+    "observed": "no usable complete law found",
+    "expected": null,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "research/notes/phase2_kinetics_search.md"
+    ],
+    "note": "Sayas 2020 publisher HTML/PDF HTTP 403, SI connection closed; no parameter was estimated",
+    "evidence_kind": "literature_comparison"
   }
 ]

@@ -1006,13 +1006,15 @@
         "CRACKER": {
           "id": "CRACKER",
           "name": "Ammonia cracking reactor",
-          "block_type": "RGibbs",
+          "block_type": "RPlug",
           "duty_kW": 1411.98994,
           "power_kW": null,
-          "outlet_temperature_C": 1.0,
-          "outlet_pressure_bar": 1.0,
+          "outlet_temperature_C": 499.0,
+          "outlet_pressure_bar": 20.2,
           "details": {
-            "aspen_status": "ok"
+            "aspen_status": "ok",
+            "model_note": "kinetic RPLUG cracker: block_type, outlet temperature and pressure corrected from the flowsheet-config RGibbs metadata (the generic extractor read RGibbs scalar paths); outlet T and P are those of the cracker outlet stream S5 (Phase 2 task K1 item 5)",
+            "rplug_duty_kW": 1411.98994
           }
         },
         "FEHE": {

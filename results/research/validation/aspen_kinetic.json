@@ -22,7 +22,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "ki_ru_kum_T600_P20_W200_hi_flowsheet_status",
@@ -56,7 +57,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "ki_ru_kum_T600_P20_W200_hi_reactor_duty",
@@ -81,7 +83,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "ki_ru_kum_T600_P20_W200_nohi_below_rgibbs",
@@ -106,7 +109,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "ki_ru_kum_T600_P20_W200_nohi_flowsheet_status",
@@ -140,7 +144,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "ki_ru_kum_T600_P20_W200_nohi_reactor_duty",
@@ -165,7 +170,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kl_nire_5ni1ru_T450_P1_W100_conversion",
@@ -189,7 +195,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kl_nire_5ni1ru_T450_P1_W100_below_equilibrium",
@@ -213,7 +220,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kl_nire_5ni1ru_T450_P1_W100_duty",
@@ -237,7 +245,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kl_nire_5ni1ru_T450_P1_W100_residence_time",
@@ -261,7 +270,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kl_ru_kum_lhhw_T450_P5_W20_conversion",
@@ -285,7 +295,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kl_ru_kum_lhhw_T450_P5_W20_below_equilibrium",
@@ -309,7 +320,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kl_ru_kum_lhhw_T450_P5_W20_duty",
@@ -333,7 +345,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kl_ru_kum_lhhw_T450_P5_W20_residence_time",
@@ -357,7 +370,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P10_W20_conversion",
@@ -381,7 +395,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P10_W20_below_equilibrium",
@@ -405,7 +420,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T400_P10_W20_duty",
@@ -429,7 +445,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P10_W20_residence_time",
@@ -453,7 +470,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P2_W20_conversion",
@@ -477,7 +495,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P2_W20_below_equilibrium",
@@ -501,7 +520,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T400_P2_W20_duty",
@@ -525,7 +545,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P2_W20_residence_time",
@@ -549,7 +570,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P5_W20_conversion",
@@ -573,7 +595,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P5_W20_below_equilibrium",
@@ -597,7 +620,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T400_P5_W20_duty",
@@ -621,7 +645,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T400_P5_W20_residence_time",
@@ -645,7 +670,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W20_conversion",
@@ -669,7 +695,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W20_below_equilibrium",
@@ -693,7 +720,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P10_W20_duty",
@@ -717,7 +745,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W20_residence_time",
@@ -741,7 +770,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W500_neareq_conversion",
@@ -765,7 +795,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W500_neareq_below_equilibrium",
@@ -789,7 +820,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P10_W500_neareq_duty",
@@ -813,7 +845,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P10_W500_neareq_residence_time",
@@ -837,7 +870,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P2_W20_conversion",
@@ -861,7 +895,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P2_W20_below_equilibrium",
@@ -885,7 +920,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P2_W20_duty",
@@ -909,7 +945,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P2_W20_residence_time",
@@ -933,7 +970,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W100_coolant_conversion",
@@ -957,7 +995,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W100_coolant_below_equilibrium",
@@ -981,7 +1020,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P5_W100_coolant_T_out",
@@ -1005,7 +1045,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W100_coolant_residence_time",
@@ -1029,7 +1070,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_conversion",
@@ -1053,7 +1095,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_below_equilibrium",
@@ -1077,7 +1120,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_duty",
@@ -1101,7 +1145,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_residence_time",
@@ -1125,7 +1170,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_conversion",
@@ -1149,7 +1195,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_below_equilibrium",
@@ -1173,7 +1220,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_T_out",
@@ -1197,7 +1245,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_residence_time",
@@ -1221,7 +1270,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_pressure_drop",
@@ -1245,7 +1295,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P10_W20_conversion",
@@ -1269,7 +1320,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P10_W20_below_equilibrium",
@@ -1293,7 +1345,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T500_P10_W20_duty",
@@ -1317,7 +1370,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P10_W20_residence_time",
@@ -1341,7 +1395,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P2_W20_conversion",
@@ -1365,7 +1420,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P2_W20_below_equilibrium",
@@ -1389,7 +1445,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T500_P2_W20_duty",
@@ -1413,7 +1470,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P2_W20_residence_time",
@@ -1437,7 +1495,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P5_W20_conversion",
@@ -1461,7 +1520,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P5_W20_below_equilibrium",
@@ -1485,7 +1545,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "kv_ru_kum_T500_P5_W20_duty",
@@ -1509,7 +1570,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "kv_ru_kum_T500_P5_W20_residence_time",
@@ -1533,7 +1595,8 @@
         "aspen": "Aspen Plus V15",
         "python": "amcrax.reactor.pfr"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_00_T400_P1_W50_vs_spec",
@@ -1559,7 +1622,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_00_T400_P1_W50_duty",
@@ -1584,7 +1648,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_01_T400_P10_W200_vs_spec",
@@ -1610,7 +1675,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_01_T400_P10_W200_duty",
@@ -1635,7 +1701,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_02_T450_P1_W50_vs_spec",
@@ -1661,7 +1728,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_02_T450_P1_W50_duty",
@@ -1686,7 +1754,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_03_T450_P10_W200_vs_spec",
@@ -1712,7 +1781,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_03_T450_P10_W200_duty",
@@ -1737,7 +1807,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_04_T500_P5_W100_vs_spec",
@@ -1763,7 +1834,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_04_T500_P5_W100_duty",
@@ -1788,7 +1860,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_05_T500_P20_W500_vs_spec",
@@ -1814,7 +1887,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_05_T500_P20_W500_duty",
@@ -1839,7 +1913,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_06_T550_P40_W1000_vs_spec",
@@ -1865,7 +1940,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_06_T550_P40_W1000_duty",
@@ -1890,7 +1966,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_07_T600_P20_W500_vs_spec",
@@ -1916,7 +1993,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_kum_07_T600_P20_W500_duty",
@@ -1941,7 +2019,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_00_T400_P1p013_W100_vs_spec",
@@ -1967,7 +2046,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_00_T400_P1p013_W100_duty",
@@ -1992,7 +2072,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_01_T450_P1p013_W100_vs_spec",
@@ -2018,7 +2099,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_01_T450_P1p013_W100_duty",
@@ -2043,7 +2125,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_02_T500_P1p013_W100_vs_spec",
@@ -2069,7 +2152,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_02_T500_P1p013_W100_duty",
@@ -2094,7 +2178,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_03_T450_P1p013_W400_vs_spec",
@@ -2120,7 +2205,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_03_T450_P1p013_W400_duty",
@@ -2145,7 +2231,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_04_T500_P10_W400_vs_spec",
@@ -2171,7 +2258,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_04_T500_P10_W400_duty",
@@ -2196,7 +2284,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_05_T550_P20_W1000_vs_spec",
@@ -2222,7 +2311,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_05_T550_P20_W1000_duty",
@@ -2247,7 +2337,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_06_T600_P40_W1000_vs_spec",
@@ -2273,7 +2364,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_06_T600_P40_W1000_duty",
@@ -2298,7 +2390,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_07_T650_P20_W400_vs_spec",
@@ -2324,7 +2417,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc25_07_T650_P20_W400_duty",
@@ -2349,7 +2443,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_00_T400_P1p013_W100_vs_spec",
@@ -2375,7 +2470,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_00_T400_P1p013_W100_duty",
@@ -2400,7 +2496,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_01_T450_P1p013_W100_vs_spec",
@@ -2426,7 +2523,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_01_T450_P1p013_W100_duty",
@@ -2451,7 +2549,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_02_T500_P1p013_W100_vs_spec",
@@ -2477,7 +2576,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_02_T500_P1p013_W100_duty",
@@ -2502,7 +2602,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_03_T450_P1p013_W400_vs_spec",
@@ -2528,7 +2629,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_03_T450_P1p013_W400_duty",
@@ -2553,7 +2655,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_04_T500_P10_W400_vs_spec",
@@ -2579,7 +2682,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_04_T500_P10_W400_duty",
@@ -2604,7 +2708,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_05_T550_P20_W1000_vs_spec",
@@ -2630,7 +2735,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_05_T550_P20_W1000_duty",
@@ -2655,7 +2761,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_06_T600_P40_W1000_vs_spec",
@@ -2681,7 +2788,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_06_T600_P40_W1000_duty",
@@ -2706,7 +2814,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_07_T650_P20_W400_vs_spec",
@@ -2732,7 +2841,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_luc5_07_T650_P20_W400_duty",
@@ -2757,7 +2867,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_01_T350_P20_W1000_vs_spec",
@@ -2783,7 +2894,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_01_T350_P20_W1000_vs_exact_law",
@@ -2808,7 +2920,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_03_T400_P20_W1000_vs_spec",
@@ -2834,7 +2947,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_03_T400_P20_W1000_vs_exact_law",
@@ -2859,7 +2973,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_05_T450_P20_W1000_vs_spec",
@@ -2885,7 +3000,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_05_T450_P20_W1000_vs_exact_law",
@@ -2910,7 +3026,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_07_T500_P20_W1000_vs_spec",
@@ -2936,7 +3053,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_07_T500_P20_W1000_vs_exact_law",
@@ -2961,7 +3079,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_09_T550_P20_W1000_vs_spec",
@@ -2987,7 +3106,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tni_09_T550_P20_W1000_vs_exact_law",
@@ -3012,7 +3132,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_01_T300_P20_W1000_vs_spec",
@@ -3038,7 +3159,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_01_T300_P20_W1000_vs_exact_law",
@@ -3063,7 +3185,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_03_T350_P20_W1000_vs_spec",
@@ -3089,7 +3212,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_03_T350_P20_W1000_vs_exact_law",
@@ -3114,7 +3238,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_05_T400_P20_W1000_vs_spec",
@@ -3140,7 +3265,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_05_T400_P20_W1000_vs_exact_law",
@@ -3165,7 +3291,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_07_T450_P20_W1000_vs_spec",
@@ -3191,7 +3318,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_07_T450_P20_W1000_vs_exact_law",
@@ -3216,7 +3344,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_09_T500_P20_W1000_vs_spec",
@@ -3242,7 +3371,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cv_tru_09_T500_P20_W1000_vs_exact_law",
@@ -3267,7 +3397,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ru_kum_temkin_pyzhev_below_equilibrium",
@@ -3292,7 +3423,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ru_kum_temkin_pyzhev_study_vs_python",
@@ -3317,7 +3449,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_AD_kum_Tin650_P20_W100_adiabatic",
@@ -3342,7 +3475,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium",
@@ -3368,7 +3502,8 @@
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
     },
-    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_T_luc5_T600_P20_W100', 'cs_W_luc5_T600_P20_W200', 'cs_W_luc5_T600_P20_W500', 'cv_luc5_05_T550_P20_W1000', 'cv_luc5_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_T_luc5_T600_P20_W100', 'cs_W_luc5_T600_P20_W200', 'cs_W_luc5_T600_P20_W500', 'cv_luc5_05_T550_P20_W1000', 'cv_luc5_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_study_vs_python",
@@ -3393,7 +3528,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_AD_luc5_Tin650_P20_W100_adiabatic",
@@ -3418,7 +3554,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium",
@@ -3444,7 +3581,8 @@
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
     },
-    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_W_luc25_T600_P20_W200', 'cs_W_luc25_T600_P20_W500', 'cv_luc25_05_T550_P20_W1000', 'cv_luc25_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_W_luc25_T600_P20_W200', 'cs_W_luc25_T600_P20_W500', 'cv_luc25_05_T550_P20_W1000', 'cv_luc25_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_study_vs_python",
@@ -3469,7 +3607,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_AD_luc25_Tin650_P20_W100_adiabatic",
@@ -3494,7 +3633,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ni_takahashi_microkinetic_below_equilibrium",
@@ -3519,7 +3659,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ni_takahashi_microkinetic_study_vs_python",
@@ -3544,7 +3685,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_AD_tni_Tin650_P20_W100_adiabatic",
@@ -3569,7 +3711,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ru_takahashi_microkinetic_below_equilibrium",
@@ -3595,7 +3738,8 @@
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
     },
-    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cv_tru_09_T500_P20_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a mole-fraction basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cv_tru_09_T500_P20_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a mole-fraction basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ru_takahashi_microkinetic_study_vs_python",
@@ -3620,7 +3764,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_AD_tru_Tin650_P20_W100_adiabatic",
@@ -3645,7 +3790,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_kum_T500_f0p95_fraction",
@@ -3671,7 +3817,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_kum_T500_f0p99_fraction",
@@ -3697,7 +3844,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_kum_T600_f0p95_fraction",
@@ -3723,7 +3871,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_kum_T600_f0p99_fraction",
@@ -3749,7 +3898,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc5_T500_f0p95_fraction",
@@ -3775,7 +3925,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc5_T500_f0p99_fraction",
@@ -3801,7 +3952,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc5_T600_f0p95_fraction",
@@ -3827,7 +3979,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc5_T600_f0p99_fraction",
@@ -3853,7 +4006,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc25_T500_f0p95_fraction",
@@ -3879,7 +4033,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc25_T500_f0p99_fraction",
@@ -3905,7 +4060,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc25_T600_f0p95_fraction",
@@ -3931,7 +4087,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_M_luc25_T600_f0p99_fraction",
@@ -3957,7 +4114,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_cs_OP_kum_T499_P20_W100_target",
@@ -3982,7 +4140,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ci_kum_T499_P20_W100_hi_converged",
@@ -4007,7 +4166,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_kum_T499_P20_W100_hi_below_rgibbs",
@@ -4033,7 +4193,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_kum_T499_P20_W100_nohi_converged",
@@ -4058,7 +4219,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_kum_T499_P20_W100_nohi_below_rgibbs",
@@ -4084,7 +4246,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_cs_OP_luc5_T572_P20_W100_target",
@@ -4109,7 +4272,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ci_luc5_T572_P20_W100_hi_converged",
@@ -4134,7 +4298,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc5_T572_P20_W100_hi_below_rgibbs",
@@ -4160,7 +4325,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc5_T572_P20_W100_nohi_converged",
@@ -4185,7 +4351,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc5_T572_P20_W100_nohi_below_rgibbs",
@@ -4211,7 +4378,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_cs_OP_luc25_T576_P20_W100_target",
@@ -4236,7 +4404,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ci_luc25_T576_P20_W100_hi_converged",
@@ -4261,7 +4430,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc25_T576_P20_W100_hi_below_rgibbs",
@@ -4287,7 +4457,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc25_T576_P20_W100_nohi_converged",
@@ -4312,7 +4483,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_luc25_T576_P20_W100_nohi_below_rgibbs",
@@ -4338,7 +4510,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_cs_OP_tni_T594_P20_W100_target",
@@ -4363,7 +4536,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ci_tni_T594_P20_W100_hi_converged",
@@ -4388,7 +4562,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tni_T594_P20_W100_hi_below_rgibbs",
@@ -4414,7 +4589,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tni_T594_P20_W100_nohi_converged",
@@ -4439,7 +4615,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tni_T594_P20_W100_nohi_below_rgibbs",
@@ -4465,7 +4642,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_cs_OP_tru_T522_P20_W100_target",
@@ -4490,7 +4668,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "cat_ci_tru_T522_P20_W100_hi_converged",
@@ -4515,7 +4694,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tru_T522_P20_W100_hi_below_rgibbs",
@@ -4541,7 +4721,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tru_T522_P20_W100_nohi_converged",
@@ -4566,7 +4747,8 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "cat_ci_tru_T522_P20_W100_nohi_below_rgibbs",
@@ -4592,6 +4774,217 @@
         "python": "amcrax.reactor.pfr.simulate_pfr",
         "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
       }
-    }
+    },
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres",
+    "description": "5Ni1Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.00016941906941903007,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/cpp_cv_luc5_06_T600_P40_W1000.json"
+    ],
+    "note": "runs above by more than 1e-4: ['cpp_cv_luc5_06_T600_P40_W1000']. Remaining excess = PENG-ROB fugacity correction, not representable in Aspen's built-in LHHW concentration bases (see k1p2_*_cause items)",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "aspen",
+      "inputs_summary": "results/research/aspen_kinetic/cpp_*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_partialpres_vs_python",
+    "description": "5Ni1Ru/CeO2 (Lucentini), partial-pressure form: largest |X_aspen - X_python| over 29 isothermal runs",
+    "method": "|X_aspen - X_python| <= 0.005",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.0004042666174505216,
+    "expected": 0.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cpp_cs_T_luc5_T550_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/cpp_*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "python_vs_aspen"
+  },
+  {
+    "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.00016941896941891077,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/cpp_cv_luc25_06_T600_P40_W1000.json"
+    ],
+    "note": "runs above by more than 1e-4: ['cpp_cv_luc25_06_T600_P40_W1000']. Remaining excess = PENG-ROB fugacity correction, not representable in Aspen's built-in LHHW concentration bases (see k1p2_*_cause items)",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "aspen",
+      "inputs_summary": "results/research/aspen_kinetic/cpp_*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_partialpres_vs_python",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini), partial-pressure form: largest |X_aspen - X_python| over 29 isothermal runs",
+    "method": "|X_aspen - X_python| <= 0.005",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.00036237810078421084,
+    "expected": 0.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cpp_cs_W_luc25_T600_P20_W50.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/cpp_*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "python_vs_aspen"
+  },
+  {
+    "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_cause",
+    "description": "quantitative cause of the failure cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium (worst run cv_luc5_06_T600_P40_W1000)",
+    "method": "excess = (X_stop - X_eq,ideal) [driving-force basis: MOLARITY uses Z from PENG-ROB against an ideal-gas Kc; MOLEFRAC/PARTIALPRES give 0] + (X_eq,ideal - X_eq,PENG-ROB) [fugacity correction K_phi, from the stored Aspen RGibbs IDEAL vs PENG-ROB grid]",
+    "reference_source": "aspen RGibbs grid results/validation/equilibrium_aspen_grid.csv; python amcrax.thermodynamics (PR, k_ij = 0)",
+    "observed": 0.00048736808736804527,
+    "expected": 0.00046252156135906386,
+    "tolerance": null,
+    "unit": "conversion",
+    "status": "informational",
+    "components": {
+      "compressibility_part": 0.0003025319613590982,
+      "Z_PR_at_stop": 1.008663871066226,
+      "fugacity_part_aspen_ideal_minus_pr": 0.00015998959999996565,
+      "K_phi_python_PR_kij0": 1.0126757695943056,
+      "fugacity_part_python_PR_kij0": 0.00044598820165897557,
+      "rplug_minus_predicted_stop": 1.5382401712948912e-05,
+      "concentration_basis": "MOLARITY"
+    },
+    "source_files": [
+      "results/research/kinetics/equilibrium_consistency.json",
+      "results/validation/equilibrium_aspen_grid.csv"
+    ],
+    "note": "the original failure item is kept unchanged. The ideal-gas K in the reverse term explains the fugacity part; the MOLARITY basis (concentrations from the PENG-ROB Z against an ideal-gas Kc) the compressibility part. The remainder (observed - expected) is the ln Kp fit and Aspen's ideal-gas Kp vs AmCraX NASA7. Python PR with k_ij = 0 over-predicts the fugacity part (Aspen uses PRKBV k_ij from EOS-LIT), so the Aspen IDEAL vs PENG-ROB RGibbs grid is used",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/equilibrium_consistency.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "python_vs_aspen"
+  },
+  {
+    "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_cause",
+    "description": "quantitative cause of the failure cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium (worst run cv_luc25_06_T600_P40_W1000)",
+    "method": "excess = (X_stop - X_eq,ideal) [driving-force basis: MOLARITY uses Z from PENG-ROB against an ideal-gas Kc; MOLEFRAC/PARTIALPRES give 0] + (X_eq,ideal - X_eq,PENG-ROB) [fugacity correction K_phi, from the stored Aspen RGibbs IDEAL vs PENG-ROB grid]",
+    "reference_source": "aspen RGibbs grid results/validation/equilibrium_aspen_grid.csv; python amcrax.thermodynamics (PR, k_ij = 0)",
+    "observed": 0.0004873675873675598,
+    "expected": 0.00046252156135906386,
+    "tolerance": null,
+    "unit": "conversion",
+    "status": "informational",
+    "components": {
+      "compressibility_part": 0.0003025319613590982,
+      "Z_PR_at_stop": 1.008663871066226,
+      "fugacity_part_aspen_ideal_minus_pr": 0.00015998959999996565,
+      "K_phi_python_PR_kij0": 1.0126757695943056,
+      "fugacity_part_python_PR_kij0": 0.00044598820165897557,
+      "rplug_minus_predicted_stop": 1.5381901712463453e-05,
+      "concentration_basis": "MOLARITY"
+    },
+    "source_files": [
+      "results/research/kinetics/equilibrium_consistency.json",
+      "results/validation/equilibrium_aspen_grid.csv"
+    ],
+    "note": "the original failure item is kept unchanged. The ideal-gas K in the reverse term explains the fugacity part; the MOLARITY basis (concentrations from the PENG-ROB Z against an ideal-gas Kc) the compressibility part. The remainder (observed - expected) is the ln Kp fit and Aspen's ideal-gas Kp vs AmCraX NASA7. Python PR with k_ij = 0 over-predicts the fugacity part (Aspen uses PRKBV k_ij from EOS-LIT), so the Aspen IDEAL vs PENG-ROB RGibbs grid is used",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/equilibrium_consistency.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "python_vs_aspen"
+  },
+  {
+    "id": "k1p2_ru_takahashi_microkinetic_below_equilibrium_cause",
+    "description": "quantitative cause of the failure cat_ru_takahashi_microkinetic_below_equilibrium (worst run cv_tru_09_T500_P20_W1000)",
+    "method": "excess = (X_stop - X_eq,ideal) [driving-force basis: MOLARITY uses Z from PENG-ROB against an ideal-gas Kc; MOLEFRAC/PARTIALPRES give 0] + (X_eq,ideal - X_eq,PENG-ROB) [fugacity correction K_phi, from the stored Aspen RGibbs IDEAL vs PENG-ROB grid]",
+    "reference_source": "aspen RGibbs grid results/validation/equilibrium_aspen_grid.csv; python amcrax.thermodynamics (PR, k_ij = 0)",
+    "observed": 0.00016042366042368084,
+    "expected": 0.0001498395642179906,
+    "tolerance": null,
+    "unit": "conversion",
+    "status": "informational",
+    "components": {
+      "compressibility_part": -3.865135781988549e-06,
+      "Z_PR_at_stop": 1.0046312138958013,
+      "fugacity_part_aspen_ideal_minus_pr": 0.00015370469999997916,
+      "K_phi_python_PR_kij0": 1.0082706021216348,
+      "fugacity_part_python_PR_kij0": 0.00036710268821604775,
+      "rplug_minus_predicted_stop": -7.355838671507797e-08,
+      "concentration_basis": "MOLEFRAC"
+    },
+    "source_files": [
+      "results/research/kinetics/equilibrium_consistency.json",
+      "results/validation/equilibrium_aspen_grid.csv"
+    ],
+    "note": "the original failure item is kept unchanged. The ideal-gas K in the reverse term explains the fugacity part; with the mole-fraction basis there is no compressibility part, so the whole excess is the fugacity correction. The remainder (observed - expected) is the ln Kp fit and Aspen's ideal-gas Kp vs AmCraX NASA7. Python PR with k_ij = 0 over-predicts the fugacity part (Aspen uses PRKBV k_ij from EOS-LIT), so the Aspen IDEAL vs PENG-ROB RGibbs grid is used",
+    "provenance": {
+      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/equilibrium_consistency.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "python_vs_aspen"
   }
 ]

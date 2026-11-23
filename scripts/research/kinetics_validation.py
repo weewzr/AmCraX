@@ -13,6 +13,7 @@ this is a reproduction / consistency check of the published parameters, not an i
 from __future__ import annotations
 
 import math
+from pathlib import Path
 
 from kinetics_common import (ATM_BAR, FIG, OUT, VAL, VM_0C_L_PER_MOL, VM_25C_L_PER_MOL, footer, parameter_override,
                              provenance, write_csv, write_json)
@@ -179,6 +180,13 @@ def main() -> None:
                   "observed": None, "expected": None, "tolerance": None, "unit": "-", "status": "informational",
                   "source_files": ["research/notes/sayas2020rukcao.md"], "note": "NOT VERIFIED: full text inaccessible; no Ru-K/CaO law implemented"})
     write_json(VAL / "kinetics.json", items)
+    # Phase 2 (task K1): evidence_kind on every item + the K1P2- items (scripts/research/kinetics_phase2_validation.py)
+    import importlib.util
+    _sp = importlib.util.spec_from_file_location("kinetics_phase2_validation",
+                                                 Path(__file__).with_name("kinetics_phase2_validation.py"))
+    _m = importlib.util.module_from_spec(_sp)
+    _sp.loader.exec_module(_m)
+    _m.apply(("kinetics",))
     for it in items:
         print(it["id"], it["status"], it.get("original_status", ""), it["observed"])
 

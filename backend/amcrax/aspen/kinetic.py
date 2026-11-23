@@ -218,6 +218,66 @@ def load_kinetics_spec_file(path: Optional[Path] = None) -> dict[str, dict]:
     return {c["catalyst_id"]: c for c in data.get("catalysts", []) if isinstance(c, dict) and "catalyst_id" in c}
 
 
+R_J_PER_KMOL_K = 8314.0   # = 8.314 J/(mol K) of the kinetics registry (same R as the Python rate law)
+P0_PA = 1.0e5             # 1 bar standard state of Kp
+
+
+def load_equilibrium_fit(path: Optional[Path] = None) -> dict[str, float]:
+    """ln Kp = A + B/T + C ln T + D T (1 bar standard state) from aspen_kinetics_spec.json."""
+    from amcrax.paths import ROOT
+
+    p = path or ROOT / "results" / "research" / "kinetics" / "aspen_kinetics_spec.json"
+    fit = json.loads(p.read_text(encoding="utf-8"))["equilibrium_constant_fit"]
+    return {k: float(fit[k]) for k in ("A", "B", "C", "D")}
+
+
+def lhhw_partialpres_from_molarity(e: dict, kp_fit: dict[str, float]) -> AspenLHHWSpec:
+    """Exact partial-pressure (Pa) form of a molarity-basis Lucentini LHHW entry (Phase 2, task K1 item 3).
+
+    The source law uses ideal-gas concentrations C_i = p_i/(R T) (lucentini2021nirukinetic, 1 atm), and the Python
+    model does the same. With CBASIS=MOLARITY Aspen instead computes C_i from the PENG-ROB molar volume,
+    C_i = y_i P/(Z R T), while the term-2 constant uses the ideal-gas Kc = Kp P0/(R T); the driving force then
+    vanishes at Q_y P/P0 = Kp Z instead of Kp (an implementation inconsistency, not physics). On a partial-pressure
+    basis (p_i = y_i P, no Z) the same law is, with every constant in Aspen's ln K = A + B/T + C ln T + D T form:
+
+    * K1 C_NH3 = (K1/R T) p_NH3                   -> ln K1' = ln(K1/R) - ln T
+    * sqrt(C_H2/K4) = sqrt(p_H2/(R T K4))         -> ln K4' = -0.5 ln(R K4) - 0.5 ln T   (exponent 0.5 on H2)
+    * term 2 = K1'/(Kp P0) p_N2^0.5 p_H2^1.5     -> ln K2' = ln K1' - ln Kp - ln P0
+    No parameter is refitted; the transformation is algebraic (R = 8314 J/(kmol K), p in N/m2).
+    """
+    if str(e.get("concentration_basis", "")).lower() != "molarity" or not e.get("aspen_native"):
+        raise ValueError(f"{e.get('catalyst_id')}: lhhw_partialpres needs a native molarity-basis LHHW entry")
+    base = lhhw_from_kinetics_spec(e)
+    lnK1 = float(base.term1_lnK.get("A", 0.0))
+    for k in ("B", "C", "D"):
+        if abs(float(base.term1_lnK.get(k, 0.0))) > 0:
+            raise ValueError("term-1 constant must be temperature independent (Lucentini K1)")
+    lnK1p = {"A": lnK1 - math.log(R_J_PER_KMOL_K), "B": 0.0, "C": -1.0, "D": 0.0}
+    lnK2p = {"A": lnK1p["A"] - kp_fit["A"] - math.log(P0_PA), "B": -kp_fit["B"], "C": -1.0 - kp_fit["C"],
+             "D": -kp_fit["D"]}
+    terms = []
+    for t in base.adsorption_terms:
+        ex = {c: float(v) for c, v in (t.get("exponents") or {}).items() if float(v) != 0.0}
+        lk = {k: float((t.get("lnK_coefficients") or {}).get(k, 0.0)) for k in ("A", "B", "C", "D")}
+        if not ex:
+            terms.append({"exponents": {}, "lnK_coefficients": lk})
+            continue
+        if len(ex) != 1 or any(abs(lk[k]) > 0 for k in ("B", "C", "D")):
+            raise ValueError("unexpected adsorption term for the molarity -> partial-pressure transformation")
+        (c, a), = ex.items()
+        # K C^a = K (p/(R T))^a  ->  ln K' = ln K - a ln R - a ln T
+        terms.append({"exponents": {c: a}, "lnK_coefficients": {"A": lk["A"] - a * math.log(R_J_PER_KMOL_K),
+                                                                 "B": 0.0, "C": -a, "D": 0.0}})
+    return base.model_copy(update={
+        "cbasis": "PARTIALPRES", "term1_lnK": lnK1p, "term2_lnK": lnK2p, "adsorption_terms": terms,
+        "label": base.label + " (partial-pressure basis, exact transformation)",
+        "derivation": base.derivation + [
+            "molarity -> partial pressure (Pa): C_i = p_i/(R T), R = 8314 J/(kmol K); ln K' gains -a ln R - a ln T",
+            "term 2 = K1'/(Kp P0), Kp from equilibrium_constant_fit of aspen_kinetics_spec.json (ideal gas, 1 bar)",
+            "removes the PENG-ROB compressibility factor from the concentrations (Phase 2 task K1 item 3)"],
+    })
+
+
 def resolve_spec(catalyst_id: str, kinetic_form: str = "auto", spec_path: Optional[Path] = None):
     """Choose the native Aspen form.
 
@@ -234,6 +294,8 @@ def resolve_spec(catalyst_id: str, kinetic_form: str = "auto", spec_path: Option
     e = entries.get(catalyst_id)
     if e is None:
         raise ValueError(f"{catalyst_id}: no entry in aspen_kinetics_spec.json and not expressible from kinetics.yaml")
+    if kinetic_form == "lhhw_partialpres":
+        return lhhw_partialpres_from_molarity(e, load_equilibrium_fit(spec_path))
     if kinetic_form == "lhhw_approximation":
         if "best_native_approximation" not in e:
             raise ValueError(f"{catalyst_id}: no best_native_approximation in aspen_kinetics_spec.json")
@@ -288,7 +350,7 @@ class KineticReactorInputs(BaseModel):
     """Typed inputs of the standalone RPLUG model (independent of CaseInputs)."""
     case_id: str = "kinetic_case"
     catalyst_id: str = "ru_kum_temkin_pyzhev"
-    kinetic_form: Literal["auto", "powerlaw", "lhhw", "lhhw_approximation"] = "auto"   # see resolve_spec
+    kinetic_form: Literal["auto", "powerlaw", "lhhw", "lhhw_approximation", "lhhw_partialpres"] = "auto"   # see resolve_spec
     temperature_C: float = 450.0                 # feed temperature and (isothermal) reactor temperature
     pressure_bar: float = 5.0
     feed_kmol_h: dict[str, float] = Field(default_factory=lambda: {"NH3": 99.8, "H2O": 0.2})
@@ -563,6 +625,34 @@ class KineticCase(BaseModel):
         return build_flowsheet_input(self.case_inputs(), kinetic_cracker=self.reactor)
 
 
+CRACKER_RPLUG_NOTE = ("kinetic RPLUG cracker: block_type, outlet temperature and pressure corrected from the "
+                      "flowsheet-config RGibbs metadata (the generic extractor read RGibbs scalar paths); outlet T and "
+                      "P are those of the cracker outlet stream S5 (Phase 2 task K1 item 5)")
+
+
+def correct_cracker_block_entry(flowsheet_result: dict[str, Any], kinetic_out: dict[str, Any]) -> dict[str, Any]:
+    """Label the integrated cracker as the RPLUG it is (the generic extractor uses the RGibbs flowsheet metadata).
+
+    The duty (QCALC) is the RPLUG duty and is kept. B_TEMP / B_PRES are profile arrays in RPLUG, so the generic
+    extractor stored 1.0 / 1.0; they are replaced by the outlet stream S5 values. Pure relabelling of stored values:
+    no number is recomputed. Idempotent.
+    """
+    blocks = flowsheet_result.get("blocks") or {}
+    cr = blocks.get("CRACKER")
+    if cr is None:
+        return flowsheet_result
+    s5 = kinetic_out.get("cracker_outlet") or {}
+    cr["block_type"] = "RPlug"
+    cr["outlet_temperature_C"] = s5.get("T_C")
+    cr["outlet_pressure_bar"] = s5.get("P_bar")
+    det = cr.setdefault("details", {})
+    det["model_note"] = CRACKER_RPLUG_NOTE
+    rp = kinetic_out.get("rplug") or {}
+    if rp.get("duty") is not None:
+        det["rplug_duty_kW"] = rp.get("duty")
+    return flowsheet_result
+
+
 def extract_integrated_case(s, case: KineticCase, engine_time_s: float, model_file: str) -> dict[str, Any]:
     from amcrax.aspen.extract import extract_result
 
@@ -573,7 +663,7 @@ def extract_integrated_case(s, case: KineticCase, engine_time_s: float, model_fi
     out["conversion_of_reactor_inlet_NH3"] = 1.0 - s5["flows_kmol_h"]["NH3"] / n_in if n_in else None
     try:
         sim = extract_result(s, case.case_inputs(), engine_time_s=engine_time_s, model_file=model_file)
-        out["flowsheet_result"] = json.loads(sim.model_dump_json())
+        out["flowsheet_result"] = correct_cracker_block_entry(json.loads(sim.model_dump_json()), out)
         out["status"] = {"converged": sim.status.converged, "has_errors": sim.status.has_errors,
                          "has_warnings": sim.status.has_warnings, "run_messages": sim.status.messages}
     except Exception as exc:  # keep the kinetic results even if the flowsheet extractor rejects a node

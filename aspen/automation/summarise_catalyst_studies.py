@@ -371,6 +371,13 @@ def main() -> int:
     old = json.loads(VAL.read_text(encoding="utf-8")) if VAL.exists() else []
     keep = [i for i in old if not str(i.get("id", "")).startswith("cat_")]
     VAL.write_text(json.dumps(keep + items, indent=2), encoding="utf-8")
+    # Phase 2 (task K1): evidence_kind on every item + the k1p2_ items (scripts/research/kinetics_phase2_validation.py)
+    import importlib.util
+    _sp = importlib.util.spec_from_file_location(
+        "kinetics_phase2_validation", ROOT / "scripts" / "research" / "kinetics_phase2_validation.py")
+    _m = importlib.util.module_from_spec(_sp)
+    _sp.loader.exec_module(_m)
+    _m.apply(("aspen_kinetic",))
     n = {s: sum(1 for i in items if i["status"] == s) for s in ("pass", "fail", "informational")}
     print("standalone", len(std), "integrated", len(integ), "failed", len(failed))
     print("validation (cat_)", n, [i["id"] for i in items if i["status"] == "fail"])
