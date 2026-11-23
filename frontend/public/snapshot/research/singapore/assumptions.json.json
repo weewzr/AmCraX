@@ -9,11 +9,11 @@
  },
  {
   "name": "fx_SGD_per_USD",
-  "value": 1.29,
+  "value": 1.288444,
   "unit": "SGD/USD",
-  "source_type": "literature",
-  "source": "Asian Bonds Online (ADB), Singapore economy page: SGD per USD close 18 Nov 2026 = 1.290 (search-result snippet; MAS series not retrieved)",
-  "applicability_note": "rate date 2026-11-18, secondary source"
+  "source_type": "derived",
+  "source": "European Central Bank euro foreign exchange reference rates, 20 Nov 2026: 1 EUR = 1.0990 USD and 1.4160 SGD; cross rate 1.4160 / 1.0990 = 1.288444 SGD per USD",
+  "applicability_note": "rate date 2026-11-20; reference scenario (supersedes 1.290, ADB)"
  },
  {
   "name": "carbon_tax_2026",
@@ -41,11 +41,19 @@
  },
  {
   "name": "electricity_price",
-  "value": 0.14007105943152454,
+  "value": 0.14024,
   "unit": "USD/kWh",
-  "source_type": "literature",
-  "source": "USEP 2025 mean + network + fees (EMA, SP Group)",
+  "source_type": "derived",
+  "source": "reference scenario: USEP 2025 mean + network + fees (EMA, SP Group) / FX",
   "applicability_note": "derived, not an industrial contract price; <0.1 % of LCOH"
+ },
+ {
+  "name": "capex_method",
+  "value": "cho2026_itemised_v1",
+  "unit": "-",
+  "source_type": "literature",
+  "source": "AmCraX Phase 2 selection (docs/research/unified_baseline.md): itemised installed cost of the Cho et al. 2026 Ni-24.34 bar plant, each item scaled to AmCraX with the equipment exponent, product compressor removed, Cho OSBL/engineering/contingency factors applied",
+  "applicability_note": "reference scenario; Phase 1 Farokhi 'equipment' method superseded"
  },
  {
   "name": "nh3_price_grey",
@@ -169,7 +177,7 @@
  },
  {
   "name": "discount_rate_and_life",
-  "value": "10 %, 25 yr",
+  "value": "0.1, 25 yr",
   "unit": "-",
   "source_type": "literature",
   "source": "Kum 2026 Table 5 (also Farokhi, Chopra, Ahmad)",

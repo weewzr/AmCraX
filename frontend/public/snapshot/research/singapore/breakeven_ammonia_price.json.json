@@ -1,13 +1,23 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T07:42:11+00:00",
+  "generated_utc": "2026-11-23T08:47:22+00:00",
   "script": "scripts/research/economics_singapore.py",
   "source_type": "python",
   "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
   "model_versions": {
-   "economics_module": "amcrax.economics.singapore/1",
+   "economics_module": "amcrax.economics.singapore/2 (reference scenario)",
    "data_schema": "amcrax.singapore/1",
-   "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied"
+   "cost_basis": "mixed nominal USD: CAPEX 2024 USD (Cho 2026 analysis year); Singapore prices 2026; no escalation index",
+   "capex_method": "cho2026_itemised_v1"
   }
  },
  "description": "NH3 price (USD/t) at which LCOH equals each hydrogen benchmark; null means the benchmark is below the zero-ammonia-price conversion cost, i.e. unreachable. Benchmarks differ in basis; none is a Singapore transaction price.",
@@ -15,44 +25,44 @@
   "heat_integration_on": {
    "sg_low_carbon_willingness_to_pay": {
     "h2_price_USD_per_kg": 3.0,
-    "breakeven_nh3_USD_per_t": 366.6101332546391,
+    "breakeven_nh3_USD_per_t": 311.84511717484065,
     "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
    },
    "ne_asia_smr_production_cost": {
     "h2_price_USD_per_kg": 3.06,
-    "breakeven_nh3_USD_per_t": 374.7732147421736,
+    "breakeven_nh3_USD_per_t": 320.0081986623751,
     "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
    },
    "blue_delivered_east_asia": {
     "h2_price_USD_per_kg": 6.0,
-    "breakeven_nh3_USD_per_t": 774.7642076313626,
+    "breakeven_nh3_USD_per_t": 719.9991915515642,
     "source": "ACE report estimate for delivered cost to East Asia: 5-7 USD/kg blue, 9-11 USD/kg green (search-result summary); 6.0 = midpoint (derived)"
    },
    "low_carbon_offer_fob_malaysia": {
     "h2_price_USD_per_kg": 10.0,
-    "breakeven_nh3_USD_per_t": 1318.969640133661,
+    "breakeven_nh3_USD_per_t": 1264.2046240538623,
     "source": "S&P Global, indicative offers of low-carbon hydrogen at about 10 USD/kg FOB Malaysia, May 2025 (search-result summary)"
    }
   },
   "heat_integration_off": {
    "sg_low_carbon_willingness_to_pay": {
     "h2_price_USD_per_kg": 3.0,
-    "breakeven_nh3_USD_per_t": 344.29746343741346,
+    "breakeven_nh3_USD_per_t": 292.8300069769408,
     "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
    },
    "ne_asia_smr_production_cost": {
     "h2_price_USD_per_kg": 3.06,
-    "breakeven_nh3_USD_per_t": 351.9690222374838,
+    "breakeven_nh3_USD_per_t": 300.5015657770112,
     "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
    },
    "blue_delivered_east_asia": {
     "h2_price_USD_per_kg": 6.0,
-    "breakeven_nh3_USD_per_t": 727.8754034409304,
+    "breakeven_nh3_USD_per_t": 676.4079469804578,
     "source": "ACE report estimate for delivered cost to East Asia: 5-7 USD/kg blue, 9-11 USD/kg green (search-result summary); 6.0 = midpoint (derived)"
    },
    "low_carbon_offer_fob_malaysia": {
     "h2_price_USD_per_kg": 10.0,
-    "breakeven_nh3_USD_per_t": 1239.312656778953,
+    "breakeven_nh3_USD_per_t": 1187.8452003184805,
     "source": "S&P Global, indicative offers of low-carbon hydrogen at about 10 USD/kg FOB Malaysia, May 2025 (search-result summary)"
    }
   }

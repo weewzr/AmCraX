@@ -22,7 +22,7 @@ const prefix = new URL(base).pathname
 const shots = path.resolve(args.shots ?? path.join(here, '..', '..', 'docs', 'screenshots'))
 const VIEWPORTS = (args.viewports ?? '390x844,820x1180,1440x900,1920x1080').split(',').map((s) => { const [w, h] = s.split('x').map(Number); return { w, h, label: w === 390 ? 'phone' : w === 820 ? 'tablet' : w === 1440 ? 'desktop' : w === 1920 ? 'fullhd' : `${w}x${h}` } })
 const HYP = ['hypotheses', 'hypotheses/catalyst', 'hypotheses/economics', 'hypotheses/purification', 'hypotheses/end-use', 'hypotheses/validation', 'hypotheses/aspen-evidence']
-const SITE = ['', 'why', 'pfd', 'methodology', 'results', 'architecture', 'research', 'docs', 'about', ...HYP]
+const SITE = ['', 'overview', 'why', 'pfd', 'methodology', 'results', 'architecture', 'research', 'docs', 'about', ...HYP]
 const PLATFORM = ['platform', 'platform/pfd', 'platform/simulation', 'platform/reactor', 'platform/heat', 'platform/sensitivity', 'platform/optimisation', 'platform/economics', 'platform/environment', 'platform/validation', 'platform/reports']
 const only = args.routes ? new Set(args.routes.split(',')) : null
 const ROUTES = [...SITE, ...PLATFORM].filter((r) => !only || only.has(r === '' ? 'home' : r))
@@ -30,7 +30,7 @@ const name = (r) => (r === '' ? 'home' : r === 'hypotheses' ? 'research_matrix' 
 const qaDir = path.join(shots, 'qa')
 if (args['no-shots'] !== 'true') { mkdirSync(shots, { recursive: true }); mkdirSync(qaDir, { recursive: true }) }
 /** Published set: desktop captures of the site routes only; everything else is a QA capture. */
-const shotPath = (route, label, isPlat, kind = 'page') => path.join(label === 'desktop' && !isPlat && kind === 'page' ? shots : qaDir, `site_${kind === 'page' ? name(route) : kind}_${label}.png`)
+const shotPath = (route, label, isPlat, kind = 'page') => path.join((label === 'desktop' && !isPlat && kind === 'page') || (kind.startsWith('simulator') && (label === 'desktop' || label === 'phone')) ? shots : qaDir, `site_${kind === 'page' ? name(route) : kind}_${label}.png`)
 
 const results = []
 const record = (vp, id, ok, detail = '') => { results.push({ vp, id, ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} [${vp}] ${id}${detail ? ' - ' + detail : ''}`) }
@@ -66,6 +66,14 @@ for (const vp of VIEWPORTS) {
       return !/Resolving data mode|Loading [^\n]{3,90} \.\.\.|Loading (the )?(platform|diagram|flowsheet|data|Aspen|Python|stored|Separation|Validation|Reference|Equilibrium|Plug|Techno|Optimisation|LCOH|Carbon|Single|Deliverables|Figures|Model|case)/i.test(t) && document.querySelector('.site, .shell')
     }, null, { timeout: 60000 }).catch(() => pushP('settle timeout (loading text still present)'))
     if (route === 'pfd' || route === 'platform/pfd') await page.waitForSelector('.react-flow__node', { timeout: 20000 }).catch(() => pushP('no PFD nodes'))
+    if (route === '') {
+      await page.waitForSelector('.sim-pfd', { timeout: 30000 }).catch(() => pushP('no simulator diagram'))
+      // the eight graphs are a lazy chunk with debounced sweeps: wait until every card has data marks
+      await page.waitForFunction(() => {
+        const cards = [...document.querySelectorAll('.sim-graphs .sim-chart')]
+        return cards.length === 8 && cards.every((c) => c.querySelector('svg .recharts-line, svg .recharts-bar-rectangle, svg .recharts-dot, svg path.recharts-curve, svg .recharts-rectangle'))
+      }, null, { timeout: 30000 }).catch(() => pushP('simulator graphs did not finish'))
+    }
     await page.waitForTimeout(route === 'results' ? 2500 : 1200)
   }
   async function go(route) {
@@ -122,22 +130,109 @@ for (const vp of VIEWPORTS) {
     }
   }
 
-  // ---- interaction checks ----
+  // ---- simulator (landing page) ----
   if (!only || only.has('home')) {
+    cur = 'simulator'
+    await go('')
+    const kpi = (k) => page.locator(`[data-kpi="${k}"] .sim-kpi-v`).innerText()
+    const outv = (k) => page.locator(`[data-out="${k}"]`).first().innerText()
+    const sim = await page.evaluate(() => {
+      const r = (s) => document.querySelector(s)?.getBoundingClientRect() ?? null
+      return { h1: document.querySelector('h1')?.textContent ?? '', pfd: r('.sim-pfd'), controls: r('.sim-col-controls'), out: r('.sim-kpis'), grid: r('.sim-grid'),
+        graphs: r('.sim-graphs'), units: document.querySelectorAll('.sim-pfd [data-unit]').length, streams: document.querySelectorAll('.sim-pfd [data-stream]').length,
+        badges: document.querySelectorAll('.sim-col-out .sim-badge').length, overflowPfd: (() => { const b = document.querySelector('.sim-pfd-box'); return b ? b.scrollWidth - b.clientWidth : -1 })() }
+    })
+    record(vp.label, 'simulator: the site root shows the simulator (h1, diagram, units, streams, labelled outputs)', /process simulator/i.test(sim.h1) && !!sim.pfd && sim.units >= 10 && sim.streams >= 12 && sim.badges >= 10, JSON.stringify({ h1: sim.h1, units: sim.units, streams: sim.streams, badges: sim.badges }))
+    if (vp.w >= 1440) record(vp.label, 'simulator: diagram (whole), controls and live results above the fold; diagram not scrolled sideways', sim.pfd.bottom <= vp.h && sim.controls.top < vp.h - 150 && sim.out.top < vp.h - 150 && sim.overflowPfd <= 1, `pfd ${Math.round(sim.pfd.top)}-${Math.round(sim.pfd.bottom)}, controls ${Math.round(sim.controls.top)}, live results ${Math.round(sim.out.top)}`)
+    else record(vp.label, 'simulator: diagram starts above the fold', sim.pfd.top < vp.h - 100, `pfd ${Math.round(sim.pfd.top)}`)
+    record(vp.label, 'simulator: graphs sit directly below the diagram block', sim.graphs && sim.graphs.top >= sim.grid.bottom - 1 && sim.graphs.top - sim.grid.bottom < 120, `grid bottom ${Math.round(sim.grid.bottom)}, graphs top ${Math.round(sim.graphs?.top)}`)
+    const g8 = await page.evaluate(() => [...document.querySelectorAll('.sim-graphs .sim-chart')].map((c) => ({ n: c.getAttribute('data-graph'), marks: c.querySelectorAll('svg .recharts-line, svg .recharts-bar-rectangle, svg .recharts-dot, svg path.recharts-curve, svg .recharts-rectangle').length, axes: c.querySelectorAll('.recharts-label').length, note: /Limitation/.test(c.textContent ?? '') })))
+    record(vp.label, 'simulator: eight graph cards with data marks, axis titles and a limitation note', g8.length === 8 && g8.every((g) => g.marks > 0 && g.axes >= (g.n === '7' ? 1 : 2) && g.note), JSON.stringify(g8))
+    // play / pause
+    const play = page.locator('button.sim-play')
+    const p0 = await play.getAttribute('aria-pressed')
+    const parts0 = await page.locator('.sim-pfd .pfd-particle').count()
+    await page.waitForTimeout(400)
+    const pos1 = await page.locator('.sim-pfd .pfd-particle').first().getAttribute('cx').catch(() => null)
+    await page.waitForTimeout(400)
+    const pos2 = await page.locator('.sim-pfd .pfd-particle').first().getAttribute('cx').catch(() => null)
+    record(vp.label, 'simulator: playing on load (no reduced motion), particles exist and move', p0 === 'true' && parts0 > 20 && pos1 !== pos2, `aria-pressed=${p0}, particles=${parts0}, cx ${pos1} -> ${pos2}`)
+    if (args['no-shots'] !== 'true') await page.screenshot({ path: shotPath('', vp.label, false, 'simulator_playing') })
+    await play.click(); await page.waitForTimeout(250)
+    const p1 = await play.getAttribute('aria-pressed'); const t1 = await play.innerText(); const parts1 = await page.locator('.sim-pfd .pfd-particle').count()
+    record(vp.label, 'simulator: Play/Pause toggles to Play (aria-pressed=false, no particles)', p1 === 'false' && /Play/.test(t1) && parts1 === 0, `aria-pressed=${p1}, text=${t1.trim()}, particles=${parts1}`)
+    if (args['no-shots'] !== 'true') await page.screenshot({ path: shotPath('', vp.label, false, 'simulator_paused') })
+    await play.focus(); await page.keyboard.press('Enter'); await page.waitForTimeout(250)
+    record(vp.label, 'simulator: keyboard Enter toggles back to Pause (aria-pressed=true)', (await play.getAttribute('aria-pressed')) === 'true' && (await page.locator('.sim-pfd .pfd-particle').count()) > 0)
+    // temperature control changes the conversion
+    const c0 = await kpi('conversion')
+    const tBox = page.locator('[data-ctl="T_C"] input[type=number]')
+    await tBox.fill('520'); await tBox.press('Enter'); await page.waitForTimeout(400)
+    const c1 = await kpi('conversion')
+    record(vp.label, 'simulator: changing the temperature changes the displayed conversion', c0 !== c1 && /%/.test(c1), `${c0} -> ${c1}`)
+    // catalyst changes it (kinetic mode)
+    await page.selectOption('#sim-mode', 'isothermal'); await page.waitForTimeout(400)
+    const k0 = await kpi('conversion')
+    await page.selectOption('#sim-cat', 'ni_takahashi_microkinetic'); await page.waitForTimeout(400)
+    const k1 = await kpi('conversion')
+    record(vp.label, 'simulator: switching the catalyst changes the conversion', k0 !== k1, `${k0} -> ${k1}`)
+    // carbon mode
+    await page.locator('details.sim-sec:has-text("Ammonia and carbon pricing") > summary').evaluate((s) => { const d = s.parentElement; if (d && !d.open) d.open = true })
+    const cc0 = await outv('carbon_cost')
+    await page.locator('label:has-text("HYPOTHETICAL life-cycle price")').click(); await page.waitForTimeout(400)
+    const cc1 = await outv('carbon_cost')
+    const hypoNote = await page.locator('.sim-hypo').count()
+    record(vp.label, 'simulator: carbon mode toggle shows HYPOTHETICAL and changes the carbon cost', /HYPOTHETICAL/.test(cc1) && hypoNote === 1 && cc0.replace(/Carbon cost.*\n?/, '') !== cc1.replace(/Carbon cost.*\n?/, ''), `${cc0.replace(/\n/g, ' ')} -> ${cc1.replace(/\n/g, ' ')}`)
+    // heat integration off bypasses the FEHE
+    await page.locator('details.sim-sec:has-text("Feed and heat recovery") > summary').evaluate((s) => { const d = s.parentElement; if (d && !d.open) d.open = true })
+    await page.locator('.sim-switch input').uncheck(); await page.waitForTimeout(300)
+    const byp = await page.locator('.sim-pfd [data-unit="FEHE"].is-bypassed').count()
+    record(vp.label, 'simulator: heat integration off shows the FEHE as bypassed', byp === 1)
+    await page.locator('.sim-switch input').check(); await page.waitForTimeout(200)
+    // unit panel
+    await page.locator('.sim-pfd [data-unit="PSA"]').click(); await page.waitForTimeout(200)
+    const panel = await page.locator('.sim-panel h3').innerText()
+    record(vp.label, 'simulator: clicking a unit opens its panel with values and source labels', /PSA|adsorption/.test(panel) && (await page.locator('.sim-panel .sim-badge').count()) > 0, panel)
+    // compare
+    await page.locator('button:has-text("Compare: pin as case A")').click()
+    await tBox.fill('560'); await tBox.press('Enter'); await page.waitForTimeout(500)
+    const cmp = await page.evaluate(() => ({ heads: [...document.querySelectorAll('.sim-cmp thead th')].map((t) => t.textContent), rows: document.querySelectorAll('.sim-cmp tbody tr').length }))
+    record(vp.label, 'simulator: compare shows case A and case B columns and the difference', cmp.heads.some((h) => /Case A/.test(h)) && cmp.heads.some((h) => /Case B/.test(h)) && cmp.rows >= 10, JSON.stringify(cmp))
+    // export
+    const [dl] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), page.locator('button:has-text("Export CSV")').click()])
+    const dlPath = await dl.path().catch(() => null)
+    const csv = dlPath ? (await import('node:fs')).readFileSync(dlPath, 'utf-8') : ''
+    record(vp.label, 'simulator: Export CSV downloads inputs and outputs of cases A and B with source labels', /\.csv$/.test(dl.suggestedFilename()) && /^case,section,key,label,value,unit,source,note/.test(csv) && /\nA,output,/.test(csv) && /\nB,output,/.test(csv), `${dl.suggestedFilename()} ${csv.length} bytes`)
+    const [dj] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), page.locator('button:has-text("Export JSON")').click()])
+    record(vp.label, 'simulator: Export JSON downloads a file', /\.json$/.test(dj.suggestedFilename()))
+    await page.locator('button:has-text("Stop comparing")').click()
+    await page.locator('button:has-text("Reset to baseline")').click(); await page.waitForTimeout(400)
+    const base = await page.locator('[data-kpi="conversion"] .badge').innerText()
+    record(vp.label, 'simulator: Reset returns to the Aspen baseline (Aspen Plus V15 label)', /Aspen Plus V15/.test(base), base)
+    record(vp.label, 'simulator: no "undefined"/"NaN" text after the interactions', !/\bundefined\b|\bNaN\b|\[object /.test(await page.evaluate(() => document.body.innerText)))
+  }
+
+  if (!only || only.has('home') || only.has('overview')) {
     cur = 'interaction'
     await go('')
-    // nav reaches the ten sections
-    const nine = vp.w >= 1331
-    if (!nine) { await page.click('.nav-toggle'); await page.waitForTimeout(300) }
+    // nav: eleven primary items in the top bar (desktop) or the menu (smaller screens), the other pages under "More pages"
+    const wide = vp.w >= 1200
+    if (!wide) { await page.click('.nav-toggle'); await page.waitForTimeout(300) }
     const links = await page.$$eval('.site-nav a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
-    record(vp.label, `nav: ${nine ? 'top bar' : 'mobile menu'} shows all ten sections`, links.length === 10, links.join(', '))
-    if (!nine) {
+    record(vp.label, `nav: ${wide ? 'top bar shows the eleven primary items' : 'mobile menu shows the eleven items and the eight further pages'}`, links.length === (wide ? 11 : 19) && links[0] === 'Simulator', links.join(', '))
+    if (wide) {
+      await page.click('.nav-more-btn'); await page.waitForTimeout(200)
+      const more = await page.$$eval('.nav-more-list a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
+      record(vp.label, 'nav: "More pages" menu lists Overview and the other seven pages', more.length === 8 && more[0] === 'Overview' && (await page.getAttribute('.nav-more-btn', 'aria-expanded')) === 'true', more.join(', '))
+      await page.click('.nav-more-list a:has-text("Overview")'); await page.waitForTimeout(600)
+      record(vp.label, 'nav: "Overview" opens /overview', page.url().endsWith('#/overview'), page.url())
+    } else {
       const expanded = await page.getAttribute('.nav-toggle', 'aria-expanded')
       record(vp.label, 'mobile menu: toggle has aria-expanded=true when open', expanded === 'true')
-      await page.click('.site-nav a:has-text("Results")'); await page.waitForTimeout(600)
+      await page.click('.site-nav a:text-is("Results")'); await page.waitForTimeout(600)
       record(vp.label, 'mobile menu: link navigates and menu closes', page.url().endsWith('#/results') && !(await page.$eval('.site-nav', (n) => n.classList.contains('open'))), page.url())
-      await go('')
     }
+    await go('overview')
     // calculator
     await page.locator('#try').scrollIntoViewIfNeeded()
     const before = await page.locator('.res-main dd').first().innerText()
@@ -155,7 +250,7 @@ for (const vp of VIEWPORTS) {
     await page.screenshot({ path: shotPath('', vp.label, false, 'calculator') }).catch(() => {})
     // headline facts come from the snapshot
     const facts = await page.locator('.fact-value').allInnerTexts()
-    record(vp.label, 'home: four headline facts with values', facts.length === 4 && facts.every((f) => /\d/.test(f)), facts.join(' | '))
+    record(vp.label, 'overview: four headline facts with values', facts.length === 4 && facts.every((f) => /\d/.test(f)), facts.join(' | '))
   }
 
   if (!only || only.has('pfd')) {
@@ -213,12 +308,12 @@ for (const vp of VIEWPORTS) {
 
   if (vp.w === 1440 && (!only || only.has('downloads'))) {
     cur = 'downloads'
-    for (const f of ['AmCraX_Technical_Report.pdf', 'AmCraX_Technical_Report.docx', 'AmCraX_Pitch_Deck.pdf', 'AmCraX_Pitch_Deck.pptx', 'speaker_script.md', 'validation_matrix.md', 'discrepancy_analysis.md']) {
+    for (const f of ['AmCraX_Technical_Report.pdf', 'AmCraX_Technical_Report_2026-11-23.pdf','AmCraX_Technical_Report.docx', 'AmCraX_Pitch_Deck.pdf', 'AmCraX_Pitch_Deck.pptx', 'speaker_script.md', 'validation_matrix.md', 'discrepancy_analysis.md']) {
       const r = await page.request.get(`${base}downloads/${f}`)
       const len = (await r.body()).length
       record(vp.label, `download ${f}`, r.status() === 200 && len > 2000, `HTTP ${r.status()}, ${(len / 1024).toFixed(0)} kB`)
     }
-    for (const u of ['og-image.png', 'favicon.svg', 'img/pfd_baseline.png', 'snapshot/manifest.json', 'snapshot/aspen-screenshots/01_flowsheet.png']) {
+    for (const u of ['og-image.png', 'favicon.svg', 'img/pfd_baseline.png', 'snapshot/manifest.json', 'snapshot/aspen-screenshots/01_flowsheet.png', 'snapshot/simulator/model.json', 'snapshot/simulator/aspen_anchors.json', 'snapshot/simulator/parity_report.json']) {
       const r = await page.request.get(`${base}${u}`)
       record(vp.label, `asset ${u}`, r.status() === 200, `HTTP ${r.status()}`)
     }

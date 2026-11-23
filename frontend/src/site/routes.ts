@@ -14,19 +14,48 @@ export function isPlatformPath(pathname: string): boolean {
 
 export interface SiteRoute { path: string; label: string; title: string; section: number }
 
-/** The nine public sections, in order. Each has its own route; "/" is the landing page (section 1). */
+/** The public pages, in order. Each has its own route; "/" is the process simulator (landing page, section 1). */
 export const SITE_ROUTES: SiteRoute[] = [
-  { path: '/', label: 'Overview', title: 'Overview', section: 1 },
-  { path: '/why', label: 'Why cracking', title: 'Why ammonia cracking', section: 2 },
-  { path: '/pfd', label: 'Process flow', title: 'Interactive process flow diagram', section: 3 },
-  { path: '/methodology', label: 'Methodology', title: 'Simulation methodology', section: 4 },
-  { path: '/results', label: 'Results', title: 'Engineering results', section: 5 },
-  { path: '/architecture', label: 'Architecture', title: 'Software architecture', section: 6 },
-  { path: '/research', label: 'Research', title: 'Research and validation', section: 7 },
-  { path: '/docs', label: 'Docs', title: 'Documentation and downloads', section: 8 },
-  { path: '/about', label: 'About', title: 'About AmCraX', section: 9 },
-  { path: '/hypotheses', label: 'Hypotheses', title: 'Hypothesis testing', section: 10 },
+  { path: '/', label: 'Simulator', title: 'Process simulator', section: 1 },
+  { path: '/overview', label: 'Overview', title: 'Overview', section: 2 },
+  { path: '/why', label: 'Why cracking', title: 'Why ammonia cracking', section: 3 },
+  { path: '/pfd', label: 'Process flow results', title: 'Interactive process flow diagram', section: 4 },
+  { path: '/methodology', label: 'Methodology', title: 'Simulation methodology', section: 5 },
+  { path: '/results', label: 'Results', title: 'Engineering results', section: 6 },
+  { path: '/architecture', label: 'Architecture', title: 'Software architecture', section: 7 },
+  { path: '/research', label: 'Research', title: 'Research and validation', section: 8 },
+  { path: '/docs', label: 'Docs', title: 'Documentation and downloads', section: 9 },
+  { path: '/about', label: 'About', title: 'About AmCraX', section: 10 },
+  { path: '/hypotheses', label: 'Hypotheses', title: 'Hypothesis testing', section: 11 },
 ]
+
+export interface NavItem { label: string; to: string; /** match for the active state (pathname) */ match?: string }
+
+/** Top navigation (Phase 2): the simulator first, then the research pages. Items map onto existing routes and anchors. */
+export const NAV_PRIMARY: NavItem[] = [
+  { label: 'Simulator', to: '/', match: '/' },
+  { label: 'Hypotheses', to: '/hypotheses', match: '/hypotheses' },
+  { label: 'Catalysts', to: '/hypotheses/catalyst', match: '/hypotheses/catalyst' },
+  { label: 'Singapore Economics', to: '/hypotheses/economics', match: '/hypotheses/economics' },
+  { label: 'Purification', to: '/hypotheses/purification', match: '/hypotheses/purification' },
+  { label: 'End Use', to: '/hypotheses/end-use', match: '/hypotheses/end-use' },
+  { label: 'Environmental Analysis', to: '/hypotheses/end-use#lca' },
+  { label: 'Validation', to: '/hypotheses/validation', match: '/hypotheses/validation' },
+  { label: 'Aspen Evidence', to: '/hypotheses/aspen-evidence', match: '/hypotheses/aspen-evidence' },
+  { label: 'Technical Report', to: '/docs#downloads' },
+  { label: 'Documentation', to: '/docs', match: '/docs' },
+]
+
+/** Existing pages outside the primary list: reachable from the "More pages" menu and from the footer. */
+export const NAV_MORE: NavItem[] = SITE_ROUTES.filter((r) => ['/overview', '/why', '/pfd', '/methodology', '/results', '/architecture', '/research', '/about'].includes(r.path))
+  .map((r) => ({ label: r.label, to: r.path, match: r.path }))
+
+/** Active state of a nav item: exact pathname match (the hypotheses root is active only on its own page). */
+export function navActive(item: NavItem, pathname: string, hash = ''): boolean {
+  if (!item.match) return false
+  if (item.match === '/hypotheses/end-use' && hash === '#lca') return false
+  return pathname === item.match
+}
 
 /** Sub-pages of the Hypotheses section (/hypotheses/<slug>); the section's root page holds the evidence matrix. */
 export const HYPOTHESIS_PAGES: { slug: string; label: string; title: string }[] = [
@@ -47,7 +76,8 @@ export function titleFor(pathname: string): string {
   const hp = HYPOTHESIS_PAGES.find((x) => x.slug && pathname === hypothesisPath(x.slug))
   if (hp) return `${hp.title} - AmCraX`
   const r = SITE_ROUTES.find((x) => x.path === pathname)
-  return r && r.path !== '/' ? `${r.title} - AmCraX` : 'AmCraX - Ammonia cracking simulation and optimisation platform'
+  if (pathname === '/') return 'AmCraX - Interactive ammonia cracking process simulator'
+  return r ? `${r.title} - AmCraX` : 'AmCraX - Ammonia cracking simulation and optimisation platform'
 }
 
 /** Split "#/results#lcoh" style locations: the router hands us pathname + hash separately; this normalises an anchor id. */

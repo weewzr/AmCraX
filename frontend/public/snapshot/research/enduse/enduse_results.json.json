@@ -1,12 +1,21 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T04:16:10Z",
+  "generated_utc": "2026-11-23T08:50:18Z",
   "script": "scripts/research/enduse_run.py",
   "source_type": "python+aspen(stored)+literature",
   "inputs_summary": "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
   "model_versions": {
    "aspen_inputs": "stored results/simulations/baseline.json and scn_fuel_cell_grade.json (Aspen Plus V15)",
-   "economics": "amcrax.economics (compute_lcoh, estimate_capex); prices and electricity from amcrax.economics.singapore (data/singapore.yaml)",
+   "economics": "Phase 2 reference scenario: amcrax.economics.singapore.evaluate (H2) and amcrax.economics.reference.reference_capex (cracker in power pathways); all cost inputs from data/reference_scenario.yaml",
    "purification": "results/research/purification/purification_study.json (workstream P) for the purified-H2 rows; stored scn_fuel_cell_grade kept as the Aspen-scenario variant"
   }
  },
@@ -17,99 +26,99 @@
     "basis": "AmCraX price set (450 USD/t, 8000 h)",
     "cracking_pathway": "full_exhaust",
     "LCOE_direct": 258.928159372348,
-    "LCOE_cracking": 248.24505037820182,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.303452970309141,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": -4.125896936062279
+    "LCOE_cracking": 255.58562736192215,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -1.3077934173867378,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -1.2909109687135878
    },
    {
     "basis": "AmCraX price set (450 USD/t, 8000 h)",
     "cracking_pathway": "full_fired",
     "LCOE_direct": 258.928159372348,
-    "LCOE_cracking": 272.85473735946783,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.104026458141542,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 5.378549023357837
+    "LCOE_cracking": 280.0850665923625,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 7.553743395682866,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 8.17095648124937
    },
    {
     "basis": "AmCraX price set (450 USD/t, 8000 h)",
     "cracking_pathway": "full_purified",
     "LCOE_direct": 258.928159372348,
-    "LCOE_cracking": 304.4562967702604,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 14.953915514602567,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 17.5833086321219
+    "LCOE_cracking": 310.179325155085,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 16.523076048705764,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 19.793585180913453
    },
    {
     "basis": "Ahmad basis (480 USD/t, 7200 h)",
     "cracking_pathway": "full_exhaust",
     "LCOE_direct": 279.90115674325693,
-    "LCOE_cracking": 268.7296433024813,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.157157097924258,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": -3.991235181290398
+    "LCOE_cracking": 276.8858327242286,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -1.0890134714951483,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -1.077281728347479
    },
    {
     "basis": "Ahmad basis (480 USD/t, 7200 h)",
     "cracking_pathway": "full_fired",
     "LCOE_direct": 279.90115674325693,
-    "LCOE_cracking": 295.1316277555497,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.160568905514862,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 5.441374801556509
+    "LCOE_cracking": 303.1653187171936,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 7.673754396570187,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 8.311563354943917
    },
    {
     "basis": "Ahmad basis (480 USD/t, 7200 h)",
     "cracking_pathway": "full_purified",
     "LCOE_direct": 279.90115674325693,
-    "LCOE_cracking": 329.3907229729333,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 15.02457804002666,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 17.68108671128905
+    "LCOE_cracking": 335.74963434527837,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 16.633965279196094,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 19.95292847369301
    },
    {
     "basis": "renewable NH3 today (1000 USD/t)",
     "cracking_pathway": "full_exhaust",
     "LCOE_direct": 473.3401075323036,
-    "LCOE_cracking": 443.2805113711097,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": -6.781167994103021,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": -6.350528020519041
+    "LCOE_cracking": 450.62108835483,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -5.041712375339191,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -4.799724091819768
    },
    {
     "basis": "renewable NH3 today (1000 USD/t)",
     "cracking_pathway": "full_fired",
     "LCOE_direct": 473.3401075323036,
-    "LCOE_cracking": 493.7764135917177,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 4.138777288036277,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 4.3174676589220695
+    "LCOE_cracking": 501.00674282461233,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.5222081715562865,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 5.844980142617762
    },
    {
     "basis": "renewable NH3 today (1000 USD/t)",
     "cracking_pathway": "full_purified",
     "LCOE_direct": 473.3401075323036,
-    "LCOE_cracking": 548.8362399418061,
-    "direct_cheaper_by_pct_of_cracking(1-d/c)": 13.75567553948468,
-    "cracking_dearer_by_pct_of_direct(c/d-1)": 15.949658862227345
+    "LCOE_cracking": 554.5592683266307,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 14.64571334988305,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 17.158732062185166
    }
   ],
   "crossover_prices": {
-   "full_exhaust_vs_direct_NH3_price_USD_t": 146.760826865834,
-   "partial_exhaust_40_vs_direct": 210.94086049278204,
+   "full_exhaust_vs_direct_NH3_price_USD_t": 355.122502862098,
+   "partial_exhaust_40_vs_direct": 450.1436034052948,
    "full_fired_vs_direct": null,
    "full_purified_vs_direct": null,
    "note": "None = the pathways do not cross between 1 and 5000 USD/t; below the crossover price the capital-heavy pathway is dearer, above it the efficiency gain pays."
   },
-  "unpurified_exhaust_LCOE_with_full_cracker_correlation": 257.1135582245889,
+  "unpurified_exhaust_LCOE_with_full_cracker_correlation": 260.1795458440106,
   "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed."
  },
  "hydrogen_summary": {
   "industrial_H2_cost_vs_price": {
-   "300": 2.8167286576455055,
-   "450": 3.919253484053714,
-   "709": 5.822946350985219,
-   "1000": 7.961844514217143
+   "300": 2.912936428286826,
+   "450": 4.015461254695034,
+   "709": 5.91915412162654,
+   "1000": 8.058052284858464
   },
   "fuelcell_candidate_cost_vs_price": {
-   "300": 2.852724037873774,
-   "450": 3.966694063653738,
-   "709": 5.890148974833807,
-   "1000": 8.051250824846935
+   "300": 2.980069753133842,
+   "450": 4.094039778913806,
+   "709": 6.017494690093875,
+   "1000": 8.178596540107003
   },
-  "purification_cost_increment_USD_per_kg_at_450": 0.0474405796000239,
+  "purification_cost_increment_USD_per_kg_at_450": 0.07857852421877176,
   "note": "Increment is the stored-scenario difference (PSA recovery 0.85 -> 0.80, N2 slip 1e-3 -> 5e-4); it excludes NH3 polishing and other ISO 14687 contaminants, so it is a lower bound."
  },
  "limitations": [

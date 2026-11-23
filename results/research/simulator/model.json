@@ -1,0 +1,5164 @@
+{
+ "carbon": {
+  "accounting": {
+   "distance_km": 5000.0,
+   "electric_heater_efficiency": 1.0,
+   "electricity": {
+    "eu_average": 0.207,
+    "low_carbon_nuclear": 0.0072,
+    "singapore_2024": 0.402
+   },
+   "fired_heater_efficiency_lhv": 1.0,
+   "natural_gas_kg_per_TJ": 56100.0,
+   "ship_ef_kg_per_tkm": 0.011,
+   "source": "backend/amcrax/data/environmental.yaml via amcrax.environmental.carbon_intensity",
+   "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+   "upstream_ammonia": {
+    "blue": 1.16,
+    "blue_high_capture": 0.77,
+    "green": 0.0,
+    "grey": 2.6
+   }
+  },
+  "actual_boundary": "Singapore carbon tax on direct (Scope 1) facility CO2e only, only above the facility threshold, as amcrax.economics.singapore.evaluate applies it; upstream and overseas emissions are not taxed",
+  "hypothetical_boundary": "HYPOTHETICAL, not Singapore law: a user carbon price in SGD per tCO2e times the life-cycle carbon intensity per kg H2; it replaces the actual tax term so that no emission is charged twice",
+  "lca_routes": {
+   "blue": {
+    "ef_kg_per_kg_nh3": 1.1600000000000001,
+    "high": 1.9212585987261146,
+    "label": "blue NH3 (Lee v1: process CO2 captured)",
+    "low": 0.77,
+    "source_type": "literature"
+   },
+   "blue_v2": {
+    "ef_kg_per_kg_nh3": 0.7700000000000002,
+    "high": 1.5702585987261148,
+    "label": "blue NH3 (Lee v2: process + flue-gas CO2 captured)",
+    "low": 0.7700000000000002,
+    "source_type": "literature"
+   },
+   "green": {
+    "ef_kg_per_kg_nh3": 0.2752157829839704,
+    "high": 0.4794081381011098,
+    "label": "green NH3 (renewable, incl. embedded asset emissions)",
+    "low": 0.07102342786683108,
+    "source_type": "literature"
+   },
+   "green_lee": {
+    "ef_kg_per_kg_nh3": 0.0,
+    "high": 0.4794081381011098,
+    "label": "green NH3 (Lee boundary, zero)",
+    "low": 0.0,
+    "source_type": "literature"
+   },
+   "grey": {
+    "ef_kg_per_kg_nh3": 2.6,
+    "high": 4.6,
+    "label": "grey NH3 (NG SMR, no capture)",
+    "low": 2.0,
+    "source_type": "literature"
+   }
+  },
+  "lca_source": "amcrax.environmental.lca.route_spec (research life-cycle factors, kg CO2e per kg NH3 at the producer gate)"
+ },
+ "economics": {
+  "basis": "pre-unification",
+  "basis_note": "CAPEX: Phase 1 equipment method (capex_mode='equipment'); the unified reference CAPEX (capex_mode 'reference') is not ported yet. Other parameters: exactly as evaluate() resolves them (it reads backend/amcrax/data/reference_scenario.yaml).",
+  "capex_equipment": {
+   "equipment_shares_pct": {
+    "adsorber": 4,
+    "cracker": 21,
+    "heat_exchangers": 5,
+    "psa": 26
+   },
+   "pec_reference_kUSD": 1702,
+   "reference_feed_kmol_h": 500,
+   "scaling_exponent": 0.8,
+   "singapore_location_factor": 1.0,
+   "tci_over_pec": 5.93
+  },
+  "capex_mode": "equipment",
+  "carbon_tax": {
+   "rate_2026_SGD_per_tCO2e": 45.0,
+   "threshold_tCO2e_per_yr": 25000.0
+  },
+  "catalyst_metal_map": {
+   "Ni": "Ni",
+   "Ni-Ru": "Ru",
+   "Ru": "Ru"
+  },
+  "catalyst_metal_map_note": "assumption: EconomicAssumptions prices only Ni and Ru; a Ru-containing Ni-Ru catalyst is priced as Ru (conservative upper bound) until the catalyst-economics workstream supplies a price",
+  "catalyst_price_USD_per_kg": {
+   "Ni": 33.4,
+   "Ru": 542.0
+  },
+  "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied",
+  "economic_assumptions": {
+   "ammonia_fuel_heat_efficiency": 1.0,
+   "capacity_exponent": 0.7451,
+   "capex_fixed_USD": null,
+   "capex_method": "ahmad2025_correlation",
+   "capex_multiplier": 1.0,
+   "catalyst": "Ni",
+   "catalyst_lifetime_yr": 2.0,
+   "catalyst_mass_kg": null,
+   "catalyst_price_USD_per_kg": null,
+   "catalyst_space_velocity_mL_NH3_per_gcat_h": 9000.0,
+   "chopra_exclude_compressor": true,
+   "chopra_remove_location_factor": true,
+   "compression_power_kW": 0.0,
+   "cooling_water_price_USD_per_kJ": 2.125e-07,
+   "credit_heat_surplus": false,
+   "discount_rate": 0.1,
+   "electricity_price_USD_per_kWh": 0.084,
+   "fired_heat_price_USD_per_kJ": 4.25e-06,
+   "g_and_a_frac_fixed_opex": 0.06,
+   "heat_import_mode": "ammonia_fuel",
+   "insurance_frac_capex_per_yr": 0.015,
+   "labour_USD_per_yr": 109756.0,
+   "maintenance_frac_capex_per_yr": 0.03,
+   "nh3_price_USD_per_t": 450.0,
+   "normal_molar_volume_L_per_mol": 22.414,
+   "operating_hours_h_per_yr": 8000.0,
+   "plant_life_yr": 25.0,
+   "plant_overhead_frac_labour_maint": 0.25
+  },
+  "natural_gas_co2_factor_kg_per_GJ": 56.1,
+  "nh3_price_scenarios_USD_per_t": {
+   "blue": 487.0,
+   "green_2030": 709.0,
+   "green_2050": 463.0,
+   "green_current": 1000.0,
+   "grey": 450.0
+  },
+  "reference_scenario": {
+   "id": "amcrax_reference_2026_11_23",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0"
+  },
+  "sg_params": {
+   "apply_threshold": true,
+   "capacity_scale": 1.0,
+   "capex_mode": "equipment",
+   "capex_scaling_exponent": null,
+   "carbon_tax_SGD_per_t": 45.0,
+   "electricity_price_USD_per_kWh": 0.14024,
+   "fuel_efficiency": null,
+   "gas_heat_price_USD_per_kJ": null,
+   "h2_price_USD_per_kg": 3.06,
+   "heat_fuel": "ammonia",
+   "item_size_ratio": null,
+   "labour_scales_with_capacity": false,
+   "n2o_tCO2e_per_yr": 0.0,
+   "nh3_price_USD_per_t": 450.0,
+   "other_facility_emissions_tCO2e": 0.0,
+   "psa_recovery": null,
+   "reactor_size_driver": null,
+   "transport_USD_per_kg_H2": null
+  },
+  "source_files": [
+   "backend/amcrax/data/singapore.yaml",
+   "backend/amcrax/data/economics.yaml (via EconomicAssumptions)",
+   "backend/amcrax/data/reference_scenario.yaml"
+  ],
+  "source_functions": [
+   "amcrax.economics.singapore.evaluate",
+   "amcrax.economics.lcoh.EconomicAssumptions"
+  ]
+ },
+ "fx": {
+  "SGD_per_USD": 1.288444,
+  "access_date": "2026-11-23",
+  "date": "2026-11-20",
+  "source": "European Central Bank euro foreign exchange reference rates, 20 Nov 2026: 1 EUR = 1.0990 USD and 1.4160 SGD; cross rate 1.4160 / 1.0990 = 1.288444 SGD per USD",
+  "stored_in": "backend/amcrax/data/reference_scenario.yaml (via amcrax.economics.reference)",
+  "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml"
+ },
+ "kinetics": {
+  "equilibrium_approach_factor": {
+   "applies_to_forms": [
+    "takahashi_microkinetic",
+    "lhhw_lucentini"
+   ],
+   "default_on": true,
+   "expression": "r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics",
+   "label": "assumption (AmCraX extension)",
+   "rationale": "The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+  },
+  "law_ids": [
+   "ni_takahashi_microkinetic",
+   "ru_takahashi_microkinetic",
+   "ru_kum_temkin_pyzhev",
+   "nire_ceo2_5ni1ru_lucentini_lhhw",
+   "nire_ceo2_2p5ni0p5ru_lucentini_lhhw"
+  ],
+  "laws": {
+   "ni_takahashi_microkinetic": {
+    "amcrax_extensions": [
+     "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+    ],
+    "bed_properties": null,
+    "citekey": "takahashi2016kinetic",
+    "composition": "30 wt% Ni/MgO, impregnation, calcined 600 degC, 22-42 mesh powder",
+    "equilibrium_constant": null,
+    "form": "takahashi_microkinetic",
+    "id": "ni_takahashi_microkinetic",
+    "irreversible_published": true,
+    "label": "Ni/MgO microkinetic (Takahashi & Fujitani 2016)",
+    "limitations": [
+     "Steps 2 and 3 irreversible in the source: rate does not vanish at equilibrium (AmCraX approach factor optional, see below).",
+     "Mole-fraction basis: no intrinsic total-pressure dependence; use at 20 bar is an unvalidated extrapolation.",
+     "Nomenclature lists T in degC; T in K reproduces Table 2 (used here).",
+     "Table 1 reproduces Table 2 at 500 degC only within 2-7 % (paper rounding); not tuned."
+    ],
+    "metal": "Ni",
+    "parameters": {
+     "A1": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k1)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 75.5
+     },
+     "A2": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k2)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 7540000000000000.0
+     },
+     "A3": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k3)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 3120000.0
+     },
+     "A4": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k4)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 39200.0
+     },
+     "A5": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K1)",
+      "page": 4,
+      "unit": "-",
+      "value": 2.26e-14
+     },
+     "A6": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K4)",
+      "page": 4,
+      "unit": "-",
+      "value": 4130000.0
+     },
+     "Ea2": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k2)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 144.0
+     },
+     "Ea3": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k3)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 127.8
+     },
+     "Ea4": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k4; also used for K4, Eq. 25)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 109.0
+     },
+     "Ea5": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K1)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": -79.4
+     }
+    },
+    "pressure_basis": "mole fractions p_i/p_total (atm in the source; ratio is unit free)",
+    "rate_law_text": "Elementary steps NH3+s<=>NH3(a) (k1, k-1=k1/K1); NH3(a)+3s->N(a)+3H(a) (k2, irreversible); 2N(a)->N2+2s (k3, irreversible); 2H(a)<=>H2+2s (k4, k-4=k4/K4). r1=k1*(pNH3/ptot)*th_s - k-1*th_NH3; r2=k2*th_NH3*th_s^3; r3=k3*th_N^2; r4=k4*th_H^2 - k-4*(pH2/ptot)*th_s^2; th_s=1-th_NH3-th_N-th_H; QSS r1=r2, r2=2r3, 3r2=2r4; r_NH3 = r2 [mol s-1 g-1]. k_i=A_i exp(-Ea_i/RT), k1=A1 (Ea1=0); K1=A5 exp(-Ea5/RT); K4=A6 exp(-Ea4/RT).",
+    "rate_unit_model": "mol NH3 kg_cat^-1 s^-1",
+    "rate_unit_published": "mol s^-1 g_cat^-1",
+    "registry_section": "catalysts",
+    "reversibility_treatment": "irreversible as published; AmCraX approach factor (1 - Q/Kp) applied, default ON (assumption)",
+    "short": "tni",
+    "source": {
+     "citekey": "takahashi2016kinetic",
+     "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)",
+     "page": "2-5"
+    },
+    "usable": true,
+    "validity": {
+     "P_max_bar": 1.01325,
+     "P_min_bar": 1.01325,
+     "T_max_K": 923.15,
+     "T_min_K": 623.15,
+     "note": "fit 350-450 degC, X<20 %, 1 atm; validated 500-650 degC at 1 atm (Figs. 1, 3, 5)"
+    },
+    "validity_classification": {
+     "aspen_representation": "fitted LHHW approximation (python fit, mole-fraction basis, 20 bar only); not native",
+     "catalyst": "Ni/MgO",
+     "catalyst_id": "ni_takahashi_microkinetic",
+     "citekey": "takahashi2016kinetic",
+     "class": "extrapolated",
+     "class_evidence": "no passing comparison with published data (EXISTING-KIN-NI-PRED fail 0.1096 > 0.05); fitted at 1 atm",
+     "domain_warning": {
+      "pressure_extrapolated_at_20_bar": true,
+      "rule": "warn when P_bar outside fitted_range.P_bar or T_C outside fitted_range.T_C",
+      "temperatures_outside_fitted_range_C": [
+       700.0
+      ]
+     },
+     "evidence_kinds_available": [
+      "literature_comparison",
+      "numerical_verification",
+      "python_vs_aspen"
+     ],
+     "experimental": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350,
+       650
+      ],
+      "conversion_note": "fit <20 %; tests 20-100 %",
+      "conversion_range": [
+       0.0,
+       1.0
+      ],
+      "feed": "NH3 0.1-1.0 atm in Ar; H2 co-feed 0-0.7 atm at p_NH3 0.3 atm",
+      "space_velocity": "SV 15000-30000 h-1 (fit), 2000-20000 h-1 (tests); basis of SV and catalyst mass not reported"
+     },
+     "experimental_validation": false,
+     "fitted_range": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350.0,
+       650.0
+      ],
+      "T_K": [
+       623.15,
+       923.15
+      ]
+     },
+     "fitted_range_basis": "fit 350-450 degC (<20 % conversion), extrapolation tests by the authors 500-650 degC; all 1 atm",
+     "h2_inhibition": "fitted (H2 re-adsorption step 4, k-4 = k4/K4; Fig. 5 data)",
+     "law_form": "microkinetic, 4 lumped elementary steps, QSS coverages (Eqs. 5-14); mole-fraction basis p_i/p_total",
+     "literature_comparisons": [
+      {
+       "P_bar": 1.01325,
+       "T_C": [
+        500,
+        650
+       ],
+       "comparison_uses_fitting_data": false,
+       "id": "EXISTING-KIN-NI-PRED",
+       "observed": 0.1096,
+       "status": "fail",
+       "tolerance": 0.05,
+       "what": "PFR conversion vs Figs. 3a/3b/5a (read from figures; W/F from one anchor point)"
+      }
+     ],
+     "numerical_checks": [
+      "EXISTING-KIN-TABLE2 pass (Table 1 vs Table 2 at 773 K, 6.8 % < 10 %)",
+      "KINR-ASPENAPPROX-ni pass (fitted Aspen LHHW approximation vs exact law, 0.034 < 0.05)"
+     ],
+     "reversibility": "not in the published law (steps 2, 3 irreversible); AmCraX approach factor (1 - Q/Kp) is an assumption"
+    }
+   },
+   "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": {
+    "amcrax_extensions": [
+     "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+    ],
+    "bed_properties": {
+     "d_cat_m": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4",
+      "page": 8,
+      "unit": "m",
+      "value": 0.0001
+     },
+     "eps_L_diluted_bed": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4, Eq. 5",
+      "page": 8,
+      "unit": "-",
+      "value": 0.2451
+     },
+     "eps_av_catalyst_only": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4, Eq. 6",
+      "page": 8,
+      "unit": "-",
+      "value": 0.3855
+     },
+     "reactor_inner_diameter_m": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4",
+      "page": 8,
+      "unit": "m",
+      "value": 0.004572
+     },
+     "rho_apparent_kg_m3": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4 (single value reported for the kinetic analysis)",
+      "page": 8,
+      "unit": "kg m^-3",
+      "value": 1651.8
+     }
+    },
+    "citekey": "lucentini2021nirukinetic",
+    "composition": "Ni 2.39 wt%, Ru 0.35 wt% (ICP-MS) on nanopolycrystalline CeO2, co-impregnation, calcined 450 degC; powder, d_cat 0.10 mm, diluted in SiC",
+    "equilibrium_constant": null,
+    "form": "lhhw_lucentini",
+    "id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "irreversible_published": true,
+    "label": "2.5Ni0.5Ru/CeO2 LHHW (Lucentini et al. 2021)",
+    "limitations": [
+     "Irreversible as published: AmCraX equilibrium approach factor applied by default (switchable).",
+     "Fitted at 1 atm only; K1, K4 temperature independent; extrapolation above 1 atm unvalidated.",
+     "Initial deactivation of about 2 % over 100 h at 450 degC (p. 12) is not modelled.",
+     "Blank conversion 4/9/24 % at 400/450/500 degC (p. 10), subtraction not stated.",
+     "Powder intrinsic kinetics; no effectiveness factor."
+    ],
+    "metal": "Ni-Ru",
+    "parameters": {
+     "Ek": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3",
+      "page": 24,
+      "uncertainty": 11.0,
+      "unit": "kJ mol^-1",
+      "value": 107.0
+     },
+     "K1": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3",
+      "page": 24,
+      "uncertainty": 0.3,
+      "unit": "m^3 mol^-1",
+      "value": 1.2
+     },
+     "K4": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3",
+      "page": 24,
+      "uncertainty": 0.002,
+      "unit": "mol m^-3",
+      "value": 0.045
+     },
+     "k0": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3",
+      "page": 24,
+      "uncertainty": 80000.0,
+      "unit": "mol NH3 g_cat^-1 s^-1",
+      "value": 330000.0
+     }
+    },
+    "pressure_basis": "molar concentrations C_i = p_i/(R T) in mol m^-3",
+    "rate_law_text": "Same LHHW expression as nire_ceo2_5ni1ru_lucentini_lhhw (Eq. 17) with the 2.5Ni0.5Ru/CeO2 parameters of Table 3.",
+    "rate_unit_model": "mol NH3 kg_cat^-1 s^-1",
+    "rate_unit_published": "mol NH3 g_cat^-1 s^-1",
+    "registry_section": "research_catalysts",
+    "reversibility_treatment": "irreversible as published; AmCraX approach factor (1 - Q/Kp) applied, default ON (assumption)",
+    "short": "luc25",
+    "source": {
+     "citekey": "lucentini2021nirukinetic",
+     "locator": "Eq. 17-18; Table 1 (p. 10); Table 3 (p. 24)",
+     "page": "8-9, 21-25"
+    },
+    "usable": true,
+    "validity": {
+     "P_max_bar": 1.01325,
+     "P_min_bar": 1.01325,
+     "T_max_K": 873.15,
+     "T_min_K": 623.15,
+     "note": "fitted 350-550/600 degC, 1 atm; the source itself simulates pure NH3 at 1 atm (Fig. 10); above 1 atm is extrapolation"
+    },
+    "validity_classification": {
+     "aspen_representation": "native LHHW; molarity basis in Phase 1 runs, exact partial-pressure basis added in Phase 2",
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+     "citekey": "lucentini2021nirukinetic",
+     "class": "validated_against_literature",
+     "class_evidence": "passed comparison with published data only up to 1.01325 bar (KINR-LUC-2p5Ni0p5Ru_CeO2); 20 bar use is a pressure extrapolation; the comparison uses the law's own fitting data (consistency check)",
+     "domain_warning": {
+      "pressure_extrapolated_at_20_bar": true,
+      "rule": "warn when P_bar outside fitted_range.P_bar or T_C outside fitted_range.T_C",
+      "temperatures_outside_fitted_range_C": [
+       700.0
+      ]
+     },
+     "evidence_kinds_available": [
+      "literature_comparison",
+      "numerical_verification",
+      "python_vs_aspen"
+     ],
+     "experimental": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350,
+       600
+      ],
+      "conversion_note": "Table 1 points 400/450/500 degC (49.7/88.7/99.2 %)",
+      "conversion_range": [
+       0.497,
+       0.992
+      ],
+      "feed": "as 5Ni1Ru/CeO2",
+      "space_velocity": "F/W 15-45 L g-1 h-1"
+     },
+     "experimental_validation": false,
+     "fitted_range": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350.0,
+       600.0
+      ],
+      "T_K": [
+       623.15,
+       873.15
+      ]
+     },
+     "fitted_range_basis": "350-600 degC, 1 atm",
+     "h2_inhibition": "fitted",
+     "law_form": "LHHW as 5Ni1Ru/CeO2 with Table 3 parameters",
+     "literature_comparisons": [
+      {
+       "P_bar": 1.01325,
+       "T_C": [
+        400,
+        500
+       ],
+       "comparison_uses_fitting_data": true,
+       "id": "KINR-LUC-2p5Ni0p5Ru_CeO2",
+       "observed": 0.0246,
+       "status": "pass",
+       "tolerance": 0.05,
+       "what": "PFR vs Table 1 conversions"
+      }
+     ],
+     "numerical_checks": [
+      "KINR-ASPENFORM pass (6.2e-4 relative)",
+      "Aspen vs Python cv/cs points pass"
+     ],
+     "reversibility": "not in the published law; AmCraX approach factor is an assumption"
+    }
+   },
+   "nire_ceo2_5ni1ru_lucentini_lhhw": {
+    "amcrax_extensions": [
+     "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+    ],
+    "bed_properties": {
+     "d_cat_m": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4",
+      "page": 8,
+      "unit": "m",
+      "value": 0.0001
+     },
+     "eps_L_diluted_bed": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4, Eq. 5 (catalyst + SiC bed)",
+      "page": 8,
+      "unit": "-",
+      "value": 0.2451
+     },
+     "eps_av_catalyst_only": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4, Eq. 6 (bed of catalyst particles only, d_i 4.572 mm)",
+      "page": 8,
+      "unit": "-",
+      "value": 0.3855
+     },
+     "reactor_inner_diameter_m": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4, Eq. 6",
+      "page": 8,
+      "unit": "m",
+      "value": 0.004572
+     },
+     "rho_apparent_kg_m3": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Sec. 2.4 (MIP apparent density)",
+      "page": 8,
+      "unit": "kg m^-3",
+      "value": 1651.8
+     }
+    },
+    "citekey": "lucentini2021nirukinetic",
+    "composition": "Ni 4.98 wt%, Ru 0.64 wt% (ICP-MS) on nanopolycrystalline CeO2, co-impregnation, calcined 450 degC; powder, d_cat 0.10 mm, diluted in SiC",
+    "equilibrium_constant": null,
+    "form": "lhhw_lucentini",
+    "id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "irreversible_published": true,
+    "label": "5Ni1Ru/CeO2 LHHW (Lucentini et al. 2021)",
+    "limitations": [
+     "Irreversible as published: the AmCraX equilibrium approach factor (1 - Q/Kp) is applied by default (switchable).",
+     "Fitted at 1 atm only; K1 and K4 are temperature independent; total-pressure dependence enters only through concentrations (extrapolation above 1 atm unvalidated).",
+     "Blank (empty reactor / SiC / CeO2) conversion was 4, 9 and 24 % at 400, 450, 500 degC (p. 10); the paper does not state that blank activity was subtracted.",
+     "Gas-volume reference conditions of the mL min^-1 flows are not stated (AmCraX assumes 0 degC, 1 atm; 25 degC tested as sensitivity).",
+     "Powder (0.1 mm) intrinsic kinetics: industrial pellets need an effectiveness factor (not modelled)."
+    ],
+    "metal": "Ni-Ru",
+    "parameters": {
+     "Ek": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3",
+      "page": 24,
+      "uncertainty": 8.0,
+      "unit": "kJ mol^-1",
+      "value": 124.0
+     },
+     "K1": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3 (NH3 adsorption constant)",
+      "page": 24,
+      "uncertainty": 0.2,
+      "unit": "m^3 mol^-1",
+      "value": 1.1
+     },
+     "K4": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3 (H2 desorption constant)",
+      "page": 24,
+      "uncertainty": 0.001,
+      "unit": "mol m^-3",
+      "value": 0.047
+     },
+     "k0": {
+      "citekey": "lucentini2021nirukinetic",
+      "locator": "Table 3 (confidence interval, nlpredci)",
+      "page": 24,
+      "uncertainty": 700000.0,
+      "unit": "mol NH3 g_cat^-1 s^-1",
+      "value": 3900000.0
+     }
+    },
+    "pressure_basis": "molar concentrations C_i = p_i/(R T) in mol m^-3",
+    "rate_law_text": "r = k*K1*C_NH3 / (1 + K1*C_NH3 + sqrt(C_H2/K4))^2, k = k0*exp(-Ek/(R*T)); C_i in mol m^-3, r in mol NH3 g_cat^-1 s^-1. Rate-determining step: first dehydrogenation NH3(a)+s -> NH2(a)+H(a) (Eq. 9); N2 desorption irreversible, H2 adsorption quasi-equilibrated (Eqs. 8-13). K1 and K4 are temperature independent as published (Table 3). Irreversible as published.",
+    "rate_unit_model": "mol NH3 kg_cat^-1 s^-1",
+    "rate_unit_published": "mol NH3 g_cat^-1 s^-1",
+    "registry_section": "research_catalysts",
+    "reversibility_treatment": "irreversible as published; AmCraX approach factor (1 - Q/Kp) applied, default ON (assumption)",
+    "short": "luc5",
+    "source": {
+     "citekey": "lucentini2021nirukinetic",
+     "locator": "Eqs. 2-6, 8-13, 17-18; Table 1 (p. 10); Table 2 (p. 23); Table 3 (p. 24)",
+     "page": "8-9, 21-25"
+    },
+    "usable": true,
+    "validity": {
+     "P_max_bar": 1.01325,
+     "P_min_bar": 1.01325,
+     "T_max_K": 873.15,
+     "T_min_K": 623.15,
+     "note": "fitted 350-550/600 degC, 1 atm, NH3 10-100 % in Ar (F/W 15-45 L g^-1 h^-1, H2 co-feed 0-67.5 %); every use above 1 atm is extrapolation"
+    },
+    "validity_classification": {
+     "aspen_representation": "native LHHW; molarity basis in Phase 1 runs, exact partial-pressure basis added in Phase 2 (task K1 item 3)",
+     "catalyst": "5Ni1Ru/CeO2",
+     "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+     "citekey": "lucentini2021nirukinetic",
+     "class": "validated_against_literature",
+     "class_evidence": "passed comparison with published data only up to 1.01325 bar (KINR-LUC-5Ni1Ru_CeO2); 20 bar use is a pressure extrapolation; the comparison uses the law's own fitting data (consistency check)",
+     "domain_warning": {
+      "pressure_extrapolated_at_20_bar": true,
+      "rule": "warn when P_bar outside fitted_range.P_bar or T_C outside fitted_range.T_C",
+      "temperatures_outside_fitted_range_C": [
+       700.0
+      ]
+     },
+     "evidence_kinds_available": [
+      "literature_comparison",
+      "numerical_verification",
+      "python_vs_aspen"
+     ],
+     "experimental": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350,
+       600
+      ],
+      "conversion_note": "Table 1 points 400/450/500 degC (36.5/86.1/99.6 %); full fitting set wider",
+      "conversion_range": [
+       0.365,
+       0.996
+      ],
+      "feed": "NH3 10-100 % in Ar; H2 co-feed 0-67.5 %, N2 co-feed 0-67.5 % at 10 % NH3",
+      "space_velocity": "F/W 15-45 L g-1 h-1 (GHSV 3660-7320 h-1)"
+     },
+     "experimental_validation": false,
+     "fitted_range": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       350.0,
+       600.0
+      ],
+      "T_K": [
+       623.15,
+       873.15
+      ]
+     },
+     "fitted_range_basis": "350-600 degC, 1 atm, powder 0.1 mm in SiC",
+     "h2_inhibition": "fitted (sqrt(C_H2/K4) adsorption term, H2 co-feed series)",
+     "law_form": "LHHW, RDS first dehydrogenation: r = k K1 C_NH3/(1 + K1 C_NH3 + sqrt(C_H2/K4))^2, C in mol/m3 (ideal gas)",
+     "literature_comparisons": [
+      {
+       "P_bar": 1.01325,
+       "T_C": [
+        400,
+        500
+       ],
+       "comparison_uses_fitting_data": true,
+       "id": "KINR-LUC-5Ni1Ru_CeO2",
+       "observed": 0.0394,
+       "status": "pass",
+       "tolerance": 0.05,
+       "what": "PFR vs Table 1 conversions"
+      }
+     ],
+     "numerical_checks": [
+      "KINR-ASPENFORM pass (6.2e-4 relative)",
+      "Aspen vs Python cv/cs points pass"
+     ],
+     "reversibility": "not in the published law; AmCraX approach factor (1 - Q/Kp) is an assumption"
+    }
+   },
+   "ru_kum_temkin_pyzhev": {
+    "amcrax_extensions": [
+     "[assumption] dGr is read as J per 2 mol NH3 (2NH3 -> N2 + 3H2), verified against Cantera gri30 to <0.5 kJ (research synthesis check). The driving force of Eq. 2 vanishes at equilibrium only if Keq^2 = exp(-dGr/RT) (Keq per mol NH3, 1 bar standard state). AmCraX therefore uses Keq^2 = exp(-dGr/(R*T))."
+    ],
+    "bed_properties": {
+     "dp_m": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1",
+      "page": 5,
+      "unit": "m",
+      "value": 0.0006
+     },
+     "eps_b": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1",
+      "page": 5,
+      "unit": "-",
+      "value": 0.36
+     },
+     "rho_cat_kg_m3": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1; used as (1-eps_b)*rho_cat in Table 2 mass balance, i.e. particle density",
+      "page": 5,
+      "unit": "kg m^-3",
+      "value": 980.0
+     },
+     "tube_inner_diameter_m": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1 (Din)",
+      "page": 5,
+      "unit": "m",
+      "value": 0.126
+     }
+    },
+    "citekey": "kum2026heatintegrated",
+    "composition": "Ru (8 wt%)/Al2O3 commercial beads (Hypermec 10010)",
+    "equilibrium_constant": {
+     "assumption": true,
+     "assumption_text": "dGr is read as J per 2 mol NH3 (2NH3 -> N2 + 3H2), verified against Cantera gri30 to <0.5 kJ (research synthesis check). The driving force of Eq. 2 vanishes at equilibrium only if Keq^2 = exp(-dGr/RT) (Keq per mol NH3, 1 bar standard state). AmCraX therefore uses Keq^2 = exp(-dGr/(R*T)).",
+     "citekey": "kum2026heatintegrated",
+     "dGr_coefficients_J": [
+      95117.0,
+      -193.67,
+      -0.035293,
+      9.22e-06
+     ],
+     "locator": "Eqs. 3-4",
+     "options": "keq_basis='published' (Eq. 4 with the above reading) or 'amcrax_thermo' (Kp from amcrax.thermodynamics, NASA7/GRI-Mech 3.0)",
+     "page": 4,
+     "published": "Keq = exp(-dGr/(R*T)); dGr = 95117 - 193.67*T - 0.035293*T^2 + 9.22e-6*T^3 (Eqs. 3-4, p. 4; unit of dGr not printed)"
+    },
+    "form": "temkin_pyzhev",
+    "id": "ru_kum_temkin_pyzhev",
+    "irreversible_published": false,
+    "label": "Ru/Al2O3 Temkin-Pyzhev (Kum et al. 2026, fit to Di Carlo et al. 2014)",
+    "limitations": [
+     "Keq basis ambiguous in the source; AmCraX reading is an assumption (see equilibrium_constant).",
+     "Extrapolation above 723 K and above 10 bar is unvalidated.",
+     "Rate is singular at P_H2 -> 0; the PFR starts from a small H2 seed (numerical assumption).",
+     "Nomenclature lists R in m3 bar/(mol K); J/(mol K) is required because Ea is in J/mol."
+    ],
+    "metal": "Ru",
+    "parameters": {
+     "Ea": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1",
+      "page": 5,
+      "unit": "J mol^-1",
+      "value": 114224
+     },
+     "beta": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1 (beta in Eq. 2)",
+      "page": 5,
+      "unit": "-",
+      "value": 0.27
+     },
+     "ko": {
+      "citekey": "kum2026heatintegrated",
+      "locator": "Table 1",
+      "page": 5,
+      "unit": "mol g_cat^-1 s^-1 bar^0.27",
+      "value": 55245.9
+     }
+    },
+    "pressure_basis": "partial pressures in bar",
+    "rate_law_text": "r = ko*exp(-Ea/(R*T)) * [ (P_NH3^2/P_H2^3)^beta - (P_N2/Keq^2)*(P_H2^3/P_NH3^2)^(1-beta) ], P in bar, r in mol g_cat^-1 s^-1 (per mol NH3)",
+    "rate_unit_model": "mol NH3 kg_cat^-1 s^-1",
+    "rate_unit_published": "mol g_cat^-1 s^-1",
+    "registry_section": "catalysts",
+    "reversibility_treatment": "published reversible driving force (Keq basis selectable; PFR default amcrax_thermo)",
+    "short": "kum",
+    "source": {
+     "citekey": "kum2026heatintegrated",
+     "locator": "Eqs. 2-4 (p. 4); Table 1 (p. 5); Sec. 4.1, Fig. 4a (p. 9)",
+     "page": "4-5, 9"
+    },
+    "usable": true,
+    "validity": {
+     "P_max_bar": 10.0,
+     "P_min_bar": 1.0,
+     "T_max_K": 723.15,
+     "T_min_K": 623.15,
+     "note": "fit to 36 points of dicarlo2014ammonia, GHSV 300-2400 h^-1, MAPE 0.81 % (p. 9); source applies it up to 773 K / 13 bar"
+    },
+    "validity_classification": {
+     "aspen_representation": "native LHHW, partial-pressure basis (exact up to the ln Kp fit)",
+     "catalyst": "Ru/Al2O3",
+     "catalyst_id": "ru_kum_temkin_pyzhev",
+     "citekey": "kum2026heatintegrated",
+     "class": "validated_against_literature",
+     "class_evidence": "passed comparison with published data only up to 10 bar (EXISTING-KIN-DICARLO); 20 bar use is a pressure extrapolation; the comparison uses the law's own fitting data (consistency check)",
+     "domain_warning": {
+      "pressure_extrapolated_at_20_bar": true,
+      "rule": "warn when P_bar outside fitted_range.P_bar or T_C outside fitted_range.T_C",
+      "temperatures_outside_fitted_range_C": [
+       499.0,
+       594.0,
+       700.0
+      ]
+     },
+     "evidence_kinds_available": [
+      "literature_comparison",
+      "numerical_verification",
+      "python_vs_aspen"
+     ],
+     "experimental": {
+      "P_bar": [
+       1.0,
+       10.0
+      ],
+      "T_C": [
+       350,
+       450
+      ],
+      "conversion_note": "not tabulated in the AmCraX notes for the fitting set",
+      "conversion_range": null,
+      "feed": "pure NH3 (Di Carlo 2014)",
+      "space_velocity": "GHSV 300-2400 h-1"
+     },
+     "experimental_validation": false,
+     "fitted_range": {
+      "P_bar": [
+       1.0,
+       10.0
+      ],
+      "T_C": [
+       350.0,
+       450.0
+      ],
+      "T_K": [
+       623.15,
+       723.15
+      ]
+     },
+     "fitted_range_basis": "Kum et al. fit to 36 points of Di Carlo et al. 2014 (commercial 8 wt% Ru/Al2O3), 623-723 K, 1-10 bar",
+     "h2_inhibition": "fitted through the Temkin-Pyzhev H2 order (-3 beta = -0.81)",
+     "law_form": "Temkin-Pyzhev, reversible: r = k [(pNH3^2/pH2^3)^0.27 - pN2/Keq^2 (pH2^3/pNH3^2)^0.73], p in bar",
+     "literature_comparisons": [
+      {
+       "P_bar": 10.0,
+       "P_bar_range": [
+        1.0,
+        10.0
+       ],
+       "T_C": [
+        500,
+        500
+       ],
+       "comparison_uses_fitting_data": true,
+       "id": "EXISTING-KIN-DICARLO",
+       "observed": 0.0039,
+       "status": "pass_informational",
+       "tolerance": 0.01,
+       "what": "PFR vs Di Carlo conversions at 500 degC, 1/5/10 bar (Maccarrone 2025 Table 2); stored as informational because the law was fitted to Di Carlo data"
+      }
+     ],
+     "numerical_checks": [
+      "KINR-ASPENFORM-ru_kum pass (Aspen form vs Python, 5.8e-4 relative)"
+     ],
+     "reversibility": "in the published law (Keq basis ambiguous; AmCraX reading documented as an assumption)"
+    }
+   },
+   "ru_takahashi_microkinetic": {
+    "amcrax_extensions": [
+     "[assumption (AmCraX extension)] r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics (default_on=True). The published microkinetic model omits the reverse of steps 2 and 3 (valid at 1 atm, far from equilibrium at the authors' conditions). At 20 bar the cracked gas approaches equilibrium, and an irreversible law would predict conversion above equilibrium. The factor forces r -> 0 at equilibrium; it is switchable (approach_factor=False)."
+    ],
+    "bed_properties": null,
+    "citekey": "takahashi2016kinetic",
+    "composition": "5 wt% Ru/MgO, impregnation (RuCl3), calcined 600 degC, 22-42 mesh powder",
+    "equilibrium_constant": null,
+    "form": "takahashi_microkinetic",
+    "id": "ru_takahashi_microkinetic",
+    "irreversible_published": true,
+    "label": "Ru/MgO microkinetic (Takahashi & Fujitani 2016)",
+    "limitations": [
+     "Steps 2 and 3 irreversible: equilibrium approach factor is an AmCraX extension.",
+     "Mole-fraction basis: no total-pressure dependence; 20 bar use is extrapolation.",
+     "N2 recombinative desorption is rate limiting on Ru (pp. 6-7)."
+    ],
+    "metal": "Ru",
+    "parameters": {
+     "A1": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k1)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 83.6
+     },
+     "A2": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k2)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 134000000000000.0
+     },
+     "A3": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k3)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 626000.0
+     },
+     "A4": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k4)",
+      "page": 4,
+      "unit": "mol s^-1 g^-1",
+      "value": 718.0
+     },
+     "A5": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K1)",
+      "page": 4,
+      "unit": "-",
+      "value": 3.49e-13
+     },
+     "A6": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K4)",
+      "page": 4,
+      "unit": "-",
+      "value": 15100.0
+     },
+     "Ea2": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k2)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 105.8
+     },
+     "Ea3": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k3)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 123.5
+     },
+     "Ea4": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (k4; also K4)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": 67.8
+     },
+     "Ea5": {
+      "citekey": "takahashi2016kinetic",
+      "locator": "Table 1 (K1)",
+      "page": 4,
+      "unit": "kJ mol^-1",
+      "value": -64.0
+     }
+    },
+    "pressure_basis": "mole fractions p_i/p_total",
+    "rate_law_text": "Same elementary-step model as ni_takahashi_microkinetic with Ru parameters (Table 1).",
+    "rate_unit_model": "mol NH3 kg_cat^-1 s^-1",
+    "rate_unit_published": "mol s^-1 g_cat^-1",
+    "registry_section": "catalysts",
+    "reversibility_treatment": "irreversible as published; AmCraX approach factor (1 - Q/Kp) applied, default ON (assumption)",
+    "short": "tru",
+    "source": {
+     "citekey": "takahashi2016kinetic",
+     "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)",
+     "page": "2-5"
+    },
+    "usable": true,
+    "validity": {
+     "P_max_bar": 1.01325,
+     "P_min_bar": 1.01325,
+     "T_max_K": 823.15,
+     "T_min_K": 573.15,
+     "note": "fit 300-400 degC, X<20 %, 1 atm; validated 450-550 degC at 1 atm (Figs. 2, 4, 5)"
+    },
+    "validity_classification": {
+     "aspen_representation": "fitted LHHW approximation (python fit, mole-fraction basis, 20 bar only); not native",
+     "catalyst": "Ru/MgO",
+     "catalyst_id": "ru_takahashi_microkinetic",
+     "citekey": "takahashi2016kinetic",
+     "class": "extrapolated",
+     "class_evidence": "no passing comparison with published data (EXISTING-KIN-RU-PRED fail 0.1113 > 0.05); fitted at 1 atm",
+     "domain_warning": {
+      "pressure_extrapolated_at_20_bar": true,
+      "rule": "warn when P_bar outside fitted_range.P_bar or T_C outside fitted_range.T_C",
+      "temperatures_outside_fitted_range_C": [
+       594.0,
+       700.0
+      ]
+     },
+     "evidence_kinds_available": [
+      "literature_comparison",
+      "numerical_verification",
+      "python_vs_aspen"
+     ],
+     "experimental": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       300,
+       550
+      ],
+      "conversion_note": "fit <20 %; tests 16-100 %",
+      "conversion_range": [
+       0.0,
+       1.0
+      ],
+      "feed": "NH3 0.1-1.0 atm in Ar; H2 co-feed 0-0.7 atm at p_NH3 0.3 atm",
+      "space_velocity": "SV 15000-30000 h-1 (fit), 2000-20000 h-1 (tests); basis and catalyst mass not reported"
+     },
+     "experimental_validation": false,
+     "fitted_range": {
+      "P_bar": [
+       1.01325,
+       1.01325
+      ],
+      "T_C": [
+       300.0,
+       550.0
+      ],
+      "T_K": [
+       573.15,
+       823.15
+      ]
+     },
+     "fitted_range_basis": "fit 300-400 degC (<20 % conversion), tests 450-550 degC; all 1 atm",
+     "h2_inhibition": "fitted (step 4 reversible)",
+     "law_form": "microkinetic, as Ni/MgO with Ru parameters (Table 1); mole-fraction basis",
+     "literature_comparisons": [
+      {
+       "P_bar": 1.01325,
+       "T_C": [
+        450,
+        550
+       ],
+       "comparison_uses_fitting_data": false,
+       "id": "EXISTING-KIN-RU-PRED",
+       "observed": 0.1113,
+       "status": "fail",
+       "tolerance": 0.05,
+       "what": "PFR conversion vs Figs. 4a/4b/5b (read from figures; W/F from one anchor point)"
+      }
+     ],
+     "numerical_checks": [
+      "EXISTING-KIN-TABLE2 pass",
+      "KINR-ASPENAPPROX-ru pass (0.019 < 0.05)"
+     ],
+     "reversibility": "not in the published law; AmCraX approach factor is an assumption"
+    }
+   }
+  },
+  "source": "backend/amcrax/data/kinetics.yaml",
+  "takahashi_root_bracket_ln_theta_s": [
+   -300.0,
+   0.0
+  ],
+  "unit_conversions": {
+   "bar_per_atm": 1.01325,
+   "g_per_kg": 1000.0,
+   "gas_constant_J_per_mol_K": 8.314
+  },
+  "validity_classification_file": "results/research/kinetics/validity_classification.json",
+  "validity_classification_status": "read"
+ },
+ "process": {
+  "air": {
+   "N2": 0.79,
+   "O2": 0.21,
+   "T_C": 25.0
+  },
+  "burner": "adiabatic complete combustion H2 + 0.5 O2 -> H2O, NH3 + 0.75 O2 -> 0.5 N2 + 1.5 H2O; air = (1 + excess) x stoichiometric",
+  "feed_pressure_bar": 1.013,
+  "grid": {
+   "P_bar": [
+    3.0,
+    5.0,
+    10.0,
+    15.0,
+    20.0,
+    25.0,
+    30.0,
+    40.0,
+    50.0
+   ],
+   "T_C": [
+    400.0,
+    425.0,
+    450.0,
+    475.0,
+    500.0,
+    525.0,
+    550.0,
+    575.0,
+    600.0,
+    625.0,
+    650.0,
+    675.0,
+    700.0,
+    725.0,
+    750.0,
+    775.0,
+    800.0
+   ],
+   "fields": [
+    "vaporiser_kW",
+    "pump_kW",
+    "preheat_kW",
+    "recovered_kW",
+    "cooling_kW",
+    "combustion_over_lhv"
+   ],
+   "generated_by": "amcrax.process_model.flowsheet.run_python_case (eos='ideal', CaseInputs defaults otherwise)",
+   "null": "specification infeasible in the Python flowsheet (FlowsheetSpecError)",
+   "per_kmol_h_total_feed": {
+    "hi": [
+     [
+      {
+       "combustion_over_lhv": 0.9228742142206375,
+       "cooling_kW": 2.0419223618098017,
+       "preheat_kW": 0.6642224366913729,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 3.7824497063228955,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9239983552786103,
+       "cooling_kW": 2.071297113723951,
+       "preheat_kW": 0.6719932340429182,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 3.726448270061924,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9261132079835487,
+       "cooling_kW": 2.091581685513791,
+       "preheat_kW": 0.69145367346449,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 3.644864320176774,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9275948922989331,
+       "cooling_kW": 2.0836371767185544,
+       "preheat_kW": 0.7109613064147743,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 3.5979773373348167,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9286925746736425,
+       "cooling_kW": 2.0646988588312736,
+       "preheat_kW": 0.7305153533773148,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 3.5674890901954894,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9295396697921338,
+       "cooling_kW": 2.0404493132298356,
+       "preheat_kW": 0.7501149790578563,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 3.546883568273423,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9302140884166692,
+       "cooling_kW": 2.013338822303706,
+       "preheat_kW": 0.7697592910053106,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 3.5330465586015327,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9312224590323367,
+       "cooling_kW": 1.9547804125562716,
+       "preheat_kW": 0.809178110181042,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 3.519385075484513,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9319425536544788,
+       "cooling_kW": 1.893345699441238,
+       "preheat_kW": 0.8487634789927722,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 3.518939580234697,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9223259780248996,
+       "cooling_kW": 2.139828815944439,
+       "preheat_kW": 0.6737091195982692,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 4.10625541623797,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9232180795480788,
+       "cooling_kW": 2.1746690987208104,
+       "preheat_kW": 0.68079837340665,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 4.050935523520163,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9250088158435789,
+       "cooling_kW": 2.2063499272819276,
+       "preheat_kW": 0.6985425606889873,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 3.971067825774248,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9263587523297714,
+       "cooling_kW": 2.2071617861404262,
+       "preheat_kW": 0.7163162034482571,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 3.925914833123305,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9274138374700286,
+       "cooling_kW": 2.1949170740550907,
+       "preheat_kW": 0.734118491130904,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 3.8971783452638715,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9282619140772137,
+       "cooling_kW": 2.175727776991207,
+       "preheat_kW": 0.7519485706900627,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 3.878342369463188,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9289590276083075,
+       "cooling_kW": 2.152368996241971,
+       "preheat_kW": 0.7698055460531816,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 3.866292696375633,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9300386875563472,
+       "cooling_kW": 2.0983301683339626,
+       "preheat_kW": 0.8055963820028842,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 3.856259196484642,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9308376275508364,
+       "cooling_kW": 2.038532104783083,
+       "preheat_kW": 0.8414829535638251,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 3.859512498485616,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9219286292452381,
+       "cooling_kW": 2.2306537922345235,
+       "preheat_kW": 0.6830770823590467,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 4.435314486902167,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9226303552080746,
+       "cooling_kW": 2.2694901908315344,
+       "preheat_kW": 0.6895709951814433,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 4.3805899351703435,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9241110903431248,
+       "cooling_kW": 2.3098944036419224,
+       "preheat_kW": 0.7058175879190639,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 4.302219831969145,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9252955824112938,
+       "cooling_kW": 2.3178745368497817,
+       "preheat_kW": 0.7220804532205921,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 4.258577616775943,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9262652019765528,
+       "cooling_kW": 2.311504848229725,
+       "preheat_kW": 0.7383588142538144,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 4.231365055565934,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9270739846675797,
+       "cooling_kW": 2.2971067459625294,
+       "preheat_kW": 0.7546518622947258,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 4.214066111283498,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9277592234335906,
+       "cooling_kW": 2.277624447233885,
+       "preheat_kW": 0.7709587566770665,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 4.2035665191767215,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9288582278970614,
+       "cooling_kW": 2.2291209141977006,
+       "preheat_kW": 0.8036105621762567,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 4.196672049736243,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9297019230533302,
+       "cooling_kW": 2.1725617744438814,
+       "preheat_kW": 0.8363068682023118,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 4.203115617272102,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.921640034156351,
+       "cooling_kW": 2.315515130546171,
+       "preheat_kW": 0.6922998894969488,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 4.769519358644358,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.922191163670786,
+       "cooling_kW": 2.3572642535829975,
+       "preheat_kW": 0.6982701976705278,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 4.715318411561352,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9233991615131745,
+       "cooling_kW": 2.4042331851228558,
+       "preheat_kW": 0.7132008417628061,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 4.638264257005496,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.924411953657799,
+       "cooling_kW": 2.417863804664108,
+       "preheat_kW": 0.7281378942778747,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 4.595947854598754,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9252736116278601,
+       "cooling_kW": 2.4163491635245795,
+       "preheat_kW": 0.7430806424816376,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 4.570070906218205,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9260158544064951,
+       "cooling_kW": 2.4061108829959137,
+       "preheat_kW": 0.758028349904198,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 4.554117302554119,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9266620939135897,
+       "cooling_kW": 2.390178205250531,
+       "preheat_kW": 0.772980256548343,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 4.544972698185538,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9277331075580538,
+       "cooling_kW": 2.347223056397193,
+       "preheat_kW": 0.8028935114444482,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 4.540816779348145,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9285852269030845,
+       "cooling_kW": 2.2945172273125176,
+       "preheat_kW": 0.8328138674360003,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 4.550036296918507,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9214290342099436,
+       "cooling_kW": 2.3952530983828257,
+       "preheat_kW": 0.7013648235502195,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 5.108754665272038,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9218632357280451,
+       "cooling_kW": 2.4391264149170024,
+       "preheat_kW": 0.706871609145295,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 5.055017240767536,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9228427233071019,
+       "cooling_kW": 2.4909923727217373,
+       "preheat_kW": 0.7206382222546063,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 4.979127117194647,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9236946080698341,
+       "cooling_kW": 2.5089782814160135,
+       "preheat_kW": 0.734403836711108,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 4.937982152846472,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.924442454144453,
+       "cooling_kW": 2.5113318038046777,
+       "preheat_kW": 0.7481678155925067,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 4.913283973788286,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9251043539821188,
+       "cooling_kW": 2.504522486677855,
+       "preheat_kW": 0.7619295043907323,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 4.898516388748536,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9256944297722585,
+       "cooling_kW": 2.491621775936766,
+       "preheat_kW": 0.7756882313466485,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 4.890564964068184,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9267016365608886,
+       "cooling_kW": 2.4536844785646488,
+       "preheat_kW": 0.8031940286909083,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 4.888816502782635,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9275300016599972,
+       "cooling_kW": 2.4048041498174295,
+       "preheat_kW": 0.8306795034298239,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 4.900470901605635,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9212733382779664,
+       "cooling_kW": 2.470505159475081,
+       "preheat_kW": 0.7102718689277242,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 5.452902716435932,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9216174568880432,
+       "cooling_kW": 2.5159307515718523,
+       "preheat_kW": 0.7153657655218751,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 5.399578180932354,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9224108390050982,
+       "cooling_kW": 2.5714338991027095,
+       "preheat_kW": 0.7280962205767457,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 5.324724215413906,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.923120778640077,
+       "cooling_kW": 2.592731536677839,
+       "preheat_kW": 0.740820113684506,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 5.284620972414473,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.923759863205098,
+       "cooling_kW": 2.5980969818668695,
+       "preheat_kW": 0.7535368854289675,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 5.2609700004932245,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9243382669711578,
+       "cooling_kW": 2.594022967033827,
+       "preheat_kW": 0.7662459633906223,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 5.247255026290045,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9248643030292641,
+       "cooling_kW": 2.583601936945763,
+       "preheat_kW": 0.7789467625306008,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 5.2403615294256305,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9257855585867785,
+       "cooling_kW": 2.5499316382134922,
+       "preheat_kW": 0.8043211235752631,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 5.24074450443968,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9265660423857488,
+       "cooling_kW": 2.504503148197445,
+       "preheat_kW": 0.8296550520447556,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 5.254550449532101,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9211572307608227,
+       "cooling_kW": 2.541754105113578,
+       "preheat_kW": 0.7190329330144596,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 5.801848742744654,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9214320248723852,
+       "cooling_kW": 2.5883164726596264,
+       "preheat_kW": 0.7237568700879808,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 5.748894166761707,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9220761699615863,
+       "cooling_kW": 2.6465149315280208,
+       "preheat_kW": 0.7355594716781957,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 5.674968054707914,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9226654169027263,
+       "cooling_kW": 2.6703090121110176,
+       "preheat_kW": 0.7473513472819263,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 5.63579682921251,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9232065403526408,
+       "cooling_kW": 2.6779844096079106,
+       "preheat_kW": 0.7591320114885366,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 5.613081964829113,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9237052431991907,
+       "cooling_kW": 2.676045292595154,
+       "preheat_kW": 0.7709009692725113,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 5.600307110803613,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9241663604884363,
+       "cooling_kW": 2.6675946866413964,
+       "preheat_kW": 0.7826577163835055,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 5.594357665968183,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9249917600365613,
+       "cooling_kW": 2.6374103149667194,
+       "preheat_kW": 0.8061325179280118,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 5.596640200482389,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9257093257970307,
+       "cooling_kW": 2.594918627109165,
+       "preheat_kW": 0.8295522135661565,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 5.612360378406159,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9210696759757961,
+       "cooling_kW": 2.6093567547429712,
+       "preheat_kW": 0.7276712421018431,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 6.155485966054641,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9212909612213382,
+       "cooling_kW": 2.6567526946681546,
+       "preheat_kW": 0.7320618335835093,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 6.102864735663548,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9218163041670236,
+       "cooling_kW": 2.7169448137000165,
+       "preheat_kW": 0.7430288697713298,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 6.029774189012151,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9223051722102007,
+       "cooling_kW": 2.7426087880722303,
+       "preheat_kW": 0.7539820877983857,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 5.991441621093421,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9227612601130778,
+       "cooling_kW": 2.75203646488395,
+       "preheat_kW": 0.7649210702753351,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 5.969568438439685,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9231877794246249,
+       "cooling_kW": 2.751737793076705,
+       "preheat_kW": 0.7758453926901052,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 5.95763821978339,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9235875349910097,
+       "cooling_kW": 2.7448212343747738,
+       "preheat_kW": 0.7867546237811928,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 5.952536290967867,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9243163041169256,
+       "cooling_kW": 2.7174059348242174,
+       "preheat_kW": 0.8085260555257616,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 5.956522195282009,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9249639828221121,
+       "cooling_kW": 2.6773154029153994,
+       "preheat_kW": 0.8302317953772058,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 5.97395632899248,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9210029068535818,
+       "cooling_kW": 2.6735593612868063,
+       "preheat_kW": 0.7362208689387285,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 6.5137205381393555,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9211826655958769,
+       "cooling_kW": 2.7215663304042654,
+       "preheat_kW": 0.7403095246386249,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 6.461401243530032,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9216136235639957,
+       "cooling_kW": 2.7832292490224093,
+       "preheat_kW": 0.7505201026774466,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 6.389067155027633,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9220200514539103,
+       "cooling_kW": 2.8102855518311474,
+       "preheat_kW": 0.7607145977367576,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 6.351493310076648,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9224039986586812,
+       "cooling_kW": 2.821030241753371,
+       "preheat_kW": 0.7708926534992918,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 6.3303810541373275,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9227672922417132,
+       "cooling_kW": 2.8219762717167067,
+       "preheat_kW": 0.7810539083504534,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 6.319213903044641,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9231115662961392,
+       "cooling_kW": 2.816234964660056,
+       "preheat_kW": 0.7911979957238668,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 6.314877117946792,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9237487725622403,
+       "cooling_kW": 2.7909725990621412,
+       "preheat_kW": 0.8114331791436495,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 6.320399270585721,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9243256857791071,
+       "cooling_kW": 2.7527883223425365,
+       "preheat_kW": 0.8315951858220478,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 6.339377137469237,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9209514241123775,
+       "cooling_kW": 2.7345041629026774,
+       "preheat_kW": 0.7447263608605397,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 6.876476378780317,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9210987338392681,
+       "cooling_kW": 2.7829577863254578,
+       "preheat_kW": 0.7485401805240747,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 6.824431920207355,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9214545998242166,
+       "cooling_kW": 2.8457009127096997,
+       "preheat_kW": 0.7580625032580758,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 6.752786087009777,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9217937456281217,
+       "cooling_kW": 2.873786767470496,
+       "preheat_kW": 0.7675671206936033,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 6.715902119682576,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9221173298987968,
+       "cooling_kW": 2.885512026732202,
+       "preheat_kW": 0.77705373050802,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 6.695481309691372,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9224264065436985,
+       "cooling_kW": 2.8873912524439955,
+       "preheat_kW": 0.7865220264136474,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 6.68500711754422,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.922721936306178,
+       "cooling_kW": 2.882537315519587,
+       "preheat_kW": 0.7959716984714532,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 6.681364747761978,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.923275791501472,
+       "cooling_kW": 2.8589181175448983,
+       "preheat_kW": 0.8148139149483461,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 6.688279867343797,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9237850704289862,
+       "cooling_kW": 2.822210881071598,
+       "preheat_kW": 0.8335778396255978,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 6.70865581622846,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9209113024927573,
+       "cooling_kW": 2.792230096461643,
+       "preheat_kW": 0.7532424455767057,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 7.243699936199906,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9210330627139187,
+       "cooling_kW": 2.8410081986792943,
+       "preheat_kW": 0.7568049414184839,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 7.1919068014487015,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9213289718655453,
+       "cooling_kW": 2.904538716841888,
+       "preheat_kW": 0.7656981438674859,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 7.120890088536122,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9216133227427324,
+       "cooling_kW": 2.933378710075415,
+       "preheat_kW": 0.7745725199402728,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 7.084636362571661,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9218867837835099,
+       "cooling_kW": 2.945825772504578,
+       "preheat_kW": 0.7834278145465919,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 7.064846867788556,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9221499728081887,
+       "cooling_kW": 2.948395356087933,
+       "preheat_kW": 0.792263769600321,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 7.055005016493302,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9224034617225745,
+       "cooling_kW": 2.9442011948770683,
+       "preheat_kW": 0.8010801243009007,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 7.051995964068286,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9228834219509584,
+       "cooling_kW": 2.921813126380018,
+       "preheat_kW": 0.8186529775771919,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 7.060180446850707,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9233304697613174,
+       "cooling_kW": 2.8862244220811943,
+       "preheat_kW": 0.8361442445475393,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 7.081829053442274,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208797141994441,
+       "cooling_kW": 2.846669663988265,
+       "preheat_kW": 0.761833797368451,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 7.615364887083773,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209811970248007,
+       "cooling_kW": 2.895680898858903,
+       "preheat_kW": 0.7651654805981235,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 7.563802564944674,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9212289975753418,
+       "cooling_kW": 2.9597784378444247,
+       "preheat_kW": 0.7734811187463589,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 7.493363416332861,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9214686935602759,
+       "cooling_kW": 2.9891632912737567,
+       "preheat_kW": 0.7817772017238752,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 7.457687983463671,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9217006786573954,
+       "cooling_kW": 3.0021335750876066,
+       "preheat_kW": 0.7900535154421874,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 7.438477469568572,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9219253214291603,
+       "cooling_kW": 3.005205250506252,
+       "preheat_kW": 0.7983098435195751,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 7.42921524524966,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9221429672944816,
+       "cooling_kW": 3.0014925486956976,
+       "preheat_kW": 0.8065459675319511,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 7.426786423512848,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9225585448335779,
+       "cooling_kW": 2.9800074317293657,
+       "preheat_kW": 0.8229567209681119,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 7.436133006135399,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9229497757825327,
+       "cooling_kW": 2.945244827557795,
+       "preheat_kW": 0.8392839971179791,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 7.458945603547446,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208546019857854,
+       "cooling_kW": 2.897643253426621,
+       "preheat_kW": 0.7705748505456654,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 7.991476789344147,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209398623630312,
+       "cooling_kW": 2.946818966420064,
+       "preheat_kW": 0.7736937095671402,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 7.940127291413245,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9211488397382124,
+       "cooling_kW": 3.011317053781347,
+       "preheat_kW": 0.7814769727593717,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 7.870220517757437,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9213520534735296,
+       "cooling_kW": 3.041087495824535,
+       "preheat_kW": 0.7892402595371784,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 7.8350778810879556,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9215497402538454,
+       "cooling_kW": 3.054428716150121,
+       "preheat_kW": 0.7969833912010847,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 7.816400549247262,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9217421239672738,
+       "cooling_kW": 3.057856977871375,
+       "preheat_kW": 0.8047061872660248,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 7.8076718569407975,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9219294165586587,
+       "cooling_kW": 3.0544868084258154,
+       "preheat_kW": 0.8124084656842336,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 7.8057768807981525,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9222895210934207,
+       "cooling_kW": 3.0336457521802664,
+       "preheat_kW": 0.8277507349149874,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 7.816191947626111,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9226315389333735,
+       "cooling_kW": 2.999474413633175,
+       "preheat_kW": 0.8430087197344807,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 7.840073836368532,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208344541692184,
+       "cooling_kW": 2.944851763053348,
+       "preheat_kW": 0.779549650043445,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 8.372077697743528,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209066333959937,
+       "cooling_kW": 2.994140128733105,
+       "preheat_kW": 0.7824715420188352,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 8.32092516685871,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9210840877022,
+       "cooling_kW": 3.058912599340458,
+       "preheat_kW": 0.7897622447129055,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 8.251510953701063,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.921257386169997,
+       "cooling_kW": 3.088947222192205,
+       "preheat_kW": 0.7970327909367296,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 8.216861057585566,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9214266740091238,
+       "cooling_kW": 3.1025426092065906,
+       "preheat_kW": 0.8042830323980524,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 8.198676615947456,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9215920897356901,
+       "cooling_kW": 3.1062152091149087,
+       "preheat_kW": 0.8115128193845067,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 8.190440932719477,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9217537655535422,
+       "cooling_kW": 3.103079732319229,
+       "preheat_kW": 0.8187220009614173,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 8.18903905341813,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9220663968269206,
+       "cooling_kW": 3.0826798436116802,
+       "preheat_kW": 0.8330779392197718,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 8.200440451218487,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.922365512147294,
+       "cooling_kW": 3.048913221543716,
+       "preheat_kW": 0.8473496227286915,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 8.225308641271482,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208181485315889,
+       "cooling_kW": 2.98838647359092,
+       "preheat_kW": 0.7884847799625447,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 8.757250750216981,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9208796982368925,
+       "cooling_kW": 3.037747671026285,
+       "preheat_kW": 0.7912237528380917,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 8.706281138432008,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9210313940123391,
+       "cooling_kW": 3.102697253505482,
+       "preheat_kW": 0.7980571494425499,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 8.637324231363971,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9211800529046076,
+       "cooling_kW": 3.1329019885153566,
+       "preheat_kW": 0.8048703984362641,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 8.603131632478584,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9213257657742461,
+       "cooling_kW": 3.1466606076033967,
+       "preheat_kW": 0.8116633775334656,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 8.585404453204596,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9214686198895318,
+       "cooling_kW": 3.1504896778734746,
+       "preheat_kW": 0.8184359633139883,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 8.577625971182549,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9216086991022955,
+       "cooling_kW": 3.147504026828431,
+       "preheat_kW": 0.8251880313753691,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 8.576681205396731,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9218808521294066,
+       "cooling_kW": 3.12738431787413,
+       "preheat_kW": 0.838630112866237,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 8.588996459964577,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9221428334005982,
+       "cooling_kW": 3.093872670811805,
+       "preheat_kW": 0.8519886137469525,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 8.614777832645775,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208048432052635,
+       "cooling_kW": 3.0286667671272083,
+       "preheat_kW": 0.7967979010397493,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 9.147124730991484,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9208576907436441,
+       "cooling_kW": 3.0780697766454317,
+       "preheat_kW": 0.7993664594012699,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 9.096325533720536,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.920988202617644,
+       "cooling_kW": 3.143120479053725,
+       "preheat_kW": 0.8057739168133901,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 9.027794565844838,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9211164665685745,
+       "cooling_kW": 3.1734215256341325,
+       "preheat_kW": 0.8121613829093712,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 8.994027749857185,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9212425405399586,
+       "cooling_kW": 3.187271726807182,
+       "preheat_kW": 0.8185287576194054,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 8.976726174970363,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9213664804989523,
+       "cooling_kW": 3.191187727934685,
+       "preheat_kW": 0.8248759399220899,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 8.969373096426155,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9214883405199096,
+       "cooling_kW": 3.188284434160978,
+       "preheat_kW": 0.8312028279817804,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 8.968853510642028,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9217260280533424,
+       "cooling_kW": 3.168316026435208,
+       "preheat_kW": 0.8437953108862217,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 8.982018363796298,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9219560007976514,
+       "cooling_kW": 3.134938302242844,
+       "preheat_kW": 0.8563053812106745,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 9.00864816703376,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9207939009165577,
+       "cooling_kW": 3.065892751436993,
+       "preheat_kW": 0.8045972529343777,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 9.541511663932516,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.920839572555139,
+       "cooling_kW": 3.115313852331996,
+       "preheat_kW": 0.8070065786660586,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 9.490871699291407,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9209525508710644,
+       "cooling_kW": 3.1804074471614676,
+       "preheat_kW": 0.8130161335613348,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 9.422738633932553,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9210638446735749,
+       "cooling_kW": 3.210748092272058,
+       "preheat_kW": 0.8190059679340425,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 9.389369449668173,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9211734915933977,
+       "cooling_kW": 3.224634651975315,
+       "preheat_kW": 0.824976000614647,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 9.372465216810781,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9212815281476265,
+       "cooling_kW": 3.228583825230152,
+       "preheat_kW": 0.8309261496122673,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 9.365509171571636,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9213879897806192,
+       "cooling_kW": 3.225710570476889,
+       "preheat_kW": 0.8368563322386058,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 9.365386291220862,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9215963249296342,
+       "cooling_kW": 3.2057930530823517,
+       "preheat_kW": 0.8486564649615604,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 9.379343494556618,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9217987605850776,
+       "cooling_kW": 3.172454318320007,
+       "preheat_kW": 0.8603757285191608,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 9.406764104560931,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ]
+    ],
+    "nohi": [
+     [
+      {
+       "combustion_over_lhv": 0.9228742142206375,
+       "cooling_kW": 5.824372068132698,
+       "preheat_kW": 4.446672143014268,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9239983552786103,
+       "cooling_kW": 5.797745383785874,
+       "preheat_kW": 4.3984415041048415,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9261132079835487,
+       "cooling_kW": 5.736446005690566,
+       "preheat_kW": 4.336317993641265,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9275948922989331,
+       "cooling_kW": 5.681614514053372,
+       "preheat_kW": 4.308938643749591,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9286925746736425,
+       "cooling_kW": 5.632187949026763,
+       "preheat_kW": 4.298004443572804,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9295396697921338,
+       "cooling_kW": 5.587332881503259,
+       "preheat_kW": 4.296998547331279,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9302140884166692,
+       "cooling_kW": 5.546385380905239,
+       "preheat_kW": 4.302805849606844,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9312224590323367,
+       "cooling_kW": 5.474165488040785,
+       "preheat_kW": 4.328563185665555,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9319425536544788,
+       "cooling_kW": 5.4122852796759355,
+       "preheat_kW": 4.36770305922747,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9223259780248996,
+       "cooling_kW": 6.24608423218241,
+       "preheat_kW": 4.77996453583624,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9232180795480788,
+       "cooling_kW": 6.225604622240974,
+       "preheat_kW": 4.731733896926813,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9250088158435789,
+       "cooling_kW": 6.177417753056176,
+       "preheat_kW": 4.669610386463236,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9263587523297714,
+       "cooling_kW": 6.133076619263732,
+       "preheat_kW": 4.642231036571562,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9274138374700286,
+       "cooling_kW": 6.092095419318962,
+       "preheat_kW": 4.6312968363947755,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9282619140772137,
+       "cooling_kW": 6.054070146454396,
+       "preheat_kW": 4.630290940153251,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9289590276083075,
+       "cooling_kW": 6.018661692617604,
+       "preheat_kW": 4.636098242428814,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9300386875563472,
+       "cooling_kW": 5.954589364818605,
+       "preheat_kW": 4.661855578487526,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9308376275508364,
+       "cooling_kW": 5.8980446032686995,
+       "preheat_kW": 4.700995452049441,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9219286292452381,
+       "cooling_kW": 6.66596827913669,
+       "preheat_kW": 5.118391569261213,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9226303552080746,
+       "cooling_kW": 6.650080126001877,
+       "preheat_kW": 5.070160930351786,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9241110903431248,
+       "cooling_kW": 6.612114235611067,
+       "preheat_kW": 5.0080374198882085,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9252955824112938,
+       "cooling_kW": 6.576452153625726,
+       "preheat_kW": 4.980658069996536,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9262652019765528,
+       "cooling_kW": 6.542869903795658,
+       "preheat_kW": 4.969723869819749,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9270739846675797,
+       "cooling_kW": 6.511172857246027,
+       "preheat_kW": 4.968717973578224,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9277592234335906,
+       "cooling_kW": 6.481190966410606,
+       "preheat_kW": 4.974525275853788,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9288582278970614,
+       "cooling_kW": 6.425792963933943,
+       "preheat_kW": 5.0002826119125,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9297019230533302,
+       "cooling_kW": 6.375677391715985,
+       "preheat_kW": 5.0394224854744145,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.921640034156351,
+       "cooling_kW": 7.085034489190528,
+       "preheat_kW": 5.461819248141307,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.922191163670786,
+       "cooling_kW": 7.072582665144349,
+       "preheat_kW": 5.41358860923188,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9233991615131745,
+       "cooling_kW": 7.042497442128352,
+       "preheat_kW": 5.351465098768302,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.924411953657799,
+       "cooling_kW": 7.0138116592628625,
+       "preheat_kW": 5.324085748876629,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9252736116278601,
+       "cooling_kW": 6.986420069742784,
+       "preheat_kW": 5.313151548699842,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9260158544064951,
+       "cooling_kW": 6.960228185550033,
+       "preheat_kW": 5.312145652458318,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9266620939135897,
+       "cooling_kW": 6.93515090343607,
+       "preheat_kW": 5.317952954733881,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9277331075580538,
+       "cooling_kW": 6.888039835745339,
+       "preheat_kW": 5.343710290792593,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9285852269030845,
+       "cooling_kW": 6.844553524231024,
+       "preheat_kW": 5.382850164354507,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9214290342099436,
+       "cooling_kW": 7.504007763654864,
+       "preheat_kW": 5.810119488822258,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9218632357280451,
+       "cooling_kW": 7.494143655684538,
+       "preheat_kW": 5.761888849912831,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9228427233071019,
+       "cooling_kW": 7.470119489916384,
+       "preheat_kW": 5.699765339449254,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9236946080698341,
+       "cooling_kW": 7.446960434262486,
+       "preheat_kW": 5.67238598955758,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.924442454144453,
+       "cooling_kW": 7.424615777592964,
+       "preheat_kW": 5.661451789380793,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9251043539821188,
+       "cooling_kW": 7.403038875426391,
+       "preheat_kW": 5.6604458931392685,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9256944297722585,
+       "cooling_kW": 7.38218674000495,
+       "preheat_kW": 5.666253195414832,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9267016365608886,
+       "cooling_kW": 7.342500981347285,
+       "preheat_kW": 5.692010531473544,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9275300016599972,
+       "cooling_kW": 7.305275051423064,
+       "preheat_kW": 5.731150405035459,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9212733382779664,
+       "cooling_kW": 7.923407875911013,
+       "preheat_kW": 6.163174585363656,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9216174568880432,
+       "cooling_kW": 7.915508932504207,
+       "preheat_kW": 6.11494394645423,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9224108390050982,
+       "cooling_kW": 7.896158114516616,
+       "preheat_kW": 6.052820435990652,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.923120778640077,
+       "cooling_kW": 7.8773525090923115,
+       "preheat_kW": 6.025441086098978,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.923759863205098,
+       "cooling_kW": 7.859066982360093,
+       "preheat_kW": 6.0145068859221915,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9243382669711578,
+       "cooling_kW": 7.841277993323872,
+       "preheat_kW": 6.013500989680668,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9248643030292641,
+       "cooling_kW": 7.823963466371393,
+       "preheat_kW": 6.019308291956231,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9257855585867785,
+       "cooling_kW": 7.790676142653171,
+       "preheat_kW": 6.045065628014942,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9265660423857488,
+       "cooling_kW": 7.7590535977295465,
+       "preheat_kW": 6.084205501576857,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9211572307608227,
+       "cooling_kW": 8.343602847858232,
+       "preheat_kW": 6.520881675759114,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9214320248723852,
+       "cooling_kW": 8.337210639421333,
+       "preheat_kW": 6.472651036849687,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9220761699615863,
+       "cooling_kW": 8.321482986235933,
+       "preheat_kW": 6.41052752638611,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9226654169027263,
+       "cooling_kW": 8.306105841323527,
+       "preheat_kW": 6.383148176494436,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9232065403526408,
+       "cooling_kW": 8.291066374437023,
+       "preheat_kW": 6.372213976317649,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9237052431991907,
+       "cooling_kW": 8.276352403398768,
+       "preheat_kW": 6.371208080076125,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9241663604884363,
+       "cooling_kW": 8.26195235260958,
+       "preheat_kW": 6.377015382351689,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9249917600365613,
+       "cooling_kW": 8.234050515449109,
+       "preheat_kW": 6.4027727184104,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9257093257970307,
+       "cooling_kW": 8.207279005515323,
+       "preheat_kW": 6.441912591972315,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9210696759757961,
+       "cooling_kW": 8.764842720797612,
+       "preheat_kW": 6.883157208156485,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9212909612213382,
+       "cooling_kW": 8.759617430331703,
+       "preheat_kW": 6.834926569247058,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9218163041670236,
+       "cooling_kW": 8.746719002712167,
+       "preheat_kW": 6.77280305878348,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9223051722102007,
+       "cooling_kW": 8.734050409165652,
+       "preheat_kW": 6.745423708891807,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9227612601130778,
+       "cooling_kW": 8.721604903323634,
+       "preheat_kW": 6.73448950871502,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9231877794246249,
+       "cooling_kW": 8.709376012860094,
+       "preheat_kW": 6.733483612473496,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9235875349910097,
+       "cooling_kW": 8.697357525342639,
+       "preheat_kW": 6.739290914749059,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9243163041169256,
+       "cooling_kW": 8.673928130106226,
+       "preheat_kW": 6.765048250807771,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9249639828221121,
+       "cooling_kW": 8.65127173190788,
+       "preheat_kW": 6.804188124369685,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9210029068535818,
+       "cooling_kW": 9.187279899426162,
+       "preheat_kW": 7.249941407078084,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9211826655958769,
+       "cooling_kW": 9.182967573934297,
+       "preheat_kW": 7.201710768168657,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9216136235639957,
+       "cooling_kW": 9.17229640405004,
+       "preheat_kW": 7.139587257705079,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9220200514539103,
+       "cooling_kW": 9.161778861907795,
+       "preheat_kW": 7.112207907813406,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9224039986586812,
+       "cooling_kW": 9.1514112958907,
+       "preheat_kW": 7.1012737076366195,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9227672922417132,
+       "cooling_kW": 9.141190174761348,
+       "preheat_kW": 7.100267811395095,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9231115662961392,
+       "cooling_kW": 9.131112082606847,
+       "preheat_kW": 7.106075113670658,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9237487725622403,
+       "cooling_kW": 9.111371869647861,
+       "preheat_kW": 7.13183244972937,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9243256857791071,
+       "cooling_kW": 9.092165459811774,
+       "preheat_kW": 7.170972323291284,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9209514241123775,
+       "cooling_kW": 9.610980541682995,
+       "preheat_kW": 7.621202739640856,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9210987338392681,
+       "cooling_kW": 9.607389706532812,
+       "preheat_kW": 7.57297210073143,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9214545998242166,
+       "cooling_kW": 9.598486999719476,
+       "preheat_kW": 7.510848590267853,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9217937456281217,
+       "cooling_kW": 9.589688887153072,
+       "preheat_kW": 7.483469240376179,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9221173298987968,
+       "cooling_kW": 9.580993336423575,
+       "preheat_kW": 7.472535040199392,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9224264065436985,
+       "cooling_kW": 9.572398369988216,
+       "preheat_kW": 7.471529143957867,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.922721936306178,
+       "cooling_kW": 9.563902063281565,
+       "preheat_kW": 7.477336446233432,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.923275791501472,
+       "cooling_kW": 9.547197984888696,
+       "preheat_kW": 7.503093782292143,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9237850704289862,
+       "cooling_kW": 9.530866697300059,
+       "preheat_kW": 7.542233655854058,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9209113024927573,
+       "cooling_kW": 10.035930032661549,
+       "preheat_kW": 7.996942381776612,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9210330627139187,
+       "cooling_kW": 10.032915000127996,
+       "preheat_kW": 7.948711742867186,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9213289718655453,
+       "cooling_kW": 10.02542880537801,
+       "preheat_kW": 7.886588232403608,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9216133227427324,
+       "cooling_kW": 10.018015072647078,
+       "preheat_kW": 7.859208882511934,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9218867837835099,
+       "cooling_kW": 10.010672640293134,
+       "preheat_kW": 7.8482746823351475,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9221499728081887,
+       "cooling_kW": 10.003400372581234,
+       "preheat_kW": 7.847268786093623,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9224034617225745,
+       "cooling_kW": 9.996197158945353,
+       "preheat_kW": 7.853076088369187,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9228834219509584,
+       "cooling_kW": 9.981993573230724,
+       "preheat_kW": 7.878833424427898,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9233304697613174,
+       "cooling_kW": 9.968053475523469,
+       "preheat_kW": 7.917973297989813,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208797141994441,
+       "cooling_kW": 10.462034551072039,
+       "preheat_kW": 8.377198684452223,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209811970248007,
+       "cooling_kW": 10.459483463803576,
+       "preheat_kW": 8.328968045542798,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9212289975753418,
+       "cooling_kW": 10.453141854177286,
+       "preheat_kW": 8.266844535079219,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9214686935602759,
+       "cooling_kW": 10.446851274737428,
+       "preheat_kW": 8.239465185187546,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9217006786573954,
+       "cooling_kW": 10.44061104465618,
+       "preheat_kW": 8.228530985010758,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9219253214291603,
+       "cooling_kW": 10.434420495755912,
+       "preheat_kW": 8.227525088769234,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9221429672944816,
+       "cooling_kW": 10.428278972208545,
+       "preheat_kW": 8.233332391044799,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9225585448335779,
+       "cooling_kW": 10.416140437864765,
+       "preheat_kW": 8.25908972710351,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9229497757825327,
+       "cooling_kW": 10.404190431105242,
+       "preheat_kW": 8.298229600665424,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208546019857854,
+       "cooling_kW": 10.889120042770767,
+       "preheat_kW": 8.762051639889812,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209398623630312,
+       "cooling_kW": 10.886946257833308,
+       "preheat_kW": 8.713821000980385,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9211488397382124,
+       "cooling_kW": 10.881537571538784,
+       "preheat_kW": 8.651697490516808,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9213520534735296,
+       "cooling_kW": 10.87616537691249,
+       "preheat_kW": 8.624318140625135,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9215497402538454,
+       "cooling_kW": 10.870829265397383,
+       "preheat_kW": 8.613383940448347,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9217421239672738,
+       "cooling_kW": 10.865528834812174,
+       "preheat_kW": 8.612378044206823,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9219294165586587,
+       "cooling_kW": 10.860263689223968,
+       "preheat_kW": 8.618185346482386,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9222895210934207,
+       "cooling_kW": 10.849837699806379,
+       "preheat_kW": 8.643942682541098,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9226315389333735,
+       "cooling_kW": 10.839548250001707,
+       "preheat_kW": 8.683082556103013,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208344541692184,
+       "cooling_kW": 11.316929460796876,
+       "preheat_kW": 9.151627347786974,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9209066333959937,
+       "cooling_kW": 11.315065295591815,
+       "preheat_kW": 9.103396708877547,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9210840877022,
+       "cooling_kW": 11.310423553041522,
+       "preheat_kW": 9.041273198413968,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.921257386169997,
+       "cooling_kW": 11.305808279777771,
+       "preheat_kW": 9.013893848522295,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9214266740091238,
+       "cooling_kW": 11.301219225154048,
+       "preheat_kW": 9.00295964834551,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9215920897356901,
+       "cooling_kW": 11.296656141834386,
+       "preheat_kW": 9.001953752103985,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9217537655535422,
+       "cooling_kW": 11.29211878573736,
+       "preheat_kW": 9.007761054379548,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9220663968269206,
+       "cooling_kW": 11.28312029483017,
+       "preheat_kW": 9.03351839043826,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.922365512147294,
+       "cooling_kW": 11.274221862815198,
+       "preheat_kW": 9.072658264000175,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208181485315889,
+       "cooling_kW": 11.7456372238079,
+       "preheat_kW": 9.545735530179526,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9208796982368925,
+       "cooling_kW": 11.74402880945829,
+       "preheat_kW": 9.497504891270099,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9210313940123391,
+       "cooling_kW": 11.740021484869454,
+       "preheat_kW": 9.435381380806522,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9211800529046076,
+       "cooling_kW": 11.736033620993942,
+       "preheat_kW": 9.408002030914849,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9213257657742461,
+       "cooling_kW": 11.732065060807992,
+       "preheat_kW": 9.397067830738061,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9214686198895318,
+       "cooling_kW": 11.728115649056024,
+       "preheat_kW": 9.396061934496537,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9216086991022955,
+       "cooling_kW": 11.724185232225164,
+       "preheat_kW": 9.4018692367721,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9218808521294066,
+       "cooling_kW": 11.716380777838706,
+       "preheat_kW": 9.427626572830812,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9221428334005982,
+       "cooling_kW": 11.70865050345758,
+       "preheat_kW": 9.466766446392727,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9208048432052635,
+       "cooling_kW": 12.175791498118691,
+       "preheat_kW": 9.943922632031233,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.9208576907436441,
+       "cooling_kW": 12.174395310365966,
+       "preheat_kW": 9.895691993121806,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.920988202617644,
+       "cooling_kW": 12.170915044898564,
+       "preheat_kW": 9.83356848265823,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9211164665685745,
+       "cooling_kW": 12.167449275491316,
+       "preheat_kW": 9.806189132766555,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9212425405399586,
+       "cooling_kW": 12.163997901777545,
+       "preheat_kW": 9.795254932589769,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9213664804989523,
+       "cooling_kW": 12.16056082436084,
+       "preheat_kW": 9.794249036348244,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9214883405199096,
+       "cooling_kW": 12.157137944803004,
+       "preheat_kW": 9.800056338623808,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9217260280533424,
+       "cooling_kW": 12.150334390231505,
+       "preheat_kW": 9.82581367468252,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9219560007976514,
+       "cooling_kW": 12.143586469276604,
+       "preheat_kW": 9.864953548244435,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ],
+     [
+      {
+       "combustion_over_lhv": 0.9207939009165577,
+       "cooling_kW": 12.607404415369508,
+       "preheat_kW": 10.346108916866893,
+       "pump_kW": 0.0027642362444629115,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.003479677243586
+      },
+      {
+       "combustion_over_lhv": 0.920839572555139,
+       "cooling_kW": 12.606185551623403,
+       "preheat_kW": 10.297878277957466,
+       "pump_kW": 0.0046150807335575954,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.049859471663917
+      },
+      {
+       "combustion_over_lhv": 0.9209525508710644,
+       "cooling_kW": 12.603146081094021,
+       "preheat_kW": 10.235754767493889,
+       "pump_kW": 0.009242191956294306,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.10735587090476
+      },
+      {
+       "combustion_over_lhv": 0.9210638446735749,
+       "cooling_kW": 12.60011754194023,
+       "preheat_kW": 10.208375417602214,
+       "pump_kW": 0.013869303179031019,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.130108109573696
+      },
+      {
+       "combustion_over_lhv": 0.9211734915933977,
+       "cooling_kW": 12.597099868786096,
+       "preheat_kW": 10.197441217425428,
+       "pump_kW": 0.018496414401767733,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.136415198527746
+      },
+      {
+       "combustion_over_lhv": 0.9212815281476265,
+       "cooling_kW": 12.59409299680179,
+       "preheat_kW": 10.196435321183904,
+       "pump_kW": 0.023123525624504447,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.132793983546533
+      },
+      {
+       "combustion_over_lhv": 0.9213879897806192,
+       "cooling_kW": 12.591096861697752,
+       "preheat_kW": 10.202242623459467,
+       "pump_kW": 0.027750636847241154,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.122359570048234
+      },
+      {
+       "combustion_over_lhv": 0.9215963249296342,
+       "cooling_kW": 12.58513654763897,
+       "preheat_kW": 10.22799995951818,
+       "pump_kW": 0.03700485929271458,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.087348011544048
+      },
+      {
+       "combustion_over_lhv": 0.9217987605850776,
+       "cooling_kW": 12.57921842288094,
+       "preheat_kW": 10.267139833080094,
+       "pump_kW": 0.04625908173818799,
+       "recovered_kW": 0.0,
+       "vaporiser_kW": 7.038953915536661
+      }
+     ]
+    ]
+   }
+  },
+  "inputs_defaults": {
+   "burner_excess_air": 0.15,
+   "case_id": "baseline",
+   "feed_h2o_mole_frac": 0.002,
+   "feed_total_kmol_h": 100.0,
+   "fehe_hot_end_approach_K": 50.0,
+   "heat_integration": true,
+   "property_method": "PENG-ROB",
+   "psa_feed_temperature_C": 40.0,
+   "psa_h2_recovery": 0.85,
+   "psa_n2_slip": 0.001,
+   "reactor_pressure_bar": 20.0,
+   "reactor_temperature_C": 600.0,
+   "stack_temperature_C": 150.0
+  },
+  "min_flowsheet_pressure_bar": 3.0,
+  "pressure_profile": {
+   "AIR": [
+    "abs",
+    1.3
+   ],
+   "BURNER": [
+    "abs",
+    1.2
+   ],
+   "COOLER_out": [
+    "rel",
+    -0.5
+   ],
+   "CRACKER_out": [
+    "rel",
+    0.0
+   ],
+   "FEHE_cold_out": [
+    "rel",
+    0.5
+   ],
+   "FEHE_hot_out": [
+    "rel",
+    -0.3
+   ],
+   "FLUEHX_out": [
+    "abs",
+    1.1
+   ],
+   "H2PROD": [
+    "rel",
+    -1.0
+   ],
+   "HEATER_out": [
+    "rel",
+    0.2
+   ],
+   "PUMP_discharge": [
+    "rel",
+    1.0
+   ],
+   "TAILGAS": [
+    "abs",
+    1.3
+   ],
+   "VAPORIZR_out": [
+    "rel",
+    0.8
+   ]
+  },
+  "pump_efficiency": 0.75,
+  "reduction": "Pump, vaporiser, preheater, feed-effluent exchanger and cooler duties and the burner combustion/LHV ratio are bilinear interpolations of this Python grid (scaled linearly with feed flow, at equilibrium conversion). Cracker duty, H2 production and tail-gas LHV are computed in the browser (ideal gas, NASA-7), from equilibrium or from the kinetic reactor outlet.",
+  "source": "amcrax.process_model.flowsheet; config/flowsheet.json",
+  "vaporiser_superheat_K": 10.0
+ },
+ "provenance": {
+  "inputs": [
+   "backend/amcrax/data/kinetics.yaml",
+   "backend/amcrax/data/nasa7.json",
+   "backend/amcrax/data/singapore.yaml",
+   "backend/amcrax/data/environmental.yaml",
+   "config/flowsheet.json"
+  ],
+  "script": "scripts/research/export_simulator_data.py",
+  "source_type": "python"
+ },
+ "purification": {
+  "membrane": "not ported to the browser (Python Sieverts model in amcrax.separation.membrane); known gap",
+  "model": "reduced-order PSA component splitter as amcrax.process_model.flowsheet: H2 recovery and N2 slip are assumed inputs; NH3, H2O, O2 go to the tail gas",
+  "psa_feed_temperature_C_default": 40.0,
+  "psa_h2_recovery_default": 0.85,
+  "psa_n2_slip_default": 0.001,
+  "purity_label": "assumption (follows from assumed recovery and N2 slip; no adsorption model)",
+  "source": "amcrax.schemas.CaseInputs; amcrax.process_model.flowsheet"
+ },
+ "reactor": {
+  "baseline_feed_kmol_h": {
+   "H2O": 0.2,
+   "NH3": 99.8
+  },
+  "default_bed": {
+   "dp_m": 0.0006,
+   "eps_b": 0.36,
+   "rho_particle_kg_m3": 980.0,
+   "tube_inner_diameter_m": 0.126
+  },
+  "default_bed_source": "kum2026heatintegrated p. 5 Table 1 (eps_b, rho_cat, dp, Din); rho_bed = (1-eps_b)*rho_cat as in Kum Table 2",
+  "default_keq_basis": "amcrax_thermo",
+  "default_n_tubes": 50,
+  "ergun": {
+   "inertial": 1.75,
+   "viscous": 150.0
+  },
+  "hydraulic_stop_fraction_of_inlet_pressure": 0.05,
+  "molar_mass_kg_mol": {
+   "Ar": 0.039948,
+   "H2": 0.002016,
+   "H2O": 0.018015,
+   "N2": 0.028014,
+   "NH3": 0.017031
+  },
+  "normal_P_Pa": 101325.0,
+  "normal_T_K": 273.15,
+  "source": "amcrax.reactor.pfr (simulate_pfr)",
+  "viscosity": {
+   "T_K": [
+    380.0,
+    400.0,
+    420.0,
+    440.0,
+    460.0,
+    480.0,
+    500.0,
+    520.0,
+    540.0,
+    560.0,
+    580.0,
+    600.0,
+    620.0,
+    640.0,
+    660.0,
+    680.0,
+    700.0,
+    720.0,
+    740.0,
+    760.0,
+    780.0,
+    800.0,
+    820.0,
+    840.0,
+    860.0,
+    880.0,
+    900.0,
+    920.0,
+    940.0,
+    960.0,
+    980.0,
+    1000.0,
+    1020.0,
+    1040.0,
+    1060.0,
+    1080.0,
+    1100.0,
+    1120.0,
+    1140.0,
+    1160.0,
+    1180.0,
+    1200.0,
+    1220.0,
+    1240.0,
+    1260.0,
+    1280.0,
+    1300.0
+   ],
+   "X": [
+    0.0,
+    0.05,
+    0.1,
+    0.15000000000000002,
+    0.2,
+    0.25,
+    0.30000000000000004,
+    0.35000000000000003,
+    0.4,
+    0.45,
+    0.5,
+    0.55,
+    0.6000000000000001,
+    0.65,
+    0.7000000000000001,
+    0.75,
+    0.8,
+    0.8500000000000001,
+    0.9,
+    0.9500000000000001,
+    1.0
+   ],
+   "feed_kmol_h": {
+    "H2O": 0.2,
+    "NH3": 99.8
+   },
+   "mu_Pa_s": [
+    [
+     1.3212877159606697e-05,
+     1.3487651921611908e-05,
+     1.3758881322037698e-05,
+     1.4026714378034944e-05,
+     1.4291297149684947e-05,
+     1.4552772872843787e-05,
+     1.4811282086858749e-05,
+     1.5066962757425643e-05,
+     1.5319950394841368e-05,
+     1.557037816789188e-05,
+     1.5818377013603073e-05,
+     1.606407574306981e-05,
+     1.6307601143566957e-05,
+     1.6549078077135676e-05,
+     1.6788629575828227e-05,
+     1.702637693378508e-05,
+     1.726243979630945e-05,
+     1.749693624609598e-05,
+     1.7729982886762725e-05,
+     1.796169492382804e-05,
+     1.8192186243267466e-05
+    ],
+    [
+     1.3919195794221614e-05,
+     1.4196503695371544e-05,
+     1.4469640693792175e-05,
+     1.4738777394696033e-05,
+     1.500408024372979e-05,
+     1.526571170788131e-05,
+     1.552383044839424e-05,
+     1.57785914861256e-05,
+     1.6030146359755476e-05,
+     1.6278643277233638e-05,
+     1.652422726082497e-05,
+     1.6767040286094434e-05,
+     1.7007221415152348e-05,
+     1.7244906924462307e-05,
+     1.748023042749673e-05,
+     1.77133229925087e-05,
+     1.7944313255673852e-05,
+     1.8173327529841648e-05,
+     1.8400489909122344e-05,
+     1.8625922369523193e-05,
+     1.8849744865836313e-05
+    ],
+    [
+     1.4626238490141418e-05,
+     1.4905287657384785e-05,
+     1.5179535256577877e-05,
+     1.5449175872793567e-05,
+     1.571439856634449e-05,
+     1.597538711574611e-05,
+     1.6232320248904482e-05,
+     1.6485371863205636e-05,
+     1.6734711235139566e-05,
+     1.698050322005138e-05,
+     1.7222908442574335e-05,
+     1.746208347826462e-05,
+     1.7698181026925247e-05,
+     1.793135007807598e-05,
+     1.8161736068998353e-05,
+     1.8389481035758464e-05,
+     1.8614723757585854e-05,
+     1.8837599894964097e-05,
+     1.9058242121767547e-05,
+     1.9276780251758717e-05,
+     1.9493341359742574e-05
+    ],
+    [
+     1.5333045165259364e-05,
+     1.561311226163465e-05,
+     1.588774626374127e-05,
+     1.6157167978694934e-05,
+     1.642159115737327e-05,
+     1.6681222814428615e-05,
+     1.693626353165291e-05,
+     1.7186907745705806e-05,
+     1.743334402114742e-05,
+     1.7675755309653326e-05,
+     1.7914319196230115e-05,
+     1.8149208133194963e-05,
+     1.8380589662632182e-05,
+     1.8608626627992688e-05,
+     1.8833477375458964e-05,
+     1.9055295945657608e-05,
+     1.9274232256264526e-05,
+     1.9490432276012713e-05,
+     1.970403819058071e-05,
+     1.9915188560809634e-05,
+     2.0124018473668917e-05
+    ],
+    [
+     1.603881361348586e-05,
+     1.631923839774221e-05,
+     1.6593601125335895e-05,
+     1.6862150900531757e-05,
+     1.712512807215371e-05,
+     1.7382764646455177e-05,
+     1.763528467721742e-05,
+     1.7882904634532447e-05,
+     1.812583375362182e-05,
+     1.836427436494567e-05,
+     1.8598422206767046e-05,
+     1.882846672125461e-05,
+     1.9054591335131e-05,
+     1.927697372580448e-05,
+     1.9495786073856996e-05,
+     1.9711195302702506e-05,
+     1.9923363306174274e-05,
+     2.0132447164749246e-05,
+     2.0338599351070484e-05,
+     2.054196792538526e-05,
+     2.074269672147587e-05
+    ],
+    [
+     1.674287221074378e-05,
+     1.7023052532291477e-05,
+     1.7296547130866978e-05,
+     1.7563635307479324e-05,
+     1.7824585741312516e-05,
+     1.8079657011892e-05,
+     1.832909809095437e-05,
+     1.8573148806053705e-05,
+     1.8812040277783332e-05,
+     1.9045995332350507e-05,
+     1.9275228891112062e-05,
+     1.949994833856014e-05,
+     1.9720353870138312e-05,
+     1.993663882116818e-05,
+     2.0148989978074612e-05,
+     2.0357587873013204e-05,
+     2.0562607062925466e-05,
+     2.0764216393975658e-05,
+     2.0962579252256946e-05,
+     2.115785380159348e-05,
+     2.1350193209208683e-05
+    ],
+    [
+     1.7444658109378697e-05,
+     1.7724045291566733e-05,
+     1.7996130540532473e-05,
+     1.8261225076231927e-05,
+     1.8519627465528104e-05,
+     1.8771624270544838e-05,
+     1.9017490657665957e-05,
+     1.9257490969939592e-05,
+     1.9491879265428414e-05,
+     1.9720899823847013e-05,
+     1.9944787623645453e-05,
+     2.0163768791531646e-05,
+     2.037806102627322e-05,
+     2.0587873998480222e-05,
+     2.079340972794279e-05,
+     2.0994862939980983e-05,
+     2.1192421402156913e-05,
+     2.1386266242600884e-05,
+     2.1576572251113105e-05,
+     2.176350816411907e-05,
+     2.19472369344807e-05
+    ],
+    [
+     1.8143699629564236e-05,
+     1.8421794207711802e-05,
+     1.8691979785332014e-05,
+     1.8954601048907465e-05,
+     1.9209987839464608e-05,
+     1.9458455944291503e-05,
+     1.9700307838593786e-05,
+     1.9935833380743444e-05,
+     2.0165310464473365e-05,
+     2.0389005631096315e-05,
+     2.0607174644578294e-05,
+     2.082006303206928e-05,
+     2.1027906592288116e-05,
+     2.123093187397009e-05,
+     2.1429356626413995e-05,
+     2.1623390224008606e-05,
+     2.181323406647522e-05,
+     2.199908195643156e-05,
+     2.2181120455762335e-05,
+     2.2359529222171444e-05,
+     2.2534481327190058e-05
+    ],
+    [
+     1.8839601906614167e-05,
+     1.9115949694041753e-05,
+     1.938379185247668e-05,
+     1.9643507913855253e-05,
+     1.9895460216213556e-05,
+     2.013999485607526e-05,
+     2.0377442578323404e-05,
+     2.0608119608291326e-05,
+     2.0832328430402408e-05,
+     2.1050358517321506e-05,
+     2.1262487013248564e-05,
+     2.14689793746838e-05,
+     2.1670089971720423e-05,
+     2.1866062652672327e-05,
+     2.2057131274618497e-05,
+     2.2243520202239964e-05,
+     2.242544477713789e-05,
+     2.260311175965039e-05,
+     2.2776719745029527e-05,
+     2.2946459555697462e-05,
+     2.3112514611170132e-05
+    ],
+    [
+     1.9532035096058362e-05,
+     1.980622355490106e-05,
+     2.007132116812433e-05,
+     2.0327743531475057e-05,
+     2.0575886548261573e-05,
+     2.08161275597058e-05,
+     2.1048826398498087e-05,
+     2.1274326371572146e-05,
+     2.1492955177584848e-05,
+     2.170502576410508e-05,
+     2.1910837129082422e-05,
+     2.211067507077452e-05,
+     2.2304812889957836e-05,
+     2.2493512047925314e-05,
+     2.267702278348378e-05,
+     2.285558469189966e-05,
+     2.3029427268501815e-05,
+     2.3198770419432152e-05,
+     2.336382494183603e-05,
+     2.3524792975603665e-05,
+     2.3681868428608477e-05
+    ],
+    [
+     2.0220724610477133e-05,
+     2.0492379506028053e-05,
+     2.0754370457853018e-05,
+     2.100715019267825e-05,
+     2.125114910288703e-05,
+     2.148677657199227e-05,
+     2.1714422207141054e-05,
+     2.1934456986167105e-05,
+     2.214723432602102e-05,
+     2.2353091078791083e-05,
+     2.2552348460972774e-05,
+     2.2745312921145477e-05,
+     2.2932276950764215e-05,
+     2.3113519842367497e-05,
+     2.3289308399134772e-05,
+     2.3459897599394182e-05,
+     2.3625531219380077e-05,
+     2.3786442417266365e-05,
+     2.39428542812538e-05,
+     2.4094980344263776e-05,
+     2.4243025067586317e-05
+    ],
+    [
+     2.090544298611593e-05,
+     2.117422530471628e-05,
+     2.143278318744594e-05,
+     2.168160741807586e-05,
+     2.1921163668028754e-05,
+     2.2151894033879096e-05,
+     2.2374218463779405e-05,
+     2.258853608205661e-05,
+     2.2795226420353384e-05,
+     2.299465056291159e-05,
+     2.3187152212897234e-05,
+     2.337305868603993e-05,
+     2.3552681837296975e-05,
+     2.372631892574498e-05,
+     2.3894253422445503e-05,
+     2.405675576561855e-05,
+     2.421408406708601e-05,
+     2.4366484773609754e-05,
+     2.4514193286444714e-05,
+     2.4657434542150633e-05,
+     2.4796423557455627e-05
+    ],
+    [
+     2.1586003068314706e-05,
+     2.185160617980407e-05,
+     2.2106437276655872e-05,
+     2.2351025995001646e-05,
+     2.2585873952143566e-05,
+     2.281145651264408e-05,
+     2.3028224423271755e-05,
+     2.323660532801481e-05,
+     2.3437005173291414e-05,
+     2.362980951252032e-05,
+     2.3815384718351707e-05,
+     2.3994079110085122e-05,
+     2.4166224003108382e-05,
+     2.4332134686569545e-05,
+     2.4492111334934614e-05,
+     2.464643985858093e-05,
+     2.479539269812272e-05,
+     2.4939229566756548e-05,
+     2.507819814454502e-05,
+     2.5212534728223328e-05,
+     2.5342464839810943e-05
+    ],
+    [
+     2.2262252272473003e-05,
+     2.252439931913629e-05,
+     2.2775239845857078e-05,
+     2.301534301600761e-05,
+     2.3245246947008617e-05,
+     2.346546072114491e-05,
+     2.3676466243188116e-05,
+     2.3878719958254358e-05,
+     2.4072654441996257e-05,
+     2.4258679874046743e-05,
+     2.4437185404578236e-05,
+     2.4608540422899965e-05,
+     2.4773095736175336e-05,
+     2.493118466558817e-05,
+     2.508312406661205e-05,
+     2.5229215279431013e-05,
+     2.5369745015015457e-05,
+     2.550498618186726e-05,
+     2.563519865800671e-05,
+     2.576063001237559e-05,
+     2.5881516179471296e-05
+    ],
+    [
+     2.2934067728333624e-05,
+     2.319250922320891e-05,
+     2.3439122806324396e-05,
+     2.3674517732795635e-05,
+     2.3899269071942674e-05,
+     2.4113919978474973e-05,
+     2.4318983786453946e-05,
+     2.451494594193329e-05,
+     2.4702265788568206e-05,
+     2.4881378219056247e-05,
+     2.505269520400291e-05,
+     2.5216607208674597e-05,
+     2.5373484507093784e-05,
+     2.552367840203109e-05,
+     2.566752235864432e-05,
+     2.5805333058793863e-05,
+     2.5937411382417842e-05,
+     2.60640433217702e-05,
+     2.6185500833803796e-05,
+     2.6302042635510787e-05,
+     2.641391494661023e-05
+    ],
+    [
+     2.3601352154326187e-05,
+     2.3855863772694034e-05,
+     2.4098039143699623e-05,
+     2.432852807798477e-05,
+     2.454794295573062e-05,
+     2.4756861273307886e-05,
+     2.4955827986705377e-05,
+     2.5145357670371152e-05,
+     2.532593650817393e-05,
+     2.549802413148678e-05,
+     2.566205531788325e-05,
+     2.5818441562593167e-05,
+     2.59675725336709e-05,
+     2.6109817420765546e-05,
+     2.624552618643286e-05,
+     2.6375030728081637e-05,
+     2.6498645957888358e-05,
+     2.6616670807334787e-05,
+     2.6729389162413836e-05,
+     2.683707073500148e-05,
+     2.693997187540049e-05
+    ],
+    [
+     2.4264030338804718e-05,
+     2.4514410887656838e-05,
+     2.4751959774183656e-05,
+     2.4977367736780705e-05,
+     2.5191284741696157e-05,
+     2.539432281965178e-05,
+     2.558705867129505e-05,
+     2.577003606311577e-05,
+     2.5943768033178666e-05,
+     2.6108738924008767e-05,
+     2.626540625818438e-05,
+     2.6414202470613993e-05,
+     2.6555536510073177e-05,
+     2.6689795321332387e-05,
+     2.681734521809946e-05,
+     2.6938533156012573e-05,
+     2.705368791403839e-05,
+     2.7163121191841973e-05,
+     2.7267128629989857e-05,
+     2.7365990759215242e-05,
+     2.7459973884407074e-05
+    ],
+    [
+     2.4922046128437204e-05,
+     2.5168115679710708e-05,
+     2.5400870876308067e-05,
+     2.5621043673667294e-05,
+     2.582932182400338e-05,
+     2.602635201678286e-05,
+     2.621274275816514e-05,
+     2.6389067014310585e-05,
+     2.6555864640778963e-05,
+     2.6713644617884766e-05,
+     2.6862887109796518e-05,
+     2.7004045363329088e-05,
+     2.7137547460751335e-05,
+     2.7263797939488535e-05,
+     2.738317929031793e-05,
+     2.749605334451592e-05,
+     2.760276255940046e-05,
+     2.770363121080622e-05,
+     2.7798966500221124e-05,
+     2.788905958358872e-05,
+     2.797418652813246e-05
+    ],
+    [
+     2.5575359842457923e-05,
+     2.5816958016800413e-05,
+     2.6044771619470027e-05,
+     2.6259574037340127e-05,
+     2.6462090941011847e-05,
+     2.665300374237867e-05,
+     2.6832952759416002e-05,
+     2.7002540116629946e-05,
+     2.7162332406488685e-05,
+     2.7312863134427276e-05,
+     2.745463496761085e-05,
+     2.7588121805520098e-05,
+     2.771377068854898e-05,
+     2.7832003559146806e-05,
+     2.7943218888567326e-05,
+     2.8047793180982965e-05,
+     2.81460823655629e-05,
+     2.823842308608069e-05,
+     2.8325133896696638e-05,
+     2.8406516371737346e-05,
+     2.848285613655995e-05
+    ],
+    [
+     2.6223946046097993e-05,
+     2.6460930434887388e-05,
+     2.6683672224890466e-05,
+     2.6892986381376496e-05,
+     2.708963656547919e-05,
+     2.727433892142657e-05,
+     2.7447765537423e-05,
+     2.7610547612418337e-05,
+     2.7763278357414204e-05,
+     2.790651565681434e-05,
+     2.8040784512565922e-05,
+     2.816657929140969e-05,
+     2.828436579341591e-05,
+     2.839458315809256e-05,
+     2.8497645622679855e-05,
+     2.8593944145763702e-05,
+     2.868384790802581e-05,
+     2.876770570077963e-05,
+     2.884584721190099e-05,
+     2.8918584217835055e-05,
+     2.8986211689533216e-05
+    ],
+    [
+     2.6867791628203106e-05,
+     2.7100036342469834e-05,
+     2.7317592306208566e-05,
+     2.7521316149505e-05,
+     2.771200954250805e-05,
+     2.7890423324230974e-05,
+     2.8057261269652783e-05,
+     2.8213183531420946e-05,
+     2.835880978835503e-05,
+     2.8494722129364486e-05,
+     2.8621467698249564e-05,
+     2.8739561122094004e-05,
+     2.884948674352972e-05,
+     2.8951700675012854e-05,
+     2.904663269136173e-05,
+     2.9134687975135434e-05,
+     2.921624872795183e-05,
+     2.929167565953031e-05,
+     2.936130936507743e-05,
+     2.9425471600594727e-05,
+     2.948446646476218e-05
+    ],
+    [
+     2.7506894137420524e-05,
+     2.773428847320307e-05,
+     2.7946559446158304e-05,
+     2.814460538340842e-05,
+     2.8329265934973823e-05,
+     2.8501326555379712e-05,
+     2.8661522586489997e-05,
+     2.8810542982196142e-05,
+     2.894903371093125e-05,
+     2.9077600867914025e-05,
+     2.9196813525471363e-05,
+     2.930720634667188e-05,
+     2.9409281984766404e-05,
+     2.950351328852436e-05,
+     2.959034533143369e-05,
+     2.9670197280859087e-05,
+     2.9743464121597714e-05,
+     2.9810518246804077e-05,
+     2.9871710927954787e-05,
+     2.992737367436728e-05,
+     2.9977819491757298e-05
+    ],
+    [
+     2.814126033899744e-05,
+     2.8363707549494657e-05,
+     2.8570607973282588e-05,
+     2.8762901618351295e-05,
+     2.8941466043320068e-05,
+     2.9107121202415767e-05,
+     2.9260633852944823e-05,
+     2.9402721570470957e-05,
+     2.9534056411654965e-05,
+     2.965526826013455e-05,
+     2.976694788682562e-05,
+     2.9869649752530325e-05,
+     2.996389457767297e-05,
+     3.005017170129445e-05,
+     3.0128941249068718e-05,
+     3.0200636128018722e-05,
+     3.0265663863767414e-05,
+     3.0324408294530644e-05,
+     3.0377231134615866e-05,
+     3.0424473418910552e-05,
+     3.0466456838706315e-05
+    ],
+    [
+     2.8770904960352966e-05,
+     2.898832112602217e-05,
+     2.9189777908626652e-05,
+     2.9376256937779227e-05,
+     2.954867357228937e-05,
+     2.9707882118418277e-05,
+     2.98546805702983e-05,
+     2.998981492256469e-05,
+     3.0113983099353065e-05,
+     3.0227838538690856e-05,
+     3.0331993466845188e-05,
+     3.0427021893290402e-05,
+     3.0513462353547034e-05,
+     3.0591820424153255e-05,
+     3.0662571031403544e-05,
+     3.072616057317799e-05,
+     3.078300887114841e-05,
+     3.0833510968848716e-05,
+     3.0878038789505636e-05,
+     3.091694266611624e-05,
+     3.095055275500769e-05
+    ],
+    [
+     2.9395849598747392e-05,
+     2.9608162587225928e-05,
+     2.9804114057365557e-05,
+     2.9984727162924597e-05,
+     3.0150954921880896e-05,
+     3.0303685817218904e-05,
+     3.0443748878022548e-05,
+     3.057191829600374e-05,
+     3.068891762602227e-05,
+     3.079542361344688e-05,
+     3.0892069686245e-05,
+     3.097944914536265e-05,
+     3.105811808317798e-05,
+     3.112859805650559e-05,
+     3.119137853772881e-05,
+     3.124691916509019e-05,
+     3.129565181092804e-05,
+     3.133798248467018e-05,
+     3.1374293085649806e-05,
+     3.140494301926355e-05,
+     3.143027068862257e-05
+    ],
+    [
+     3.001612176846737e-05,
+     3.022327027687594e-05,
+     3.0413665224292604e-05,
+     3.058837115731952e-05,
+     3.074837858355738e-05,
+     3.0894609963543825e-05,
+     3.102792513967825e-05,
+     3.1149126262584124e-05,
+     3.125896226806562e-05,
+     3.135813295149634e-05,
+     3.1447292680990296e-05,
+     3.152705378593144e-05,
+     3.159798965327375e-05,
+     3.1660637560385974e-05,
+     3.1715501270029713e-05,
+     3.176305341026468e-05,
+     3.18037376596195e-05,
+     3.1837970755703416e-05,
+     3.1866144343526934e-05,
+     3.188862667811428e-05,
+     3.190576419449832e-05
+    ],
+    [
+     3.06317540684864e-05,
+     3.083368674129776e-05,
+     3.1018483535501115e-05,
+     3.118725022941972e-05,
+     3.134101462589805e-05,
+     3.148073294339143e-05,
+     3.1607295599331245e-05,
+     3.172153245177014e-05,
+     3.182421755725781e-05,
+     3.191607349593233e-05,
+     3.1997775308773906e-05,
+     3.206995408672215e-05,
+     3.213320024679054e-05,
+     3.218806652632665e-05,
+     3.223507072308248e-05,
+     3.227469820570778e-05,
+     3.230740421659955e-05,
+     3.233361598668663e-05,
+     3.2353734679652143e-05,
+     3.236813718126654e-05,
+     3.2377177747884694e-05
+    ],
+    [
+     3.1242783454333415e-05,
+     3.143945807057084e-05,
+     3.161862385125806e-05,
+     3.178142761912515e-05,
+     3.1928934256372124e-05,
+     3.206213350230839e-05,
+     3.218194609723552e-05,
+     3.228922934435554e-05,
+     3.238478215263435e-05,
+     3.2469349615906426e-05,
+     3.254362717689156e-05,
+     3.26082644190557e-05,
+     3.2663868524259255e-05,
+     3.271100742978936e-05,
+     3.2750212714577936e-05,
+     3.278198224108767e-05,
+     3.280678257643819e-05,
+     3.282505121378919e-05,
+     3.2837198612749346e-05,
+     3.284361007559796e-05,
+     3.284464747435695e-05
+    ],
+    [
+     3.1849250600390956e-05,
+     3.2040633324450525e-05,
+     3.221414325743688e-05,
+     3.237096805626707e-05,
+     3.251220944808932e-05,
+     3.2638890441289335e-05,
+     3.2751961835456305e-05,
+     3.2852308108084825e-05,
+     3.294075274609984e-05,
+     3.301806308193889e-05,
+     3.308495468670822e-05,
+     3.314209536667673e-05,
+     3.319010880394442e-05,
+     3.3229577877399405e-05,
+     3.326104769596043e-05,
+     3.3285028372504904e-05,
+     3.330199756373321e-05,
+     3.331240279845813e-05,
+     3.331666361438165e-05,
+     3.331517352128381e-05,
+     3.330830180666476e-05
+    ],
+    [
+     3.2451199340777715e-05,
+     3.2637264031657675e-05,
+     3.280510062471663e-05,
+     3.2955937380903874e-05,
+     3.309091262207481e-05,
+     3.321108236162039e-05,
+     3.331742718559098e-05,
+     3.341085846829282e-05,
+     3.349222399577226e-05,
+     3.356231306151142e-05,
+     3.362186109081307e-05,
+     3.36715538435668e-05,
+     3.3712031239205475e-05,
+     3.374389084254924e-05,
+     3.3767691044783724e-05,
+     3.37839539699351e-05,
+     3.3793168133808925e-05,
+     3.379579087938506e-05,
+     3.37922506100495e-05,
+     3.378294883974794e-05,
+     3.376826207712285e-05
+    ],
+    [
+     3.3048676178701274e-05,
+     3.322940375286746e-05,
+     3.339155622638652e-05,
+     3.353640221683247e-05,
+     3.3665116377101495e-05,
+     3.377878745138164e-05,
+     3.3878425532039005e-05,
+     3.396496860779958e-05,
+     3.403928848213387e-05,
+     3.410219613089076e-05,
+     3.4154446559730354e-05,
+     3.4196743214566315e-05,
+     3.4229741991873895e-05,
+     3.4254054890206124e-05,
+     3.427025333946493e-05,
+     3.427887124029516e-05,
+     3.4280407742319425e-05,
+     3.4275329786737794e-05,
+     3.426407443601656e-05,
+     3.424705101092986e-05,
+     3.422464305305375e-05
+    ],
+    [
+     3.364172985555599e-05,
+     3.38171076990813e-05,
+     3.39735714069014e-05,
+     3.4112429690973166e-05,
+     3.423489326029864e-05,
+     3.434208330743495e-05,
+     3.443503914529783e-05,
+     3.451472509122998e-05,
+     3.4582036682888594e-05,
+     3.4637806299848896e-05,
+     3.468280825564974e-05,
+     3.471776341709574e-05,
+     3.474334340079012e-05,
+     3.4760174390943065e-05,
+     3.4768840617351054e-05,
+     3.476988752795894e-05,
+     3.476382468650633e-05,
+     3.4751128422340816e-05,
+     3.473224425648737e-05,
+     3.47075891254349e-05,
+     3.467755342179216e-05
+    ],
+    [
+     3.423041097227572e-05,
+     3.440043239826447e-05,
+     3.455120829448736e-05,
+     3.46840871923863e-05,
+     3.480031557279471e-05,
+     3.4901046787692586e-05,
+     3.498734908065442e-05,
+     3.506021280973466e-05,
+     3.512055696314058e-05,
+     3.516923504656057e-05,
+     3.520704041114826e-05,
+     3.523471108266241e-05,
+     3.525293414491984e-05,
+     3.5262349724363444e-05,
+     3.5263554617033185e-05,
+     3.525710559443251e-05,
+     3.524352242060499e-05,
+     3.522329060908707e-05,
+     3.519686394521083e-05,
+     3.5164666796432404e-05,
+     3.512709623090332e-05
+    ],
+    [
+     3.481477165642927e-05,
+     3.497943540407874e-05,
+     3.512452955200625e-05,
+     3.525144216554447e-05,
+     3.536145520546677e-05,
+     3.545575388921977e-05,
+     3.5535435098335166e-05,
+     3.560151494271209e-05,
+     3.565493557805544e-05,
+     3.5696571360423524e-05,
+     3.57272344112533e-05,
+     3.5747679657123084e-05,
+     3.5758609400656e-05,
+     3.5760677472173395e-05,
+     3.575449300581965e-05,
+     3.5740623878765496e-05,
+     3.5719599847645135e-05,
+     3.569191541249886e-05,
+     3.5658032435098345e-05,
+     3.5618382535559276e-05,
+     3.5573369288536463e-05
+    ],
+    [
+     3.539486526947522e-05,
+     3.5554175041436016e-05,
+     3.5693598161145485e-05,
+     3.581456193329717e-05,
+     3.591838350063216e-05,
+     3.6006279648431237e-05,
+     3.6079375601823215e-05,
+     3.6138712933711726e-05,
+     3.6185256685674364e-05,
+     3.621990179098017e-05,
+     3.6243478877548515e-05,
+     3.625675951894105e-05,
+     3.6260460993092544e-05,
+     3.625525060124432e-05,
+     3.6241749593273534e-05,
+     3.6220536740170723e-05,
+     3.619215158968683e-05,
+     3.6157097437047715e-05,
+     3.611584403903331e-05,
+     3.606883009656815e-05,
+     3.601646552820796e-05
+    ],
+    [
+     3.5970746149265186e-05,
+     3.612471018424734e-05,
+     3.625847723562002e-05,
+     3.637351354555207e-05,
+     3.647117113606734e-05,
+     3.6552698060149464e-05,
+     3.661924759151279e-05,
+     3.667188647810755e-05,
+     3.671160236790689e-05,
+     3.6739310501415386e-05,
+     3.675585975325898e-05,
+     3.6762038094845236e-05,
+     3.675857754115645e-05,
+     3.674615863703694e-05,
+     3.6725414531674515e-05,
+     3.6696934684202685e-05,
+     3.666126823833351e-05,
+     3.6618927099563996e-05,
+     3.6570388744688225e-05,
+     3.651609879001644e-05,
+     3.645647334178413e-05
+    ],
+    [
+     3.6542469383593886e-05,
+     3.669110006142215e-05,
+     3.681922985971985e-05,
+     3.692836365030657e-05,
+     3.7019888028306975e-05,
+     3.7095082012814586e-05,
+     3.7155126631344136e-05,
+     3.720111352055336e-05,
+     3.723405265809288e-05,
+     3.7254879325412613e-05,
+     3.7264460388497454e-05,
+     3.726359997248004e-05,
+     3.72530445965994e-05,
+     3.723348782780436e-05,
+     3.720557450424092e-05,
+     3.716990457374985e-05,
+     3.712703658719455e-05,
+     3.707749088182333e-05,
+     3.7021752485847006e-05,
+     3.69602737718981e-05,
+     3.6893476883962035e-05
+    ],
+    [
+     3.711009061105285e-05,
+     3.725340408761254e-05,
+     3.7375918948955736e-05,
+     3.747917838405696e-05,
+     3.756460325254201e-05,
+     3.7633503237470924e-05,
+     3.768708682636288e-05,
+     3.7726470260494036e-05,
+     3.7752685573749084e-05,
+     3.776668782633169e-05,
+     3.776936162499068e-05,
+     3.776152700972562e-05,
+     3.7743944776892795e-05,
+     3.771732129998441e-05,
+     3.768231290188913e-05,
+     3.763952982598365e-05,
+     3.758953984780388e-05,
+     3.753287156417683e-05,
+     3.7470017392454236e-05,
+     3.740143630878919e-05,
+     3.7327556351160606e-05
+    ],
+    [
+     3.767366584602269e-05,
+     3.781168171574939e-05,
+     3.792860713007728e-05,
+     3.8026023279102284e-05,
+     3.810538497688964e-05,
+     3.816803226857096e-05,
+     3.821520080952312e-05,
+     3.824803116434001e-05,
+     3.826757715340272e-05,
+     3.827481335791309e-05,
+     3.8270641879797033e-05,
+     3.8255898440510145e-05,
+     3.8231357892160346e-05,
+     3.819773920522852e-05,
+     3.81557099892907e-05,
+     3.810589059633602e-05,
+     3.804885785037511e-05,
+     3.7985148441909626e-05,
+     3.791526202137548e-05,
+     3.7839664021783584e-05,
+     3.7758788237384164e-05
+    ],
+    [
+     3.8233251324914376e-05,
+     3.836599230868027e-05,
+     3.847735663798671e-05,
+     3.856896318549167e-05,
+     3.864230040902106e-05,
+     3.869873841482935e-05,
+     3.873953973622256e-05,
+     3.876586898305565e-05,
+     3.8778801496531254e-05,
+     3.8779331125800745e-05,
+     3.876837722758465e-05,
+     3.8746790976962e-05,
+     3.871536106627596e-05,
+     3.86748188594751e-05,
+     3.862584306091354e-05,
+     3.85690639504682e-05,
+     3.8505067230628635e-05,
+     3.8434397525831946e-05,
+     3.835756156963575e-05,
+     3.827503111124301e-05,
+     3.8187245569331524e-05
+    ],
+    [
+     3.8788903371266784e-05,
+     3.89163950276903e-05,
+     3.902222922751541e-05,
+     3.9108062205778376e-05,
+     3.917541575351512e-05,
+     3.922568973870842e-05,
+     3.9260173285370746e-05,
+     3.9280054774188606e-05,
+     3.928643080586607e-05,
+     3.928031424937528e-05,
+     3.9262641481197714e-05,
+     3.923427890786734e-05,
+     3.9196028852330446e-05,
+     3.914863487450768e-05,
+     3.9092786587723014e-05,
+     3.902912402513916e-05,
+     3.895824160382854e-05,
+     3.888069172846512e-05,
+     3.8796988071717936e-05,
+     3.8707608564156635e-05,
+     3.8612998122752705e-05
+    ],
+    [
+     3.934067827744756e-05,
+     3.946294873582136e-05,
+     3.95632860981555e-05,
+     3.96433836408591e-05,
+     3.970479617841074e-05,
+     3.974895304320838e-05,
+     3.9777169665869904e-05,
+     3.97906579274299e-05,
+     3.979053543136339e-05,
+     3.977783382341683e-05,
+     3.975350627024802e-05,
+     3.9718434193388026e-05,
+     3.967343334263932e-05,
+     3.961925928238648e-05,
+     3.9556612355145634e-05,
+     3.948614217878755e-05,
+     3.940845172705011e-05,
+     3.9324101037046044e-05,
+     3.9233610582342345e-05,
+     3.913746434572241e-05,
+     3.903611262184989e-05
+    ],
+    [
+     3.988863220111708e-05,
+     4.000571191429332e-05,
+     4.01005878302039e-05,
+     4.0174989945515615e-05,
+     4.023050578974096e-05,
+     4.026859386491671e-05,
+     4.029059562763866e-05,
+     4.029774619301423e-05,
+     4.029118391533371e-05,
+     4.0271958979272424e-05,
+     4.024104111759067e-05,
+     4.019932655608282e-05,
+     4.0147644273517905e-05,
+     4.0086761653161434e-05,
+     4.0017389592882416e-05,
+     3.994018713259042e-05,
+     3.985576565061379e-05,
+     3.976469267445417e-05,
+     3.966749534599416e-05,
+     3.9564663576574686e-05,
+     3.945665292329877e-05
+    ],
+    [
+     4.0432821074755016e-05,
+     4.0544742590464885e-05,
+     4.063419433089972e-05,
+     4.070294269239064e-05,
+     4.0752607612936154e-05,
+     4.07846764723638e-05,
+     4.080051647638854e-05,
+     4.080138571233617e-05,
+     4.078844303827275e-05,
+     4.076275694523891e-05,
+     4.072531351356346e-05,
+     4.0677023568279425e-05,
+     4.061872912503832e-05,
+     4.0551209206245404e-05,
+     4.047518509711318e-05,
+     4.0391325102698824e-05,
+     4.0300248859541065e-05,
+     4.020253124906711e-05,
+     4.009870595435131e-05,
+     3.998926869695139e-05,
+     3.9874680186318034e-05
+    ],
+    [
+     4.097330052675405e-05,
+     4.108009827596251e-05,
+     4.116416478931433e-05,
+     4.122730254329137e-05,
+     4.1271163580129224e-05,
+     4.1297263868860506e-05,
+     4.130699609147442e-05,
+     4.130164105025031e-05,
+     4.128237786501035e-05,
+     4.125029310592674e-05,
+     4.1206388987903694e-05,
+     4.115159073585867e-05,
+     4.108675321597506e-05,
+     4.1012666915799014e-05,
+     4.0930063345584294e-05,
+     4.083961992428134e-05,
+     4.0741964405797736e-05,
+     4.063767889444102e-05,
+     4.052730349263459e-05,
+     4.041133961894313e-05,
+     4.029025303004519e-05
+    ],
+    [
+     4.1510125812803766e-05,
+     4.161183591381221e-05,
+     4.169055763894517e-05,
+     4.174812922689342e-05,
+     4.1786234522559314e-05,
+     4.1806417799140566e-05,
+     4.181009694627047e-05,
+     4.1798575228637105e-05,
+     4.1773051790889544e-05,
+     4.1734631060447514e-05,
+     4.168433117931546e-05,
+     4.1623091578552905e-05,
+     4.1551779794169404e-05,
+     4.147119761048217e-05,
+     4.138208660605778e-05,
+     4.1285133167972765e-05,
+     4.118097303203787e-05,
+     4.107019539964132e-05,
+     4.095334667581333e-05,
+     4.083093386786101e-05,
+     4.0703427679353134e-05
+    ],
+    [
+     4.204335175639704e-05,
+     4.214001183351113e-05,
+     4.221343052705854e-05,
+     4.2265481522001406e-05,
+     4.229788016734483e-05,
+     4.231219875919552e-05,
+     4.230988013057716e-05,
+     4.229224976085867e-05,
+     4.2260526587719134e-05,
+     4.221583267928725e-05,
+     4.215920190266749e-05,
+     4.20915877068554e-05,
+     4.201387012252378e-05,
+     4.1926862067896226e-05,
+     4.183131503855576e-05,
+     4.172792424926912e-05,
+     4.161733328749346e-05,
+     4.150013833096811e-05,
+     4.1376891975507085e-05,
+     4.1248106713654706e-05,
+     4.1114258100126205e-05
+    ]
+   ],
+   "reduction": "browser interpolates bilinearly in (T, X); valid for the baseline feed composition only",
+   "source": "Cantera gri30.yaml mixture-averaged viscosity (amcrax.reactor.pfr.gas_viscosity_Pa_s), evaluated at 10 bar"
+  },
+  "x_seed_temkin": 1e-06
+ },
+ "schema": "amcrax.simulator/1",
+ "statement": "Parameters of the browser-side simulator. Generated from the Python registries; not an Aspen result.",
+ "thermo": {
+  "R_J_molK": 8.314462618,
+  "argon_cp_J_molK": 20.786,
+  "lhv_kJ_per_mol": {
+   "H2": 241.826,
+   "NH3": 316.8
+  },
+  "molar_mass_g_mol": {
+   "H2": 2.01588,
+   "H2O": 18.01528,
+   "N2": 28.0134,
+   "NH3": 17.0305,
+   "O2": 31.9988
+  },
+  "source": "backend/amcrax/data/nasa7.json via amcrax.thermodynamics.nasa7 (GRI-Mech 3.0 NASA-7); amcrax.schemas",
+  "species": {
+   "H2": {
+    "Tmax": 3500.0,
+    "Tmid": 1000.0,
+    "Tmin": 200.0,
+    "composition": {
+     "H": 2
+    },
+    "ds_R": 0.0,
+    "high": [
+     3.3372792,
+     -4.94024731e-05,
+     4.99456778e-07,
+     -1.79566394e-10,
+     2.00255376e-14,
+     -950.158922,
+     -3.20502331
+    ],
+    "low": [
+     2.34433112,
+     0.00798052075,
+     -1.9478151e-05,
+     2.01572094e-08,
+     -7.37611761e-12,
+     -917.935173,
+     0.683010238
+    ]
+   },
+   "H2O": {
+    "Tmax": 3500.0,
+    "Tmid": 1000.0,
+    "Tmin": 200.0,
+    "composition": {
+     "H": 2,
+     "O": 1
+    },
+    "ds_R": 0.0,
+    "high": [
+     3.03399249,
+     0.00217691804,
+     -1.64072518e-07,
+     -9.7041987e-11,
+     1.68200992e-14,
+     -30004.2971,
+     4.9667701
+    ],
+    "low": [
+     4.19864056,
+     -0.0020364341,
+     6.52040211e-06,
+     -5.48797062e-09,
+     1.77197817e-12,
+     -30293.7267,
+     -0.849032208
+    ]
+   },
+   "N2": {
+    "Tmax": 5000.0,
+    "Tmid": 1000.0,
+    "Tmin": 300.0,
+    "composition": {
+     "N": 2
+    },
+    "ds_R": 0.0,
+    "high": [
+     2.92664,
+     0.0014879768,
+     -5.68476e-07,
+     1.0097038e-10,
+     -6.753351e-15,
+     -922.7977,
+     5.980528
+    ],
+    "low": [
+     3.298677,
+     0.0014082404,
+     -3.963222e-06,
+     5.641515e-09,
+     -2.444854e-12,
+     -1020.8999,
+     3.950372
+    ]
+   },
+   "NH3": {
+    "Tmax": 6000.0,
+    "Tmid": 1000.0,
+    "Tmin": 200.0,
+    "composition": {
+     "H": 3,
+     "N": 1
+    },
+    "ds_R": 0.0,
+    "high": [
+     2.6344521,
+     0.005666256,
+     -1.7278676e-06,
+     2.3867161e-10,
+     -1.2578786e-14,
+     -6544.6958,
+     6.5662928
+    ],
+    "low": [
+     4.2860274,
+     -0.004660523,
+     2.1718513e-05,
+     -2.2808887e-08,
+     8.2638046e-12,
+     -6741.7285,
+     -0.62537277
+    ]
+   },
+   "O2": {
+    "Tmax": 3500.0,
+    "Tmid": 1000.0,
+    "Tmin": 200.0,
+    "composition": {
+     "O": 2
+    },
+    "ds_R": 0.0,
+    "high": [
+     3.28253784,
+     0.00148308754,
+     -7.57966669e-07,
+     2.09470555e-10,
+     -2.16717794e-14,
+     -1088.45772,
+     5.45323129
+    ],
+    "low": [
+     3.78245636,
+     -0.00299673416,
+     9.84730201e-06,
+     -9.68129509e-09,
+     3.24372837e-12,
+     -1063.94356,
+     3.65767573
+    ]
+   }
+  },
+  "standard_pressure_bar": 1.0
+ },
+ "tolerances": {
+  "carbon_rel": 0.005,
+  "conversion_abs": 0.001,
+  "cost_rel": 0.005,
+  "duty_rel": 0.005,
+  "note": "fixed before the comparison; a mismatch is a bug in the port, not a reason to widen a tolerance",
+  "pressure_bar_abs": 0.001,
+  "rate_rel": 0.005,
+  "temperature_K_abs": 0.5
+ }
+}

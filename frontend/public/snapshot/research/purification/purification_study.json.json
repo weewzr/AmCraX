@@ -1,9 +1,18 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T04:10:08Z",
+  "generated_utc": "2026-11-23T08:49:54Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
-  "inputs_summary": "stored Aspen Plus V15 cracked gas; reduced-order purification models; existing AmCraX economics defaults (no Singapore economics output existed)",
+  "inputs_summary": "stored Aspen Plus V15 cracked gas; reduced-order purification models; Phase 2 unified reference scenario (data/reference_scenario.yaml) for every cost input",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
   "model_versions": {
    "separation": "amcrax.separation.purification (reduced-order)",
    "aspen_inputs": "Aspen Plus V15 stored results"
@@ -88,48 +97,48 @@
    "industrial_99.9": {
     "ranking_usd_per_kg_usable_h2": [
      {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 4.046232065802124,
+      "conditional_on": ""
+     },
+     {
       "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.786322116341959,
+      "usd_per_kg": 4.1118822518809,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.820110571285622,
+      "usd_per_kg": 4.129297984566003,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
-      "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.888744937535283,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9225330925500703,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.9366571667445975,
-      "conditional_on": ""
-     },
-     {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.146944657924904,
+      "usd_per_kg": 4.26925199727613,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.148856582639573,
+      "usd_per_kg": 4.271207139826715,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 4.286938922038355,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.304354153985061,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.388980184498752,
+      "usd_per_kg": 4.517726356474564,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.38899217048922,
+      "usd_per_kg": 4.517746367371031,
       "conditional_on": ""
      }
     ]
@@ -138,22 +147,22 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.938259053528208,
+      "usd_per_kg": 4.326549688729102,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 4.040679824398096,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.264011072404615,
+      "usd_per_kg": 4.463460302263019,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.501602935822765,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.504134674263794,
+      "usd_per_kg": 4.709979518910868,
       "conditional_on": ""
      }
     ]
@@ -162,57 +171,57 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "RAW",
-      "usd_per_kg": 3.574475044448385,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.786322116341959,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.820110571285622,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.888744937535283,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9225330925500703,
+      "usd_per_kg": 3.784259176229415,
       "conditional_on": ""
      },
      {
       "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.9366571667445975,
+      "usd_per_kg": 4.046232065802124,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 4.1118822518809,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 4.129297984566003,
       "conditional_on": ""
      },
      {
       "config": "PSA_CHO",
-      "usd_per_kg": 4.123207902544567,
+      "usd_per_kg": 4.244978687715468,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.146944657924904,
+      "usd_per_kg": 4.26925199727613,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.148856582639573,
+      "usd_per_kg": 4.271207139826715,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 4.286938922038355,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.304354153985061,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.388980184498752,
+      "usd_per_kg": 4.517726356474564,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.38899217048922,
+      "usd_per_kg": 4.517746367371031,
       "conditional_on": ""
      }
     ]
@@ -222,48 +231,48 @@
    "industrial_99.9": {
     "ranking_usd_per_kg_usable_h2": [
      {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 4.093159884523815,
+      "conditional_on": ""
+     },
+     {
       "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.8000411369433915,
+      "usd_per_kg": 4.125869884292033,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.8335065176560033,
+      "usd_per_kg": 4.143119045999827,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
       "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.8900004382564295,
+      "usd_per_kg": 4.287229146101055,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9234655190401657,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.9602213639347204,
-      "conditional_on": ""
      },
      {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.144246309238976,
+      "usd_per_kg": 4.289820118015163,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.146153591904446,
+      "usd_per_kg": 4.2917553293120125,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.304477807070449,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.383480967081389,
+      "usd_per_kg": 4.535403842680643,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.383516542776996,
+      "usd_per_kg": 4.5354632371515,
       "conditional_on": ""
      }
     ]
@@ -272,22 +281,22 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.9516549998985897,
+      "usd_per_kg": 4.340370750162926,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 4.041612250888192,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.264384437281017,
+      "usd_per_kg": 4.489144540688326,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.501726588908153,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.50171181245796,
+      "usd_per_kg": 4.732793054056956,
       "conditional_on": ""
      }
     ]
@@ -296,57 +305,57 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "RAW",
-      "usd_per_kg": 3.5911986027981753,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.8000411369433915,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.8335065176560033,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.8900004382564295,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9234655190401657,
+      "usd_per_kg": 3.831611169445432,
       "conditional_on": ""
      },
      {
       "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.9602213639347204,
+      "usd_per_kg": 4.093159884523815,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 4.125869884292033,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 4.143119045999827,
       "conditional_on": ""
      },
      {
       "config": "PSA_CHO",
-      "usd_per_kg": 4.120567185412244,
+      "usd_per_kg": 4.2657942571640515,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 4.287229146101055,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.144246309238976,
+      "usd_per_kg": 4.289820118015163,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.146153591904446,
+      "usd_per_kg": 4.2917553293120125,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.304477807070449,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.383480967081389,
+      "usd_per_kg": 4.535403842680643,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.383516542776996,
+      "usd_per_kg": 4.5354632371515,
       "conditional_on": ""
      }
     ]
@@ -356,48 +365,48 @@
    "industrial_99.9": {
     "ranking_usd_per_kg_usable_h2": [
      {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 4.028322383107237,
+      "conditional_on": ""
+     },
+     {
       "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.7869702452791256,
+      "usd_per_kg": 4.113848081602081,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.821079494014173,
+      "usd_per_kg": 4.131429209914841,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
-      "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.892254109287548,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9263630580937248,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
-      "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.929710912560067,
-      "conditional_on": ""
-     },
-     {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.1679163795640415,
+      "usd_per_kg": 4.279363108463652,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.169821742944688,
+      "usd_per_kg": 4.281318937365006,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 4.292049037813351,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.309629665387714,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.412712341395486,
+      "usd_per_kg": 4.530678848667407,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.412712781936756,
+      "usd_per_kg": 4.530679584161548,
       "conditional_on": ""
      }
     ]
@@ -406,22 +415,22 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.9392279762567592,
+      "usd_per_kg": 4.32868091407794,
       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
      },
      {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 4.044509789941752,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
-     },
-     {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.288367955011279,
+      "usd_per_kg": 4.4792346609390385,
       "conditional_on": ""
      },
      {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.506878447225418,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.531258553462078,
+      "usd_per_kg": 4.728594572241441,
       "conditional_on": ""
      }
     ]
@@ -430,57 +439,57 @@
     "ranking_usd_per_kg_usable_h2": [
      {
       "config": "RAW",
-      "usd_per_kg": 3.5805745058257212,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_raw",
-      "usd_per_kg": 3.7869702452791256,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_1bar_polish",
-      "usd_per_kg": 3.821079494014173,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_raw",
-      "usd_per_kg": 3.892254109287548,
-      "conditional_on": ""
-     },
-     {
-      "config": "MEM_vac0.1bar_polish",
-      "usd_per_kg": 3.9263630580937248,
+      "usd_per_kg": 3.776185442304916,
       "conditional_on": ""
      },
      {
       "config": "PSA_AMCRAX",
-      "usd_per_kg": 3.929710912560067,
+      "usd_per_kg": 4.028322383107237,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 4.113848081602081,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 4.131429209914841,
       "conditional_on": ""
      },
      {
       "config": "PSA_CHO",
-      "usd_per_kg": 4.1442610838655405,
+      "usd_per_kg": 4.255081277781313,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_MB",
-      "usd_per_kg": 4.1679163795640415,
+      "usd_per_kg": 4.279363108463652,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_MB",
-      "usd_per_kg": 4.169821742944688,
+      "usd_per_kg": 4.281318937365006,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 4.292049037813351,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.309629665387714,
       "conditional_on": ""
      },
      {
       "config": "PSA_D_LOW",
-      "usd_per_kg": 4.412712341395486,
+      "usd_per_kg": 4.530678848667407,
       "conditional_on": ""
      },
      {
       "config": "PSA_B_LOW",
-      "usd_per_kg": 4.412712781936756,
+      "usd_per_kg": 4.530679584161548,
       "conditional_on": ""
      }
     ]
@@ -495,7 +504,6 @@
   "NH3 inhibition of Pd permeation (not supported quantitatively by the library)",
   "real-gas behaviour at 350 bar",
   "contaminants other than NH3, N2, H2O (O2, Ar, He, CO, CO2, hydrocarbons, S, halogens, HCHO, HCOOH, particulates) are listed as not evaluated",
-  "Singapore-specific prices (no singapore economics output existed at run time)",
   "heat integration effect of placing the membrane on the hot effluent"
  ],
  "delivery_pressures_bar": {

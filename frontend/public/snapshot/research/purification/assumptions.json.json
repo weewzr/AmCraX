@@ -85,15 +85,15 @@
   "unit": "EUR/m2",
   "source_type": "literature",
   "source": "richard2024technoeconomic p. 9 Table 5 (3 y life)",
-  "applicability_note": "applied as USD at parity (assumption, no exchange rate in library); housing/skid CAPEX not modelled"
+  "applicability_note": "converted at 1.099 USD/EUR (ECB 20 Nov 2026, reference scenario); housing/skid CAPEX not modelled"
  },
  {
   "name": "PSA+TSA CAPEX (base)",
-  "value": 3481500.8846766087,
+  "value": 1795041.2271716269,
   "unit": "USD",
   "source_type": "literature",
-  "source": "existing AmCraX economics: chopra2026 shares of the ahmad2025 plant correlation (results/simulations/economics_baseline.json)",
-  "applicability_note": "indicative split only"
+  "source": "Phase 2 reference scenario: Cho 2026 T/PSA item (cho2026_itemised_v1) scaled with NH3 feed^0.8, OSBL/engineering/contingency allocated",
+  "applicability_note": "T/PSA split 26:4 (Chopra Fig. 5a)"
  },
  {
   "name": "PSA+TSA CAPEX (alternative)",
@@ -105,18 +105,18 @@
  },
  {
   "name": "Electricity price",
-  "value": 0.084,
+  "value": 0.14024,
   "unit": "USD/kWh",
-  "source_type": "literature",
-  "source": "cho2026nickel p. 7 Table 4 (economics default)",
-  "applicability_note": "no Singapore price used: results/research/singapore did not exist when this ran"
+  "source_type": "derived",
+  "source": "reference scenario (USEP 2025 mean + network + fees, Singapore)",
+  "applicability_note": "Phase 2: replaces 0.084 (Cho 2026) used in Phase 1"
  },
  {
   "name": "Imported heat price",
   "value": 696.7022727272727,
   "unit": "USD per kW-year",
   "source_type": "python",
-  "source": "derived from economics_baseline.json (imported_heat / net heat deficit) with NH3 fuel at 450 USD/t",
+  "source": "reference baseline heat_fuel / net heat deficit, NH3 fuel at the grey scenario price",
   "applicability_note": "surplus heat not credited"
  },
  {
@@ -144,7 +144,15 @@
   "value": 8000.0,
   "unit": "h/yr",
   "source_type": "literature",
-  "source": "cho2026nickel p. 7 Table 4",
+  "source": "reference scenario (cho2026nickel p. 7 Table 4)",
   "applicability_note": ""
+ },
+ {
+  "name": "FX",
+  "value": 1.288444,
+  "unit": "SGD per USD",
+  "source_type": "derived",
+  "source": "reference scenario: ECB cross rate 20 Nov 2026",
+  "applicability_note": "SGD columns = USD x FX"
  }
 ]

@@ -1,11 +1,11 @@
 {
  "areas": {
   "aspen_kinetic": {
-   "n_items": 183,
+   "n_items": 190,
    "by_status": {
-    "pass": 161,
-    "fail": 3,
-    "informational": 19
+    "pass": 163,
+    "fail": 5,
+    "informational": 22
    },
    "file": "results/research/validation/aspen_kinetic.json",
    "failures": [
@@ -35,6 +35,26 @@
      "method": "max(X_rplug - X_rgibbs) <= 1e-4",
      "reference_source": "aspen RGibbs block REQ in the same model",
      "observed": 0.00016042366042368084,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-"
+    },
+    {
+     "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres",
+     "description": "5Ni1Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium)",
+     "reference_source": "aspen RGibbs block REQ in the same model",
+     "observed": 0.00016941906941903007,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-"
+    },
+    {
+     "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres",
+     "description": "2.5Ni0.5Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium)",
+     "reference_source": "aspen RGibbs block REQ in the same model",
+     "observed": 0.00016941896941891077,
      "expected": 0.0,
      "tolerance": 0.0001,
      "unit": "-"
@@ -116,6 +136,18 @@
     {
      "id": "cat_cs_OP_tru_T522_P20_W100_target",
      "description": "Ru/MgO (Takahashi, LHHW approx.): Aspen conversion at the operating temperature 522 degC (100 kg, 20 bar) vs target 0.95"
+    },
+    {
+     "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_cause",
+     "description": "quantitative cause of the failure cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium (worst run cv_luc5_06_T600_P40_W1000)"
+    },
+    {
+     "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_cause",
+     "description": "quantitative cause of the failure cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium (worst run cv_luc25_06_T600_P40_W1000)"
+    },
+    {
+     "id": "k1p2_ru_takahashi_microkinetic_below_equilibrium_cause",
+     "description": "quantitative cause of the failure cat_ru_takahashi_microkinetic_below_equilibrium (worst run cv_tru_09_T500_P20_W1000)"
     }
    ]
   },
@@ -222,7 +254,7 @@
     },
     {
      "id": "E11",
-     "description": "Equipment-level LCOH vs Cho Ni total 5.439 USD/kg"
+     "description": "Reference-scenario LCOH (cho2026_itemised_v1) vs Cho Ni total 5.439 USD/kg"
     },
     {
      "id": "E12",
@@ -235,9 +267,9 @@
    ]
   },
   "enduse": {
-   "n_items": 45,
+   "n_items": 46,
    "by_status": {
-    "pass": 40,
+    "pass": 41,
     "fail": 0,
     "informational": 5
    },
@@ -267,11 +299,11 @@
    ]
   },
   "kinetics": {
-   "n_items": 13,
+   "n_items": 19,
    "by_status": {
-    "pass": 8,
+    "pass": 10,
     "fail": 2,
-    "informational": 3
+    "informational": 7
    },
    "file": "results/research/validation/kinetics.json",
    "failures": [
@@ -308,6 +340,22 @@
     {
      "id": "KINR-LIT-SAYAS2020",
      "description": "essay lead: Ru-K/CaO Ea 96 -> 75 kJ/mol, H2 order -1.9 vs -1.2, about 80 % at 40 bar/550 degC"
+    },
+    {
+     "id": "K1P2-TAKAHASHI-BASIS-NI",
+     "description": "the basis choices the paper leaves open (SV on total vs NH3 flow; Table 1 vs Table 2 constants; T+273 vs T+273.15) do not remove the prediction failure (ni_takahashi_microkinetic)"
+    },
+    {
+     "id": "K1P2-TAKAHASHI-BASIS-RU",
+     "description": "the basis choices the paper leaves open (SV on total vs NH3 flow; Table 1 vs Table 2 constants; T+273 vs T+273.15) do not remove the prediction failure (ru_takahashi_microkinetic)"
+    },
+    {
+     "id": "K1P2-VALIDITY-CLASSIFICATION",
+     "description": "kinetic validity class at 20 bar for every registry law and every catalyst named by the author"
+    },
+    {
+     "id": "K1P2-SEARCH-MISSING-KINETICS",
+     "description": "Phase 2 search for complete published rate laws: Ni/CeO2, Ru/CeO2, Ru-K/CaO (Sayas 2020 and follow-ups), any law fitted at 5-40 bar"
     }
    ]
   },
@@ -380,9 +428,9 @@
   }
  },
  "totals": {
-  "pass": 295,
-  "fail": 10,
-  "informational": 45
+  "pass": 300,
+  "fail": 12,
+  "informational": 52
  },
- "n_items": 350
+ "n_items": 364
 }

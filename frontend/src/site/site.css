@@ -44,7 +44,22 @@
 .site .nav-toggle{display:none;padding:0;width:44px;height:44px}
 .nav-toggle-bars,.nav-toggle-bars::before,.nav-toggle-bars::after{display:block;width:20px;height:2px;background:currentColor;border-radius:2px;position:relative;content:""}
 .nav-toggle-bars::before{position:absolute;top:-6px}.nav-toggle-bars::after{position:absolute;top:6px}
-@media (max-width:1330px){
+/* Phase 2 navigation: eleven primary items in a second header row on desktop, "More pages" as a disclosure menu */
+.nav-more{position:relative}
+.site .nav-more-btn{display:flex;align-items:center;gap:6px;padding:6px 10px;border-radius:8px;background:none;border:0;color:var(--text-2);font:500 13.5px var(--font-ui);cursor:pointer;white-space:nowrap;min-height:34px}
+.site .nav-more-btn:hover{background:var(--surface-2);color:var(--text)}
+.nav-caret{width:7px;height:7px;border-right:1.5px solid currentColor;border-bottom:1.5px solid currentColor;transform:rotate(45deg) translateY(-2px)}
+.site-nav .nav-more-list{display:none;position:absolute;right:0;top:100%;z-index:60;min-width:220px;list-style:none;margin:4px 0 0;padding:6px;background:var(--surface);border:1px solid var(--border);border-radius:10px;box-shadow:var(--shadow-float)}
+.site-nav .nav-more-list.open{display:block}
+.site .nav-more-list a{border-bottom:0;border-radius:6px}
+.footer-pages{columns:2;column-gap:var(--s4)}
+@media (min-width:1200px){
+  .site-bar{flex-wrap:wrap;row-gap:0;min-height:0;padding-top:8px}
+  .site-nav{order:3;flex:1 1 100%;margin:0 calc(-1 * var(--s2))}
+  .site-nav .nav-primary{flex-wrap:nowrap;gap:0}
+  .site-nav .nav-primary>li>a{padding:6px 10px;font-size:13.5px}
+}
+@media (max-width:1199px){
   .site-bar{gap:var(--s3)}
   .site .nav-toggle{display:inline-flex}
   .site-nav{position:absolute;left:0;right:0;top:100%;background:var(--surface);border-bottom:1px solid var(--border);box-shadow:var(--shadow-float);display:none;padding:var(--s2) var(--s4) var(--s4)}
@@ -53,6 +68,10 @@
   .site-nav a{padding:12px var(--s3);font-size:16px;border-bottom:1px solid var(--border);border-radius:0}
   .site-nav a.active{border-bottom-color:var(--accent)}
   .site-header .wrap{position:relative}
+  .site-nav{max-height:calc(100vh - 100px);overflow-y:auto}
+  .site .nav-more-btn{pointer-events:none;padding:14px var(--s3) 4px;font:600 12px var(--font-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--muted)}
+  .nav-caret{display:none}
+  .site-nav .nav-more-list,.site-nav .nav-more-list.open{display:block;position:static;box-shadow:none;border:0;padding:0;margin:0;min-width:0;background:none}
 }
 @media (max-width:560px){.site .site-cta{display:none}.wrap{padding:0 var(--s4)}}
 

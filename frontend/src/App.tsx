@@ -16,12 +16,14 @@ const PfdSite = lazy(() => import('./site/pages/PfdSite'))
 const Results = lazy(() => import('./site/pages/Results'))
 const Research = lazy(() => import('./site/pages/Research'))
 const Hypotheses = lazy(() => import('./site/pages/Hypotheses'))
+// The process simulator is the landing page ("/"); its graphs load as a further chunk below the diagram.
+const SimulatorPage = lazy(() => import('./simulator/SimulatorPage'))
 
 const Loading = ({ what }: { what: string }) => <div className="wrap" style={{ padding: '48px 24px' }} role="status">Loading {what} ...</div>
 
 function NotFound() {
   return (
-    <PageHero eyebrow="404" title="Page not found" lead={<>This page does not exist. <Link to="/">Back to the overview</Link>.</>} />
+    <PageHero eyebrow="404" title="Page not found" lead={<>This page does not exist. <Link to="/">Back to the simulator</Link> or <Link to="/overview">the overview</Link>.</>} />
   )
 }
 
@@ -30,7 +32,8 @@ export default function App() {
   return (
     <Routes>
       <Route element={<SiteLayout />}>
-        <Route index element={<Home />} />
+        <Route index element={<Suspense fallback={<Loading what="the simulator" />}><SimulatorPage /></Suspense>} />
+        <Route path="overview" element={<Home />} />
         <Route path="why" element={<Why />} />
         <Route path="pfd" element={<Suspense fallback={<Loading what="the diagram" />}><PfdSite /></Suspense>} />
         <Route path="methodology" element={<Methodology />} />

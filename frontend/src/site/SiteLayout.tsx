@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react'
-import { Link, NavLink, Outlet, useLocation } from 'react-router-dom'
+import { Link, Outlet, useLocation } from 'react-router-dom'
 import { GITHUB_URL, IS_PAGES, PORTFOLIO_URL } from '../api/url'
 import { useData } from '../data/DataContext'
 import { STATIC_SITE_NOTICE } from '../components/Shell'
 import { exportDate } from './data'
 import { REPORT_PDF, downloadUrl } from './downloads'
-import { anchorId, platformPath, SITE_ROUTES, titleFor } from './routes'
+import { anchorId, NAV_MORE, NAV_PRIMARY, navActive, platformPath, titleFor } from './routes'
 import { useTheme } from './theme'
 import { ExtLink, Wordmark } from './ui'
 
@@ -58,16 +58,20 @@ function ModeNotice() {
 
 export function SiteLayout() {
   const [open, setOpen] = useState(false)
+  const [more, setMore] = useState(false)
+  const moreRef = useRef<HTMLLIElement>(null)
   const [theme, toggleTheme] = useTheme()
-  const { pathname } = useLocation()
+  const { pathname, hash } = useLocation()
   const { manifest } = useData()
-  useEffect(() => { setOpen(false) }, [pathname])
+  useEffect(() => { setOpen(false); setMore(false) }, [pathname, hash])
   useEffect(() => {
-    if (!open) return
-    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') setOpen(false) }
+    if (!open && !more) return
+    const onKey = (e: KeyboardEvent) => { if (e.key === 'Escape') { setOpen(false); setMore(false) } }
+    const onDown = (e: PointerEvent) => { if (more && moreRef.current && !moreRef.current.contains(e.target as Node)) setMore(false) }
     window.addEventListener('keydown', onKey)
-    return () => window.removeEventListener('keydown', onKey)
-  }, [open])
+    window.addEventListener('pointerdown', onDown)
+    return () => { window.removeEventListener('keydown', onKey); window.removeEventListener('pointerdown', onDown) }
+  }, [open, more])
   const d = exportDate(manifest?.exported_utc)
   return (
     <div className="site">
@@ -77,10 +81,20 @@ export function SiteLayout() {
         <div className="wrap site-bar">
           <Link to="/" className="brand-link" aria-label="AmCraX home"><Wordmark /></Link>
           <nav id="site-nav" className={`site-nav ${open ? 'open' : ''}`} aria-label="Main">
-            <ul>
-              {SITE_ROUTES.map((r) => (
-                <li key={r.path}><NavLink to={r.path} end={r.path !== '/hypotheses'} className={({ isActive }) => (isActive ? 'active' : '')}>{r.label}</NavLink></li>
+            <ul className="nav-primary">
+              {NAV_PRIMARY.map((n) => (
+                <li key={n.label}><Link to={n.to} className={navActive(n, pathname, hash) ? 'active' : ''} aria-current={navActive(n, pathname, hash) ? 'page' : undefined}>{n.label}</Link></li>
               ))}
+              <li className="nav-more" ref={moreRef}>
+                <button type="button" className="nav-more-btn" aria-expanded={more} aria-controls="nav-more-list" onClick={() => setMore((m) => !m)}>
+                  More pages<span aria-hidden="true" className="nav-caret" />
+                </button>
+                <ul id="nav-more-list" className={`nav-more-list ${more ? 'open' : ''}`} aria-label="More pages">
+                  {NAV_MORE.map((n) => (
+                    <li key={n.to}><Link to={n.to} className={navActive(n, pathname, hash) ? 'active' : ''} aria-current={navActive(n, pathname, hash) ? 'page' : undefined}>{n.label}</Link></li>
+                  ))}
+                </ul>
+              </li>
             </ul>
           </nav>
           <div className="site-actions">
@@ -112,11 +126,15 @@ export function SiteLayout() {
               <li>{IS_PAGES ? <a href={downloadUrl(REPORT_PDF.file)}>Technical report (PDF)</a> : <Link to="/docs">Documentation and downloads</Link>}</li>
               <li><ExtLink href={`${GITHUB_URL}/blob/main/LICENSE`}>Licence: MIT</ExtLink></li>
             </ul>
+            <h2 className="footer-h">More pages</h2>
+            <ul className="footer-pages">
+              {NAV_MORE.map((n) => <li key={n.to}><Link to={n.to}>{n.label}</Link></li>)}
+            </ul>
           </nav>
           <div>
             <h2 className="footer-h">Data</h2>
             <p className="muted">{d ? `Results generated ${d}` : 'Results generated: export date unavailable'}{manifest?.exported_utc ? ` (${manifest.exported_utc})` : ''}.</p>
-            <p className="muted">Every number on this site is read from the stored results of Aspen Plus V15 runs or of the independent Python models. The site does not run Aspen Plus.</p>
+            <p className="muted">Numbers on this site are read from the stored results of Aspen Plus V15 runs or of the independent Python models, or, on the simulator page, computed in your browser by a port of the Python model checked against it (each value is labelled). The site does not run Aspen Plus or Python.</p>
           </div>
         </div>
         <div className="wrap footer-legal muted">

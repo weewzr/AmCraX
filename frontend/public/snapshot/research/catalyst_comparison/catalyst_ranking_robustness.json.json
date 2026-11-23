@@ -1,14 +1,23 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T05:58:03+00:00",
+  "generated_utc": "2026-11-23T08:50:29+00:00",
   "script": "scripts/research/catalyst_comparison.py",
   "source_type": "python",
   "inputs_summary": "re-optimised T per catalyst per case",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
   "model_versions": {
    "kinetics": "backend/amcrax/data/kinetics.yaml via amcrax.reactor.pfr",
    "flowsheet": "amcrax.process_model.run_python_case (cracker at kinetic conversion)",
    "heat_integration": "amcrax.heat_integration.analyse (problem table)",
-   "economics": "amcrax.economics.singapore.evaluate",
+   "economics": "amcrax.economics.singapore.evaluate (Phase 2 reference scenario, CAPEX cho2026_itemised_v1)",
    "lca": "amcrax.enduse.pathways.carbon_intensity + amcrax.environmental.lca",
    "aspen": "results/research/aspen_kinetic/ci_*.json (Aspen Plus V15, PENG-ROB)"
   }
@@ -26,8 +35,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546203604,
-   "spread_USD_per_kg": 0.01054363194352037,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
@@ -43,7 +52,7 @@
    "same_ranking_as_base": false,
    "same_best_as_base": false,
    "best_low_T_minus_Ni_USD_per_kg": -0.0028722412527519836,
-   "spread_USD_per_kg": 0.009541178987290788,
+   "spread_USD_per_kg": 0.009541178987291232,
    "source_type": "python"
   },
   {
@@ -58,8 +67,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0040160569872300655,
-   "spread_USD_per_kg": 0.014490531596755396,
+   "best_low_T_minus_Ni_USD_per_kg": 0.004016056987230954,
+   "spread_USD_per_kg": 0.014490531596756284,
    "source_type": "python"
   },
   {
@@ -74,7 +83,7 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00778040687915782,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007780406879158264,
    "spread_USD_per_kg": 0.01839267376894682,
    "source_type": "python"
   },
@@ -90,8 +99,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.011647719178161875,
-   "spread_USD_per_kg": 0.023088914007113104,
+   "best_low_T_minus_Ni_USD_per_kg": 0.011647719178162319,
+   "spread_USD_per_kg": 0.023088914007113992,
    "source_type": "python"
   },
   {
@@ -106,8 +115,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0025737334550339774,
-   "spread_USD_per_kg": 0.012704992643933988,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0025737334550344215,
+   "spread_USD_per_kg": 0.012704992643933544,
    "source_type": "python"
   },
   {
@@ -122,8 +131,8 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.001983737643364236,
-   "spread_USD_per_kg": 0.01013125918890001,
+   "best_low_T_minus_Ni_USD_per_kg": -0.001983737643363348,
+   "spread_USD_per_kg": 0.010131259188899122,
    "source_type": "python"
   },
   {
@@ -138,8 +147,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.001619946589245469,
-   "spread_USD_per_kg": 0.0120944211987708,
+   "best_low_T_minus_Ni_USD_per_kg": 0.001619946589245913,
+   "spread_USD_per_kg": 0.012094421198771244,
    "source_type": "python"
   },
   {
@@ -154,8 +163,8 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0007108805523383666,
-   "spread_USD_per_kg": 0.009541178987290788,
+   "best_low_T_minus_Ni_USD_per_kg": -0.0007108805523392547,
+   "spread_USD_per_kg": 0.009541178987291232,
    "source_type": "python"
   },
   {
@@ -186,8 +195,8 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.00013564166083668283,
-   "spread_USD_per_kg": 0.013419013272751634,
+   "best_low_T_minus_Ni_USD_per_kg": -0.00013564166083579465,
+   "spread_USD_per_kg": 0.013419013272750746,
    "source_type": "python"
   },
   {
@@ -202,12 +211,12 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0019238635547553784,
-   "spread_USD_per_kg": 0.020879714857573006,
+   "best_low_T_minus_Ni_USD_per_kg": -0.0019238635547562666,
+   "spread_USD_per_kg": 0.020879714857574783,
    "source_type": "python"
   },
   {
-   "case": "electricity_0.042",
+   "case": "electricity_0.084",
    "ranking": [
     "Ni/MgO",
     "Ru/Al2O3",
@@ -218,12 +227,12 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546203604,
-   "spread_USD_per_kg": 0.010543631943519927,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
-   "case": "electricity_0.126",
+   "case": "electricity_0.221898",
    "ranking": [
     "Ni/MgO",
     "Ru/Al2O3",
@@ -234,8 +243,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546199163,
-   "spread_USD_per_kg": 0.010543631943519927,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
@@ -251,7 +260,7 @@
    "same_ranking_as_base": false,
    "same_best_as_base": false,
    "best_low_T_minus_Ni_USD_per_kg": -0.00035185929668024585,
-   "spread_USD_per_kg": 0.009151295608156307,
+   "spread_USD_per_kg": 0.009151295608155863,
    "source_type": "python"
   },
   {
@@ -266,8 +275,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.000793287059182024,
-   "spread_USD_per_kg": 0.011321218426240787,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0007932870591815799,
+   "spread_USD_per_kg": 0.011321218426239454,
    "source_type": "python"
   },
   {
@@ -282,8 +291,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546199163,
-   "spread_USD_per_kg": 0.010543631943519927,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
@@ -298,8 +307,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546203604,
-   "spread_USD_per_kg": 0.01054363194352037,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
@@ -314,8 +323,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0004123727546203604,
-   "spread_USD_per_kg": 0.01054363194352037,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
+   "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
@@ -330,8 +339,8 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -5.3780344741127806e-05,
-   "spread_USD_per_kg": 0.01298415568218303,
+   "best_low_T_minus_Ni_USD_per_kg": -5.3780344742015984e-05,
+   "spread_USD_per_kg": 0.012984155682183918,
    "source_type": "python"
   },
   {
@@ -346,8 +355,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.000597019068908633,
-   "spread_USD_per_kg": 0.009298774268439391,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0005970190689081889,
+   "spread_USD_per_kg": 0.009298774268438947,
    "source_type": "python"
   },
   {
@@ -379,7 +388,7 @@
    "same_ranking_as_base": true,
    "same_best_as_base": true,
    "best_low_T_minus_Ni_USD_per_kg": 0.00019474528426410842,
-   "spread_USD_per_kg": 0.009464318771461144,
+   "spread_USD_per_kg": 0.009464318771460256,
    "source_type": "python"
   },
   {
@@ -395,7 +404,7 @@
    "same_ranking_as_base": true,
    "same_best_as_base": true,
    "best_low_T_minus_Ni_USD_per_kg": 0.0001277083580379923,
-   "spread_USD_per_kg": 0.0026752598116472903,
+   "spread_USD_per_kg": 0.0026752598116468462,
    "source_type": "python"
   },
   {
@@ -411,7 +420,7 @@
    "same_ranking_as_base": false,
    "same_best_as_base": false,
    "best_low_T_minus_Ni_USD_per_kg": -0.009086540701608747,
-   "spread_USD_per_kg": 0.0454017609222892,
+   "spread_USD_per_kg": 0.04540176092228965,
    "source_type": "python"
   },
   {
@@ -426,8 +435,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00012496348082446929,
-   "spread_USD_per_kg": 0.0008746640206100942,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0001249634808235811,
+   "spread_USD_per_kg": 0.0008746640206096501,
    "source_type": "python"
   },
   {
@@ -442,8 +451,8 @@
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.009351829905140274,
-   "spread_USD_per_kg": 0.010603306038539095,
+   "best_low_T_minus_Ni_USD_per_kg": -0.008738377805539876,
+   "spread_USD_per_kg": 0.010569153517564267,
    "source_type": "python"
   },
   {
@@ -458,8 +467,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0030292529021260783,
-   "spread_USD_per_kg": 0.013628819180799834,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0030292529021256343,
+   "spread_USD_per_kg": 0.01362881918079939,
    "source_type": "python"
   },
   {
@@ -490,8 +499,8 @@
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00901502204786464,
-   "spread_USD_per_kg": 0.019614588326538396,
+   "best_low_T_minus_Ni_USD_per_kg": 0.009015022047865529,
+   "spread_USD_per_kg": 0.019614588326539284,
    "source_type": "python"
   },
   {
@@ -507,7 +516,7 @@
    "same_ranking_as_base": false,
    "same_best_as_base": false,
    "best_low_T_minus_Ni_USD_per_kg": -0.005573396391118202,
-   "spread_USD_per_kg": 0.01013125918890001,
+   "spread_USD_per_kg": 0.010131259188899122,
    "source_type": "python"
   },
   {

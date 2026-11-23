@@ -49,19 +49,19 @@
  },
  {
   "name": "cracker_capex",
-  "value": "18.171 x (t H2/h)^0.7451 MUSD",
-  "unit": "MUSD",
+  "value": "cho2026_itemised_v1",
+  "unit": "USD",
   "source_type": "literature",
-  "source": "Ahmad 2025 Fig. 6 (Cesaro et al. 2021) via amcrax.economics",
-  "applicability_note": "unpurified variants remove the PSA and adsorber shares of the project equipment split"
+  "source": "Cho 2026 itemised installed cost scaled with (NH3 through cracker)^0.8, via amcrax.economics.reference (Phase 2 reference scenario; supersedes Ahmad 2025 Fig. 6 correlation)",
+  "applicability_note": "unpurified variants remove the PSA and adsorber items; large extrapolation from the 82 kg H2/h reference plant to the Ahmad power-plant scale"
  },
  {
   "name": "operating_hours",
   "value": 8000.0,
   "unit": "h/yr",
   "source_type": "assumption",
-  "source": "data/economics.yaml default",
-  "applicability_note": "Ahmad implies 7200 h; used only in the reproduction"
+  "source": "reference_scenario.yaml power_plant.operating_hours_h_per_yr",
+  "applicability_note": "Ahmad implies 7200 h (power_plant.ahmad_reproduction_hours); used only in the reproduction"
  },
  {
   "name": "nh3_price_reference",

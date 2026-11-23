@@ -1,0 +1,5865 @@
+{
+ "schema": "amcrax.simulator/1",
+ "statement": "Browser model against the Python model (numerical verification of the port) and browser model against stored Aspen Plus V15 results (python_vs_aspen-type comparison). Not validation; AmCraX has no experimental validation.",
+ "evidence_kind": {
+  "browser_vs_python": "numerical_verification",
+  "browser_vs_aspen": "python_vs_aspen"
+ },
+ "tolerances_vs_python": {
+  "carbon_rel": 0.005,
+  "conversion_abs": 0.001,
+  "cost_rel": 0.005,
+  "duty_rel": 0.005,
+  "note": "fixed before the comparison; a mismatch is a bug in the port, not a reason to widen a tolerance",
+  "pressure_bar_abs": 0.001,
+  "rate_rel": 0.005,
+  "temperature_K_abs": 0.5
+ },
+ "browser_vs_python": {
+  "pfr_profiles": {
+   "max_abs_conversion": 4.047062429624049e-8,
+   "max_abs_T_K": 0.000028740992320308578,
+   "max_abs_P_bar": 0.000008498221578889797,
+   "max_rel_heat_input": 5.379991118699699e-8,
+   "n_cases": 35
+  },
+  "process_on_grid_max_rel": 4.427770520563733e-15,
+  "process_off_grid_max_rel_by_field": {
+   "h2_product_kg_h": 2.2622523500246963e-16,
+   "reactor_duty_kW": 1.5591472281852006e-16,
+   "tailgas_lhv_kW": 7.007961589928931e-16,
+   "tailgas_combustion_heat_kW": 7.599842859038056e-16,
+   "preheat_duty_kW": 0.0005231319253798495,
+   "vaporiser_duty_kW": 0.00037559293447213005,
+   "recovered_heat_kW": 0.0003042340825764665,
+   "cooling_duty_kW": 0.0006852675080945982,
+   "pump_power_kW": 3.556359642546066e-16,
+   "total_external_heating_kW": 0.00006262707524492946,
+   "net_fuel_heat_deficit_kW": 0.00018327318464409832
+  },
+  "process_off_grid_note": "off-grid points: interpolated fields (pump, vaporiser, preheat, FEHE, cooler) carry bilinear-interpolation error of the Python grid; reported, not asserted",
+  "lcoh_max_rel": 2.2925151746281887e-16,
+  "carbon_intensity_max_rel": 0
+ },
+ "browser_vs_aspen": {
+  "kinetic_cases": [
+   {
+    "case_id": "ci_kum_T499_P20_W100_hi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 499,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9495764332665331,
+     "duty_kW": 1411.98994,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9501837971376097,
+     "duty_kW": 1405.5374678542037,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": 0.0006073638710766271,
+     "duty_rel": -0.004569772038033263,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_kum_T499_P20_W100_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 499,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9495764332665331,
+     "duty_kW": 1411.98994,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9501837971376097,
+     "duty_kW": 1405.5374678542037,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": 0.0006073638710766271,
+     "duty_rel": -0.004569772038033263,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_luc25_T576_P20_W100_hi",
+    "configuration": "integrated",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 576,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9505247936873747,
+     "duty_kW": 1429.91928,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9498742836867959,
+     "duty_kW": 1422.6952359309184,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0006505100005788078,
+     "duty_rel": -0.0050520642459493436,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_luc25_T576_P20_W100_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 576,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9505247936873747,
+     "duty_kW": 1429.91928,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9498742836867959,
+     "duty_kW": 1422.6952359309184,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0006505100005788078,
+     "duty_rel": -0.0050520642459493436,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_luc5_T572_P20_W100_hi",
+    "configuration": "integrated",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 572,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.951679517234469,
+     "duty_kW": 1430.86533,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9510723426571803,
+     "duty_kW": 1423.640123706657,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0006071745772886494,
+     "duty_rel": -0.00504953620851449,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_luc5_T572_P20_W100_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 572,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.951679517234469,
+     "duty_kW": 1430.86533,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9510723426571803,
+     "duty_kW": 1423.640123706657,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0006071745772886494,
+     "duty_rel": -0.00504953620851449,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_tni_T594_P20_W100_hi",
+    "configuration": "integrated",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 594,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.958892099498998,
+     "duty_kW": 1445.9279,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9517127787517186,
+     "duty_kW": 1429.1867892250534,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.00717932074727945,
+     "duty_rel": -0.011578108960306038,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_tni_T594_P20_W100_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 594,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.958892099498998,
+     "duty_kW": 1445.9279,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9517127787517186,
+     "duty_kW": 1429.1867892250534,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.00717932074727945,
+     "duty_rel": -0.011578108960306038,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_tru_T522_P20_W100_hi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 522,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.953401528757515,
+     "duty_kW": 1422.9287,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9501842916637921,
+     "duty_kW": 1411.0930995315134,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0032172370937229022,
+     "duty_rel": -0.008317774789760386,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ci_tru_T522_P20_W100_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 522,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.953401528757515,
+     "duty_kW": 1422.9287,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9501842916637921,
+     "duty_kW": 1411.0930995315134,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": -0.0032172370937229022,
+     "duty_rel": -0.008317774789760386,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_AD_luc5_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.20390114714714724,
+     "duty_kW": 0,
+     "outlet_T_C": 441.771214,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.20416195805391096,
+     "duty_kW": -2.86701720142446e-8,
+     "outlet_T_C": 441.89336851790597,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0002608109067637199,
+     "duty_rel": -28670.1720142446,
+     "outlet_T_K": 0.12215451790598308,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_M_luc5_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 500.8836,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9048616090616091,
+     "duty_kW": 1348.57507,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9046074283930604,
+     "duty_kW": 1341.0355217060442,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0002541806685486536,
+     "duty_rel": -0.0055907516471855965,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_M_luc5_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 599.2667,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9427244669244669,
+     "duty_kW": 1404.78063,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.942695605863988,
+     "duty_kW": 1397.4993504812421,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0000288610604788353,
+     "duty_rel": -0.005183214633844899,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_M_luc5_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 51.0305,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9320720068720069,
+     "duty_kW": 1409.43575,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9317948679488448,
+     "duty_kW": 1403.2699495324523,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0002771389231620569,
+     "duty_rel": -0.004374658772170208,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_M_luc5_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 61.1594,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9710976331976332,
+     "duty_kW": 1468.25935,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.971028094729844,
+     "duty_kW": 1462.3546365796774,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0000695384677892319,
+     "duty_rel": -0.004021573859088757,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_OP_luc5_T572_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 572,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9520602503602503,
+     "duty_kW": 1434.21563,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9518878937828938,
+     "duty_kW": 1427.7149099389621,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00017235657735648058,
+     "duty_rel": -0.004532596023261706,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_P_luc5_T550_P10_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 10,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9308230518230518,
+     "duty_kW": 1394.68386,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9306287399577912,
+     "duty_kW": 1391.1226282830798,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00019431186526064348,
+     "duty_rel": -0.0025534329456714635,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_P_luc5_T550_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9954077425577426,
+     "duty_kW": 1488.26725,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9954098168023751,
+     "duty_kW": 1487.9586897689233,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": 0.0000020742446324995,
+     "duty_rel": -0.00020732850976654468,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_P_luc5_T550_P40_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 40,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3304597314597314,
+     "duty_kW": 501.837971,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.33020182954768473,
+     "duty_kW": 493.5923610150819,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": -0.00025790191204666524,
+     "duty_rel": -0.016430821224004345,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_P_luc5_T550_P5_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808637061637062,
+     "duty_kW": 1467.85956,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.9808086253020726,
+     "duty_kW": 1466.1325339413195,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.000055080861633638456,
+     "duty_rel": -0.0011765608275771434,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc25_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.0536546766546766,
+     "duty_kW": 79.8665756,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.05361408246176136,
+     "duty_kW": 78.74556336799787,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00004059419291524424,
+     "duty_rel": -0.014036062314935784,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.040657376657376676,
+     "duty_kW": 60.5328347,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.040619631998953604,
+     "duty_kW": 59.65999339519931,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000037744658423072286,
+     "duty_rel": -0.014419303327301377,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.16937246937246941,
+     "duty_kW": 253.739923,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.16924244768411265,
+     "duty_kW": 250.89351137436768,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00013002168835676842,
+     "duty_rel": -0.01121783120282703,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6653381783381783,
+     "duty_kW": 1000.39071,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.6649338843201278,
+     "duty_kW": 993.9565941535906,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0004042940180505328,
+     "duty_rel": -0.006431602954818963,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808145771145771,
+     "duty_kW": 1482.90458,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808240015010499,
+     "duty_kW": 1477.1071342304901,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.000009424386472778323,
+     "duty_rel": -0.003909520442313119,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871064144064144,
+     "duty_kW": 1501.33773,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058977208252,
+     "duty_kW": 1496.4265362346184,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -5.166855892024813e-7,
+     "duty_rel": -0.003271211844773621,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_T_luc5_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9910087188887189,
+     "duty_kW": 1515.05506,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081571816532,
+     "duty_kW": 1510.9622086630109,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -5.61707065638295e-7,
+     "duty_rel": -0.002701453858045953,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc25_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808363782363783,
+     "duty_kW": 1482.93744,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364247843654,
+     "duty_kW": 1477.1258435202178,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 4.654798713144004e-8,
+     "duty_rel": -0.0039189761638104646,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc25_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808353614353614,
+     "duty_kW": 1482.93591,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364201231831,
+     "duty_kW": 1477.1258365005428,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000010586878216312101,
+     "duty_rel": -0.003917953203693797,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.17255154255154248,
+     "duty_kW": 262.030797,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.1724361767492111,
+     "duty_kW": 259.68645392637933,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00011536580233137417,
+     "duty_rel": -0.008946822665355163,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.36722362222362215,
+     "duty_kW": 556.795609,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.3669903371957676,
+     "duty_kW": 552.6822798340149,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00023328502785452399,
+     "duty_rel": -0.007387502881663491,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808370974370975,
+     "duty_kW": 1482.93852,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364206785365,
+     "duty_kW": 1477.1258373368971,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -6.767585609690485e-7,
+     "duty_rel": -0.003919705763056722,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.0843558143558143,
+     "duty_kW": 128.21315,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.08431781743356132,
+     "duty_kW": 126.98144568572138,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00003799692225298079,
+     "duty_rel": -0.009606692560619797,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9242079713079713,
+     "duty_kW": 1397.58128,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9239052348853712,
+     "duty_kW": 1391.3882732412085,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0003027364226000362,
+     "duty_rel": -0.0044312319057333285,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cs_W_luc5_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808362498362498,
+     "duty_kW": 1482.93725,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364222825667,
+     "duty_kW": 1477.125839752544,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 1.7244631689283807e-7,
+     "duty_rel": -0.003918851082509407,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_00_T400_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 400,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.16229397529397527,
+     "duty_kW": 235.931884,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.16219111228796956,
+     "duty_kW": 235.7476499196423,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00010286300600570453,
+     "duty_rel": -0.0007808782655153866,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_01_T450_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.48031972131972134,
+     "duty_kW": 705.591578,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.48011943281011316,
+     "duty_kW": 705.1743401096338,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0002002885096081819,
+     "duty_rel": -0.0005913305988556021,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_02_T500_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8823872093872094,
+     "duty_kW": 1308.36482,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8822037433379405,
+     "duty_kW": 1307.8231728649553,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00018346604926888777,
+     "duty_rel": -0.0004139878470935507,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_03_T450_P1p013_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9301747556747557,
+     "duty_kW": 1366.23781,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9299891680333523,
+     "duty_kW": 1365.9195047337248,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00018558764140341744,
+     "duty_rel": -0.00023297940076425955,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_04_T500_P10_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 10,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9710471100471101,
+     "duty_kW": 1443.13258,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9710599619608192,
+     "duty_kW": 1439.5480976861372,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": 0.000012851913709144291,
+     "duty_rel": -0.0024838205190147785,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_05_T550_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9703681218681218,
+     "duty_kW": 1457.13561,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703700069939457,
+     "duty_kW": 1450.5286765565756,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000018851258238861135,
+     "duty_rel": -0.004534192561133274,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_06_T600_P40_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 40,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.962733935033935,
+     "duty_kW": 1461.52699,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9627339664482906,
+     "duty_kW": 1449.8637961861346,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": 3.1414355561310003e-8,
+     "duty_rel": -0.007980142613627353,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc25_07_T650_P20_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.987106496006496,
+     "duty_kW": 1501.33785,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058978815967,
+     "duty_kW": 1496.4265364783437,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -5.981248992759092e-7,
+     "duty_rel": -0.0032712913496826925,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_00_T400_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 400,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.10391678591678588,
+     "duty_kW": 151.074079,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.10384741883984588,
+     "duty_kW": 150.94405973520418,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00006936707693999677,
+     "duty_rel": -0.0008606325165539088,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_01_T450_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.37713275713275707,
+     "duty_kW": 554.034635,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.3769374871397145,
+     "duty_kW": 553.6260888266484,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00019526999304259052,
+     "duty_rel": -0.0007374018654115803,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_02_T500_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8312013282013282,
+     "duty_kW": 1232.48326,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8309811351349164,
+     "duty_kW": 1231.8882037737667,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00022019306641174463,
+     "duty_rel": -0.00048281079796027606,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_03_T450_P1p013_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8411335101335101,
+     "duty_kW": 1235.48201,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8408922158753377,
+     "duty_kW": 1235.0585560816917,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0002412942581724309,
+     "duty_rel": -0.00034274389661753863,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_04_T500_P10_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 10,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9591348336348337,
+     "duty_kW": 1425.46346,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9590722793715077,
+     "duty_kW": 1421.776954458007,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00006255426332590908,
+     "duty_rel": -0.002586180316395503,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_05_T550_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9703686211686212,
+     "duty_kW": 1457.13635,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703700097208817,
+     "duty_kW": 1450.5286806328545,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000013885522605061595,
+     "duty_rel": -0.004534695306410749,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_06_T600_P40_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 40,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9627339351339351,
+     "duty_kW": 1461.52699,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9627339683806002,
+     "duty_kW": 1449.8637990961658,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": 3.3246665087638405e-8,
+     "duty_rel": -0.007980140622537678,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cpp_cv_luc5_07_T650_P20_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871060944060944,
+     "duty_kW": 1501.33724,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058968670974,
+     "duty_kW": 1496.4265349403895,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -1.9753899704877398e-7,
+     "duty_rel": -0.0032708873987636273,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_AD_kum_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.3034394114114114,
+     "duty_kW": 0,
+     "outlet_T_C": 338.668018,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.30383607516427324,
+     "duty_kW": -8.222792757806019e-8,
+     "outlet_T_C": 338.6955186475948,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00039666375286184774,
+     "duty_rel": -82227.92757806019,
+     "outlet_T_K": 0.02750064759476345,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_AD_luc25_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.2109002412412413,
+     "duty_kW": 0,
+     "outlet_T_C": 434.524013,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.2111648452545432,
+     "duty_kW": -2.8604631552298088e-8,
+     "outlet_T_C": 434.65715619452317,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00026460401330191674,
+     "duty_rel": -28604.631552298088,
+     "outlet_T_K": 0.13314319452314294,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_AD_luc5_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.20391927927927933,
+     "duty_kW": 0,
+     "outlet_T_C": 441.752442,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.20416195805391096,
+     "duty_kW": -2.86701720142446e-8,
+     "outlet_T_C": 441.89336851790597,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0002426787746316328,
+     "duty_rel": -28670.1720142446,
+     "outlet_T_K": 0.14092651790599575,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_AD_tni_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.21144134234234246,
+     "duty_kW": 0,
+     "outlet_T_C": 433.96362,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.21610351865873423,
+     "duty_kW": -2.7976341243629577e-8,
+     "outlet_T_C": 429.5516300291358,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.004662176316391764,
+     "duty_rel": -27976.341243629577,
+     "outlet_T_K": -4.41198997086417,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_AD_tru_Tin650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.28449608108108115,
+     "duty_kW": 0,
+     "outlet_T_C": 358.26632,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.2855279409972701,
+     "duty_kW": -3.2688319606677396e-8,
+     "outlet_T_C": 357.659488693738,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0010318599161889264,
+     "duty_rel": -32688.319606677396,
+     "outlet_T_K": -0.606831306261995,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_kum_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 63.1819,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9045238591238591,
+     "duty_kW": 1348.07365,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9046069130626317,
+     "duty_kW": 1341.034757754314,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000830539387726148,
+     "duty_rel": -0.0052214448711212155,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_kum_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 80.5399,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9422286998286998,
+     "duty_kW": 1404.04475,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9426955078540329,
+     "duty_kW": 1397.4992051863583,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0004668080253330542,
+     "duty_rel": -0.004661920365174796,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_kum_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 8.9187,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9318229452229452,
+     "duty_kW": 1409.06031,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.931793916732609,
+     "duty_kW": 1403.2685170141963,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000029028490336147073,
+     "duty_rel": -0.004110393958796409,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_kum_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 11.1218,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9709035206035206,
+     "duty_kW": 1467.96678,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9710275949639567,
+     "duty_kW": 1462.353883939289,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00012407436043615494,
+     "duty_rel": -0.0038235852045036805,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc25_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 437.8585,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9056300539300539,
+     "duty_kW": 1349.71588,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.904607210383159,
+     "duty_kW": 1341.0351985172083,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0010228435468948582,
+     "duty_rel": -0.006431487997897506,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc25_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 518.53,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9431227707227707,
+     "duty_kW": 1405.37184,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9426956081353841,
+     "duty_kW": 1397.499353848474,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0004271625873866203,
+     "duty_rel": -0.005601710470821813,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc25_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 60.1695,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9328627852627852,
+     "duty_kW": 1410.62777,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9317954813239332,
+     "duty_kW": 1403.270873266698,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0010673039388520156,
+     "duty_rel": -0.005215335249852741,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc25_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 71.3208,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9713213849213849,
+     "duty_kW": 1468.59659,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9710281910561627,
+     "duty_kW": 1462.3547816457567,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0002931938652221966,
+     "duty_rel": -0.004250185787400884,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc5_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 500.8836,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9056180246180247,
+     "duty_kW": 1349.69802,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9046074283930604,
+     "duty_kW": 1341.0355217060442,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0010105962249642442,
+     "duty_rel": -0.006418101060825352,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc5_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 599.2667,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9430899295899295,
+     "duty_kW": 1405.3231,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.942695605863988,
+     "duty_kW": 1397.4993504812421,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00039432372594150333,
+     "duty_rel": -0.005567224731990778,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc5_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 51.0305,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9328404185404185,
+     "duty_kW": 1410.59405,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9317948679488448,
+     "duty_kW": 1403.2699495324523,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0010455505915737406,
+     "duty_rel": -0.005192209954059868,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_luc5_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 61.1594,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9713480261480262,
+     "duty_kW": 1468.63674,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.971028094729844,
+     "duty_kW": 1462.3546365796774,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0003199314181822066,
+     "duty_rel": -0.00427750664900466,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tni_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 1355.1877,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8977450457450458,
+     "duty_kW": 1338.00983,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9046067725264441,
+     "duty_kW": 1341.0345494164053,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.006861726781398292,
+     "duty_rel": 0.002260610758297144,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tni_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 2313.5139,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9410210353210353,
+     "duty_kW": 1402.25217,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9426955098558689,
+     "duty_kW": 1397.4992081539804,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0016744745348336032,
+     "duty_rel": -0.003389520050462547,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tni_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 73.7103,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9418791368791368,
+     "duty_kW": 1424.21884,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9317945385228505,
+     "duty_kW": 1403.2694534215439,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.010084598356286278,
+     "duty_rel": -0.014709387342787953,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tni_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 113.2284,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9745581750581751,
+     "duty_kW": 1473.47508,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9710280030645377,
+     "duty_kW": 1462.354498533017,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0035301719936373654,
+     "duty_rel": -0.00754717987289131,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tru_T500_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 112.7686,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9050313233313233,
+     "duty_kW": 1348.82702,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9046068887281149,
+     "duty_kW": 1341.0347216796029,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0004244346032084012,
+     "duty_rel": -0.005777092395729954,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tru_T500_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 166.5286,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9432256971256971,
+     "duty_kW": 1405.52462,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9426955260411475,
+     "duty_kW": 1397.499232147851,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0005301710845496688,
+     "duty_rel": -0.005709887779944349,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tru_T600_f0p95",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 17.9077,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9593945196945197,
+     "duty_kW": 1450.61998,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9317941810023447,
+     "duty_kW": 1403.2689150006963,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.02760033869217504,
+     "duty_rel": -0.032641950098676854,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_M_tru_T600_f0p99",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 25.2675,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9787809603809604,
+     "duty_kW": 1479.83958,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9710281839202699,
+     "duty_kW": 1462.3547708992028,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0077527764606905025,
+     "duty_rel": -0.01181534089039387,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_OP_kum_T499_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 499,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9499802051802052,
+     "duty_kW": 1415.31545,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9505944833891942,
+     "duty_kW": 1408.9614828409308,
+     "outlet_T_C": 499,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0006142782089889609,
+     "duty_rel": -0.004489435312155513,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_OP_luc25_T576_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 576,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9514809342809343,
+     "duty_kW": 1434.13319,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9508128494958712,
+     "duty_kW": 1426.9534765006701,
+     "outlet_T_C": 576,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0006680847850630833,
+     "duty_rel": -0.005006308723201549,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_OP_luc5_T572_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 572,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9525306065306065,
+     "duty_kW": 1434.92183,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9518878937828938,
+     "duty_kW": 1427.7149099389621,
+     "outlet_T_C": 572,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0006427127477126593,
+     "duty_rel": -0.005022517540929643,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_OP_tni_T594_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 594,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9587222526222526,
+     "duty_kW": 1448.48451,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9516930360783756,
+     "duty_kW": 1432.0197520053923,
+     "outlet_T_C": 594,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.007029216543877004,
+     "duty_rel": -0.011366885790589283,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_OP_tru_T522_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 522,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9532646701646702,
+     "duty_kW": 1425.47783,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9503911886168248,
+     "duty_kW": 1414.227400023644,
+     "outlet_T_C": 522,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0028734815478453912,
+     "duty_rel": -0.007892392108515741,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_kum_T550_P10_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 10,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9846517654517655,
+     "duty_kW": 1475.19174,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9848508695508073,
+     "duty_kW": 1472.1749622502896,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": 0.00019910409904178028,
+     "duty_rel": -0.0020450072135778092,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_kum_T550_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.998412011962012,
+     "duty_kW": 1492.75823,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9984331027363428,
+     "duty_kW": 1492.4779586179634,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": 0.00002109077433076756,
+     "duty_rel": -0.00018775403571984797,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_kum_T550_P40_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 40,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9425248139248139,
+     "duty_kW": 1421.9565,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9432268045262652,
+     "duty_kW": 1409.954469533298,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": 0.0007019906014512634,
+     "duty_rel": -0.008440504661501305,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_kum_T550_P5_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9922364764264764,
+     "duty_kW": 1484.8638,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.9923387205188872,
+     "duty_kW": 1483.3679530442123,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": 0.00010224409241077481,
+     "duty_rel": -0.0010073967429118976,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc25_T550_P10_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 10,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9279245926245926,
+     "duty_kW": 1390.3486,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9274180467422681,
+     "duty_kW": 1386.3232192461405,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.0005065458823244606,
+     "duty_rel": -0.002895231277867657,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc25_T550_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9961434083034083,
+     "duty_kW": 1489.36697,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9961516117966173,
+     "duty_kW": 1489.0675399018821,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": 0.00000820349320895808,
+     "duty_rel": -0.0002010452119251103,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc25_T550_P40_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 40,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.30825644525644513,
+     "duty_kW": 468.287318,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.3072975643195791,
+     "duty_kW": 459.35460295437525,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": -0.0009588809368660245,
+     "duty_rel": -0.01907528712025632,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc25_T550_P5_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9821210286210286,
+     "duty_kW": 1469.73948,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.9820442539598989,
+     "duty_kW": 1467.9795766042564,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.0000767746611296527,
+     "duty_rel": -0.001197425407490278,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc5_T550_P10_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 10,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9310971433971433,
+     "duty_kW": 1395.09382,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9306287399577912,
+     "duty_kW": 1391.1226282830798,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.0004684034393521719,
+     "duty_rel": -0.0028465409709292544,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc5_T550_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9954082498582498,
+     "duty_kW": 1488.26801,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9954098168023751,
+     "duty_kW": 1487.9586897689233,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": 0.0000015669441252308403,
+     "duty_rel": -0.0002078390646028559,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc5_T550_P40_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 40,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.33139351639351644,
+     "duty_kW": 503.248592,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.33020182954768473,
+     "duty_kW": 493.5923610150819,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": -0.0011916868458317076,
+     "duty_rel": -0.019187795333003275,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_P_luc5_T550_P5_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808881867881868,
+     "duty_kW": 1467.89616,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.9808086253020726,
+     "duty_kW": 1466.1325339413195,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.00007956148611421021,
+     "duty_rel": -0.0012014651354360986,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6833175913175913,
+     "duty_kW": 1010.712,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.6831912452576925,
+     "duty_kW": 1003.4356091847911,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00012634605989880754,
+     "duty_rel": -0.007199272211281607,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9507574469574469,
+     "duty_kW": 1416.70402,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9513652701333648,
+     "duty_kW": 1410.3516965725767,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0006078231759178987,
+     "duty_rel": -0.00448387478100277,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9699868185868186,
+     "duty_kW": 1456.56503,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703700103712201,
+     "duty_kW": 1450.5286816049936,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00038319178440149315,
+     "duty_rel": -0.004144235424220209,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805851925851926,
+     "duty_kW": 1482.55886,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364242289654,
+     "duty_kW": 1477.125842683793,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00025123164377283125,
+     "duty_rel": -0.003664621663794881,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9869338297338297,
+     "duty_kW": 1501.07598,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058993432462,
+     "duty_kW": 1496.4265386941659,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00017206960941651417,
+     "duty_rel": -0.0030974057061616666,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_kum_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9908859796459797,
+     "duty_kW": 1514.8679,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081634507272,
+     "duty_kW": 1510.9622182212909,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0001221838047474888,
+     "duty_rel": -0.0025782325829922827,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.05339584539584541,
+     "duty_kW": 79.4816358,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.05361408246176136,
+     "duty_kW": 78.74556336799787,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00021823706591594938,
+     "duty_rel": -0.009260911965303712,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.18812851112851114,
+     "duty_kW": 281.778168,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.1881902072899343,
+     "duty_kW": 278.98262261822657,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000616961614231526,
+     "duty_rel": -0.009921085801698528,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6348104768104768,
+     "duty_kW": 954.639439,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.6331361089877353,
+     "duty_kW": 946.4246376443182,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0016743678227414405,
+     "duty_rel": -0.008605135111835513,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808025062025062,
+     "duty_kW": 1482.88639,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9807265457753864,
+     "duty_kW": 1476.960367280019,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00007596042711977002,
+     "duty_rel": -0.003996275614870868,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871625322625323,
+     "duty_kW": 1501.42284,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.987105896716984,
+     "duty_kW": 1496.4265347128214,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00005663554554824479,
+     "duty_rel": -0.003327713655387399,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc25_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9910444265444266,
+     "duty_kW": 1515.10951,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081624759313,
+     "duty_kW": 1510.9622167350471,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000036264068495328594,
+     "duty_rel": -0.002737289441838993,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.04045126945126942,
+     "duty_kW": 60.2261808,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.040619631998953604,
+     "duty_kW": 59.65999339519931,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00016836254768418102,
+     "duty_rel": -0.009401017917455155,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.16916958116958114,
+     "duty_kW": 253.43657,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.16924244768411265,
+     "duty_kW": 250.89351137436768,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0000728665145315055,
+     "duty_rel": -0.010034300202343777,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6667315737315738,
+     "duty_kW": 1002.47876,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.6649338843201278,
+     "duty_kW": 993.9565941535906,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0017976894114459796,
+     "duty_rel": -0.008501093675450435,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9809182639182639,
+     "duty_kW": 1483.06085,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808240015010499,
+     "duty_kW": 1477.1071342304901,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0000942624172139972,
+     "duty_rel": -0.004014478414361707,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871595123595124,
+     "duty_kW": 1501.41826,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058977208252,
+     "duty_kW": 1496.4265362346184,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00005361463868713834,
+     "duty_rel": -0.003324672343722191,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_luc5_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9910445685845686,
+     "duty_kW": 1515.10972,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081571816532,
+     "duty_kW": 1510.9622086630109,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000036411402915326185,
+     "duty_rel": -0.002737432993954428,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.12035899635899627,
+     "duty_kW": 178.973875,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.13985910226464277,
+     "duty_kW": 205.41774276985223,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.019500105905646492,
+     "duty_rel": 0.1477526693203253,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3303791583791583,
+     "duty_kW": 494.136369,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.36304272609151167,
+     "duty_kW": 538.1927854058838,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.03266356771235335,
+     "duty_rel": 0.08915841692657071,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.7122843482843483,
+     "duty_kW": 1070.73176,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.7207915422729342,
+     "duty_kW": 1077.4537489315203,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.008507193988585904,
+     "duty_rel": 0.006277939239908603,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9692274410274411,
+     "duty_kW": 1465.44057,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9639683083424274,
+     "duty_kW": 1451.7226976966185,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.005259132685013657,
+     "duty_rel": -0.009360920247609534,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871037878037878,
+     "duty_kW": 1501.33374,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.987098769388036,
+     "duty_kW": 1496.4157298699017,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00000501841575184514,
+     "duty_rel": -0.003275760744641834,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tni_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9910092854292855,
+     "duty_kW": 1515.05592,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081632865809,
+     "duty_kW": 1510.9622179710218,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000001122142704534923,
+     "duty_rel": -0.002702013816742958,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T450_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.5188290808290809,
+     "duty_kW": 768.282172,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.5303216033941568,
+     "duty_kW": 778.9086655596004,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.011492522565075936,
+     "duty_rel": 0.013831498304766699,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T500_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8842202872202872,
+     "duty_kW": 1317.93004,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.8837618338274748,
+     "duty_kW": 1310.1329645236524,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00045845339281247455,
+     "duty_rel": -0.005916152784822761,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T550_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9703058676058676,
+     "duty_kW": 1457.04245,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9701713384248292,
+     "duty_kW": 1450.2317027686836,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00013452918103840084,
+     "duty_rel": -0.004674364313350189,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T600_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808364220364221,
+     "duty_kW": 1482.9375,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364244586063,
+     "duty_kW": 1477.125843029629,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 2.4221842309657404e-9,
+     "duty_rel": -0.003919016796305242,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T650_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871052015052015,
+     "duty_kW": 1501.33589,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058998294001,
+     "duty_kW": 1496.4265394311622,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 6.983241985780708e-7,
+     "duty_rel": -0.0032699881495791778,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_T_tru_T700_P20_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 700,
+    "P_bar": 20,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9910086072186072,
+     "duty_kW": 1515.05489,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9910081609156582,
+     "duty_kW": 1510.9622143561428,
+     "outlet_T_C": 700,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -4.4630294893099887e-7,
+     "duty_rel": -0.0027013381963059387,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9554656894656894,
+     "duty_kW": 1444.69814,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9554997988754735,
+     "duty_kW": 1438.9692416935104,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00003410940978409993,
+     "duty_rel": -0.003965463890255687,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805830590830591,
+     "duty_kW": 1482.55565,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808363840358536,
+     "duty_kW": 1477.1257821535326,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00025332495279450917,
+     "duty_rel": -0.0036625052465770573,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805847126847127,
+     "duty_kW": 1482.55814,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364235614757,
+     "duty_kW": 1477.1258416785631,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0002517108767630116,
+     "duty_rel": -0.003664138474486386,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.7668626658626658,
+     "duty_kW": 1160.31962,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.766698955754938,
+     "duty_kW": 1154.6378306602578,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00016371010772786576,
+     "duty_rel": -0.004896745036287658,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805847887847888,
+     "duty_kW": 1482.55825,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364240294507,
+     "duty_kW": 1477.1258423833267,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00025163524466187415,
+     "duty_rel": -0.0036642119233246616,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_kum_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805847870847871,
+     "duty_kW": 1482.55825,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364224529569,
+     "duty_kW": 1477.1258400091492,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00025163536816974474,
+     "duty_rel": -0.0036642135247305315,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.1393795923795923,
+     "duty_kW": 211.723925,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.13923277555903893,
+     "duty_kW": 209.68259930652687,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0001468168205533693,
+     "duty_rel": -0.009641450268188353,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.2946213186213186,
+     "duty_kW": 446.945546,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.2939648149638347,
+     "duty_kW": 442.70687170307934,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0006565036574838756,
+     "duty_rel": -0.009483648142050476,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9809206740206741,
+     "duty_kW": 1483.06449,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364247843654,
+     "duty_kW": 1477.1258435202178,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00008424923630867553,
+     "duty_rel": -0.004004307647998614,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.0683901343901343,
+     "duty_kW": 103.965093,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.06836417345331637,
+     "duty_kW": 102.9554825117686,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00002596093681793421,
+     "duty_rel": -0.00971105261485605,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8268437788437788,
+     "duty_kW": 1250.78319,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.8248992881994527,
+     "duty_kW": 1242.2867117406695,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0019444906443261134,
+     "duty_rel": -0.0067929264857889676,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc25_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9809207504207504,
+     "duty_kW": 1483.0646,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364201231831,
+     "duty_kW": 1477.1258365005428,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00008433029756738097,
+     "duty_rel": -0.0040043862549595495,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.1727080217080217,
+     "duty_kW": 262.268041,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.1724361767492111,
+     "duty_kW": 259.68645392637933,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0002718449588105798,
+     "duty_rel": -0.009843315501871055,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3679472319472319,
+     "duty_kW": 557.890041,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.3669903371957676,
+     "duty_kW": 552.6822798340149,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0009568947514642656,
+     "duty_rel": -0.009334744812168214,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9809217479217479,
+     "duty_kW": 1483.0661,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364206785365,
+     "duty_kW": 1477.1258373368971,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00008532724321141938,
+     "duty_rel": -0.004005393059084073,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.08437037237037226,
+     "duty_kW": 128.235256,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.08431781743356132,
+     "duty_kW": 126.98144568572138,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000052554936810944586,
+     "duty_rel": -0.00977742278830566,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9250601766601767,
+     "duty_kW": 1398.86593,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9239052348853712,
+     "duty_kW": 1391.3882732412085,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0011549417748054625,
+     "duty_rel": -0.005345513532373653,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_luc5_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9809207886207886,
+     "duty_kW": 1483.06466,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364222825667,
+     "duty_kW": 1477.125839752544,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00008436633822184181,
+     "duty_rel": -0.004004424356963693,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.33332052132052137,
+     "duty_kW": 505.509502,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.3554854431283042,
+     "duty_kW": 535.3560713811132,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.022164921807782845,
+     "duty_rel": 0.05904254868212789,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.5584481124481124,
+     "duty_kW": 845.778174,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.5662665117647775,
+     "duty_kW": 852.7893925143421,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.007818399316665059,
+     "duty_rel": 0.008289665931178416,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9807259369259369,
+     "duty_kW": 1482.77099,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.980564602654876,
+     "duty_kW": 1476.7164832210242,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00016133427106090892,
+     "duty_rel": -0.004083237950977037,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.18209458209458207,
+     "duty_kW": 276.498321,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.20402236792359568,
+     "duty_kW": 307.25481303611684,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.021927785829013613,
+     "duty_rel": 0.11123572803220338,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8674062004062004,
+     "duty_kW": 1311.94667,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.8544696177789065,
+     "duty_kW": 1286.819211675941,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.012936582627293913,
+     "duty_rel": -0.01915280468226581,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tni_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808356629356629,
+     "duty_kW": 1482.93636,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364228484069,
+     "duty_kW": 1477.1258406046916,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 7.599127439528175e-7,
+     "duty_rel": -0.003918252699197656,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W10",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 10,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8279100549100549,
+     "duty_kW": 1252.39114,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.7658860381896508,
+     "duty_kW": 1153.4135882544958,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.06202401672040403,
+     "duty_rel": -0.07903086231151725,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9693574098574098,
+     "duty_kW": 1465.63646,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9492264717983641,
+     "duty_kW": 1429.521699456801,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.020130938059045755,
+     "duty_rel": -0.024641008550782814,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W200",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808363926363927,
+     "duty_kW": 1482.93746,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364226465907,
+     "duty_kW": 1477.1258403007591,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 3.001019799331317e-8,
+     "duty_rel": -0.00391899176870275,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W5",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 5,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.5735118325118325,
+     "duty_kW": 868.525223,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.5081953193912783,
+     "duty_kW": 765.3349945623207,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0653165131205542,
+     "duty_rel": -0.11881085972523248,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W50",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808231706231706,
+     "duty_kW": 1482.91753,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808080763995508,
+     "duty_kW": 1477.0831512518907,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.000015094223619782632,
+     "duty_rel": -0.003934391920034287,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cs_W_tru_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9808362829362829,
+     "duty_kW": 1482.93729,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364228751111,
+     "duty_kW": 1477.1258406449076,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 1.3993882819196557e-7,
+     "duty_rel": -0.003918877348544161,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_00_T400_P1_W50",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 400,
+    "P_bar": 1,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3654373234373234,
+     "duty_kW": 531.175058,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1
+    },
+    "browser": {
+     "conversion": 0.3653041253144298,
+     "duty_kW": 530.9760062309854,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1
+    },
+    "diff": {
+     "conversion": -0.00013319812289358524,
+     "duty_rel": -0.0003747385462038372,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_01_T400_P10_W200",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 400,
+    "P_bar": 10,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.5357858177858177,
+     "duty_kW": 782.047201,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.5356292313326922,
+     "duty_kW": 778.5465598802293,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00015658645312544017,
+     "duty_rel": -0.004476252987408427,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_02_T450_P1_W50",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 1,
+    "W_kg": 50,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.7203322313322313,
+     "duty_kW": 1058.07661,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1
+    },
+    "browser": {
+     "conversion": 0.7201368279805043,
+     "duty_kW": 1057.6993509459555,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1
+    },
+    "diff": {
+     "conversion": -0.0001954033517270748,
+     "duty_rel": -0.0003565517378222202,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_03_T450_P10_W200",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 10,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9289298235298236,
+     "duty_kW": 1368.09898,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9291291731040535,
+     "duty_kW": 1364.6563891101468,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": 0.0001993495742299567,
+     "duty_rel": -0.0025163317422056235,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_04_T500_P5_W100",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9872133468133468,
+     "duty_kW": 1465.25107,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.9873830667517763,
+     "duty_kW": 1463.7462887048518,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": 0.00016971993842951338,
+     "duty_rel": -0.0010269784653002692,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_05_T500_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9516189268189268,
+     "duty_kW": 1417.98269,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9522176888740173,
+     "duty_kW": 1411.6153649603255,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0005987620550904627,
+     "duty_rel": -0.004490410979329089,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_06_T550_P40_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 550,
+    "P_bar": 40,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.94252535002535,
+     "duty_kW": 1421.95731,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9432268037670676,
+     "duty_kW": 1409.954468398434,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": 0.0007014537417175948,
+     "duty_rel": -0.00844107028892867,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_kum_07_T600_P20_W500",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9805847870847871,
+     "duty_kW": 1482.55825,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9808364224529569,
+     "duty_kW": 1477.1258400091492,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.00025163536816974474,
+     "duty_rel": -0.0036642135247305315,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_00_T400_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 400,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.16227195027195018,
+     "duty_kW": 235.899868,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.16219111228796956,
+     "duty_kW": 235.7476499196423,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00008083798398061948,
+     "duty_rel": -0.0006452656444797107,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_01_T450_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.48032929532929525,
+     "duty_kW": 705.605639,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.48011943281011316,
+     "duty_kW": 705.1743401096338,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0002098625191820913,
+     "duty_rel": -0.0006112463769102318,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_02_T500_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8823969303969303,
+     "duty_kW": 1308.37923,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8822037433379405,
+     "duty_kW": 1307.8231728649553,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0001931870589898521,
+     "duty_rel": -0.00042499691396411036,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_03_T450_P1p013_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9301807041807042,
+     "duty_kW": 1366.24654,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.9299891680333523,
+     "duty_kW": 1365.9195047337248,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0001915361473519006,
+     "duty_rel": -0.0002393676812351074,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_04_T500_P10_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 10,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9711659298659299,
+     "duty_kW": 1443.30882,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9710599619608192,
+     "duty_kW": 1439.5480976861372,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.0001059679051106377,
+     "duty_rel": -0.002605625533323314,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_05_T550_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9705047876047876,
+     "duty_kW": 1457.34011,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703700069939457,
+     "duty_kW": 1450.5286765565756,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.0001347806108419336,
+     "duty_rel": -0.004673880446085059,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_06_T600_P40_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 40,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9630518836518837,
+     "duty_kW": 1462.00667,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9627339664482906,
+     "duty_kW": 1449.8637961861346,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": -0.00031791720359308773,
+     "duty_rel": -0.008305621351142971,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc25_07_T650_P20_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871605227605228,
+     "duty_kW": 1501.41979,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058978815967,
+     "duty_kW": 1496.4265364783437,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00005462487892604617,
+     "duty_rel": -0.0033256878288891096,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_00_T400_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 400,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.10389758689758688,
+     "duty_kW": 151.04617,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.10384741883984588,
+     "duty_kW": 150.94405973520418,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00005016805774099575,
+     "duty_rel": -0.0006760202181611864,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_01_T450_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3771355081355081,
+     "duty_kW": 554.038675,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.3769374871397145,
+     "duty_kW": 553.6260888266484,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0001980209957936352,
+     "duty_rel": -0.0007446883980647305,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_02_T500_P1p013_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8312133822133823,
+     "duty_kW": 1232.50113,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8309811351349164,
+     "duty_kW": 1231.8882037737667,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00023224707846580817,
+     "duty_rel": -0.0004973027702079366,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_03_T450_P1p013_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8411437321437322,
+     "duty_kW": 1235.49702,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.8408922158753377,
+     "duty_kW": 1235.0585560816917,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.0002515162683944805,
+     "duty_rel": -0.00035488868949950494,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_04_T500_P10_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 500,
+    "P_bar": 10,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.959265806065806,
+     "duty_kW": 1425.65773,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.9590722793715077,
+     "duty_kW": 1421.776954458007,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00019352669429828495,
+     "duty_rel": -0.00272209483407563,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_05_T550_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9705047696047696,
+     "duty_kW": 1457.34008,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703700097208817,
+     "duty_kW": 1450.5286806328545,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00013475988388789162,
+     "duty_rel": -0.0046738571597821155,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_06_T600_P40_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 600,
+    "P_bar": 40,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9630518841518841,
+     "duty_kW": 1462.00667,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "browser": {
+     "conversion": 0.9627339683806002,
+     "duty_kW": 1449.8637990961658,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 40
+    },
+    "diff": {
+     "conversion": -0.00031791577128392756,
+     "duty_rel": -0.008305619360706567,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_luc5_07_T650_P20_W400",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 650,
+    "P_bar": 20,
+    "W_kg": 400,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9871605246605246,
+     "duty_kW": 1501.41979,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9871058968670974,
+     "duty_kW": 1496.4265349403895,
+     "outlet_T_C": 650,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00005462779342724211,
+     "duty_rel": -0.0033256888532223355,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tni_01_T350_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 350,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.035457949457949445,
+     "duty_kW": 51.8331685,
+     "outlet_T_C": 350,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.039357515704782804,
+     "duty_kW": 56.53841221754931,
+     "outlet_T_C": 350,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0038995662468333595,
+     "duty_rel": 0.09077669480208042,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tni_03_T400_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 400,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.13442447542447544,
+     "duty_kW": 198.060323,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.15038646666943364,
+     "duty_kW": 218.58938875818626,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0159619912449582,
+     "duty_rel": 0.10365057194310567,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tni_05_T450_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.4074320244320244,
+     "duty_kW": 603.881238,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.44168377539593107,
+     "duty_kW": 648.7220544875158,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.034251750963906646,
+     "duty_rel": 0.07425436272208838,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tni_07_T500_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.8527469027469028,
+     "duty_kW": 1271.19758,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.8640982453135413,
+     "duty_kW": 1280.9826725254557,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0113513425666385,
+     "duty_rel": 0.007697538667006933,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tni_09_T550_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ni_takahashi_microkinetic",
+    "T_C": 550,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9703431524431524,
+     "duty_kW": 1457.09824,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9703435254712565,
+     "duty_kW": 1450.4890914418434,
+     "outlet_T_C": 550,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 3.7302810407258136e-7,
+     "duty_rel": -0.0045358290722777046,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tru_01_T300_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 300,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.08223196623196627,
+     "duty_kW": 118.813614,
+     "outlet_T_C": 300,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.07526439999814571,
+     "duty_kW": 106.69297258103745,
+     "outlet_T_C": 300,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.006967566233820555,
+     "duty_rel": -0.10201391078771957,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tru_03_T350_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 350,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.30156722656722645,
+     "duty_kW": 438.763651,
+     "outlet_T_C": 350,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.30109653222770444,
+     "duty_kW": 432.53542688152413,
+     "outlet_T_C": 350,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": -0.00047069433952201534,
+     "duty_rel": -0.014194940953474405,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tru_05_T400_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 400,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.7053767893767894,
+     "duty_kW": 1033.11469,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.724148472841408,
+     "duty_kW": 1052.5626112123452,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.01877168346461866,
+     "duty_rel": 0.018824552008204563,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tru_07_T450_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 450,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9191376436376436,
+     "duty_kW": 1357.7807,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9193994296033332,
+     "duty_kW": 1350.3658501657046,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.0002617859656895982,
+     "duty_rel": -0.005461006946331915,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "cv_tru_09_T500_P20_W1000",
+    "configuration": "standalone",
+    "catalyst_id": "ru_takahashi_microkinetic",
+    "T_C": 500,
+    "P_bar": 20,
+    "W_kg": 1000,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9522137547137547,
+     "duty_kW": 1418.86558,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "browser": {
+     "conversion": 0.9522176921197913,
+     "duty_kW": 1411.615369772024,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 20
+    },
+    "diff": {
+     "conversion": 0.000003937406036658153,
+     "duty_rel": -0.005109864056308923,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ki_ru_kum_T600_P20_W200_hi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9804135303607214,
+     "duty_kW": 1479.42033,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9806673911252393,
+     "duty_kW": 1473.9190125665098,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": 0.00025386076451783257,
+     "duty_rel": -0.0037185628194592664,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "ki_ru_kum_T600_P20_W200_nohi",
+    "configuration": "integrated",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 600,
+    "P_bar": 20,
+    "W_kg": 200,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9804135303607214,
+     "duty_kW": 1479.42033,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20.2
+    },
+    "browser": {
+     "conversion": 0.9806673911252393,
+     "duty_kW": 1473.9190125665098,
+     "outlet_T_C": 600,
+     "outlet_P_bar": 20.2
+    },
+    "diff": {
+     "conversion": 0.00025386076451783257,
+     "duty_rel": -0.0037185628194592664,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kl_nire_5ni1ru_T450_P1_W100",
+    "configuration": "standalone",
+    "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+    "T_C": 450,
+    "P_bar": 1.01325,
+    "W_kg": 100,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.37695472772772776,
+     "duty_kW": 553.219402,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "browser": {
+     "conversion": 0.37670520905591176,
+     "duty_kW": 552.7321987133121,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 1.01325
+    },
+    "diff": {
+     "conversion": -0.00024951867181599585,
+     "duty_rel": -0.0008806691972959268,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kl_ru_kum_lhhw_T450_P5_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 5,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3767954527673967,
+     "duty_kW": 552.948862,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.3766836483911286,
+     "duty_kW": 551.5951620444697,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.00011180437626806539,
+     "duty_rel": -0.0024481467429627517,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T400_P10_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 400,
+    "P_bar": 10,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.16088290896106516,
+     "duty_kW": 234.621249,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.1608033687581987,
+     "duty_kW": 233.03004902873545,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00007954020286646268,
+     "duty_rel": -0.006781994290996883,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T400_P2_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 400,
+    "P_bar": 2,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.20359658054848428,
+     "duty_kW": 295.269739,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 2
+    },
+    "browser": {
+     "conversion": 0.20349077399674334,
+     "duty_kW": 294.8909926922081,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 2
+    },
+    "diff": {
+     "conversion": -0.00010580655174094455,
+     "duty_rel": -0.0012827129155687511,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T400_P5_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 400,
+    "P_bar": 5,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.17809789749669502,
+     "duty_kW": 258.821034,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.17800983252082184,
+     "duty_kW": 257.96499364575106,
+     "outlet_T_C": 400,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.00008806497587318662,
+     "duty_rel": -0.0033074605298460116,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P10_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 10,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.34193103624666754,
+     "duty_kW": 503.083919,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.34186045473062665,
+     "duty_kW": 500.6019606349792,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00007058151604089069,
+     "duty_rel": -0.004933487776660127,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P10_W500_neareq",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 10,
+    "W_kg": 500,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.9568113998768307,
+     "duty_kW": 1404.85748,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.957349853691437,
+     "duty_kW": 1401.8913481794084,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": 0.0005384538146062656,
+     "duty_rel": -0.0021113400204777356,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P2_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 2,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.4276062726052706,
+     "duty_kW": 626.573099,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 2
+    },
+    "browser": {
+     "conversion": 0.427463034728216,
+     "duty_kW": 625.9537490305463,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 2
+    },
+    "diff": {
+     "conversion": -0.00014323787705461388,
+     "duty_rel": -0.0009884720082016343,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P5_W100_coolant",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 5,
+    "W_kg": 100,
+    "mode": "external",
+    "aspen": {
+     "conversion": 0.17317319724534153,
+     "duty_kW": 103.547508,
+     "outlet_T_C": 340.47031,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.17341643549282873,
+     "duty_kW": 103.49785052234427,
+     "outlet_T_C": 340.58112093291913,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": 0.00024323824748720413,
+     "duty_rel": -0.00047956226677833857,
+     "outlet_T_K": 0.11081093291915067,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P5_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 5,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.3767953634997723,
+     "duty_kW": 552.948731,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.3766836483911286,
+     "duty_kW": 551.5951620444697,
+     "outlet_T_C": 450,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.00011171510864366185,
+     "duty_rel": -0.00244791041130041,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 450,
+    "P_bar": 5,
+    "W_kg": 20,
+    "mode": "adiabatic",
+    "aspen": {
+     "conversion": 0.10195567511399162,
+     "duty_kW": 0,
+     "outlet_T_C": 339.302062,
+     "outlet_P_bar": 4.97005269
+    },
+    "browser": {
+     "conversion": 0.1020919551678678,
+     "duty_kW": -1.734611032588873e-8,
+     "outlet_T_C": 339.36758627635015,
+     "outlet_P_bar": 4.970620782127006
+    },
+    "diff": {
+     "conversion": 0.0001362800538761838,
+     "duty_rel": -17346.11032588873,
+     "outlet_T_K": 0.06552427635017466,
+     "outlet_P_bar": 0.0005680921270059258
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T500_P10_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 10,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6286011452334097,
+     "duty_kW": 932.187416,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "browser": {
+     "conversion": 0.6284379386640595,
+     "duty_kW": 928.8358966707274,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 10
+    },
+    "diff": {
+     "conversion": -0.00016320656935020494,
+     "duty_rel": -0.0035953277975516087,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T500_P2_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 2,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.7592262813916121,
+     "duty_kW": 1122.74745,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 2
+    },
+    "browser": {
+     "conversion": 0.7590309752802848,
+     "duty_kW": 1121.853365543222,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 2
+    },
+    "diff": {
+     "conversion": -0.0001953061113272314,
+     "duty_rel": -0.0007963362168206625,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   },
+   {
+    "case_id": "kv_ru_kum_T500_P5_W20",
+    "configuration": "standalone",
+    "catalyst_id": "ru_kum_temkin_pyzhev",
+    "T_C": 500,
+    "P_bar": 5,
+    "W_kg": 20,
+    "mode": "isothermal",
+    "aspen": {
+     "conversion": 0.6837665681713778,
+     "duty_kW": 1012.18849,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 5
+    },
+    "browser": {
+     "conversion": 0.6835368496457574,
+     "duty_kW": 1010.2724924562403,
+     "outlet_T_C": 500,
+     "outlet_P_bar": 5
+    },
+    "diff": {
+     "conversion": -0.00022971852562037043,
+     "duty_rel": -0.0018929256385435272,
+     "outlet_T_K": 0,
+     "outlet_P_bar": 0
+    }
+   }
+  ],
+  "kinetic_summary": {
+   "n": 203,
+   "n_failed": 0,
+   "max_abs_conversion_diff_all": 0.0653165131205542,
+   "max_abs_conversion_diff_isothermal": 0.0653165131205542,
+   "max_abs_duty_rel_isothermal": 0.1477526693203253,
+   "max_abs_outlet_T_K_nonisothermal": 4.41198997086417
+  },
+  "integrated_flowsheet_cases": [
+   {
+    "case_id": "ci_kum_T499_P20_W100_hi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0010498617804978309,
+     "reactor_duty_kW": -0.004056787693844538,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.06886824413250113,
+     "recovered_heat_kW": 0.0443752574187977,
+     "total_external_heating_kW": -0.012031469263788874,
+     "cooling_duty_kW": -0.08358172763730455,
+     "tailgas_combustion_heat_kW": -0.0044931828242108,
+     "net_fuel_heat_deficit_kW": -0.03885490033274625
+    },
+    "conversion_diff": 0.001097030950035438
+   },
+   {
+    "case_id": "ci_kum_T499_P20_W100_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0010498617804978309,
+     "reactor_duty_kW": -0.004056787693844538,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.047554454018358824,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.002196168567543448,
+     "cooling_duty_kW": -0.0027623975826346074,
+     "tailgas_combustion_heat_kW": -0.0044931828242108,
+     "net_fuel_heat_deficit_kW": 0.001968319168050262
+    },
+    "conversion_diff": 0.001097030950035438
+   },
+   {
+    "case_id": "ci_luc25_T576_P20_W100_hi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0009478381129776927,
+     "reactor_duty_kW": -0.003322145132810366,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.051209561748232865,
+     "recovered_heat_kW": 0.03612698272105983,
+     "total_external_heating_kW": -0.011971016904839015,
+     "cooling_duty_kW": -0.060287787172231634,
+     "tailgas_combustion_heat_kW": -0.004129877652996545,
+     "net_fuel_heat_deficit_kW": -0.03829677517043482
+    },
+    "conversion_diff": 0.0010010394115856913
+   },
+   {
+    "case_id": "ci_luc25_T576_P20_W100_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0009478381129776927,
+     "reactor_duty_kW": -0.003322145132810366,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.03781512365853445,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.002119517577770192,
+     "cooling_duty_kW": 0.0036649804377797204,
+     "tailgas_combustion_heat_kW": -0.004129877652996545,
+     "net_fuel_heat_deficit_kW": 0.0010606790074905656
+    },
+    "conversion_diff": 0.0010010394115856913
+   },
+   {
+    "case_id": "ci_luc5_T572_P20_W100_hi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0007707679377258554,
+     "reactor_duty_kW": -0.0035422869931455107,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.05202886449619101,
+     "recovered_heat_kW": 0.03652008780040403,
+     "total_external_heating_kW": -0.012085366464986957,
+     "cooling_duty_kW": -0.06205375855788024,
+     "tailgas_combustion_heat_kW": -0.0034826810525703314,
+     "net_fuel_heat_deficit_kW": -0.04035777249938754
+    },
+    "conversion_diff": 0.0008336037271572394
+   },
+   {
+    "case_id": "ci_luc5_T572_P20_W100_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0007707679377258554,
+     "reactor_duty_kW": -0.0035422869931455107,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.038268281388722965,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.0022115581113104463,
+     "cooling_duty_kW": 0.0031629540677422423,
+     "tailgas_combustion_heat_kW": -0.0034826810525703314,
+     "net_fuel_heat_deficit_kW": -0.0002153743930199815
+    },
+    "conversion_diff": 0.0008336037271572394
+   },
+   {
+    "case_id": "ci_tni_T594_P20_W100_hi",
+    "rel_diff": {
+     "h2_product_kg_h": -0.0074076193860973414,
+     "reactor_duty_kW": -0.01139586600431498,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.04771982905990127,
+     "recovered_heat_kW": 0.034588488602982186,
+     "total_external_heating_kW": -0.01717309638452285,
+     "cooling_duty_kW": -0.06212489916622076,
+     "tailgas_combustion_heat_kW": 0.028517347359702756,
+     "net_fuel_heat_deficit_kW": -0.14686244299428872
+    },
+    "conversion_diff": -0.0070038461330215185
+   },
+   {
+    "case_id": "ci_tni_T594_P20_W100_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": -0.0074076193860973414,
+     "reactor_duty_kW": -0.01139586600431498,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.03601309846613911,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.006259503279415273,
+     "cooling_duty_kW": 0.0025455879216849954,
+     "tailgas_combustion_heat_kW": 0.028517347359702756,
+     "net_fuel_heat_deficit_kW": -0.054993166358575825
+    },
+    "conversion_diff": -0.0070038461330215185
+   },
+   {
+    "case_id": "ci_tru_T522_P20_W100_hi",
+    "rel_diff": {
+     "h2_product_kg_h": -0.0031052202002196153,
+     "reactor_duty_kW": -0.007945804651563058,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.06313297876220851,
+     "recovered_heat_kW": 0.04164395230325588,
+     "total_external_heating_kW": -0.014621771662479223,
+     "cooling_duty_kW": -0.07738282769612236,
+     "tailgas_combustion_heat_kW": 0.011293145381146678,
+     "net_fuel_heat_deficit_kW": -0.09888134590542409
+    },
+    "conversion_diff": -0.0028608324176097044
+   },
+   {
+    "case_id": "ci_tru_T522_P20_W100_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": -0.0031052202002196153,
+     "reactor_duty_kW": -0.007945804651563058,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.04430504241971202,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.004310983345668722,
+     "cooling_duty_kW": -0.0010718324295523206,
+     "tailgas_combustion_heat_kW": 0.011293145381146678,
+     "net_fuel_heat_deficit_kW": -0.030277425262705576
+    },
+    "conversion_diff": -0.0028608324176097044
+   },
+   {
+    "case_id": "ki_ru_kum_T600_P20_W200_hi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0003485201946517385,
+     "reactor_duty_kW": -0.003527704973778228,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.04657967233502201,
+     "recovered_heat_kW": 0.034015530072687775,
+     "total_external_heating_kW": -0.012041706610827992,
+     "cooling_duty_kW": -0.07500892503422114,
+     "tailgas_combustion_heat_kW": -0.002170394245019269,
+     "net_fuel_heat_deficit_kW": -0.031582065437421945
+    },
+    "conversion_diff": 0.0004417274240929858
+   },
+   {
+    "case_id": "ki_ru_kum_T600_P20_W200_nohi",
+    "rel_diff": {
+     "h2_product_kg_h": 0.0003485201946517385,
+     "reactor_duty_kW": -0.003527704973778228,
+     "vaporiser_duty_kW": -0.03491481169942604,
+     "preheat_duty_kW": 0.035364838939754825,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.002334558280546828,
+     "cooling_duty_kW": -0.002236608284336987,
+     "tailgas_combustion_heat_kW": -0.002170394245019269,
+     "net_fuel_heat_deficit_kW": -0.0025155297053566336
+    },
+    "conversion_diff": 0.0004417274240929858
+   }
+  ],
+  "core_equilibrium_flowsheet_cases": [
+   {
+    "case_id": "baseline",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000045772096578920725,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": 0.034015530072687775,
+     "total_external_heating_kW": -0.012290964960301687,
+     "net_fuel_heat_deficit_kW": -0.03588315870713431,
+     "h2_purity_mole_frac": -1.3607842323873134e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "baseline_no_hi",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000045772096578920725,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": 0,
+     "total_external_heating_kW": -0.0025332257740486334,
+     "net_fuel_heat_deficit_kW": -0.0049875505345033004,
+     "h2_purity_mole_frac": -1.3607842323873134e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_fuel_cell_grade",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.00004577560225797789,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": 0.034015530072687775,
+     "total_external_heating_kW": -0.012290964960301687,
+     "net_fuel_heat_deficit_kW": -0.09106860222231034,
+     "h2_purity_mole_frac": 6.041659929655083e-11
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_high_pressure",
+    "conversion_diff": 0.00017136376299087264,
+    "rel_diff": {
+     "h2_product_kg_h": 0.00017802531057814814,
+     "reactor_duty_kW": -0.0078648893811431,
+     "recovered_heat_kW": 0.03298415181843913,
+     "total_external_heating_kW": -0.01286154700908666,
+     "net_fuel_heat_deficit_kW": -0.044794968506309416,
+     "h2_purity_mole_frac": -1.3607853430457194e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_high_recovery",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000045770790114476325,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": 0.034015530072687775,
+     "total_external_heating_kW": -0.012290964960301687,
+     "net_fuel_heat_deficit_kW": -0.019439935797729242,
+     "h2_purity_mole_frac": 3.869563966644222e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_high_temperature",
+    "conversion_diff": 0.00001751006931183241,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000017668730793882332,
+     "reactor_duty_kW": -0.0027166725941577133,
+     "recovered_heat_kW": 0.026845868000875503,
+     "total_external_heating_kW": -0.011778789961801308,
+     "net_fuel_heat_deficit_kW": -0.030934753532120742,
+     "h2_purity_mole_frac": -1.3607853430457194e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_low_pressure",
+    "conversion_diff": 0.0000037618856122412225,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000003781886046770146,
+     "reactor_duty_kW": -0.0009113593875991089,
+     "recovered_heat_kW": 0.029150349701050324,
+     "total_external_heating_kW": -0.010589006502879235,
+     "net_fuel_heat_deficit_kW": -0.027580811919080024,
+     "h2_purity_mole_frac": -1.3607842323873134e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_low_recovery",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.00004577049398258729,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": 0.034015530072687775,
+     "total_external_heating_kW": -0.012290964960301687,
+     "net_fuel_heat_deficit_kW": -0.16806108351003862,
+     "h2_purity_mole_frac": -1.3333040350777091e-12
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_low_temperature",
+    "conversion_diff": 0.00016608774133786142,
+    "rel_diff": {
+     "h2_product_kg_h": 0.00017444502706543313,
+     "reactor_duty_kW": -0.005001287155144973,
+     "recovered_heat_kW": 0.04423039112392604,
+     "total_external_heating_kW": -0.012624810845326304,
+     "net_fuel_heat_deficit_kW": -0.0527062635865862,
+     "h2_purity_mole_frac": -1.3607842323873134e-10
+    },
+    "grid_on_node": true
+   },
+   {
+    "case_id": "scn_tight_fehe",
+    "conversion_diff": 0.000044896049434917096,
+    "rel_diff": {
+     "h2_product_kg_h": 0.000045772096578920725,
+     "reactor_duty_kW": -0.0039178826962622025,
+     "recovered_heat_kW": -0.03522756535229941,
+     "total_external_heating_kW": 0.007004697796057865,
+     "net_fuel_heat_deficit_kW": 0.02223334457700429,
+     "h2_purity_mole_frac": -1.3607842323873134e-10
+    },
+    "grid_on_node": true
+   }
+  ],
+  "equilibrium_grid": {
+   "n": 168,
+   "max_abs_conversion_diff_ideal_gas_vs_aspen_PR": 0.01475848659169543,
+   "note": "browser ideal-gas equilibrium against Aspen RGibbs PENG-ROB; the difference is a model-form (non-ideality) difference"
+  }
+ },
+ "provenance": {
+  "command": "cd frontend; $env:AMCRAX_WRITE_PARITY='1'; npx vitest run src/sim/parity.test.ts",
+  "source_type": "browser-model",
+  "inputs": [
+   "results/research/simulator/model.json",
+   "results/research/simulator/aspen_anchors.json",
+   "results/research/simulator/test_vectors.json"
+  ]
+ }
+}

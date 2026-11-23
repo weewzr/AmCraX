@@ -1,5 +1,5 @@
 {
-  "exported_utc": "2026-11-23T07:55:29+00:00",
+  "exported_utc": "2026-11-23T10:03:51+00:00",
   "files": [
     {
       "path": "flowsheet.json",
@@ -1276,43 +1276,43 @@
     {
       "path": "research/catalyst_comparison/catalyst_cost_breakdown_plotdata.csv.json",
       "source": "results/research/catalyst_comparison/catalyst_cost_breakdown_plotdata.csv",
-      "bytes": 2870,
+      "bytes": 2872,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_breakeven_price.csv.json",
       "source": "results/research/catalyst_comparison/catalyst_breakeven_price.csv",
-      "bytes": 8049,
+      "bytes": 8043,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_design_curves.csv.json",
       "source": "results/research/catalyst_comparison/catalyst_design_curves.csv",
-      "bytes": 334087,
+      "bytes": 356098,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_sensitivity_ranking.csv.json",
       "source": "results/research/catalyst_comparison/catalyst_sensitivity_ranking.csv",
-      "bytes": 79322,
+      "bytes": 79260,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_ranking_robustness.json.json",
       "source": "results/research/catalyst_comparison/catalyst_ranking_robustness.json",
-      "bytes": 13353,
+      "bytes": 13770,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_comparison.json.json",
       "source": "results/research/catalyst_comparison/catalyst_comparison.json",
-      "bytes": 9845,
+      "bytes": 10231,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/catalyst_comparison/catalyst_cho_comparison.json.json",
       "source": "results/research/catalyst_comparison/catalyst_cho_comparison.json",
-      "bytes": 4382,
+      "bytes": 4778,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1324,73 +1324,73 @@
     {
       "path": "research/singapore/scenario_results.json.json",
       "source": "results/research/singapore/scenario_results.json",
-      "bytes": 10468,
+      "bytes": 20027,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/tornado.json.json",
       "source": "results/research/singapore/tornado.json",
-      "bytes": 4386,
+      "bytes": 4838,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/breakeven_ammonia_price.json.json",
       "source": "results/research/singapore/breakeven_ammonia_price.json",
-      "bytes": 3601,
+      "bytes": 4055,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/monte_carlo.json.json",
       "source": "results/research/singapore/monte_carlo.json",
-      "bytes": 2478,
+      "bytes": 2922,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/benchmarks.json.json",
       "source": "results/research/singapore/benchmarks.json",
-      "bytes": 1601,
+      "bytes": 2102,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/cost_vs_capacity.csv.json",
       "source": "results/research/singapore/cost_vs_capacity.csv",
-      "bytes": 1385,
+      "bytes": 1384,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/heatmap_nh3_price_x_capacity.csv.json",
       "source": "results/research/singapore/heatmap_nh3_price_x_capacity.csv",
-      "bytes": 5530,
+      "bytes": 5525,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/heatmap_nh3_price_x_carbon_tax_nh3_heat.csv.json",
       "source": "results/research/singapore/heatmap_nh3_price_x_carbon_tax_nh3_heat.csv",
-      "bytes": 11291,
+      "bytes": 11223,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv.json",
       "source": "results/research/singapore/heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv",
-      "bytes": 11296,
+      "bytes": 11287,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/singapore/assumptions.json.json",
       "source": "results/research/singapore/assumptions.json",
-      "bytes": 7868,
+      "bytes": 8415,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/purification/purification_configurations.csv.json",
       "source": "results/research/purification/purification_configurations.csv",
-      "bytes": 69295,
+      "bytes": 69236,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/purification/recovery_vs_cost.csv.json",
       "source": "results/research/purification/recovery_vs_cost.csv",
-      "bytes": 6679,
+      "bytes": 6680,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1402,7 +1402,7 @@
     {
       "path": "research/purification/singapore_price_scenario.csv.json",
       "source": "results/research/purification/singapore_price_scenario.csv",
-      "bytes": 32905,
+      "bytes": 31304,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1414,49 +1414,49 @@
     {
       "path": "research/purification/purification_study.json.json",
       "source": "results/research/purification/purification_study.json",
-      "bytes": 17199,
+      "bytes": 17440,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/purification/assumptions.json.json",
       "source": "results/research/purification/assumptions.json",
-      "bytes": 5517,
+      "bytes": 5746,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/pathway_table_power.csv.json",
       "source": "results/research/enduse/pathway_table_power.csv",
-      "bytes": 26025,
+      "bytes": 27549,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/pathway_table_hydrogen.csv.json",
       "source": "results/research/enduse/pathway_table_hydrogen.csv",
-      "bytes": 5467,
+      "bytes": 5993,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/claim_check_direct_vs_cracking.csv.json",
       "source": "results/research/enduse/claim_check_direct_vs_cracking.csv",
-      "bytes": 3253,
+      "bytes": 3256,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/price_sweep.csv.json",
       "source": "results/research/enduse/price_sweep.csv",
-      "bytes": 5358,
+      "bytes": 5346,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/enduse_results.json.json",
       "source": "results/research/enduse/enduse_results.json",
-      "bytes": 6161,
+      "bytes": 6573,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/enduse/assumptions.json.json",
       "source": "results/research/enduse/assumptions.json",
-      "bytes": 3168,
+      "bytes": 3399,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1474,7 +1474,7 @@
     {
       "path": "research/lca/lca_results.json.json",
       "source": "results/research/lca/lca_results.json",
-      "bytes": 2267,
+      "bytes": 2609,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1486,7 +1486,7 @@
     {
       "path": "research/validation_summary.json",
       "source": "results/research/validation/*.json",
-      "bytes": 15412,
+      "bytes": 18213,
       "how": "GET /api/research/validation-summary"
     },
     {
@@ -1516,7 +1516,7 @@
     {
       "path": "research-figures/catalyst_cost_breakdown.png",
       "source": "results/figures/research/catalyst_cost_breakdown.png",
-      "bytes": 52746,
+      "bytes": 52357,
       "how": "verbatim copy"
     },
     {
@@ -1528,31 +1528,31 @@
     {
       "path": "research-figures/catalyst_ranking_robustness.png",
       "source": "results/figures/research/catalyst_ranking_robustness.png",
-      "bytes": 110949,
+      "bytes": 111600,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/enduse_hydrogen_cost_ci.png",
       "source": "results/figures/research/enduse_hydrogen_cost_ci.png",
-      "bytes": 182083,
+      "bytes": 187837,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/enduse_partial_cracking_cost.png",
       "source": "results/figures/research/enduse_partial_cracking_cost.png",
-      "bytes": 185326,
+      "bytes": 193101,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/enduse_power_cost_vs_ci.png",
       "source": "results/figures/research/enduse_power_cost_vs_ci.png",
-      "bytes": 159581,
+      "bytes": 159446,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/enduse_power_cost_vs_price.png",
       "source": "results/figures/research/enduse_power_cost_vs_price.png",
-      "bytes": 203342,
+      "bytes": 195492,
       "how": "verbatim copy"
     },
     {
@@ -1594,13 +1594,13 @@
     {
       "path": "research-figures/purification_config_comparison.png",
       "source": "results/figures/research/purification_config_comparison.png",
-      "bytes": 124793,
+      "bytes": 122204,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/purification_recovery_cost.png",
       "source": "results/figures/research/purification_recovery_cost.png",
-      "bytes": 113977,
+      "bytes": 110924,
       "how": "verbatim copy"
     },
     {
@@ -1612,43 +1612,43 @@
     {
       "path": "research-figures/purification_sensitivity.png",
       "source": "results/figures/research/purification_sensitivity.png",
-      "bytes": 106811,
+      "bytes": 106426,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/singapore_breakeven.png",
       "source": "results/figures/research/singapore_breakeven.png",
-      "bytes": 95789,
+      "bytes": 95445,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/singapore_cost_breakdown.png",
       "source": "results/figures/research/singapore_cost_breakdown.png",
-      "bytes": 47820,
+      "bytes": 48990,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/singapore_heatmap_nh3_price_carbon_tax.png",
       "source": "results/figures/research/singapore_heatmap_nh3_price_carbon_tax.png",
-      "bytes": 91887,
+      "bytes": 92334,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/singapore_monte_carlo.png",
       "source": "results/figures/research/singapore_monte_carlo.png",
-      "bytes": 39499,
+      "bytes": 40175,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/singapore_tornado.png",
       "source": "results/figures/research/singapore_tornado.png",
-      "bytes": 89751,
+      "bytes": 89913,
       "how": "verbatim copy"
     },
     {
       "path": "research/aspen_evidence.json",
       "source": "docs/images/aspen_evidence/manifest.json",
-      "bytes": 28298,
+      "bytes": 30359,
       "how": "GET /api/research/aspen-evidence"
     },
     {
@@ -1721,6 +1721,18 @@
       "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__14_psa_block.png",
       "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__14_psa_block.png",
       "bytes": 137032,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cpp_cv_luc5_06_T600_P40_W1000__02_reactions_kinetic.png",
+      "source": "docs/images/aspen_evidence/cpp_cv_luc5_06_T600_P40_W1000__02_reactions_kinetic.png",
+      "bytes": 119692,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cpp_cv_luc5_06_T600_P40_W1000__03_reactions_kinetic_tab.png",
+      "source": "docs/images/aspen_evidence/cpp_cv_luc5_06_T600_P40_W1000__03_reactions_kinetic_tab.png",
+      "bytes": 146931,
       "how": "verbatim copy"
     },
     {
@@ -1835,6 +1847,24 @@
       "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__10_run_status.png",
       "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__10_run_status.png",
       "bytes": 133246,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "simulator/model.json",
+      "source": "results/research/simulator/model.json",
+      "bytes": 158942,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "simulator/aspen_anchors.json",
+      "source": "results/research/simulator/aspen_anchors.json",
+      "bytes": 2176926,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "simulator/parity_report.json",
+      "source": "results/research/simulator/parity_report.json",
+      "bytes": 146319,
       "how": "verbatim copy"
     }
   ],

@@ -15,6 +15,7 @@ const outDir = path.join(frontend, 'public', 'downloads')
 
 export const FILES = [
   ['docs', 'technical_report', 'AmCraX_Technical_Report.pdf'],
+  ['docs', 'technical_report', 'releases', '2026-11-23', 'AmCraX_Technical_Report_2026-11-23.pdf'],
   ['docs', 'technical_report', 'AmCraX_Technical_Report.docx'],
   ['docs', 'pitch_deck', 'AmCraX_Pitch_Deck.pdf'],
   ['docs', 'pitch_deck', 'AmCraX_Pitch_Deck.pptx'],
