@@ -1,0 +1,20 @@
+[
+  {"case_id": "kv_ru_kum_T400_P2_W20",  "temperature_C": 400, "pressure_bar": 2,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T400_P5_W20",  "temperature_C": 400, "pressure_bar": 5,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T400_P10_W20", "temperature_C": 400, "pressure_bar": 10, "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T450_P2_W20",  "temperature_C": 450, "pressure_bar": 2,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T450_P5_W20",  "temperature_C": 450, "pressure_bar": 5,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T450_P10_W20", "temperature_C": 450, "pressure_bar": 10, "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T500_P2_W20",  "temperature_C": 500, "pressure_bar": 2,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T500_P5_W20",  "temperature_C": 500, "pressure_bar": 5,  "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T500_P10_W20", "temperature_C": 500, "pressure_bar": 10, "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T450_P10_W500_neareq", "temperature_C": 450, "pressure_bar": 10, "catalyst_mass_kg": 500, "n_tubes": 50},
+  {"case_id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun", "temperature_C": 450, "pressure_bar": 5, "catalyst_mass_kg": 20, "n_tubes": 50,
+   "thermal_mode": "adiabatic", "pressure_drop": true},
+  {"case_id": "kv_ru_kum_T450_P5_W100_coolant", "temperature_C": 450, "pressure_bar": 5, "catalyst_mass_kg": 100, "n_tubes": 50,
+   "thermal_mode": "coolant", "coolant_temperature_C": 550, "U_W_m2K": 100},
+  {"case_id": "ki_ru_kum_T600_P20_W200_hi", "configuration": "integrated", "temperature_C": 600, "pressure_bar": 20,
+   "catalyst_mass_kg": 200, "n_tubes": 50, "h2_seed_conversion": 1e-4, "flowsheet": {"heat_integration": true}},
+  {"case_id": "ki_ru_kum_T600_P20_W200_nohi", "configuration": "integrated", "temperature_C": 600, "pressure_bar": 20,
+   "catalyst_mass_kg": 200, "n_tubes": 50, "h2_seed_conversion": 1e-4, "flowsheet": {"heat_integration": false}}
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "name": "Aspen rate-law form for Kum Temkin-Pyzhev",
+    "value": "GENERAL POWERLAW, reversible, REV-METH=AUTOMATIC; r_rxn = k pNH3^0.54 pH2^-0.81 (1 - pN2 pH2^3/(pNH3^2 Keq2)) per 2 mol NH3",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "algebraic identity with kum2026heatintegrated Eq. 2 (p. 4); Aspen V15 example 'Ammonia decomposition datafit' for the input language",
+    "applicability_note": "Exact identity of the published law if Keq^2 is the equilibrium constant of 2NH3 = N2 + 3H2 (the AmCraX reading recorded in kinetics.yaml)."
+  },
+  {
+    "name": "PRE-EXP",
+    "value": 27622.95,
+    "unit": "kmol kg_cat^-1 s^-1 bar^0.27",
+    "source_type": "literature",
+    "source": "kum2026heatintegrated Table 1 ko = 55245.9 mol g^-1 s^-1 bar^0.27, x1000 g/kg /1000 mol/kmol /2 (per reaction event)",
+    "applicability_note": "Rate per kg catalyst; partial pressures in bar (PRES-UNIT=BAR)."
+  },
+  {
+    "name": "ACT-ENERGY",
+    "value": 114.224,
+    "unit": "kJ/mol",
+    "source_type": "literature",
+    "source": "kum2026heatintegrated Table 1 Ea = 114224 J/mol",
+    "applicability_note": "No reference temperature (k = k0 exp(-E/RT)) as in the source."
+  },
+  {
+    "name": "Equilibrium constant in Aspen",
+    "value": "from Gibbs energies of the property method (PENG-ROB databank, ideal-gas reference)",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "Aspen micro-reversibility option; Kum Eq. 4 polynomial (T^3 term) has no exact native form",
+    "applicability_note": "Python comparison uses keq_basis='amcrax_thermo' (NASA7/GRI-Mech 3.0) for the same reason; Kum Eq. 4 differs from Gibbs data by < 0.5 kJ/mol per kinetics.yaml."
+  },
+  {
+    "name": "H2 seed",
+    "value": 0.001,
+    "unit": "fraction of feed NH3 pre-cracked to N2/H2 before the reactor",
+    "source_type": "assumption",
+    "source": "numerical: rate singular at pH2 = 0. Seed 1e-6 caused 'BLOCK IS IN MASS IMBALANCE' in adiabatic and coolant RPLUG runs, 1e-4 still in the coolant run; 1e-3 solved all modes",
+    "applicability_note": "Python PFR (same seeded feed) outlet conversion changes by < 3e-5 between seeds 1e-6 and 1e-3 (coolant case 0.17340 vs 0.17342). Conversions are reported relative to the reactor-inlet NH3 and to the fresh NH3."
+  },
+  {
+    "name": "Bed and particle data",
+    "value": "eps_b 0.36, particle density 980 kg/m3, dp 0.6 mm, tube ID 0.126 m",
+    "unit": "-, kg/m3, m, m",
+    "source_type": "literature",
+    "source": "kum2026heatintegrated Table 1 (as in backend/amcrax/reactor/pfr.py DEFAULT_BED)",
+    "applicability_note": "Catalyst mass = (1-eps_b) x particle density x bed volume, in both Aspen (CAT-RHO, BED-VOIDAGE) and Python."
+  },
+  {
+    "name": "Validation geometry",
+    "value": "50 tubes of 0.126 m ID, 20 kg catalyst (0.051 m bed), 100 kmol/h feed",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "test conditions chosen to give 16-76 % conversion (kinetic regime); not a design",
+    "applicability_note": "Infrastructure verification only; 450-500 degC points up to the 723 K fit limit, 500 degC is above it (773 K)."
+  },
+  {
+    "name": "Integrated RPLUG pressure",
+    "value": "no pressure drop unless pressure_drop=true; CRACKER outlet at HEATER outlet pressure (P + 0.2 bar)",
+    "unit": "bar",
+    "source_type": "assumption",
+    "source": "RGibbs CRACKER sets outlet P exactly; RPLUG keeps inlet P without a drop model",
+    "applicability_note": "Downstream COOLER/PSA pressures are absolute in the flowsheet and unchanged."
+  },
+  {
+    "name": "Phase",
+    "value": "vapour only (NPHASE=1 PHASE=V)",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "gas-phase reactor at 2-20 bar, >= 340 degC",
+    "applicability_note": "Adiabatic runs still report the warning 'PROBLEM(S) ENCOUNTERED DURING PHASE STABILITY CHECK'."
+  },
+  {
+    "name": "Catalyst operating temperature (part 2)",
+    "value": "lowest T giving X = 0.95 with 100 kg catalyst per 100 kmol/h NH3 at 20 bar, isothermal; rounded up to 1 degC",
+    "unit": "degC",
+    "source_type": "assumption",
+    "source": "definition of this study; T from results/research/kinetics/study_temperature_for_target_conversion.json",
+    "applicability_note": "99 % at 20 bar is equilibrium-limited below about 685 degC for every catalyst, so a 99 % target would not discriminate between catalysts."
+  },
+  {
+    "name": "Takahashi Ni/MgO and Ru/MgO in Aspen",
+    "value": "fitted LHHW approximation (best_native_approximation), mole-fraction basis, used only at 20 bar",
+    "unit": "-",
+    "source_type": "python",
+    "source": "results/research/kinetics/aspen_kinetics_spec.json (kinetics workstream fit to the microkinetic law)",
+    "applicability_note": "Not the published law; rate error RMS 12 %, max about 50 %. Integrated cases run the cracker at 20.2 bar (heater outlet), 1 % above the pressure in the fitted term-2 constant."
+  },
+  {
+    "name": "H2 seed in isothermal catalyst runs",
+    "value": "1e-6 of the NH3 pre-cracked (1e-3 in adiabatic runs, 1e-4 kmol/h-scale H2SEED stream in integrated runs)",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "numerical requirement (Kum rate singular at pH2 = 0); part 1 tests",
+    "applicability_note": "Python comparison uses the same seeded feed."
+  },
+  {
+    "name": "GHSV reference state",
+    "value": "NH3 feed volume at 0 degC, 1 atm (22.414 m3/kmol) over the bed volume",
+    "unit": "h-1",
+    "source_type": "assumption",
+    "source": "convention of this study",
+    "applicability_note": "Bed volume = W/((1-eps) rho_p) with the bed properties of aspen_kinetics_spec.json."
+  },
+  {
+    "name": "Adiabatic catalyst runs without pressure drop",
+    "value": "inlet 650 degC, 20 bar, 100 kg, no Ergun",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "choice of this study",
+    "applicability_note": "The Lucentini particle size (0.1 mm lab powder) would give an unrealistic Ergun pressure drop."
+  },
+  {
+    "name": "Effectiveness factor",
+    "value": 1.0,
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "powder kinetics applied directly to the bed",
+    "applicability_note": "Industrial pellets would need an effectiveness factor below 1; catalyst masses are lower bounds."
+  }
+]

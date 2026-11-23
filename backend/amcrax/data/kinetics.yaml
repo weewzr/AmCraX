@@ -142,9 +142,81 @@ catalysts:
       - "Nomenclature lists R in m3 bar/(mol K); J/(mol K) is required because Ea is in J/mol."
     source: {citekey: kum2026heatintegrated, page: "4-5, 9", locator: "Eqs. 2-4 (p. 4); Table 1 (p. 5); Sec. 4.1, Fig. 4a (p. 9)"}
 
+# Research expansion (workstream K, 2026-11-23). Kept in a SEPARATE section so that list_catalysts() and the
+# /api/kinetics/catalysts endpoint return exactly the three original models (existing behaviour unchanged).
+# Access: get_catalyst(id), rate_mol_per_kgcat_s(id, ...), list_research_catalysts().
+# Source text: postprint of lucentini2021nirukinetic, UPCommons handle 2117/(item fe1ac9db), read 2026-11-23.
+research_catalysts:
+  nire_ceo2_5ni1ru_lucentini_lhhw:
+    label: "5Ni1Ru/CeO2 LHHW (Lucentini et al. 2021)"
+    metal: Ni-Ru
+    composition: "Ni 4.98 wt%, Ru 0.64 wt% (ICP-MS) on nanopolycrystalline CeO2, co-impregnation, calcined 450 degC; powder, d_cat 0.10 mm, diluted in SiC"
+    form: lhhw_lucentini
+    usable: true
+    rate_law_text: >-
+      r = k*K1*C_NH3 / (1 + K1*C_NH3 + sqrt(C_H2/K4))^2, k = k0*exp(-Ek/(R*T)); C_i in mol m^-3, r in mol NH3 g_cat^-1 s^-1.
+      Rate-determining step: first dehydrogenation NH3(a)+s -> NH2(a)+H(a) (Eq. 9); N2 desorption irreversible, H2 adsorption
+      quasi-equilibrated (Eqs. 8-13). K1 and K4 are temperature independent as published (Table 3). Irreversible as published.
+    rate_unit: "mol NH3 g_cat^-1 s^-1"
+    pressure_basis: "molar concentrations C_i = p_i/(R T) in mol m^-3"
+    parameters:
+      k0: {value: 3.9e+6,  unit: "mol NH3 g_cat^-1 s^-1", uncertainty: 0.7e+6, citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3 (confidence interval, nlpredci)"}
+      Ek: {value: 124.0,   unit: "kJ mol^-1",            uncertainty: 8.0,    citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3"}
+      K1: {value: 1.1,     unit: "m^3 mol^-1",           uncertainty: 0.2,    citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3 (NH3 adsorption constant)"}
+      K4: {value: 4.7e-2,  unit: "mol m^-3",             uncertainty: 0.1e-2, citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3 (H2 desorption constant)"}
+    bed_properties:
+      rho_apparent_kg_m3: {value: 1651.8, unit: "kg m^-3", citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4 (MIP apparent density)"}
+      eps_L_diluted_bed:  {value: 0.2451, unit: "-",       citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4, Eq. 5 (catalyst + SiC bed)"}
+      eps_av_catalyst_only: {value: 0.3855, unit: "-",     citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4, Eq. 6 (bed of catalyst particles only, d_i 4.572 mm)"}
+      d_cat_m:            {value: 0.00010, unit: "m",      citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4"}
+      reactor_inner_diameter_m: {value: 0.004572, unit: "m", citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4, Eq. 6"}
+    validity: {T_min_K: 623.15, T_max_K: 873.15, P_min_bar: 1.01325, P_max_bar: 1.01325,
+               note: "fitted 350-550/600 degC, 1 atm, NH3 10-100 % in Ar (F/W 15-45 L g^-1 h^-1, H2 co-feed 0-67.5 %); every use above 1 atm is extrapolation"}
+    experimental_basis: "0.1 g powder in SiC (bed 0.41 cm3), stainless-steel tube d_i 4.572 mm, 1 atm, isothermal PFR fit (Eqs. 2-4), MS analysis (+/-5 %)"
+    irreversible_published: true
+    limitations:
+      - "Irreversible as published: the AmCraX equilibrium approach factor (1 - Q/Kp) is applied by default (switchable)."
+      - "Fitted at 1 atm only; K1 and K4 are temperature independent; total-pressure dependence enters only through concentrations (extrapolation above 1 atm unvalidated)."
+      - "Blank (empty reactor / SiC / CeO2) conversion was 4, 9 and 24 % at 400, 450, 500 degC (p. 10); the paper does not state that blank activity was subtracted."
+      - "Gas-volume reference conditions of the mL min^-1 flows are not stated (AmCraX assumes 0 degC, 1 atm; 25 degC tested as sensitivity)."
+      - "Powder (0.1 mm) intrinsic kinetics: industrial pellets need an effectiveness factor (not modelled)."
+    source: {citekey: lucentini2021nirukinetic, page: "8-9, 21-25", locator: "Eqs. 2-6, 8-13, 17-18; Table 1 (p. 10); Table 2 (p. 23); Table 3 (p. 24)"}
+
+  nire_ceo2_2p5ni0p5ru_lucentini_lhhw:
+    label: "2.5Ni0.5Ru/CeO2 LHHW (Lucentini et al. 2021)"
+    metal: Ni-Ru
+    composition: "Ni 2.39 wt%, Ru 0.35 wt% (ICP-MS) on nanopolycrystalline CeO2, co-impregnation, calcined 450 degC; powder, d_cat 0.10 mm, diluted in SiC"
+    form: lhhw_lucentini
+    usable: true
+    rate_law_text: "Same LHHW expression as nire_ceo2_5ni1ru_lucentini_lhhw (Eq. 17) with the 2.5Ni0.5Ru/CeO2 parameters of Table 3."
+    rate_unit: "mol NH3 g_cat^-1 s^-1"
+    pressure_basis: "molar concentrations C_i = p_i/(R T) in mol m^-3"
+    parameters:
+      k0: {value: 3.3e+5,  unit: "mol NH3 g_cat^-1 s^-1", uncertainty: 0.8e+5, citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3"}
+      Ek: {value: 107.0,   unit: "kJ mol^-1",            uncertainty: 11.0,   citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3"}
+      K1: {value: 1.2,     unit: "m^3 mol^-1",           uncertainty: 0.3,    citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3"}
+      K4: {value: 4.5e-2,  unit: "mol m^-3",             uncertainty: 0.2e-2, citekey: lucentini2021nirukinetic, page: 24, locator: "Table 3"}
+    bed_properties:
+      rho_apparent_kg_m3: {value: 1651.8, unit: "kg m^-3", citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4 (single value reported for the kinetic analysis)"}
+      eps_L_diluted_bed:  {value: 0.2451, unit: "-",       citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4, Eq. 5"}
+      eps_av_catalyst_only: {value: 0.3855, unit: "-",     citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4, Eq. 6"}
+      d_cat_m:            {value: 0.00010, unit: "m",      citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4"}
+      reactor_inner_diameter_m: {value: 0.004572, unit: "m", citekey: lucentini2021nirukinetic, page: 8, locator: "Sec. 2.4"}
+    validity: {T_min_K: 623.15, T_max_K: 873.15, P_min_bar: 1.01325, P_max_bar: 1.01325,
+               note: "fitted 350-550/600 degC, 1 atm; the source itself simulates pure NH3 at 1 atm (Fig. 10); above 1 atm is extrapolation"}
+    experimental_basis: "As nire_ceo2_5ni1ru_lucentini_lhhw"
+    irreversible_published: true
+    limitations:
+      - "Irreversible as published: AmCraX equilibrium approach factor applied by default (switchable)."
+      - "Fitted at 1 atm only; K1, K4 temperature independent; extrapolation above 1 atm unvalidated."
+      - "Initial deactivation of about 2 % over 100 h at 450 degC (p. 12) is not modelled."
+      - "Blank conversion 4/9/24 % at 400/450/500 degC (p. 10), subtraction not stated."
+      - "Powder intrinsic kinetics; no effectiveness factor."
+    source: {citekey: lucentini2021nirukinetic, page: "8-9, 21-25", locator: "Eq. 17-18; Table 1 (p. 10); Table 3 (p. 24)"}
+
 # AmCraX extension (not in any source): equilibrium approach factor for irreversible published laws.
 equilibrium_approach_factor:
-  applies_to_forms: [takahashi_microkinetic]
+  applies_to_forms: [takahashi_microkinetic, lhhw_lucentini]
   expression: "r_AmCraX = r_published * (1 - Q/Kp),  Q = y_N2^0.5 * y_H2^1.5 * (P/1 bar) / y_NH3,  Kp from amcrax.thermodynamics"
   default_on: true
   label: "assumption (AmCraX extension)"

@@ -186,6 +186,9 @@ def simulate_pfr(
     if cat.form == "takahashi_microkinetic":
         on = True if approach_factor is None else approach_factor
         assumptions.append(f"AmCraX extension: equilibrium approach factor (1-Q/K) {'ON' if on else 'OFF'}")
+    if cat.form == "lhhw_lucentini":
+        on = True if approach_factor is None else approach_factor
+        assumptions.append(f"AmCraX extension: equilibrium approach factor (1-Q/K) {'ON' if on else 'OFF'} (Lucentini LHHW)")
     if cat.form == "temkin_pyzhev":
         assumptions.append(f"Kum Keq basis: {keq_basis}")
     assumptions.append("bed: " + DEFAULT_BED_SOURCE + (" (defaults used)" if (eps_b, rho_particle_kg_m3, dp_m) ==

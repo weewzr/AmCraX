@@ -1,0 +1,33 @@
+{
+  "citekey": "lucentini2021nirukinetic",
+  "apa7": "Lucentini, I., Garcia Colli, G., Luzi, C. D., Serrano, I., Martinez, O. M., & Llorca, J. (2021). Catalytic ammonia decomposition over Ni-Ru supported on CeO2 for hydrogen production: Effect of metal loading and kinetic analysis. Applied Catalysis B: Environmental, 286, 119896. https://doi.org/10.1016/j.apcatb.2021.119896",
+  "doi": "10.1016/j.apcatb.2021.119896",
+  "url": "https://doi.org/10.1016/j.apcatb.2021.119896",
+  "doi_verified": false,
+  "year": 2021,
+  "type": "article",
+  "text_source": "UPCommons postprint (accepted manuscript), accessed 2026-11-23; page numbers are postprint pages",
+  "equations": [
+    {"id": "Eq17", "name": "LHHW NH3 decomposition rate (RDS: first dehydrogenation)", "expression": "r = k*K1*C_NH3 / (1 + K1*C_NH3 + sqrt(C_H2/K4))^2", "variables": {"r": "mol NH3 g_cat^-1 s^-1", "k": "mol NH3 g_cat^-1 s^-1", "K1": "m3 mol^-1", "K4": "mol m^-3", "C_i": "mol m^-3"}, "page": 22, "applies_to": "5Ni1Ru/CeO2, 2.5Ni0.5Ru/CeO2, 1 atm, 350-600 degC"},
+    {"id": "Eq18", "name": "Arrhenius", "expression": "k = k0*exp(-Ek/(R*T))", "variables": {"k0": "mol NH3 g_cat^-1 s^-1", "Ek": "kJ mol^-1", "R": "kJ mol^-1 K^-1", "T": "K"}, "page": 22},
+    {"id": "Eq2-4", "name": "isothermal PFR used for the fit", "expression": "-r*rho_ap*(1-eps_L)*f_v = dF_NH3/dV; dF_NH3 = -F_in dx", "page": 8}
+  ],
+  "parameters": [
+    {"name": "pre-exponential factor", "symbol": "k0", "value": 3.9e6, "uncertainty": 0.7e6, "unit": "mol NH3 g_cat^-1 s^-1", "catalyst": "5Ni1Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "activation energy", "symbol": "Ek", "value": 124, "uncertainty": 8, "unit": "kJ mol^-1", "catalyst": "5Ni1Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "NH3 adsorption constant", "symbol": "K1", "value": 1.1, "uncertainty": 0.2, "unit": "m3 mol^-1", "catalyst": "5Ni1Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "H2 desorption constant", "symbol": "K4", "value": 0.047, "uncertainty": 0.001, "unit": "mol m^-3", "catalyst": "5Ni1Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "pre-exponential factor", "symbol": "k0", "value": 3.3e5, "uncertainty": 0.8e5, "unit": "mol NH3 g_cat^-1 s^-1", "catalyst": "2.5Ni0.5Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "activation energy", "symbol": "Ek", "value": 107, "uncertainty": 11, "unit": "kJ mol^-1", "catalyst": "2.5Ni0.5Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "NH3 adsorption constant", "symbol": "K1", "value": 1.2, "uncertainty": 0.3, "unit": "m3 mol^-1", "catalyst": "2.5Ni0.5Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "H2 desorption constant", "symbol": "K4", "value": 0.045, "uncertainty": 0.002, "unit": "mol m^-3", "catalyst": "2.5Ni0.5Ru/CeO2", "page": 24, "locator": "Table 3", "is_original_to_this_paper": true},
+    {"name": "catalyst apparent density (MIP)", "symbol": "rho_ap", "value": 1651.8, "unit": "kg m^-3", "page": 8, "locator": "Sec. 2.4"},
+    {"name": "bed porosity, catalyst + SiC", "symbol": "eps_L", "value": 0.2451, "unit": "-", "page": 8, "locator": "Sec. 2.4, Eq. 5"},
+    {"name": "catalyst particle diameter", "symbol": "d_cat", "value": 0.0001, "unit": "m", "page": 8, "locator": "Sec. 2.4"}
+  ],
+  "data_points": [
+    {"catalyst": "5Ni1Ru/CeO2", "conditions": "0.1 g, F/W 15.0 L g^-1 h^-1, Ar:NH3 1.2:1, 1 atm", "T_C": [400, 450, 500], "X_pct": [36.5, 86.1, 99.6], "page": 10, "locator": "Table 1"},
+    {"catalyst": "2.5Ni0.5Ru/CeO2", "conditions": "0.1 g, F/W 15.0 L g^-1 h^-1, Ar:NH3 1.2:1, 1 atm", "T_C": [400, 450, 500], "X_pct": [49.7, 88.7, 99.2], "page": 10, "locator": "Table 1"},
+    {"catalyst": "blank (reactor/SiC/CeO2)", "T_C": [400, 450, 500], "X_pct": [4, 9, 24], "page": 10, "locator": "text"}
+  ]
+}

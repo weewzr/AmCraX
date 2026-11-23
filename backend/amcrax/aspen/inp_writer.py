@@ -135,13 +135,20 @@ def fehe_cold_outlet_minimum_C(reactor_pressure_bar: float) -> float:
     return t_sat_c + VAPORIZER_SUPERHEAT_K + FEHE_GUARD_MARGIN_K
 
 
-def build_flowsheet_input(inputs: CaseInputs, *, native_sensitivity: bool = False) -> str:
+def build_flowsheet_input(inputs: CaseInputs, *, native_sensitivity: bool = False, kinetic_cracker=None) -> str:
     """Return the Aspen Plus input file for the full AmCraX flowsheet.
 
     ``native_sensitivity`` adds a calculator that ties the HEATER / FEHE temperatures to the CRACKER
     temperature and an Aspen-native Sensitivity block (reactor temperature sweep). It is used for the
     documented baseline model; parameter studies driven from Python do not need it.
+
+    ``kinetic_cracker`` (research option, default None = unchanged RGibbs text): an
+    :class:`amcrax.aspen.kinetic.KineticReactorInputs` whose catalyst, bed and geometry replace the RGibbs
+    CRACKER by a catalyst-kinetic RPLUG with the same block id and streams (isothermal at the CaseInputs
+    reactor temperature unless its thermal_mode says otherwise).
     """
+    if kinetic_cracker is not None:
+        return _build_flowsheet_with_kinetic_cracker(inputs, kinetic_cracker, native_sensitivity)
     validate_flowsheet_inputs(inputs)
     p = inputs.reactor_pressure_bar
     t = inputs.reactor_temperature_C
@@ -301,6 +308,45 @@ def build_flowsheet_input(inputs: CaseInputs, *, native_sensitivity: bool = Fals
 
     out.append("STREAM-REPOR MOLEFLOW MASSFLOW MOLEFRAC MASSFRAC\n")
     return "\n".join(out)
+
+
+def _build_flowsheet_with_kinetic_cracker(inputs: CaseInputs, kin, native_sensitivity: bool) -> str:
+    """Full flowsheet text with the CRACKER RGIBBS block replaced by a kinetic RPLUG (research option)."""
+    from amcrax.aspen.kinetic import any_reactions_block, resolve_spec, rplug_block
+
+    if native_sensitivity:
+        raise ValueError("native_sensitivity varies the RGibbs CRACKER TEMP and is not available with kinetic_cracker")
+    base = build_flowsheet_input(inputs, native_sensitivity=False)
+    t, p = inputs.reactor_temperature_C, inputs.reactor_pressure_bar
+    rgibbs = (
+        "BLOCK CRACKER RGIBBS\n"
+        f"    PARAM TEMP={_f(t)} PRES={_f(p)}\n"
+        "    PROD NH3 / H2 / N2 / H2O\n"
+    )
+    if base.count(rgibbs) != 1:
+        raise RuntimeError("CRACKER RGIBBS block not found exactly once in the generated flowsheet text")
+    spec = resolve_spec(kin.catalyst_id, kin.kinetic_form)
+    text = base.replace(rgibbs, rplug_block(kin, "CRACKER", temperature_C=t))
+    if spec.requires_h2_seed and kin.h2_seed_conversion > 0:
+        # Rate singular at p_H2 = 0: a small gaseous H2/N2 seed stream H2SEED (3:1, equal to cracking a fraction
+        # h2_seed_conversion of the fed NH3) joins the HEATER inlet. Seeding the liquid FEED instead caused
+        # enthalpy-initialisation errors in FEED and changed the PUMP/vaporiser duties.
+        f_nh3 = inputs.feed_total_kmol_h * (1.0 - inputs.feed_h2o_mole_frac)
+        sd = kin.h2_seed_conversion * f_nh3
+        heater_in = "S3" if inputs.heat_integration else "S2"
+        old = f"    BLOCK HEATER IN={heater_in} OUT=S4\n"
+        if text.count(old) != 1:
+            raise RuntimeError("HEATER connectivity not found exactly once")
+        text = text.replace(old, f"    BLOCK HEATER IN={heater_in} H2SEED OUT=S4\n")
+        seed = (
+            "STREAM H2SEED\n"
+            f"    SUBSTREAM MIXED TEMP={_f(t)} PRES={_f(p + DP['HEATER'] + 1.0)}\n"
+            f"    MOLE-FLOW H2 {_f(1.5 * sd)} / N2 {_f(0.5 * sd)}\n"
+        )
+        text = text.replace("STREAM AIR\n", seed + "\nSTREAM AIR\n", 1)
+    text = text.replace("cracked at chemical equilibrium (RGibbs)","cracked in a catalyst-kinetic RPLUG")
+    tail = "STREAM-REPOR MOLEFLOW MASSFLOW MOLEFRAC MASSFRAC\n"
+    return text.replace(tail, any_reactions_block(spec) + "\n" + tail)
 
 
 def build_equilibrium_input(

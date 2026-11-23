@@ -1,0 +1,205 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T04:07:31+00:00",
+    "script": "scripts/research/economics_singapore.py",
+    "source_type": "python",
+    "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
+    "model_versions": {
+      "economics_module": "amcrax.economics.singapore/1",
+      "data_schema": "amcrax.singapore/1",
+      "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied"
+    }
+  },
+  "items": [
+    {
+      "id": "E01",
+      "description": "Reproduction of the stored LCOH with the old settings (legacy capex, 450 USD/t, 0.084 USD/kWh)",
+      "method": "evaluate(capex_mode=legacy) vs results/simulations/economics_baseline.json",
+      "reference_source": "python (existing amcrax.economics.lcoh)",
+      "observed": 3.918842228473241,
+      "expected": 3.918842228473241,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": [
+        "results/simulations/economics_baseline.json"
+      ]
+    },
+    {
+      "id": "E02",
+      "description": "Reproduction vs compute_lcoh on the same result",
+      "method": "direct comparison",
+      "reference_source": "python",
+      "observed": 3.918842228473241,
+      "expected": 3.918842228473241,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": []
+    },
+    {
+      "id": "E03",
+      "description": "Cost-share closure: breakdown sums to LCOH (grey, HI on)",
+      "method": "sum(breakdown) - lcoh",
+      "reference_source": "internal",
+      "observed": 3.612929322384218,
+      "expected": 3.612929322384218,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": [
+        "results/research/singapore/scenario_results.json"
+      ]
+    },
+    {
+      "id": "E04",
+      "description": "Unit consistency: total annual cost / annual H2 equals LCOH",
+      "method": "sum(annual USD/yr)/annual kg",
+      "reference_source": "internal",
+      "observed": 3.612929322384218,
+      "expected": 3.612929322384218,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": []
+    },
+    {
+      "id": "E05",
+      "description": "REC = LCOH - feed cost",
+      "method": "rec - (lcoh - feed)",
+      "reference_source": "Cho 2026 Eq. 23",
+      "observed": 0.5728843773887431,
+      "expected": 0.5728843773887431,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": []
+    },
+    {
+      "id": "E06",
+      "description": "Break-even price returns the target LCOH",
+      "method": "evaluate at break-even price",
+      "reference_source": "internal",
+      "observed": 4.999999999999999,
+      "expected": 5.0,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": [
+        "results/research/singapore/breakeven_ammonia_price.json"
+      ]
+    },
+    {
+      "id": "E07",
+      "description": "Feed-NH3 per kg H2 at or above the stoichiometric floor 5.632 (kg/kg)",
+      "method": "kg_nh3_feed_per_kg_h2",
+      "reference_source": "stoichiometry",
+      "observed": 6.755655433323276,
+      "expected": 5.632,
+      "tolerance": 0.0,
+      "unit": "kg NH3/kg H2",
+      "status": "pass",
+      "source_files": []
+    },
+    {
+      "id": "E08",
+      "description": "REC vs Cho 2026 Ni (1.995 USD/kg, Fig. 8d): different boundary (no 180 bar compression, TSA, NOx; 251 vs about 100 kg/h)",
+      "method": "informational comparison",
+      "reference_source": "Cho 2026 p. 13 Fig. 8(d)",
+      "observed": 0.5728843773887431,
+      "expected": 1.995,
+      "tolerance": null,
+      "unit": "USD/kg H2",
+      "status": "informational",
+      "source_files": []
+    },
+    {
+      "id": "E09",
+      "description": "Cho Ru REC 7.0 % lower than Ni check: (1.995-1.856)/1.995",
+      "method": "arithmetic on the notes",
+      "reference_source": "Cho 2026 notes",
+      "observed": 0.06967418546365915,
+      "expected": 0.07,
+      "tolerance": 0.005,
+      "unit": "fraction",
+      "status": "pass",
+      "source_files": [
+        "research/notes/cho2026nickel.md"
+      ]
+    },
+    {
+      "id": "E10",
+      "description": "LCOH (legacy capex) vs Cho Ni total 5.439 USD/kg at 450 USD/t",
+      "method": "informational comparison",
+      "reference_source": "Cho 2026 Fig. 8(d)",
+      "observed": 3.918842228473241,
+      "expected": 5.439,
+      "tolerance": null,
+      "unit": "USD/kg H2",
+      "status": "informational",
+      "source_files": []
+    },
+    {
+      "id": "E11",
+      "description": "Equipment-level LCOH vs Cho Ni total 5.439 USD/kg",
+      "method": "informational comparison",
+      "reference_source": "Cho 2026 Fig. 8(d)",
+      "observed": 3.612929322384218,
+      "expected": 5.439,
+      "tolerance": null,
+      "unit": "USD/kg H2",
+      "status": "informational",
+      "source_files": []
+    },
+    {
+      "id": "E12",
+      "description": "Halim 2025 LCOH 10.1 (blue) / 15.1 (green) USD/kg for a 60.1 MW plant",
+      "method": "not compared: only the abstract was retrievable; PDF absent from research/papers",
+      "reference_source": "Halim, Zain & Khoo 2025 (brief values, unverified)",
+      "observed": null,
+      "expected": null,
+      "tolerance": null,
+      "unit": "USD/kg H2",
+      "status": "informational",
+      "source_files": []
+    },
+    {
+      "id": "E13",
+      "description": "Scale effect 25 -> 1000 kmol/h: LCOH ratio vs Deka 2025 (5.21 -> 3.58, ratio 1.455; value from the brief, source not in library)",
+      "method": "evaluate at 25 and 1000 kmol/h",
+      "reference_source": "Deka 2025 (unverified)",
+      "observed": 1.126907861552027,
+      "expected": 1.4553072625698324,
+      "tolerance": null,
+      "unit": "ratio",
+      "status": "informational",
+      "source_files": [
+        "results/research/singapore/cost_vs_capacity.csv"
+      ]
+    },
+    {
+      "id": "E14",
+      "description": "Carbon tax 0 for ammonia-fuelled heat (no direct CO2)",
+      "method": "carbon tax breakdown",
+      "reference_source": "NEA Scope 1 rule",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 0.0,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "source_files": []
+    },
+    {
+      "id": "E15",
+      "description": "Gas-fired heat of the baseline is below the 25,000 t threshold (no tax liability)",
+      "method": "direct emissions",
+      "reference_source": "NEA threshold",
+      "observed": 1248.706267376832,
+      "expected": 25000,
+      "tolerance": null,
+      "unit": "tCO2e/yr",
+      "status": "pass",
+      "source_files": []
+    }
+  ]
+}

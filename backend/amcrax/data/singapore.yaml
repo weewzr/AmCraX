@@ -1,0 +1,204 @@
+# Singapore techno-economic inputs for the AmCraX ammonia-cracker framework (workstream E)
+# ---------------------------------------------------------------------------------------------
+# Every entry: value, unit, year, source, url, access_date, source_type, note.
+# source_type: official | literature | secondary_web | derived | assumption
+#   official      = Singapore government / regulator page read in full or in the relevant part
+#   literature    = peer-reviewed paper in research/papers (page + table cited)
+#   secondary_web = value read from a web search result snippet or an article whose full text could not be
+#                   fetched (S&P Global pages returned HTTP 403); verify before external use
+#   derived       = arithmetic on the entries above (formula in note)
+#   assumption    = AmCraX choice, no source
+# Access date for all web items: 2026-11-23.
+#
+# CURRENCY AND BASE YEAR (fixed): all results in USD. Singapore-origin prices in SGD are converted at
+# fx_SGD_per_USD. Base year: costs keep the cost year of their source (Cho et al. 2026: 2024 USD;
+# Singapore tariffs and carbon tax: 2026 nominal). NO escalation index is applied: the CEPCI values in the
+# library conflict (kum2026heatintegrated 720.2 vs ahmad2025gtcc 800.3 for 2024; see
+# backend/amcrax/data/economics.yaml). Results are therefore labelled "mixed 2024-2026 nominal USD".
+# ---------------------------------------------------------------------------------------------
+schema: amcrax.singapore/1
+currency: USD
+base_year_label: "mixed 2024-2026 nominal USD; no escalation index applied"
+access_date: "2026-11-23"
+
+fx_SGD_per_USD:
+  value: 1.290
+  unit: SGD per USD
+  year: 2026
+  source: "Asian Bonds Online (ADB), Singapore economy page: SGD per USD close 18 Nov 2026 = 1.290 (search-result snippet; MAS series not retrieved)"
+  url: "https://asianbondsonline.adb.org/economy/?economy=SG&page=9"
+  access_date: "2026-11-23"
+  source_type: secondary_web
+  note: "Official MAS/data.gov.sg daily rate for 20 Nov 2026 could not be retrieved. Rate date: 2026-11-18. Used only to convert SGD tariffs and the carbon tax. Commerzbank commentary (19 Nov 2026) expects 1.28-1.30."
+
+carbon_tax:
+  schedule_SGD_per_tCO2e:
+    "2019-2023": 5
+    "2024-2025": 25
+    "2026-2027": 45
+    "2030_target_range": [50, 80]
+  rate_2026_SGD_per_tCO2e: 45
+  threshold_tCO2e_per_yr: 25000
+  covered_gases: [CO2, CH4, N2O, SF6, NF3, HFCs, PFCs]
+  scope: "direct (Scope 1) facility-level emissions from fuel combustion and industrial processes; facilities >= 25,000 tCO2e/yr"
+  unit: SGD/tCO2e
+  year: 2026
+  source: "National Environment Agency, Carbon Tax page (also NCCS Carbon Tax page); the 2030 range is intended, not legislated (IETA brief, July 2025)"
+  url: "https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX"
+  access_date: "2026-11-23"
+  source_type: official
+  note: "Verified: 5 (2019-23), 25 (2024-25), 45 (2026-27), 50-80 by 2030 'with a view to'. Budget 2026 statements said the 2030 rate could be at the lower end of the range if global momentum weakens (search-result summary). N2O is a covered gas but no N2O emission factor for ammonia combustion is available from a primary source, so AmCraX does not quantify it (see singapore.py)."
+
+electricity:
+  regulated_tariff_Q4_2026_SGD_per_kWh:
+    value: 0.2859
+    unit: SGD/kWh (before GST)
+    year: 2026
+    source: "SP Group tariff information, 1 Oct-31 Dec 2026: energy 22.18 + network 6.10 + MSS 0.23 + market admin/PSO 0.08 = 28.59 cents/kWh"
+    url: "https://www.spgroup.com.sg/our-services/utilities/tariff-information"
+    access_date: "2026-11-23"
+    source_type: official
+    note: "Regulated (household/small consumer) tariff; NOT an industrial contract price. Used as the upper bound."
+  network_cost_SGD_per_kWh: {value: 0.0610, unit: SGD/kWh, year: 2026, source: "same SP Group page", url: "https://www.spgroup.com.sg/our-services/utilities/tariff-information", access_date: "2026-11-23", source_type: official, note: "network cost component, Q4 2026"}
+  fees_SGD_per_kWh: {value: 0.0031, unit: SGD/kWh, year: 2026, source: "same SP Group page (MSS 0.23 + market admin/PSO 0.08 cents)", url: "https://www.spgroup.com.sg/our-services/utilities/tariff-information", access_date: "2026-11-23", source_type: official, note: "fees component, Q4 2026"}
+  usep_2025_monthly_SGD_per_MWh:
+    value: [101.5, 108.9, 107.2, 115.7, 166.4, 130.9, 121.6, 103.6, 106.5, 102.0, 139.7, 95.1]
+    unit: SGD/MWh
+    year: 2025
+    source: "EMA Average Monthly USEP table (monthly values as relayed by a search result; 2026 months Jan-Aug rose from 118.6 to 332.5 on fuel prices)"
+    url: "https://ema.gov.sg/resources/statistics/average-monthly-uniform-singapore-energy-price"
+    access_date: "2026-11-23"
+    source_type: secondary_web
+    note: "Energy price only (wholesale). Unweighted mean of the 12 monthly values is computed in code (116.6 SGD/MWh); not an official annual figure."
+  industrial_all_in_price:
+    value: null
+    note: "No official industrial all-in contract price was found. Base case = USEP 2025 mean + network + fees (derived, assumption that a large user pays wholesale energy plus network and fees). Electricity is below 0.1 % of LCOH in the baseline, so the choice is not material."
+
+nh3_price_scenarios_USD_per_t:
+  # Scenarios only. NOT Singapore transaction prices. Delivered-price basis differs by source.
+  grey:
+    value: 450
+    low: 300
+    high: 610
+    unit: USD/t NH3
+    year: 2024
+    source: "Cho et al. 2026 Energy Convers. Manage. 348, 120796, p. 7 Table 4 (450, 'assumed'); conventional NH3 range 300-610 USD/t, Table 8"
+    url: "https://doi.org/10.1016/j.enconman.2025.120796"
+    access_date: "2026-11-23"
+    source_type: literature
+    note: "Conventional (fossil, unabated) ammonia. International figure, not Singapore."
+  blue:
+    value: 487
+    low: 400
+    high: 574
+    unit: USD/t NH3
+    year: 2025
+    source: "S&P Global Platts blue ammonia assessments, July 2025: Far East Asia 400 USD/mt, Northwest Europe 574 USD/mt (search-result snippet; article returned HTTP 403)"
+    url: "https://www.spglobal.com/energy/en/news-research/latest-news/energy-transition/082125-global-blue-ammonia-prices-rise-in-july-tracking-tighter-conventional-markets"
+    access_date: "2026-11-23"
+    source_type: secondary_web
+    note: "Low and high are the two regional assessments; the base 487 is their arithmetic mean (derived). Far East Asia blue below the Cho grey base reflects the date and basis difference; kept visible, not adjusted."
+  green_current:
+    value: 1000
+    low: 887
+    high: 1052
+    unit: USD/t NH3
+    year: 2024
+    source: "Cho et al. 2026 p. 17 Fig. 11 (renewable NH3, current 1,000 USD/t; Table 9 cites IEA ETP 2023); range 887-1,052 USD/t = S&P Platts delivered green ammonia early 2025 (search-result snippet)"
+    url: "https://doi.org/10.1016/j.enconman.2025.120796"
+    access_date: "2026-11-23"
+    source_type: literature
+    note: "Delivered green ammonia, current."
+  green_2030:
+    value: 709
+    low: 472
+    high: 946
+    unit: USD/t NH3
+    year: 2030
+    source: "Cho et al. 2026 p. 17 (709 USD/t sensitivity); Table 9 range 472-946 USD/t for 2030 (IRENA 2022)"
+    url: "https://doi.org/10.1016/j.enconman.2025.120796"
+    access_date: "2026-11-23"
+    source_type: literature
+    note: "Projection, not a market price."
+  green_2050:
+    value: 463
+    low: 315
+    high: 611
+    unit: USD/t NH3
+    year: 2050
+    source: "Cho et al. 2026 p. 17 (463 USD/t); Table 9 range 315-611 USD/t for 2050 (IRENA 2022)"
+    url: "https://doi.org/10.1016/j.enconman.2025.120796"
+    access_date: "2026-11-23"
+    source_type: literature
+    note: "Projection, not a market price."
+
+h2_price_benchmarks_USD_per_kg:
+  # Selling-price scenarios for NPV / IRR / payback and break-even ammonia price.
+  sg_low_carbon_willingness_to_pay:
+    value: 3.0
+    source: "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
+    url: "https://spglobal.com/commodity-insights/en/news-research/latest-news/energy-transition/050725-power-generation-firms-face-high-hydrogen-costs-in-singapore"
+    year: 2025
+    source_type: secondary_web
+  ne_asia_smr_production_cost:
+    value: 4.68
+    source: "Argus regional hydrogen cost markers, Northeast Asia baseline SMR incl. capex, 7 Apr 2026 sample (search-result summary); Nov 2025 value 3.34"
+    url: "https://view.argusmedia.com/rs/584-BUW-606/images/POW-Sample-Report-20260106-Hydrogen.pdf?version=0"
+    year: 2026
+    source_type: secondary_web
+  blue_delivered_east_asia:
+    value: 6.0
+    low: 5.0
+    high: 7.0
+    source: "ACE report estimate for delivered cost to East Asia: 5-7 USD/kg blue, 9-11 USD/kg green (search-result summary); 6.0 = midpoint (derived)"
+    url: "https://accept.aseanenergy.org/?p=24333"
+    year: 2025
+    source_type: secondary_web
+  low_carbon_offer_fob_malaysia:
+    value: 10.0
+    source: "S&P Global, indicative offers of low-carbon hydrogen at about 10 USD/kg FOB Malaysia, May 2025 (search-result summary)"
+    url: "https://spglobal.com/commodity-insights/en/news-research/latest-news/energy-transition/050725-power-generation-firms-face-high-hydrogen-costs-in-singapore"
+    year: 2025
+    source_type: secondary_web
+  note: "Benchmarks differ in basis (production cost vs delivered vs offer price, FOB vs delivered) and are not directly comparable. Breaks-even results are reported per benchmark, none is a Singapore transaction price."
+
+policy_context:
+  national_hydrogen_strategy:
+    value: "Launched October 2022; low-carbon hydrogen for power decarbonisation; at least four hydrogen-ready plants by 2030 (search-result summary of MTI/Norton Rose Fulbright)"
+    url: "https://www.mti.gov.sg/-/media/MTI/HPO/Singapore-Hydrogen-Strategy/ebrochure_HPO_Oct_26.pdf"
+    access_date: "2026-11-23"
+    source_type: official
+  ammonia_power_bunkering_project:
+    value: "Keppel-led consortium appointed 3 Oct 2025 for FEED of a 55-65 MW direct-combustion ammonia power plant and at least 0.1 Mt/yr bunkering (EMA and MPA)"
+    url: "https://www.mpa.gov.sg/media-centre/details/consortium-appointed-for-next-phase-of-study-on-low--or-zero-carbon-ammonia-power-generation-and-bunkering-solution"
+    access_date: "2026-11-23"
+    source_type: official
+    note: "Direct combustion, not cracking; consistent with the Halim et al. 2025 conclusion. No claim that a cracker facility exists."
+  halim_2025:
+    value: "Halim, Zain & Khoo (2025) Appl. Energy 386, 125581: direct ammonia use preferred economically over cracking for power; green ammonia near-zero emissions; blue from SMR a transitional option. Numeric LCOH values (brief: 15.1 green, 10.1 blue USD/kg H2; 60.1 MW) NOT verified: PDF not in research/papers, abstract only."
+    url: "https://doi.org/10.1016/j.apenergy.2025.125581"
+    access_date: "2026-11-23"
+    source_type: literature
+
+gas_and_fuel:
+  singapore_natural_gas_price:
+    value: null
+    note: "No Singapore industrial gas price was retrieved (EMA statistics page returned no text). EMA June 2026 factsheet states imported natural gas is 95 % of electricity production. The gas-fired heat variant uses the Kum et al. 2026 fired-heat price (4.25 USD/GJ, p. 8 Table 5), international and labelled so."
+  natural_gas_co2_factor_kg_per_GJ:
+    value: 56.1
+    unit: kg CO2/GJ (net calorific)
+    source: "IPCC 2006 Guidelines default natural gas 56.1 t CO2/TJ, as printed in Commission Implementing Regulation (EU) 2018/2066 Annex VI (search-result snippet)"
+    url: "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf"
+    access_date: "2026-11-23"
+    source_type: literature
+
+capex_equipment:
+  pec_reference_kUSD: {value: 1702, unit: kUSD, year: "not stated", source: "Farokhi/Devkota et al. 2025 p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)", url: "https://doi.org/10.1016/j.ifacol.2025.12.180", access_date: "2026-11-23", source_type: literature, note: "Cost year not stated. Unit kUSD inferred (consistent with yearly CAPEX in the text); see economics.yaml; citekey farokhi2025costoptimization."}
+  reference_feed_kmol_h: {value: 500, unit: kmol/h NH3, source: "same, Table 5 capacity basis", source_type: literature}
+  tci_over_pec: {value: 5.93, unit: "-", source: "Farokhi 2025 p. 5 Table 5: TCI 10,096 kUSD / PEC 1,702 kUSD (derived); installation, indirect and working-capital items are inside this ratio", source_type: derived}
+  scaling_exponent: {value: 0.8, unit: "-", source: "Chopra et al. 2026 p. 4 Eq. 5 (all equipment)", source_type: literature}
+  equipment_shares_pct: {value: {psa: 26, cracker: 21, heat_exchangers: 5, adsorber: 4}, source: "Chopra et al. 2026 p. 5 Fig. 5(a) shares of TCI, compressor (44 %) removed and renormalised (derived)", source_type: derived}
+  singapore_location_factor: {value: 1.0, unit: "-", source: "No sourced Singapore location factor found; set to 1.0 (assumption). Chopra's India factor 0.65 is not transferable.", source_type: assumption}
+
+catalyst:
+  note: "Prices (Ni 33.4, Ru 542 USD/kg), lifetime (2 yr, assumed by the authors) and space velocity (9,000 mL NH3/(g h)): Cho et al. 2026 p. 7 Table 4 and p. 6 Table 3; see economics.yaml. Inventory sized from that space velocity by default."

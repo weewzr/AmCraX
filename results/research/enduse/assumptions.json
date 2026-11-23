@@ -1,0 +1,102 @@
+[
+  {
+    "name": "eta_direct_ahmad",
+    "value": 0.4912,
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Ahmad 2025 Table 6 Case 2a",
+    "applicability_note": "Literature-calibrated; LHV 18.8 MJ/kg basis"
+  },
+  {
+    "name": "eta_full_crack_ahmad",
+    "value": 0.54,
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Ahmad 2025 p. 15",
+    "applicability_note": "Exhaust-heated cracker; approximate"
+  },
+  {
+    "name": "eta_gt_gas",
+    "value": 0.4964304737373737,
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "same turbine as direct VNH3 case",
+    "applicability_note": "applied to H2-rich fuel in fired/purified variants"
+  },
+  {
+    "name": "exhaust_gain_interpolation",
+    "value": "linear in cracked share",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "Ahmad gives end points only",
+    "applicability_note": "tested with gain scale 1, 0.5, 0"
+  },
+  {
+    "name": "plant_TCI_noncracker",
+    "value": 181.25,
+    "unit": "MUSD at 43.1 MW",
+    "source_type": "literature",
+    "source": "Ahmad 2025 Sec. 3.1.3",
+    "applicability_note": "scaled with (W/43.1)^0.67 (assumption exponent)"
+  },
+  {
+    "name": "plant_fixed_om",
+    "value": 0.02843,
+    "unit": "USD/kWh at 7200 h",
+    "source_type": "literature",
+    "source": "Ahmad 2025 Case 2a breakdown",
+    "applicability_note": "scaled with power^0.67"
+  },
+  {
+    "name": "cracker_capex",
+    "value": "18.171 x (t H2/h)^0.7451 MUSD",
+    "unit": "MUSD",
+    "source_type": "literature",
+    "source": "Ahmad 2025 Fig. 6 (Cesaro et al. 2021) via amcrax.economics",
+    "applicability_note": "unpurified variants remove the PSA and adsorber shares of the project equipment split"
+  },
+  {
+    "name": "operating_hours",
+    "value": 8000.0,
+    "unit": "h/yr",
+    "source_type": "assumption",
+    "source": "data/economics.yaml default",
+    "applicability_note": "Ahmad implies 7200 h; used only in the reproduction"
+  },
+  {
+    "name": "nh3_price_reference",
+    "value": 450.0,
+    "unit": "USD/t",
+    "source_type": "literature",
+    "source": "data/economics.yaml default (Cho et al. range 300-610)",
+    "applicability_note": "same for all routes; swept 250-1100"
+  },
+  {
+    "name": "cracker_heat_scaling",
+    "value": "linear in cracked share",
+    "unit": "-",
+    "source_type": "aspen",
+    "source": "stored baseline.json reactor + pre-heater duty per kg NH3 cracked (600 C, 20 bar)",
+    "applicability_note": "temperature sensitivity from stored scn_low/high_temperature runs not propagated"
+  },
+  {
+    "name": "fuel_flexibility",
+    "value": "30-60 vol% H2",
+    "unit": "vol%",
+    "source_type": "literature",
+    "source": "task brief (Halim 2025, unverified); Ahmad 2025 p. 2 for the 30 vol% NG-combustor limit",
+    "applicability_note": "label only; no combustion simulation"
+  },
+  {
+    "name": "ISO_14687_grade_D",
+    "value": {
+      "H2_min_mol_pct": 99.97,
+      "N2_plus_Ar_max_ppm": 300.0,
+      "NH3_max_ppm": 0.1
+    },
+    "unit": "mixed",
+    "source_type": "literature",
+    "source": "values quoted in docs/internal/fact_sheet.md (99.97 %, 300 ppm) and brief (NH3 0.1 ppm)",
+    "applicability_note": "baseline product never called fuel-cell grade"
+  }
+]

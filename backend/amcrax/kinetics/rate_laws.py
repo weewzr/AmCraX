@@ -91,18 +91,46 @@ def _build(cid: str, d: dict[str, Any]) -> CatalystModel:
 
 
 def list_catalysts() -> list[CatalystModel]:
+    """The original registry (section ``catalysts``); research additions are in :func:`list_research_catalysts`."""
     return [_build(cid, d) for cid, d in _registry()["catalysts"].items()]
 
 
+def _all_cats() -> dict[str, Any]:
+    reg = _registry()
+    return {**reg["catalysts"], **(reg.get("research_catalysts") or {})}
+
+
+def list_research_catalysts() -> list[CatalystModel]:
+    """Catalysts added by the research expansion (section ``research_catalysts`` of kinetics.yaml)."""
+    return [_build(cid, d) for cid, d in (_registry().get("research_catalysts") or {}).items()]
+
+
 def get_catalyst(catalyst_id: str) -> CatalystModel:
-    cats = _registry()["catalysts"]
+    cats = _all_cats()
     if catalyst_id not in cats:
         raise KeyError(f"unknown catalyst_id {catalyst_id!r}; known: {sorted(cats)}")
     return _build(catalyst_id, cats[catalyst_id])
 
 
 def _p(cid: str) -> dict[str, float]:
-    return {k: float(v["value"]) for k, v in _registry()["catalysts"][cid]["parameters"].items()}
+    return {k: float(v["value"]) for k, v in _all_cats()[cid]["parameters"].items()}
+
+
+def lucentini_rate_mol_per_g_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], *,
+                               overrides: dict[str, float] | None = None) -> float:
+    """Published (irreversible) LHHW rate of lucentini2021nirukinetic Eq. 17-18 [mol NH3 g_cat^-1 s^-1].
+
+    C_i = p_i / (R T) with p in Pa (ideal gas), C in mol m^-3. ``overrides`` replaces parameters (sensitivity only).
+    """
+    par = _p(catalyst_id)
+    if overrides:
+        par.update(overrides)
+    RT = R_KIN_J_molK * T_K
+    c_nh3 = max(p_bar.get("NH3", 0.0), 0.0) * 1e5 / RT
+    c_h2 = max(p_bar.get("H2", 0.0), 0.0) * 1e5 / RT
+    k = par["k0"] * math.exp(-par["Ek"] * 1e3 / RT)
+    den = 1.0 + par["K1"] * c_nh3 + math.sqrt(c_h2 / par["K4"])
+    return k * par["K1"] * c_nh3 / den**2
 
 
 # ----------------------------------------------------------------------------------------------- helpers
@@ -182,7 +210,8 @@ def rate_mol_per_kgcat_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], 
     keq_basis: Kum model only; 'published' (Eq. 4, AmCraX reading) or 'amcrax_thermo'.
     """
     reg = _registry()
-    d = reg["catalysts"][catalyst_id] if catalyst_id in reg["catalysts"] else None
+    cats = _all_cats()
+    d = cats[catalyst_id] if catalyst_id in cats else None
     if d is None:
         raise KeyError(f"unknown catalyst_id {catalyst_id!r}")
     if not d["usable"]:
@@ -213,4 +242,12 @@ def rate_mol_per_kgcat_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], 
         fwd = math.exp(beta * ln_ratio)
         rev = (pn2 / keq**2) * math.exp(-(1.0 - beta) * ln_ratio)
         return k * (fwd - rev) * G_PER_KG
+    if form == "lhhw_lucentini":
+        if max(p_bar.get("NH3", 0.0), 0.0) <= 0.0:
+            return 0.0
+        r_g = lucentini_rate_mol_per_g_s(catalyst_id, T_K, p_bar)
+        use = reg["equilibrium_approach_factor"]["default_on"] if approach_factor is None else approach_factor
+        if use:
+            r_g *= 1.0 - reaction_quotient(p_bar) / equilibrium_constant(T_K)
+        return r_g * G_PER_KG
     raise ValueError(f"unknown rate-law form {form!r}")

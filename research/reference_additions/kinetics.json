@@ -1,0 +1,35 @@
+[
+  {
+    "citekey": "lucentini2021nirukinetic",
+    "apa7": "Lucentini, I., Garcia Colli, G., Luzi, C. D., Serrano, I., Martinez, O. M., & Llorca, J. (2021). Catalytic ammonia decomposition over Ni-Ru supported on CeO2 for hydrogen production: Effect of metal loading and kinetic analysis. Applied Catalysis B: Environmental, 286, 119896. https://doi.org/10.1016/j.apcatb.2021.119896",
+    "doi": "10.1016/j.apcatb.2021.119896",
+    "url": "https://doi.org/10.1016/j.apcatb.2021.119896",
+    "doi_verified": false,
+    "in_local_library": false,
+    "access": "accepted-manuscript postprint, UPCommons repository (Universitat Politecnica de Catalunya), accessed 23 November 2026",
+    "verification": "title, authors, journal and article number read from the postprint and the UPCommons record; DOI as given in the repository metadata and search results (not resolved through doi.org)",
+    "taken": "LHHW rate law Eq. 17-18; Table 3 kinetic parameters with confidence intervals (k0, Ek, K1, K4) for 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2; Table 1 conversions; experimental conditions Sec. 2.3; bed data Sec. 2.4 (rho_ap 1651.8 kg/m3, eps 0.2451/0.3855, d_cat 0.1 mm)"
+  },
+  {
+    "citekey": "lucentini2019ceo2",
+    "apa7": "Lucentini, I., Casanovas, A., & Llorca, J. (2019). Catalytic ammonia decomposition for hydrogen production on Ni, Ru and Ni-Ru supported on CeO2. International Journal of Hydrogen Energy, 44(25), 12693-12707. https://doi.org/10.1016/j.ijhydene.2019.01.154",
+    "doi": "10.1016/j.ijhydene.2019.01.154",
+    "url": "https://doi.org/10.1016/j.ijhydene.2019.01.154",
+    "doi_verified": false,
+    "in_local_library": false,
+    "access": "postprint, UPCommons handle 2117/132999, accessed 23 November 2026",
+    "verification": "content read from the postprint; DOI as in the brief and repository record",
+    "taken": "conversion statements (Ru/CeO2 98 % vs Ni/CeO2 63 % at 450 degC; Ru/CeO2 36 % at 350 degC), test conditions (0.1 g, 23 mL/min, Ar:NH3 1.3:1, GHSV 3067 1/h, 1 atm), TOFs at 400 degC. No rate law, Ea, orders or pre-exponential factor in the paper."
+  },
+  {
+    "citekey": "sayas2020rukcao",
+    "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
+    "doi": "10.1039/d0cy00686f",
+    "url": "https://doi.org/10.1039/d0cy00686f",
+    "doi_verified": true,
+    "in_local_library": false,
+    "access": "FULL TEXT NOT RETRIEVED (publisher 403, repository bot protection), 23 November 2026",
+    "verification": "DOI and title matched in Semantic Scholar and OpenAlex metadata (23 November 2026)",
+    "taken": "nothing used numerically; abstract-level facts only (3 wt% Ru, K/Ru 0.9, 1-40 bar, 250-550 degC, X about 0.8 at 550 degC/40 bar). Not implemented."
+  }
+]

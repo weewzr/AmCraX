@@ -1,0 +1,118 @@
+[
+ {
+  "id": "P-MB-1",
+  "description": "Component mole and total mass balance closure for all 33 configurations x 3 pressure cases",
+  "method": "sum of product and tail flows minus feed, per species, relative",
+  "reference_source": "internal consistency (python)",
+  "observed": 0.0,
+  "expected": 0.0,
+  "tolerance": 1e-09,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/purification/purification_study.json"
+  ]
+ },
+ {
+  "id": "P-SIEV-1",
+  "description": "Sieverts flux hand calculation at 673.15 K, p_H2,ret 14 bar, permeate 1 bar, Pe0 4.57e-8, Ea 9.23 kJ/mol, 5.2 um",
+  "method": "flux = Pe0 exp(-Ea/RT)/d * (p_ret^0.5 - p_perm^0.5), computed separately with R = 8.314462618",
+  "reference_source": "richard2024technoeconomic p. 7 Table 2 row [53], Eq. 1",
+  "observed": 1.4645921550490941,
+  "expected": 1.4645921550490941,
+  "tolerance": 1.4645921550490942e-09,
+  "unit": "mol m-2 s-1",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/separation/purification.py"
+  ]
+ },
+ {
+  "id": "P-PINCH-1",
+  "description": "Recovery at very large area approaches the partial-pressure pinch limit y_H2 P_feed = P_perm",
+  "method": "integrate with 1e6 m2 and compare with closed-form pinch",
+  "reference_source": "thermodynamic limit (python)",
+  "observed": 0.9812033044687416,
+  "expected": 0.9812033044687406,
+  "tolerance": 0.0001,
+  "unit": "-",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/separation/purification.py"
+  ]
+ },
+ {
+  "id": "P-PSA-1",
+  "description": "PSA published point reproduced when applied to the Aspen cracked gas: recovery 0.756 and purity (H2/(H2+N2), NH3 at 0.1 ppm) 0.9911",
+  "method": "psa_split with Cho recovery and purity; this reproduces the input by construction, so it is a bookkeeping check, not validation of PSA physics",
+  "reference_source": "cho2026nickel p. 6 Table 3",
+  "observed": 0.756,
+  "expected": 0.756,
+  "tolerance": 1e-06,
+  "unit": "-",
+  "status": "informational",
+  "source_files": [
+   "results/research/purification/purification_study.json"
+  ]
+ },
+ {
+  "id": "P-MEM-2",
+  "description": "H2/N2 selectivity needed for N2 <= 300 ppm in the permeate at R = 0.90, 1 bar permeate, 400 degC, 20 bar baseline",
+  "method": "bisection on ideal selectivity; compared with measured Pd-Ag purity 99.995 % (50 ppm total impurities) at 450 degC, 4.61 um (a membrane reactor, different feed)",
+  "reference_source": "cechetto2023membrane p. 17 Table 10",
+  "observed": 12919.012144694208,
+  "expected": null,
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "source_files": [
+   "results/research/purification/membrane_required_selectivity.csv"
+  ]
+ },
+ {
+  "id": "P-MEM-3",
+  "description": "Comparison with Cechetto 4 bar / 400 degC membrane reactor (X 99.3 %, R_H2 93.5 %)",
+  "method": "not performed: that is a reactor result (reaction plus separation, vacuum permeate, lab module) and the library gives neither the module area nor Sieverts parameters of that membrane; a separator model cannot be compared with it",
+  "reference_source": "cechetto2023membrane p. 15 Table 8",
+  "observed": null,
+  "expected": null,
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "source_files": []
+ },
+ {
+  "id": "P-ISO-1",
+  "description": "ISO 14687:2019 grade D limits transcribed (H2 index 99.97 %, total 300, H2O 5, N2 300, NH3 0.1 umol/mol)",
+  "method": "values compared with the cited limits quoted in cechetto2023membrane p. 5 (NH3 0.1 ppm, N2 300 ppm)",
+  "reference_source": "ISO 14687:2019 Table 2",
+  "observed": [
+   0.1,
+   300.0
+  ],
+  "expected": [
+   0.1,
+   300.0
+  ],
+  "tolerance": 0,
+  "unit": "ppm",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/separation/purification.py"
+  ]
+ },
+ {
+  "id": "P-ISO-2",
+  "description": "Aspen baseline H2PROD stream (N2 0.0489 kmol/h, NH3 0) against grade D N2 limit: N2 ppm (Aspen stream)",
+  "method": "N2 / (H2 + N2) from results/simulations/baseline.json H2PROD, compared with 300 umol/mol",
+  "reference_source": "ISO 14687:2019 Table 2",
+  "observed": 392.00313478489153,
+  "expected": 300.0,
+  "tolerance": null,
+  "unit": "umol/mol",
+  "status": "informational",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ]
+ }
+]

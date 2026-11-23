@@ -1,0 +1,98 @@
+[
+  {
+    "citekey": "nea_carbon_tax",
+    "apa7": "National Environment Agency. (n.d.). Carbon tax. Government of Singapore. https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX",
+    "doi": null,
+    "url": "https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Rates 5/25/45 SGD/tCO2e, 50-80 by 2030 target, 25,000 tCO2e threshold, seven covered gases incl. N2O, direct facility-level scope"
+  },
+  {
+    "citekey": "spgroup_tariff_2026q4",
+    "apa7": "SP Group. (2026). Electricity tariff information, 1 October to 31 December 2026. https://www.spgroup.com.sg/our-services/utilities/tariff-information",
+    "doi": null,
+    "url": "https://www.spgroup.com.sg/our-services/utilities/tariff-information",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Regulated tariff components (energy 22.18, network 6.10, MSS 0.23, PSO 0.08; total 28.59 cents/kWh before GST)"
+  },
+  {
+    "citekey": "ema_usep",
+    "apa7": "Energy Market Authority. (2026). Average monthly Uniform Singapore Energy Price. https://ema.gov.sg/resources/statistics/average-monthly-uniform-singapore-energy-price",
+    "doi": null,
+    "url": "https://ema.gov.sg/resources/statistics/average-monthly-uniform-singapore-energy-price",
+    "access_date": "2026-11-23",
+    "taken_from_it": "2025 monthly USEP (via search-result summary; table not opened directly)"
+  },
+  {
+    "citekey": "mpa_ema_ammonia_2025",
+    "apa7": "Maritime and Port Authority of Singapore. (2025). Consortium appointed for next phase of study on low- or zero-carbon ammonia power generation and bunkering solution. https://www.mpa.gov.sg/media-centre/details/consortium-appointed-for-next-phase-of-study-on-low--or-zero-carbon-ammonia-power-generation-and-bunkering-solution",
+    "doi": null,
+    "url": "https://www.mpa.gov.sg/media-centre/details/consortium-appointed-for-next-phase-of-study-on-low--or-zero-carbon-ammonia-power-generation-and-bunkering-solution",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Keppel-led FEED appointment 3 Oct 2025; 55-65 MW direct combustion; >= 0.1 Mt/yr bunkering (search-result summary)"
+  },
+  {
+    "citekey": "mti_hydrogen_strategy",
+    "apa7": "Ministry of Trade and Industry. (2022). Singapore's National Hydrogen Strategy. https://www.mti.gov.sg/-/media/MTI/HPO/Singapore-Hydrogen-Strategy/ebrochure_HPO_Oct_26.pdf",
+    "doi": null,
+    "url": "https://www.mti.gov.sg/-/media/MTI/HPO/Singapore-Hydrogen-Strategy/ebrochure_HPO_Oct_26.pdf",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Policy context only (brochure not read in full)"
+  },
+  {
+    "citekey": "halim2025ammonia",
+    "apa7": "Halim, Zain, & Khoo (2025; initials to be completed from the PDF). Assessing the feasibility of ammonia utilization for power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+    "doi": "10.1016/j.apenergy.2025.125581",
+    "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Abstract only: direct NH3 use preferred over cracking for power; numeric values not verified. Author initials as given in the brief; check against the PDF."
+  },
+  {
+    "citekey": "sp_blue_ammonia_2025",
+    "apa7": "S&P Global Commodity Insights. (2025, August 21). Global blue ammonia prices rise in July, tracking tighter conventional markets. https://www.spglobal.com/energy/en/news-research/latest-news/energy-transition/082125-global-blue-ammonia-prices-rise-in-july-tracking-tighter-conventional-markets",
+    "doi": null,
+    "url": "https://www.spglobal.com/energy/en/news-research/latest-news/energy-transition/082125-global-blue-ammonia-prices-rise-in-july-tracking-tighter-conventional-markets",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Blue ammonia 400 (Far East Asia) and 574 USD/mt (NW Europe); page returned HTTP 403, values from search-result text"
+  },
+  {
+    "citekey": "sp_singapore_h2_2025",
+    "apa7": "S&P Global Commodity Insights. (2025, May 7). Power generation firms face high hydrogen costs in Singapore. https://spglobal.com/commodity-insights/en/news-research/latest-news/energy-transition/050725-power-generation-firms-face-high-hydrogen-costs-in-singapore",
+    "doi": null,
+    "url": "https://spglobal.com/commodity-insights/en/news-research/latest-news/energy-transition/050725-power-generation-firms-face-high-hydrogen-costs-in-singapore",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Singapore low-carbon hydrogen willingness to pay about 3 USD/kg; offers about 10 USD/kg FOB Malaysia (search-result text; article not fetched)"
+  },
+  {
+    "citekey": "argus_h2_markers",
+    "apa7": "Argus Media. (2026). Argus Hydrogen and Future Fuels, sample report (regional hydrogen cost markers). https://view.argusmedia.com/rs/584-BUW-606/images/POW-Sample-Report-20260106-Hydrogen.pdf?version=0",
+    "doi": null,
+    "url": "https://view.argusmedia.com/rs/584-BUW-606/images/POW-Sample-Report-20260106-Hydrogen.pdf?version=0",
+    "access_date": "2026-11-23",
+    "taken_from_it": "NE Asia SMR cost 4.68 USD/kg incl. capex (Apr 2026 marker, search-result text)"
+  },
+  {
+    "citekey": "ace_h2_delivered",
+    "apa7": "ASEAN Centre for Energy. (n.d.). Hydrogen delivered-cost estimate for East Asia. https://accept.aseanenergy.org/?p=24333",
+    "doi": null,
+    "url": "https://accept.aseanenergy.org/?p=24333",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Delivered cost to East Asia 5-7 USD/kg blue, 9-11 USD/kg green (search-result text; exact title and year to be checked)"
+  },
+  {
+    "citekey": "eu2018_2066_annex6",
+    "apa7": "European Commission. (2018). Commission Implementing Regulation (EU) 2018/2066, Annex VI (reference values of emission factors, IPCC 2006 Guidelines). https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf",
+    "doi": null,
+    "url": "https://www.legislation.gov.uk/eur/2018/2066/annex/VI/data.pdf",
+    "access_date": "2026-11-23",
+    "taken_from_it": "Natural gas 56.1 t CO2/TJ (IPCC 2006 default)"
+  },
+  {
+    "citekey": "adb_fx",
+    "apa7": "Asian Development Bank. (2026). Asia Bonds Online: Singapore economy, exchange rate. https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
+    "doi": null,
+    "url": "https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
+    "access_date": "2026-11-23",
+    "taken_from_it": "1.290 SGD per USD, 18 Nov 2026"
+  }
+]

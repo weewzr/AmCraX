@@ -45,8 +45,11 @@ def main() -> int:
     verify = "--no-verify" not in sys.argv and not check_only
     ids = identifiers()
     files = sorted(ASPEN_MODELS.glob("*.bkp"))
+    # research expansion models (aspen/models/research/**) are sanitised and checked too; the Aspen re-solve
+    # verification below stays limited to the baseline flowsheet files (it reads streams S4/S5)
+    research = sorted((ASPEN_MODELS / "research").rglob("*.bkp"))
     dirty = 0
-    for path in files:
+    for path in files + research:
         data = path.read_bytes()
         present = sum(data.count(i) for i in ids)
         if check_only:

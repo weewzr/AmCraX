@@ -1,0 +1,7 @@
+[
+  {"case_id": "kl_ru_kum_lhhw_T450_P5_W20", "catalyst_id": "ru_kum_temkin_pyzhev", "kinetic_form": "lhhw",
+   "temperature_C": 450, "pressure_bar": 5, "catalyst_mass_kg": 20, "n_tubes": 50},
+  {"case_id": "kl_nire_5ni1ru_T450_P1_W100", "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw", "kinetic_form": "lhhw",
+   "temperature_C": 450, "pressure_bar": 1.01325, "catalyst_mass_kg": 100, "n_tubes": 50,
+   "feed_kmol_h": {"NH3": 100.0}, "particle_density_kg_m3": 1651.8, "bed_voidage": 0.36, "particle_diameter_m": 0.0001}
+]

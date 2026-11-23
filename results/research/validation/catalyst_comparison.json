@@ -1,0 +1,1092 @@
+[
+  {
+    "id": "HCAT-PINCH-BASELINE",
+    "description": "Heat import after FEHE and tail-gas firing (config c) for the stored Aspen baseline, dT_min 20 K",
+    "method": "cc.heat_accounting(results/simulations/baseline.json, 20)",
+    "reference_source": "docs/internal/fact_sheet.md F7 (752.6 kW)",
+    "observed": 752.63,
+    "expected": 752.6,
+    "tolerance": 0.1,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ru/Al2O3-HI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.664843357097227,
+    "expected": 3.664843357097227,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ru/Al2O3-HI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 535.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ru/MgO-HI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.6683550334071873,
+    "expected": 3.6683550334071873,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ru/MgO-HI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 562.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-5Ni1Ru/CeO2-HI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.673807069192364,
+    "expected": 3.6738070691923643,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-5Ni1Ru/CeO2-HI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 621.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-2.5Ni0.5Ru/CeO2-HI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.674974616286127,
+    "expected": 3.6749746162861268,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-2.5Ni0.5Ru/CeO2-HI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 625.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ni/MgO-HI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.6644255907972543,
+    "expected": 3.6644255907972543,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ni/MgO-HI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 547.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ru/Al2O3-noHI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.8744774753968665,
+    "expected": 3.8744774753968665,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ru/Al2O3-noHI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 498.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ru/MgO-noHI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.888693232043152,
+    "expected": 3.888693232043152,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ru/MgO-noHI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 508.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-5Ni1Ru/CeO2-noHI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.9200718237315573,
+    "expected": 3.9200718237315577,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-5Ni1Ru/CeO2-noHI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 541.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-2.5Ni0.5Ru/CeO2-noHI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.9194727062226105,
+    "expected": 3.91947270622261,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-2.5Ni0.5Ru/CeO2-noHI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 535.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-ECON-ADD-Ni/MgO-noHI",
+    "description": "Catalyst cost added analytically on the T grid equals a full evaluate() call at the optimum",
+    "method": "lcoh_curve vs design_point at T_opt",
+    "reference_source": "amcrax.economics.singapore.evaluate",
+    "observed": 3.8837413569072954,
+    "expected": 3.883741356907296,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-OPT-INTERIOR-Ni/MgO-noHI",
+    "description": "Cost-optimal temperature lies inside the temperature grid, or at the equilibrium-limited lowest feasible temperature (then reported as informational: the optimum is bounded by equilibrium, not by the grid)",
+    "method": "argmin over 5 K grid, refined on 1 K",
+    "reference_source": "-",
+    "observed": 511.0,
+    "expected": "interior of feasible grid",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_design_curves.csv"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ru/Al2O3-HI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 535 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": -5.421733652062209e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ru/MgO-HI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 562 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 0.0,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-5Ni1Ru/CeO2-HI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 621 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": -5.3701871259102356e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-2.5Ni0.5Ru/CeO2-HI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 625 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 5.368002761771058e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": -2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ni/MgO-HI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 547 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 0.0,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 0.0
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ru/Al2O3-noHI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 498 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 0.0,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": -2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ru/MgO-noHI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 508 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 4.3855366420345344e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 0.0
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-5Ni1Ru/CeO2-noHI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 541 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 0.0,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": -2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-2.5Ni0.5Ru/CeO2-noHI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 535 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": -4.311216964582726e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": 2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-PY-Ni/MgO-noHI",
+    "description": "Energy and mass balance closure, python flowsheet at T_opt 511 degC, X 0.95",
+    "method": "flowsheet balances + problem-table residual",
+    "reference_source": "-",
+    "observed": {
+      "energy_closure_rel": 4.3771687782236675e-17,
+      "mass_closure_rel": -5.015498130476264e-07,
+      "pinch_residual_kW": -2.2737367544323206e-13
+    },
+    "expected": 0.0,
+    "tolerance": "1e-6 rel / 1e-5 mass / 1e-6 kW",
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/research/catalyst_comparison.py"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ru/Al2O3-HI",
+    "description": "Energy balance closure of the Aspen integrated case ci_kum_T499_P20_W100_hi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.8328326801560854e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/Al2O3-HI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2193.0764043828212,
+    "expected": 2221.4267773,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/Al2O3-HI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1733.803505495606,
+    "expected": 1734.08934,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/Al2O3-HI-heat",
+    "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 489.9469288794669,
+    "expected": 469.13745,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ru/Al2O3-noHI",
+    "description": "Energy balance closure of the Aspen integrated case ci_kum_T499_P20_W100_nohi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.5001020741578606e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/Al2O3-noHI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2683.023333262288,
+    "expected": 2690.564227,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/Al2O3-noHI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1733.803505495606,
+    "expected": 1734.08934,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-5Ni1Ru/CeO2-HI",
+    "description": "Energy balance closure of the Aspen integrated case ci_luc5_T572_P20_W100_hi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -2.1079342643670174e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2214.6121803169017,
+    "expected": 2242.9680433,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1719.4144730438406,
+    "expected": 1719.70023,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-heat",
+    "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 592.6560753623044,
+    "expected": 571.796932,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-5Ni1Ru/CeO2-noHI",
+    "description": "Energy balance closure of the Aspen integrated case ci_luc5_T572_P20_W100_nohi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.6614999961100604e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-5Ni1Ru/CeO2-noHI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2807.268255679206,
+    "expected": 2814.764975,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-5Ni1Ru/CeO2-noHI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1719.4144730438406,
+    "expected": 1719.70023,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-2.5Ni0.5Ru/CeO2-HI",
+    "description": "Energy balance closure of the Aspen integrated case ci_luc25_T576_P20_W100_hi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -2.1194181006734426e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2213.826715532754,
+    "expected": 2242.1674179,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1727.314944373221,
+    "expected": 1727.60074,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat",
+    "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 598.3918178259712,
+    "expected": 577.53548,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-2.5Ni0.5Ru/CeO2-noHI",
+    "description": "Energy balance closure of the Aspen integrated case ci_luc25_T576_P20_W100_nohi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.6676704996256815e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-noHI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2812.218533358725,
+    "expected": 2819.702898,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-noHI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1727.314944373221,
+    "expected": 1727.60074,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ni/MgO-HI",
+    "description": "Energy balance closure of the Aspen integrated case ci_tni_T594_P20_W100_hi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -2.2086471168723356e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ni/MgO-HI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2230.553766947163,
+    "expected": 2258.8288522,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ni/MgO-HI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1670.06690449802,
+    "expected": 1670.35231,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ni/MgO-HI-heat",
+    "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 624.3393765018114,
+    "expected": 603.504301,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ni/MgO-noHI",
+    "description": "Energy balance closure of the Aspen integrated case ci_tni_T594_P20_W100_nohi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.7182513178333266e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ni/MgO-noHI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2854.893143448974,
+    "expected": 2862.333153,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ni/MgO-noHI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1670.06690449802,
+    "expected": 1670.35231,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ru/MgO-HI",
+    "description": "Energy balance closure of the Aspen integrated case ci_tru_T522_P20_W100_hi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.9267691709263124e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/MgO-HI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2204.800430906479,
+    "expected": 2233.2066031,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/MgO-HI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1707.6326896889225,
+    "expected": 1707.91837,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/MgO-HI-heat",
+    "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 521.9012989137885,
+    "expected": 501.058703,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ]
+  },
+  {
+    "id": "HCAT-EB-ASPEN-Ru/MgO-noHI",
+    "description": "Energy balance closure of the Aspen integrated case ci_tru_T522_P20_W100_nohi.json",
+    "method": "SimulationResult.balances (stored Aspen run)",
+    "reference_source": "Aspen Plus V15",
+    "observed": -1.5571853701626132e-05,
+    "expected": 0.0,
+    "tolerance": 0.001,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/MgO-noHI-total",
+    "description": "Python flowsheet vs Aspen, total external heating (KPI), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 2726.7017298202672,
+    "expected": 2734.265306,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-ASPY-Ru/MgO-noHI-tailgas",
+    "description": "Python flowsheet vs Aspen, tail-gas combustion heat, Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+    "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+    "reference_source": "Aspen Plus V15 (PENG-ROB)",
+    "observed": 1707.6326896889225,
+    "expected": 1707.91837,
+    "tolerance": 0.03,
+    "unit": "relative",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_nohi.json"
+    ]
+  },
+  {
+    "id": "HCAT-CHO-DIR-psa0.85-cho_ghsv_9000",
+    "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)",
+    "method": "AmCraX Ni 735.52 degC/24.34 bar vs Ru/Al2O3 566.69 degC/10 bar, X 0.97",
+    "reference_source": "cho2026nickel Table 7 (7.0 % lower)",
+    "observed": -2.526384201332288,
+    "expected": 7.0,
+    "tolerance": null,
+    "unit": "%",
+    "status": "informational",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+    ]
+  },
+  {
+    "id": "HCAT-CHO-DIR-psa0.85-kinetic_minimum",
+    "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)",
+    "method": "AmCraX Ni 735.52 degC/24.34 bar vs Ru/Al2O3 566.69 degC/10 bar, X 0.97",
+    "reference_source": "cho2026nickel Table 7 (7.0 % lower)",
+    "observed": 2.561736353391364,
+    "expected": 7.0,
+    "tolerance": null,
+    "unit": "%",
+    "status": "informational",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+    ]
+  },
+  {
+    "id": "HCAT-CHO-DIR-psa0.756-cho_ghsv_9000",
+    "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)",
+    "method": "AmCraX Ni 735.52 degC/24.34 bar vs Ru/Al2O3 566.69 degC/10 bar, X 0.97",
+    "reference_source": "cho2026nickel Table 7 (7.0 % lower)",
+    "observed": -10.155584461423285,
+    "expected": 7.0,
+    "tolerance": null,
+    "unit": "%",
+    "status": "informational",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+    ]
+  },
+  {
+    "id": "HCAT-CHO-DIR-psa0.756-kinetic_minimum",
+    "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)",
+    "method": "AmCraX Ni 735.52 degC/24.34 bar vs Ru/Al2O3 566.69 degC/10 bar, X 0.97",
+    "reference_source": "cho2026nickel Table 7 (7.0 % lower)",
+    "observed": -0.42577214150492093,
+    "expected": 7.0,
+    "tolerance": null,
+    "unit": "%",
+    "status": "informational",
+    "source_files": [
+      "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+    ]
+  },
+  {
+    "id": "HCAT-W-TOP-Ru/Al2O3",
+    "description": "Catalyst mass for 95 % at the K/A operating temperature (rounded up 1 K, 100 kmol/h basis there)",
+    "method": "cc.required_mass_kg (99.8 kmol/h NH3)",
+    "reference_source": "results/research/aspen_kinetic/catalyst_comparison.json",
+    "observed": 96.47915379471021,
+    "expected": "90-100",
+    "tolerance": null,
+    "unit": "kg",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/study_temperature_for_target_conversion.json"
+    ]
+  },
+  {
+    "id": "HCAT-W-TOP-5Ni1Ru/CeO2",
+    "description": "Catalyst mass for 95 % at the K/A operating temperature (rounded up 1 K, 100 kmol/h basis there)",
+    "method": "cc.required_mass_kg (99.8 kmol/h NH3)",
+    "reference_source": "results/research/aspen_kinetic/catalyst_comparison.json",
+    "observed": 98.94394306503287,
+    "expected": "90-100",
+    "tolerance": null,
+    "unit": "kg",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/study_temperature_for_target_conversion.json"
+    ]
+  },
+  {
+    "id": "HCAT-W-TOP-2.5Ni0.5Ru/CeO2",
+    "description": "Catalyst mass for 95 % at the K/A operating temperature (rounded up 1 K, 100 kmol/h basis there)",
+    "method": "cc.required_mass_kg (99.8 kmol/h NH3)",
+    "reference_source": "results/research/aspen_kinetic/catalyst_comparison.json",
+    "observed": 99.46758640169047,
+    "expected": "90-100",
+    "tolerance": null,
+    "unit": "kg",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/study_temperature_for_target_conversion.json"
+    ]
+  },
+  {
+    "id": "HCAT-W-TOP-Ni/MgO",
+    "description": "Catalyst mass for 95 % at the K/A operating temperature (rounded up 1 K, 100 kmol/h basis there)",
+    "method": "cc.required_mass_kg (99.8 kmol/h NH3)",
+    "reference_source": "results/research/aspen_kinetic/catalyst_comparison.json",
+    "observed": 98.13505456495304,
+    "expected": "90-100",
+    "tolerance": null,
+    "unit": "kg",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/study_temperature_for_target_conversion.json"
+    ]
+  },
+  {
+    "id": "HCAT-W-TOP-Ru/MgO",
+    "description": "Catalyst mass for 95 % at the K/A operating temperature (rounded up 1 K, 100 kmol/h basis there)",
+    "method": "cc.required_mass_kg (99.8 kmol/h NH3)",
+    "reference_source": "results/research/aspen_kinetic/catalyst_comparison.json",
+    "observed": 99.12315505886066,
+    "expected": "90-100",
+    "tolerance": null,
+    "unit": "kg",
+    "status": "pass",
+    "source_files": [
+      "results/research/kinetics/study_temperature_for_target_conversion.json"
+    ]
+  }
+]

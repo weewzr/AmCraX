@@ -1,0 +1,79 @@
+[
+  {
+    "citekey": "halim2025ammoniapower",
+    "apa7": "Halim, Zain, & Khoo (2025). Assessing the feasibility of Ammonia utilization for Power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+    "doi": "10.1016/j.apenergy.2025.125581",
+    "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
+    "access_date": "2026-11-23",
+    "doi_verified": false,
+    "in_local_library": false,
+    "taken_from": "Abstract only (A*STAR OAR listing https://oar.a-star.edu.sg/communities-collections/articles/21565 and IDEAS https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html): direct ammonia use preferred to cracking because of cracking capital and operating cost; green NH3 near-zero emissions; coal-derived NH3 cracked could exceed Singapore grid emissions; blue NH3 an interim option. Author initials not confirmed. Numerical results (60.1 MW, LCOH 15.1/10.1, 40 %) NOT verified: full text not accessible."
+  },
+  {
+    "citekey": "lee2022ammonia",
+    "apa7": "Lee, K., Liu, X., Vyawahare, P., Sun, P., Elgowainy, A., & Wang, M. (2022). Techno-economic performances and life cycle greenhouse gas emissions of various ammonia production pathways including conventional, carbon-capturing, nuclear-powered, and renewable production. Green Chemistry, 24, 4830-4844. https://doi.org/10.1039/D2GC00843B",
+    "doi": "10.1039/D2GC00843B",
+    "url": "https://www.osti.gov/pages/servlets/purl/1960296",
+    "access_date": "2026-11-23",
+    "in_local_library": false,
+    "taken_from": "Accepted manuscript text re-read: p. 13 LCA results (2.60, 1.16, 0.77 kg CO2e/kg NH3; onsite 2.30; process CO2 1.49; flue-gas CO2 0.45); energy table (32.52 GJ NG per t NH3; NG LHV 47.1 MJ/kg); used to build the parameterised blue-ammonia factor."
+  },
+  {
+    "citekey": "iea2024ghr",
+    "apa7": "International Energy Agency (2024). Global Hydrogen Review 2024: GHG emissions of hydrogen and its derivatives. https://www.iea.org/reports/global-hydrogen-review-2024/ghg-emissions-of-hydrogen-and-its-derivatives",
+    "url": "https://www.iea.org/reports/global-hydrogen-review-2024/ghg-emissions-of-hydrogen-and-its-derivatives",
+    "access_date": "2026-11-23",
+    "taken_from": "Highlights only: unabated natural-gas hydrogen 10-12 kg CO2-eq/kg H2; unabated coal 22-26; embedded emissions of renewable assets 0.4-2.7 kg CO2-eq/kg H2."
+  },
+  {
+    "citekey": "ipcc2021ar6wg1ch7",
+    "apa7": "Forster, P., et al. (2021). The Earth's energy budget, climate feedbacks, and climate sensitivity. In Climate Change 2021: The Physical Science Basis (Ch. 7, Table 7.15). Cambridge University Press.",
+    "url": "https://www.ipcc.ch/report/ar6/wg1/chapter/chapter-7/",
+    "access_date": "2026-11-23",
+    "taken_from": "GWP-100 of fossil CH4 (29.8) and N2O (273). The IPCC PDF returned HTTP 403; the US EPA page https://www.epa.gov/ghgemissions/understanding-global-warming-potentials confirmed the AR6 range 27-30 for CH4 and 273 for N2O. The exact 29.8 is from memory of Table 7.15 and was not re-opened."
+  },
+  {
+    "citekey": "nea2026carbontax",
+    "apa7": "National Environment Agency, Singapore (n.d.). Carbon tax. https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+    "url": "https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+    "access_date": "2026-11-23",
+    "taken_from": "SGD 25/t CO2e (2024-25), SGD 45/t (2026-27), SGD 50-80/t target by 2030; facilities with direct emissions of 25,000 t CO2e/yr or more; gases covered include CO2, CH4, N2O."
+  },
+  {
+    "citekey": "ema2025ses",
+    "apa7": "Energy Market Authority (Singapore). Singapore Energy Statistics, Chapter 2: Energy Transformation, grid emission factor. https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2",
+    "url": "https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2",
+    "access_date": "2026-11-23",
+    "taken_from": "Average GEF 0.412 kg CO2/kWh (2023) and 0.402 (2024), re-confirmed through a search extract of the EMA page; the page itself is script-rendered."
+  },
+  {
+    "citekey": "ren2021coalnh3lca",
+    "apa7": "Life cycle assessment of ammonia synthesis based on pulverized coal entrained flow gasification technology in China (2021). The International Journal of Life Cycle Assessment. https://doi.org/10.1007/s11367-021-02010-z",
+    "doi": "10.1007/s11367-021-02010-z",
+    "url": "https://link.springer.com/article/10.1007/s11367-021-02010-z",
+    "access_date": "2026-11-23",
+    "taken_from": "LOW CONFIDENCE: GHG intensity 3.88 -> 2.18 kg per kg NH3 (older vs advanced coal gasification) from a search extract of the abstract; publisher page redirected to a login. Author list not confirmed."
+  },
+  {
+    "citekey": "arxiv2206.10689smr",
+    "apa7": "Analysis of Hydrogen Production Costs across the United States and over the next 30 years (arXiv:2206.10689). https://arxiv.org/pdf/2206.10689",
+    "url": "https://arxiv.org/pdf/2206.10689",
+    "access_date": "2026-11-23",
+    "taken_from": "LOW CONFIDENCE (search extract only): SMR 12.9 kg CO2e/kg H2 without CCS and 5.3 with 90 % CCS at 3 % methane leakage; leakage cases 0.2, 1.5, 3, 8 %."
+  },
+  {
+    "citekey": "frontiers2024smrccs",
+    "apa7": "Frontiers in Energy Research (2024). Review of hydrogen production emissions. https://doi.org/10.3389/fenrg.2024.1473383",
+    "doi": "10.3389/fenrg.2024.1473383",
+    "url": "https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2024.1473383/full",
+    "access_date": "2026-11-23",
+    "taken_from": "LOW CONFIDENCE (search extract only): CCS reduced SMR emissions to 3.4-3.6 kg CO2e/kg H2; capture rate and boundary not confirmed. Title and authors not confirmed."
+  },
+  {
+    "citekey": "glec2023v3",
+    "apa7": "Smart Freight Centre (2023). GLEC Framework v3.0. https://www.smartfreightcentre.org/en/our-programs/global-logistics-emissions-council/",
+    "url": "https://www.climatiq.io/data/emission-factor/f2a5f2ee-bd03-40f8-961e-474090423429",
+    "access_date": "2026-11-21",
+    "taken_from": "Liquefied gas tanker WTW factor 0.011 kg CO2e/t km via Climatiq listing (already in amcrax/data/environmental.yaml); primary PDF not opened."
+  }
+]

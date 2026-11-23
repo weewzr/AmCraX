@@ -1,0 +1,110 @@
+[
+  {
+    "name": "feed",
+    "value": "100 kmol/h pure NH3",
+    "unit": "kmol/h",
+    "source_type": "assumption",
+    "source": "baseline flowsheet basis (config/flowsheet.json 100 kmol/h; 0.2 % H2O omitted for a pure-NH3 kinetic comparison)",
+    "applicability_note": "scales linearly: W at other throughputs = W x (F/100 kmol/h)"
+  },
+  {
+    "name": "practical catalyst mass",
+    "value": 1000.0,
+    "unit": "kg per 100 kmol/h NH3",
+    "source_type": "assumption",
+    "source": "illustrative choice (W/F = 36 kg s/mol)",
+    "applicability_note": "used only for the fixed-mass studies"
+  },
+  {
+    "name": "reactor model",
+    "value": "isothermal PFR, no pressure drop, effectiveness factor 1",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "amcrax.reactor.pfr",
+    "applicability_note": "intrinsic-kinetics comparison; pellet diffusion and heat supply limits not included"
+  },
+  {
+    "name": "equilibrium approach factor",
+    "value": "ON for takahashi and lucentini laws",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "kinetics.yaml equilibrium_approach_factor (AmCraX extension)",
+    "applicability_note": "published laws are irreversible"
+  },
+  {
+    "name": "flow reference state for Lucentini mL/min",
+    "value": "0 degC, 1 atm",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "not stated in lucentini2021nirukinetic",
+    "applicability_note": "25 degC tested: conversions change by <= 0.03"
+  },
+  {
+    "name": "Lucentini bed voidage for industrial bed",
+    "value": 0.36,
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "kum2026heatintegrated Table 1 value reused",
+    "applicability_note": "affects GHSV and residence time only"
+  },
+  {
+    "name": "bed ni_takahashi_microkinetic",
+    "value": {
+      "eps_b": 0.36,
+      "rho_particle_kg_m3": 980.0,
+      "source": "assumption (pfr.py defaults, Kum values)"
+    },
+    "unit": "eps -, rho kg/m3",
+    "source_type": "literature/assumption",
+    "source": "assumption (pfr.py defaults, Kum values)",
+    "applicability_note": "GHSV conversion"
+  },
+  {
+    "name": "bed ru_takahashi_microkinetic",
+    "value": {
+      "eps_b": 0.36,
+      "rho_particle_kg_m3": 980.0,
+      "source": "assumption (pfr.py defaults, Kum values)"
+    },
+    "unit": "eps -, rho kg/m3",
+    "source_type": "literature/assumption",
+    "source": "assumption (pfr.py defaults, Kum values)",
+    "applicability_note": "GHSV conversion"
+  },
+  {
+    "name": "bed ru_kum_temkin_pyzhev",
+    "value": {
+      "eps_b": 0.36,
+      "rho_particle_kg_m3": 980.0,
+      "source": "kum2026heatintegrated Table 1"
+    },
+    "unit": "eps -, rho kg/m3",
+    "source_type": "literature/assumption",
+    "source": "kum2026heatintegrated Table 1",
+    "applicability_note": "GHSV conversion"
+  },
+  {
+    "name": "bed nire_ceo2_5ni1ru_lucentini_lhhw",
+    "value": {
+      "eps_b": 0.36,
+      "rho_particle_kg_m3": 1651.8,
+      "source": "rho: lucentini2021nirukinetic Sec. 2.4; eps: assumption (Kum value)"
+    },
+    "unit": "eps -, rho kg/m3",
+    "source_type": "literature/assumption",
+    "source": "rho: lucentini2021nirukinetic Sec. 2.4; eps: assumption (Kum value)",
+    "applicability_note": "GHSV conversion"
+  },
+  {
+    "name": "bed nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+    "value": {
+      "eps_b": 0.36,
+      "rho_particle_kg_m3": 1651.8,
+      "source": "rho: lucentini2021nirukinetic Sec. 2.4; eps: assumption (Kum value)"
+    },
+    "unit": "eps -, rho kg/m3",
+    "source_type": "literature/assumption",
+    "source": "rho: lucentini2021nirukinetic Sec. 2.4; eps: assumption (Kum value)",
+    "applicability_note": "GHSV conversion"
+  }
+]

@@ -1,0 +1,172 @@
+[
+ {
+  "case_id": "ci_kum_T499_P20_W100_hi",
+  "catalyst_id": "ru_kum_temkin_pyzhev",
+  "kinetic_form": "auto",
+  "temperature_C": 499.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": true
+  }
+ },
+ {
+  "case_id": "ci_kum_T499_P20_W100_nohi",
+  "catalyst_id": "ru_kum_temkin_pyzhev",
+  "kinetic_form": "auto",
+  "temperature_C": 499.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": false
+  }
+ },
+ {
+  "case_id": "ci_luc5_T572_P20_W100_hi",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw",
+  "temperature_C": 572.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": true
+  }
+ },
+ {
+  "case_id": "ci_luc5_T572_P20_W100_nohi",
+  "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+  "kinetic_form": "lhhw",
+  "temperature_C": 572.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": false
+  }
+ },
+ {
+  "case_id": "ci_luc25_T576_P20_W100_hi",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw",
+  "temperature_C": 576.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": true
+  }
+ },
+ {
+  "case_id": "ci_luc25_T576_P20_W100_nohi",
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "kinetic_form": "lhhw",
+  "temperature_C": 576.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 1651.8,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0001,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": false
+  }
+ },
+ {
+  "case_id": "ci_tni_T594_P20_W100_hi",
+  "catalyst_id": "ni_takahashi_microkinetic",
+  "kinetic_form": "lhhw_approximation",
+  "temperature_C": 594.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": true
+  }
+ },
+ {
+  "case_id": "ci_tni_T594_P20_W100_nohi",
+  "catalyst_id": "ni_takahashi_microkinetic",
+  "kinetic_form": "lhhw_approximation",
+  "temperature_C": 594.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": false
+  }
+ },
+ {
+  "case_id": "ci_tru_T522_P20_W100_hi",
+  "catalyst_id": "ru_takahashi_microkinetic",
+  "kinetic_form": "lhhw_approximation",
+  "temperature_C": 522.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": true
+  }
+ },
+ {
+  "case_id": "ci_tru_T522_P20_W100_nohi",
+  "catalyst_id": "ru_takahashi_microkinetic",
+  "kinetic_form": "lhhw_approximation",
+  "temperature_C": 522.0,
+  "pressure_bar": 20.0,
+  "catalyst_mass_kg": 100.0,
+  "n_tubes": 50,
+  "h2_seed_conversion": 0.0001,
+  "particle_density_kg_m3": 980.0,
+  "bed_voidage": 0.36,
+  "particle_diameter_m": 0.0006,
+  "configuration": "integrated",
+  "flowsheet": {
+   "heat_integration": false
+  }
+ }
+]
