@@ -32,10 +32,10 @@ D0 = 5000.0
 PRICE = P.NH3_PRICE_REF_USD_T
 ROUTE_SET = ["green", "blue", "blue_param", "grey"]
 EF = {r: lca.route_spec(r).ef for r in ROUTE_SET}
-from amcrax.economics.singapore import load_singapore_data  # noqa: E402
-_sg = load_singapore_data()
-TAX_SGD = float(_sg["carbon_tax"]["rate_2026_SGD_per_tCO2e"])
-FX = float(_sg["fx_SGD_per_USD"]["value"])
+from amcrax.economics.reference import load_reference_scenario, provenance_stamp  # noqa: E402
+_REF = load_reference_scenario()      # Phase 2 unified reference scenario (single source of cost inputs)
+TAX_SGD = _REF.carbon_tax_SGD_per_t
+FX = _REF.fx_SGD_per_USD
 PRICE_COLS = {"grey_450": P.NH3_PRICE_SET_USD_T["grey"], "blue_487": P.NH3_PRICE_SET_USD_T["blue"],
               "green_2030_709": P.NH3_PRICE_SET_USD_T["green_2030"], "green_current_1000": P.NH3_PRICE_SET_USD_T["green_current"]}
 
@@ -43,8 +43,9 @@ PRICE_COLS = {"grey_450": P.NH3_PRICE_SET_USD_T["grey"], "blue_487": P.NH3_PRICE
 def prov(source_type, summary):
     return {"generated_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "script": SCRIPT,
             "source_type": source_type, "inputs_summary": summary,
+            "reference_scenario": provenance_stamp(),
             "model_versions": {"aspen_inputs": "stored results/simulations/baseline.json and scn_fuel_cell_grade.json (Aspen Plus V15)",
-                               "economics": "amcrax.economics (compute_lcoh, estimate_capex); prices and electricity from amcrax.economics.singapore (data/singapore.yaml)",
+                               "economics": "Phase 2 reference scenario: amcrax.economics.singapore.evaluate (H2) and amcrax.economics.reference.reference_capex (cracker in power pathways); all cost inputs from data/reference_scenario.yaml",
                                "purification": "results/research/purification/purification_study.json (workstream P) for the purified-H2 rows; stored scn_fuel_cell_grade kept as the Aspen-scenario variant"}}
 
 
@@ -118,6 +119,8 @@ def main():
         for lab, p_ in PRICE_COLS.items():
             row[f"cost_USD_per_MWh_at_{lab}"] = power_cost(a, p_)["LCOE_USD_per_MWh"]
         row["carbon_tax_USD_per_MWh_direct_in_scope"] = a.n2o_kgCO2e / 1000.0 * TAX_SGD / FX
+        row["cost_SGD_per_MWh_at_450"] = row["cost_USD_per_MWh_at_450"] * FX
+        row["TCI_cracker_MUSD"] = c["TCI_cracker_MUSD"]
         rows.append(row)
     # hydrogen pathways
     hrows = []
@@ -130,6 +133,8 @@ def main():
         for lab_, p_ in PRICE_COLS.items():
             row[f"cost_USD_per_kg_at_{lab_}"] = hydrogen_cost(case, p_)["USD_per_kg"]
         row["cost_breakdown_at_450"] = hydrogen_cost(case, PRICE)["breakdown"]
+        row["cost_SGD_per_kg_at_grey_450"] = hydrogen_cost(case, PRICE)["SGD_per_kg"]
+        row["cost_USD_per_kg_legacy_v1_basis_at_450"] = hydrogen_cost(case, PRICE, capex_mode="legacy")["USD_per_kg"]
         for r in ROUTE_SET:
             row[f"CI_{r}_kgCO2e_per_kgH2"] = carbon_intensity(a, EF[r], D0)["total"]
         row["source_labels"] = "activity: aspen (stored); cost: python economics module; EF: literature"
@@ -144,20 +149,22 @@ def main():
                "efficiency_NH3_LHV_to_H2": a.efficiency, "NH3_kg_per_kg_H2": a.nh3_kg, "compression_kWh_per_kg": cst["compression_kWh_per_kg_h2"],
                "delivery_pressure_bar": cst["delivery_pressure_bar"], "purification_only_USD_per_kg_at_450": cst["purification_only_usd_per_kg"]}
         for lab_, p_ in PRICE_COLS.items():
-            row[f"cost_USD_per_kg_at_{lab_}"] = cst["usd_per_kg_product_h2"] + (p_ - 450.0) / 1000.0 * a.nh3_kg
+            row[f"cost_USD_per_kg_at_{lab_}"] = cst["usd_per_kg_product_h2"] + (p_ - PRICE) / 1000.0 * a.nh3_kg
         row["cost_breakdown_at_450"] = cst["components_usd_per_kg"]
+        row["cost_SGD_per_kg_at_grey_450"] = cst["usd_per_kg_product_h2"] * FX
         for r in ROUTE_SET:
             row[f"CI_{r}_kgCO2e_per_kgH2"] = carbon_intensity(a, EF[r], D0)["total"]
         row["source_labels"] = "activity and cost: python reduced-order purification model on stored Aspen cracked gas (results/research/purification); cost at other prices = linear NH3 term; EF: literature"
         hrows.append(row)
 
     # ---------------- direct vs cracking cost ratio (Halim claim) ----------------
-    def lc(kind, y=None, price=PRICE, hours=P.HOURS_PER_YEAR, **kw):
+    def lc(kind, y=None, price=PRICE, hours=P.POWER_PLANT_HOURS_PER_YEAR, **kw):
         return power_cost(power_activity(kind, y), price, hours=hours, **kw)["LCOE_USD_per_MWh"]
 
     claim = []
-    for price, hours, tag in ((450.0, 8000.0, "AmCraX price set (450 USD/t, 8000 h)"), (480.0, 7200.0, "Ahmad basis (480 USD/t, 7200 h)"),
-                              (1000.0, 8000.0, "renewable NH3 today (1000 USD/t)")):
+    _H, _AH, _AP, _G = P.POWER_PLANT_HOURS_PER_YEAR, P.AHMAD_HOURS_IMPLIED, P.AHMAD_NH3_PRICE_USD_T, P.NH3_PRICE_SET_USD_T["green_current"]
+    for price, hours, tag in ((PRICE, _H, f"AmCraX price set ({PRICE:g} USD/t, {_H:g} h)"), (_AP, _AH, f"Ahmad basis ({_AP:g} USD/t, {_AH:g} h)"),
+                              (_G, _H, f"renewable NH3 today ({_G:g} USD/t)")):
         d = lc("direct", price=price, hours=hours)
         for kind in ("full_exhaust", "full_fired", "full_purified"):
             cck = lc(kind, price=price, hours=hours)
@@ -218,8 +225,10 @@ def main():
 
     result = {"provenance": prov("python+aspen(stored)+literature", "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices"),
               "price_set": {"NH3_USD_per_t": P.NH3_PRICE_SET_USD_T, "NH3_USD_per_t_common_reference": PRICE, "electricity_USD_per_kWh": P.ELECTRICITY_USD_KWH,
-                            "operating_hours": P.HOURS_PER_YEAR, "discount_rate": 0.10, "life_years": 25, "carbon_tax_SGD_per_t": TAX_SGD, "fx_SGD_per_USD": FX,
-                            "source": "amcrax.economics.singapore / data/singapore.yaml (workstream E); blue 487 and FX are secondary_web values there",
+                            "operating_hours": P.HOURS_PER_YEAR, "power_plant_operating_hours": P.POWER_PLANT_HOURS_PER_YEAR,
+                            "discount_rate": P.DISCOUNT_RATE, "life_years": P.PLANT_LIFE_YR, "carbon_tax_SGD_per_t": TAX_SGD, "fx_SGD_per_USD": FX,
+                            "fx_date": _REF.fx_date, "capex_method": _REF.capex_method,
+                            "source": "Phase 2 reference scenario backend/amcrax/data/reference_scenario.yaml (blue 487 is a secondary_web value; FX ECB cross rate)",
                             "note": "One price set for every pathway. Cost columns: 'at_450' is the common reference price (isolates technology); the route columns use that route's own price. Carbon tax applies only to direct in-scope N2O (negligible) and is reported separately in USD per MWh."},
               "distance_km": D0, "ef_kgCO2e_per_kgNH3": EF,
               "power_pathways": rows, "hydrogen_pathways": hrows,
@@ -252,8 +261,8 @@ def main():
         {"name": "exhaust_gain_interpolation", "value": "linear in cracked share", "unit": "-", "source_type": "assumption", "source": "Ahmad gives end points only", "applicability_note": "tested with gain scale 1, 0.5, 0"},
         {"name": "plant_TCI_noncracker", "value": P.AHMAD_TCI_2A_MUSD, "unit": "MUSD at 43.1 MW", "source_type": "literature", "source": "Ahmad 2025 Sec. 3.1.3", "applicability_note": "scaled with (W/43.1)^0.67 (assumption exponent)"},
         {"name": "plant_fixed_om", "value": P.AHMAD_OC_FIXED_2A_USD_PER_KWH, "unit": "USD/kWh at 7200 h", "source_type": "literature", "source": "Ahmad 2025 Case 2a breakdown", "applicability_note": "scaled with power^0.67"},
-        {"name": "cracker_capex", "value": "18.171 x (t H2/h)^0.7451 MUSD", "unit": "MUSD", "source_type": "literature", "source": "Ahmad 2025 Fig. 6 (Cesaro et al. 2021) via amcrax.economics", "applicability_note": "unpurified variants remove the PSA and adsorber shares of the project equipment split"},
-        {"name": "operating_hours", "value": P.HOURS_PER_YEAR, "unit": "h/yr", "source_type": "assumption", "source": "data/economics.yaml default", "applicability_note": "Ahmad implies 7200 h; used only in the reproduction"},
+        {"name": "cracker_capex", "value": _REF.capex_method, "unit": "USD", "source_type": "literature", "source": "Cho 2026 itemised installed cost scaled with (NH3 through cracker)^0.8, via amcrax.economics.reference (Phase 2 reference scenario; supersedes Ahmad 2025 Fig. 6 correlation)", "applicability_note": "unpurified variants remove the PSA and adsorber items; large extrapolation from the 82 kg H2/h reference plant to the Ahmad power-plant scale"},
+        {"name": "operating_hours", "value": P.POWER_PLANT_HOURS_PER_YEAR, "unit": "h/yr", "source_type": "assumption", "source": "reference_scenario.yaml power_plant.operating_hours_h_per_yr", "applicability_note": "Ahmad implies 7200 h (power_plant.ahmad_reproduction_hours); used only in the reproduction"},
         {"name": "nh3_price_reference", "value": PRICE, "unit": "USD/t", "source_type": "literature", "source": "data/economics.yaml default (Cho et al. range 300-610)", "applicability_note": "same for all routes; swept 250-1100"},
         {"name": "cracker_heat_scaling", "value": "linear in cracked share", "unit": "-", "source_type": "aspen", "source": "stored baseline.json reactor + pre-heater duty per kg NH3 cracked (600 C, 20 bar)", "applicability_note": "temperature sensitivity from stored scn_low/high_temperature runs not propagated"},
         {"name": "fuel_flexibility", "value": "30-60 vol% H2", "unit": "vol%", "source_type": "literature", "source": "task brief (Halim 2025, unverified); Ahmad 2025 p. 2 for the 30 vol% NG-combustor limit", "applicability_note": "label only; no combustion simulation"},
@@ -307,18 +316,22 @@ def main():
     for k_ in ("lcoh_USD_per_kg",):
         node = econ.get("lcoh", econ.get("result", econ))
         ref_lcoh = node.get(k_) if isinstance(node, dict) else None
-    ours = hydrogen_cost("baseline", PRICE, electricity=0.084)["USD_per_kg"]
-    add("EU-lcoh", "Industrial H2 cost equals the stored baseline LCOH (same price set)", "compute_lcoh at 450 USD/t vs results/simulations/economics_baseline.json", "stored economics baseline",
+    ours = hydrogen_cost("baseline", PRICE, electricity=P.LEGACY_ELECTRICITY_USD_KWH, capex_mode="legacy")["USD_per_kg"]
+    add("EU-lcoh", "Industrial H2 cost on the legacy v1 basis equals the stored baseline LCOH (legacy reproduction)", "evaluate(capex_mode=legacy) at 450 USD/t vs results/simulations/economics_baseline.json", "stored economics baseline",
         ours, ref_lcoh, 1e-6, "USD/kg H2", ("pass" if ref_lcoh is not None and abs(ours - ref_lcoh) < 1e-6 else "informational" if ref_lcoh is None else "fail"), ["results/simulations/economics_baseline.json"])
-    d480 = power_cost(power_activity("direct"), 480.0, hours=7200.0)
+    ref_bl = json.load(open(ROOT / "results" / "research" / "reference_scenario" / "baseline.json", encoding="utf-8"))["lcoh_USD_per_kg"]
+    ours_ref = hydrogen_cost("baseline", PRICE)["USD_per_kg"]
+    add("EU-lcoh-reference", "Industrial H2 cost equals the unified reference baseline LCOH", "hydrogen_cost (reference scenario) vs results/research/reference_scenario/baseline.json", "reference scenario baseline",
+        ours_ref, ref_bl, 1e-6 * ref_bl, "USD/kg H2", "pass" if abs(ours_ref - ref_bl) <= 1e-6 * ref_bl else "fail", ["results/research/reference_scenario/baseline.json"])
+    d480 = power_cost(power_activity("direct"), P.AHMAD_NH3_PRICE_USD_T, hours=P.AHMAD_HOURS_IMPLIED)
     add("EU-ahmad-lcoe", "Reproduction of Ahmad Case 2a LCOE with Ahmad's inputs (480 USD/t, 7200 h, 10 %, 25 y)", "power_cost on direct pathway", "Ahmad 2025 conclusion p. 18 (0.2798 USD/kWh)",
         d480["LCOE_USD_per_MWh"] / 1000, P.AHMAD_LCOE_2A, 0.01 * P.AHMAD_LCOE_2A, "USD/kWh",
         "pass" if abs(d480["LCOE_USD_per_MWh"] / 1000 - P.AHMAD_LCOE_2A) <= 0.01 * P.AHMAD_LCOE_2A else "fail", sf)
-    fe = power_cost(power_activity("full_exhaust"), 480.0, hours=7200.0, unpurified_full_correlation=True)
+    fe = power_cost(power_activity("full_exhaust"), P.AHMAD_NH3_PRICE_USD_T, hours=P.AHMAD_HOURS_IMPLIED, unpurified_full_correlation=True)
     add("EU-ahmad-tci-full", "Fully cracked plant TCI against Ahmad's about 230 MUSD (alpha = 0)", "plant 181.25 MUSD scaled + cracker correlation (full)", "Ahmad 2025 p. 15",
         fe["TCI_MUSD"], P.AHMAD_TCI_FULL_CRACK_MUSD, None, "MUSD", "informational", sf)
-    d320 = power_cost(power_activity("direct"), 320.0, hours=7200.0)["LCOE_USD_per_MWh"] / 1000
-    f320 = power_cost(power_activity("full_exhaust"), 320.0, hours=7200.0, unpurified_full_correlation=True)["LCOE_USD_per_MWh"] / 1000
+    d320 = power_cost(power_activity("direct"), 320.0, hours=P.AHMAD_HOURS_IMPLIED)["LCOE_USD_per_MWh"] / 1000
+    f320 = power_cost(power_activity("full_exhaust"), 320.0, hours=P.AHMAD_HOURS_IMPLIED, unpurified_full_correlation=True)["LCOE_USD_per_MWh"] / 1000
     add("EU-ahmad-320", "Ahmad at 320 USD/t: direct VNH3 0.217 vs full cracking 0.22 USD/kWh (p. 15, attribution inconsistent in the paper); AmCraX direct and full-crack values",
         "power_cost at 320 USD/t, 7200 h, full cracker correlation", "Ahmad 2025 p. 15", [round(d320, 4), round(f320, 4)], [0.217, 0.22], None, "USD/kWh", "informational", sf)
     add("EU-ahmad-eta", "Direct NH3 efficiency re-expressed on the AmCraX LHV basis gives Ahmad's electricity per kg NH3", "0.4912 x 18.8 / 18.6", "Ahmad 2025 Table 6",

@@ -29,7 +29,7 @@ fx_SGD_per_USD:
   url: "https://asianbondsonline.adb.org/economy/?economy=SG&page=9"
   access_date: "2026-11-23"
   source_type: secondary_web
-  note: "Review check 2026-11-23: the cited ADB page itself shows 1.290 at 'Close of November 20, 2026' (same value). Official MAS/data.gov.sg daily rate could not be retrieved. Rate date originally recorded: 2026-11-18. Used only to convert SGD tariffs and the carbon tax. Commerzbank commentary (19 Nov 2026) expects 1.28-1.30."
+  note: "PHASE 2: SUPERSEDED. Code uses currency.fx_SGD_per_USD of data/reference_scenario.yaml (ECB cross rate 1.288444, 20 Nov 2026); this Phase 1 record is kept as a cross-check. Review check 2026-11-23: the cited ADB page itself shows 1.290 at 'Close of November 20, 2026' (same value). Official MAS/data.gov.sg daily rate could not be retrieved. Rate date originally recorded: 2026-11-18. Used only to convert SGD tariffs and the carbon tax. Commerzbank commentary (19 Nov 2026) expects 1.28-1.30."
 
 carbon_tax:
   schedule_SGD_per_tCO2e:

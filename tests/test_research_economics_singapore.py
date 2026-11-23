@@ -21,13 +21,16 @@ def _crf(i, n):
     return i * (1 + i) ** n / ((1 + i) ** n - 1)
 
 
+EQ = {"capex_mode": "equipment"}  # Phase 1 Farokhi feed-scaled method (superseded; still selectable)
+
+
 def test_equipment_capex_hand_calc():
-    e = evaluate(SUMMARY, 450)
+    e = evaluate(SUMMARY, 450, EQ)
     assert e["capex"]["total_capex_USD"] == pytest.approx(1702e3 * (50 / 500) ** 0.8 * 5.93, rel=1e-12)
 
 
 def test_lcoh_hand_calc_no_heat_no_power():
-    e = evaluate(SUMMARY, 450)
+    e = evaluate(SUMMARY, 450, EQ)
     capex = 1702e3 * (50 / 500) ** 0.8 * 5.93
     h = 8000.0
     maint, ins, lab = 0.03 * capex, 0.015 * capex, 109756.0
@@ -58,7 +61,8 @@ def test_carbon_tax_gas_heat_threshold_and_rate():
     assert below["direct_emissions_tCO2e_per_yr"] == pytest.approx(t_co2)
     assert below["carbon_tax_liable"] is False and below["breakdown_USD_per_kg"]["carbon_tax"] == 0.0
     above = evaluate(s, 450, {"heat_fuel": "natural_gas", "apply_threshold": False})
-    fx = load_singapore_data()["fx_SGD_per_USD"]["value"]
+    from amcrax.economics.reference import load_reference_scenario
+    fx = load_reference_scenario().fx_SGD_per_USD
     assert above["breakdown_USD_per_kg"]["carbon_tax"] == pytest.approx(t_co2 * 45.0 / fx / (100 * 8000.0), rel=1e-12)
     other = evaluate(s, 450, {"heat_fuel": "natural_gas", "other_facility_emissions_tCO2e": 24000.0})
     assert other["carbon_tax_liable"] is True      # 24,000 + 1,615.7 >= 25,000
@@ -77,7 +81,7 @@ def test_npv_identity_and_breakeven():
 
 
 def test_capacity_scaling_and_recovery():
-    a, b = evaluate(SUMMARY, 450), evaluate(SUMMARY, 450, {"capacity_scale": 2.0})
+    a, b = evaluate(SUMMARY, 450), evaluate(SUMMARY, 450, {"capacity_scale": 2.0})  # reference method, all items on feed
     assert b["capex"]["total_capex_USD"] == pytest.approx(a["capex"]["total_capex_USD"] * 2 ** 0.8, rel=1e-12)
     assert b["annual_h2_kg"] == pytest.approx(2 * a["annual_h2_kg"])
     s = {**SUMMARY, "h2_cracked_kmol_h": 150.0, "psa_recovery": 0.8, "tailgas_lhv_kW": 1000.0, "tailgas_heat_kW": 900.0, "heat_deficit_kW": 500.0}
@@ -89,7 +93,9 @@ def test_electricity_default_derivation():
     d = load_singapore_data()
     usep = d["electricity"]["usep_2025_monthly_SGD_per_MWh"]["value"]
     sgd = sum(usep) / 12 / 1000 + 0.0610 + 0.0031
-    assert default_electricity_USD_per_kWh() == pytest.approx(sgd / 1.290, rel=1e-12)
+    from amcrax.economics.reference import load_reference_scenario
+    fx = load_reference_scenario().fx_SGD_per_USD   # Phase 2: one FX in the reference scenario (was 1.290)
+    assert default_electricity_USD_per_kWh() == pytest.approx(sgd / fx, rel=1e-12)
 
 
 def test_legacy_mode_reproduces_stored_lcoh():

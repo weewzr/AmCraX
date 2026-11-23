@@ -1,5 +1,11 @@
 """Levelised cost of hydrogen (LCOH) for an AmCraX SimulationResult.
 
+LEGACY CORRELATION, SUPERSEDED FOR RESEARCH OUTPUTS BY THE REFERENCE SCENARIO. This module is the version 1 basis
+of the core stored results (results/simulations/economics_*.json, LCOH 3.918842 USD/kg for the baseline) and is
+kept unchanged for backwards compatibility. Research outputs (results/research/**) use the unified reference
+scenario instead: backend/amcrax/data/reference_scenario.yaml via amcrax.economics.reference and
+amcrax.economics.singapore.evaluate (CAPEX method cho2026_itemised_v1). See docs/research/unified_baseline.md.
+
 LCOH = (CAPEX * CRF + fixed OPEX + variable OPEX) / annual H2 product      [cho2026nickel p.7 Eqs. 15-17]
 CRF  = i (1+i)^n / ((1+i)^n - 1)
 

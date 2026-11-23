@@ -21,6 +21,7 @@ sys.path.insert(0, str(ROOT / "backend"))
 from amcrax.economics import compute_lcoh  # noqa: E402
 from amcrax.economics.singapore import (SCENARIOS, breakeven_nh3_price, default_electricity_USD_per_kWh, evaluate,  # noqa: E402
                                         extract_summary, load_singapore_data)
+from amcrax.economics.reference import load_reference_scenario, provenance_stamp  # noqa: E402
 from amcrax.schemas import SimulationResult  # noqa: E402
 
 OUT = ROOT / "results" / "research" / "singapore"
@@ -31,19 +32,26 @@ for d in (OUT, FIG, VAL):
 
 SCRIPT = "scripts/research/economics_singapore.py"
 SD = load_singapore_data()
+REF = load_reference_scenario()   # Phase 2 unified reference scenario: all cost inputs and sensitivity ranges
 NOW = datetime.now(timezone.utc).isoformat(timespec="seconds")
 PROV = {"generated_utc": NOW, "script": SCRIPT, "source_type": "python",
         "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) "
                           "costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
-        "model_versions": {"economics_module": "amcrax.economics.singapore/1", "data_schema": SD["schema"],
-                           "cost_basis": SD["base_year_label"]}}
-FOOT = "Source: python (amcrax.economics.singapore) on Aspen Plus V15 baseline; ammonia prices are scenarios, not Singapore transaction prices; mixed 2024-2026 USD"
+        "reference_scenario": provenance_stamp(),
+        "model_versions": {"economics_module": "amcrax.economics.singapore/2 (reference scenario)", "data_schema": SD["schema"],
+                           "cost_basis": REF.raw["price_year_label"], "capex_method": REF.capex_method}}
+FOOT = "Source: python (amcrax.economics.singapore) on Aspen Plus V15 baseline; ammonia prices are scenarios, not Singapore transaction prices; mixed 2024-2026 USD; CAPEX cho2026_itemised_v1 (reference scenario)"
 
 HI = json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8"))
 NOHI = json.loads((ROOT / "results/simulations/baseline_no_hi.json").read_text(encoding="utf-8"))
 S_HI, S_NOHI = extract_summary(HI), extract_summary(NOHI)
 H2B = {k: v["value"] for k, v in SD["h2_price_benchmarks_USD_per_kg"].items() if isinstance(v, dict) and "value" in v}
-ELEC_LO, ELEC_HI = 0.084, SD["electricity"]["regulated_tariff_Q4_2026_SGD_per_kWh"]["value"] / SD["fx_SGD_per_USD"]["value"]
+ELEC_LO, ELEC_HI = REF.sens("electricity_USD_per_kWh")
+DR_LO, DR_HI = REF.sens("discount_rate")
+PL_LO, PL_HI = REF.sens("plant_life_yr")
+OH_LO, OH_HI = REF.sens("operating_hours_h_per_yr")
+EX_LO, EX_HI = REF.sens("capex_scaling_exponent")
+FX = REF.fx_SGD_per_USD
 
 
 def wj(name, obj):
@@ -77,7 +85,15 @@ wj("scenario_results.json", {"description": "LCOH, REC and breakdown for grey/bl
     "results": {k: {kk: v[kk] for kk in ("scenario", "nh3_price_USD_per_t", "lcoh_USD_per_kg", "rec_USD_per_kg", "breakdown_USD_per_kg",
                     "purification_memo_USD_per_kg", "npv_USD", "irr", "payback_yr", "kg_nh3_feed_per_kg_h2", "kg_nh3_fuel_per_kg_h2",
                     "catalyst_mass_kg", "direct_emissions_tCO2e_per_yr", "carbon_tax_liable", "annual_H2_kg" if False else "annual_h2_kg")} |
-                {"capex_total_USD": v["capex"]["total_capex_USD"]} for k, v in scen.items()}})
+                {"capex_total_USD": v["capex"]["total_capex_USD"], "capex_total_SGD": v["capex_total_SGD"],
+                 "lcoh_SGD_per_kg": v["lcoh_SGD_per_kg"], "rec_SGD_per_kg": v["rec_SGD_per_kg"],
+                 "breakdown_SGD_per_kg": v["breakdown_SGD_per_kg"], "npv_SGD": v["npv_SGD"], "fx_SGD_per_USD": FX,
+                 "capex_by_item_USD": v["capex"]["tci_by_item_USD"], "capex_method": v["capex"]["method"]} for k, v in scen.items()},
+    "phase1_equipment_basis_lcoh_USD_per_kg": {k: evaluate(s_, sc, {"capex_mode": "equipment"})["lcoh_USD_per_kg"]
+                                                for k, s_, sc in [(f"{sc}|{h}", S_HI if h == "heat_integration_on" else S_NOHI, sc)
+                                                                  for h in ("heat_integration_on", "heat_integration_off") for sc in SCENARIOS]},
+    "note_phase2": "Phase 2: CAPEX method cho2026_itemised_v1 of the unified reference scenario (data/reference_scenario.yaml). "
+                   "The Phase 1 equipment-basis values are kept under phase1_equipment_basis_lcoh_USD_per_kg for traceability (superseded)."})
 
 # ------------------------------------------------------------------ 2. tornado (grey base, heat integration on)
 base = evaluate(S_HI, "grey")["lcoh_USD_per_kg"]
@@ -90,10 +106,10 @@ torn_specs = [
     ("Carbon tax 0-80 SGD/t (ammonia heat: no direct CO2)", "carbon_tax_SGD_per_t", 0.0, 80.0, S_HI),
     ("Capacity x0.25-x4 (feed 25-400 kmol/h)", "capacity_scale", 4.0, 0.25, S_HI),
     ("PSA recovery 0.95-0.756 (Cho 0.756; AmCraX 0.85)", "psa_recovery", 0.95, 0.756, S_HI),
-    ("Capacity factor 7000-8000 h/yr", "operating_hours_h_per_yr", 8000, 7000, S_HI),
-    ("Discount rate 8.5-10 %", "discount_rate", 0.085, 0.10, S_HI),
-    ("Plant life 25-20 yr", "plant_life_yr", 25, 20, S_HI),
-    ("Capacity exponent 0.7451-0.8 (Ahmad Fig. 6; Chopra Eq. 5)", "capex_scaling_exponent", 0.7451, 0.8, S_HI),
+    (f"Capacity factor {OH_LO:g}-{OH_HI:g} h/yr", "operating_hours_h_per_yr", OH_HI, OH_LO, S_HI),
+    (f"Discount rate {DR_LO:g}-{DR_HI:g}", "discount_rate", DR_LO, DR_HI, S_HI),
+    (f"Plant life {PL_HI:g}-{PL_LO:g} yr", "plant_life_yr", PL_HI, PL_LO, S_HI),
+    (f"Capacity exponent {EX_LO:g}-{EX_HI:g} (six-tenths rule; Chopra Eq. 5)", "capex_scaling_exponent", EX_LO, EX_HI, S_HI),
 ]
 bars = []
 for label, key, lo, hi, s in torn_specs:
@@ -104,7 +120,7 @@ hi_off = evaluate(S_NOHI, "grey")["lcoh_USD_per_kg"]
 bars.append({"parameter": "heat_integration", "label": "Heat integration on vs off", "low_input": "on", "high_input": "off",
              "lcoh_at_low_input": base, "lcoh_at_high_input": hi_off, "swing": abs(hi_off - base)})
 bars.sort(key=lambda b: -b["swing"])
-wj("tornado.json", {"basis": "grey scenario (450 USD/t), heat integration on, equipment-level CAPEX", "lcoh_base_USD_per_kg": base,
+wj("tornado.json", {"basis": "grey scenario (450 USD/t), heat integration on, reference-scenario CAPEX (cho2026_itemised_v1)", "lcoh_base_USD_per_kg": base,
                     "bars": bars, "note": "capacity bars hold labour fixed (labour_scales_with_capacity False)."})
 wcsv("tornado.csv", [[b["label"], b["lcoh_at_low_input"], b["lcoh_at_high_input"], b["swing"]] for b in bars], ["parameter", "lcoh_low", "lcoh_high", "swing"])
 fig, ax = plt.subplots(figsize=(9, 5.5))
@@ -237,11 +253,11 @@ DIST = {"nh3_price_USD_per_t": "triangular(low, base, high) of the scenario rang
         "electricity_price_USD_per_kWh": f"uniform({ELEC_LO}, {ELEC_HI:.4f})",
         "catalyst_price_USD_per_kg": "triangular(0.5x, 1x, 2x of 33.4) Cho Table 8",
         "catalyst_lifetime_yr": "uniform(1, 4) Cho Table 8", "capex_multiplier": "triangular(0.5, 1, 1.5) Cho Table 8",
-        "discount_rate": "uniform(0.085, 0.10)", "operating_hours_h_per_yr": "uniform(7000, 8000)",
-        "plant_life_yr": "uniform(20, 25)"}
+        "discount_rate": f"uniform({DR_LO}, {DR_HI})", "operating_hours_h_per_yr": f"uniform({OH_LO}, {OH_HI})",
+        "plant_life_yr": f"uniform({PL_LO}, {PL_HI})"}
 draws = {"elec": rng.uniform(ELEC_LO, ELEC_HI, N), "cat": rng.triangular(16.7, 33.4, 66.8, N), "life": rng.uniform(1, 4, N),
-         "capx": rng.triangular(0.5, 1.0, 1.5, N), "dr": rng.uniform(0.085, 0.10, N), "oh": rng.uniform(7000, 8000, N),
-         "pl": rng.uniform(20, 25, N)}
+         "capx": rng.triangular(0.5, 1.0, 1.5, N), "dr": rng.uniform(DR_LO, DR_HI, N), "oh": rng.uniform(OH_LO, OH_HI, N),
+         "pl": rng.uniform(PL_LO, PL_HI, N)}
 u_nh3 = rng.random(N)
 for sc in ("grey", "blue", "green_current", "green_2030"):
     d = SD["nh3_price_scenarios_USD_per_t"][sc]
@@ -285,11 +301,12 @@ def A(name, value, unit, st, src, note):
 
 
 A("currency_and_basis", SD["base_year_label"], "-", "assumption", "singapore.yaml header", "no escalation applied (conflicting CEPCI in library)")
-A("fx_SGD_per_USD", SD["fx_SGD_per_USD"]["value"], "SGD/USD", "literature", SD["fx_SGD_per_USD"]["source"], "rate date 2026-11-18, secondary source")
+A("fx_SGD_per_USD", FX, "SGD/USD", "derived", REF.raw["currency"]["fx_SGD_per_USD"]["source"], f"rate date {REF.fx_date}; reference scenario (supersedes 1.290, ADB)")
 A("carbon_tax_2026", 45, "SGD/tCO2e", "literature", SD["carbon_tax"]["url"], "official NEA; applies to direct emissions of facilities >= 25,000 tCO2e/yr")
 A("carbon_tax_threshold", 25000, "tCO2e/yr", "literature", SD["carbon_tax"]["url"], "facility-level; gas-fired heat of the baseline gives about 1.3 kt: below threshold")
 A("N2O_treatment", "not quantified", "-", "assumption", "NEA: N2O is a covered gas", "no primary-source N2O factor for NH3 combustion; user may supply n2o_tCO2e_per_yr")
-A("electricity_price", default_electricity_USD_per_kWh(), "USD/kWh", "literature", "USEP 2025 mean + network + fees (EMA, SP Group)", "derived, not an industrial contract price; <0.1 % of LCOH")
+A("electricity_price", REF.electricity_USD_per_kWh, "USD/kWh", "derived", "reference scenario: USEP 2025 mean + network + fees (EMA, SP Group) / FX", "derived, not an industrial contract price; <0.1 % of LCOH")
+A("capex_method", REF.capex_method, "-", "literature", REF.raw["capex"]["method"]["source"], "reference scenario; Phase 1 Farokhi 'equipment' method superseded")
 for sc in SCENARIOS:
     d = SD["nh3_price_scenarios_USD_per_t"][sc]
     A(f"nh3_price_{sc}", d["value"], "USD/t NH3", d["source_type"] if d["source_type"] != "literature" else "literature", d["source"], "SCENARIO (delivered, international); not a Singapore transaction price")
@@ -302,14 +319,16 @@ A("scaling_exponent", c["scaling_exponent"]["value"], "-", "literature", c["scal
 A("singapore_location_factor", 1.0, "-", "assumption", c["singapore_location_factor"]["source"], "no source; CAPEX multiplier +-50 % (Cho Table 8) used for sensitivity")
 A("catalyst", "Ni 33.4 / Ru 542 USD/kg; life 2 yr; 9000 mL NH3/(g h)", "-", "literature", "Cho 2026 Tables 3-4 (via economics.yaml)", "mass sized from space velocity, not from the PFR kinetics (results/research/kinetics not present)")
 A("fixed_opex", "maintenance 3 %, insurance 1.5 % of CAPEX; labour 109,756 USD/yr; overhead 25 %; G&A 6 %", "-", "literature", "Chopra 2026 Table 2; Cho 2026 Table 4 (economics.yaml)", "labour is an Indian small-plant basis, not Singapore")
-A("discount_rate_and_life", "10 %, 25 yr", "-", "literature", "Kum 2026 Table 5 (also Farokhi, Chopra, Ahmad)", "no Singapore WACC sourced; Cho 8.5 % in sensitivity")
+A("discount_rate_and_life", f"{REF.discount_rate:g}, {REF.plant_life_yr:g} yr", "-", "literature", "Kum 2026 Table 5 (also Farokhi, Chopra, Ahmad)", "no Singapore WACC sourced; Cho 8.5 % in sensitivity")
 A("heat_fuel", "supplementary NH3, 100 % LHV efficiency", "-", "assumption", "economics.yaml", "gas-fired variant uses Kum fired-heat price 4.25 USD/GJ and IPCC 56.1 kg CO2/GJ; no Singapore gas price retrieved")
 A("landed_cost", None, "-", "assumption", "-", "not computed: no sourced transport/distribution cost")
 wj_obj = asm
 (OUT / "assumptions.json").write_text(json.dumps(wj_obj, indent=2, default=float), encoding="utf-8")
 
 # ------------------------------------------------------------------ 8. validation and benchmarks
-legacy = evaluate(S_HI, 450, {"capex_mode": "legacy", "electricity_price_USD_per_kWh": 0.084})
+_LEG = REF.reproduction("legacy_v1")
+legacy = evaluate(S_HI, _LEG["nh3_price_USD_per_t"], {"capex_mode": "legacy", "electricity_price_USD_per_kWh": _LEG["electricity_price_USD_per_kWh"]})
+eq_p1 = evaluate(S_HI, "grey", {"capex_mode": "equipment"})
 old = compute_lcoh(SimulationResult.model_validate(HI))
 stored = json.loads((ROOT / "results/simulations/economics_baseline.json").read_text(encoding="utf-8"))
 g = scen["grey|heat_integration_on"]
@@ -344,7 +363,7 @@ V("E08", "REC vs Cho 2026 Ni (1.995 USD/kg, Fig. 8d): different boundary (no 180
 V("E09", "Cho Ru REC 7.0 % lower than Ni check: (1.995-1.856)/1.995", "arithmetic on the notes", "Cho 2026 notes", (cho_ni - cho_ru) / cho_ni, 0.07, 0.005, "fraction",
   "informational", ["research/notes/cho2026nickel.md"])  # arithmetic on Cho's own numbers: consistency, not validation
 V("E10", "LCOH (legacy capex) vs Cho Ni total 5.439 USD/kg at 450 USD/t", "informational comparison", "Cho 2026 Fig. 8(d)", legacy["lcoh_USD_per_kg"], 5.439, None, "USD/kg H2", "informational", [])
-V("E11", "Equipment-level LCOH vs Cho Ni total 5.439 USD/kg", "informational comparison", "Cho 2026 Fig. 8(d)", g["lcoh_USD_per_kg"], 5.439, None, "USD/kg H2", "informational", [])
+V("E11", "Reference-scenario LCOH (cho2026_itemised_v1) vs Cho Ni total 5.439 USD/kg", "informational comparison", "Cho 2026 Fig. 8(d)", g["lcoh_USD_per_kg"], 5.439, None, "USD/kg H2", "informational", [])
 V("E12", "Halim 2025 LCOH 10.1 (blue) / 15.1 (green) USD/kg for a 60.1 MW plant", "not compared: only the abstract was retrievable; PDF absent from research/papers",
   "Halim, Zain & Khoo 2025 (brief values, unverified)", None, None, None, "USD/kg H2", "informational", [])
 c25 = evaluate(S_HI, "grey", {"capacity_scale": 0.25})["lcoh_USD_per_kg"]
@@ -359,7 +378,8 @@ V("E15", "Gas-fired heat of the baseline is below the 25,000 t threshold (no tax
 (VAL / "economics.json").write_text(json.dumps({"provenance": PROV, "items": items}, indent=2, default=float), encoding="utf-8")
 
 wj("benchmarks.json", {"comparisons": [
-    {"item": "Cho 2026 REC Ni / Ru (Fig. 8d)", "literature_USD_per_kg": [cho_ni, cho_ru], "amcrax_equipment_rec": g["rec_USD_per_kg"], "amcrax_legacy_rec": legacy["rec_USD_per_kg"],
+    {"item": "Cho 2026 REC Ni / Ru (Fig. 8d)", "literature_USD_per_kg": [cho_ni, cho_ru], "amcrax_equipment_rec": eq_p1["rec_USD_per_kg"], "amcrax_legacy_rec": legacy["rec_USD_per_kg"],
+     "amcrax_reference_rec": g["rec_USD_per_kg"],
      "explanation": "Cho includes 180 bar product compression (about 137 kW at 99 kg/h), TSA, NOx SCR, OSBL/engineering/contingency and a 97 % conversion optimisation at about 100 kg H2/h; AmCraX baseline has none of these, runs at 251 kg H2/h, and its equipment-level CAPEX is a feed-scaled screening estimate. The gap is a boundary difference, not a validation failure or success."},
     {"item": "Halim 2025", "status": "numeric values not verified (abstract only)", "qualitative": "direct ammonia use preferred economically over cracking for power (abstract)"},
     {"item": "Deka 2025 scale effect", "status": "values from the brief; paper not in library", "amcrax_ratio_25_to_1000_kmol_h": c25 / c10, "literature_ratio": 5.21 / 3.58}]})

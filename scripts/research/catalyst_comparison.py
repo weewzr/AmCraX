@@ -26,6 +26,8 @@ from scipy.optimize import brentq  # noqa: E402
 from amcrax.heat_integration import analyse  # noqa: E402
 from amcrax.plotstyle import C_GREY, PALETTE, apply_style  # noqa: E402
 from amcrax.research import catalyst_comparison as cc  # noqa: E402
+from amcrax.economics.reference import load_reference_scenario, provenance_stamp  # noqa: E402
+REF = load_reference_scenario()   # Phase 2 unified reference scenario (cost inputs, named reproduction fields)
 from amcrax.schemas import SimulationResult  # noqa: E402
 
 SCRIPT = "scripts/research/catalyst_comparison.py"
@@ -48,10 +50,11 @@ FOOT = ("AmCraX workstream H | kinetics: python PFR (amcrax.reactor.pfr), flowsh
 
 def prov(source_type: str, summary: str) -> dict:
     return {"generated_utc": NOW, "script": SCRIPT, "source_type": source_type, "inputs_summary": summary,
+            "reference_scenario": provenance_stamp(),
             "model_versions": {"kinetics": "backend/amcrax/data/kinetics.yaml via amcrax.reactor.pfr",
                                "flowsheet": "amcrax.process_model.run_python_case (cracker at kinetic conversion)",
                                "heat_integration": "amcrax.heat_integration.analyse (problem table)",
-                               "economics": "amcrax.economics.singapore.evaluate",
+                               "economics": "amcrax.economics.singapore.evaluate (Phase 2 reference scenario, CAPEX cho2026_itemised_v1)",
                                "lca": "amcrax.enduse.pathways.carbon_intensity + amcrax.environmental.lca",
                                "aspen": "results/research/aspen_kinetic/ci_*.json (Aspen Plus V15, PENG-ROB)"}}
 
@@ -290,7 +293,7 @@ def main() -> None:
         cases.append((f"lifetime_{lt:g}yr", {"lifetime": lt}, None, None))
     for pr in (300.0, 610.0, 1000.0):
         cases.append((f"NH3_{pr:g}USD_t", {"scenario": pr}, None, None))
-    for el in (0.042, 0.126):
+    for el in REF.sens("electricity_USD_per_kWh"):
         cases.append((f"electricity_{el:g}", {"econ_overrides": {"electricity_price_USD_per_kWh": el}}, None, None))
     for P in (10.0, 30.0):
         cases.append((f"P_{P:g}bar", {"P_bar": P}, None, None))
@@ -347,7 +350,7 @@ def main() -> None:
 
     # ---------------------------------------------------------------- 5. Cho et al. (2026) reference designs
     cho_rows = []
-    cho_ov = {"discount_rate": 0.085, "electricity_price_USD_per_kWh": 0.084, "plant_life_yr": 25.0}
+    cho_ov = REF.reproduction("cho2026")   # named field: Cho 2026 Table 4 basis, used only for this reconstruction
     m_cho = cc.FEED_NH3_KMOL_H * 1000.0 * 22.414 * 1000.0 / 9000.0 / 1000.0  # GHSV 9000 mL/(g h), cho2026nickel Table 3
     designs = [("Ni_735.52C_24.34bar", cc.REFERENCE_NI, 735.52, 24.34), ("RuAl2O3_566.69C_10bar", "ru_kum_temkin_pyzhev", 566.69, 10.0),
                ("RuMgO_566.69C_10bar", "ru_takahashi_microkinetic", 566.69, 10.0),

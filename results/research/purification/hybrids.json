@@ -1,9 +1,18 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T04:10:08Z",
+  "generated_utc": "2026-11-23T08:49:54Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "hybrid screening on the 20 bar baseline",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
   "model_versions": {
    "separation": "amcrax.separation.purification (reduced-order)",
    "aspen_inputs": "Aspen Plus V15 stored results"

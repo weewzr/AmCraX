@@ -1,12 +1,21 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:16:10Z",
+    "generated_utc": "2026-11-23T08:50:18Z",
     "script": "scripts/research/enduse_run.py",
     "source_type": "python+aspen(stored)+literature",
     "inputs_summary": "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
     "model_versions": {
       "aspen_inputs": "stored results/simulations/baseline.json and scn_fuel_cell_grade.json (Aspen Plus V15)",
-      "economics": "amcrax.economics (compute_lcoh, estimate_capex); prices and electricity from amcrax.economics.singapore (data/singapore.yaml)",
+      "economics": "Phase 2 reference scenario: amcrax.economics.singapore.evaluate (H2) and amcrax.economics.reference.reference_capex (cracker in power pathways); all cost inputs from data/reference_scenario.yaml",
       "purification": "results/research/purification/purification_study.json (workstream P) for the purified-H2 rows; stored scn_fuel_cell_grade kept as the Aspen-scenario variant"
     }
   },
@@ -19,13 +28,16 @@
       "green_current": 1000.0
     },
     "NH3_USD_per_t_common_reference": 450.0,
-    "electricity_USD_per_kWh": 0.14007105943152454,
+    "electricity_USD_per_kWh": 0.14024,
     "operating_hours": 8000.0,
+    "power_plant_operating_hours": 8000.0,
     "discount_rate": 0.1,
-    "life_years": 25,
+    "life_years": 25.0,
     "carbon_tax_SGD_per_t": 45.0,
-    "fx_SGD_per_USD": 1.29,
-    "source": "amcrax.economics.singapore / data/singapore.yaml (workstream E); blue 487 and FX are secondary_web values there",
+    "fx_SGD_per_USD": 1.288444,
+    "fx_date": "2026-11-20",
+    "capex_method": "cho2026_itemised_v1",
+    "source": "Phase 2 reference scenario backend/amcrax/data/reference_scenario.yaml (blue 487 is a secondary_web value; FX ECB cross rate)",
     "note": "One price set for every pathway. Cost columns: 'at_450' is the common reference price (isolates technology); the route columns use that route's own price. Carbon tax applies only to direct in-scope N2O (negligible) and is reported separately in USD per MWh."
   },
   "distance_km": 5000.0,
@@ -64,7 +76,9 @@
       "cost_USD_per_MWh_at_blue_487": 273.3522358849268,
       "cost_USD_per_MWh_at_green_2030_709": 359.8966949603998,
       "cost_USD_per_MWh_at_green_current_1000": 473.3401075323036,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.007623986754539201
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.007633193924885808,
+      "cost_SGD_per_MWh_at_450": 333.6144333743455,
+      "TCI_cracker_MUSD": 0.0
     },
     {
       "id": "partial_exhaust_30",
@@ -75,11 +89,11 @@
       "cracked_NH3_share": 0.2548912708273032,
       "efficiency_NH3_LHV_to_electricity": 0.5090016194279722,
       "NH3_kg_per_MWh": 380.2117747845297,
-      "cost_USD_per_MWh_at_450": 256.90011691209196,
+      "cost_USD_per_MWh_at_450": 259.3218160595525,
       "plant_W_net_MW": 44.1890575575189,
-      "TCI_MUSD": 191.0862410686994,
-      "cost_capital": 59.5498183378721,
-      "cost_fixed_om": 26.240262059033196,
+      "TCI_MUSD": 196.60344913989266,
+      "cost_capital": 61.26919246200739,
+      "cost_fixed_om": 26.942569306931983,
       "cost_ammonia": 171.0952986530384,
       "N2O_kgCO2e_per_MWh": 0.15818126971331264,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -90,11 +104,13 @@
       "CI_blue_kgCO2e_per_MWh": 462.15778488266767,
       "CI_blue_param_kgCO2e_per_MWh": 606.8775263284876,
       "CI_grey_kgCO2e_per_MWh": 1009.6627405723904,
-      "cost_USD_per_MWh_at_grey_450": 256.90011691209196,
-      "cost_USD_per_MWh_at_blue_487": 270.9679525791196,
-      "cost_USD_per_MWh_at_green_2030_709": 355.3749665812852,
-      "cost_USD_per_MWh_at_green_current_1000": 466.0165930435834,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.005517951269069045
+      "cost_USD_per_MWh_at_grey_450": 259.3218160595525,
+      "cost_USD_per_MWh_at_blue_487": 273.38965172658015,
+      "cost_USD_per_MWh_at_green_2030_709": 357.7966657287457,
+      "cost_USD_per_MWh_at_green_current_1000": 468.43829219104384,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0055246150683297595,
+      "cost_SGD_per_MWh_at_450": 334.12163797103403,
+      "TCI_cracker_MUSD": 12.29759944927409
     },
     {
       "id": "partial_fired_30",
@@ -105,11 +121,11 @@
       "cracked_NH3_share": 0.2548912708273032,
       "efficiency_NH3_LHV_to_electricity": 0.4922316737281523,
       "NH3_kg_per_MWh": 393.16529069559664,
-      "cost_USD_per_MWh_at_450": 263.65223913364423,
+      "cost_USD_per_MWh_at_450": 266.0624251058547,
       "plant_W_net_MW": 42.7331720210473,
-      "TCI_MUSD": 186.7761704915446,
-      "cost_capital": 60.18968889073305,
-      "cost_fixed_om": 26.522929460380844,
+      "TCI_MUSD": 192.0862374309708,
+      "cost_capital": 61.90088832389361,
+      "cost_fixed_om": 27.221897618409486,
       "cost_ammonia": 176.9243808130185,
       "N2O_kgCO2e_per_MWh": 0.15818126971331264,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -120,11 +136,13 @@
       "CI_blue_kgCO2e_per_MWh": 477.89774774862184,
       "CI_blue_param_kgCO2e_per_MWh": 627.5479768799594,
       "CI_grey_kgCO2e_per_MWh": 1044.0557663502811,
-      "cost_USD_per_MWh_at_grey_450": 263.65223913364423,
-      "cost_USD_per_MWh_at_blue_487": 278.1993548893813,
-      "cost_USD_per_MWh_at_green_2030_709": 365.4820494238038,
-      "cost_USD_per_MWh_at_green_current_1000": 479.8931490162224,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.005517951269069045
+      "cost_USD_per_MWh_at_grey_450": 266.0624251058547,
+      "cost_USD_per_MWh_at_blue_487": 280.60954086159177,
+      "cost_USD_per_MWh_at_green_2030_709": 367.8922353960142,
+      "cost_USD_per_MWh_at_green_current_1000": 482.3033349884329,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0055246150683297595,
+      "cost_SGD_per_MWh_at_450": 342.8065352530878,
+      "TCI_cracker_MUSD": 11.871259893638543
     },
     {
       "id": "partial_exhaust_40",
@@ -135,11 +153,11 @@
       "cracked_NH3_share": 0.37075093938516823,
       "efficiency_NH3_LHV_to_electricity": 0.5147157765600624,
       "NH3_kg_per_MWh": 375.99082426478947,
-      "cost_USD_per_MWh_at_450": 255.61740987063413,
+      "cost_USD_per_MWh_at_450": 258.9301481476088,
       "plant_W_net_MW": 44.68513302911841,
-      "TCI_MUSD": 194.65358288252102,
-      "cost_capital": 59.98810039648341,
-      "cost_fixed_om": 26.41223964790005,
+      "TCI_MUSD": 202.28551416800263,
+      "cost_capital": 62.34009953974522,
+      "cost_fixed_om": 27.372953213480343,
       "cost_ammonia": 169.19587091915525,
       "N2O_kgCO2e_per_MWh": 0.1321135582420338,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -150,11 +168,13 @@
       "CI_blue_kgCO2e_per_MWh": 457.0218053069439,
       "CI_blue_param_kgCO2e_per_MWh": 600.1349293137891,
       "CI_grey_kgCO2e_per_MWh": 998.4485922482407,
-      "cost_USD_per_MWh_at_grey_450": 255.61740987063413,
-      "cost_USD_per_MWh_at_blue_487": 269.52907036843135,
-      "cost_USD_per_MWh_at_green_2030_709": 352.9990333552146,
-      "cost_USD_per_MWh_at_green_current_1000": 462.4123632162684,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.004608612496815132
+      "cost_USD_per_MWh_at_grey_450": 258.9301481476088,
+      "cost_USD_per_MWh_at_blue_487": 272.841808645406,
+      "cost_USD_per_MWh_at_green_2030_709": 356.3117716321893,
+      "cost_USD_per_MWh_at_green_current_1000": 465.72510149324296,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.004614178125624025,
+      "cost_SGD_per_MWh_at_450": 333.61699579989767,
+      "TCI_cracker_MUSD": 16.595952430749097
     },
     {
       "id": "partial_fired_40",
@@ -165,11 +185,11 @@
       "cracked_NH3_share": 0.37075093938516823,
       "efficiency_NH3_LHV_to_electricity": 0.49044060110053234,
       "NH3_kg_per_MWh": 394.6011171518789,
-      "cost_USD_per_MWh_at_450": 265.3228438994393,
+      "cost_USD_per_MWh_at_450": 268.6137169851577,
       "plant_W_net_MW": 42.57767976245579,
-      "TCI_MUSD": 188.32497015929383,
-      "cost_capital": 60.91043189601911,
-      "cost_fixed_om": 26.819661102719156,
+      "TCI_MUSD": 195.5489613265287,
+      "cost_capital": 63.246906032386256,
+      "cost_fixed_om": 27.774033218400458,
       "cost_ammonia": 177.57050271834552,
       "N2O_kgCO2e_per_MWh": 0.1321135582420338,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -180,11 +200,13 @@
       "CI_blue_kgCO2e_per_MWh": 479.63632255523527,
       "CI_blue_param_kgCO2e_per_MWh": 629.8330693046347,
       "CI_grey_kgCO2e_per_MWh": 1047.8619312539408,
-      "cost_USD_per_MWh_at_grey_450": 265.3228438994393,
-      "cost_USD_per_MWh_at_blue_487": 279.9230852340588,
-      "cost_USD_per_MWh_at_green_2030_709": 367.52453324177594,
-      "cost_USD_per_MWh_at_green_current_1000": 482.35345833297276,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.004608612496815132
+      "cost_USD_per_MWh_at_grey_450": 268.6137169851577,
+      "cost_USD_per_MWh_at_blue_487": 283.2139583197772,
+      "cost_USD_per_MWh_at_green_2030_709": 370.8154063274943,
+      "cost_USD_per_MWh_at_green_current_1000": 485.644331418691,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.004614178125624025,
+      "cost_SGD_per_MWh_at_450": 346.09373196722447,
+      "TCI_cracker_MUSD": 15.773596672279556
     },
     {
       "id": "partial_exhaust_50",
@@ -195,11 +217,11 @@
       "cracked_NH3_share": 0.5097825416546063,
       "efficiency_NH3_LHV_to_electricity": 0.5215727651185708,
       "NH3_kg_per_MWh": 371.0477655920429,
-      "cost_USD_per_MWh_at_450": 254.01817108896262,
+      "cost_USD_per_MWh_at_450": 258.3217899860205,
       "plant_W_net_MW": 45.28042359503782,
-      "TCI_MUSD": 198.7078925689469,
-      "cost_capital": 60.432477534457234,
-      "cost_fixed_om": 26.585433748937312,
+      "TCI_MUSD": 208.754707635545,
+      "cost_capital": 63.48798739848726,
+      "cost_fixed_om": 27.833508087972593,
       "cost_ammonia": 166.97149451641928,
       "N2O_kgCO2e_per_MWh": 0.10188966065232934,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -210,11 +232,13 @@
       "CI_blue_kgCO2e_per_MWh": 451.00748042559803,
       "CI_blue_param_kgCO2e_per_MWh": 592.2391314731252,
       "CI_grey_kgCO2e_per_MWh": 985.3162628781397,
-      "cost_USD_per_MWh_at_grey_450": 254.01817108896262,
-      "cost_USD_per_MWh_at_blue_487": 267.7469384158682,
-      "cost_USD_per_MWh_at_green_2030_709": 350.11954237730174,
-      "cost_USD_per_MWh_at_green_current_1000": 458.09444216458616,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035542904878719537
+      "cost_USD_per_MWh_at_grey_450": 258.3217899860205,
+      "cost_USD_per_MWh_at_blue_487": 272.0505573129262,
+      "cost_USD_per_MWh_at_green_2030_709": 354.42316127435964,
+      "cost_USD_per_MWh_at_green_current_1000": 462.39806106164417,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035585828560300804,
+      "cost_SGD_per_MWh_at_450": 332.8331603767482,
+      "TCI_cracker_MUSD": 21.41136425551133
     },
     {
       "id": "partial_fired_50",
@@ -225,11 +249,11 @@
       "cracked_NH3_share": 0.5097825416546063,
       "efficiency_NH3_LHV_to_electricity": 0.48838021190670233,
       "NH3_kg_per_MWh": 396.265869035414,
-      "cost_USD_per_MWh_at_450": 267.1772326163451,
+      "cost_USD_per_MWh_at_450": 271.44352559408964,
       "plant_W_net_MW": 42.39880674279946,
-      "TCI_MUSD": 189.9254115327941,
-      "cost_capital": 61.68722086741781,
-      "cost_fixed_om": 27.139650373209818,
+      "TCI_MUSD": 199.25125584908403,
+      "cost_capital": 64.71622795747113,
+      "cost_fixed_om": 28.376899208945975,
       "cost_ammonia": 178.3196410659363,
       "N2O_kgCO2e_per_MWh": 0.10188966065232934,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -240,11 +264,13 @@
       "CI_blue_kgCO2e_per_MWh": 481.653086963509,
       "CI_blue_param_kgCO2e_per_MWh": 632.4834870559517,
       "CI_grey_kgCO2e_per_MWh": 1052.2759383745054,
-      "cost_USD_per_MWh_at_grey_450": 267.1772326163451,
-      "cost_USD_per_MWh_at_blue_487": 281.8390697706555,
-      "cost_USD_per_MWh_at_green_2030_709": 369.81009269651736,
-      "cost_USD_per_MWh_at_green_current_1000": 485.1234605858228,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035542904878719537
+      "cost_USD_per_MWh_at_grey_450": 271.44352559408964,
+      "cost_USD_per_MWh_at_blue_487": 286.10536274839995,
+      "cost_USD_per_MWh_at_green_2030_709": 374.0763856742619,
+      "cost_USD_per_MWh_at_green_current_1000": 489.3897535635674,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035585828560300804,
+      "cost_SGD_per_MWh_at_450": 349.7397818905512,
+      "TCI_cracker_MUSD": 19.982262783722657
     },
     {
       "id": "partial_exhaust_60",
@@ -255,11 +281,11 @@
       "cracked_NH3_share": 0.679710055539475,
       "efficiency_NH3_LHV_to_electricity": 0.5299535289123031,
       "NH3_kg_per_MWh": 365.1799611337889,
-      "cost_USD_per_MWh_at_450": 252.02399584496052,
+      "cost_USD_per_MWh_at_450": 257.4501541168256,
       "plant_W_net_MW": 46.00800095338375,
-      "TCI_MUSD": 203.43626434793111,
-      "cost_capital": 60.89207472701192,
-      "cost_fixed_om": 26.763191420283455,
+      "TCI_MUSD": 216.30719052804815,
+      "cost_capital": 64.74457074721576,
+      "cost_fixed_om": 28.33680814482914,
       "cost_ammonia": 164.330982510205,
       "N2O_kgCO2e_per_MWh": 0.06642949204533073,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -270,11 +296,13 @@
       "CI_blue_kgCO2e_per_MWh": 443.86841563568163,
       "CI_blue_param_kgCO2e_per_MWh": 582.8666083834642,
       "CI_grey_kgCO2e_per_MWh": 969.7275596683376,
-      "cost_USD_per_MWh_at_grey_450": 252.02399584496052,
-      "cost_USD_per_MWh_at_blue_487": 265.53565440691074,
-      "cost_USD_per_MWh_at_green_2030_709": 346.60560577861185,
-      "cost_USD_per_MWh_at_green_current_1000": 452.8729744685444,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0023173078620464206
+      "cost_USD_per_MWh_at_grey_450": 257.4501541168256,
+      "cost_USD_per_MWh_at_blue_487": 270.9618126787758,
+      "cost_USD_per_MWh_at_green_2030_709": 352.03176405047697,
+      "cost_USD_per_MWh_at_green_current_1000": 458.29913274040956,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0023201063779565764,
+      "cost_SGD_per_MWh_at_450": 331.71010637089927,
+      "TCI_cracker_MUSD": 26.95226879121908
     },
     {
       "id": "partial_fired_60",
@@ -285,11 +313,11 @@
       "cracked_NH3_share": 0.679710055539475,
       "efficiency_NH3_LHV_to_electricity": 0.48598482383739405,
       "NH3_kg_per_MWh": 398.2190381230132,
-      "cost_USD_per_MWh_at_450": 269.27631069437103,
+      "cost_USD_per_MWh_at_450": 274.64262715606696,
       "plant_W_net_MW": 42.19085074182206,
-      "TCI_MUSD": 191.61841329976215,
-      "cost_capital": 62.54386560763201,
-      "cost_fixed_om": 27.492715627089154,
+      "TCI_MUSD": 203.2912972409874,
+      "cost_capital": 66.3538715037323,
+      "cost_fixed_om": 29.0489765465758,
       "cost_ammonia": 179.19856715535596,
       "N2O_kgCO2e_per_MWh": 0.06642949204533073,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -300,11 +328,13 @@
       "CI_blue_kgCO2e_per_MWh": 484.0206954668259,
       "CI_blue_param_kgCO2e_per_MWh": 635.594528940619,
       "CI_grey_kgCO2e_per_MWh": 1057.4561103639649,
-      "cost_USD_per_MWh_at_grey_450": 269.27631069437103,
-      "cost_USD_per_MWh_at_blue_487": 284.0104151049225,
-      "cost_USD_per_MWh_at_green_2030_709": 372.4150415682315,
-      "cost_USD_per_MWh_at_green_current_1000": 488.2967816620283,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0023173078620464206
+      "cost_USD_per_MWh_at_grey_450": 274.64262715606696,
+      "cost_USD_per_MWh_at_blue_487": 289.3767315666185,
+      "cost_USD_per_MWh_at_green_2030_709": 377.78135802992745,
+      "cost_USD_per_MWh_at_green_current_1000": 493.6630981237243,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0023201063779565764,
+      "cost_SGD_per_MWh_at_450": 353.8616451034715,
+      "TCI_cracker_MUSD": 24.611893887831783
     },
     {
       "id": "full_exhaust",
@@ -315,11 +345,11 @@
       "cracked_NH3_share": 1.0,
       "efficiency_NH3_LHV_to_electricity": 0.5457501136363636,
       "NH3_kg_per_MWh": 354.60992907801415,
-      "cost_USD_per_MWh_at_450": 248.24505037820182,
+      "cost_USD_per_MWh_at_450": 255.58562736192215,
       "plant_W_net_MW": 47.379384,
-      "TCI_MUSD": 211.89316366286315,
-      "cost_capital": 61.58760250814521,
-      "cost_fixed_om": 27.029052959305425,
+      "TCI_MUSD": 229.82411706890804,
+      "cost_capital": 66.7993064247502,
+      "cost_fixed_om": 29.1578609849438,
       "cost_ammonia": 159.5744680851064,
       "N2O_kgCO2e_per_MWh": 0.0036717553384518257,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -330,11 +360,13 @@
       "CI_blue_kgCO2e_per_MWh": 431.0095040576225,
       "CI_blue_param_kgCO2e_per_MWh": 565.9844329097706,
       "CI_grey_kgCO2e_per_MWh": 941.647801929963,
-      "cost_USD_per_MWh_at_grey_450": 248.24505037820182,
-      "cost_USD_per_MWh_at_blue_487": 261.3656177540884,
-      "cost_USD_per_MWh_at_green_2030_709": 340.08902200940753,
-      "cost_USD_per_MWh_at_green_current_1000": 443.2805113711097,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.00012808448855064508
+      "cost_USD_per_MWh_at_grey_450": 255.58562736192215,
+      "cost_USD_per_MWh_at_blue_487": 268.7061947378087,
+      "cost_USD_per_MWh_at_green_2030_709": 347.42959899312785,
+      "cost_USD_per_MWh_at_green_current_1000": 450.62108835483,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0001282391708373295,
+      "cost_SGD_per_MWh_at_450": 329.3077680607044,
+      "TCI_cracker_MUSD": 36.70594193488262
     },
     {
       "id": "full_fired",
@@ -345,11 +377,11 @@
       "cracked_NH3_share": 1.0,
       "efficiency_NH3_LHV_to_electricity": 0.48180254113272913,
       "NH3_kg_per_MWh": 401.67577496772685,
-      "cost_USD_per_MWh_at_450": 272.85473735946783,
+      "cost_USD_per_MWh_at_450": 280.0850665923625,
       "plant_W_net_MW": 41.8277651953243,
-      "TCI_MUSD": 194.27684101043903,
-      "cost_capital": 63.96201466101691,
-      "cost_fixed_om": 28.077539662433367,
+      "TCI_MUSD": 209.86898841782286,
+      "cost_capital": 69.0954374399792,
+      "cost_fixed_om": 30.17437244221425,
       "cost_ammonia": 180.7540987354771,
       "N2O_kgCO2e_per_MWh": 0.0036717553384518257,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -360,11 +392,13 @@
       "CI_blue_kgCO2e_per_MWh": 488.2150485652152,
       "CI_blue_param_kgCO2e_per_MWh": 641.1046173622943,
       "CI_grey_kgCO2e_per_MWh": 1066.6281645187419,
-      "cost_USD_per_MWh_at_grey_450": 272.85473735946783,
-      "cost_USD_per_MWh_at_blue_487": 287.7167410332737,
-      "cost_USD_per_MWh_at_green_2030_709": 376.8887630761091,
-      "cost_USD_per_MWh_at_green_current_1000": 493.7764135917177,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.00012808448855064508
+      "cost_USD_per_MWh_at_grey_450": 280.0850665923625,
+      "cost_USD_per_MWh_at_blue_487": 294.94707026616845,
+      "cost_USD_per_MWh_at_green_2030_709": 384.1190923090038,
+      "cost_USD_per_MWh_at_green_current_1000": 501.00674282461233,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0001282391708373295,
+      "cost_SGD_per_MWh_at_450": 360.8739235405299,
+      "TCI_cracker_MUSD": 32.22129729129918
     },
     {
       "id": "full_purified",
@@ -375,11 +409,11 @@
       "cracked_NH3_share": 1.0,
       "efficiency_NH3_LHV_to_electricity": 0.43555384954518384,
       "NH3_kg_per_MWh": 444.32716940281034,
-      "cost_USD_per_MWh_at_450": 304.4562967702604,
+      "cost_USD_per_MWh_at_450": 310.179325155085,
       "plant_W_net_MW": 37.81267758751134,
-      "TCI_MUSD": 199.67690413547473,
-      "cost_capital": 72.7203843822154,
-      "cost_fixed_om": 31.721115703082226,
+      "TCI_MUSD": 210.8338357109051,
+      "cost_capital": 76.78363023533072,
+      "cost_fixed_om": 33.380816737650676,
       "cost_ammonia": 199.94722623126466,
       "N2O_kgCO2e_per_MWh": 0.0,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -390,11 +424,13 @@
       "CI_blue_kgCO2e_per_MWh": 540.051436125593,
       "CI_blue_param_kgCO2e_per_MWh": 709.1753753033552,
       "CI_grey_kgCO2e_per_MWh": 1179.8825600656398,
-      "cost_USD_per_MWh_at_grey_450": 304.4562967702604,
-      "cost_USD_per_MWh_at_blue_487": 320.89640203816435,
-      "cost_USD_per_MWh_at_green_2030_709": 419.5370336455883,
-      "cost_USD_per_MWh_at_green_current_1000": 548.8362399418061,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0
+      "cost_USD_per_MWh_at_grey_450": 310.179325155085,
+      "cost_USD_per_MWh_at_blue_487": 326.61943042298896,
+      "cost_USD_per_MWh_at_green_2030_709": 425.2600620304129,
+      "cost_USD_per_MWh_at_green_current_1000": 554.5592683266307,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0,
+      "cost_SGD_per_MWh_at_450": 399.6486904201183,
+      "TCI_cracker_MUSD": 44.80048844615286
     },
     {
       "id": "blend_purified_30",
@@ -405,11 +441,11 @@
       "cracked_NH3_share": 0.25523806979304337,
       "efficiency_NH3_LHV_to_electricity": 0.4798964441068697,
       "NH3_kg_per_MWh": 403.2711879144735,
-      "cost_USD_per_MWh_at_450": 271.8569973723595,
+      "cost_USD_per_MWh_at_450": 273.278334437137,
       "plant_W_net_MW": 41.662287075076705,
-      "TCI_MUSD": 189.91510516200137,
-      "cost_capital": 62.77434126983846,
-      "cost_fixed_om": 27.594968576114596,
+      "TCI_MUSD": 192.96807168736476,
+      "cost_capital": 63.78346564878176,
+      "cost_fixed_om": 28.007162382811355,
       "cost_ammonia": 181.4720345615131,
       "N2O_kgCO2e_per_MWh": 0.16467996660984252,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -420,11 +456,13 @@
       "CI_blue_kgCO2e_per_MWh": 490.1840968515799,
       "CI_blue_param_kgCO2e_per_MWh": 643.6809265607739,
       "CI_grey_kgCO2e_per_MWh": 1070.8946074484218,
-      "cost_USD_per_MWh_at_grey_450": 271.8569973723595,
-      "cost_USD_per_MWh_at_blue_487": 286.77803132519506,
-      "cost_USD_per_MWh_at_green_2030_709": 376.3042350422082,
-      "cost_USD_per_MWh_at_green_current_1000": 493.6561507253199,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.005744649998017763
+      "cost_USD_per_MWh_at_grey_450": 273.278334437137,
+      "cost_USD_per_MWh_at_blue_487": 288.19936838997256,
+      "cost_USD_per_MWh_at_green_2030_709": 377.7255721069857,
+      "cost_USD_per_MWh_at_green_current_1000": 495.0774877900975,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.005751587571864136,
+      "cost_SGD_per_MWh_at_450": 352.1038303355225,
+      "TCI_cracker_MUSD": 15.791568523732291
     },
     {
       "id": "blend_purified_40",
@@ -435,11 +473,11 @@
       "cracked_NH3_share": 0.3477293486941358,
       "efficiency_NH3_LHV_to_electricity": 0.47408286534680877,
       "NH3_kg_per_MWh": 408.21641792376533,
-      "cost_USD_per_MWh_at_450": 276.0122881697155,
+      "cost_USD_per_MWh_at_450": 277.96855012640356,
       "plant_W_net_MW": 41.15758029883461,
-      "TCI_MUSD": 191.68038165142272,
-      "cost_capital": 64.13477775496987,
-      "cost_fixed_om": 28.158535672730736,
+      "TCI_MUSD": 195.83143854657328,
+      "cost_capital": 65.52368938549272,
+      "cost_fixed_om": 28.725859963072534,
       "cost_ammonia": 183.6973880656944,
       "N2O_kgCO2e_per_MWh": 0.14484411606417935,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -450,11 +488,13 @@
       "CI_blue_kgCO2e_per_MWh": 496.18974504718875,
       "CI_blue_param_kgCO2e_per_MWh": 651.5688741900085,
       "CI_grey_kgCO2e_per_MWh": 1084.0213868574106,
-      "cost_USD_per_MWh_at_grey_450": 276.0122881697155,
-      "cost_USD_per_MWh_at_blue_487": 291.11629563289483,
-      "cost_USD_per_MWh_at_green_2030_709": 381.7403404119707,
-      "cost_USD_per_MWh_at_green_current_1000": 500.5313180277865,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.005052701723169048
+      "cost_USD_per_MWh_at_grey_450": 277.96855012640356,
+      "cost_USD_per_MWh_at_blue_487": 293.0725575895829,
+      "cost_USD_per_MWh_at_green_2030_709": 383.6966023686588,
+      "cost_USD_per_MWh_at_green_current_1000": 502.48757998447445,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0050588036599868305,
+      "cost_SGD_per_MWh_at_450": 358.14691059906386,
+      "TCI_cracker_MUSD": 20.09588523195697
     },
     {
       "id": "blend_purified_50",
@@ -465,11 +505,11 @@
       "cracked_NH3_share": 0.4443391426966134,
       "efficiency_NH3_LHV_to_electricity": 0.46810766591996944,
       "NH3_kg_per_MWh": 413.42713050974874,
-      "cost_USD_per_MWh_at_450": 280.28444109862045,
+      "cost_USD_per_MWh_at_450": 282.79807315033025,
       "plant_W_net_MW": 40.638842398379616,
-      "TCI_MUSD": 193.27213519575375,
-      "cost_capital": 65.49281821882754,
-      "cost_fixed_om": 28.721477938848878,
+      "TCI_MUSD": 198.5386685008888,
+      "cost_capital": 67.27745265693349,
+      "cost_fixed_om": 29.450441858415786,
       "cost_ammonia": 186.04220872938694,
       "N2O_kgCO2e_per_MWh": 0.12394338629068735,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -480,11 +520,13 @@
       "CI_blue_kgCO2e_per_MWh": 502.5180830968849,
       "CI_blue_param_kgCO2e_per_MWh": 659.8805621204897,
       "CI_grey_kgCO2e_per_MWh": 1097.853151030923,
-      "cost_USD_per_MWh_at_grey_450": 280.28444109862045,
-      "cost_USD_per_MWh_at_blue_487": 295.58124492748107,
-      "cost_USD_per_MWh_at_green_2030_709": 387.36206790064534,
-      "cost_USD_per_MWh_at_green_current_1000": 507.6693628789822,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.004323606498512349
+      "cost_USD_per_MWh_at_grey_450": 282.79807315033025,
+      "cost_USD_per_MWh_at_blue_487": 298.094876979191,
+      "cost_USD_per_MWh_at_green_2030_709": 389.8756999523552,
+      "cost_USD_per_MWh_at_green_current_1000": 510.182994930692,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0043288279374819015,
+      "cost_SGD_per_MWh_at_450": 364.3694805621041,
+      "TCI_cracker_MUSD": 24.290214183126015
     },
     {
       "id": "blend_purified_60",
@@ -495,11 +537,11 @@
       "cracked_NH3_share": 0.5453488040203828,
       "efficiency_NH3_LHV_to_electricity": 0.461964011107597,
       "NH3_kg_per_MWh": 418.9252938273453,
-      "cost_USD_per_MWh_at_450": 284.70735739269304,
+      "cost_USD_per_MWh_at_450": 287.80297541988085,
       "plant_W_net_MW": 40.10548001650241,
-      "TCI_MUSD": 194.7331255438087,
-      "cost_capital": 66.86546646453044,
-      "cost_fixed_om": 29.290765898122,
+      "TCI_MUSD": 201.13390449866998,
+      "cost_capital": 69.06330039421213,
+      "cost_fixed_om": 30.188508092113445,
       "cost_ammonia": 188.5163822223054,
       "N2O_kgCO2e_per_MWh": 0.10188966065232934,
       "NO_kg_per_MWh": "not quantified (no source for this fuel)",
@@ -510,11 +552,13 @@
       "CI_blue_kgCO2e_per_MWh": 509.19583254167003,
       "CI_blue_param_kgCO2e_per_MWh": 668.6510736166355,
       "CI_grey_kgCO2e_per_MWh": 1112.4482556530475,
-      "cost_USD_per_MWh_at_grey_450": 284.70735739269304,
-      "cost_USD_per_MWh_at_blue_487": 300.2075932643048,
-      "cost_USD_per_MWh_at_green_2030_709": 393.2090084939755,
-      "cost_USD_per_MWh_at_green_current_1000": 515.116268997733,
-      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035542904878719537
+      "cost_USD_per_MWh_at_grey_450": 287.80297541988085,
+      "cost_USD_per_MWh_at_blue_487": 303.30321129149263,
+      "cost_USD_per_MWh_at_green_2030_709": 396.3046265211633,
+      "cost_USD_per_MWh_at_green_current_1000": 518.2118870249208,
+      "carbon_tax_USD_per_MWh_direct_in_scope": 0.0035585828560300804,
+      "cost_SGD_per_MWh_at_450": 370.81801686189294,
+      "TCI_cracker_MUSD": 28.421020662828486
     }
   ],
   "hydrogen_pathways": [
@@ -526,19 +570,22 @@
       "purity_note": "99.961 mol% H2 (set by assumed PSA split); meets 99.9 %",
       "efficiency_NH3_LHV_to_H2": 0.8773712988772014,
       "NH3_kg_per_kg_H2": 7.350165509388053,
-      "cost_USD_per_kg_at_grey_450": 3.919253484053714,
-      "cost_USD_per_kg_at_blue_487": 4.191209607901071,
-      "cost_USD_per_kg_at_green_2030_709": 5.822946350985219,
-      "cost_USD_per_kg_at_green_current_1000": 7.961844514217143,
+      "cost_USD_per_kg_at_grey_450": 4.015461254695034,
+      "cost_USD_per_kg_at_blue_487": 4.287417378542392,
+      "cost_USD_per_kg_at_green_2030_709": 5.91915412162654,
+      "cost_USD_per_kg_at_green_current_1000": 8.058052284858464,
       "cost_breakdown_at_450": {
-        "capex": 0.3557202556202969,
-        "fixed_opex": 0.251941863807503,
+        "capex": 0.4196390310095669,
+        "fixed_opex": 0.2842296199577379,
         "ammonia_feed": 3.0400449449954747,
-        "imported_heat": 0.2675295342291495,
-        "electricity": 0.0010273571685277584,
+        "heat_fuel": 0.2675295342291495,
+        "electricity": 0.0010285962703435283,
         "cooling_water": 0.0009272681562831073,
-        "catalyst": 0.0020622600764787047
+        "catalyst": 0.0020622600764787047,
+        "carbon_tax": 0.0
       },
+      "cost_SGD_per_kg_at_grey_450": 5.173696960844288,
+      "cost_USD_per_kg_legacy_v1_basis_at_450": 3.9192547231555293,
       "CI_green_kgCO2e_per_kgH2": 2.4300891449157564,
       "CI_blue_kgCO2e_per_kgH2": 8.933399580077893,
       "CI_blue_param_kgCO2e_per_kgH2": 11.731087928118777,
@@ -553,19 +600,22 @@
       "purity_note": "99.98 mol% H2 from the assumed PSA split; NH3 polishing to 0.1 ppm and H2O/O2 not modelled, so NOT claimed fuel-cell grade; cost is a lower bound",
       "efficiency_NH3_LHV_to_H2": 0.868356972453405,
       "NH3_kg_per_kg_H2": 7.426466838533088,
-      "cost_USD_per_kg_at_grey_450": 3.966694063653738,
-      "cost_USD_per_kg_at_blue_487": 4.241473336679461,
-      "cost_USD_per_kg_at_green_2030_709": 5.890148974833807,
-      "cost_USD_per_kg_at_green_current_1000": 8.051250824846935,
+      "cost_USD_per_kg_at_grey_450": 4.094039778913806,
+      "cost_USD_per_kg_at_blue_487": 4.368819051939529,
+      "cost_USD_per_kg_at_green_2030_709": 6.017494690093875,
+      "cost_USD_per_kg_at_green_current_1000": 8.178596540107003,
       "cost_breakdown_at_450": {
-        "capex": 0.3612599708900563,
-        "fixed_opex": 0.2592560746699601,
+        "capex": 0.44586647201065804,
+        "fixed_opex": 0.30199397226374197,
         "ammonia_feed": 3.230047765380684,
-        "imported_heat": 0.11186231195920604,
-        "electricity": 0.0010915669953872516,
+        "heat_fuel": 0.11186231195920604,
+        "electricity": 0.0010928835410711222,
         "cooling_water": 0.0009852224195045169,
-        "catalyst": 0.0021911513389397453
+        "catalyst": 0.0021911513389397453,
+        "carbon_tax": 0.0
       },
+      "cost_SGD_per_kg_at_grey_450": 5.274940988902819,
+      "cost_USD_per_kg_legacy_v1_basis_at_450": 3.966695380199422,
       "CI_green_kgCO2e_per_kgH2": 2.4554693284587965,
       "CI_blue_kgCO2e_per_kgH2": 9.026289975385806,
       "CI_blue_param_kgCO2e_per_kgH2": 11.853020844879634,
@@ -582,18 +632,19 @@
       "NH3_kg_per_kg_H2": 7.3501663297042485,
       "compression_kWh_per_kg": 0.21941270877057165,
       "delivery_pressure_bar": 30.0,
-      "purification_only_USD_per_kg_at_450": 0.2868343316598991,
-      "cost_USD_per_kg_at_grey_450": 3.9366571667445975,
-      "cost_USD_per_kg_at_blue_487": 4.2086133209436545,
-      "cost_USD_per_kg_at_green_2030_709": 5.840350246137998,
-      "cost_USD_per_kg_at_green_current_1000": 7.979248648081935,
+      "purification_only_USD_per_kg_at_450": 0.16915777712531416,
+      "cost_USD_per_kg_at_grey_450": 4.046232065802124,
+      "cost_USD_per_kg_at_blue_487": 4.318188220001181,
+      "cost_USD_per_kg_at_green_2030_709": 5.9499251451955235,
+      "cost_USD_per_kg_at_green_current_1000": 8.08882354713946,
       "cost_breakdown_at_450": {
-        "upstream_nh3_cracker_fixed": 3.3822929475464205,
+        "upstream_nh3_cracker_fixed": 3.609544401138531,
         "imported_heat": 0.267529887538278,
-        "purification_capex_and_maintenance": 0.26840366412317107,
+        "purification_capex_and_maintenance": 0.13838733884732918,
         "membrane_replacement": 0.0,
-        "compression_electricity": 0.01843066753672802
+        "compression_electricity": 0.030770438277984972
       },
+      "cost_SGD_per_kg_at_grey_450": 5.213343427790351,
       "CI_green_kgCO2e_per_kgH2": 2.518293324738238,
       "CI_blue_kgCO2e_per_kgH2": 9.021604485703195,
       "CI_blue_param_kgCO2e_per_kgH2": 11.819293145980458,
@@ -610,18 +661,19 @@
       "NH3_kg_per_kg_H2": 7.64340509923995,
       "compression_kWh_per_kg": 1.5902665796133673,
       "delivery_pressure_bar": 350.0,
-      "purification_only_USD_per_kg_at_450": 0.43725654312000367,
-      "cost_USD_per_kg_at_grey_450": 4.264011072404615,
-      "cost_USD_per_kg_at_blue_487": 4.546817061076493,
-      "cost_USD_per_kg_at_green_2030_709": 6.243652993107762,
-      "cost_USD_per_kg_at_green_current_1000": 8.467883876986587,
+      "purification_only_USD_per_kg_at_450": 0.379591577724867,
+      "cost_USD_per_kg_at_grey_450": 4.463460302263019,
+      "cost_USD_per_kg_at_blue_487": 4.746266290934897,
+      "cost_USD_per_kg_at_green_2030_709": 6.443102222966166,
+      "cost_USD_per_kg_at_green_current_1000": 8.667333106844993,
       "cost_breakdown_at_450": {
-        "upstream_nh3_cracker_fixed": 3.8267545292846115,
+        "upstream_nh3_cracker_fixed": 4.083868724538151,
         "imported_heat": 0.0,
-        "purification_capex_and_maintenance": 0.30367415043248075,
+        "purification_capex_and_maintenance": 0.15657259259988837,
         "membrane_replacement": 0.0,
-        "compression_electricity": 0.13358239268752287
+        "compression_electricity": 0.22301898512497864
       },
+      "cost_SGD_per_kg_at_grey_450": 5.750918645688972,
       "CI_green_kgCO2e_per_kgH2": 3.166596106445678,
       "CI_blue_kgCO2e_per_kgH2": 9.929360302513025,
       "CI_blue_param_kgCO2e_per_kgH2": 12.838664230184747,
@@ -636,83 +688,83 @@
         "basis": "AmCraX price set (450 USD/t, 8000 h)",
         "cracking_pathway": "full_exhaust",
         "LCOE_direct": 258.928159372348,
-        "LCOE_cracking": 248.24505037820182,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.303452970309141,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": -4.125896936062279
+        "LCOE_cracking": 255.58562736192215,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": -1.3077934173867378,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": -1.2909109687135878
       },
       {
         "basis": "AmCraX price set (450 USD/t, 8000 h)",
         "cracking_pathway": "full_fired",
         "LCOE_direct": 258.928159372348,
-        "LCOE_cracking": 272.85473735946783,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.104026458141542,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 5.378549023357837
+        "LCOE_cracking": 280.0850665923625,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 7.553743395682866,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 8.17095648124937
       },
       {
         "basis": "AmCraX price set (450 USD/t, 8000 h)",
         "cracking_pathway": "full_purified",
         "LCOE_direct": 258.928159372348,
-        "LCOE_cracking": 304.4562967702604,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 14.953915514602567,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 17.5833086321219
+        "LCOE_cracking": 310.179325155085,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 16.523076048705764,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 19.793585180913453
       },
       {
         "basis": "Ahmad basis (480 USD/t, 7200 h)",
         "cracking_pathway": "full_exhaust",
         "LCOE_direct": 279.90115674325693,
-        "LCOE_cracking": 268.7296433024813,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.157157097924258,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": -3.991235181290398
+        "LCOE_cracking": 276.8858327242286,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": -1.0890134714951483,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": -1.077281728347479
       },
       {
         "basis": "Ahmad basis (480 USD/t, 7200 h)",
         "cracking_pathway": "full_fired",
         "LCOE_direct": 279.90115674325693,
-        "LCOE_cracking": 295.1316277555497,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.160568905514862,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 5.441374801556509
+        "LCOE_cracking": 303.1653187171936,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 7.673754396570187,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 8.311563354943917
       },
       {
         "basis": "Ahmad basis (480 USD/t, 7200 h)",
         "cracking_pathway": "full_purified",
         "LCOE_direct": 279.90115674325693,
-        "LCOE_cracking": 329.3907229729333,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 15.02457804002666,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 17.68108671128905
+        "LCOE_cracking": 335.74963434527837,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 16.633965279196094,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 19.95292847369301
       },
       {
         "basis": "renewable NH3 today (1000 USD/t)",
         "cracking_pathway": "full_exhaust",
         "LCOE_direct": 473.3401075323036,
-        "LCOE_cracking": 443.2805113711097,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": -6.781167994103021,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": -6.350528020519041
+        "LCOE_cracking": 450.62108835483,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": -5.041712375339191,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": -4.799724091819768
       },
       {
         "basis": "renewable NH3 today (1000 USD/t)",
         "cracking_pathway": "full_fired",
         "LCOE_direct": 473.3401075323036,
-        "LCOE_cracking": 493.7764135917177,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 4.138777288036277,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 4.3174676589220695
+        "LCOE_cracking": 501.00674282461233,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.5222081715562865,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 5.844980142617762
       },
       {
         "basis": "renewable NH3 today (1000 USD/t)",
         "cracking_pathway": "full_purified",
         "LCOE_direct": 473.3401075323036,
-        "LCOE_cracking": 548.8362399418061,
-        "direct_cheaper_by_pct_of_cracking(1-d/c)": 13.75567553948468,
-        "cracking_dearer_by_pct_of_direct(c/d-1)": 15.949658862227345
+        "LCOE_cracking": 554.5592683266307,
+        "direct_cheaper_by_pct_of_cracking(1-d/c)": 14.64571334988305,
+        "cracking_dearer_by_pct_of_direct(c/d-1)": 17.158732062185166
       }
     ],
     "crossover_prices": {
-      "full_exhaust_vs_direct_NH3_price_USD_t": 146.760826865834,
-      "partial_exhaust_40_vs_direct": 210.94086049278204,
+      "full_exhaust_vs_direct_NH3_price_USD_t": 355.122502862098,
+      "partial_exhaust_40_vs_direct": 450.1436034052948,
       "full_fired_vs_direct": null,
       "full_purified_vs_direct": null,
       "note": "None = the pathways do not cross between 1 and 5000 USD/t; below the crossover price the capital-heavy pathway is dearer, above it the efficiency gain pays."
     },
-    "unpurified_exhaust_LCOE_with_full_cracker_correlation": 257.1135582245889,
+    "unpurified_exhaust_LCOE_with_full_cracker_correlation": 260.1795458440106,
     "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed."
   },
   "partial_cracking": {
@@ -728,328 +780,328 @@
       {
         "H2_vol_fraction": 0.02,
         "cracked_share": 0.013777906531205577,
-        "LCOE_exhaust_gain1.0": 258.99802828106675,
-        "LCOE_exhaust_gain0.5": 259.13691709153153,
-        "LCOE_exhaust_gain0.0": 259.2759873751218,
-        "LCOE_fired": 259.37231831934406
+        "LCOE_exhaust_gain1.0": 259.18697736932813,
+        "LCOE_exhaust_gain0.5": 259.32599540950304,
+        "LCOE_exhaust_gain0.0": 259.4651950996951,
+        "LCOE_fired": 259.5612016535639
       },
       {
         "H2_vol_fraction": 0.04,
         "cracked_share": 0.02793328995367706,
-        "LCOE_exhaust_gain1.0": 258.9539166900917,
-        "LCOE_exhaust_gain0.5": 259.23526756221946,
-        "LCOE_exhaust_gain0.0": 259.5173637400664,
-        "LCOE_fired": 259.71161864507263
+        "LCOE_exhaust_gain1.0": 259.3092113749367,
+        "LCOE_exhaust_gain0.5": 259.59105455866995,
+        "LCOE_exhaust_gain0.0": 259.8736444143519,
+        "LCOE_fired": 260.06668095336585
       },
       {
         "H2_vol_fraction": 0.06,
         "cracked_share": 0.04248187847121719,
-        "LCOE_exhaust_gain1.0": 258.8770318054294,
-        "LCOE_exhaust_gain0.5": 259.30449109811843,
-        "LCOE_exhaust_gain0.0": 259.73367250395887,
-        "LCOE_fired": 260.02760283796505
+        "LCOE_exhaust_gain1.0": 259.3918182652793,
+        "LCOE_exhaust_gain0.5": 259.82036160166575,
+        "LCOE_exhaust_gain0.0": 260.2506316264235,
+        "LCOE_fired": 260.5418986352339
       },
       {
         "H2_vol_fraction": 0.08,
         "cracked_share": 0.05744028638361761,
-        "LCOE_exhaust_gain1.0": 258.7791507823509,
-        "LCOE_exhaust_gain0.5": 259.35647542743163,
-        "LCOE_exhaust_gain0.0": 259.9369449016426,
-        "LCOE_fired": 260.3324015998032
+        "LCOE_exhaust_gain1.0": 259.45017264686913,
+        "LCOE_exhaust_gain0.5": 260.0294064739292,
+        "LCOE_exhaust_gain0.0": 260.61179602507315,
+        "LCOE_fired": 261.0025843055768
       },
       {
         "H2_vol_fraction": 0.1,
         "cracked_share": 0.07282607737922948,
-        "LCOE_exhaust_gain1.0": 258.6651356631308,
-        "LCOE_exhaust_gain0.5": 259.3962082401488,
-        "LCOE_exhaust_gain0.0": 260.13232979501066,
-        "LCOE_fired": 260.63124885458615
+        "LCOE_exhaust_gain1.0": 259.49084857904705,
+        "LCOE_exhaust_gain0.5": 260.22489747319173,
+        "LCOE_exhaust_gain0.0": 260.96401687932297,
+        "LCOE_fired": 261.45568298777766
       },
       {
         "H2_vol_fraction": 0.12,
         "cracked_share": 0.08865783333123588,
-        "LCOE_exhaust_gain1.0": 258.53751842162416,
-        "LCOE_exhaust_gain0.5": 259.42635810627775,
-        "LCOE_exhaust_gain0.0": 260.32267072415095,
-        "LCOE_fired": 260.92706775086356
+        "LCOE_exhaust_gain1.0": 259.5174008838229,
+        "LCOE_exhaust_gain0.5": 260.4105370616627,
+        "LCOE_exhaust_gain0.0": 261.3111840163449,
+        "LCOE_fired": 261.9051384819826
       },
       {
         "H2_vol_fraction": 0.14,
         "cracked_share": 0.10495522916418368,
-        "LCOE_exhaust_gain1.0": 258.3977693210817,
-        "LCOE_exhaust_gain0.5": 259.44854154499467,
-        "LCOE_exhaust_gain0.0": 260.5097719624436,
-        "LCOE_fired": 261.2217401903035
+        "LCOE_exhaust_gain1.0": 259.5319949626169,
+        "LCOE_exhaust_gain0.5": 260.5886498860538,
+        "LCOE_exhaust_gain0.0": 261.6558243428062,
+        "LCOE_fired": 262.3535247617809
       },
       {
         "H2_vol_fraction": 0.16,
         "cracked_share": 0.1217391144249806,
-        "LCOE_exhaust_gain1.0": 258.24678665767783,
-        "LCOE_exhaust_gain0.5": 259.4638124088331,
-        "LCOE_exhaust_gain0.0": 260.6948878399115,
-        "LCOE_fired": 261.51659787960944
+        "LCOE_exhaust_gain1.0": 259.53604448737894,
+        "LCOE_exhaust_gain0.5": 260.7608199045016,
+        "LCOE_exhaust_gain0.0": 261.9997387306772,
+        "LCOE_fired": 262.80268516066747
       },
       {
         "H2_vol_fraction": 0.18,
         "cracked_share": 0.13903160226943806,
-        "LCOE_exhaust_gain1.0": 258.0851241689532,
-        "LCOE_exhaust_gain0.5": 259.47288934251634,
-        "LCOE_exhaust_gain0.0": 260.87895058014675,
-        "LCOE_fired": 261.8126511714827
+        "LCOE_exhaust_gain1.0": 259.53051075109846,
+        "LCOE_exhaust_gain0.5": 260.9281897202425,
+        "LCOE_exhaust_gain0.0": 262.3443016886067,
+        "LCOE_fired": 263.25403324734884
       },
       {
         "H2_vol_fraction": 0.2,
         "cracked_share": 0.1568561666629558,
-        "LCOE_exhaust_gain1.0": 257.91311004188054,
-        "LCOE_exhaust_gain0.5": 259.47627506313495,
-        "LCOE_exhaust_gain0.0": 261.0626902141608,
-        "LCOE_fired": 262.11070963132715
+        "LCOE_exhaust_gain1.0": 259.51606091261294,
+        "LCOE_exhaust_gain0.5": 261.09161910633304,
+        "LCOE_exhaust_gain0.0": 262.6906205579631,
+        "LCOE_fired": 263.70871267379493
       },
       {
         "H2_vol_fraction": 0.22,
         "cracked_share": 0.17523774869377093,
-        "LCOE_exhaust_gain1.0": 257.7309146191464,
-        "LCOE_exhaust_gain0.5": 259.4743244805859,
-        "LCOE_exhaust_gain0.0": 261.24670351514106,
-        "LCOE_fired": 262.4114514361075
+        "LCOE_exhaust_gain1.0": 259.4931589689932,
+        "LCOE_exhaust_gain0.5": 261.25177644754973,
+        "LCOE_exhaust_gain0.0": 263.0396278579577,
+        "LCOE_fired": 264.1676898576419
       },
       {
         "H2_vol_fraction": 0.24,
         "cracked_share": 0.1942028730112786,
-        "LCOE_exhaust_gain1.0": 257.5385913163743,
-        "LCOE_exhaust_gain0.5": 259.4672861341784,
-        "LCOE_exhaust_gain0.0": 261.4314963983383,
-        "LCOE_fired": 262.7154661290324
+        "LCOE_exhaust_gain1.0": 259.4621213952835,
+        "LCOE_exhaust_gain0.5": 261.4091949893467,
+        "LCOE_exhaust_gain0.0": 263.392138625662,
+        "LCOE_fired": 264.6318114596615
       },
       {
         "H2_vol_fraction": 0.26,
         "cracked_share": 0.21377977553257685,
-        "LCOE_exhaust_gain1.0": 257.33610245143996,
-        "LCOE_exhaust_gain0.5": 259.4553286291667,
-        "LCOE_exhaust_gain0.0": 261.6175114581838,
-        "LCOE_fired": 263.02328244442276
+        "LCOE_exhaust_gain1.0": 259.4231527997335,
+        "LCOE_exhaust_gain0.5": 261.564309218254,
+        "LCOE_exhaust_gain0.0": 263.74888805803107,
+        "LCOE_fired": 265.10184202287945
       },
       {
         "H2_vol_fraction": 0.28,
         "cracked_share": 0.23399854371031112,
-        "LCOE_exhaust_gain1.0": 257.12333604203985,
-        "LCOE_exhaust_gain0.5": 259.43855812181323,
-        "LCOE_exhaust_gain0.0": 261.8051466901576,
-        "LCOE_fired": 263.33538727416664
+        "LCOE_exhaust_gain1.0": 259.37636958645857,
+        "LCOE_exhaust_gain0.5": 261.7174793552342,
+        "LCOE_exhaust_gain0.0": 264.11055743436106,
+        "LCOE_fired": 265.57848978339933
       },
       {
         "H2_vol_fraction": 0.3,
         "cracked_share": 0.2548912708273032,
-        "LCOE_exhaust_gain1.0": 256.90011691209196,
-        "LCOE_exhaust_gain0.5": 259.417030191501,
-        "LCOE_exhaust_gain0.0": 261.99476874123354,
-        "LCOE_fired": 263.65223913364423
+        "LCOE_exhaust_gain1.0": 259.3218160595525,
+        "LCOE_exhaust_gain0.5": 261.8690083931198,
+        "LCOE_exhaust_gain0.0": 264.47779275574413,
+        "LCOE_fired": 266.0624251058547
       },
       {
         "H2_vol_fraction": 0.32,
         "cracked_share": 0.27649222598215933,
-        "LCOE_exhaust_gain1.0": 256.66621404617,
-        "LCOE_exhaust_gain0.5": 259.39075804042864,
-        "LCOE_exhaust_gain0.0": 262.1867226391964,
-        "LCOE_fired": 263.9742780858406
+        "LCOE_exhaust_gain1.0": 259.25947555800246,
+        "LCOE_exhaust_gain0.5": 262.0191542692664,
+        "LCOE_exhaust_gain0.0": 264.85121870400206,
+        "LCOE_fired": 266.55429415321714
       },
       {
         "H2_vol_fraction": 0.34,
         "cracked_share": 0.2988380416595968,
-        "LCOE_exhaust_gain1.0": 256.4213453649607,
-        "LCOE_exhaust_gain0.5": 259.35971819753905,
-        "LCOE_exhaust_gain0.0": 262.38133919080406,
-        "LCOE_fired": 264.3019333186001
+        "LCOE_exhaust_gain1.0": 259.18927819817424,
+        "LCOE_exhaust_gain0.5": 262.1681387552288,
+        "LCOE_exhaust_gain0.0": 265.23144951793734,
+        "LCOE_fired": 267.05472939009036
       },
       {
         "H2_vol_fraction": 0.36,
         "cracked_share": 0.3219679210450144,
-        "LCOE_exhaust_gain1.0": 256.16518065483297,
-        "LCOE_exhaust_gain0.5": 259.3238544652064,
-        "LCOE_exhaust_gain0.0": 262.57894080388667,
-        "LCOE_fired": 264.6356291328306
+        "LCOE_exhaust_gain1.0": 259.1111062174373,
+        "LCOE_exhaust_gain0.5": 262.31615406460264,
+        "LCOE_exhaust_gain0.0": 265.61909780829177,
+        "LCOE_fired": 267.5643579378777
       },
       {
         "H2_vol_fraction": 0.38,
         "cracked_share": 0.34592386755133997,
-        "LCOE_exhaust_gain1.0": 255.89734312110707,
-        "LCOE_exhaust_gain0.5": 259.2830805852115,
-        "LCOE_exhaust_gain0.0": 262.7798462296844,
-        "LCOE_fired": 264.97578983907505
+        "LCOE_exhaust_gain1.0": 259.0247975624429,
+        "LCOE_exhaust_gain0.5": 262.46336783229157,
+        "LCOE_exhaust_gain0.0": 266.01478198908563,
+        "LCOE_fired": 268.0838084530496
       },
       {
         "H2_vol_fraction": 0.4,
         "cracked_share": 0.37075093938516823,
-        "LCOE_exhaust_gain1.0": 255.61740987063413,
-        "LCOE_exhaust_gain0.5": 259.2372819379577,
-        "LCOE_exhaust_gain0.0": 262.9843745625565,
-        "LCOE_fired": 265.3228438994393
+        "LCOE_exhaust_gain1.0": 258.9301481476088,
+        "LCOE_exhaust_gain0.5": 262.6099269025643,
+        "LCOE_exhaust_gain0.0": 266.4191327915111,
+        "LCOE_fired": 268.6137169851577
       },
       {
         "H2_vol_fraction": 0.42,
         "cracked_share": 0.3964975323980271,
-        "LCOE_exhaust_gain1.0": 255.32491152356954,
-        "LCOE_exhaust_gain0.5": 259.186316484528,
-        "LCOE_exhaust_gain0.0": 263.1928487335874,
-        "LCOE_fired": 265.6772275501923
+        "LCOE_exhaust_gain1.0": 258.8269130690677,
+        "LCOE_exhaust_gain0.5": 262.75596022504084,
+        "LCOE_exhaust_gain0.0": 266.83279919316686,
+        "LCOE_fired": 269.1547321348618
       },
       {
         "H2_vol_fraction": 0.44,
         "cracked_share": 0.42321569495854106,
-        "LCOE_exhaust_gain1.0": 255.01933108359307,
-        "LCOE_exhaust_gain0.5": 259.1300150919958,
-        "LCOE_exhaust_gain0.0": 263.40559866964816,
-        "LCOE_fired": 266.03938807436055
+        "LCOE_exhaust_gain1.0": 258.7148069661093,
+        "LCOE_exhaust_gain0.5": 262.9015810667163,
+        "LCOE_exhaust_gain0.0": 267.2564540098568,
+        "LCOE_fired": 269.70751974352794
       },
       {
         "H2_vol_fraction": 0.46,
         "cracked_share": 0.4509614791559979,
-        "LCOE_exhaust_gain1.0": 254.70010214689117,
-        "LCOE_exhaust_gain0.5": 259.0681813350024,
-        "LCOE_exhaust_gain0.0": 263.6229642469196,
-        "LCOE_fired": 266.40978685004376
+        "LCOE_exhaust_gain1.0": 258.59350365820615,
+        "LCOE_exhaust_gain0.5": 263.04688868658735,
+        "LCOE_exhaust_gain0.0": 267.69079934190546,
+        "LCOE_fired": 270.2727672872326
       },
       {
         "H2_vol_fraction": 0.48,
         "cracked_share": 0.4797953333219824,
-        "LCOE_exhaust_gain1.0": 254.36660649488414,
-        "LCOE_exhaust_gain0.5": 259.00059083297543,
-        "LCOE_exhaust_gain0.0": 263.8452981398388,
-        "LCOE_fired": 266.7889022709894
+        "LCOE_exhaust_gain1.0": 258.4626351403508,
+        "LCOE_exhaust_gain0.5": 263.1919695767483,
+        "LCOE_exhaust_gain0.0": 268.1365720315337,
+        "LCOE_fired": 270.8511881086787
       },
       {
         "H2_vol_fraction": 0.5,
         "cracked_share": 0.5097825416546063,
-        "LCOE_exhaust_gain1.0": 254.01817108896262,
-        "LCOE_exhaust_gain0.5": 258.92699015751873,
-        "LCOE_exhaust_gain0.0": 264.07296864812173,
-        "LCOE_fired": 267.1772326163451
+        "LCOE_exhaust_gain1.0": 258.3217899860205,
+        "LCOE_exhaust_gain0.5": 263.33689834342516,
+        "LCOE_exhaust_gain0.0": 268.5945492659597,
+        "LCOE_fired": 271.44352559408964
       },
       {
         "H2_vol_fraction": 0.52,
         "cracked_share": 0.5409937176742761,
-        "LCOE_exhaust_gain1.0": 253.654064464165,
-        "LCOE_exhaust_gain0.5": 258.84709532527796,
-        "LCOE_exhaust_gain0.0": 264.30636257293594,
-        "LCOE_fired": 267.575298933394
+        "LCOE_exhaust_gain1.0": 258.1705111813784,
+        "LCOE_exhaust_gain0.5": 263.48173827913905,
+        "LCOE_exhaust_gain0.0": 269.06555444864057,
+        "LCOE_fired": 272.050557384537
       },
       {
         "H2_vol_fraction": 0.54,
         "cracked_share": 0.5735053593614322,
-        "LCOE_exhaust_gain1.0": 253.2734925006471,
-        "LCOE_exhaust_gain0.5": 258.7605898758773,
-        "LCOE_exhaust_gain0.0": 264.54588820660274,
-        "LCOE_fired": 267.98364798853896
+        "LCOE_exhaust_gain1.0": 258.00829339351935,
+        "LCOE_exhaust_gain0.5": 263.6265416603217,
+        "LCOE_exhaust_gain0.0": 269.5504634560578,
+        "LCOE_fired": 272.6730996997516
       },
       {
         "H2_vol_fraction": 0.56,
         "cracked_share": 0.6074004751629353,
-        "LCOE_exhaust_gain1.0": 252.87559353547388,
-        "LCOE_exhaust_gain0.5": 258.6671225208847,
-        "LCOE_exhaust_gain0.0": 264.7919784972174,
-        "LCOE_fired": 268.40285533658613
+        "LCOE_exhaust_gain1.0": 257.834579657763,
+        "LCOE_exhaust_gain0.5": 263.77134979142875,
+        "LCOE_exhaust_gain0.0": 270.05021139824817,
+        "LCOE_fired": 273.31201184561974
       },
       {
         "H2_vol_fraction": 0.58,
         "cracked_share": 0.64276929165146,
-        "LCOE_exhaust_gain1.0": 252.4594327615916,
-        "LCOE_exhaust_gain0.5": 258.56630433714264,
-        "LCOE_exhaust_gain0.0": 265.04509444960115,
-        "LCOE_fired": 268.8335285556595
+        "LCOE_exhaust_gain1.0": 257.64875745279363,
+        "LCOE_exhaust_gain0.5": 263.91619280564225,
+        "LCOE_exhaust_gain0.0": 270.5658000071073,
+        "LCOE_fired": 273.9682009731503
       },
       {
         "H2_vol_fraction": 0.6,
         "cracked_share": 0.679710055539475,
-        "LCOE_exhaust_gain1.0": 252.02399584496052,
-        "LCOE_exhaust_gain0.5": 258.457705465388,
-        "LCOE_exhaust_gain0.0": 265.3057288266328,
-        "LCOE_fired": 269.27631069437103
+        "LCOE_exhaust_gain1.0": 257.4501541168256,
+        "LCOE_exhaust_gain0.5": 264.0610892227108,
+        "LCOE_exhaust_gain0.0": 271.0983057870328,
+        "LCOE_fired": 274.64262715606696
       },
       {
         "H2_vol_fraction": 0.62,
         "cracked_share": 0.7183299450587635,
-        "LCOE_exhaust_gain1.0": 251.5681816739767,
-        "LCOE_exhaust_gain0.5": 258.3408512621811,
-        "LCOE_exhaust_gain0.0": 265.57441022012046,
-        "LCOE_fired": 269.7318839788152
+        "LCOE_exhaust_gain1.0": 257.23803154205916,
+        "LCOE_exhaust_gain0.5": 264.20604525564784,
+        "LCOE_exhaust_gain0.0": 271.64888907777635,
+        "LCOE_fired": 275.3363088558582
       },
       {
         "H2_vol_fraction": 0.64,
         "cracked_share": 0.7587461085091814,
-        "LCOE_exhaust_gain1.0": 251.09079413680365,
-        "LCOE_exhaust_gain0.5": 258.215217839162,
-        "LCOE_exhaust_gain0.0": 265.85170756796583,
-        "LCOE_fired": 270.20097382939963
+        "LCOE_exhaust_gain1.0": 257.011580067743,
+        "LCOE_exhaust_gain0.5": 264.3510538493307,
+        "LCOE_exhaust_gain0.0": 272.21880419979993,
+        "LCOE_fired": 276.05032884691104
       },
       {
         "H2_vol_fraction": 0.66,
         "cracked_share": 0.8010868511715243,
-        "LCOE_exhaust_gain1.0": 250.59053280134475,
-        "LCOE_exhaust_gain0.5": 258.080226907897,
-        "LCOE_exhaust_gain0.0": 266.13823520466127,
-        "LCOE_fired": 270.6843532413816
+        "LCOE_exhaust_gain1.0": 256.7699114734453,
+        "LCOE_exhaust_gain0.5": 264.49609342500673,
+        "LCOE_exhaust_gain0.0": 272.80941087865165,
+        "LCOE_fired": 276.7858406801497
       },
       {
         "H2_vol_fraction": 0.68,
         "cracked_share": 0.8454929959149569,
-        "LCOE_exhaust_gain1.0": 250.06598234855372,
-        "LCOE_exhaust_gain0.5": 257.9352398304061,
-        "LCOE_exhaust_gain0.0": 266.4346585454804,
-        "LCOE_fired": 271.18284758825655
+        "LCOE_exhaust_gain1.0": 256.512050952895,
+        "LCOE_exhaust_gain0.5": 264.6411262948366,
+        "LCOE_exhaust_gain0.0": 273.4221871778764,
+        "LCOE_fired": 277.54407577142314
       },
       {
         "H2_vol_fraction": 0.7000000000000001,
         "cracked_share": 0.8921194478955612,
-        "LCOE_exhaust_gain1.0": 249.5156005817122,
-        "LCOE_exhaust_gain0.5": 257.77955075408346,
-        "LCOE_exhaust_gain0.0": 266.74170052160855,
-        "LCOE_fired": 271.6973399139323
+        "LCOE_exhaust_gain1.0": 256.23692792415153,
+        "LCOE_exhaust_gain0.5": 264.7860966993705,
+        "LCOE_exhaust_gain0.0": 274.0587442111319,
+        "LCOE_fired": 278.3263512108817
       },
       {
         "H2_vol_fraction": 0.72,
         "cracked_share": 0.9411369999777347,
-        "LCOE_exhaust_gain1.0": 248.93770480117226,
-        "LCOE_exhaust_gain0.5": 257.6123786842091,
-        "LCOE_exhaust_gain0.0": 267.0601489046348,
-        "LCOE_fired": 272.2287767880597
+        "LCOE_exhaust_gain1.0": 255.94336550291678,
+        "LCOE_exhaust_gain0.5": 264.9309284076866,
+        "LCOE_exhaust_gain0.0": 274.7208429553008,
+        "LCOE_fired": 279.1340784019421
       },
       {
         "H2_vol_fraction": 0.74,
         "cracked_share": 0.9927344232221281,
-        "LCOE_exhaust_gain1.0": 248.3304562945949,
-        "LCOE_exhaust_gain0.5": 257.43285831645886,
-        "LCOE_exhaust_gain0.0": 267.3908646852661,
-        "LCOE_fired": 272.7781748092171
+        "LCOE_exhaust_gain1.0": 255.63006843135207,
+        "LCOE_exhaust_gain0.5": 265.07552180412813,
+        "LCOE_exhaust_gain0.0": 275.41041354987993,
+        "LCOE_fired": 279.9687726535327
       }
     ],
     "breakeven_efficiency_gain": [
       {
         "NH3_price_USD_t": 300.0,
-        "gain_scale_where_partial_40vol_equals_direct": 0.7607134771959188,
+        "gain_scale_where_partial_40vol_equals_direct": 1.402833702907366,
         "meaning": "fraction of Ahmad's end-point efficiency gain (49.1 -> 54 %) that exhaust-heat integration must deliver for 40 vol% H2 partial cracking to match direct NH3 cost; >1 means unreachable with the literature gain",
         "LCOE_direct": 200.45217351054188,
-        "LCOE_partial40_gain1": 199.2187862309157
+        "LCOE_partial40_gain1": 202.5315245078904
       },
       {
         "NH3_price_USD_t": 450.0,
-        "gain_scale_where_partial_40vol_equals_direct": 0.5420344091504301,
+        "gain_scale_where_partial_40vol_equals_direct": 1.0002748989942238,
         "meaning": "fraction of Ahmad's end-point efficiency gain (49.1 -> 54 %) that exhaust-heat integration must deliver for 40 vol% H2 partial cracking to match direct NH3 cost; >1 means unreachable with the literature gain",
         "LCOE_direct": 258.928159372348,
-        "LCOE_partial40_gain1": 255.61740987063413
+        "LCOE_partial40_gain1": 258.9301481476088
       },
       {
         "NH3_price_USD_t": 700.0,
-        "gain_scale_where_partial_40vol_equals_direct": 0.36638375160026304,
+        "gain_scale_where_partial_40vol_equals_direct": 0.676400224680087,
         "meaning": "fraction of Ahmad's end-point efficiency gain (49.1 -> 54 %) that exhaust-heat integration must deliver for 40 vol% H2 partial cracking to match direct NH3 cost; >1 means unreachable with the literature gain",
         "LCOE_direct": 356.38813580869146,
-        "LCOE_partial40_gain1": 349.6151159368315
+        "LCOE_partial40_gain1": 352.9278542138062
       },
       {
         "NH3_price_USD_t": 1000.0,
-        "gain_scale_where_partial_40vol_equals_direct": 0.2637771317347452,
+        "gain_scale_where_partial_40vol_equals_direct": 0.4870532001728908,
         "meaning": "fraction of Ahmad's end-point efficiency gain (49.1 -> 54 %) that exhaust-heat integration must deliver for 40 vol% H2 partial cracking to match direct NH3 cost; >1 means unreachable with the literature gain",
         "LCOE_direct": 473.3401075323036,
-        "LCOE_partial40_gain1": 462.4123632162684
+        "LCOE_partial40_gain1": 465.72510149324296
       }
     ]
   },
@@ -1057,206 +1109,206 @@
     {
       "NH3_price_USD_t": 250.0,
       "direct": 180.9601782232732,
-      "full_exhaust": 177.323064562599,
-      "full_fired": 192.51958236592247,
-      "full_purified": 215.5908628896983,
-      "partial40_exhaust": 180.41924501767622,
-      "partial40_fired": 186.4026204690635
+      "full_exhaust": 184.66364154631933,
+      "full_fired": 199.74991159881716,
+      "full_purified": 221.31389127452292,
+      "partial40_exhaust": 183.7319832946509,
+      "partial40_fired": 189.69349355478187
     },
     {
       "NH3_price_USD_t": 300.0,
       "direct": 200.45217351054188,
-      "full_exhaust": 195.05356101649969,
-      "full_fired": 212.60337111430883,
-      "full_purified": 237.80722135983885,
-      "partial40_exhaust": 199.2187862309157,
-      "partial40_fired": 206.13267632665745
+      "full_exhaust": 202.39413800022004,
+      "full_fired": 219.8337003472035,
+      "full_purified": 243.53024974466342,
+      "partial40_exhaust": 202.5315245078904,
+      "partial40_fired": 209.42354941237585
     },
     {
       "NH3_price_USD_t": 350.0,
       "direct": 219.9441687978106,
-      "full_exhaust": 212.7840574704004,
-      "full_fired": 232.68715986269518,
-      "full_purified": 260.0235798299793,
-      "partial40_exhaust": 218.01832744415518,
-      "partial40_fired": 225.8627321842514
+      "full_exhaust": 220.12463445412075,
+      "full_fired": 239.91748909558984,
+      "full_purified": 265.7466082148039,
+      "partial40_exhaust": 221.33106572112987,
+      "partial40_fired": 229.15360526996977
     },
     {
       "NH3_price_USD_t": 400.0,
       "direct": 239.43616408507927,
-      "full_exhaust": 230.5145539243011,
-      "full_fired": 252.7709486110815,
-      "full_purified": 282.2399383001199,
-      "partial40_exhaust": 236.81786865739465,
-      "partial40_fired": 245.59278804184535
+      "full_exhaust": 237.85513090802144,
+      "full_fired": 260.0012778439762,
+      "full_purified": 287.9629666849445,
+      "partial40_exhaust": 240.13060693436935,
+      "partial40_fired": 248.88366112756373
     },
     {
       "NH3_price_USD_t": 450.0,
       "direct": 258.928159372348,
-      "full_exhaust": 248.24505037820182,
-      "full_fired": 272.85473735946783,
-      "full_purified": 304.4562967702604,
-      "partial40_exhaust": 255.61740987063413,
-      "partial40_fired": 265.3228438994393
+      "full_exhaust": 255.58562736192215,
+      "full_fired": 280.0850665923625,
+      "full_purified": 310.179325155085,
+      "partial40_exhaust": 258.9301481476088,
+      "partial40_fired": 268.6137169851577
     },
     {
       "NH3_price_USD_t": 500.0,
       "direct": 278.4201546596167,
-      "full_exhaust": 265.97554683210257,
-      "full_fired": 292.9385261078542,
-      "full_purified": 326.6726552404009,
-      "partial40_exhaust": 274.4169510838736,
-      "partial40_fired": 285.05289975703323
+      "full_exhaust": 273.3161238158229,
+      "full_fired": 300.16885534074885,
+      "full_purified": 332.3956836252255,
+      "partial40_exhaust": 277.7296893608483,
+      "partial40_fired": 288.3437728427516
     },
     {
       "NH3_price_USD_t": 550.0,
       "direct": 297.91214994688534,
-      "full_exhaust": 283.70604328600325,
-      "full_fired": 313.02231485624054,
-      "full_purified": 348.8890137105414,
-      "partial40_exhaust": 293.21649229711306,
-      "partial40_fired": 304.78295561462716
+      "full_exhaust": 291.0466202697236,
+      "full_fired": 320.25264408913523,
+      "full_purified": 354.612042095366,
+      "partial40_exhaust": 296.52923057408776,
+      "partial40_fired": 308.0738287003456
     },
     {
       "NH3_price_USD_t": 600.0,
       "direct": 317.40414523415404,
-      "full_exhaust": 301.43653973990394,
-      "full_fired": 333.10610360462687,
-      "full_purified": 371.1053721806819,
-      "partial40_exhaust": 312.01603351035254,
-      "partial40_fired": 324.51301147222114
+      "full_exhaust": 308.7771167236243,
+      "full_fired": 340.33643283752156,
+      "full_purified": 376.8284005655065,
+      "partial40_exhaust": 315.32877178732724,
+      "partial40_fired": 327.8038845579395
     },
     {
       "NH3_price_USD_t": 650.0,
       "direct": 336.89614052142275,
-      "full_exhaust": 319.1670361938047,
-      "full_fired": 353.18989235301325,
-      "full_purified": 393.3217306508225,
-      "partial40_exhaust": 330.815574723592,
-      "partial40_fired": 344.24306732981506
+      "full_exhaust": 326.507613177525,
+      "full_fired": 360.4202215859079,
+      "full_purified": 399.0447590356471,
+      "partial40_exhaust": 334.1283130005667,
+      "partial40_fired": 347.53394041553344
     },
     {
       "NH3_price_USD_t": 700.0,
       "direct": 356.38813580869146,
-      "full_exhaust": 336.89753264770536,
-      "full_fired": 373.2736811013996,
-      "full_purified": 415.538089120963,
-      "partial40_exhaust": 349.6151159368315,
-      "partial40_fired": 363.973123187409
+      "full_exhaust": 344.2381096314257,
+      "full_fired": 380.50401033429426,
+      "full_purified": 421.2611175057876,
+      "partial40_exhaust": 352.9278542138062,
+      "partial40_fired": 367.2639962731274
     },
     {
       "NH3_price_USD_t": 750.0,
       "direct": 375.88013109596017,
-      "full_exhaust": 354.6280291016061,
-      "full_fired": 393.3574698497859,
-      "full_purified": 437.7544475911035,
-      "partial40_exhaust": 368.414657150071,
-      "partial40_fired": 383.70317904500297
+      "full_exhaust": 361.9686060853265,
+      "full_fired": 400.5877990826806,
+      "full_purified": 443.4774759759281,
+      "partial40_exhaust": 371.7273954270457,
+      "partial40_fired": 386.99405213072134
     },
     {
       "NH3_price_USD_t": 800.0,
       "direct": 395.3721263832288,
-      "full_exhaust": 372.35852555550684,
-      "full_fired": 413.4412585981723,
-      "full_purified": 459.97080606124405,
-      "partial40_exhaust": 387.21419836331046,
-      "partial40_fired": 403.433234902597
+      "full_exhaust": 379.69910253922717,
+      "full_fired": 420.671587831067,
+      "full_purified": 465.69383444606865,
+      "partial40_exhaust": 390.5269366402851,
+      "partial40_fired": 406.72410798831527
     },
     {
       "NH3_price_USD_t": 850.0,
       "direct": 414.86412167049747,
-      "full_exhaust": 390.08902200940753,
-      "full_fired": 433.52504734655867,
-      "full_purified": 482.18716453138455,
-      "partial40_exhaust": 406.01373957654994,
-      "partial40_fired": 423.16329076019093
+      "full_exhaust": 397.42959899312785,
+      "full_fired": 440.7553765794533,
+      "full_purified": 487.91019291620916,
+      "partial40_exhaust": 409.3264778535246,
+      "partial40_fired": 426.4541638459092
     },
     {
       "NH3_price_USD_t": 900.0,
       "direct": 434.3561169577662,
-      "full_exhaust": 407.81951846330827,
-      "full_fired": 453.608836094945,
-      "full_purified": 504.40352300152506,
-      "partial40_exhaust": 424.8132807897894,
-      "partial40_fired": 442.89334661778486
+      "full_exhaust": 415.1600954470286,
+      "full_fired": 460.8391653278397,
+      "full_purified": 510.12655138634966,
+      "partial40_exhaust": 428.12601906676406,
+      "partial40_fired": 446.1842197035031
     },
     {
       "NH3_price_USD_t": 950.0,
       "direct": 453.8481122450349,
-      "full_exhaust": 425.55001491720896,
-      "full_fired": 473.6926248433313,
-      "full_purified": 526.6198814716656,
-      "partial40_exhaust": 443.6128220030289,
-      "partial40_fired": 462.62340247537884
+      "full_exhaust": 432.8905919009293,
+      "full_fired": 480.922954076226,
+      "full_purified": 532.3429098564902,
+      "partial40_exhaust": 446.9255602800035,
+      "partial40_fired": 465.9142755610971
     },
     {
       "NH3_price_USD_t": 1000.0,
       "direct": 473.3401075323036,
-      "full_exhaust": 443.2805113711097,
-      "full_fired": 493.7764135917177,
-      "full_purified": 548.8362399418061,
-      "partial40_exhaust": 462.4123632162684,
-      "partial40_fired": 482.35345833297276
+      "full_exhaust": 450.62108835483,
+      "full_fired": 501.00674282461233,
+      "full_purified": 554.5592683266307,
+      "partial40_exhaust": 465.72510149324296,
+      "partial40_fired": 485.644331418691
     },
     {
       "NH3_price_USD_t": 1050.0,
       "direct": 492.83210281957224,
-      "full_exhaust": 461.0110078250104,
-      "full_fired": 513.860202340104,
-      "full_purified": 571.0525984119466,
-      "partial40_exhaust": 481.21190442950785,
-      "partial40_fired": 502.08351419056675
+      "full_exhaust": 468.3515848087307,
+      "full_fired": 521.0905315729987,
+      "full_purified": 576.7756267967712,
+      "partial40_exhaust": 484.52464270648244,
+      "partial40_fired": 505.374387276285
     },
     {
       "NH3_price_USD_t": 1100.0,
       "direct": 512.324098106841,
-      "full_exhaust": 478.7415042789111,
-      "full_fired": 533.9439910884904,
-      "full_purified": 593.2689568820872,
-      "partial40_exhaust": 500.01144564274733,
-      "partial40_fired": 521.8135700481606
+      "full_exhaust": 486.08208126263145,
+      "full_fired": 541.174320321385,
+      "full_purified": 598.9919852669118,
+      "partial40_exhaust": 503.3241839197219,
+      "partial40_fired": 525.1044431338789
     }
   ],
   "hours_sensitivity": [
     {
       "hours": 3000,
       "direct": 398.0951623505642,
-      "full_exhaust": 395.9394761572862,
-      "full_purified": 478.5254635790897
+      "full_exhaust": 415.51423971141213,
+      "full_purified": 493.7867367767206
     },
     {
       "hours": 5000,
       "direct": 309.0282804445058,
-      "full_exhaust": 301.41504365867223,
-      "full_purified": 367.121196821439
+      "full_exhaust": 313.15992780773854,
+      "full_purified": 376.27799333887384
     },
     {
       "hours": 7200,
       "direct": 268.20595957089574,
-      "full_exhaust": 258.0913454301408,
-      "full_purified": 316.0609078908491
+      "full_exhaust": 266.24753485188813,
+      "full_purified": 322.41981926319403
     },
     {
       "hours": 8000,
       "direct": 258.928159372348,
-      "full_exhaust": 248.24505037820182,
-      "full_purified": 304.4562967702604
+      "full_exhaust": 255.58562736192215,
+      "full_purified": 310.179325155085
     }
   ],
   "hydrogen_summary": {
     "industrial_H2_cost_vs_price": {
-      "300": 2.8167286576455055,
-      "450": 3.919253484053714,
-      "709": 5.822946350985219,
-      "1000": 7.961844514217143
+      "300": 2.912936428286826,
+      "450": 4.015461254695034,
+      "709": 5.91915412162654,
+      "1000": 8.058052284858464
     },
     "fuelcell_candidate_cost_vs_price": {
-      "300": 2.852724037873774,
-      "450": 3.966694063653738,
-      "709": 5.890148974833807,
-      "1000": 8.051250824846935
+      "300": 2.980069753133842,
+      "450": 4.094039778913806,
+      "709": 6.017494690093875,
+      "1000": 8.178596540107003
     },
-    "purification_cost_increment_USD_per_kg_at_450": 0.0474405796000239,
+    "purification_cost_increment_USD_per_kg_at_450": 0.07857852421877176,
     "note": "Increment is the stored-scenario difference (PSA recovery 0.85 -> 0.80, N2 slip 1e-3 -> 5e-4); it excludes NH3 polishing and other ISO 14687 contaminants, so it is a lower bound."
   },
   "detour": {

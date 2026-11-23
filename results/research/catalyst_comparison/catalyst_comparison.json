@@ -1,14 +1,23 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T05:58:03+00:00",
+    "generated_utc": "2026-11-23T08:50:29+00:00",
     "script": "scripts/research/catalyst_comparison.py",
     "source_type": "mixed (per row)",
     "inputs_summary": "Aspen integrated ci_* runs at the kinetic T_op; python flowsheet at kinetic X elsewhere",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
     "model_versions": {
       "kinetics": "backend/amcrax/data/kinetics.yaml via amcrax.reactor.pfr",
       "flowsheet": "amcrax.process_model.run_python_case (cracker at kinetic conversion)",
       "heat_integration": "amcrax.heat_integration.analyse (problem table)",
-      "economics": "amcrax.economics.singapore.evaluate",
+      "economics": "amcrax.economics.singapore.evaluate (Phase 2 reference scenario, CAPEX cho2026_itemised_v1)",
       "lca": "amcrax.enduse.pathways.carbon_intensity + amcrax.environmental.lca",
       "aspen": "results/research/aspen_kinetic/ci_*.json (Aspen Plus V15, PENG-ROB)"
     }
@@ -74,14 +83,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.675705235895234,
-      "rec_USD_per_kg": 0.5359962949880455,
+      "lcoh_USD_per_kg": 4.09143366417306,
+      "rec_USD_per_kg": 0.9517247232658717,
+      "lcoh_SGD_per_kg": 5.271583156001793,
+      "rec_SGD_per_kg": 1.2262440093435727,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15719089169185815,
-        "fixed_opex": 0.15402604665175193,
+        "capex": 0.43339636138712656,
+        "fixed_opex": 0.2935477255101208,
         "ammonia_feed": 3.1397089409071883,
         "heat_fuel": 0.20895316945629905,
-        "electricity": 0.0010610377628928434,
+        "electricity": 0.0010623174870811557,
         "cooling_water": 0.0008592770280601689,
         "catalyst": 0.01390587239718351,
         "carbon_tax": 0.0
@@ -108,8 +120,8 @@
         "heat_external_heat_import_kW": 452.0208649041639,
         "heat_recovered_heat_kW": 489.9469288794669,
         "heat_kpi_tailgas_combustion_heat_kW": 1733.803505495606,
-        "lcoh_USD_per_kg": 3.669627226369424,
-        "rec_USD_per_kg": 0.5295876358935998,
+        "lcoh_USD_per_kg": 4.0853994389325115,
+        "rec_USD_per_kg": 0.9453598484566874,
         "supplementary_nh3_kg_h": 109.6530970022746
       }
     },
@@ -162,14 +174,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.8781566268026544,
-      "rec_USD_per_kg": 0.738447685895466,
+      "lcoh_USD_per_kg": 4.29388505508048,
+      "rec_USD_per_kg": 1.1541761141732918,
+      "lcoh_SGD_per_kg": 5.532430435908114,
+      "rec_SGD_per_kg": 1.4870912892498926,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15719089169185815,
-        "fixed_opex": 0.15402604665175193,
+        "capex": 0.43339636138712656,
+        "fixed_opex": 0.2935477255101208,
         "ammonia_feed": 3.1397089409071883,
         "heat_fuel": 0.40993129671203626,
-        "electricity": 0.0010610377628928434,
+        "electricity": 0.0010623174870811557,
         "cooling_water": 0.0023325406797433117,
         "catalyst": 0.01390587239718351,
         "carbon_tax": 0.0
@@ -196,8 +211,8 @@
         "heat_external_heat_import_kW": 927.3997940161512,
         "heat_recovered_heat_kW": 0.0,
         "heat_kpi_tailgas_combustion_heat_kW": 1733.803505495606,
-        "lcoh_USD_per_kg": 3.875247655798644,
-        "rec_USD_per_kg": 0.7352080653228201,
+        "lcoh_USD_per_kg": 4.291019868361732,
+        "rec_USD_per_kg": 1.1509802778859082,
         "supplementary_nh3_kg_h": 220.11862742590208
       }
     },
@@ -253,14 +268,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.682859132763826,
-      "rec_USD_per_kg": 0.5500878001854308,
+      "lcoh_USD_per_kg": 4.0976689532786965,
+      "rec_USD_per_kg": 0.9648976207003015,
+      "lcoh_SGD_per_kg": 5.279616976838216,
+      "rec_SGD_per_kg": 1.2432165500055792,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15684355731789648,
-        "fixed_opex": 0.1536857054277041,
+        "capex": 0.4324387139545084,
+        "fixed_opex": 0.29289909240949685,
         "ammonia_feed": 3.132771332578395,
         "heat_fuel": 0.22370828550909347,
-        "electricity": 0.0010586932575391457,
+        "electricity": 0.0010599701540050944,
         "cooling_water": 0.0009164131675753932,
         "catalyst": 0.013875145505622037,
         "carbon_tax": 0.0
@@ -287,8 +305,8 @@
         "heat_external_heat_import_kW": 488.8752452757002,
         "heat_recovered_heat_kW": 592.6560753623044,
         "heat_kpi_tailgas_combustion_heat_kW": 1719.4144730438406,
-        "lcoh_USD_per_kg": 3.6772255551982083,
-        "rec_USD_per_kg": 0.5441250306598384,
+        "lcoh_USD_per_kg": 4.092078966989902,
+        "rec_USD_per_kg": 0.9589784424515324,
         "supplementary_nh3_kg_h": 118.14218557925797
       }
     },
@@ -341,14 +359,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.9292586054023335,
-      "rec_USD_per_kg": 0.7964872728239385,
+      "lcoh_USD_per_kg": 4.344068425917204,
+      "rec_USD_per_kg": 1.2112970933388088,
+      "lcoh_SGD_per_kg": 5.597088898962466,
+      "rec_SGD_per_kg": 1.560688472129828,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15684355731789648,
-        "fixed_opex": 0.1536857054277041,
+        "capex": 0.4324387139545084,
+        "fixed_opex": 0.29289909240949685,
         "ammonia_feed": 3.132771332578395,
         "heat_fuel": 0.4683160738058023,
-        "electricity": 0.0010586932575391457,
+        "electricity": 0.0010599701540050944,
         "cooling_water": 0.0027080975093742793,
         "catalyst": 0.013875145505622037,
         "carbon_tax": 0.0
@@ -375,8 +396,8 @@
         "heat_external_heat_import_kW": 1067.2252497782467,
         "heat_recovered_heat_kW": 0.0,
         "heat_kpi_tailgas_combustion_heat_kW": 1719.4144730438406,
-        "lcoh_USD_per_kg": 3.92679288441612,
-        "rec_USD_per_kg": 0.7936923598777503,
+        "lcoh_USD_per_kg": 4.341646296207815,
+        "rec_USD_per_kg": 1.2085457716694448,
         "supplementary_nh3_kg_h": 252.519917364148
       }
     },
@@ -432,14 +453,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6836661867482654,
-      "rec_USD_per_kg": 0.547089472882742,
+      "lcoh_USD_per_kg": 4.0989798772750605,
+      "rec_USD_per_kg": 0.9624031634095371,
+      "lcoh_SGD_per_kg": 5.281306028995788,
+      "rec_SGD_per_kg": 1.2400025814760376,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15703407538470124,
-        "fixed_opex": 0.15387238764783676,
+        "capex": 0.43296399780551903,
+        "fixed_opex": 0.2932548773063009,
         "ammonia_feed": 3.1365767138655234,
         "heat_fuel": 0.22031134085453774,
-        "electricity": 0.0010599792535737598,
+        "electricity": 0.0010612577010874554,
         "cooling_water": 0.0009196900797324704,
         "catalyst": 0.01389199966235994,
         "carbon_tax": 0.0
@@ -466,8 +490,8 @@
         "heat_external_heat_import_kW": 480.23083912491154,
         "heat_recovered_heat_kW": 598.3918178259712,
         "heat_kpi_tailgas_combustion_heat_kW": 1727.314944373221,
-        "lcoh_USD_per_kg": 3.678055835335696,
-        "rec_USD_per_kg": 0.541149134488065,
+        "lcoh_USD_per_kg": 4.0934132224117485,
+        "rec_USD_per_kg": 0.9565065215641178,
         "supplementary_nh3_kg_h": 116.17044632643533
       }
     },
@@ -520,14 +544,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.9328481459023945,
-      "rec_USD_per_kg": 0.7962714320368711,
+      "lcoh_USD_per_kg": 4.34816183642919,
+      "rec_USD_per_kg": 1.2115851225636667,
+      "lcoh_SGD_per_kg": 5.602363029176171,
+      "rec_SGD_per_kg": 1.5610595816564208,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15703407538470124,
-        "fixed_opex": 0.15387238764783676,
+        "capex": 0.43296399780551903,
+        "fixed_opex": 0.2932548773063009,
         "ammonia_feed": 3.1365767138655234,
         "heat_fuel": 0.4676814361353401,
-        "electricity": 0.0010599792535737598,
+        "electricity": 0.0010612577010874554,
         "cooling_water": 0.002731553953059543,
         "catalyst": 0.01389199966235994,
         "carbon_tax": 0.0
@@ -554,8 +581,8 @@
         "heat_external_heat_import_kW": 1064.3330641102236,
         "heat_recovered_heat_kW": 0.0,
         "heat_kpi_tailgas_combustion_heat_kW": 1727.314944373221,
-        "lcoh_USD_per_kg": 3.930409704414262,
-        "rec_USD_per_kg": 0.7935030035666313,
+        "lcoh_USD_per_kg": 4.345767091490315,
+        "rec_USD_per_kg": 1.2088603906426845,
         "supplementary_nh3_kg_h": 251.88396477138264
       }
     },
@@ -611,14 +638,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6695381662970963,
-      "rec_USD_per_kg": 0.5603284148451966,
+      "lcoh_USD_per_kg": 4.081228201101312,
+      "rec_USD_per_kg": 0.9720184496494122,
+      "lcoh_SGD_per_kg": 5.258433988339778,
+      "rec_SGD_per_kg": 1.2523913393400872,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15566393652608074,
-        "fixed_opex": 0.1525298348479522,
+        "capex": 0.4291863412916462,
+        "fixed_opex": 0.29069619759367793,
         "ammonia_feed": 3.1092097514518997,
         "heat_fuel": 0.2493053835798237,
-        "electricity": 0.0010507308228679079,
+        "electricity": 0.0010519981157923023,
         "cooling_water": 0.0009299231593614553,
         "catalyst": 0.0008486059091104436,
         "carbon_tax": 0.0
@@ -645,8 +675,8 @@
         "heat_external_heat_import_kW": 554.3858630982415,
         "heat_recovered_heat_kW": 624.3393765018114,
         "heat_kpi_tailgas_combustion_heat_kW": 1670.06690449802,
-        "lcoh_USD_per_kg": 3.6640845540086255,
-        "rec_USD_per_kg": 0.5545505447101653,
+        "lcoh_USD_per_kg": 4.075817526741711,
+        "rec_USD_per_kg": 0.9662835174432511,
         "supplementary_nh3_kg_h": 133.13026633659652
       }
     },
@@ -699,14 +729,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.9276809047660146,
-      "rec_USD_per_kg": 0.8184711533141149,
+      "lcoh_USD_per_kg": 4.33937093957023,
+      "rec_USD_per_kg": 1.2301611881183305,
+      "lcoh_SGD_per_kg": 5.591036450863625,
+      "rec_SGD_per_kg": 1.5849938018639342,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.15566393652608074,
-        "fixed_opex": 0.1525298348479522,
+        "capex": 0.4291863412916462,
+        "fixed_opex": 0.29069619759367793,
         "ammonia_feed": 3.1092097514518997,
         "heat_fuel": 0.5055713074535724,
-        "electricity": 0.0010507308228679079,
+        "electricity": 0.0010519981157923023,
         "cooling_water": 0.002806737754531076,
         "catalyst": 0.0008486059091104436,
         "carbon_tax": 0.0
@@ -733,8 +766,8 @@
         "heat_external_heat_import_kW": 1164.508551691414,
         "heat_recovered_heat_kW": 0.0,
         "heat_kpi_tailgas_combustion_heat_kW": 1670.06690449802,
-        "lcoh_USD_per_kg": 3.9253719736837143,
-        "rec_USD_per_kg": 0.815837964385254,
+        "lcoh_USD_per_kg": 4.3371049464168,
+        "rec_USD_per_kg": 1.2275709371183399,
         "supplementary_nh3_kg_h": 274.8862915119482
       }
     },
@@ -790,14 +823,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.676972380128965,
-      "rec_USD_per_kg": 0.5498587831717319,
+      "lcoh_USD_per_kg": 4.091033060649758,
+      "rec_USD_per_kg": 0.9639194636925246,
+      "lcoh_SGD_per_kg": 5.271067000795816,
+      "rec_SGD_per_kg": 1.241956249477851,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1565603003268869,
-        "fixed_opex": 0.1534081514674072,
+        "capex": 0.4316577364568957,
+        "fixed_opex": 0.29237012126778017,
         "ammonia_feed": 3.127113596957233,
         "heat_fuel": 0.22410621054020377,
-        "electricity": 0.0010567812742121872,
+        "electricity": 0.0010580558646232558,
         "cooling_water": 0.0008772523513644866,
         "catalyst": 0.01385008721165733,
         "carbon_tax": 0.0
@@ -824,8 +860,8 @@
         "heat_external_heat_import_kW": 490.2398815410661,
         "heat_recovered_heat_kW": 521.9012989137885,
         "heat_kpi_tailgas_combustion_heat_kW": 1707.6326896889225,
-        "lcoh_USD_per_kg": 3.671035736911945,
-        "rec_USD_per_kg": 0.5435941451981825,
+        "lcoh_USD_per_kg": 4.085139850182573,
+        "rec_USD_per_kg": 0.9576982584688105,
         "supplementary_nh3_kg_h": 118.40820774437336
       }
     },
@@ -878,14 +914,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.8923988759547625,
-      "rec_USD_per_kg": 0.7652852789975295,
+      "lcoh_USD_per_kg": 4.306459556475556,
+      "rec_USD_per_kg": 1.1793459595183227,
+      "lcoh_SGD_per_kg": 5.54863197678359,
+      "rec_SGD_per_kg": 1.5195212254656256,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1565603003268869,
-        "fixed_opex": 0.1534081514674072,
+        "capex": 0.4316577364568957,
+        "fixed_opex": 0.29237012126778017,
         "ammonia_feed": 3.127113596957233,
         "heat_fuel": 0.4379655106046857,
-        "electricity": 0.0010567812742121872,
+        "electricity": 0.0010580558646232558,
         "cooling_water": 0.002444448112680431,
         "catalyst": 0.01385008721165733,
         "carbon_tax": 0.0
@@ -912,8 +951,8 @@
         "heat_external_heat_import_kW": 997.6537060986464,
         "heat_recovered_heat_kW": 0.0,
         "heat_kpi_tailgas_combustion_heat_kW": 1707.6326896889225,
-        "lcoh_USD_per_kg": 3.889619766602983,
-        "rec_USD_per_kg": 0.7621781748892205,
+        "lcoh_USD_per_kg": 4.303723879873611,
+        "rec_USD_per_kg": 1.1762822881598485,
         "supplementary_nh3_kg_h": 236.31296630788796
       }
     },
@@ -972,14 +1011,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.664843357097227,
-      "rec_USD_per_kg": 0.5262037837922402,
+      "lcoh_USD_per_kg": 4.080430193578271,
+      "rec_USD_per_kg": 0.9417906202732844,
+      "lcoh_SGD_per_kg": 5.257405800334762,
+      "rec_SGD_per_kg": 1.2134444739473915,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.20819964399489407,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0008155168750002453,
         "catalyst": 0.0050145029781495255,
         "carbon_tax": 0.0
@@ -1058,14 +1100,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6683550334071873,
-      "rec_USD_per_kg": 0.5297154601022003,
+      "lcoh_USD_per_kg": 4.083941869888231,
+      "rec_USD_per_kg": 0.945302296583244,
+      "lcoh_SGD_per_kg": 5.261930398606272,
+      "rec_SGD_per_kg": 1.2179690722189012,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.21118946813835013,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0008363942194662484,
         "catalyst": 0.005515477800187337,
         "carbon_tax": 0.0
@@ -1144,14 +1189,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6738070691923643,
-      "rec_USD_per_kg": 0.5351674958873773,
+      "lcoh_USD_per_kg": 4.0893939056734085,
+      "rec_USD_per_kg": 0.9507543323684216,
+      "lcoh_SGD_per_kg": 5.268955041401469,
+      "rec_SGD_per_kg": 1.2249937150140984,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.2172123568121692,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0008787019374132696,
         "catalyst": 0.004902317193598118,
         "carbon_tax": 0.0
@@ -1230,14 +1278,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6749746162861268,
-      "rec_USD_per_kg": 0.5363350429811398,
+      "lcoh_USD_per_kg": 4.090561452767171,
+      "rec_USD_per_kg": 0.9519218794621844,
+      "lcoh_SGD_per_kg": 5.270459360449145,
+      "rec_SGD_per_kg": 1.2264980340617746,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.21759667813357866,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0008814063036329035,
         "catalyst": 0.005682838599731844,
         "carbon_tax": 0.0
@@ -1316,14 +1367,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6644255907972543,
-      "rec_USD_per_kg": 0.5257860174922673,
+      "lcoh_USD_per_kg": 4.080012427278299,
+      "rec_USD_per_kg": 0.9413728539733119,
+      "lcoh_SGD_per_kg": 5.25686753185216,
+      "rec_SGD_per_kg": 1.2129062054647899,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.20954712278518317,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0008249154635303051,
         "catalyst": 0.0032398592993573222,
         "carbon_tax": 0.0
@@ -1399,14 +1453,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.8744774753968665,
-      "rec_USD_per_kg": 0.7358379020918795,
+      "lcoh_USD_per_kg": 4.29006431187791,
+      "rec_USD_per_kg": 1.1514247385729233,
+      "lcoh_SGD_per_kg": 5.527507622253222,
+      "rec_SGD_per_kg": 1.4835462958658514,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.40725330430739093,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0023190468200990706,
         "catalyst": 0.01409143102019287,
         "carbon_tax": 0.0
@@ -1482,14 +1539,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.888693232043152,
-      "rec_USD_per_kg": 0.7500536587381652,
+      "lcoh_USD_per_kg": 4.304280068524196,
+      "rec_USD_per_kg": 1.1656404952192094,
+      "lcoh_SGD_per_kg": 5.545823828609589,
+      "rec_SGD_per_kg": 1.501862502222219,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.4144060857885044,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0023708521657051455,
         "catalyst": 0.021102600839759175,
         "carbon_tax": 0.0
@@ -1565,14 +1625,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.9200718237315577,
-      "rec_USD_per_kg": 0.7814322504265707,
+      "lcoh_USD_per_kg": 4.3356586602126015,
+      "rec_USD_per_kg": 1.1970190869076145,
+      "lcoh_SGD_per_kg": 5.5862533867989645,
+      "rec_SGD_per_kg": 1.5422920604115944,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.43807477617736634,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0025424006963129927,
         "catalyst": 0.028640953608694626,
         "carbon_tax": 0.0
@@ -1648,14 +1711,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 542.0,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.91947270622261,
-      "rec_USD_per_kg": 0.780833132917623,
+      "lcoh_USD_per_kg": 4.335059542703655,
+      "rec_USD_per_kg": 1.1964199693986677,
+      "lcoh_SGD_per_kg": 5.5854814574392675,
+      "rec_SGD_per_kg": 1.541520131051897,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.43376372915843087,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.002511141226185478,
         "catalyst": 0.0323841425888103,
         "carbon_tax": 0.0
@@ -1731,14 +1797,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.883741356907296,
-      "rec_USD_per_kg": 0.7451017836023088,
+      "lcoh_USD_per_kg": 4.29932819338834,
+      "rec_USD_per_kg": 1.160688620083353,
+      "lcoh_SGD_per_kg": 5.539443614802046,
+      "rec_SGD_per_kg": 1.4954822884146757,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.4165536334728532,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.002386409714818269,
         "catalyst": 0.013987620470440646,
         "carbon_tax": 0.0
@@ -1817,14 +1886,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6760696920413887,
-      "rec_USD_per_kg": 0.5374301187364017,
+      "lcoh_USD_per_kg": 4.091656528522433,
+      "rec_USD_per_kg": 0.9530169552174463,
+      "lcoh_SGD_per_kg": 5.2718703042355575,
+      "rec_SGD_per_kg": 1.2279089778481873,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.22420842918379422,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0009279672044601936,
         "catalyst": 0.00011960240395075538,
         "carbon_tax": 0.0
@@ -1897,14 +1969,17 @@
       "supplementary_fuel_needed": true,
       "catalyst_price_USD_per_kg": 33.4,
       "catalyst_lifetime_yr": 2.0,
-      "lcoh_USD_per_kg": 3.6790774038534466,
-      "rec_USD_per_kg": 0.5404378305484596,
+      "lcoh_USD_per_kg": 4.094664240334491,
+      "rec_USD_per_kg": 0.9560246670295038,
+      "lcoh_SGD_per_kg": 5.275745572473532,
+      "rec_SGD_per_kg": 1.2317842460861619,
+      "fx_SGD_per_USD": 1.288444,
       "breakdown_USD_per_kg": {
-        "capex": 0.1571373533384311,
-        "fixed_opex": 0.15397358622714427,
+        "capex": 0.43324874896938276,
+        "fixed_opex": 0.29344774476882646,
         "ammonia_feed": 3.138639573304987,
         "heat_fuel": 0.22724155122126666,
-        "electricity": 0.0010631803786211877,
+        "electricity": 0.0010644626870315416,
         "cooling_water": 0.0009466383891581503,
         "catalyst": 7.55209938381458e-05,
         "carbon_tax": 0.0
@@ -1940,23 +2015,23 @@
         "Ni/MgO": 1213.8486415176174
       },
       "lcoh_HI_USD_per_kg": {
-        "Ru/Al2O3": 3.675705235895234,
-        "Ru/MgO": 3.676972380128965,
-        "5Ni1Ru/CeO2": 3.682859132763826,
-        "2.5Ni0.5Ru/CeO2": 3.6836661867482654,
-        "Ni/MgO": 3.6695381662970963
+        "Ru/Al2O3": 4.09143366417306,
+        "Ru/MgO": 4.091033060649758,
+        "5Ni1Ru/CeO2": 4.0976689532786965,
+        "2.5Ni0.5Ru/CeO2": 4.0989798772750605,
+        "Ni/MgO": 4.081228201101312
       },
       "lcoh_noHI_USD_per_kg": {
-        "Ru/Al2O3": 3.8781566268026544,
-        "Ru/MgO": 3.8923988759547625,
-        "5Ni1Ru/CeO2": 3.9292586054023335,
-        "2.5Ni0.5Ru/CeO2": 3.9328481459023945,
-        "Ni/MgO": 3.9276809047660146
+        "Ru/Al2O3": 4.29388505508048,
+        "Ru/MgO": 4.306459556475556,
+        "5Ni1Ru/CeO2": 4.344068425917204,
+        "2.5Ni0.5Ru/CeO2": 4.34816183642919,
+        "Ni/MgO": 4.33937093957023
       },
       "Ru_Al2O3_vs_Ni_fired_duty_reduction_HI": 0.17000029595595978,
       "Ru_Al2O3_vs_Ni_fired_duty_reduction_noHI": 0.19704854548808337,
-      "Ru_Al2O3_minus_Ni_lcoh_HI": 0.006167069598137509,
-      "Ru_Al2O3_minus_Ni_lcoh_noHI": -0.04952427796336023,
+      "Ru_Al2O3_minus_Ni_lcoh_HI": 0.010205463071748078,
+      "Ru_Al2O3_minus_Ni_lcoh_noHI": -0.045485884489750106,
       "source_type": "aspen (duties) + python (economics)"
     },
     "cost_optimal_python": {
@@ -1970,8 +2045,8 @@
             565.0
           ],
           "fired_duty_kW": 495.18864275678914,
-          "lcoh_USD_per_kg": 3.664843357097227,
-          "rec_USD_per_kg": 0.5262037837922402,
+          "lcoh_USD_per_kg": 4.080430193578271,
+          "rec_USD_per_kg": 0.9417906202732844,
           "grey_kgCO2e_per_kgH2": 19.749402679845872,
           "green_kgCO2e_per_kgH2": 2.4590049259146602
         },
@@ -1984,8 +2059,8 @@
             500.0
           ],
           "fired_duty_kW": 968.6241875761336,
-          "lcoh_USD_per_kg": 3.8744774753968665,
-          "rec_USD_per_kg": 0.7358379020918795,
+          "lcoh_USD_per_kg": 4.29006431187791,
+          "rec_USD_per_kg": 1.1514247385729233,
           "grey_kgCO2e_per_kgH2": 20.923819275689603,
           "green_kgCO2e_per_kgH2": 2.605073059905586
         }
@@ -2000,8 +2075,8 @@
             595.0
           ],
           "fired_duty_kW": 502.2997354141608,
-          "lcoh_USD_per_kg": 3.6683550334071873,
-          "rec_USD_per_kg": 0.5297154601022003,
+          "lcoh_USD_per_kg": 4.083941869888231,
+          "rec_USD_per_kg": 0.945302296583244,
           "grey_kgCO2e_per_kgH2": 19.767042642292264,
           "green_kgCO2e_per_kgH2": 2.461198897293584
         },
@@ -2014,8 +2089,8 @@
             515.0
           ],
           "fired_duty_kW": 985.6365901221023,
-          "lcoh_USD_per_kg": 3.888693232043152,
-          "rec_USD_per_kg": 0.7500536587381652,
+          "lcoh_USD_per_kg": 4.304280068524196,
+          "rec_USD_per_kg": 1.1656404952192094,
           "grey_kgCO2e_per_kgH2": 20.96602068642817,
           "green_kgCO2e_per_kgH2": 2.6103218628773615
         }
@@ -2030,8 +2105,8 @@
             655.0
           ],
           "fired_duty_kW": 516.6247650378275,
-          "lcoh_USD_per_kg": 3.6738070691923643,
-          "rec_USD_per_kg": 0.5351674958873773,
+          "lcoh_USD_per_kg": 4.0893939056734085,
+          "rec_USD_per_kg": 0.9507543323684216,
           "grey_kgCO2e_per_kgH2": 19.802577685467792,
           "green_kgCO2e_per_kgH2": 2.4656185704030293
         },
@@ -2044,8 +2119,8 @@
             550.0
           ],
           "fired_duty_kW": 1041.9309547261967,
-          "lcoh_USD_per_kg": 3.9200718237315577,
-          "rec_USD_per_kg": 0.7814322504265707,
+          "lcoh_USD_per_kg": 4.3356586602126015,
+          "rec_USD_per_kg": 1.1970190869076145,
           "grey_kgCO2e_per_kgH2": 21.105665959722455,
           "green_kgCO2e_per_kgH2": 2.6276902520528354
         }
@@ -2060,8 +2135,8 @@
             665.0
           ],
           "fired_duty_kW": 517.5388470692833,
-          "lcoh_USD_per_kg": 3.6749746162861268,
-          "rec_USD_per_kg": 0.5363350429811398,
+          "lcoh_USD_per_kg": 4.090561452767171,
+          "rec_USD_per_kg": 0.9519218794621844,
           "grey_kgCO2e_per_kgH2": 19.80484518126411,
           "green_kgCO2e_per_kgH2": 2.4659005903276223
         },
@@ -2074,8 +2149,8 @@
             545.0
           ],
           "fired_duty_kW": 1031.677423638412,
-          "lcoh_USD_per_kg": 3.91947270622261,
-          "rec_USD_per_kg": 0.780833132917623,
+          "lcoh_USD_per_kg": 4.335059542703655,
+          "rec_USD_per_kg": 1.1964199693986677,
           "grey_kgCO2e_per_kgH2": 21.08023078231074,
           "green_kgCO2e_per_kgH2": 2.62452675034875
         }
@@ -2090,8 +2165,8 @@
             570.0
           ],
           "fired_duty_kW": 498.39352908850253,
-          "lcoh_USD_per_kg": 3.6644255907972543,
-          "rec_USD_per_kg": 0.5257860174922673,
+          "lcoh_USD_per_kg": 4.080012427278299,
+          "rec_USD_per_kg": 0.9413728539733119,
           "grey_kgCO2e_per_kgH2": 19.757352804708574,
           "green_kgCO2e_per_kgH2": 2.459993723167526
         },
@@ -2104,8 +2179,8 @@
             515.0
           ],
           "fired_duty_kW": 990.7443857103323,
-          "lcoh_USD_per_kg": 3.883741356907296,
-          "rec_USD_per_kg": 0.7451017836023088,
+          "lcoh_USD_per_kg": 4.29932819338834,
+          "rec_USD_per_kg": 1.160688620083353,
           "grey_kgCO2e_per_kgH2": 20.978691217765828,
           "green_kgCO2e_per_kgH2": 2.6118977609664342
         }
@@ -2133,62 +2208,62 @@
       {
         "catalyst": "Ru/Al2O3 (Kum)",
         "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-        "breakeven_price_USD_per_kg": 498.1647144530815
+        "breakeven_price_USD_per_kg": 498.1647144531381
       },
       {
         "catalyst": "Ru/MgO (Takahashi)",
         "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-        "breakeven_price_USD_per_kg": 251.56626957781464
+        "breakeven_price_USD_per_kg": 251.56626957779758
       },
       {
         "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-        "breakeven_price_USD_per_kg": 74.73219844895885
+        "breakeven_price_USD_per_kg": 74.73219844895854
       },
       {
         "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-        "breakeven_price_USD_per_kg": 77.25029618288141
+        "breakeven_price_USD_per_kg": 77.2502961828845
       },
       {
         "catalyst": "Ru/Al2O3 (Kum)",
         "reference": "Ni/MgO fixed at 700 degC",
-        "breakeven_price_USD_per_kg": 4329.30165497201
+        "breakeven_price_USD_per_kg": 4329.301654971339
       },
       {
         "catalyst": "Ru/MgO (Takahashi)",
         "reference": "Ni/MgO fixed at 700 degC",
-        "breakeven_price_USD_per_kg": 1932.5592270625532
+        "breakeven_price_USD_per_kg": 1932.5592270624556
       },
       {
         "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO fixed at 700 degC",
-        "breakeven_price_USD_per_kg": 856.8797917884353
+        "breakeven_price_USD_per_kg": 856.8797917884232
       },
       {
         "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO fixed at 700 degC",
-        "breakeven_price_USD_per_kg": 657.2333003605119
+        "breakeven_price_USD_per_kg": 657.2333003603994
       },
       {
         "catalyst": "Ru/Al2O3 (Kum)",
         "reference": "Ni/MgO fixed at 735 degC",
-        "breakeven_price_USD_per_kg": 7390.411669130393
+        "breakeven_price_USD_per_kg": 7390.41166912898
       },
       {
         "catalyst": "Ru/MgO (Takahashi)",
         "reference": "Ni/MgO fixed at 735 degC",
-        "breakeven_price_USD_per_kg": 2996.292649586809
+        "breakeven_price_USD_per_kg": 2996.2926495866504
       },
       {
         "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO fixed at 735 degC",
-        "breakeven_price_USD_per_kg": 1571.3700558995401
+        "breakeven_price_USD_per_kg": 1571.3700558996104
       },
       {
         "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
         "reference": "Ni/MgO fixed at 735 degC",
-        "breakeven_price_USD_per_kg": 1114.76342959346
+        "breakeven_price_USD_per_kg": 1114.7634295933433
       }
     ]
   }

@@ -34,6 +34,7 @@ ROUTES = ["green", "green_lee", "blue", "blue_v2", "blue_param", "grey", "coal"]
 def prov(source_type: str, summary: str) -> dict:
     return {"generated_utc": dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ"), "script": SCRIPT,
             "source_type": source_type, "inputs_summary": summary,
+            "reference_scenario": __import__("amcrax.economics.reference", fromlist=["x"]).provenance_stamp(),
             "model_versions": {"amcrax.environmental.lca": "1", "aspen_inputs": "stored results/simulations/baseline.json (Aspen Plus V15)"}}
 
 

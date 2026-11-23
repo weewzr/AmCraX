@@ -44,11 +44,19 @@ CARBON TAX TREATMENT
     emissions of the ammonia are NOT taxed. N2O from ammonia combustion is a covered gas but is NOT quantified
     (no primary-source emission factor available); n2o_tCO2e_per_yr can be supplied by the caller.
 
-LIMITS: capex is a screening estimate (Farokhi PEC point scaled per equipment with exponent 0.8 and TCI/PEC
+REFERENCE SCENARIO (Phase 2): defaults (electricity, FX, carbon tax, H2 selling price, discount rate, plant life,
+    operating hours, fixed-opex factors, NH3 scenarios) and the default CAPEX method (capex_mode "reference" =
+    cho2026_itemised_v1) come from data/reference_scenario.yaml via amcrax.economics.reference. capex_mode
+    "equipment" (Phase 1 Farokhi feed-scaled estimate, LCOH 3.61) and "legacy" (lcoh.py correlation, LCOH 3.92)
+    remain selectable for comparison only; both are superseded for research outputs.
+
+LIMITS (Phase 1 'equipment' mode): capex is a screening estimate (Farokhi PEC point scaled per equipment with exponent 0.8 and TCI/PEC
 5.93; cost year not stated); no Singapore location factor (none sourced); heat-exchanger capital does not
 respond to the heat-integration choice (no sourced cost per area), heat integration acts through fuel/cooling.
 """
 from __future__ import annotations
+
+import numbers
 
 from dataclasses import dataclass, field, fields
 from functools import lru_cache
@@ -60,6 +68,7 @@ import yaml
 from amcrax.schemas import LHV_KJ_PER_MOL, MOLAR_MASS
 
 from .lcoh import EconomicAssumptions, crf, estimate_capex
+from .reference import load_reference_scenario, provenance_stamp, reference_capex
 
 DATA_FILE = Path(__file__).resolve().parents[1] / "data" / "singapore.yaml"
 H2_LHV_KJ_PER_MOL = LHV_KJ_PER_MOL["H2"]
@@ -83,33 +92,35 @@ def default_electricity_USD_per_kWh() -> float:
     e = d["electricity"]
     usep = e["usep_2025_monthly_SGD_per_MWh"]["value"]
     sgd = sum(usep) / len(usep) / 1000.0 + e["network_cost_SGD_per_kWh"]["value"] + e["fees_SGD_per_kWh"]["value"]
-    return sgd / d["fx_SGD_per_USD"]["value"]
+    return sgd / load_reference_scenario().fx_SGD_per_USD
 
 
 @dataclass
 class SGParams:
     nh3_price_USD_per_t: float = 450.0
-    electricity_price_USD_per_kWh: float = field(default_factory=default_electricity_USD_per_kWh)
+    electricity_price_USD_per_kWh: float = field(default_factory=lambda: load_reference_scenario().electricity_USD_per_kWh)
     heat_fuel: str = "ammonia"                      # "ammonia" | "natural_gas"
     gas_heat_price_USD_per_kJ: Optional[float] = None  # None -> EconomicAssumptions.fired_heat_price (Kum 2026)
     fuel_efficiency: Optional[float] = None         # None -> EconomicAssumptions.ammonia_fuel_heat_efficiency
-    carbon_tax_SGD_per_t: float = field(default_factory=lambda: float(_sg()["carbon_tax"]["rate_2026_SGD_per_tCO2e"]))
+    carbon_tax_SGD_per_t: float = field(default_factory=lambda: load_reference_scenario().carbon_tax_SGD_per_t)
     apply_threshold: bool = True
     other_facility_emissions_tCO2e: float = 0.0
     n2o_tCO2e_per_yr: float = 0.0                   # not quantified by default
-    capex_mode: str = "equipment"                   # "equipment" | "legacy" (plant-level, as lcoh.py)
+    capex_mode: str = "reference"                   # "reference" (cho2026_itemised_v1) | "equipment" (Phase 1) | "legacy" (lcoh.py)
     capacity_scale: float = 1.0                     # multiplier on NH3 feed (and all flows)
     psa_recovery: Optional[float] = None            # None -> value in the stored result
-    h2_price_USD_per_kg: float = 3.06               # Argus NE Asia SMR incl. capex, 6 Jan 2026 (singapore.yaml)
+    h2_price_USD_per_kg: float = field(default_factory=lambda: load_reference_scenario().h2_selling_price_USD_per_kg)
     transport_USD_per_kg_H2: Optional[float] = None
     labour_scales_with_capacity: bool = False
     capex_scaling_exponent: Optional[float] = None  # None -> 0.8 (Chopra 2026 Eq. 5); 0.7451 = Ahmad 2025 Fig. 6
+    reactor_size_driver: Optional[str] = None       # reference mode: None -> yaml ('nh3_feed'); 'catalyst_mass'
+    item_size_ratio: Optional[dict] = None          # reference mode: caller size ratio per CAPEX item (e.g. area)
 
 
 def scenario_price(scenario: Any) -> float:
-    if isinstance(scenario, (int, float)):
+    if isinstance(scenario, numbers.Real) and not isinstance(scenario, bool):
         return float(scenario)
-    return float(_sg()["nh3_price_scenarios_USD_per_t"][scenario]["value"])
+    return float(load_reference_scenario().nh3_prices_USD_per_t[scenario])
 
 
 # ------------------------------------------------------------------------------------------ input extraction
@@ -176,6 +187,10 @@ def equipment_capex(nh3_feed_kmol_h: float, a: EconomicAssumptions, location_fac
 def evaluate(result_or_summary: Any, scenario: Any = "grey", overrides: Optional[dict] = None) -> dict:
     s = extract_summary(result_or_summary)
     eo, so = _split_overrides(overrides)
+    ref = load_reference_scenario()
+    if so.get("capex_mode", "reference") != "legacy":
+        # reference scenario owns these EconomicAssumptions fields (caller overrides win)
+        eo = {**{k: v for k, v in ref.economic_overrides().items() if k != "electricity_price_USD_per_kWh"}, **eo}
     a = EconomicAssumptions(**eo)
     so = dict(so)
     price = so.pop("nh3_price_USD_per_t", None)
@@ -207,7 +222,7 @@ def evaluate(result_or_summary: Any, scenario: Any = "grey", overrides: Optional
     eff_f = p.fuel_efficiency if p.fuel_efficiency is not None else a.ammonia_fuel_heat_efficiency
 
     feed_kg_h = nh3_kmol_h * MOLAR_MASS["NH3"]
-    fx = _sg()["fx_SGD_per_USD"]["value"]
+    fx = ref.fx_SGD_per_USD
     # heat / fuel and direct emissions
     co2_t_yr = 0.0
     if p.heat_fuel == "ammonia":
@@ -222,7 +237,7 @@ def evaluate(result_or_summary: Any, scenario: Any = "grey", overrides: Optional
     else:
         raise ValueError("heat_fuel must be 'ammonia' or 'natural_gas'")
     direct_t = co2_t_yr + p.n2o_tCO2e_per_yr
-    thr = _sg()["carbon_tax"]["threshold_tCO2e_per_yr"]
+    thr = ref.carbon_threshold_tCO2e_per_yr
     liable = (not p.apply_threshold) or (direct_t + p.other_facility_emissions_tCO2e >= thr)
     tax_USD_yr = direct_t * p.carbon_tax_SGD_per_t / fx if liable else 0.0
     if direct_t == 0:
@@ -243,10 +258,18 @@ def evaluate(result_or_summary: Any, scenario: Any = "grey", overrides: Optional
         capex_USD = estimate_capex(h2_kg_h, a).total_capex_USD
         cap = {"total_capex_USD": capex_USD, "basis": "legacy plant-level correlation (lcoh.py)"}
         tci_eq = None
-    else:
+    elif p.capex_mode == "reference":
+        cap = reference_capex(nh3_kmol_h, catalyst_mass_kg=m_cat, reactor_size_driver=p.reactor_size_driver,
+                              item_size_ratio=p.item_size_ratio, exponent=p.capex_scaling_exponent,
+                              capex_multiplier=a.capex_multiplier)
+        capex_USD = cap["total_capex_USD"]
+        tci_eq = cap["tci_by_equipment_USD"]
+    elif p.capex_mode == "equipment":
         cap = equipment_capex(nh3_kmol_h, a, exponent=p.capex_scaling_exponent)
         capex_USD = cap["total_capex_USD"]
         tci_eq = cap["tci_by_equipment_USD"]
+    else:
+        raise ValueError("capex_mode must be 'reference', 'equipment' or 'legacy'")
     f = crf(a.discount_rate, a.plant_life_yr)
     maint = a.maintenance_frac_capex_per_yr * capex_USD
     ins = a.insurance_frac_capex_per_yr * capex_USD
@@ -279,13 +302,23 @@ def evaluate(result_or_summary: Any, scenario: Any = "grey", overrides: Optional
     irr = _irr(capex_USD, net, n)
     payback = capex_USD / net if net > 0 else None
 
-    if tci_eq is not None:
+    if p.capex_mode == "reference":
+        notes.append("Reference CAPEX (cho2026_itemised_v1, 2024 USD) excludes product compression/storage, NOx "
+                     "after-treatment, land and taxes; no Singapore location factor (none sourced).")
+    elif tci_eq is not None:
         notes.append("Equipment-level CAPEX excludes NOx after-treatment, product compression/storage, land and taxes; "
                      "no Singapore location factor (none sourced).")
     notes.append("Ammonia price is a scenario (delivered, international basis), not a Singapore transaction price.")
     return {
         "case_id": s.get("case_id"), "input_source": s.get("source"), "scenario": scenario if isinstance(scenario, str) else "custom",
-        "source_type": "python", "currency": "USD", "cost_basis": _sg()["base_year_label"],
+        "source_type": "python", "currency": "USD",
+        "cost_basis": ref.raw["price_year_label"] if p.capex_mode == "reference" else _sg()["base_year_label"],
+        "capex_mode": p.capex_mode, "fx_SGD_per_USD": fx, "reference_scenario": provenance_stamp(),
+        "lcoh_SGD_per_kg": lcoh * fx, "rec_SGD_per_kg": rec_cost * fx,
+        "breakdown_SGD_per_kg": {k: v * fx for k, v in breakdown.items()},
+        "npv_SGD": npv * fx, "capex_total_SGD": capex_USD * fx,
+        "fixed_opex_detail_USD_per_yr": {"maintenance": maint, "insurance": ins, "labour": lab, "plant_overhead": overhead,
+                                         "g_and_a": fixed_base * a.g_and_a_frac_fixed_opex},
         "nh3_price_USD_per_t": p.nh3_price_USD_per_t, "h2_product_kg_h": h2_kg_h, "annual_h2_kg": annual_h2,
         "lcoh_USD_per_kg": lcoh, "rec_USD_per_kg": rec_cost, "breakdown_USD_per_kg": breakdown,
         "purification_memo_USD_per_kg": purification, "landed_cost_USD_per_kg": landed,

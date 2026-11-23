@@ -3,7 +3,10 @@
 Run:  python scripts/research/purification_study.py
 Inputs (read only): results/simulations/baseline.json (Aspen Plus V15, stream S7 after the cooler, 20 bar),
 results/sensitivity/aspen_pressure.csv (Aspen Plus V15 KPI rows at 10 and 30 bar; composition rebuilt from KPIs),
-results/simulations/economics_baseline.json (existing AmCraX economics defaults).
+Phase 2: every cost input (CAPEX by item, fixed-opex factors, electricity, hours, discount rate, life, NH3
+price, FX) comes from the unified reference scenario (backend/amcrax/data/reference_scenario.yaml) through
+amcrax.economics.singapore.evaluate on the stored Aspen baseline. The legacy results/simulations/
+economics_baseline.json basis (LCOH 3.92) is no longer used.
 Outputs: results/research/purification/*.json|csv, results/figures/research/purification_*.png,
 results/research/validation/purification.json, research/reference_additions/purification.json.
 Deterministic. Every number is labelled aspen / python / literature / assumption.
@@ -24,6 +27,8 @@ sys.path.insert(0, str(ROOT / "backend"))
 
 from amcrax.plotstyle import C_GREY, C_H2, C_HEAT, C_N2, C_NH3, C_PRIMARY, C_AMBER, add_provenance, apply_style, plt  # noqa: E402
 from amcrax.schemas import MOLAR_MASS  # noqa: E402
+from amcrax.economics.reference import load_reference_scenario, provenance_stamp, reference_item_costs  # noqa: E402
+from amcrax.economics.singapore import evaluate as sg_evaluate, extract_summary  # noqa: E402
 from amcrax.separation import params  # noqa: E402
 from amcrax.separation.compression import compression_power_kW  # noqa: E402
 from amcrax.separation.membrane import permeance, sieverts_flux  # noqa: E402
@@ -42,20 +47,22 @@ for d in (OUT, FIG, VAL, REFS):
 
 NOW = dt.datetime.now(dt.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 SCRIPT = "scripts/research/purification_study.py"
-HOURS = 8000.0  # literature (cho2026nickel p. 7 Table 4), as in economics defaults
+_REF = load_reference_scenario()   # Phase 2 unified reference scenario
+HOURS = _REF.operating_hours_h_per_yr
 DELIVERY = {"industrial_99.9": 30.0, "fuel_cell_grade_D": 350.0, "turbine_blend": 30.0}
 DELIVERY_SRC = ("30 bar: richard2024technoeconomic p. 4 (H2 supplied to the gas turbine at 30 bar); "
                 "350 bar: chopra2026decentralized p. 4 / economics.yaml chopra2026_point (compression to 350 bar). "
                 "The ideal-gas compression model is approximate at 350 bar (real-gas H2 Z about 1.2): treat as +-15 %.")
 T_PSA_K = 313.15  # aspen: PSA feed temperature, cooler outlet 40 degC
 MEM_T_K = 400.0 + 273.15  # assumption (default in separation.yaml, inside 350-500 degC Pd window)
-EURUSD_PARITY = 1.0  # assumption: no source for an exchange rate in the library; sensitivity x0.5-x2 on membrane cost
+EURUSD_PARITY = _REF.usd_per_eur  # USD per EUR, ECB 20 Nov 2026 (reference scenario; was parity 1.0 in Phase 1)
 MEM_EUR_PER_M2 = 6000.0  # literature: richard2024technoeconomic p. 9 Table 5 (Pd membrane 6000 EUR/m2, 3 y life)
 MEM_LIFE_Y = 3.0
 
 
 def prov(source_type: str, inputs: str) -> dict:
     return {"generated_utc": NOW, "script": SCRIPT, "source_type": source_type, "inputs_summary": inputs,
+            "reference_scenario": provenance_stamp(),
             "model_versions": {"separation": "amcrax.separation.purification (reduced-order)",
                                "aspen_inputs": "Aspen Plus V15 stored results"}}
 
@@ -88,23 +95,29 @@ def load_cases() -> dict[str, dict]:
     return cases
 
 
-ECON = json.loads((ROOT / "results/simulations/economics_baseline.json").read_text(encoding="utf-8"))
-AC = ECON["annual_costs_USD_per_yr"]
-EQ = ECON["capex"]["equipment_breakdown_USD"]
+_BASE_RES = json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8"))
+ECON = sg_evaluate(_BASE_RES, _REF.default_nh3_scenario)   # reference-scenario baseline (same as reference_scenario/baseline.json)
+_FD = ECON["fixed_opex_detail_USD_per_yr"]
+AC = dict(ECON["annual_USD_per_yr"])
+AC["imported_heat"] = AC["heat_fuel"]
+AC["fixed_opex.labour"], AC["fixed_opex.plant_overhead"], AC["fixed_opex.g_and_a"] = _FD["labour"], _FD["plant_overhead"], _FD["g_and_a"]
+EQ = ECON["capex"]["tci_by_equipment_USD"]   # reference CAPEX by item (cho2026_itemised_v1), indirects allocated
 CRF = ECON["crf"]
-ASSUME_ECON = ECON["assumptions"]
-HEAT_USD_PER_KW_YR = AC["imported_heat"] / 772.8673174  # derived from the existing economics baseline (NH3 fuel pricing)
-PRICE_ELEC = ASSUME_ECON["electricity_price_USD_per_kWh"]
-NH3_PRICE = ASSUME_ECON["nh3_price_USD_per_t"]
-UPSTREAM_CAPEX = EQ["cracker"] + EQ["heat_exchangers"]
-PSA_CAPEX = EQ["psa"]  # chopra2026 share-based split of the plant correlation (existing AmCraX default)
+BASE_DEFICIT_KW = extract_summary(_BASE_RES)["heat_deficit_kW"]
+HEAT_USD_PER_KW_YR = AC["imported_heat"] / BASE_DEFICIT_KW  # NH3-fuel heat price of the reference baseline
+PRICE_ELEC = _REF.electricity_USD_per_kWh
+NH3_PRICE = ECON["nh3_price_USD_per_t"]
+UPSTREAM_CAPEX = sum(v for k, v in EQ.items() if k not in ("psa", "adsorber"))
+PSA_CAPEX = EQ["psa"]  # reference CAPEX item (Cho T/PSA split 26:4 into PSA and adsorber)
 ADS_CAPEX = EQ["adsorber"]
 FIXED_NONCAPEX = AC["fixed_opex.labour"] + AC["fixed_opex.plant_overhead"] + AC["fixed_opex.g_and_a"]
-MAINT_INS = ASSUME_ECON["maintenance_frac_capex_per_yr"] + ASSUME_ECON["insurance_frac_capex_per_yr"]
-UPSTREAM_ANNUAL_BASE = (AC["ammonia_feed"] + AC["catalyst"] + AC["cooling_water"] + FIXED_NONCAPEX
+MAINT_INS = _REF.maintenance_frac_capex_per_yr + _REF.insurance_frac_capex_per_yr
+# Phase 2: the pump electricity of the cracker (omitted in Phase 1) is now part of the upstream cost, so the
+# PSA_AMCRAX configuration reproduces the reference baseline plus its NAMED extra items (compression, heat change).
+UPSTREAM_ANNUAL_BASE = (AC["ammonia_feed"] + AC["catalyst"] + AC["cooling_water"] + AC["electricity"] + FIXED_NONCAPEX
                         + UPSTREAM_CAPEX * (CRF + MAINT_INS))
-# Cho 2026 T/PSA unit CAPEX 0.084 USD/kg H2 at 82 kg/h (alternative, lower PSA+TSA cost basis)
-CHO_TPSA_USD_PER_KG = 0.084
+# Cho 2026 T/PSA unit CAPEX 0.084 USD/kg H2 at 82 kg/h (alternative basis: own exponent, H2-capacity scaling)
+CHO_TPSA_USD_PER_KG = reference_item_costs()["unit_USD_per_kg_h2"]["psa"] + reference_item_costs()["unit_USD_per_kg_h2"]["adsorber"]
 CHO_REF_KG_H = 630.0 / 7.639  # 630 kg NH3/h at 7.639 kg NH3/kg H2 (Ru-10 bar) -> about 82.5 kg/h H2
 PSA_SCALE_EXP = 0.6  # assumption (six-tenths rule), only used for the Cho alternative
 
@@ -239,7 +252,11 @@ def purification_cost(cfg, case, P_del, *, elec=PRICE_ELEC, psa_capex_mult=1.0, 
     total = upstream + heat_yr + capex_yr + mem_yr + elec_usd_yr
     purif = capex_yr + mem_yr + elec_usd_yr
     kg_yr = kg_h * HOURS
+    fx = _REF.fx_SGD_per_USD
     return {"delivery_pressure_bar": P_del, "compression_kWh_per_kg_h2": ckwh, "usd_per_kg_product_h2": total / kg_yr,
+            "sgd_per_kg_product_h2": total / kg_yr * fx, "annual_total_USD": total,
+            "annual_named_items_USD": {"compression_electricity": elec_usd_yr, "imported_heat": heat_yr,
+                                       "purification_capex_and_maintenance": capex_yr, "membrane_replacement": mem_yr},
             "components_usd_per_kg": {"upstream_nh3_cracker_fixed": upstream / kg_yr, "imported_heat": heat_yr / kg_yr,
                                       "purification_capex_and_maintenance": capex_yr / kg_yr,
                                       "membrane_replacement": mem_yr / kg_yr, "compression_electricity": elec_usd_yr / kg_yr},
@@ -253,6 +270,7 @@ def usable_cost(cfg, case, end_use, **kw):
     c = purification_cost(cfg, case, DELIVERY[end_use], **kw)
     c["meets_spec_within_model_scope"] = ok
     c["usd_per_kg_usable_h2"] = c["usd_per_kg_product_h2"] if ok else None
+    c["sgd_per_kg_usable_h2"] = c["sgd_per_kg_product_h2"] if ok else None
     c["conditional_on"] = cfg.get("n2_conditional_note", "") if ok and grade else ""
     return c
 
@@ -297,7 +315,7 @@ def main():
     apply_style()
     cases = load_cases()
     results = {"provenance": prov("python", "stored Aspen Plus V15 cracked gas; reduced-order purification models; "
-                                  "existing AmCraX economics defaults (no Singapore economics output existed)"),
+                                  "Phase 2 unified reference scenario (data/reference_scenario.yaml) for every cost input"),
                "delivery_pressures_bar": DELIVERY, "delivery_pressure_source": DELIVERY_SRC,
                "iso_14687": {"source": ISO_SOURCE, "grades": GRADES}, "cases": {}}
     assumptions = []
@@ -331,8 +349,7 @@ def main():
         "TSA regeneration heat and electricity", "compression CAPEX", "membrane housing, skid and heating CAPEX",
         "pressure drop in beds and modules", "NH3 inhibition of Pd permeation (not supported quantitatively by the library)",
         "real-gas behaviour at 350 bar", "contaminants other than NH3, N2, H2O (O2, Ar, He, CO, CO2, hydrocarbons, S, "
-        "halogens, HCHO, HCOOH, particulates) are listed as not evaluated", "Singapore-specific prices (no singapore "
-        "economics output existed at run time)", "heat integration effect of placing the membrane on the hot effluent"]
+        "halogens, HCHO, HCOOH, particulates) are listed as not evaluated", "heat integration effect of placing the membrane on the hot effluent"]
     json.dump(_clean(results), open(OUT / "purification_study.json", "w", encoding="utf-8"), indent=1)
 
     base = results["cases"]["20bar_baseline"]
@@ -476,19 +493,20 @@ def main():
     A("Polishing bed outlet NH3", 0.025, "ppm", "literature", "cechetto2023membrane p. 14 (clinoptilolite, Sitar 2022)",
       "lab bed from about 1000 ppm; applied at the quoted bound")
     A("Membrane cost", MEM_EUR_PER_M2, "EUR/m2", "literature", "richard2024technoeconomic p. 9 Table 5 (3 y life)",
-      "applied as USD at parity (assumption, no exchange rate in library); housing/skid CAPEX not modelled")
-    A("PSA+TSA CAPEX (base)", PSA_CAPEX + ADS_CAPEX, "USD", "literature", "existing AmCraX economics: chopra2026 shares of the "
-      "ahmad2025 plant correlation (results/simulations/economics_baseline.json)", "indicative split only")
+      f"converted at {EURUSD_PARITY} USD/EUR (ECB 20 Nov 2026, reference scenario); housing/skid CAPEX not modelled")
+    A("PSA+TSA CAPEX (base)", PSA_CAPEX + ADS_CAPEX, "USD", "literature", "Phase 2 reference scenario: Cho 2026 T/PSA item "
+      "(cho2026_itemised_v1) scaled with NH3 feed^0.8, OSBL/engineering/contingency allocated", "T/PSA split 26:4 (Chopra Fig. 5a)")
     A("PSA+TSA CAPEX (alternative)", CHO_TPSA_USD_PER_KG, "USD/kg H2 unit capex at 82 kg/h", "literature",
       "cho2026nickel p. 12 Fig. 7a (T/PSA 0.084)", f"scaled with exponent {PSA_SCALE_EXP} (assumption)")
-    A("Electricity price", PRICE_ELEC, "USD/kWh", "literature", "cho2026nickel p. 7 Table 4 (economics default)",
-      "no Singapore price used: results/research/singapore did not exist when this ran")
-    A("Imported heat price", HEAT_USD_PER_KW_YR, "USD per kW-year", "python", "derived from economics_baseline.json "
-      "(imported_heat / net heat deficit) with NH3 fuel at 450 USD/t", "surplus heat not credited")
+    A("Electricity price", PRICE_ELEC, "USD/kWh", "derived", "reference scenario (USEP 2025 mean + network + fees, Singapore)",
+      "Phase 2: replaces 0.084 (Cho 2026) used in Phase 1")
+    A("Imported heat price", HEAT_USD_PER_KW_YR, "USD per kW-year", "python", "reference baseline heat_fuel / net heat "
+      "deficit, NH3 fuel at the grey scenario price", "surplus heat not credited")
     A("Delivery pressures", DELIVERY, "bar", "literature", DELIVERY_SRC, "ideal-gas compression")
     A("Compressor efficiency / stages", "0.75, max ratio 3.5 per stage", "-", "literature", "cho2026nickel p. 5 Table 2",
       "compression CAPEX not modelled (electricity only)")
-    A("Operating hours", HOURS, "h/yr", "literature", "cho2026nickel p. 7 Table 4", "")
+    A("Operating hours", HOURS, "h/yr", "literature", "reference scenario (cho2026nickel p. 7 Table 4)", "")
+    A("FX", _REF.fx_SGD_per_USD, "SGD per USD", "derived", "reference scenario: ECB cross rate 20 Nov 2026", "SGD columns = USD x FX")
     json.dump(assumptions, open(OUT / "assumptions.json", "w", encoding="utf-8"), indent=1)
 
     figures(results, psa_curve, published, mem_rows, rc_rows, sens, case20, feed20)
@@ -538,7 +556,7 @@ def sensitivity(case):
     for Rm in (0.80, 0.95):
         c = memD(R=Rm)
         add("membrane recovery", Rm, b["PSA_D"], ev(c) if c else None)
-    for e in (0.042, 0.126):
+    for e in _REF.sens("electricity_USD_per_kWh"):
         add("electricity price (USD/kWh)", e, ev(p_base, elec=e), ev(m_base, elec=e))
     for pm in (0.5, 1.5):
         add("PSA/TSA CAPEX multiplier", pm, ev(p_base, psa_capex_mult=pm), ev(m_base, psa_capex_mult=pm))

@@ -6,7 +6,10 @@ LITERATURE-CALIBRATED scenario inputs. Aspen results enter only through the stor
 """
 from __future__ import annotations
 
+from amcrax.economics.reference import load_reference_scenario
 from amcrax.schemas import LHV_KJ_PER_MOL, MOLAR_MASS
+
+_REF = load_reference_scenario()   # Phase 2 unified reference scenario (data/reference_scenario.yaml)
 
 # ---- LHVs on the AmCraX basis (amcrax.schemas) -----------------------------------------------------------
 LHV_NH3_MJ_KG = LHV_KJ_PER_MOL["NH3"] / MOLAR_MASS["NH3"]      # 18.60
@@ -30,25 +33,31 @@ AHMAD_W_NET_2A_MW = 43.1
 AHMAD_OC_FIXED_2A_USD_PER_KWH = 0.02843
 AHMAD_TCI_2A_USD_PER_KWH = 0.06433
 AHMAD_LCOE_2A = 0.2798
-AHMAD_NH3_PRICE_USD_T = 480.0
+AHMAD_NH3_PRICE_USD_T = _REF.power_value("ahmad_reproduction_nh3_price_USD_per_t")
 AHMAD_MASS_FLOW_KG_S = 4.667
-AHMAD_HOURS_IMPLIED = 7200.0    # implied: TCI x CRF(10 %, 25 y) / (0.06433 USD/kWh x 43.1 MW) = 7201 h
+AHMAD_HOURS_IMPLIED = _REF.power_value("ahmad_reproduction_hours")   # 7200 h implied by Ahmad's LCOE (named field)
 AHMAD_TCI_FULL_CRACK_MUSD = 230.0
-PLANT_SCALE_EXPONENT = 0.67     # assumption: typical Ahmad Table 4 exponent for the ST/HRSG/BOP items
+PLANT_SCALE_EXPONENT = _REF.power_value("scale_exponent")   # assumption: typical Ahmad Table 4 exponent (ST/HRSG/BOP)
+CRACKER_FIXED_OM_FRAC_TCI = _REF.power_value("cracker_fixed_om_frac_tci")   # Ahmad: maintenance 2.5 % + insurance 2 %
 
 # ---- Fuel flexibility (literature, as stated in the task brief and Ahmad 2025) ----------------------------
 HALIM_H2_BLEND_RANGE_VOL = (0.30, 0.60)   # task brief: H-25 turbine takes 30-60 vol% H2 in NH3-H2 blends (Halim not accessed)
 NG_COMBUSTOR_H2_LIMIT_VOL = 0.30          # Ahmad (2025) p. 2: NG combustors limited to about 30 vol% H2 without modification
 
 # ---- Price set (one consistent set for every pathway; economics.yaml defaults unless stated) -------------
-HOURS_PER_YEAR = 8000.0          # data/economics.yaml operating_hours_h_per_yr
-from amcrax.economics.singapore import default_electricity_USD_per_kWh, scenario_price  # noqa: E402
+HOURS_PER_YEAR = _REF.operating_hours_h_per_yr          # reference scenario (cracker)
+POWER_PLANT_HOURS_PER_YEAR = _REF.power_value("operating_hours_h_per_yr")   # named field (same value, Phase 1 choice)
+DISCOUNT_RATE = _REF.power_value("discount_rate")
+PLANT_LIFE_YR = _REF.power_value("plant_life_yr")
+FX_SGD_PER_USD = _REF.fx_SGD_per_USD
+from amcrax.economics.singapore import scenario_price  # noqa: E402
 
 # One price set = the Singapore economics workstream (amcrax.economics.singapore / data/singapore.yaml)
 NH3_PRICE_SET_USD_T = {k: scenario_price(k) for k in ("grey", "blue", "green_2050", "green_2030", "green_current")}
 NH3_PRICE_REF_USD_T = NH3_PRICE_SET_USD_T["grey"]          # 450: common reference price for technology comparison
 NH3_PRICE_GREEN_USD_T = (NH3_PRICE_SET_USD_T["green_2030"], NH3_PRICE_SET_USD_T["green_current"])
-ELECTRICITY_USD_KWH = default_electricity_USD_per_kWh()    # singapore.yaml derived industrial price (USEP + network + fees)
+ELECTRICITY_USD_KWH = _REF.electricity_USD_per_kWh    # reference scenario (USEP + network + fees, derived)
+LEGACY_ELECTRICITY_USD_KWH = _REF.reproduction("legacy_v1")["electricity_price_USD_per_kWh"]  # only to reproduce v1
 
 # Singapore end-use anchors (literature)
 ISO14687_GRADE_D = {"H2_min_mol_pct": 99.97, "N2_plus_Ar_max_ppm": 300.0, "NH3_max_ppm": 0.1}

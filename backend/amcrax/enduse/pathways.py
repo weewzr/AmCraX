@@ -7,7 +7,9 @@ Efficiency: product energy (H2 LHV or electricity) / total NH3 LHV including any
 Provenance labels: cracker activities per kg NH3 come from STORED ASPEN results ('aspen'); the partial-cracking
 heat is the stored Aspen reactor + pre-heater duty scaled linearly with the cracked share (the stored temperature
 scenarios give 500 C and 700 C duties for a sensitivity; the Python process model was not re-run). Turbine and
-CCGT efficiencies are LITERATURE-CALIBRATED (Ahmad 2025); costs come from amcrax.economics (one price set).
+CCGT efficiencies are LITERATURE-CALIBRATED (Ahmad 2025); costs come from the Phase 2 unified reference scenario
+(amcrax.economics.reference / amcrax.economics.singapore, data/reference_scenario.yaml). The legacy lcoh.py
+correlation is no longer used here (superseded for research outputs).
 """
 from __future__ import annotations
 
@@ -18,8 +20,9 @@ from pathlib import Path
 
 from scipy.optimize import brentq
 
-from amcrax.economics.lcoh import compute_lcoh, crf, estimate_capex
-from amcrax.economics.models import EconomicAssumptions
+from amcrax.economics.lcoh import crf
+from amcrax.economics.reference import reference_capex
+from amcrax.economics.singapore import evaluate as sg_evaluate
 from amcrax.environmental import lca
 from amcrax.schemas import LHV_KJ_PER_MOL, MOLAR_MASS, SimulationResult
 
@@ -140,6 +143,7 @@ class Activity:
     cracked_share: float | None = None
     purity_note: str = ""
     heat_mode: str = ""
+    cracker_nh3_kg_h: float = 0.0  # NH3 through the cracker at plant scale (reference CAPEX size driver)
 
 
 def carbon_intensity(a: Activity, route_ef: float, distance_km: float, grid: float | None = None,
@@ -166,7 +170,7 @@ def hydrogen_activity(case: str, id_: str, label: str, purity_note: str) -> Acti
     eff = P.LHV_H2_MJ_KG / (nh3 * P.LHV_NH3_MJ_KG)
     return Activity(id_, label, "H2", "1 kg H2 at stated purity", nh3, c.pump_kWh_per_kg_nh3 * per_h2, eff,
                     cracker_h2_kg_h=c.h2_product_kg_h, capex_kind="purified", purity_note=purity_note,
-                    heat_mode="tail gas + extra NH3 (stored Aspen heat deficit)")
+                    heat_mode="tail gas + extra NH3 (stored Aspen heat deficit)", cracker_nh3_kg_h=c.nh3_kg_h)
 
 
 def hydrogen_activity_purification(config_id: str, grade_key: str, id_: str, label: str) -> tuple[Activity, dict]:
@@ -187,15 +191,18 @@ def hydrogen_activity_purification(config_id: str, grade_key: str, id_: str, lab
     el = c0.pump_kWh_per_kg_nh3 * c0.nh3_kg_h / h2_kg_h + cost["compression_kWh_per_kg_h2"]
     a = Activity(id_, label, "H2", "1 kg H2 at stated purity", nh3, el, P.LHV_H2_MJ_KG / (nh3 * P.LHV_NH3_MJ_KG),
                  cracker_h2_kg_h=h2_kg_h, capex_kind="purified", purity_note=f"{cfg['product_purity_h2_mole_frac'] * 100:.3f} mol% H2, recovery {cfg['h2_recovery']:.3f}",
-                 heat_mode="tail gas + extra NH3")
+                 heat_mode="tail gas + extra NH3", cracker_nh3_kg_h=c0.nh3_kg_h)
     return a, cost
 
 
-def hydrogen_cost(case: str, nh3_price: float, hours: float = P.HOURS_PER_YEAR, electricity: float | None = None) -> dict:
-    a = EconomicAssumptions(nh3_price_USD_per_t=nh3_price, operating_hours_h_per_yr=hours,
-                            electricity_price_USD_per_kWh=P.ELECTRICITY_USD_KWH if electricity is None else electricity)
-    l = compute_lcoh(load_result(case), a)
-    return {"USD_per_kg": l.lcoh_USD_per_kg, "breakdown": l.breakdown_USD_per_kg}
+def hydrogen_cost(case: str, nh3_price: float, hours: float = P.HOURS_PER_YEAR, electricity: float | None = None,
+                  capex_mode: str = "reference") -> dict:
+    """LCOH of a stored Aspen case on the reference scenario (amcrax.economics.singapore.evaluate)."""
+    ov = {"operating_hours_h_per_yr": hours, "capex_mode": capex_mode,
+          "electricity_price_USD_per_kWh": P.ELECTRICITY_USD_KWH if electricity is None else electricity}
+    e = sg_evaluate(load_result(case), nh3_price, ov)
+    return {"USD_per_kg": e["lcoh_USD_per_kg"], "breakdown": e["breakdown_USD_per_kg"],
+            "SGD_per_kg": e["lcoh_SGD_per_kg"], "capex_total_USD": e["capex"]["total_capex_USD"]}
 
 
 # --------------------------------------------------------------------------------------------------------
@@ -293,7 +300,9 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
         nh3_cracked_h = m_total_h / total_nh3 * (cracked or 0.0)
         cracker_h2 = nh3_cracked_h * lca.KG_H2_PER_KG_NH3 * X
     n2o = _n2o_per_MWh(nh3_energy_share) if kind != "full_purified" else 0.0
+    nh3_through_cracker = nh3_cracked_h if kind in ("full_purified", "blend_purified") else m_total_h / total_nh3 * (cracked or 0.0)
     return Activity(
+        cracker_nh3_kg_h=nh3_through_cracker,
         id=f"{kind}" + (f"_{int(round(y_h2 * 100))}" if y_h2 is not None else ""),
         label=kind.replace("_", " "), product="electricity", functional_unit="1 MWh net electricity",
         nh3_kg=nh3_per_MWh, aux_kWh=c.pump_kWh_per_kg_nh3 * nh3_per_MWh * (cracked or 0.0), efficiency=eff,
@@ -302,16 +311,17 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
         purity_note=pure, heat_mode=heat_mode)
 
 
-def power_cost(a: Activity, nh3_price: float, hours: float = P.HOURS_PER_YEAR, discount: float = 0.10,
-               life: float = 25.0, mass_basis_kg_s: float = P.AHMAD_MASS_FLOW_KG_S,
+def power_cost(a: Activity, nh3_price: float, hours: float = P.POWER_PLANT_HOURS_PER_YEAR,
+               discount: float = P.DISCOUNT_RATE, life: float = P.PLANT_LIFE_YR,
+               mass_basis_kg_s: float = P.AHMAD_MASS_FLOW_KG_S,
                electricity_price: float = P.ELECTRICITY_USD_KWH, unpurified_full_correlation: bool = False) -> dict:
     """LCOE (USD/MWh) of the reference plant (Ahmad basis: 4.667 kg/s total NH3).
 
     Non-cracker plant TCI = Ahmad Case 2a (181.25 MUSD at 43.1 MW) scaled with (W / 43.1)^0.67 (assumption);
     its fixed O&M = Ahmad's 0.02843 USD/kWh x 43.1 MW x 7200 h, scaled the same way. Cracker TCI from the
-    amcrax.economics Ahmad/Cesaro correlation (unpurified: PSA and adsorber shares of the project's equipment
-    split removed); maintenance + insurance 4.5 % of cracker TCI (Ahmad). Hours, discount and life are the
-    single price set of the comparison.
+    reference-scenario CAPEX method (cho2026_itemised_v1, sized on the NH3 through the cracker; unpurified: PSA and
+    adsorber items removed); maintenance + insurance 4.5 % of cracker TCI (Ahmad, named field of the reference
+    scenario). Hours, discount and life come from the reference scenario (power_plant fields).
     """
     eff_MJ = 3600.0 / a.nh3_kg                       # MJ per kg total NH3
     W_MW = mass_basis_kg_s * eff_MJ                  # MW (kg/s x MJ/kg)
@@ -319,17 +329,13 @@ def power_cost(a: Activity, nh3_price: float, hours: float = P.HOURS_PER_YEAR, d
     tci_plant = P.AHMAD_TCI_2A_MUSD * 1e6 * scale
     fixed_plant = P.AHMAD_OC_FIXED_2A_USD_PER_KWH * P.AHMAD_W_NET_2A_MW * 1e3 * P.AHMAD_HOURS_IMPLIED * scale
     tci_crk = 0.0
-    if a.capex_kind != "none" and a.cracker_h2_kg_h > 0:
-        ec = EconomicAssumptions(nh3_price_USD_per_t=nh3_price)
-        d = estimate_capex(a.cracker_h2_kg_h, ec)
-        tci_crk = d.total_capex_USD
-        if a.capex_kind == "unpurified" and not unpurified_full_correlation:
-            b = d.equipment_breakdown_USD
-            tci_crk *= 1.0 - (b["psa"] + b["adsorber"]) / sum(b.values())
+    if a.capex_kind != "none" and a.cracker_nh3_kg_h > 0:
+        excl = ("psa", "adsorber") if (a.capex_kind == "unpurified" and not unpurified_full_correlation) else ()
+        tci_crk = reference_capex(a.cracker_nh3_kg_h / MOLAR_MASS["NH3"], exclude=excl)["total_capex_USD"]
     k = crf(discount, life)
     mwh_y = W_MW * hours
     capital = (tci_plant + tci_crk) * k
-    fixed = fixed_plant + 0.045 * tci_crk
+    fixed = fixed_plant + P.CRACKER_FIXED_OM_FRAC_TCI * tci_crk
     fuel = mass_basis_kg_s * 3600.0 * hours * nh3_price / 1000.0
     elec = a.aux_kWh * mwh_y * electricity_price
     tot = capital + fixed + fuel + elec

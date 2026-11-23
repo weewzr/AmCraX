@@ -262,6 +262,7 @@ def design_point(cid: str, T_C: float, P_bar: float, X: float, *, heat_integrati
         "h2_product_kg_h": s["h2_kg_h"], **{f"heat_{k}": v for k, v in h.items()}, **fd,
         "catalyst_price_USD_per_kg": p, "catalyst_lifetime_yr": lifetime,
         "lcoh_USD_per_kg": e["lcoh_USD_per_kg"], "rec_USD_per_kg": e["rec_USD_per_kg"],
+        "lcoh_SGD_per_kg": e["lcoh_SGD_per_kg"], "rec_SGD_per_kg": e["rec_SGD_per_kg"], "fx_SGD_per_USD": e["fx_SGD_per_USD"],
         "breakdown_USD_per_kg": e["breakdown_USD_per_kg"], "kg_nh3_fuel_per_kg_h2": e["kg_nh3_fuel_per_kg_h2"],
         "annual_h2_kg": e["annual_h2_kg"], "nh3_price_USD_per_t": e["nh3_price_USD_per_t"],
         "carbon": carbon(s, fd["supplementary_nh3_kg_h"]),
@@ -305,6 +306,7 @@ def lcoh_curve(cid: str, T_grid, *, P_bar: float = 20.0, X: float = 0.95, hi: bo
             cap_extra = tci_cr * ((W / rho / V_ref) ** 0.8 - 1.0) * e0["crf"] / e0["annual_h2_kg"]
         out.append({"T_C": T, "W_kg": W, "bed_volume_m3": W / rho, "lcoh_USD_per_kg": e0["lcoh_USD_per_kg"] + cat + cap_extra,
                     "rec_USD_per_kg": e0["rec_USD_per_kg"] + cat + cap_extra, "catalyst_USD_per_kg": cat,
+                    "lcoh_SGD_per_kg": (e0["lcoh_USD_per_kg"] + cat + cap_extra) * e0["fx_SGD_per_USD"],
                     "capex_volume_extra_USD_per_kg": cap_extra, "heat_fuel_USD_per_kg": e0["breakdown_USD_per_kg"]["heat_fuel"],
                     "external_heat_import_kW": hc["heat"]["external_heat_import_kW"],
                     "fired_process_duty_kW": hc["fired"]["fired_process_duty_kW"],

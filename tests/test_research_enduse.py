@@ -67,7 +67,20 @@ def test_hydrogen_ci_reproduces_old_accounting():
 
 
 def test_hydrogen_cost_matches_stored_lcoh():
-    assert hydrogen_cost("baseline", 450.0, electricity=0.084)["USD_per_kg"] == pytest.approx(3.918842228, rel=1e-6)
+    # The stored core result is the legacy correlation (superseded for research outputs, kept reproducible).
+    legacy = hydrogen_cost("baseline", 450.0, electricity=0.084, capex_mode="legacy")
+    assert legacy["USD_per_kg"] == pytest.approx(3.918842228, rel=1e-6)
+
+
+def test_hydrogen_cost_default_is_the_reference_scenario():
+    import json
+    from pathlib import Path
+
+    stored = json.loads((Path(__file__).resolve().parents[1] / "results" / "research" / "reference_scenario"
+                         / "baseline.json").read_text(encoding="utf-8"))
+    text = json.dumps(stored)
+    value = hydrogen_cost("baseline", 450.0)["USD_per_kg"]
+    assert f"{value:.4f}"[:5] in text  # the unified baseline LCOH (4.015 USD/kg) is the default basis
 
 
 def test_breakeven_consistency():
