@@ -1,0 +1,194 @@
+[
+  {
+    "name": "currency_and_basis",
+    "value": "mixed 2024-2026 nominal USD; no escalation index applied",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "singapore.yaml header",
+    "applicability_note": "no escalation applied (conflicting CEPCI in library)"
+  },
+  {
+    "name": "fx_SGD_per_USD",
+    "value": 1.29,
+    "unit": "SGD/USD",
+    "source_type": "literature",
+    "source": "Asian Bonds Online (ADB), Singapore economy page: SGD per USD close 18 Nov 2026 = 1.290 (search-result snippet; MAS series not retrieved)",
+    "applicability_note": "rate date 2026-11-18, secondary source"
+  },
+  {
+    "name": "carbon_tax_2026",
+    "value": 45,
+    "unit": "SGD/tCO2e",
+    "source_type": "literature",
+    "source": "https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX",
+    "applicability_note": "official NEA; applies to direct emissions of facilities >= 25,000 tCO2e/yr"
+  },
+  {
+    "name": "carbon_tax_threshold",
+    "value": 25000,
+    "unit": "tCO2e/yr",
+    "source_type": "literature",
+    "source": "https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX",
+    "applicability_note": "facility-level; gas-fired heat of the baseline gives about 1.3 kt: below threshold"
+  },
+  {
+    "name": "N2O_treatment",
+    "value": "not quantified",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "NEA: N2O is a covered gas",
+    "applicability_note": "no primary-source N2O factor for NH3 combustion; user may supply n2o_tCO2e_per_yr"
+  },
+  {
+    "name": "electricity_price",
+    "value": 0.14007105943152454,
+    "unit": "USD/kWh",
+    "source_type": "literature",
+    "source": "USEP 2025 mean + network + fees (EMA, SP Group)",
+    "applicability_note": "derived, not an industrial contract price; <0.1 % of LCOH"
+  },
+  {
+    "name": "nh3_price_grey",
+    "value": 450,
+    "unit": "USD/t NH3",
+    "source_type": "literature",
+    "source": "Cho et al. 2026 Energy Convers. Manage. 348, 120796, p. 7 Table 4 (450, 'assumed'); conventional NH3 range 300-610 USD/t, Table 8",
+    "applicability_note": "SCENARIO (delivered, international); not a Singapore transaction price"
+  },
+  {
+    "name": "nh3_price_blue",
+    "value": 487,
+    "unit": "USD/t NH3",
+    "source_type": "secondary_web",
+    "source": "S&P Global Platts blue ammonia assessments, July 2025: Far East Asia 400 USD/mt, Northwest Europe 574 USD/mt (search-result snippet; article returned HTTP 403)",
+    "applicability_note": "SCENARIO (delivered, international); not a Singapore transaction price"
+  },
+  {
+    "name": "nh3_price_green_current",
+    "value": 1000,
+    "unit": "USD/t NH3",
+    "source_type": "literature",
+    "source": "Cho et al. 2026 p. 17 Fig. 11 (renewable NH3, current 1,000 USD/t; Table 9 cites IEA ETP 2023); range 887-1,052 USD/t = S&P Platts delivered green ammonia early 2025 (search-result snippet)",
+    "applicability_note": "SCENARIO (delivered, international); not a Singapore transaction price"
+  },
+  {
+    "name": "nh3_price_green_2030",
+    "value": 709,
+    "unit": "USD/t NH3",
+    "source_type": "literature",
+    "source": "Cho et al. 2026 p. 17 (709 USD/t sensitivity); Table 9 range 472-946 USD/t for 2030 (IRENA 2022)",
+    "applicability_note": "SCENARIO (delivered, international); not a Singapore transaction price"
+  },
+  {
+    "name": "nh3_price_green_2050",
+    "value": 463,
+    "unit": "USD/t NH3",
+    "source_type": "literature",
+    "source": "Cho et al. 2026 p. 17 (463 USD/t); Table 9 range 315-611 USD/t for 2050 (IRENA 2022)",
+    "applicability_note": "SCENARIO (delivered, international); not a Singapore transaction price"
+  },
+  {
+    "name": "h2_price_benchmark_sg_low_carbon_willingness_to_pay",
+    "value": 3.0,
+    "unit": "USD/kg H2",
+    "source_type": "literature",
+    "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)",
+    "applicability_note": "secondary web value; basis differs by source"
+  },
+  {
+    "name": "h2_price_benchmark_ne_asia_smr_production_cost",
+    "value": 3.06,
+    "unit": "USD/kg H2",
+    "source_type": "literature",
+    "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL",
+    "applicability_note": "secondary web value; basis differs by source"
+  },
+  {
+    "name": "h2_price_benchmark_blue_delivered_east_asia",
+    "value": 6.0,
+    "unit": "USD/kg H2",
+    "source_type": "literature",
+    "source": "ACE report estimate for delivered cost to East Asia: 5-7 USD/kg blue, 9-11 USD/kg green (search-result summary); 6.0 = midpoint (derived)",
+    "applicability_note": "secondary web value; basis differs by source"
+  },
+  {
+    "name": "h2_price_benchmark_low_carbon_offer_fob_malaysia",
+    "value": 10.0,
+    "unit": "USD/kg H2",
+    "source_type": "literature",
+    "source": "S&P Global, indicative offers of low-carbon hydrogen at about 10 USD/kg FOB Malaysia, May 2025 (search-result summary)",
+    "applicability_note": "secondary web value; basis differs by source"
+  },
+  {
+    "name": "pec_reference",
+    "value": 1702,
+    "unit": "kUSD at 500 kmol/h NH3",
+    "source_type": "literature",
+    "source": "Farokhi, Oi & Hansen 2025 (IFAC-PapersOnLine 59, 48-53) p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)",
+    "applicability_note": "cost year not stated; kUSD inferred"
+  },
+  {
+    "name": "tci_over_pec",
+    "value": 5.93,
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Farokhi 2025 p. 5 Table 5: TCI 10,096 kUSD / PEC 1,702 kUSD (derived); installation, indirect and working-capital items are inside this ratio",
+    "applicability_note": "derived from Table 5"
+  },
+  {
+    "name": "scaling_exponent",
+    "value": 0.8,
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Chopra et al. 2026 p. 4 Eq. 5 (all equipment)",
+    "applicability_note": "0.7451 (Ahmad) as sensitivity"
+  },
+  {
+    "name": "singapore_location_factor",
+    "value": 1.0,
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "No sourced Singapore location factor found; set to 1.0 (assumption). Chopra's India factor 0.65 is not transferable.",
+    "applicability_note": "no source; CAPEX multiplier +-50 % (Cho Table 8) used for sensitivity"
+  },
+  {
+    "name": "catalyst",
+    "value": "Ni 33.4 / Ru 542 USD/kg; life 2 yr; 9000 mL NH3/(g h)",
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Cho 2026 Tables 3-4 (via economics.yaml)",
+    "applicability_note": "mass sized from space velocity, not from the PFR kinetics (results/research/kinetics not present)"
+  },
+  {
+    "name": "fixed_opex",
+    "value": "maintenance 3 %, insurance 1.5 % of CAPEX; labour 109,756 USD/yr; overhead 25 %; G&A 6 %",
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Chopra 2026 Table 2; Cho 2026 Table 4 (economics.yaml)",
+    "applicability_note": "labour is an Indian small-plant basis, not Singapore"
+  },
+  {
+    "name": "discount_rate_and_life",
+    "value": "10 %, 25 yr",
+    "unit": "-",
+    "source_type": "literature",
+    "source": "Kum 2026 Table 5 (also Farokhi, Chopra, Ahmad)",
+    "applicability_note": "no Singapore WACC sourced; Cho 8.5 % in sensitivity"
+  },
+  {
+    "name": "heat_fuel",
+    "value": "supplementary NH3, 100 % LHV efficiency",
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "economics.yaml",
+    "applicability_note": "gas-fired variant uses Kum fired-heat price 4.25 USD/GJ and IPCC 56.1 kg CO2/GJ; no Singapore gas price retrieved"
+  },
+  {
+    "name": "landed_cost",
+    "value": null,
+    "unit": "-",
+    "source_type": "assumption",
+    "source": "-",
+    "applicability_note": "not computed: no sourced transport/distribution cost"
+  }
+]

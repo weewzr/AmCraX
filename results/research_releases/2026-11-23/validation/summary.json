@@ -1,0 +1,226 @@
+{
+  "provenance": {
+    "script": "scripts/research/build_research_validation.py",
+    "source_type": "python",
+    "inputs_summary": "results/research/validation/*.json (one file per workstream); core matrix not read",
+    "input_sha256": {
+      "aspen_kinetic.json": "e93066825f9c5abf015a4db048c233d67c0216bceada7c5c3688fa0bce11e9c3",
+      "catalyst_comparison.json": "98793f44f69d08818d4913c9100e6a804ce82004730df86a83ceeb358a4b0291",
+      "economics.json": "e92fe42c7fb543554428d94c390fc19302d1c25091c5b518423e95149d0520c5",
+      "enduse.json": "526f9adab3563e99565103398cefeba1604f957bbbf5890f29000db34f9cad12",
+      "kinetics.json": "a9b08fd7dfbb99aa38b7cdd31894030d95b96ebd6143b5f195e410a5bc782724",
+      "lca.json": "6f3f633bccec8d594b28ac2225476a4bbd82013c05030fc8f9a1b656ad31fe1e",
+      "purification.json": "b6358ccf1be8e9253c03afb48a1a5e388a9235d985deed927926389d44c89359"
+    },
+    "separate_from": "results/validation/validation_matrix.json (core matrix, unchanged)"
+  },
+  "totals": {
+    "pass": 295,
+    "fail": 10,
+    "informational": 45,
+    "total": 350
+  },
+  "totals_excluding_items_mirrored_from_core_matrix": {
+    "pass": 294,
+    "fail": 8,
+    "informational": 44,
+    "total": 346
+  },
+  "mirrored_core_items": {
+    "pass": 1,
+    "fail": 2,
+    "informational": 1,
+    "total": 4
+  },
+  "areas": {
+    "aspen_kinetic": {
+      "file": "results/research/validation/aspen_kinetic.json",
+      "pass": 161,
+      "fail": 3,
+      "informational": 19,
+      "total": 183,
+      "failures": [
+        {
+          "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium",
+          "description": "5Ni1Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+          "observed": 0.00048736808736804527,
+          "expected": 0.0,
+          "tolerance": 0.0001,
+          "unit": "-",
+          "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_T_luc5_T600_P20_W100', 'cs_W_luc5_T600_P20_W200', 'cs_W_luc5_T600_P20_W500', 'cv_luc5_05_T550_P20_W1000', 'cv_luc5_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/cv_luc5_06_T600_P40_W1000.json"
+          ]
+        },
+        {
+          "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium",
+          "description": "2.5Ni0.5Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+          "observed": 0.0004873675873675598,
+          "expected": 0.0,
+          "tolerance": 0.0001,
+          "unit": "-",
+          "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_W_luc25_T600_P20_W200', 'cs_W_luc25_T600_P20_W500', 'cv_luc25_05_T550_P20_W1000', 'cv_luc25_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/cv_luc25_06_T600_P40_W1000.json"
+          ]
+        },
+        {
+          "id": "cat_ru_takahashi_microkinetic_below_equilibrium",
+          "description": "Ru/MgO (Takahashi, LHHW approx.): no RPLUG run above RGibbs equilibrium (same model, same feed), 23 runs",
+          "observed": 0.00016042366042368084,
+          "expected": 0.0,
+          "tolerance": 0.0001,
+          "unit": "-",
+          "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cv_tru_09_T500_P20_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a mole-fraction basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec).",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/cv_tru_09_T500_P20_W1000.json"
+          ]
+        }
+      ]
+    },
+    "catalyst_comparison": {
+      "file": "results/research/validation/catalyst_comparison.json",
+      "pass": 66,
+      "fail": 5,
+      "informational": 4,
+      "total": 75,
+      "failures": [
+        {
+          "id": "HCAT-ASPY-Ru/Al2O3-HI-heat",
+          "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+          "observed": 489.9469288794669,
+          "expected": 469.13745,
+          "tolerance": 0.03,
+          "unit": "relative",
+          "cause": "no cause recorded in the item",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+          ]
+        },
+        {
+          "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-heat",
+          "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+          "observed": 592.6560753623044,
+          "expected": 571.796932,
+          "tolerance": 0.03,
+          "unit": "relative",
+          "cause": "no cause recorded in the item",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+          ]
+        },
+        {
+          "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat",
+          "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+          "observed": 598.3918178259712,
+          "expected": 577.53548,
+          "tolerance": 0.03,
+          "unit": "relative",
+          "cause": "no cause recorded in the item",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+          ]
+        },
+        {
+          "id": "HCAT-ASPY-Ni/MgO-HI-heat",
+          "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+          "observed": 624.3393765018114,
+          "expected": 603.504301,
+          "tolerance": 0.03,
+          "unit": "relative",
+          "cause": "no cause recorded in the item",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+          ]
+        },
+        {
+          "id": "HCAT-ASPY-Ru/MgO-HI-heat",
+          "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+          "observed": 521.9012989137885,
+          "expected": 501.058703,
+          "tolerance": 0.03,
+          "unit": "relative",
+          "cause": "no cause recorded in the item",
+          "mirrors_core_matrix": false,
+          "source_files": [
+            "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+          ]
+        }
+      ]
+    },
+    "economics": {
+      "file": "results/research/validation/economics.json",
+      "pass": 9,
+      "fail": 0,
+      "informational": 6,
+      "total": 15,
+      "failures": []
+    },
+    "enduse": {
+      "file": "results/research/validation/enduse.json",
+      "pass": 40,
+      "fail": 0,
+      "informational": 5,
+      "total": 45,
+      "failures": []
+    },
+    "kinetics": {
+      "file": "results/research/validation/kinetics.json",
+      "pass": 8,
+      "fail": 2,
+      "informational": 3,
+      "total": 13,
+      "failures": [
+        {
+          "id": "EXISTING-KIN-NI-PRED",
+          "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+          "observed": 0.10959381466219664,
+          "expected": "max |deviation| (absolute conversion) = 0.1096 (12 points, 6 outside tolerance; worst: T=500 C, pNH3=0.25 atm)",
+          "tolerance": 0.05,
+          "unit": "max |deviation| (absolute conversion)",
+          "cause": "kinetics_figure_predictions",
+          "mirrors_core_matrix": true,
+          "source_files": [
+            "results/validation/validation_matrix.json"
+          ]
+        },
+        {
+          "id": "EXISTING-KIN-RU-PRED",
+          "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+          "observed": 0.11131148594953089,
+          "expected": "max |deviation| (absolute conversion) = 0.1113 (11 points, 6 outside tolerance; worst: T=450 C, pNH3=0.3 atm, pH2=0.7 atm)",
+          "tolerance": 0.05,
+          "unit": "max |deviation| (absolute conversion)",
+          "cause": "kinetics_figure_predictions",
+          "mirrors_core_matrix": true,
+          "source_files": [
+            "results/validation/validation_matrix.json"
+          ]
+        }
+      ]
+    },
+    "lca": {
+      "file": "results/research/validation/lca.json",
+      "pass": 7,
+      "fail": 0,
+      "informational": 4,
+      "total": 11,
+      "failures": []
+    },
+    "purification": {
+      "file": "results/research/validation/purification.json",
+      "pass": 4,
+      "fail": 0,
+      "informational": 4,
+      "total": 8,
+      "failures": []
+    }
+  }
+}

@@ -1,0 +1,4597 @@
+[
+  {
+    "id": "ki_ru_kum_T600_P20_W200_hi_below_rgibbs",
+    "description": "Integrated flowsheet: RPLUG CRACKER conversion not above the stored RGibbs baseline conversion at the same T, P",
+    "method": "X_rplug <= X_rgibbs + 1e-4",
+    "reference_source": "aspen RGibbs baseline (stored)",
+    "observed": 0.9804135303607214,
+    "expected": 0.9808103635270541,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_hi.json",
+      "results/simulations/baseline.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "ki_ru_kum_T600_P20_W200_hi_flowsheet_status",
+    "description": "Integrated flowsheet with RPLUG CRACKER solved",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": {
+      "converged": true,
+      "has_errors": false,
+      "has_warnings": false,
+      "run_messages": [
+        "The following messages were issued during Input Translation:",
+        "   INFORMATION",
+        "   BINARY PARAMETERS PRKBV (DATA SET 1) FOR MODELS ESPR/ESPRSTD",
+        "   ARE RETRIEVED FROM EOS DATABANK. DATABANK NAME = EOS-LIT."
+      ]
+    },
+    "expected": "converged",
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "ki_ru_kum_T600_P20_W200_hi_reactor_duty",
+    "description": "Integrated RPLUG CRACKER duty vs RGibbs baseline duty",
+    "method": "informational comparison",
+    "reference_source": "aspen RGibbs baseline (stored)",
+    "observed": 1479.42033,
+    "expected": 1479.99984,
+    "tolerance": null,
+    "unit": "kW",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_hi.json",
+      "results/simulations/baseline.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "ki_ru_kum_T600_P20_W200_nohi_below_rgibbs",
+    "description": "Integrated flowsheet: RPLUG CRACKER conversion not above the stored RGibbs baseline conversion at the same T, P",
+    "method": "X_rplug <= X_rgibbs + 1e-4",
+    "reference_source": "aspen RGibbs baseline (stored)",
+    "observed": 0.9804135303607214,
+    "expected": 0.9808103635270541,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_nohi.json",
+      "results/simulations/baseline.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "ki_ru_kum_T600_P20_W200_nohi_flowsheet_status",
+    "description": "Integrated flowsheet with RPLUG CRACKER solved",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": {
+      "converged": true,
+      "has_errors": false,
+      "has_warnings": false,
+      "run_messages": [
+        "The following messages were issued during Input Translation:",
+        "   INFORMATION",
+        "   BINARY PARAMETERS PRKBV (DATA SET 1) FOR MODELS ESPR/ESPRSTD",
+        "   ARE RETRIEVED FROM EOS DATABANK. DATABANK NAME = EOS-LIT."
+      ]
+    },
+    "expected": "converged",
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "ki_ru_kum_T600_P20_W200_nohi_reactor_duty",
+    "description": "Integrated RPLUG CRACKER duty vs RGibbs baseline duty",
+    "method": "informational comparison",
+    "reference_source": "aspen RGibbs baseline (stored)",
+    "observed": 1479.42033,
+    "expected": 1479.99984,
+    "tolerance": null,
+    "unit": "kW",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/ki_ru_kum_T600_P20_W200_nohi.json",
+      "results/simulations/baseline.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_nire_5ni1ru_T450_P1_W100_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 1.01325 bar, 100 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.37695472772772776,
+    "expected": 0.3767052118747317,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_nire_5ni1ru_T450_P1_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_nire_5ni1ru_T450_P1_W100_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 1.01325 bar, 100 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.37695472772772776,
+    "expected": 0.9954111696496496,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_nire_5ni1ru_T450_P1_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_nire_5ni1ru_T450_P1_W100_duty",
+    "description": "Isothermal reactor duty (450 degC, 1.01325 bar, 100 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 553.219402,
+    "expected": 552.7322028493115,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_nire_5ni1ru_T450_P1_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_nire_5ni1ru_T450_P1_W100_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 1.01325 bar, 100 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.017200393092000003,
+    "expected": 0.017201695383581964,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_nire_5ni1ru_T450_P1_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_ru_kum_lhhw_T450_P5_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.3767954527673967,
+    "expected": 0.37668365529502124,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_ru_kum_lhhw_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_ru_kum_lhhw_T450_P5_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.3767954527673967,
+    "expected": 0.9779543396101512,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_ru_kum_lhhw_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_ru_kum_lhhw_T450_P5_W20_duty",
+    "description": "Isothermal reactor duty (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 552.948862,
+    "expected": 551.5951721541567,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_ru_kum_lhhw_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kl_ru_kum_lhhw_T450_P5_W20_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.027716965416,
+    "expected": 0.02772459881324225,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kl_ru_kum_lhhw_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P10_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (400 degC, 10 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.16088290896106516,
+    "expected": 0.1608033715892277,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P10_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (400 degC, 10 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.16088290896106516,
+    "expected": 0.9225516765262256,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P10_W20_duty",
+    "description": "Isothermal reactor duty (400 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 234.621249,
+    "expected": 233.03005313135372,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P10_W20_residence_time",
+    "description": "Gas residence time in the bed (400 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.06708697415999999,
+    "expected": 0.0669413178319673,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P2_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (400 degC, 2 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.20359658054848428,
+    "expected": 0.2034907776107092,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P2_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (400 degC, 2 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.20359658054848428,
+    "expected": 0.9829935847671318,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P2_W20_duty",
+    "description": "Isothermal reactor duty (400 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 295.269739,
+    "expected": 294.8909979294283,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P2_W20_residence_time",
+    "description": "Gas residence time in the bed (400 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.013072602744,
+    "expected": 0.013068530691371224,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P5_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (400 degC, 5 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.17809789749669502,
+    "expected": 0.1780098355399798,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P5_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (400 degC, 5 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.17809789749669502,
+    "expected": 0.9590032165431965,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P5_W20_duty",
+    "description": "Isothermal reactor duty (400 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 258.821034,
+    "expected": 257.96499802099834,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T400_P5_W20_residence_time",
+    "description": "Gas residence time in the bed (400 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.033176134511999994,
+    "expected": 0.0331436615904139,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T400_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 10 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.34193103624666754,
+    "expected": 0.3418604607061167,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 10 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.34193103624666754,
+    "expected": 0.9572589913560855,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W20_duty",
+    "description": "Isothermal reactor duty (450 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 503.083919,
+    "expected": 500.60196938516356,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W20_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.05643670284,
+    "expected": 0.0564553114028663,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W500_neareq_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 10 bar, 500 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.9568113998768307,
+    "expected": 0.9573498543175605,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W500_neareq.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W500_neareq_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 10 bar, 500 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.9568113998768307,
+    "expected": 0.9572589913560855,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W500_neareq.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W500_neareq_duty",
+    "description": "Isothermal reactor duty (450 degC, 10 bar, 500 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 1404.85748,
+    "expected": 1401.89134909627,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W500_neareq.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P10_W500_neareq_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 10 bar, 500 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.9433130184,
+    "expected": 0.9455630511671367,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P10_W500_neareq.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P2_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 2 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.4276062726052706,
+    "expected": 0.4274630419172107,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P2_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 2 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.4276062726052706,
+    "expected": 0.9910097009133382,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P2_W20_duty",
+    "description": "Isothermal reactor duty (450 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 626.573099,
+    "expected": 625.9537595577215,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P2_W20_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.010805497344,
+    "expected": 0.010807783146447671,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W100_coolant_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 5 bar, 100 kg, coolant)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.17317319724534153,
+    "expected": 0.17341643713589083,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W100_coolant.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W100_coolant_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 5 bar, 100 kg, coolant)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.17317319724534153,
+    "expected": 0.9779543396101512,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W100_coolant.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W100_coolant_T_out",
+    "description": "Outlet temperature (450 degC, 5 bar, 100 kg, coolant)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 340.47031,
+    "expected": 340.5811196482956,
+    "tolerance": 2.0,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W100_coolant.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W100_coolant_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 5 bar, 100 kg, coolant)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.17780309496,
+    "expected": 0.17747971003294913,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W100_coolant.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.3767953634997723,
+    "expected": 0.37668365529502124,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.3767953634997723,
+    "expected": 0.9779543396101512,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_duty",
+    "description": "Isothermal reactor duty (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 552.948731,
+    "expected": 551.5951721541567,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.027716965883999998,
+    "expected": 0.02772459881324225,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (450 degC, 5 bar, 20 kg, adiabatic)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.10195567511399162,
+    "expected": 0.1020919606815973,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20_adiabatic_ergun.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (450 degC, 5 bar, 20 kg, adiabatic)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.10195567511399162,
+    "expected": 0.9779543396101512,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20_adiabatic_ergun.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_T_out",
+    "description": "Outlet temperature (450 degC, 5 bar, 20 kg, adiabatic)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 339.302062,
+    "expected": 339.36758031794056,
+    "tolerance": 2.0,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20_adiabatic_ergun.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_residence_time",
+    "description": "Gas residence time in the bed (450 degC, 5 bar, 20 kg, adiabatic)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.0361844676,
+    "expected": 0.036109048246001196,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20_adiabatic_ergun.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_pressure_drop",
+    "description": "Ergun pressure drop (450 degC, 5 bar, 20 kg, adiabatic)",
+    "method": "informational",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.029947309999999838,
+    "expected": 0.029384726686808804,
+    "tolerance": null,
+    "unit": "bar",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T450_P5_W20_adiabatic_ergun.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P10_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (500 degC, 10 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.6286011452334097,
+    "expected": 0.6284379495619908,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P10_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (500 degC, 10 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.6286011452334097,
+    "expected": 0.9751872540877551,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P10_W20_duty",
+    "description": "Isothermal reactor duty (500 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 932.187416,
+    "expected": 928.83591277795,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P10_W20_residence_time",
+    "description": "Gas residence time in the bed (500 degC, 10 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.04573464228,
+    "expected": 0.045817497361363715,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P10_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P2_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (500 degC, 2 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.7592262813916121,
+    "expected": 0.7590309878545325,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P2_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (500 degC, 2 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.7592262813916121,
+    "expected": 0.9948927001650949,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P2_W20_duty",
+    "description": "Isothermal reactor duty (500 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 1122.74745,
+    "expected": 1121.8533841280525,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P2_W20_residence_time",
+    "description": "Gas residence time in the bed (500 degC, 2 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.008601849504000001,
+    "expected": 0.008606037562434228,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P2_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P5_W20_conversion",
+    "description": "NH3 conversion Aspen RPLUG vs Python PFR (500 degC, 5 bar, 20 kg, isothermal)",
+    "method": "|X_aspen - X_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.6837665681713778,
+    "expected": 0.6835368613839473,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P5_W20_below_equilibrium",
+    "description": "Kinetic conversion not above RGibbs equilibrium (500 degC, 5 bar, 20 kg, isothermal)",
+    "method": "X_rplug <= X_rgibbs + 1e-4 (same run, same feed)",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.6837665681713778,
+    "expected": 0.9873704571304772,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P5_W20_duty",
+    "description": "Isothermal reactor duty (500 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 1012.18849,
+    "expected": 1010.2725098053712,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "kv_ru_kum_T500_P5_W20_residence_time",
+    "description": "Gas residence time in the bed (500 degC, 5 bar, 20 kg, isothermal)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 0.022289937552,
+    "expected": 0.022312388020107078,
+    "tolerance": 0.02,
+    "unit": "s",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/kv_ru_kum_T500_P5_W20.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T04:38:52+00:00",
+      "script": "aspen/automation/validate_kinetic_vs_python.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/k*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15",
+        "python": "amcrax.reactor.pfr"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_00_T400_P1_W50_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 400 degC, 1 bar, 50 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.3654373234373234,
+    "expected": 0.3653042037156637,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_00_T400_P1_W50.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_00_T400_P1_W50_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 400 degC, 1 bar, 50 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 531.175058,
+    "expected": 530.9760155686668,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_00_T400_P1_W50.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_01_T400_P10_W200_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 400 degC, 10 bar, 200 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.5357858177858177,
+    "expected": 0.5356292068247928,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_01_T400_P10_W200.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_01_T400_P10_W200_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 400 degC, 10 bar, 200 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 782.047201,
+    "expected": 778.5465731571392,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_01_T400_P10_W200.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_02_T450_P1_W50_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 450 degC, 1 bar, 50 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.7203322313322313,
+    "expected": 0.7201367117413277,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_02_T450_P1_W50.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_02_T450_P1_W50_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 450 degC, 1 bar, 50 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1058.07661,
+    "expected": 1057.6993680239877,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_02_T450_P1_W50.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_03_T450_P10_W200_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 450 degC, 10 bar, 200 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9289298235298236,
+    "expected": 0.9291290760145685,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_03_T450_P10_W200.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_03_T450_P10_W200_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 450 degC, 10 bar, 200 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1368.09898,
+    "expected": 1364.6563980927215,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_03_T450_P10_W200.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_04_T500_P5_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 500 degC, 5 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9872133468133468,
+    "expected": 0.9873830737024886,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_04_T500_P5_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_04_T500_P5_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 500 degC, 5 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1465.25107,
+    "expected": 1463.7462896411744,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_04_T500_P5_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_05_T500_P20_W500_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 500 degC, 20 bar, 500 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9516189268189268,
+    "expected": 0.9522177172998566,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_05_T500_P20_W500.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_05_T500_P20_W500_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 500 degC, 20 bar, 500 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1417.98269,
+    "expected": 1411.615371682707,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_05_T500_P20_W500.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_06_T550_P40_W1000_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 550 degC, 40 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.94252535002535,
+    "expected": 0.9432268337610245,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_06_T550_P40_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_06_T550_P40_W1000_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 550 degC, 40 bar, 1000 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1421.95731,
+    "expected": 1409.9544708010978,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_06_T550_P40_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_07_T600_P20_W500_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (Ru/Al2O3 (Kum), 600 degC, 20 bar, 500 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9805847870847871,
+    "expected": 0.980836434685073,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_07_T600_P20_W500.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_kum_07_T600_P20_W500_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (Ru/Al2O3 (Kum), 600 degC, 20 bar, 500 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1482.55825,
+    "expected": 1477.1258440004895,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_kum_07_T600_P20_W500.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_00_T400_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 400 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.16227195027195018,
+    "expected": 0.16219139171336716,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_00_T400_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_00_T400_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 400 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 235.899868,
+    "expected": 235.74765027606475,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_00_T400_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_01_T450_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.48032929532929525,
+    "expected": 0.4801196181559718,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_01_T450_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_01_T450_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 705.605639,
+    "expected": 705.1743460164876,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_01_T450_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_02_T500_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 500 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.8823969303969303,
+    "expected": 0.8822037892726411,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_02_T500_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_02_T500_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 500 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1308.37923,
+    "expected": 1307.8231791193186,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_02_T500_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_03_T450_P1p013_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9301807041807042,
+    "expected": 0.9299891922643251,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_03_T450_P1p013_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_03_T450_P1p013_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1366.24654,
+    "expected": 1365.9195063047662,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_03_T450_P1p013_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_04_T500_P10_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 500 degC, 10 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9711659298659299,
+    "expected": 0.9710599630728747,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_04_T500_P10_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_04_T500_P10_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 500 degC, 10 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1443.30882,
+    "expected": 1439.5481002044662,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_04_T500_P10_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_05_T550_P20_W1000_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 550 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9705047876047876,
+    "expected": 0.9703700409784404,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_05_T550_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_05_T550_P20_W1000_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 550 degC, 20 bar, 1000 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1457.34011,
+    "expected": 1450.5286830654077,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_05_T550_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_06_T600_P40_W1000_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 600 degC, 40 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9630518836518837,
+    "expected": 0.9627340070548644,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_06_T600_P40_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_06_T600_P40_W1000_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 600 degC, 40 bar, 1000 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1462.00667,
+    "expected": 1449.8638012169145,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_06_T600_P40_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_07_T650_P20_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (2.5Ni0.5Ru/CeO2 (Lucentini), 650 degC, 20 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9871605227605228,
+    "expected": 0.9871059134575565,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_07_T650_P20_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc25_07_T650_P20_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (2.5Ni0.5Ru/CeO2 (Lucentini), 650 degC, 20 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1501.41979,
+    "expected": 1496.426540543973,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_07_T650_P20_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_00_T400_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 400 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.10389758689758688,
+    "expected": 0.10384772423670538,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_00_T400_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_00_T400_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 400 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 151.04617,
+    "expected": 150.94405910760156,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_00_T400_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_01_T450_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.3771355081355081,
+    "expected": 0.37693774012360265,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_01_T450_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_01_T450_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 554.038675,
+    "expected": 553.6260933276671,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_01_T450_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_02_T500_P1p013_W100_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 500 degC, 1.01325 bar, 100 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.8312133822133823,
+    "expected": 0.8309812128559857,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_02_T500_P1p013_W100.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_02_T500_P1p013_W100_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 500 degC, 1.01325 bar, 100 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1232.50113,
+    "expected": 1231.8882142079033,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_02_T500_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_03_T450_P1p013_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.8411437321437322,
+    "expected": 0.8408922845281611,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_03_T450_P1p013_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_03_T450_P1p013_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 450 degC, 1.01325 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1235.49702,
+    "expected": 1235.0585656289595,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_03_T450_P1p013_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_04_T500_P10_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 500 degC, 10 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.959265806065806,
+    "expected": 0.9590722278355878,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_04_T500_P10_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_04_T500_P10_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 500 degC, 10 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1425.65773,
+    "expected": 1421.7769532528098,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_04_T500_P10_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_05_T550_P20_W1000_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 550 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9705047696047696,
+    "expected": 0.970370040978264,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_05_T550_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_05_T550_P20_W1000_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 550 degC, 20 bar, 1000 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1457.34008,
+    "expected": 1450.5286830651803,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_05_T550_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_06_T600_P40_W1000_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 600 degC, 40 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9630518841518841,
+    "expected": 0.9627340070548429,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_06_T600_P40_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_06_T600_P40_W1000_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 600 degC, 40 bar, 1000 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1462.00667,
+    "expected": 1449.8638012169135,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_06_T600_P40_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_07_T650_P20_W400_vs_spec",
+    "description": "NH3 conversion Aspen RPLUG vs kinetics-spec reference test point (5Ni1Ru/CeO2 (Lucentini), 650 degC, 20 bar, 400 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_python of the spec reference test point (feed 1e-4 kmol/h H2 seed)",
+    "observed": 0.9871605246605246,
+    "expected": 0.9871059134575558,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_07_T650_P20_W400.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_luc5_07_T650_P20_W400_duty",
+    "description": "Isothermal reactor duty Aspen vs Python PFR (5Ni1Ru/CeO2 (Lucentini), 650 degC, 20 bar, 400 kg)",
+    "method": "relative difference",
+    "reference_source": "python model amcrax.reactor.pfr (ideal gas; Aspen PENG-ROB)",
+    "observed": 1501.41979,
+    "expected": 1496.4265405439726,
+    "tolerance": 0.02,
+    "unit": "kW",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_07_T650_P20_W400.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_01_T350_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ni/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.035457949457949445,
+    "expected": 0.03545780151565718,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_01_T350_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_01_T350_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.035457949457949445,
+    "expected": 0.03935837048561824,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_01_T350_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_03_T400_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ni/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.13442447542447544,
+    "expected": 0.13439790595613546,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_03_T400_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_03_T400_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.13442447542447544,
+    "expected": 0.1503872322452378,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_03_T400_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_05_T450_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ni/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.4074320244320244,
+    "expected": 0.407338486833957,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_05_T450_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_05_T450_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.4074320244320244,
+    "expected": 0.4416842682966756,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_05_T450_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_07_T500_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ni/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.8527469027469028,
+    "expected": 0.8527191791945614,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_07_T500_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_07_T500_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.8527469027469028,
+    "expected": 0.8640983585594137,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_07_T500_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_09_T550_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ni/MgO (Takahashi, LHHW approx.), 550 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.9703431524431524,
+    "expected": 0.9703569067320447,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_09_T550_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tni_09_T550_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 550 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.9703431524431524,
+    "expected": 0.9703435559554444,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_09_T550_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_01_T300_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ru/MgO (Takahashi, LHHW approx.), 300 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.08223196623196627,
+    "expected": 0.08216470673193214,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_01_T300_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_01_T300_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 300 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.08223196623196627,
+    "expected": 0.07526493305354531,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_01_T300_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_03_T350_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ru/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.30156722656722645,
+    "expected": 0.3014375376678525,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_03_T350_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_03_T350_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.30156722656722645,
+    "expected": 0.3010970318353676,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_03_T350_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_05_T400_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ru/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.7053767893767894,
+    "expected": 0.7052788014784637,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_05_T400_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_05_T400_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.7053767893767894,
+    "expected": 0.7241486983770087,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_05_T400_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_07_T450_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ru/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.9191376436376436,
+    "expected": 0.9191651336632576,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_07_T450_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_07_T450_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.9191376436376436,
+    "expected": 0.9193995128476561,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_07_T450_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_09_T500_P20_W1000_vs_spec",
+    "description": "Aspen RPLUG (fitted LHHW approximation) vs Python evaluation of the same approximation (Ru/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg)",
+    "method": "|X_aspen - X_ref|",
+    "reference_source": "python: X_native_approximation_python of the spec reference test point",
+    "observed": 0.9522137547137547,
+    "expected": 0.9522177412058441,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_09_T500_P20_W1000.json",
+      "results/research/kinetics/aspen_kinetics_spec.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cv_tru_09_T500_P20_W1000_vs_exact_law",
+    "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen",
+    "method": "X_aspen - X_python_exact",
+    "reference_source": "python: X_python of the spec reference test point",
+    "observed": 0.9522137547137547,
+    "expected": 0.9522177411577569,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_09_T500_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ru_kum_temkin_pyzhev_below_equilibrium",
+    "description": "Ru/Al2O3 (Kum): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": -2.05164105163691e-05,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_P_kum_T550_P1p013_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ru_kum_temkin_pyzhev_study_vs_python",
+    "description": "Ru/Al2O3 (Kum): largest |X_aspen - X_python| over 29 isothermal runs",
+    "method": "max |dX|",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.0007019916235537771,
+    "expected": 0.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_P_kum_T550_P40_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_AD_kum_Tin650_P20_W100_adiabatic",
+    "description": "Ru/Al2O3 (Kum): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 338.668018,
+    "expected": 338.6955120866361,
+    "tolerance": 2.0,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_AD_kum_Tin650_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium",
+    "description": "5Ni1Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.00048736808736804527,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc5_06_T600_P40_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    },
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_T_luc5_T600_P20_W100', 'cs_W_luc5_T600_P20_W200', 'cs_W_luc5_T600_P20_W500', 'cv_luc5_05_T550_P20_W1000', 'cv_luc5_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+  },
+  {
+    "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_study_vs_python",
+    "description": "5Ni1Ru/CeO2 (Lucentini): largest |X_aspen - X_python| over 29 isothermal runs",
+    "method": "max |dX|",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.0017976620108459684,
+    "expected": 0.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_T_luc5_T550_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_AD_luc5_Tin650_P20_W100_adiabatic",
+    "description": "5Ni1Ru/CeO2 (Lucentini): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 441.752442,
+    "expected": 441.89336405291135,
+    "tolerance": 2.0,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_AD_luc5_Tin650_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.0004873675873675598,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_luc25_06_T600_P40_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    },
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_W_luc25_T600_P20_W200', 'cs_W_luc25_T600_P20_W500', 'cv_luc25_05_T550_P20_W1000', 'cv_luc25_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+  },
+  {
+    "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_study_vs_python",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): largest |X_aspen - X_python| over 29 isothermal runs",
+    "method": "max |dX|",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.0019444946829008103,
+    "expected": 0.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_W_luc25_T600_P20_W50.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_AD_luc25_Tin650_P20_W100_adiabatic",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 434.524013,
+    "expected": 434.6571518303216,
+    "tolerance": 2.0,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_AD_luc25_Tin650_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ni_takahashi_microkinetic_below_equilibrium",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): no RPLUG run above RGibbs equilibrium (same model, same feed), 23 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 5.5498855498825606e-05,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_09_T550_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ni_takahashi_microkinetic_study_vs_python",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): largest |X_aspen - X_python| over 22 isothermal runs (Aspen runs the fitted approximation, Python the exact law: informational)",
+    "method": "max |dX|",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.03425174854033475,
+    "expected": 0.0,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tni_05_T450_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_AD_tni_Tin650_P20_W100_adiabatic",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 433.96362,
+    "expected": 429.55163060202074,
+    "tolerance": null,
+    "unit": "degC",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_AD_tni_Tin650_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ru_takahashi_microkinetic_below_equilibrium",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): no RPLUG run above RGibbs equilibrium (same model, same feed), 23 runs",
+    "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+    "reference_source": "aspen RGibbs block REQ in the same model",
+    "observed": 0.00016042366042368084,
+    "expected": 0.0,
+    "tolerance": 0.0001,
+    "unit": "-",
+    "status": "fail",
+    "source_files": [
+      "results/research/aspen_kinetic/cv_tru_09_T500_P20_W1000.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    },
+    "note": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cv_tru_09_T500_P20_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a mole-fraction basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+  },
+  {
+    "id": "cat_ru_takahashi_microkinetic_study_vs_python",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): largest |X_aspen - X_python| over 22 isothermal runs (Aspen runs the fitted approximation, Python the exact law: informational)",
+    "method": "max |dX|",
+    "reference_source": "python model amcrax.reactor.pfr at identical conditions",
+    "observed": 0.06531650988407323,
+    "expected": 0.0,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_W_tru_T600_P20_W5.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_AD_tru_Tin650_P20_W100_adiabatic",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)",
+    "method": "|T_aspen - T_python|",
+    "reference_source": "python model amcrax.reactor.pfr",
+    "observed": 358.26632,
+    "expected": 357.65948929389197,
+    "tolerance": null,
+    "unit": "degC",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_AD_tru_Tin650_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_kum_T500_f0p95_fraction",
+    "description": "Ru/Al2O3 (Kum): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9500768808015342,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_kum_T500_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_kum_T500_f0p99_fraction",
+    "description": "Ru/Al2O3 (Kum): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9896805873114677,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_kum_T500_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_kum_T600_f0p95_fraction",
+    "description": "Ru/Al2O3 (Kum): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9500718959965306,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_kum_T600_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_kum_T600_f0p99_fraction",
+    "description": "Ru/Al2O3 (Kum): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9899178308265376,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_kum_T600_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc5_T500_f0p95_fraction",
+    "description": "5Ni1Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9512261499217367,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc5_T500_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc5_T500_f0p99_fraction",
+    "description": "5Ni1Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.990585189746162,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc5_T500_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc5_T600_f0p95_fraction",
+    "description": "5Ni1Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9511092956536367,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc5_T600_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc5_T600_f0p99_fraction",
+    "description": "5Ni1Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9903710416297427,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc5_T600_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc25_T500_f0p95_fraction",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9512387850458803,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc25_T500_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc25_T500_f0p99_fraction",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (500 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9906196848020271,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc25_T500_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc25_T600_f0p95_fraction",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.95)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9511321004090197,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc25_T600_f0p95.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_M_luc25_T600_f0p99_fraction",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): Aspen fraction of equilibrium at the Python-derived catalyst mass (600 degC, 20 bar, target 0.99)",
+    "method": "|f_aspen - f_target|",
+    "reference_source": "python: kinetics workstream study_mass_for_fraction_of_equilibrium",
+    "observed": 0.9903438786575959,
+    "expected": 0.99,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_M_luc25_T600_f0p99.json",
+      "results/research/kinetics/study_mass_for_fraction_of_equilibrium.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_OP_kum_T499_P20_W100_target",
+    "description": "Ru/Al2O3 (Kum): Aspen conversion at the operating temperature 499 degC (100 kg, 20 bar) vs target 0.95",
+    "method": "|X_aspen - 0.95|",
+    "reference_source": "definition of the operating temperature (python kinetics study)",
+    "observed": 0.9499802051802052,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_OP_kum_T499_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_kum_T499_P20_W100_hi_converged",
+    "description": "Ru/Al2O3 (Kum): integrated flowsheet with RPLUG cracker converged (heat integration on)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_kum_T499_P20_W100_hi_below_rgibbs",
+    "description": "Ru/Al2O3 (Kum): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.9495764332665331,
+    "expected": 0.9515405663927855,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json",
+      "results/sensitivity/aspen_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_kum_T499_P20_W100_nohi_converged",
+    "description": "Ru/Al2O3 (Kum): integrated flowsheet with RPLUG cracker converged (heat integration off)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_kum_T499_P20_W100_nohi_below_rgibbs",
+    "description": "Ru/Al2O3 (Kum): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.9495764332665331,
+    "expected": 0.9514443554148296,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_nohi.json",
+      "results/sensitivity/aspen_no_hi_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_OP_luc5_T572_P20_W100_target",
+    "description": "5Ni1Ru/CeO2 (Lucentini): Aspen conversion at the operating temperature 572 degC (100 kg, 20 bar) vs target 0.95",
+    "method": "|X_aspen - 0.95|",
+    "reference_source": "definition of the operating temperature (python kinetics study)",
+    "observed": 0.9525306065306065,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_OP_luc5_T572_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc5_T572_P20_W100_hi_converged",
+    "description": "5Ni1Ru/CeO2 (Lucentini): integrated flowsheet with RPLUG cracker converged (heat integration on)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc5_T572_P20_W100_hi_below_rgibbs",
+    "description": "5Ni1Ru/CeO2 (Lucentini): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.951679517234469,
+    "expected": 0.9755433087895792,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json",
+      "results/sensitivity/aspen_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc5_T572_P20_W100_nohi_converged",
+    "description": "5Ni1Ru/CeO2 (Lucentini): integrated flowsheet with RPLUG cracker converged (heat integration off)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc5_T572_P20_W100_nohi_below_rgibbs",
+    "description": "5Ni1Ru/CeO2 (Lucentini): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.951679517234469,
+    "expected": 0.9749332688496993,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_nohi.json",
+      "results/sensitivity/aspen_no_hi_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_OP_luc25_T576_P20_W100_target",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): Aspen conversion at the operating temperature 576 degC (100 kg, 20 bar) vs target 0.95",
+    "method": "|X_aspen - 0.95|",
+    "reference_source": "definition of the operating temperature (python kinetics study)",
+    "observed": 0.9514809342809343,
+    "expected": 0.95,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_OP_luc25_T576_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc25_T576_P20_W100_hi_converged",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): integrated flowsheet with RPLUG cracker converged (heat integration on)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc25_T576_P20_W100_hi_below_rgibbs",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.9505247936873747,
+    "expected": 0.9764383519198397,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json",
+      "results/sensitivity/aspen_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc25_T576_P20_W100_nohi_converged",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): integrated flowsheet with RPLUG cracker converged (heat integration off)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_luc25_T576_P20_W100_nohi_below_rgibbs",
+    "description": "2.5Ni0.5Ru/CeO2 (Lucentini): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.9505247936873747,
+    "expected": 0.9757728538036072,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_nohi.json",
+      "results/sensitivity/aspen_no_hi_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_OP_tni_T594_P20_W100_target",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): Aspen conversion at the operating temperature 594 degC (100 kg, 20 bar) vs target 0.95",
+    "method": "|X_aspen - 0.95|",
+    "reference_source": "definition of the operating temperature (python kinetics study)",
+    "observed": 0.9587222526222526,
+    "expected": 0.95,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_OP_tni_T594_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tni_T594_P20_W100_hi_converged",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): integrated flowsheet with RPLUG cracker converged (heat integration on)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tni_T594_P20_W100_hi_below_rgibbs",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.958892099498998,
+    "expected": 0.9797173606252505,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json",
+      "results/sensitivity/aspen_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tni_T594_P20_W100_nohi_converged",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): integrated flowsheet with RPLUG cracker converged (heat integration off)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tni_T594_P20_W100_nohi_below_rgibbs",
+    "description": "Ni/MgO (Takahashi, LHHW approx.): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.958892099498998,
+    "expected": 0.9795509860961924,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_nohi.json",
+      "results/sensitivity/aspen_no_hi_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_cs_OP_tru_T522_P20_W100_target",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): Aspen conversion at the operating temperature 522 degC (100 kg, 20 bar) vs target 0.95",
+    "method": "|X_aspen - 0.95|",
+    "reference_source": "definition of the operating temperature (python kinetics study)",
+    "observed": 0.9532646701646702,
+    "expected": 0.95,
+    "tolerance": null,
+    "unit": "-",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/cs_OP_tru_T522_P20_W100.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tru_T522_P20_W100_hi_converged",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): integrated flowsheet with RPLUG cracker converged (heat integration on)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tru_T522_P20_W100_hi_below_rgibbs",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.953401528757515,
+    "expected": 0.9612446888016032,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json",
+      "results/sensitivity/aspen_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tru_T522_P20_W100_nohi_converged",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): integrated flowsheet with RPLUG cracker converged (heat integration off)",
+    "method": "Aspen run status",
+    "reference_source": "Aspen Plus run status",
+    "observed": true,
+    "expected": true,
+    "tolerance": null,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_nohi.json"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  },
+  {
+    "id": "cat_ci_tru_T522_P20_W100_nohi_below_rgibbs",
+    "description": "Ru/MgO (Takahashi, LHHW approx.): integrated RPLUG conversion not above the stored RGibbs flowsheet at the same T (interpolated)",
+    "method": "X_rplug <= X_rgibbs + 1e-3 (interpolation margin)",
+    "reference_source": "aspen RGibbs flowsheet sweep (stored)",
+    "observed": 0.953401528757515,
+    "expected": 0.9601132742565129,
+    "tolerance": 0.001,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_nohi.json",
+      "results/sensitivity/aspen_no_hi_temperature.csv"
+    ],
+    "provenance": {
+      "generated_utc": "2026-11-23T05:34:12+00:00",
+      "script": "aspen/automation/summarise_catalyst_studies.py",
+      "source_type": "aspen vs python",
+      "inputs_summary": "results/research/aspen_kinetic/c*.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB), RPLUG + RGIBBS reference",
+        "python": "amcrax.reactor.pfr.simulate_pfr",
+        "kinetics": "results/research/kinetics/aspen_kinetics_spec.json (version 2)"
+      }
+    }
+  }
+]

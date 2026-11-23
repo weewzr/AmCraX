@@ -1,0 +1,72 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T07:42:11+00:00",
+    "script": "scripts/research/economics_singapore.py",
+    "source_type": "python",
+    "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
+    "model_versions": {
+      "economics_module": "amcrax.economics.singapore/1",
+      "data_schema": "amcrax.singapore/1",
+      "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied"
+    }
+  },
+  "description": "Monte Carlo on the grey/blue/green scenarios, heat integration on, independent draws.",
+  "seed": 20261123,
+  "n_samples": 5000,
+  "distributions": {
+    "nh3_price_USD_per_t": "triangular(low, base, high) of the scenario range, data/singapore.yaml",
+    "electricity_price_USD_per_kWh": "uniform(0.084, 0.2216)",
+    "catalyst_price_USD_per_kg": "triangular(0.5x, 1x, 2x of 33.4) Cho Table 8",
+    "catalyst_lifetime_yr": "uniform(1, 4) Cho Table 8",
+    "capex_multiplier": "triangular(0.5, 1, 1.5) Cho Table 8",
+    "discount_rate": "uniform(0.085, 0.10)",
+    "operating_hours_h_per_yr": "uniform(7000, 8000)",
+    "plant_life_yr": "uniform(20, 25)"
+  },
+  "results": {
+    "grey": {
+      "lcoh_p5": 2.8487193365357406,
+      "lcoh_p50": 3.642650880149702,
+      "lcoh_p95": 4.432127519179229,
+      "lcoh_mean": 3.64463760955826,
+      "rec_p5": 0.4847550358863188,
+      "rec_p50": 0.5902781809173403,
+      "rec_p95": 0.6972855943557134,
+      "n": 5000,
+      "seed": 20261123
+    },
+    "blue": {
+      "lcoh_p5": 3.443880100090349,
+      "lcoh_p50": 3.899754239878606,
+      "lcoh_p95": 4.341255036883469,
+      "lcoh_mean": 3.8959424122195427,
+      "rec_p5": 0.5195963308466894,
+      "rec_p50": 0.6096638289710175,
+      "rec_p95": 0.7039734728139591,
+      "n": 5000,
+      "seed": 20261123
+    },
+    "green_current": {
+      "lcoh_p5": 7.045385277563044,
+      "lcoh_p50": 7.546834291420073,
+      "lcoh_p95": 7.908607215151811,
+      "lcoh_mean": 7.516631204550613,
+      "rec_p5": 0.8127378415345718,
+      "rec_p50": 0.9027048747108384,
+      "rec_p95": 0.9964595645404013,
+      "n": 5000,
+      "seed": 20261123
+    },
+    "green_2030": {
+      "lcoh_p5": 4.300044572085235,
+      "lcoh_p50": 5.525224997253792,
+      "lcoh_p95": 6.713140136677468,
+      "lcoh_mean": 5.518953495030732,
+      "rec_p5": 0.6132120402518533,
+      "rec_p50": 0.7429195479626429,
+      "rec_p95": 0.8692658132601637,
+      "n": 5000,
+      "seed": 20261123
+    }
+  }
+}

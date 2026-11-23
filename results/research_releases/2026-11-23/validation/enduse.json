@@ -1,0 +1,695 @@
+[
+  {
+    "id": "EU-stoich-alpha-0.75",
+    "description": "Cracked NH3 share for alpha = 0.75 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.1874414245550501,
+    "expected": 0.1875,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.5",
+    "description": "Cracked NH3 share for alpha = 0.5 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.41237113402059516,
+    "expected": 0.4124,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.4",
+    "description": "Cracked NH3 share for alpha = 0.4 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.5154639175257586,
+    "expected": 0.5155000000000001,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.3",
+    "description": "Cracked NH3 share for alpha = 0.3 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.627521290900938,
+    "expected": 0.6275999999999999,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.2",
+    "description": "Cracked NH3 share for alpha = 0.2 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.7497656982193064,
+    "expected": 0.7498,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.1",
+    "description": "Cracked NH3 share for alpha = 0.1 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 0.8836524300441827,
+    "expected": 0.8835,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-stoich-alpha-0.0",
+    "description": "Cracked NH3 share for alpha = 0.0 (stoichiometry, X = 0.97) against Ahmad's bypass table",
+    "method": "alpha = NH3/(NH3+H2); m = f X; compare with 1 - bypass share",
+    "reference_source": "Ahmad 2025 p. 13-15",
+    "observed": 1.0,
+    "expected": 1.0,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-30",
+    "description": "Round trip: H2 vol fraction 0.3 -> cracked share 0.2549 -> H2 fraction",
+    "method": "closed-form stoichiometry both ways",
+    "reference_source": "stoichiometry",
+    "observed": 0.3,
+    "expected": 0.3,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-N-30",
+    "description": "Nitrogen atoms conserved in the partially cracked gas (2 N2 + NH3 per NH3 fed = 1)",
+    "method": "2 n_N2 + n_NH3 = 1 per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 1.0,
+    "expected": 1.0,
+    "tolerance": 1e-12,
+    "unit": "mol N/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-H-30",
+    "description": "Hydrogen atoms conserved (2 n_H2 + 3 n_NH3 = 3)",
+    "method": "per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 3.0,
+    "expected": 3.0,
+    "tolerance": 1e-12,
+    "unit": "mol H/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-40",
+    "description": "Round trip: H2 vol fraction 0.4 -> cracked share 0.3708 -> H2 fraction",
+    "method": "closed-form stoichiometry both ways",
+    "reference_source": "stoichiometry",
+    "observed": 0.3999999999999999,
+    "expected": 0.4,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-N-40",
+    "description": "Nitrogen atoms conserved in the partially cracked gas (2 N2 + NH3 per NH3 fed = 1)",
+    "method": "2 n_N2 + n_NH3 = 1 per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 1.0,
+    "expected": 1.0,
+    "tolerance": 1e-12,
+    "unit": "mol N/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-H-40",
+    "description": "Hydrogen atoms conserved (2 n_H2 + 3 n_NH3 = 3)",
+    "method": "per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 3.0,
+    "expected": 3.0,
+    "tolerance": 1e-12,
+    "unit": "mol H/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-50",
+    "description": "Round trip: H2 vol fraction 0.5 -> cracked share 0.5098 -> H2 fraction",
+    "method": "closed-form stoichiometry both ways",
+    "reference_source": "stoichiometry",
+    "observed": 0.5,
+    "expected": 0.5,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-N-50",
+    "description": "Nitrogen atoms conserved in the partially cracked gas (2 N2 + NH3 per NH3 fed = 1)",
+    "method": "2 n_N2 + n_NH3 = 1 per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 1.0,
+    "expected": 1.0,
+    "tolerance": 1e-12,
+    "unit": "mol N/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-H-50",
+    "description": "Hydrogen atoms conserved (2 n_H2 + 3 n_NH3 = 3)",
+    "method": "per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 3.0,
+    "expected": 3.0,
+    "tolerance": 1e-12,
+    "unit": "mol H/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-60",
+    "description": "Round trip: H2 vol fraction 0.6 -> cracked share 0.6797 -> H2 fraction",
+    "method": "closed-form stoichiometry both ways",
+    "reference_source": "stoichiometry",
+    "observed": 0.6000000000000001,
+    "expected": 0.6,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-N-60",
+    "description": "Nitrogen atoms conserved in the partially cracked gas (2 N2 + NH3 per NH3 fed = 1)",
+    "method": "2 n_N2 + n_NH3 = 1 per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 1.0,
+    "expected": 1.0,
+    "tolerance": 1e-12,
+    "unit": "mol N/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-blend-H-60",
+    "description": "Hydrogen atoms conserved (2 n_H2 + 3 n_NH3 = 3)",
+    "method": "per mol NH3 fed",
+    "reference_source": "stoichiometry",
+    "observed": 3.0,
+    "expected": 3.0,
+    "tolerance": 1e-12,
+    "unit": "mol H/mol NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-direct",
+    "description": "Energy balance direct: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.4964304737373737,
+    "expected": 0.4964304737373737,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_exhaust_30",
+    "description": "Energy balance partial_exhaust_30: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.5090016194279722,
+    "expected": 0.5090016194279722,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_fired_30",
+    "description": "Energy balance partial_fired_30: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.4922316737281523,
+    "expected": 0.4922316737281523,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_exhaust_40",
+    "description": "Energy balance partial_exhaust_40: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.5147157765600625,
+    "expected": 0.5147157765600624,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_fired_40",
+    "description": "Energy balance partial_fired_40: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.49044060110053234,
+    "expected": 0.49044060110053234,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_exhaust_50",
+    "description": "Energy balance partial_exhaust_50: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.5215727651185708,
+    "expected": 0.5215727651185708,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_fired_50",
+    "description": "Energy balance partial_fired_50: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.48838021190670233,
+    "expected": 0.48838021190670233,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_exhaust_60",
+    "description": "Energy balance partial_exhaust_60: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.529953528912303,
+    "expected": 0.5299535289123031,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-partial_fired_60",
+    "description": "Energy balance partial_fired_60: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.485984823837394,
+    "expected": 0.48598482383739405,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-full_exhaust",
+    "description": "Energy balance full_exhaust: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.5457501136363636,
+    "expected": 0.5457501136363636,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-full_fired",
+    "description": "Energy balance full_fired: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.48180254113272913,
+    "expected": 0.48180254113272913,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-full_purified",
+    "description": "Energy balance full_purified: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.4355538495451839,
+    "expected": 0.43555384954518384,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-blend_purified_30",
+    "description": "Energy balance blend_purified_30: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.47989644410686966,
+    "expected": 0.4798964441068697,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-blend_purified_40",
+    "description": "Energy balance blend_purified_40: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.4740828653468088,
+    "expected": 0.47408286534680877,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-blend_purified_50",
+    "description": "Energy balance blend_purified_50: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.4681076659199695,
+    "expected": 0.46810766591996944,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-blend_purified_60",
+    "description": "Energy balance blend_purified_60: 1 MWh_e / NH3 LHV (incl. heat NH3) equals the reported efficiency; efficiency < 1",
+    "method": "3600 MJ / (NH3 kg x 18.60 MJ/kg)",
+    "reference_source": "first law",
+    "observed": 0.461964011107597,
+    "expected": 0.461964011107597,
+    "tolerance": 1e-09,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-energy-h2",
+    "description": "H2 pathway energy efficiency against Aspen's stored lhv_efficiency (0.8772; first-law, heat 1:1)",
+    "method": "H2 LHV / (NH3 LHV x (1 + heat NH3))",
+    "reference_source": "results/simulations/baseline.json",
+    "observed": 0.8773712988772014,
+    "expected": 0.8772018962224742,
+    "tolerance": 0.005,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "EU-baseline-CI",
+    "description": "Existing baseline carbon intensity (blue NH3, self-firing) reproduced with old settings",
+    "method": "enduse.carbon_intensity vs amcrax.environmental.carbon_intensity",
+    "reference_source": "results/simulations/environmental_baseline.json",
+    "observed": 8.933399580077893,
+    "expected": 8.93339958007789,
+    "tolerance": 1e-06,
+    "unit": "kg CO2e/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/__init__.py"
+    ]
+  },
+  {
+    "id": "EU-lcoh",
+    "description": "Industrial H2 cost equals the stored baseline LCOH (same price set)",
+    "method": "compute_lcoh at 450 USD/t vs results/simulations/economics_baseline.json",
+    "reference_source": "stored economics baseline",
+    "observed": 3.918842228473241,
+    "expected": 3.918842228473241,
+    "tolerance": 1e-06,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "results/simulations/economics_baseline.json"
+    ]
+  },
+  {
+    "id": "EU-ahmad-lcoe",
+    "description": "Reproduction of Ahmad Case 2a LCOE with Ahmad's inputs (480 USD/t, 7200 h, 10 %, 25 y)",
+    "method": "power_cost on direct pathway",
+    "reference_source": "Ahmad 2025 conclusion p. 18 (0.2798 USD/kWh)",
+    "observed": 0.27990115674325694,
+    "expected": 0.2798,
+    "tolerance": 0.002798,
+    "unit": "USD/kWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-ahmad-tci-full",
+    "description": "Fully cracked plant TCI against Ahmad's about 230 MUSD (alpha = 0)",
+    "method": "plant 181.25 MUSD scaled + cracker correlation (full)",
+    "reference_source": "Ahmad 2025 p. 15",
+    "observed": 233.5566119653682,
+    "expected": 230.0,
+    "tolerance": null,
+    "unit": "MUSD",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-ahmad-320",
+    "description": "Ahmad at 320 USD/t: direct VNH3 0.217 vs full cracking 0.22 USD/kWh (p. 15, attribution inconsistent in the paper); AmCraX direct and full-crack values",
+    "method": "power_cost at 320 USD/t, 7200 h, full cracker correlation",
+    "reference_source": "Ahmad 2025 p. 15",
+    "observed": [
+      0.2175,
+      0.2218
+    ],
+    "expected": [
+      0.217,
+      0.22
+    ],
+    "tolerance": null,
+    "unit": "USD/kWh",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-ahmad-eta",
+    "description": "Direct NH3 efficiency re-expressed on the AmCraX LHV basis gives Ahmad's electricity per kg NH3",
+    "method": "0.4912 x 18.8 / 18.6",
+    "reference_source": "Ahmad 2025 Table 6",
+    "observed": 9.23456,
+    "expected": 9.23456,
+    "tolerance": 1e-09,
+    "unit": "MJ/kg NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-halim-claim",
+    "description": "Halim et al. (2025): direct NH3 combustion about 40 % cheaper than cracking-based power",
+    "method": "computed 1 - direct/cracking, see halim_claim_check",
+    "reference_source": "Halim 2025 (full text not accessed; abstract states direct use is preferable)",
+    "observed": [
+      -4.3,
+      5.1,
+      15.0
+    ],
+    "expected": 40.0,
+    "tolerance": null,
+    "unit": "%",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-halim-plant",
+    "description": "Halim et al. (2025): 60.1 MW Singapore plant, LCOH 15.1 (green) and 10.1 (blue) USD/kg H2",
+    "method": "not verifiable: only abstract and bibliographic data were accessible",
+    "reference_source": "Halim 2025 abstract (A*STAR OAR, IDEAS)",
+    "observed": null,
+    "expected": [
+      60.1,
+      15.1,
+      10.1
+    ],
+    "tolerance": null,
+    "unit": "MW; USD/kg",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/enduse_results.json"
+    ]
+  },
+  {
+    "id": "EU-iso",
+    "description": "Industrial and fuel-cell candidate purity against ISO 14687 Grade D (99.97 %, N2+Ar <= 300 ppm, NH3 <= 0.1 ppm)",
+    "method": "stored purity vs thresholds; NH3 and other contaminants not modelled",
+    "reference_source": "fact_sheet F4",
+    "observed": [
+      0.999607997,
+      0.99979171
+    ],
+    "expected": {
+      "H2_min_mol_pct": 99.97,
+      "N2_plus_Ar_max_ppm": 300.0,
+      "NH3_max_ppm": 0.1
+    },
+    "tolerance": null,
+    "unit": "mol frac",
+    "status": "informational",
+    "source_files": [
+      "results/simulations/baseline.json",
+      "results/simulations/scn_fuel_cell_grade.json"
+    ]
+  }
+]

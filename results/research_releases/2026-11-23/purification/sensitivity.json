@@ -1,0 +1,134 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T04:10:08Z",
+  "script": "scripts/research/purification_study.py",
+  "source_type": "python",
+  "inputs_summary": "one-at-a-time sensitivities on the 20 bar baseline; cost per kg usable H2 for grade D at 350 bar",
+  "model_versions": {
+   "separation": "amcrax.separation.purification (reduced-order)",
+   "aspen_inputs": "Aspen Plus V15 stored results"
+  }
+ },
+ "rows": [
+  {
+   "parameter": "base",
+   "setting": "-",
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.938259053528208
+  },
+  {
+   "parameter": "PSA recovery at 99.975 %",
+   "setting": 0.65,
+   "PSA_D_usd_per_kg": 4.907570269486219,
+   "MEM_D_usd_per_kg": 3.938259053528208
+  },
+  {
+   "parameter": "PSA recovery at 99.975 %",
+   "setting": 0.71,
+   "PSA_D_usd_per_kg": 4.504134674263794,
+   "MEM_D_usd_per_kg": 3.938259053528208
+  },
+  {
+   "parameter": "PSA recovery at 99.975 %",
+   "setting": 0.8,
+   "PSA_D_usd_per_kg": 4.129382117630703,
+   "MEM_D_usd_per_kg": 3.938259053528208
+  },
+  {
+   "parameter": "membrane cost multiplier",
+   "setting": 0.5,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.923682946856313
+  },
+  {
+   "parameter": "membrane cost multiplier",
+   "setting": 2.0,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.9674112668719985
+  },
+  {
+   "parameter": "membrane life (y)",
+   "setting": 1.0,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.996563480215789
+  },
+  {
+   "parameter": "membrane life (y)",
+   "setting": 5.0,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.926598168190692
+  },
+  {
+   "parameter": "flux multiplier (concentration polarisation 0.15)",
+   "setting": 0.15,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 4.103454929143018
+  },
+  {
+   "parameter": "membrane permeate pressure (bar)",
+   "setting": 0.1,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 4.040679824398096
+  },
+  {
+   "parameter": "membrane permeate pressure (bar)",
+   "setting": 3.0,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.9037343416567274
+  },
+  {
+   "parameter": "membrane recovery",
+   "setting": 0.8,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 4.055162985616247
+  },
+  {
+   "parameter": "membrane recovery",
+   "setting": 0.95,
+   "PSA_D_usd_per_kg": 4.264011072404615,
+   "MEM_D_usd_per_kg": 3.890726071879556
+  },
+  {
+   "parameter": "electricity price (USD/kWh)",
+   "setting": 0.042,
+   "PSA_D_usd_per_kg": 4.197219876060854,
+   "MEM_D_usd_per_kg": 3.798495077455557
+  },
+  {
+   "parameter": "electricity price (USD/kWh)",
+   "setting": 0.126,
+   "PSA_D_usd_per_kg": 4.330802268748376,
+   "MEM_D_usd_per_kg": 4.07802302960086
+  },
+  {
+   "parameter": "PSA/TSA CAPEX multiplier",
+   "setting": 0.5,
+   "PSA_D_usd_per_kg": 4.112173997188375,
+   "MEM_D_usd_per_kg": 3.9213595635648972
+  },
+  {
+   "parameter": "PSA/TSA CAPEX multiplier",
+   "setting": 1.5,
+   "PSA_D_usd_per_kg": 4.4158481476208555,
+   "MEM_D_usd_per_kg": 3.955158543491519
+  },
+  {
+   "parameter": "PSA/TSA CAPEX basis",
+   "setting": "Cho T/PSA unit capex",
+   "PSA_D_usd_per_kg": 4.039901376840111,
+   "MEM_D_usd_per_kg": 3.938259053528208
+  },
+  {
+   "parameter": "NH3 price (USD/t)",
+   "setting": 300.0,
+   "PSA_D_usd_per_kg": 3.117500307518622,
+   "MEM_D_usd_per_kg": 2.9812078621562277
+  },
+  {
+   "parameter": "NH3 price (USD/t)",
+   "setting": 610.0,
+   "PSA_D_usd_per_kg": 5.486955888283007,
+   "MEM_D_usd_per_kg": 4.959113657658319
+  }
+ ]
+}

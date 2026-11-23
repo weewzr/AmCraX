@@ -1,0 +1,11 @@
+catalyst_id,heat_integration,T_C,fired_process_duty_kW,tailgas_kW,source_type
+ru_kum_temkin_pyzhev,True,499.0,496.8115826900022,1734.08934,aspen
+ru_kum_temkin_pyzhev,False,499.0,974.661532263885,1734.08934,aspen
+nire_ceo2_5ni1ru_lucentini_lhhw,True,572.0,533.0715594496758,1719.70023,aspen
+nire_ceo2_5ni1ru_lucentini_lhhw,False,572.0,1115.9442718488879,1719.70023,aspen
+nire_ceo2_2p5ni0p5ru_lucentini_lhhw,True,576.0,524.3401076920927,1727.60074,aspen
+nire_ceo2_2p5ni0p5ru_lucentini_lhhw,False,576.0,1113.0799424016393,1727.60074,aspen
+ni_takahashi_microkinetic,True,594.0,598.5683853492568,1670.35231,aspen
+ni_takahashi_microkinetic,False,594.0,1213.8486415176174,1670.35231,aspen
+ru_takahashi_microkinetic,True,522.0,534.98594600429,1707.91837,aspen
+ru_takahashi_microkinetic,False,522.0,1045.5104856010503,1707.91837,aspen

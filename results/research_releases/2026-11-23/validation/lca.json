@@ -1,0 +1,169 @@
+[
+  {
+    "id": "LCA-blue-v1",
+    "description": "Blue NH3 function reproduces Lee et al. version 1",
+    "method": "blue_nh3_ef with the published capture streams",
+    "reference_source": "Lee 2022 p. 13",
+    "observed": 1.1600000000000001,
+    "expected": 1.16,
+    "tolerance": 1e-09,
+    "unit": "kg CO2e/kg NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-blue-v2",
+    "description": "Blue NH3 function reproduces Lee et al. version 2",
+    "method": "blue_nh3_ef with the published capture streams",
+    "reference_source": "Lee 2022 p. 13",
+    "observed": 0.7700000000000002,
+    "expected": 0.77,
+    "tolerance": 1e-09,
+    "unit": "kg CO2e/kg NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-baseline-grey",
+    "description": "Existing baseline carbon intensity (grey, self-firing) reproduced by the new LCA with old settings",
+    "method": "new enduse.carbon_intensity (NH3 factor, 5000 km, GLEC factor, grid 0.402, no N2O) vs amcrax.environmental.carbon_intensity; stored baseline.json",
+    "reference_source": "results/simulations/environmental_baseline.json logic",
+    "observed": 19.517637913596687,
+    "expected": 19.51763791359669,
+    "tolerance": 1e-06,
+    "unit": "kg CO2e/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/__init__.py",
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "LCA-baseline-blue",
+    "description": "Existing baseline carbon intensity (blue, self-firing) reproduced by the new LCA with old settings",
+    "method": "new enduse.carbon_intensity (NH3 factor, 5000 km, GLEC factor, grid 0.402, no N2O) vs amcrax.environmental.carbon_intensity; stored baseline.json",
+    "reference_source": "results/simulations/environmental_baseline.json logic",
+    "observed": 8.933399580077893,
+    "expected": 8.93339958007789,
+    "tolerance": 1e-06,
+    "unit": "kg CO2e/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/__init__.py",
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "LCA-baseline-green",
+    "description": "Existing baseline carbon intensity (green, self-firing) reproduced by the new LCA with old settings",
+    "method": "new enduse.carbon_intensity (NH3 factor, 5000 km, GLEC factor, grid 0.402, no N2O) vs amcrax.environmental.carbon_intensity; stored baseline.json",
+    "reference_source": "results/simulations/environmental_baseline.json logic",
+    "observed": 0.4072075891877498,
+    "expected": 0.4072075891877498,
+    "tolerance": 1e-06,
+    "unit": "kg CO2e/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/__init__.py",
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "LCA-sum",
+    "description": "Breakdown components sum to the total",
+    "method": "arithmetic",
+    "reference_source": "internal",
+    "observed": 8.933399580077893,
+    "expected": 8.933399580077893,
+    "tolerance": 1e-09,
+    "unit": "kg CO2e/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-nh3-per-h2",
+    "description": "NH3 per kg H2 (feed + heat NH3) consistent with stored Aspen feed/product",
+    "method": "nh3_feed/h2 x (1 + heat deficit/LHV NH3)",
+    "reference_source": "results/simulations/baseline.json",
+    "observed": 7.350165509388053,
+    "expected": 7.350165509388053,
+    "tolerance": 1e-09,
+    "unit": "kg NH3/kg H2",
+    "status": "pass",
+    "source_files": [
+      "results/simulations/baseline.json"
+    ]
+  },
+  {
+    "id": "LCA-ccgt-vs-grid",
+    "description": "Computed NG CCGT intensity (eff 0.55) versus the EMA grid average 2024",
+    "method": "IPCC factor / assumed efficiency vs EMA GEF",
+    "reference_source": "EMA Singapore Energy Statistics 2024",
+    "observed": 367.2,
+    "expected": 402.0,
+    "tolerance": null,
+    "unit": "kg CO2/MWh",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-ref-EU_RFNBO",
+    "description": "Industrial H2 from blue NH3 (Lee v1, 5000 km) against yardstick: EU RFNBO threshold (70 % below 94 g CO2e/MJ)",
+    "method": "comparison",
+    "reference_source": "eu2023_1185, Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+    "observed": 8.933399580077893,
+    "expected": 3.382886481338175,
+    "tolerance": null,
+    "unit": "kg CO2e/kg H2",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-ref-IEA_low-",
+    "description": "Industrial H2 from blue NH3 (Lee v1, 5000 km) against yardstick: IEA low-emission H2 (as quoted by Kum et al.)",
+    "method": "comparison",
+    "reference_source": "kum2026heatintegrated, p. 17, Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+    "observed": 8.933399580077893,
+    "expected": 4.0,
+    "tolerance": null,
+    "unit": "kg CO2e/kg H2",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  },
+  {
+    "id": "LCA-smr",
+    "description": "Cracked blue-NH3 H2 against SMR with CCS (3.5) and unabated SMR (11)",
+    "method": "comparison",
+    "reference_source": "IEA GHR 2024; Frontiers 2024 (low confidence)",
+    "observed": 8.933399580077893,
+    "expected": [
+      3.5,
+      11.0
+    ],
+    "tolerance": null,
+    "unit": "kg CO2e/kg H2",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/environmental/lca.py",
+      "results/research/lca/lca_results.json"
+    ]
+  }
+]

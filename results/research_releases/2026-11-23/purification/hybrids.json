@@ -1,0 +1,49 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T04:10:08Z",
+  "script": "scripts/research/purification_study.py",
+  "source_type": "python",
+  "inputs_summary": "hybrid screening on the 20 bar baseline",
+  "model_versions": {
+   "separation": "amcrax.separation.purification (reduced-order)",
+   "aspen_inputs": "Aspen Plus V15 stored results"
+  }
+ },
+ "hybrid_psa_tail_membrane": {
+  "rationale": "PSA tail gas carries 24 % of the H2 (the largest loss); a Pd membrane on it could return H2. No source in the library reports this scheme; informational screening only.",
+  "tail_kmol_h": {
+   "NH3": 1.9151145201768625,
+   "H2": 35.825863884,
+   "N2": 47.94565284076037,
+   "H2O": 0.2
+  },
+  "tail_pressure_bar": 1.2,
+  "tail_pressure_source": "cho2026nickel p. 6 Table 3 (assumed there)",
+  "rows": [
+   {
+    "permeate_bar": 0.5,
+    "pinch_recovery_of_tail_H2": 0.0019028965253345964,
+    "overall_h2_recovery_if_pinch_reached": 0.7564643067521817
+   },
+   {
+    "permeate_bar": 0.1,
+    "pinch_recovery_of_tail_H2": 0.8729694595577698,
+    "overall_h2_recovery_if_pinch_reached": 0.9690045481320958
+   },
+   {
+    "permeate_bar": 0.01,
+    "pinch_recovery_of_tail_H2": 0.9882576811355922,
+    "overall_h2_recovery_if_pinch_reached": 0.9971348741970845
+   }
+  ],
+  "conclusion": "At the 1.2 bar tail pressure the H2 partial pressure is below the feed side of any practical vacuum permeate; even the pinch limit needs 0.1 bar vacuum and re-compression of the recovered H2 to the PSA feed pressure. Not recommended without a source; kept as informational."
+ },
+ "hybrid_membrane_plus_psa_polish": {
+  "rationale": "A Pd membrane with finite H2/N2 selectivity could be followed by a small PSA to remove leaked N2, relaxing the selectivity requirement.",
+  "status": "not quantified: no published PSA recovery for a ppm-level polishing duty in the library",
+  "membrane_required_selectivity_instead": "see membrane_required_selectivity.csv"
+ },
+ "hybrid_membrane_plus_nh3_polishing_bed": {
+  "rationale": "Measured Pd-Ag permeate NH3 spans 0.01-2.9 ppm (cechetto2023membrane Table 10) so a polishing bed is needed for 0.1 ppm; sourced (clinoptilolite, zeolite 13X). Included as configuration MEM_*_polish."
+ }
+}

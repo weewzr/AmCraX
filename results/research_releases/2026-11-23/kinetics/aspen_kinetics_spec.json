@@ -1,0 +1,1334 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T04:19:49+00:00",
+    "script": "scripts/research/kinetics_aspen_spec.py",
+    "source_type": "python",
+    "inputs_summary": "kinetics.yaml laws converted to Aspen Plus LHHW input; test points from amcrax PFR (isothermal, no pressure drop, 100 kmol/h NH3)",
+    "model_versions": {
+      "kinetics_registry": "backend/amcrax/data/kinetics.yaml (catalysts + research_catalysts)",
+      "reactor": "amcrax.reactor.pfr.simulate_pfr (1-D pseudo-homogeneous PFR)",
+      "thermo": "amcrax.thermodynamics (NASA7 / GRI-Mech 3.0, ideal gas)"
+    }
+  },
+  "status": "version 2 (complete set of implemented catalysts)",
+  "how_to_use": [
+    "Reaction set type LHHW, one reaction NH3 -> 0.5 N2 + 1.5 H2, vapour phase, rate basis Cat (wt).",
+    "Enter k and E in the kinetic factor (T0 blank); driving-force term 1 and term 2 exponents and ln K = A + B/T + C lnT + D T;",
+    "adsorption terms and adsorption exponent as listed. Units SI (kmol, kg, s, J/kmol, K; Pa or kmol/m3).",
+    "RPlug: isothermal at T, no pressure drop, catalyst loading = W_cat_kg, bed voidage as listed, for cross-check with reference_test_points.",
+    "Aspen equilibrium (PENG-ROB) differs slightly from the ideal-gas Kp used here; differences near equilibrium are expected."
+  ],
+  "equilibrium_constant_fit": {
+    "A": -6.8718205614834575,
+    "B": -4838.814744962022,
+    "C": 2.9410889782467606,
+    "D": -0.0011611714589889743,
+    "T_range_K": [
+      573.15,
+      1123.15
+    ],
+    "max_abs_error_lnK": 0.0002753864677331741,
+    "max_rel_error_K": 0.0002753485523604089,
+    "source": "fit to Kp(T) of amcrax.thermodynamics.equilibrium_constant (NASA7 / GRI-Mech 3.0, 1 bar standard state)"
+  },
+  "catalysts": [
+    {
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "label": "Ru/Al2O3 Temkin-Pyzhev (Kum et al. 2026, fit to Di Carlo et al. 2014)",
+      "python_law": "r = ko*exp(-Ea/(R*T)) * [ (P_NH3^2/P_H2^3)^beta - (P_N2/Keq^2)*(P_H2^3/P_NH3^2)^(1-beta) ], P in bar, r in mol g_cat^-1 s^-1 (per mol NH3)",
+      "source": {
+        "citekey": "kum2026heatintegrated",
+        "page": "4-5, 9",
+        "locator": "Eqs. 2-4 (p. 4); Table 1 (p. 5); Sec. 4.1, Fig. 4a (p. 9)"
+      },
+      "aspen_native": true,
+      "aspen_reaction_type": "LHHW",
+      "stoichiometry": {
+        "NH3": -1,
+        "N2": 0.5,
+        "H2": 1.5
+      },
+      "rate_basis": "Cat (wt)",
+      "phase": "Vapor",
+      "concentration_basis": "Partial pressure",
+      "unit_system": "SI: rate kmol/(kg_cat s), p in N/m2 (Pa), E in J/kmol, T in K",
+      "kinetic_factor": {
+        "k": 55245.9,
+        "k_unit": "kmol/(kg_cat s) (= mol/(g_cat s) of the source)",
+        "n": 0.0,
+        "E_J_per_mol": 114224,
+        "E_J_per_kmol": 114224000,
+        "E_kJ_per_mol": 114.224,
+        "T0": "blank (no reference temperature)"
+      },
+      "driving_force": {
+        "term1": {
+          "exponents": {
+            "NH3": 0.54,
+            "H2": -0.81,
+            "N2": 0.0
+          },
+          "lnK_coefficients": {
+            "A": 3.108489875541962,
+            "B": 0.0,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "note": "beta*ln(1e5) converts the bar-based law to Pa"
+        },
+        "term2": {
+          "exponents": {
+            "NH3": -1.46,
+            "H2": 2.19,
+            "N2": 1.0
+          },
+          "lnK_coefficients": {
+            "A": -6.173719931431579,
+            "B": 9677.629489924044,
+            "C": -5.882177956493521,
+            "D": 0.0023223429179779487
+          },
+          "note": "ln(1/Kp^2) with Kp fitted (see equilibrium_constant_fit) minus (2-beta) ln(1e5) for Pa"
+        }
+      },
+      "adsorption": {
+        "exponent": 1.0,
+        "terms": [
+          {
+            "exponents": {},
+            "lnK_coefficients": {
+              "A": 0.0,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          }
+        ],
+        "note": "adsorption expression = 1 (Temkin-Pyzhev has no denominator)"
+      },
+      "native_form_error_vs_python": {
+        "max_rel_rate_error": 0.0005808640028910154,
+        "n_samples": 72,
+        "range": "623-873 K, X 0.05-0.9, 1-40 bar (rates near equilibrium excluded)",
+        "origin": "only the ln Kp fit; exact algebra otherwise"
+      },
+      "keq_basis_python": "amcrax_thermo (PFR default); the kinetics.yaml 'published' Keq (Kum Eq. 4) differs slightly",
+      "numerical_note": "rate singular at p_H2 = 0: feed a 1 ppm H2 seed (1e-4 kmol/h in 100 kmol/h) in Aspen, as in the test points",
+      "bed_properties": {
+        "particle_density_kg_m3": {
+          "value": 980.0,
+          "source": "kum2026heatintegrated Table 1 (p. 5)"
+        },
+        "bed_voidage": {
+          "value": 0.36,
+          "source": "kum2026heatintegrated Table 1 (p. 5)"
+        },
+        "bulk_density_kg_m3": {
+          "value": 627.2,
+          "source": "derived (1-eps)*rho_p as in Kum Table 2"
+        },
+        "particle_diameter_m": {
+          "value": 0.0006,
+          "source": "kum2026heatintegrated Table 1 (p. 5)"
+        },
+        "tube_inner_diameter_m": {
+          "value": 0.126,
+          "source": "kum2026heatintegrated Table 1 (p. 5)"
+        }
+      },
+      "validity": {
+        "T_min_K": 623.15,
+        "T_max_K": 723.15,
+        "P_min_bar": 1.0,
+        "P_max_bar": 10.0,
+        "note": "fit to 36 points of dicarlo2014ammonia, GHSV 300-2400 h^-1, MAPE 0.81 % (p. 9); source applies it up to 773 K / 13 bar"
+      },
+      "reference_test_points": [
+        {
+          "T_C": 400,
+          "P_bar": 1.0,
+          "W_cat_kg": 50.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.3653042037156637,
+          "X_eq": 0.9913907988397138,
+          "H2_out_kmol_h": 54.79573055734956,
+          "source_type": "python"
+        },
+        {
+          "T_C": 400,
+          "P_bar": 10.0,
+          "W_cat_kg": 200.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.5356292068247928,
+          "X_eq": 0.9227537225453161,
+          "H2_out_kmol_h": 80.34448102371891,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 1.0,
+          "W_cat_kg": 50.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.7201367117413277,
+          "X_eq": 0.9954768197198735,
+          "H2_out_kmol_h": 108.02060676119916,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 10.0,
+          "W_cat_kg": 200.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9291290760145685,
+          "X_eq": 0.9573516329708299,
+          "H2_out_kmol_h": 139.3694614021853,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 5.0,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9873830737024886,
+          "X_eq": 0.9873831071307181,
+          "H2_out_kmol_h": 148.1075610553733,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 20.0,
+          "W_cat_kg": 500.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9522177172998566,
+          "X_eq": 0.9522177172991055,
+          "H2_out_kmol_h": 142.83275759497852,
+          "source_type": "python"
+        },
+        {
+          "T_C": 550,
+          "P_bar": 40.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9432268337610245,
+          "X_eq": 0.9432268337610242,
+          "H2_out_kmol_h": 141.4841250641537,
+          "source_type": "python"
+        },
+        {
+          "T_C": 600,
+          "P_bar": 20.0,
+          "W_cat_kg": 500.0,
+          "feed_kmol_h": {
+            "NH3": 100.0,
+            "H2": 0.0001
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.980836434685073,
+          "X_eq": 0.9808364346850755,
+          "H2_out_kmol_h": 147.12556520276095,
+          "source_type": "python"
+        }
+      ]
+    },
+    {
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "label": "5Ni1Ru/CeO2 LHHW (Lucentini et al. 2021)",
+      "python_law": "r = k*K1*C_NH3 / (1 + K1*C_NH3 + sqrt(C_H2/K4))^2, k = k0*exp(-Ek/(R*T)); C_i in mol m^-3, r in mol NH3 g_cat^-1 s^-1. Rate-determining step: first dehydrogenation NH3(a)+s -> NH2(a)+H(a) (Eq. 9); N2 desorption irreversible, H2 adsorption quasi-equilibrated (Eqs. 8-13). K1 and K4 are temperature independent as published (Table 3). Irreversible as published.",
+      "source": {
+        "citekey": "lucentini2021nirukinetic",
+        "page": "8-9, 21-25",
+        "locator": "Eqs. 2-6, 8-13, 17-18; Table 1 (p. 10); Table 2 (p. 23); Table 3 (p. 24)"
+      },
+      "aspen_native": true,
+      "aspen_reaction_type": "LHHW",
+      "stoichiometry": {
+        "NH3": -1,
+        "N2": 0.5,
+        "H2": 1.5
+      },
+      "rate_basis": "Cat (wt)",
+      "phase": "Vapor",
+      "concentration_basis": "Molarity",
+      "unit_system": "SI: rate kmol/(kg_cat s), C in kmol/m3, E in J/kmol, T in K",
+      "kinetic_factor": {
+        "k": 3900000.0,
+        "k_unit": "kmol/(kg_cat s) (= mol NH3/(g_cat s) of the source)",
+        "n": 0.0,
+        "E_J_per_mol": 124000.0,
+        "E_J_per_kmol": 124000000.0,
+        "E_kJ_per_mol": 124.0,
+        "T0": "blank"
+      },
+      "driving_force": {
+        "term1": {
+          "exponents": {
+            "NH3": 1.0,
+            "H2": 0.0,
+            "N2": 0.0
+          },
+          "lnK_coefficients": {
+            "A": 7.003065458786462,
+            "B": 0.0,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "note": "K1 = 1100 m3/kmol (source 1.1 m3/mol)"
+        },
+        "term2": {
+          "exponents": {
+            "NH3": 0.0,
+            "H2": 1.5,
+            "N2": 0.5
+          },
+          "lnK_coefficients": {
+            "A": 11.387656675112273,
+            "B": 4838.814744962022,
+            "C": -1.9410889782467606,
+            "D": 0.0011611714589889743
+          },
+          "note": "K1/Kc with Kc = Kp (P0/RT) in kmol/m3: reproduces the AmCraX approach factor (1-Q/Kp) exactly (up to the ln Kp fit). Set term2 constant to a very small value (A = -1e3) for the published irreversible law."
+        }
+      },
+      "adsorption": {
+        "exponent": 2.0,
+        "terms": [
+          {
+            "exponents": {},
+            "lnK_coefficients": {
+              "A": 0.0,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          {
+            "exponents": {
+              "NH3": 1.0
+            },
+            "lnK_coefficients": {
+              "A": 7.003065458786462,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          {
+            "exponents": {
+              "H2": 0.5
+            },
+            "lnK_coefficients": {
+              "A": 4.982681478127108,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            },
+            "note": "sqrt(C_H2/K4) with K4 = 4.7e-05 kmol/m3"
+          }
+        ]
+      },
+      "native_form_error_vs_python": {
+        "max_rel_rate_error": 0.0006215060846472965,
+        "n_samples": 84,
+        "range": "623-1073 K, X 0.05-0.9, 1-40 bar (rates within 0.1 % of equilibrium excluded)",
+        "origin": "only the ln Kp fit; the LHHW algebra is exact"
+      },
+      "bed_properties": {
+        "particle_density_kg_m3": {
+          "value": 1651.8,
+          "source": "lucentini2021nirukinetic Sec. 2.4 (MIP apparent density)"
+        },
+        "bed_voidage": {
+          "value": 0.36,
+          "source": "assumption: industrial bed value of kum2026heatintegrated Table 1; the source beds are lab beds (eps 0.3855 catalyst only, 0.2451 with SiC, d_i 4.572 mm)"
+        },
+        "bulk_density_kg_m3": {
+          "value": 1057.152,
+          "source": "derived (1-eps)*rho_p with the assumed voidage"
+        },
+        "particle_diameter_m": {
+          "value": 0.0001,
+          "source": "lucentini2021nirukinetic Sec. 2.4 (lab powder; an industrial pellet needs an effectiveness factor)"
+        }
+      },
+      "validity": {
+        "T_min_K": 623.15,
+        "T_max_K": 873.15,
+        "P_min_bar": 1.01325,
+        "P_max_bar": 1.01325,
+        "note": "fitted 350-550/600 degC, 1 atm, NH3 10-100 % in Ar (F/W 15-45 L g^-1 h^-1, H2 co-feed 0-67.5 %); every use above 1 atm is extrapolation"
+      },
+      "extrapolation_note": "fitted at 1 atm only; test points above 1 atm are model extrapolations",
+      "reference_test_points": [
+        {
+          "T_C": 400,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.10384772423670538,
+          "X_eq": 0.9912782193398744,
+          "H2_out_kmol_h": 15.577158635505807,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.37693774012360265,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 56.540661018540405,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.8309812128559857,
+          "X_eq": 0.9974041153996497,
+          "H2_out_kmol_h": 124.64718192839787,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 1.01325,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.8408922845281611,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 126.13384267922419,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 10.0,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9590722278355878,
+          "X_eq": 0.9752320421334545,
+          "H2_out_kmol_h": 143.86083417533817,
+          "source_type": "python"
+        },
+        {
+          "T_C": 550,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.970370040978264,
+          "X_eq": 0.9703700409770306,
+          "H2_out_kmol_h": 145.5555061467396,
+          "source_type": "python"
+        },
+        {
+          "T_C": 600,
+          "P_bar": 40.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9627340070548429,
+          "X_eq": 0.9627340070548424,
+          "H2_out_kmol_h": 144.41010105822645,
+          "source_type": "python"
+        },
+        {
+          "T_C": 650,
+          "P_bar": 20.0,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9871059134575558,
+          "X_eq": 0.9871059134575555,
+          "H2_out_kmol_h": 148.06588701863336,
+          "source_type": "python"
+        }
+      ]
+    },
+    {
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "label": "2.5Ni0.5Ru/CeO2 LHHW (Lucentini et al. 2021)",
+      "python_law": "Same LHHW expression as nire_ceo2_5ni1ru_lucentini_lhhw (Eq. 17) with the 2.5Ni0.5Ru/CeO2 parameters of Table 3.",
+      "source": {
+        "citekey": "lucentini2021nirukinetic",
+        "page": "8-9, 21-25",
+        "locator": "Eq. 17-18; Table 1 (p. 10); Table 3 (p. 24)"
+      },
+      "aspen_native": true,
+      "aspen_reaction_type": "LHHW",
+      "stoichiometry": {
+        "NH3": -1,
+        "N2": 0.5,
+        "H2": 1.5
+      },
+      "rate_basis": "Cat (wt)",
+      "phase": "Vapor",
+      "concentration_basis": "Molarity",
+      "unit_system": "SI: rate kmol/(kg_cat s), C in kmol/m3, E in J/kmol, T in K",
+      "kinetic_factor": {
+        "k": 330000.0,
+        "k_unit": "kmol/(kg_cat s) (= mol NH3/(g_cat s) of the source)",
+        "n": 0.0,
+        "E_J_per_mol": 107000.0,
+        "E_J_per_kmol": 107000000.0,
+        "E_kJ_per_mol": 107.0,
+        "T0": "blank"
+      },
+      "driving_force": {
+        "term1": {
+          "exponents": {
+            "NH3": 1.0,
+            "H2": 0.0,
+            "N2": 0.0
+          },
+          "lnK_coefficients": {
+            "A": 7.090076835776092,
+            "B": 0.0,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "note": "K1 = 1200 m3/kmol (source 1.2 m3/mol)"
+        },
+        "term2": {
+          "exponents": {
+            "NH3": 0.0,
+            "H2": 1.5,
+            "N2": 0.5
+          },
+          "lnK_coefficients": {
+            "A": 11.474668052101903,
+            "B": 4838.814744962022,
+            "C": -1.9410889782467606,
+            "D": 0.0011611714589889743
+          },
+          "note": "K1/Kc with Kc = Kp (P0/RT) in kmol/m3: reproduces the AmCraX approach factor (1-Q/Kp) exactly (up to the ln Kp fit). Set term2 constant to a very small value (A = -1e3) for the published irreversible law."
+        }
+      },
+      "adsorption": {
+        "exponent": 2.0,
+        "terms": [
+          {
+            "exponents": {},
+            "lnK_coefficients": {
+              "A": 0.0,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          {
+            "exponents": {
+              "NH3": 1.0
+            },
+            "lnK_coefficients": {
+              "A": 7.090076835776092,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          {
+            "exponents": {
+              "H2": 0.5
+            },
+            "lnK_coefficients": {
+              "A": 5.004424034096977,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            },
+            "note": "sqrt(C_H2/K4) with K4 = 4.5e-05 kmol/m3"
+          }
+        ]
+      },
+      "native_form_error_vs_python": {
+        "max_rel_rate_error": 0.0006215060846449338,
+        "n_samples": 84,
+        "range": "623-1073 K, X 0.05-0.9, 1-40 bar (rates within 0.1 % of equilibrium excluded)",
+        "origin": "only the ln Kp fit; the LHHW algebra is exact"
+      },
+      "bed_properties": {
+        "particle_density_kg_m3": {
+          "value": 1651.8,
+          "source": "lucentini2021nirukinetic Sec. 2.4 (MIP apparent density)"
+        },
+        "bed_voidage": {
+          "value": 0.36,
+          "source": "assumption: industrial bed value of kum2026heatintegrated Table 1; the source beds are lab beds (eps 0.3855 catalyst only, 0.2451 with SiC, d_i 4.572 mm)"
+        },
+        "bulk_density_kg_m3": {
+          "value": 1057.152,
+          "source": "derived (1-eps)*rho_p with the assumed voidage"
+        },
+        "particle_diameter_m": {
+          "value": 0.0001,
+          "source": "lucentini2021nirukinetic Sec. 2.4 (lab powder; an industrial pellet needs an effectiveness factor)"
+        }
+      },
+      "validity": {
+        "T_min_K": 623.15,
+        "T_max_K": 873.15,
+        "P_min_bar": 1.01325,
+        "P_max_bar": 1.01325,
+        "note": "fitted 350-550/600 degC, 1 atm; the source itself simulates pure NH3 at 1 atm (Fig. 10); above 1 atm is extrapolation"
+      },
+      "extrapolation_note": "fitted at 1 atm only; test points above 1 atm are model extrapolations",
+      "reference_test_points": [
+        {
+          "T_C": 400,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.16219139171336716,
+          "X_eq": 0.9912782193398744,
+          "H2_out_kmol_h": 24.328708757005074,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.4801196181559718,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 72.01794272339578,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.8822037892726411,
+          "X_eq": 0.9974041153996497,
+          "H2_out_kmol_h": 132.33056839089616,
+          "source_type": "python"
+        },
+        {
+          "T_C": 450,
+          "P_bar": 1.01325,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9299891922643251,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 139.49837883964875,
+          "source_type": "python"
+        },
+        {
+          "T_C": 500,
+          "P_bar": 10.0,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9710599630728747,
+          "X_eq": 0.9752320421334545,
+          "H2_out_kmol_h": 145.6589944609312,
+          "source_type": "python"
+        },
+        {
+          "T_C": 550,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9703700409784404,
+          "X_eq": 0.9703700409770306,
+          "H2_out_kmol_h": 145.55550614676608,
+          "source_type": "python"
+        },
+        {
+          "T_C": 600,
+          "P_bar": 40.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9627340070548644,
+          "X_eq": 0.9627340070548424,
+          "H2_out_kmol_h": 144.41010105822969,
+          "source_type": "python"
+        },
+        {
+          "T_C": 650,
+          "P_bar": 20.0,
+          "W_cat_kg": 400.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9871059134575565,
+          "X_eq": 0.9871059134575555,
+          "H2_out_kmol_h": 148.06588701863348,
+          "source_type": "python"
+        }
+      ]
+    },
+    {
+      "catalyst_id": "ni_takahashi_microkinetic",
+      "label": "Ni/MgO microkinetic (Takahashi & Fujitani 2016)",
+      "python_law": "Elementary steps NH3+s<=>NH3(a) (k1, k-1=k1/K1); NH3(a)+3s->N(a)+3H(a) (k2, irreversible); 2N(a)->N2+2s (k3, irreversible); 2H(a)<=>H2+2s (k4, k-4=k4/K4). r1=k1*(pNH3/ptot)*th_s - k-1*th_NH3; r2=k2*th_NH3*th_s^3; r3=k3*th_N^2; r4=k4*th_H^2 - k-4*(pH2/ptot)*th_s^2; th_s=1-th_NH3-th_N-th_H; QSS r1=r2, r2=2r3, 3r2=2r4; r_NH3 = r2 [mol s-1 g-1]. k_i=A_i exp(-Ea_i/RT), k1=A1 (Ea1=0); K1=A5 exp(-Ea5/RT); K4=A6 exp(-Ea4/RT).",
+      "source": {
+        "citekey": "takahashi2016kinetic",
+        "page": "2-5",
+        "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)"
+      },
+      "aspen_native": false,
+      "why_not_native": "elementary-step model with a quasi-steady-state coverage solve (site balance solved numerically); Aspen LHHW/POWERLAW cannot represent it exactly (a user kinetics subroutine would be needed)",
+      "best_native_approximation": {
+        "aspen_reaction_type": "LHHW",
+        "rate_basis": "Cat (wt)",
+        "concentration_basis": "Mole fraction",
+        "form": "r = k0 exp(-E/RT) [y_NH3^a - (P/1bar)/Kp y_N2^0.5 y_H2^1.5 y_NH3^(a-1)] / (1 + K_H y_H2^b + K_N y_NH3)^m  [kmol/(kg s)]",
+        "kinetic_factor": {
+          "k": 766.2220774307901,
+          "k_unit": "kmol/(kg_cat s)",
+          "E_J_per_mol": 84775.42189369405,
+          "E_J_per_kmol": 84775421.89369404,
+          "n": 0.0
+        },
+        "driving_force": {
+          "term1": {
+            "exponents": {
+              "NH3": 0.9660883302850376
+            },
+            "lnK_coefficients": {
+              "A": 0.0,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          "term2": {
+            "exponents": {
+              "NH3": -0.0339116697149624,
+              "N2": 0.5,
+              "H2": 1.5
+            },
+            "lnK_coefficients": {
+              "A": 9.867552835037449,
+              "B": 4838.814744962022,
+              "C": -2.9410889782467606,
+              "D": 0.0011611714589889743
+            },
+            "note": "valid ONLY at P = 20.0 bar (mole-fraction basis puts P into the constant); omit term2 for the published irreversible law"
+          }
+        },
+        "adsorption": {
+          "exponent": 1.7780520361551369,
+          "terms": [
+            {
+              "exponents": {},
+              "lnK_coefficients": {
+                "A": 0.0,
+                "B": 0.0,
+                "C": 0.0,
+                "D": 0.0
+              }
+            },
+            {
+              "exponents": {
+                "H2": 0.978078335571095
+              },
+              "lnK_coefficients": {
+                "A": -12.600017600556173,
+                "B": 11105.12581900444,
+                "C": 0.0,
+                "D": 0.0
+              }
+            },
+            {
+              "exponents": {
+                "NH3": 1.0
+              },
+              "lnK_coefficients": {
+                "A": -1.2005320968175919,
+                "B": 1516.9624899979524,
+                "C": 0.0,
+                "D": 0.0
+              }
+            }
+          ]
+        },
+        "fitted_parameters": {
+          "ln_k0_mol_per_kg_s": 13.549227325021493,
+          "E_J_per_mol": 84775.42189369405,
+          "a_NH3": 0.9660883302850376,
+          "lnK_H": {
+            "A": -12.600017600556173,
+            "B": 11105.12581900444,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "b_H2": 0.978078335571095,
+          "lnK_N": {
+            "A": -1.2005320968175919,
+            "B": 1516.9624899979524,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "adsorption_exponent_m": 1.7780520361551369,
+          "label": "python (least-squares fit of the native form to the published microkinetic rate; not a literature value)"
+        },
+        "fit_range": {
+          "T_K": [
+            623.15,
+            923.15
+          ],
+          "y_NH3": [
+            0.02,
+            1.0
+          ],
+          "y_H2": [
+            0.0001,
+            0.7
+          ],
+          "n_samples": 280
+        },
+        "rate_error_vs_python_law": {
+          "rms_rel": 0.11755135167863824,
+          "max_rel": 0.48320661236659374
+        },
+        "conversion_error_vs_python_pfr": {
+          "max_abs": 0.034345781462718605,
+          "points": 10
+        },
+        "note": "rate in Python is in mol/(kg s); 1 mol/(kg s) = 1e-3 kmol/(kg s): k above is given in kmol/(kg s)"
+      },
+      "bed_properties": {
+        "particle_density_kg_m3": {
+          "value": 980.0,
+          "source": "assumption (no bed data in takahashi2016kinetic); kum2026heatintegrated Table 1 values as in pfr.py"
+        },
+        "bed_voidage": {
+          "value": 0.36,
+          "source": "assumption, as above"
+        },
+        "bulk_density_kg_m3": {
+          "value": 627.2,
+          "source": "derived"
+        },
+        "particle_diameter_m": {
+          "value": 0.0006,
+          "source": "assumption, as above (source: 22-42 mesh powder)"
+        }
+      },
+      "validity": {
+        "T_min_K": 623.15,
+        "T_max_K": 923.15,
+        "P_min_bar": 1.01325,
+        "P_max_bar": 1.01325,
+        "note": "fit 350-450 degC, X<20 %, 1 atm; validated 500-650 degC at 1 atm (Figs. 1, 3, 5)"
+      },
+      "reference_test_points": [
+        {
+          "T_C": 350.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.01065110200829401,
+          "X_eq": 0.9818759105462408,
+          "H2_out_kmol_h": 1.5976653012441016,
+          "source_type": "python",
+          "X_native_approximation_python": 0.009222084643555397
+        },
+        {
+          "T_C": 350.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.03935837048561824,
+          "X_eq": 0.7590987100073824,
+          "H2_out_kmol_h": 5.903755572842736,
+          "source_type": "python",
+          "X_native_approximation_python": 0.03545780151565718
+        },
+        {
+          "T_C": 400.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.043356901717033186,
+          "X_eq": 0.9912782193398744,
+          "H2_out_kmol_h": 6.5035352575549785,
+          "source_type": "python",
+          "X_native_approximation_python": 0.036804736149058145
+        },
+        {
+          "T_C": 400.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.1503872322452378,
+          "X_eq": 0.8610244891363714,
+          "H2_out_kmol_h": 22.55808483678567,
+          "source_type": "python",
+          "X_native_approximation_python": 0.13439790595613546
+        },
+        {
+          "T_C": 450.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.13998627495002047,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 20.99794124250307,
+          "source_type": "python",
+          "X_native_approximation_python": 0.12043395111523474
+        },
+        {
+          "T_C": 450.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.4416842682966756,
+          "X_eq": 0.9197323905329697,
+          "H2_out_kmol_h": 66.25264024450135,
+          "source_type": "python",
+          "X_native_approximation_python": 0.407338486833957
+        },
+        {
+          "T_C": 500.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.36432834649169366,
+          "X_eq": 0.9974041153996497,
+          "H2_out_kmol_h": 54.649251973754055,
+          "source_type": "python",
+          "X_native_approximation_python": 0.3312813329014754
+        },
+        {
+          "T_C": 500.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.8640983585594137,
+          "X_eq": 0.9522177411902296,
+          "H2_out_kmol_h": 129.61475378391208,
+          "source_type": "python",
+          "X_native_approximation_python": 0.8527191791945614
+        },
+        {
+          "T_C": 550.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.7280985981866394,
+          "X_eq": 0.9984331081009371,
+          "H2_out_kmol_h": 109.2147897279959,
+          "source_type": "python",
+          "X_native_approximation_python": 0.7192933718445431
+        },
+        {
+          "T_C": 550.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9703435559554444,
+          "X_eq": 0.9703700409770306,
+          "H2_out_kmol_h": 145.55153339331667,
+          "source_type": "python",
+          "X_native_approximation_python": 0.9703569067320447
+        }
+      ]
+    },
+    {
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "label": "Ru/MgO microkinetic (Takahashi & Fujitani 2016)",
+      "python_law": "Same elementary-step model as ni_takahashi_microkinetic with Ru parameters (Table 1).",
+      "source": {
+        "citekey": "takahashi2016kinetic",
+        "page": "2-5",
+        "locator": "Eqs. 1-14, 20-25; Table 1 (p. 4); Table 2 (p. 5)"
+      },
+      "aspen_native": false,
+      "why_not_native": "elementary-step model with a quasi-steady-state coverage solve (site balance solved numerically); Aspen LHHW/POWERLAW cannot represent it exactly (a user kinetics subroutine would be needed)",
+      "best_native_approximation": {
+        "aspen_reaction_type": "LHHW",
+        "rate_basis": "Cat (wt)",
+        "concentration_basis": "Mole fraction",
+        "form": "r = k0 exp(-E/RT) [y_NH3^a - (P/1bar)/Kp y_N2^0.5 y_H2^1.5 y_NH3^(a-1)] / (1 + K_H y_H2^b + K_N y_NH3)^m  [kmol/(kg s)]",
+        "kinetic_factor": {
+          "k": 155.61447857079833,
+          "k_unit": "kmol/(kg_cat s)",
+          "E_J_per_mol": 67714.64864477726,
+          "E_J_per_kmol": 67714648.64477727,
+          "n": 0.0
+        },
+        "driving_force": {
+          "term1": {
+            "exponents": {
+              "NH3": 0.760014611062745
+            },
+            "lnK_coefficients": {
+              "A": 0.0,
+              "B": 0.0,
+              "C": 0.0,
+              "D": 0.0
+            }
+          },
+          "term2": {
+            "exponents": {
+              "NH3": -0.23998538893725496,
+              "N2": 0.5,
+              "H2": 1.5
+            },
+            "lnK_coefficients": {
+              "A": 9.867552835037449,
+              "B": 4838.814744962022,
+              "C": -2.9410889782467606,
+              "D": 0.0011611714589889743
+            },
+            "note": "valid ONLY at P = 20.0 bar (mole-fraction basis puts P into the constant); omit term2 for the published irreversible law"
+          }
+        },
+        "adsorption": {
+          "exponent": 0.815245772032753,
+          "terms": [
+            {
+              "exponents": {},
+              "lnK_coefficients": {
+                "A": 0.0,
+                "B": 0.0,
+                "C": 0.0,
+                "D": 0.0
+              }
+            },
+            {
+              "exponents": {
+                "H2": 1.2763257989610717
+              },
+              "lnK_coefficients": {
+                "A": -10.861172561743876,
+                "B": 10297.19966138374,
+                "C": 0.0,
+                "D": 0.0
+              }
+            },
+            {
+              "exponents": {
+                "NH3": 1.0
+              },
+              "lnK_coefficients": {
+                "A": -4.994769022004021,
+                "B": 5300.268535810674,
+                "C": 0.0,
+                "D": 0.0
+              }
+            }
+          ]
+        },
+        "fitted_parameters": {
+          "ln_k0_mol_per_kg_s": 11.955136936338414,
+          "E_J_per_mol": 67714.64864477726,
+          "a_NH3": 0.760014611062745,
+          "lnK_H": {
+            "A": -10.861172561743876,
+            "B": 10297.19966138374,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "b_H2": 1.2763257989610717,
+          "lnK_N": {
+            "A": -4.994769022004021,
+            "B": 5300.268535810674,
+            "C": 0.0,
+            "D": 0.0
+          },
+          "adsorption_exponent_m": 0.815245772032753,
+          "label": "python (least-squares fit of the native form to the published microkinetic rate; not a literature value)"
+        },
+        "fit_range": {
+          "T_K": [
+            573.15,
+            823.15
+          ],
+          "y_NH3": [
+            0.02,
+            1.0
+          ],
+          "y_H2": [
+            0.0001,
+            0.7
+          ],
+          "n_samples": 280
+        },
+        "rate_error_vs_python_law": {
+          "rms_rel": 0.10597264956251244,
+          "max_rel": 0.5258044283946728
+        },
+        "conversion_error_vs_python_pfr": {
+          "max_abs": 0.018869896898545013,
+          "points": 10
+        },
+        "note": "rate in Python is in mol/(kg s); 1 mol/(kg s) = 1e-3 kmol/(kg s): k above is given in kmol/(kg s)"
+      },
+      "bed_properties": {
+        "particle_density_kg_m3": {
+          "value": 980.0,
+          "source": "assumption (no bed data in takahashi2016kinetic); kum2026heatintegrated Table 1 values as in pfr.py"
+        },
+        "bed_voidage": {
+          "value": 0.36,
+          "source": "assumption, as above"
+        },
+        "bulk_density_kg_m3": {
+          "value": 627.2,
+          "source": "derived"
+        },
+        "particle_diameter_m": {
+          "value": 0.0006,
+          "source": "assumption, as above (source: 22-42 mesh powder)"
+        }
+      },
+      "validity": {
+        "T_min_K": 573.15,
+        "T_max_K": 823.15,
+        "P_min_bar": 1.01325,
+        "P_max_bar": 1.01325,
+        "note": "fit 300-400 degC, X<20 %, 1 atm; validated 450-550 degC at 1 atm (Figs. 2, 4, 5)"
+      },
+      "reference_test_points": [
+        {
+          "T_C": 300.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.011749063586479536,
+          "X_eq": 0.9584932921861959,
+          "H2_out_kmol_h": 1.7623595379719306,
+          "source_type": "python",
+          "X_native_approximation_python": 0.011272981723297798
+        },
+        {
+          "T_C": 300.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.07526493305354531,
+          "X_eq": 0.6034036991828088,
+          "H2_out_kmol_h": 11.289739958031797,
+          "source_type": "python",
+          "X_native_approximation_python": 0.08216470673193214
+        },
+        {
+          "T_C": 350.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.061491568753759204,
+          "X_eq": 0.9818759105462408,
+          "H2_out_kmol_h": 9.223735313063882,
+          "source_type": "python",
+          "X_native_approximation_python": 0.05817760227098588
+        },
+        {
+          "T_C": 350.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.3010970318353676,
+          "X_eq": 0.7590987100073824,
+          "H2_out_kmol_h": 45.16455477530515,
+          "source_type": "python",
+          "X_native_approximation_python": 0.3014375376678525
+        },
+        {
+          "T_C": 400.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.21546817411414196,
+          "X_eq": 0.9912782193398744,
+          "H2_out_kmol_h": 32.320226117121294,
+          "source_type": "python",
+          "X_native_approximation_python": 0.20688811164101165
+        },
+        {
+          "T_C": 400.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.7241486983770087,
+          "X_eq": 0.8610244891363714,
+          "H2_out_kmol_h": 108.6223047565513,
+          "source_type": "python",
+          "X_native_approximation_python": 0.7052788014784637
+        },
+        {
+          "T_C": 450.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.5385776932476786,
+          "X_eq": 0.9954173012236843,
+          "H2_out_kmol_h": 80.7866539871518,
+          "source_type": "python",
+          "X_native_approximation_python": 0.526198180990177
+        },
+        {
+          "T_C": 450.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9193995128476561,
+          "X_eq": 0.9197323905329697,
+          "H2_out_kmol_h": 137.90992692714843,
+          "source_type": "python",
+          "X_native_approximation_python": 0.9191651336632576
+        },
+        {
+          "T_C": 500.0,
+          "P_bar": 1.01325,
+          "W_cat_kg": 100.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9149851717615128,
+          "X_eq": 0.9974041153996497,
+          "H2_out_kmol_h": 137.24777576422696,
+          "source_type": "python",
+          "X_native_approximation_python": 0.9157843771978559
+        },
+        {
+          "T_C": 500.0,
+          "P_bar": 20.0,
+          "W_cat_kg": 1000.0,
+          "feed_kmol_h": {
+            "NH3": 100.0
+          },
+          "mode": "isothermal, no pressure drop",
+          "X_python": 0.9522177411577569,
+          "X_eq": 0.9522177411902296,
+          "H2_out_kmol_h": 142.83266117366355,
+          "source_type": "python",
+          "X_native_approximation_python": 0.9522177412058441
+        }
+      ]
+    }
+  ],
+  "not_included": {
+    "Ni/CeO2, Ru/CeO2 (lucentini2019ceo2)": "no rate law, no Ea and no orders in the paper (conversion data only); not modellable",
+    "Ru-K/CaO (sayas2020rukcao)": "full text not retrievable (publisher and repository blocked automated access); no k0 available"
+  }
+}

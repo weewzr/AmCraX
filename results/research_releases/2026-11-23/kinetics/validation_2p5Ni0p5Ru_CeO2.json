@@ -1,0 +1,140 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T04:20:14+00:00",
+    "script": "scripts/research/kinetics_validation.py",
+    "source_type": "python",
+    "inputs_summary": "lucentini2021nirukinetic Table 1 (p. 10): x(%)NH3 at F/W 15.0 L gcat^-1 h^-1, 0.1 g, Ar:NH3 1.2:1, 1 atm; PFR isothermal, no pressure drop, 0.1 g, Vm 22.414 L/mol",
+    "model_versions": {
+      "kinetics_registry": "backend/amcrax/data/kinetics.yaml (catalysts + research_catalysts)",
+      "reactor": "amcrax.reactor.pfr.simulate_pfr (1-D pseudo-homogeneous PFR)",
+      "thermo": "amcrax.thermodynamics (NASA7 / GRI-Mech 3.0, ideal gas)"
+    }
+  },
+  "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "label": "2.5Ni0.5Ru/CeO2 LHHW (Lucentini et al. 2021)",
+  "experimental_conditions": {
+    "W_g": 0.1,
+    "P_bar": 1.01325,
+    "total_flow_mL_min": 25.0,
+    "Ar_to_NH3_molar": 1.2,
+    "F_over_W_L_g_h": 15.0,
+    "GHSV_h_inv": 3660,
+    "bed_volume_cm3": 0.41,
+    "reactor_inner_diameter_m": 0.004572,
+    "source": "lucentini2021nirukinetic Sec. 2.3 (p. 6-7), Table 1 (p. 10)",
+    "flow_reference_state": "assumption: 0 degC, 1 atm (not stated in source)"
+  },
+  "points": [
+    {
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "T_C": 400,
+      "P_bar": 1.01325,
+      "W_g": 0.1,
+      "F_over_W_L_g_h": 15.0,
+      "Ar_to_NH3": 1.2,
+      "X_published": 0.497,
+      "X_python": 0.5162449934246001,
+      "abs_error": 0.019244993424600065,
+      "rel_error": 0.03872232077384319,
+      "X_python_published_form_no_approach_factor": 0.5166591403576174,
+      "X_python_Vm_25C": 0.5435861904218726,
+      "X_python_Ek_minus_CI": 0.9837680205972049,
+      "X_python_Ek_plus_CI": 0.1259541715262937,
+      "X_python_k0_minus_CI": 0.43434570907754005,
+      "X_python_k0_plus_CI": 0.5850243216884954,
+      "source_type_published": "literature",
+      "source_type_python": "python"
+    },
+    {
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "T_C": 450,
+      "P_bar": 1.01325,
+      "W_g": 0.1,
+      "F_over_W_L_g_h": 15.0,
+      "Ar_to_NH3": 1.2,
+      "X_published": 0.887,
+      "X_python": 0.9115631869492399,
+      "abs_error": 0.024563186949239868,
+      "rel_error": 0.027692431735332434,
+      "X_python_published_form_no_approach_factor": 0.9132741681186498,
+      "X_python_Vm_25C": 0.9277535617034371,
+      "X_python_Ek_minus_CI": 0.9971293961015193,
+      "X_python_Ek_plus_CI": 0.38038223231535917,
+      "X_python_k0_minus_CI": 0.8477068063890218,
+      "X_python_k0_plus_CI": 0.9480176826046717,
+      "source_type_published": "literature",
+      "source_type_python": "python"
+    },
+    {
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "T_C": 500,
+      "P_bar": 1.01325,
+      "W_g": 0.1,
+      "F_over_W_L_g_h": 15.0,
+      "Ar_to_NH3": 1.2,
+      "X_published": 0.992,
+      "X_python": 0.9977458301996639,
+      "abs_error": 0.005745830199663904,
+      "rel_error": 0.005792167539983774,
+      "X_python_published_form_no_approach_factor": 0.9993563002526281,
+      "X_python_Vm_25C": 0.9980484748934059,
+      "X_python_Ek_minus_CI": 0.9983756951795126,
+      "X_python_Ek_plus_CI": 0.7712368870291761,
+      "X_python_k0_minus_CI": 0.9948045198806713,
+      "X_python_k0_plus_CI": 0.9982645779911736,
+      "source_type_published": "literature",
+      "source_type_python": "python"
+    }
+  ],
+  "statistics": {
+    "rmse": 0.018318792624875485,
+    "max_abs_error": 0.024563186949239868,
+    "mean_error": 0.01651800352450128
+  },
+  "statistics_published_form_no_approach_factor": {
+    "rmse": 0.019415877208566457,
+    "max_abs_error": 0.0262741681186498,
+    "mean_error": 0.017763202909631775
+  },
+  "statistics_flow_reference_25C": {
+    "rmse": 0.035905941839176586,
+    "max_abs_error": 0.04658619042187262,
+    "mean_error": 0.031129409006238545
+  },
+  "sensitivity": {
+    "basis": "reported confidence intervals of Table 3 (Ek +/- 11 kJ/mol, k0 +/- 80000 mol/g/s), one parameter at a time",
+    "label": "reported uncertainty",
+    "X_by_case": {
+      "Ek_minus": [
+        0.9837680205972049,
+        0.9971293961015193,
+        0.9983756951795126
+      ],
+      "Ek_plus": [
+        0.1259541715262937,
+        0.38038223231535917,
+        0.7712368870291761
+      ],
+      "k0_minus": [
+        0.43434570907754005,
+        0.8477068063890218,
+        0.9948045198806713
+      ],
+      "k0_plus": [
+        0.5850243216884954,
+        0.9480176826046717,
+        0.9982645779911736
+      ]
+    },
+    "caveat": "k0 and Ek are strongly correlated in an Arrhenius fit; moving Ek alone with k0 fixed overstates the joint uncertainty (no covariance is published)"
+  },
+  "nature_of_check": "reproduction of the fitting data (Table 1 points are part of the paper's 1 atm data set); not an independent validation",
+  "applicability_limits": {
+    "T_min_K": 623.15,
+    "T_max_K": 873.15,
+    "P_min_bar": 1.01325,
+    "P_max_bar": 1.01325,
+    "note": "fitted 350-550/600 degC, 1 atm; the source itself simulates pure NH3 at 1 atm (Fig. 10); above 1 atm is extrapolation"
+  },
+  "source_type": "python vs literature"
+}

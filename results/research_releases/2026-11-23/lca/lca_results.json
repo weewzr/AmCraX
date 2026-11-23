@@ -1,0 +1,660 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T06:17:10Z",
+    "script": "scripts/research/lca_run.py",
+    "source_type": "python+literature",
+    "inputs_summary": "route factors lca.FACTORS; cracker activities from stored Aspen baseline; comparators literature",
+    "model_versions": {
+      "amcrax.environmental.lca": "1",
+      "aspen_inputs": "stored results/simulations/baseline.json (Aspen Plus V15)"
+    }
+  },
+  "method": "Scenario-based cradle-to-gate-of-use GHG assessment; GWP100 AR6; NOx reported separately, never added to CO2e",
+  "system_boundary": "upstream NH3 (well-to-plant-gate) + sea shipping + optional boil-off (default 0, unsourced) + process electricity + direct N2O; excludes plant construction, catalyst, H2 compression/delivery, NG supply chain of the comparators except via a leakage parameter",
+  "distance_km_baseline": 5000.0,
+  "functional_units": {
+    "hydrogen": "1 kg H2 at the PSA outlet (99.96 mol%) at the cracker",
+    "electricity": "1 MWh net electricity"
+  },
+  "activity_per_FU": {
+    "H2": {
+      "nh3_kg": 7.350165509388053,
+      "efficiency_LHV": 0.8773712988772014
+    },
+    "direct_NH3_CCGT": {
+      "nh3_kg": 389.83990574537387,
+      "efficiency_LHV": 0.4964304737373737
+    }
+  },
+  "routes": [
+    {
+      "route": "green",
+      "label": "green NH3 (renewable, incl. embedded asset emissions)",
+      "gate_kgCO2e_per_kgNH3": 0.2752157829839704,
+      "range_low": 0.07102342786683108,
+      "range_high": 0.4794081381011098,
+      "delivered_5000km": 0.3302157829839704,
+      "source_type": "literature",
+      "H2_kgCO2e_per_kg": 2.4300891449157564,
+      "H2_breakdown": {
+        "upstream_ammonia": 2.0228815557280067,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 2.4300891449157564
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 128.94984400106932,
+      "MWh_breakdown": {
+        "upstream_ammonia": 107.2900948981103,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 128.94984400106932
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 146.91776944657866,
+      "H2_low_high": [
+        0.9292415390530419,
+        3.9309367507784723
+      ],
+      "MWh_low_high": [
+        49.34751552827781,
+        208.55217247386088
+      ]
+    },
+    {
+      "route": "green_lee",
+      "label": "green NH3 (Lee boundary, zero)",
+      "gate_kgCO2e_per_kgNH3": 0.0,
+      "range_low": 0.0,
+      "range_high": 0.4794081381011098,
+      "delivered_5000km": 0.055,
+      "source_type": "literature",
+      "H2_kgCO2e_per_kg": 0.4072075891877498,
+      "H2_breakdown": {
+        "upstream_ammonia": 0.0,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 0.4072075891877498
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 21.65974910295902,
+      "MWh_breakdown": {
+        "upstream_ammonia": 0.0,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 21.65974910295902
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 24.631919618332944,
+      "H2_low_high": [
+        0.4072075891877498,
+        3.9309367507784723
+      ],
+      "MWh_low_high": [
+        21.65974910295902,
+        208.55217247386088
+      ]
+    },
+    {
+      "route": "blue",
+      "label": "blue NH3 (Lee v1: process CO2 captured)",
+      "gate_kgCO2e_per_kgNH3": 1.1600000000000001,
+      "range_low": 0.77,
+      "range_high": 1.9212585987261146,
+      "delivered_5000km": 1.215,
+      "source_type": "literature",
+      "H2_kgCO2e_per_kg": 8.933399580077893,
+      "H2_breakdown": {
+        "upstream_ammonia": 8.526191990890142,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 8.933399580077893
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 473.87403976759276,
+      "MWh_breakdown": {
+        "upstream_ammonia": 452.2142906646337,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 473.87403976759276
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 540.051436125593,
+      "H2_low_high": [
+        6.0668350314165504,
+        14.52877627615966
+      ],
+      "MWh_low_high": [
+        321.83647652689694,
+        770.6430201428366
+      ]
+    },
+    {
+      "route": "blue_v2",
+      "label": "blue NH3 (Lee v2: process + flue-gas CO2 captured)",
+      "gate_kgCO2e_per_kgNH3": 0.7700000000000002,
+      "range_low": 0.7700000000000002,
+      "range_high": 1.5702585987261148,
+      "delivered_5000km": 0.8250000000000003,
+      "source_type": "literature",
+      "H2_kgCO2e_per_kg": 6.066835031416552,
+      "H2_breakdown": {
+        "upstream_ammonia": 5.659627442228802,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 6.066835031416552
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 321.836476526897,
+      "MWh_breakdown": {
+        "upstream_ammonia": 300.17672742393796,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 321.836476526897
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 366.763840058497,
+      "H2_low_high": [
+        6.066835031416552,
+        11.948868182364455
+      ],
+      "MWh_low_high": [
+        321.836476526897,
+        633.8092132262105
+      ]
+    },
+    {
+      "route": "blue_param",
+      "label": "blue NH3 (95 % process capture, 1.5 % extra CH4 leakage)",
+      "gate_kgCO2e_per_kgNH3": 1.5406292993630575,
+      "range_low": 1.2011505732484078,
+      "range_high": 1.9212585987261146,
+      "delivered_5000km": 1.5956292993630574,
+      "source_type": "assumption",
+      "H2_kgCO2e_per_kg": 11.731087928118777,
+      "H2_breakdown": {
+        "upstream_ammonia": 11.323880338931026,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 11.731087928118777
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 622.2585299552147,
+      "MWh_breakdown": {
+        "upstream_ammonia": 600.5987808522557,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 622.2585299552147
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 709.1753753033552,
+      "H2_low_high": [
+        9.235863104259886,
+        14.52877627615966
+      ],
+      "MWh_low_high": [
+        489.91617536412014,
+        770.6430201428366
+      ]
+    },
+    {
+      "route": "grey",
+      "label": "grey NH3 (NG SMR, no capture)",
+      "gate_kgCO2e_per_kgNH3": 2.6,
+      "range_low": 2.0,
+      "range_high": 4.6,
+      "delivered_5000km": 2.6550000000000002,
+      "source_type": "literature",
+      "H2_kgCO2e_per_kg": 19.517637913596687,
+      "H2_breakdown": {
+        "upstream_ammonia": 19.110430324408938,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 19.517637913596687
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1035.243504040931,
+      "MWh_breakdown": {
+        "upstream_ammonia": 1013.5837549379721,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 1035.243504040931
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 1179.8825600656398,
+      "H2_low_high": [
+        15.107538607963857,
+        34.21796893237279
+      ],
+      "MWh_low_high": [
+        801.3395605937068,
+        1814.9233155316786
+      ]
+    },
+    {
+      "route": "coal",
+      "label": "coal-based NH3",
+      "gate_kgCO2e_per_kgNH3": 3.0300000000000002,
+      "range_low": 2.18,
+      "range_high": 3.88,
+      "delivered_5000km": 3.0850000000000004,
+      "source_type": "literature (low confidence)",
+      "H2_kgCO2e_per_kg": 22.67820908263355,
+      "H2_breakdown": {
+        "upstream_ammonia": 22.2710014934458,
+        "shipping": 0.40425910301634294,
+        "electricity": 0.002948486171406863,
+        "direct_n2o": 0.0,
+        "total": 22.67820908263355
+      },
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1202.8746635114417,
+      "MWh_breakdown": {
+        "upstream_ammonia": 1181.2149144084829,
+        "shipping": 21.441194815995562,
+        "electricity": 0.0,
+        "direct_n2o": 0.2185542869634571,
+        "total": 1202.8746635114417
+      },
+      "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 1370.9432429088483,
+      "H2_low_high": [
+        16.430568399653705,
+        28.925849765613393
+      ],
+      "MWh_low_high": [
+        871.5107436278741,
+        1534.2385833950093
+      ]
+    }
+  ],
+  "alternatives": {
+    "ccgt_ng_kgCO2e_per_MWh": {
+      "central": 367.2,
+      "low_eff_0.50": 403.92,
+      "high_eff_0.60": 336.6,
+      "leak_0.002": 375.48257093225243,
+      "leak_0.015": 429.31928199189343,
+      "leak_0.03": 491.4385639837869,
+      "source_type": "literature combustion factor + assumption efficiency"
+    },
+    "grid_average_kgCO2e_per_MWh": {
+      "central": 402.0,
+      "source_type": "literature (EMA 2024)"
+    },
+    "smr_h2_unabated_kgCO2e_per_kgH2": {
+      "central": 11.0,
+      "range": [
+        10.0,
+        12.0
+      ],
+      "source_type": "literature"
+    },
+    "smr_h2_ccs_kgCO2e_per_kgH2": {
+      "central": 3.5,
+      "range": [
+        3.4,
+        3.6
+      ],
+      "upper_sensitivity": 5.3,
+      "source_type": "literature (low confidence)"
+    }
+  },
+  "breakeven": [
+    {
+      "comparison": "industrial H2 vs SMR unabated",
+      "distance_km": 2000.0,
+      "alternative_CI": 11.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.4741637938332854,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "industrial H2 vs SMR + CCS",
+      "distance_km": 2000.0,
+      "alternative_CI": 3.5,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.4537786078914765,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT",
+      "distance_km": 2000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.9193644942566052,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT (leak 1.5 %)",
+      "distance_km": 2000.0,
+      "alternative_CI": 429.31928199189343,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.0787101155652328,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs grid average",
+      "distance_km": 2000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.0086319075899386,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "partial crack 40 vol% H2 vs NG CCGT",
+      "distance_km": 2000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.9541063900759255,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs NG CCGT",
+      "distance_km": 2000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8039816188870226,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs grid average",
+      "distance_km": 2000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8823022852706973,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "industrial H2 vs SMR unabated",
+      "distance_km": 5000.0,
+      "alternative_CI": 11.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.4411637938332857,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "industrial H2 vs SMR + CCS",
+      "distance_km": 5000.0,
+      "alternative_CI": 3.5,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.4207786078914765,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT",
+      "distance_km": 5000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8863644942566052,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT (leak 1.5 %)",
+      "distance_km": 5000.0,
+      "alternative_CI": 429.31928199189343,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.0457101155652329,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs grid average",
+      "distance_km": 5000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.9756319075899386,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "partial crack 40 vol% H2 vs NG CCGT",
+      "distance_km": 5000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.9211063900759255,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs NG CCGT",
+      "distance_km": 5000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.7709816188870227,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs grid average",
+      "distance_km": 5000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8493022852706972,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "industrial H2 vs SMR unabated",
+      "distance_km": 12000.0,
+      "alternative_CI": 11.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 1.3641637938332856,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "industrial H2 vs SMR + CCS",
+      "distance_km": 12000.0,
+      "alternative_CI": 3.5,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.3437786078914765,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT",
+      "distance_km": 12000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8093644942566053,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs NG CCGT (leak 1.5 %)",
+      "distance_km": 12000.0,
+      "alternative_CI": 429.31928199189343,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.9687101155652329,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "direct NH3 CCGT vs grid average",
+      "distance_km": 12000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8986319075899386,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "partial crack 40 vol% H2 vs NG CCGT",
+      "distance_km": 12000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.8441063900759255,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs NG CCGT",
+      "distance_km": 12000.0,
+      "alternative_CI": 367.2,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.6939816188870226,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    },
+    {
+      "comparison": "cracked + purified H2 CCGT vs grid average",
+      "distance_km": 12000.0,
+      "alternative_CI": 402.0,
+      "breakeven_NH3_gate_EF_kgCO2e_per_kgNH3": 0.7723022852706973,
+      "note": "NH3 gate EF at or below this value cuts emissions versus the alternative (negative = never, even at zero upstream)"
+    }
+  ],
+  "blue_ef_reproduction": {
+    "blue_v1": 1.1600000000000001,
+    "blue_v2": 0.7700000000000002,
+    "blue_param": 1.5406292993630575
+  },
+  "distance_scenarios": [
+    {
+      "distance_km": 0.0,
+      "route": "green",
+      "shipping_kgCO2e_per_kgNH3": 0.0,
+      "H2_kgCO2e_per_kg": 2.0258300418994137,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 107.50864918507375
+    },
+    {
+      "distance_km": 0.0,
+      "route": "blue",
+      "shipping_kgCO2e_per_kgNH3": 0.0,
+      "H2_kgCO2e_per_kg": 8.52914047706155,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 452.4328449515972
+    },
+    {
+      "distance_km": 0.0,
+      "route": "grey",
+      "shipping_kgCO2e_per_kgNH3": 0.0,
+      "H2_kgCO2e_per_kg": 19.113378810580343,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1013.8023092249356
+    },
+    {
+      "distance_km": 2000.0,
+      "route": "green",
+      "shipping_kgCO2e_per_kgNH3": 0.022,
+      "H2_kgCO2e_per_kg": 2.187533683105951,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 116.08512711147198
+    },
+    {
+      "distance_km": 2000.0,
+      "route": "blue",
+      "shipping_kgCO2e_per_kgNH3": 0.022,
+      "H2_kgCO2e_per_kg": 8.690844118268087,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 461.00932287799543
+    },
+    {
+      "distance_km": 2000.0,
+      "route": "grey",
+      "shipping_kgCO2e_per_kgNH3": 0.022,
+      "H2_kgCO2e_per_kg": 19.27508245178688,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1022.3787871513338
+    },
+    {
+      "distance_km": 5000.0,
+      "route": "green",
+      "shipping_kgCO2e_per_kgNH3": 0.055,
+      "H2_kgCO2e_per_kg": 2.4300891449157564,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 128.94984400106932
+    },
+    {
+      "distance_km": 5000.0,
+      "route": "blue",
+      "shipping_kgCO2e_per_kgNH3": 0.055,
+      "H2_kgCO2e_per_kg": 8.933399580077893,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 473.87403976759276
+    },
+    {
+      "distance_km": 5000.0,
+      "route": "grey",
+      "shipping_kgCO2e_per_kgNH3": 0.055,
+      "H2_kgCO2e_per_kg": 19.517637913596687,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1035.243504040931
+    },
+    {
+      "distance_km": 8000.0,
+      "route": "green",
+      "shipping_kgCO2e_per_kgNH3": 0.088,
+      "H2_kgCO2e_per_kg": 2.6726446067255623,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 141.81456089066666
+    },
+    {
+      "distance_km": 8000.0,
+      "route": "blue",
+      "shipping_kgCO2e_per_kgNH3": 0.088,
+      "H2_kgCO2e_per_kg": 9.175955041887699,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 486.7387566571901
+    },
+    {
+      "distance_km": 8000.0,
+      "route": "grey",
+      "shipping_kgCO2e_per_kgNH3": 0.088,
+      "H2_kgCO2e_per_kg": 19.76019337540649,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1048.1082209305284
+    },
+    {
+      "distance_km": 12000.0,
+      "route": "green",
+      "shipping_kgCO2e_per_kgNH3": 0.132,
+      "H2_kgCO2e_per_kg": 2.996051889138637,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 158.9675167434631
+    },
+    {
+      "distance_km": 12000.0,
+      "route": "blue",
+      "shipping_kgCO2e_per_kgNH3": 0.132,
+      "H2_kgCO2e_per_kg": 9.499362324300773,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 503.8917125099865
+    },
+    {
+      "distance_km": 12000.0,
+      "route": "grey",
+      "shipping_kgCO2e_per_kgNH3": 0.132,
+      "H2_kgCO2e_per_kg": 20.083600657819566,
+      "direct_NH3_CCGT_kgCO2e_per_MWh": 1065.2611767833248
+    }
+  ],
+  "sensitivity_oat_blue_direct_power": {
+    "base_margin_kgCO2e_per_MWh(CCGT minus NH3)": -255.05852995521474,
+    "rows": [
+      {
+        "parameter": "process CO2 capture 0.90-1.00",
+        "margin_at_low": -283.1270031688816,
+        "margin_at_high": -226.9900567415478
+      },
+      {
+        "parameter": "extra upstream CH4 leakage 0.2-3.0 %",
+        "margin_at_low": -150.7846485777871,
+        "margin_at_high": -375.37454692916975
+      },
+      {
+        "parameter": "sea distance 2000-12000 km",
+        "margin_at_low": -242.19381306561735,
+        "margin_at_high": -285.0762026976085
+      },
+      {
+        "parameter": "turbine electricity per kg NH3 +/-6 % (about +/-3 pts)",
+        "margin_at_low": -294.77715952682416,
+        "margin_at_high": -219.8363490143534
+      },
+      {
+        "parameter": "CCGT efficiency 0.50-0.60",
+        "margin_at_low": -218.3385299552147,
+        "margin_at_high": -285.6585299552147
+      },
+      {
+        "parameter": "CCGT upstream CH4 leakage 0-3 %",
+        "margin_at_low": -255.05852995521474,
+        "margin_at_high": -130.81996597142785
+      }
+    ]
+  },
+  "monte_carlo": {
+    "n": 20000,
+    "seed": 20261123,
+    "distributions": "uniform over the stated ranges; ranges are sourced or flagged scenario bounds (see assumptions.json)",
+    "blue_direct_NH3_power": {
+      "CI_kgCO2e_per_MWh_p5_p50_p95": [
+        525.9599162577725,
+        640.5913649063762,
+        759.5266674060063
+      ],
+      "P_cuts_emissions_vs_NG_CCGT": 0.00215
+    },
+    "blue_industrial_H2": {
+      "CI_kgCO2e_per_kgH2_p5_p50_p95": [
+        10.031611754494472,
+        12.063498360552718,
+        14.08469985848195
+      ],
+      "P_below_SMR_unabated": 0.25105,
+      "P_below_SMR_CCS": 0.0
+    }
+  },
+  "n2o_nox": {
+    "N2O_kg_per_MWh": 0.0008005651537122971,
+    "N2O_kgCO2e_per_MWh": 0.2185542869634571,
+    "NO_kg_per_MWh": 0.38932862354988407,
+    "note": "SIMULATED exhaust ppmv (Ahmad 2025, VNH3), converted with Ahmad's gas flow per MWh; NO is a local pollutant reported separately; N2O is included in CO2e (it is ~0.2 kg CO2e/MWh, negligible)"
+  },
+  "carbon_tax_sg": {
+    "rate_SGD_per_t": 45.0,
+    "direct_in_scope_kgCO2e_per_MWh_direct_NH3": 0.2185542869634571,
+    "SGD_per_MWh": 0.00983494291335557,
+    "note": "Only direct in-scope emissions (N2O at the turbine); CO2e upstream and shipping are outside Singapore's tax base. Reported in SGD here; results/research/enduse converts it with the FX in data/singapore.yaml (secondary_web)."
+  },
+  "limitations": [
+    "Coal-based NH3 factor is low confidence (abstract-level).",
+    "Blue-NH3 leakage and capture are scenario parameters, not measured values.",
+    "Boil-off and terminal losses excluded (no sourced value).",
+    "Green NH3 central value includes embedded renewable-asset emissions from the IEA range; Lee's boundary gives zero.",
+    "Distances are scenario values, not sourced route lengths.",
+    "NOx and N2O are simulated values from one paper."
+  ]
+}
