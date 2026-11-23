@@ -1,0 +1,388 @@
+{
+ "areas": {
+  "aspen_kinetic": {
+   "n_items": 183,
+   "by_status": {
+    "pass": 161,
+    "fail": 3,
+    "informational": 19
+   },
+   "file": "results/research/validation/aspen_kinetic.json",
+   "failures": [
+    {
+     "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium",
+     "description": "5Ni1Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "reference_source": "aspen RGibbs block REQ in the same model",
+     "observed": 0.00048736808736804527,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-"
+    },
+    {
+     "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium",
+     "description": "2.5Ni0.5Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "reference_source": "aspen RGibbs block REQ in the same model",
+     "observed": 0.0004873675873675598,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-"
+    },
+    {
+     "id": "cat_ru_takahashi_microkinetic_below_equilibrium",
+     "description": "Ru/MgO (Takahashi, LHHW approx.): no RPLUG run above RGibbs equilibrium (same model, same feed), 23 runs",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "reference_source": "aspen RGibbs block REQ in the same model",
+     "observed": 0.00016042366042368084,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-"
+    }
+   ],
+   "informational": [
+    {
+     "id": "ki_ru_kum_T600_P20_W200_hi_reactor_duty",
+     "description": "Integrated RPLUG CRACKER duty vs RGibbs baseline duty"
+    },
+    {
+     "id": "ki_ru_kum_T600_P20_W200_nohi_reactor_duty",
+     "description": "Integrated RPLUG CRACKER duty vs RGibbs baseline duty"
+    },
+    {
+     "id": "kv_ru_kum_T450_P5_W20_adiabatic_ergun_pressure_drop",
+     "description": "Ergun pressure drop (450 degC, 5 bar, 20 kg, adiabatic)"
+    },
+    {
+     "id": "cat_cv_tni_01_T350_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tni_03_T400_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tni_05_T450_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tni_07_T500_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tni_09_T550_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ni/MgO (Takahashi, LHHW approx.), 550 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tru_01_T300_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 300 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tru_03_T350_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 350 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tru_05_T400_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 400 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tru_07_T450_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 450 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_cv_tru_09_T500_P20_W1000_vs_exact_law",
+     "description": "Aspen LHHW approximation vs exact Takahashi microkinetic law in Python (Ru/MgO (Takahashi, LHHW approx.), 500 degC, 20 bar, 1000 kg); measures the approximation error, not Aspen"
+    },
+    {
+     "id": "cat_ni_takahashi_microkinetic_study_vs_python",
+     "description": "Ni/MgO (Takahashi, LHHW approx.): largest |X_aspen - X_python| over 22 isothermal runs (Aspen runs the fitted approximation, Python the exact law: informational)"
+    },
+    {
+     "id": "cat_cs_AD_tni_Tin650_P20_W100_adiabatic",
+     "description": "Ni/MgO (Takahashi, LHHW approx.): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)"
+    },
+    {
+     "id": "cat_ru_takahashi_microkinetic_study_vs_python",
+     "description": "Ru/MgO (Takahashi, LHHW approx.): largest |X_aspen - X_python| over 22 isothermal runs (Aspen runs the fitted approximation, Python the exact law: informational)"
+    },
+    {
+     "id": "cat_cs_AD_tru_Tin650_P20_W100_adiabatic",
+     "description": "Ru/MgO (Takahashi, LHHW approx.): adiabatic RPLUG outlet temperature vs Python PFR (inlet 650 degC, 20 bar, 100 kg)"
+    },
+    {
+     "id": "cat_cs_OP_tni_T594_P20_W100_target",
+     "description": "Ni/MgO (Takahashi, LHHW approx.): Aspen conversion at the operating temperature 594 degC (100 kg, 20 bar) vs target 0.95"
+    },
+    {
+     "id": "cat_cs_OP_tru_T522_P20_W100_target",
+     "description": "Ru/MgO (Takahashi, LHHW approx.): Aspen conversion at the operating temperature 522 degC (100 kg, 20 bar) vs target 0.95"
+    }
+   ]
+  },
+  "catalyst_comparison": {
+   "n_items": 75,
+   "by_status": {
+    "pass": 66,
+    "fail": 5,
+    "informational": 4
+   },
+   "file": "results/research/validation/catalyst_comparison.json",
+   "failures": [
+    {
+     "id": "HCAT-ASPY-Ru/Al2O3-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "reference_source": "Aspen Plus V15 (PENG-ROB)",
+     "observed": 489.9469288794669,
+     "expected": 469.13745,
+     "tolerance": 0.03,
+     "unit": "relative"
+    },
+    {
+     "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "reference_source": "Aspen Plus V15 (PENG-ROB)",
+     "observed": 592.6560753623044,
+     "expected": 571.796932,
+     "tolerance": 0.03,
+     "unit": "relative"
+    },
+    {
+     "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "reference_source": "Aspen Plus V15 (PENG-ROB)",
+     "observed": 598.3918178259712,
+     "expected": 577.53548,
+     "tolerance": 0.03,
+     "unit": "relative"
+    },
+    {
+     "id": "HCAT-ASPY-Ni/MgO-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "reference_source": "Aspen Plus V15 (PENG-ROB)",
+     "observed": 624.3393765018114,
+     "expected": 603.504301,
+     "tolerance": 0.03,
+     "unit": "relative"
+    },
+    {
+     "id": "HCAT-ASPY-Ru/MgO-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "reference_source": "Aspen Plus V15 (PENG-ROB)",
+     "observed": 521.9012989137885,
+     "expected": 501.058703,
+     "tolerance": 0.03,
+     "unit": "relative"
+    }
+   ],
+   "informational": [
+    {
+     "id": "HCAT-CHO-DIR-psa0.85-cho_ghsv_9000",
+     "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)"
+    },
+    {
+     "id": "HCAT-CHO-DIR-psa0.85-kinetic_minimum",
+     "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)"
+    },
+    {
+     "id": "HCAT-CHO-DIR-psa0.756-cho_ghsv_9000",
+     "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)"
+    },
+    {
+     "id": "HCAT-CHO-DIR-psa0.756-kinetic_minimum",
+     "description": "Direction and size of the Ru vs Ni REC difference compared with Cho et al. (2026)"
+    }
+   ]
+  },
+  "economics": {
+   "n_items": 15,
+   "by_status": {
+    "pass": 9,
+    "fail": 0,
+    "informational": 6
+   },
+   "file": "results/research/validation/economics.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "E08",
+     "description": "REC vs Cho 2026 Ni (1.995 USD/kg, Fig. 8d): different boundary (no 180 bar compression, TSA, NOx; 251 vs about 100 kg/h)"
+    },
+    {
+     "id": "E09",
+     "description": "Cho Ru REC 7.0 % lower than Ni check: (1.995-1.856)/1.995"
+    },
+    {
+     "id": "E10",
+     "description": "LCOH (legacy capex) vs Cho Ni total 5.439 USD/kg at 450 USD/t"
+    },
+    {
+     "id": "E11",
+     "description": "Equipment-level LCOH vs Cho Ni total 5.439 USD/kg"
+    },
+    {
+     "id": "E12",
+     "description": "Halim 2025 LCOH 10.1 (blue) / 15.1 (green) USD/kg for a 60.1 MW plant"
+    },
+    {
+     "id": "E13",
+     "description": "Scale effect 25 -> 1000 kmol/h: LCOH ratio vs Deka 2025 (5.21 -> 3.58, ratio 1.455; value from the brief, source not in library)"
+    }
+   ]
+  },
+  "enduse": {
+   "n_items": 45,
+   "by_status": {
+    "pass": 40,
+    "fail": 0,
+    "informational": 5
+   },
+   "file": "results/research/validation/enduse.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "EU-ahmad-tci-full",
+     "description": "Fully cracked plant TCI against Ahmad's about 230 MUSD (alpha = 0)"
+    },
+    {
+     "id": "EU-ahmad-320",
+     "description": "Ahmad at 320 USD/t: direct VNH3 0.217 vs full cracking 0.22 USD/kWh (p. 15, attribution inconsistent in the paper); AmCraX direct and full-crack values"
+    },
+    {
+     "id": "EU-halim-claim",
+     "description": "Halim et al. (2025): direct NH3 combustion about 40 % cheaper than cracking-based power"
+    },
+    {
+     "id": "EU-halim-plant",
+     "description": "Halim et al. (2025): 60.1 MW Singapore plant, LCOH 15.1 (green) and 10.1 (blue) USD/kg H2"
+    },
+    {
+     "id": "EU-iso",
+     "description": "Industrial and fuel-cell candidate purity against ISO 14687 Grade D (99.97 %, N2+Ar <= 300 ppm, NH3 <= 0.1 ppm)"
+    }
+   ]
+  },
+  "kinetics": {
+   "n_items": 13,
+   "by_status": {
+    "pass": 8,
+    "fail": 2,
+    "informational": 3
+   },
+   "file": "results/research/validation/kinetics.json",
+   "failures": [
+    {
+     "id": "EXISTING-KIN-NI-PRED",
+     "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+     "method": "read from results/validation/validation_matrix.json; Ni/MgO microkinetic PFR conversion vs published curves (Figs. 3, 5)",
+     "reference_source": "takahashi2016kinetic Figs. 3a/3b/5a (read from figures)",
+     "observed": 0.10959381466219664,
+     "expected": "max |deviation| (absolute conversion) = 0.1096 (12 points, 6 outside tolerance; worst: T=500 C, pNH3=0.25 atm)",
+     "tolerance": 0.05,
+     "unit": "max |deviation| (absolute conversion)"
+    },
+    {
+     "id": "EXISTING-KIN-RU-PRED",
+     "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+     "method": "read from results/validation/validation_matrix.json; Ru/MgO microkinetic PFR conversion vs published curves (Figs. 4, 5)",
+     "reference_source": "takahashi2016kinetic Figs. 4a/4b/5b (read from figures)",
+     "observed": 0.11131148594953089,
+     "expected": "max |deviation| (absolute conversion) = 0.1113 (11 points, 6 outside tolerance; worst: T=450 C, pNH3=0.3 atm, pH2=0.7 atm)",
+     "tolerance": 0.05,
+     "unit": "max |deviation| (absolute conversion)"
+    }
+   ],
+   "informational": [
+    {
+     "id": "EXISTING-KIN-DICARLO",
+     "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance"
+    },
+    {
+     "id": "KINR-LIT-LUC2019",
+     "description": "essay lead: Ru/CeO2 98 % vs Ni/CeO2 63 % at 450 degC (1 atm, GHSV 3067 1/h, Ar:NH3 1.3:1)"
+    },
+    {
+     "id": "KINR-LIT-SAYAS2020",
+     "description": "essay lead: Ru-K/CaO Ea 96 -> 75 kJ/mol, H2 order -1.9 vs -1.2, about 80 % at 40 bar/550 degC"
+    }
+   ]
+  },
+  "lca": {
+   "n_items": 11,
+   "by_status": {
+    "pass": 7,
+    "fail": 0,
+    "informational": 4
+   },
+   "file": "results/research/validation/lca.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "LCA-ccgt-vs-grid",
+     "description": "Computed NG CCGT intensity (eff 0.55) versus the EMA grid average 2024"
+    },
+    {
+     "id": "LCA-ref-EU_RFNBO",
+     "description": "Industrial H2 from blue NH3 (Lee v1, 5000 km) against yardstick: EU RFNBO threshold (70 % below 94 g CO2e/MJ)"
+    },
+    {
+     "id": "LCA-ref-IEA_low-",
+     "description": "Industrial H2 from blue NH3 (Lee v1, 5000 km) against yardstick: IEA low-emission H2 (as quoted by Kum et al.)"
+    },
+    {
+     "id": "LCA-smr",
+     "description": "Cracked blue-NH3 H2 against SMR with CCS (3.5) and unabated SMR (11)"
+    }
+   ]
+  },
+  "purification": {
+   "n_items": 8,
+   "by_status": {
+    "pass": 4,
+    "fail": 0,
+    "informational": 4
+   },
+   "file": "results/research/validation/purification.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "P-PSA-1",
+     "description": "PSA published point reproduced when applied to the Aspen cracked gas: recovery 0.756 and purity (H2/(H2+N2), NH3 at 0.1 ppm) 0.9911"
+    },
+    {
+     "id": "P-MEM-2",
+     "description": "H2/N2 selectivity needed for N2 <= 300 ppm in the permeate at R = 0.90, 1 bar permeate, 400 degC, 20 bar baseline"
+    },
+    {
+     "id": "P-MEM-3",
+     "description": "Comparison with Cechetto 4 bar / 400 degC membrane reactor (X 99.3 %, R_H2 93.5 %)"
+    },
+    {
+     "id": "P-ISO-2",
+     "description": "Aspen baseline H2PROD stream (N2 0.0489 kmol/h, NH3 0) against grade D N2 limit: N2 ppm (Aspen stream)"
+    }
+   ]
+  },
+  "summary": {
+   "n_items": 0,
+   "by_status": {
+    "pass": 0,
+    "fail": 0,
+    "informational": 0
+   },
+   "file": "results/research/validation/summary.json",
+   "failures": [],
+   "informational": []
+  }
+ },
+ "totals": {
+  "pass": 295,
+  "fail": 10,
+  "informational": 45
+ },
+ "n_items": 350
+}

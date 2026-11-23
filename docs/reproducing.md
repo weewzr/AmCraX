@@ -150,14 +150,14 @@ cd frontend
 npm run build:pages
 ```
 
-**[Python only]** Placeholder: the static-site build for GitHub Pages. The command and its options are to be confirmed by the website maintainer; see [../frontend/README.md](../frontend/README.md).
+**[Node only]**. Builds the static GitHub Pages site into `frontend\dist` with base path `/AmCraX/`. In this mode the site never contacts an API and reads the bundled snapshot, so run the snapshot export above first. The same command runs in `.github\workflows\deploy-pages.yml` on every push to `main`. To check the built site locally, run `node scripts\serve_pages.mjs` in one terminal and `node scripts\site_check.mjs` in another (the check needs Microsoft Edge).
 
 ```powershell
 scripts\start_amcrax.ps1 -NoBrowser
 node frontend\scripts\capture_dashboard.mjs --base http://localhost:5173
 ```
 
-Captures the dashboard pages to `docs\screenshots\dashboard_*.png`. It needs Microsoft Edge and the API and dashboard running; without `--base` the script starts its own Vite server on port 5176 and needs the API on port 8000. The SNAPSHOT-mode images use `--query ?mode=snapshot --prefix snapshot`. Placeholder: the website maintainer will confirm the capture script and options for the static site. Stop the servers with `scripts\stop_amcrax.ps1`.
+Captures the dashboard pages to `docs\screenshots\dashboard_*.png`. It needs Microsoft Edge and the API and dashboard running; without `--base` the script starts its own Vite server on port 5176 and needs the API on port 8000. The SNAPSHOT-mode images use `--query ?mode=snapshot --prefix snapshot`. The public-site images (`docs\screenshots\site_*.png`) come from `frontend\scripts\capture_site.mjs`, run against the locally served Pages build. Stop the servers with `scripts\stop_amcrax.ps1`.
 
 ```powershell
 python aspen\automation\capture_screenshots.py [--only NAME ...]
@@ -178,3 +178,51 @@ python docs\pitch_deck\build_deck.py
 ```
 
 **[needs Word or PowerPoint]** (PowerPoint). Reads every number from `results\`, lays out the slides with `pptxgenjs` (run `npm ci` in `docs\pitch_deck` once) and exports `docs\pitch_deck\AmCraX_Pitch_Deck.pptx` and `.pdf`. `--no-tests` and `--no-export` skip the test collection and the PowerPoint export.
+
+## 8. Research expansion (Singapore hypothesis tests)
+
+The index, with the meaning of every result folder, is [research/README.md](research/README.md). Run from the repository root after `. scripts\env.ps1`. Steps are **[Python only]** unless marked **[needs Aspen Plus V15]**. The stored Aspen results in `results\research\aspen_kinetic` allow all Python-only steps to run without Aspen Plus.
+
+```powershell
+python scripts\research\kinetics_validation.py
+python scripts\research\kinetics_studies.py
+python scripts\research\kinetics_aspen_spec.py
+python scripts\research\economics_singapore.py
+python scripts\research\catalyst_comparison.py
+python scripts\research\purification_study.py
+python scripts\research\lca_run.py
+python scripts\research\enduse_run.py
+```
+
+**[Python only]**. Write the kinetics, economics, catalyst comparison, purification, life-cycle and end-use results under `results\research\<area>\`, the figures under `results\figures\research\` and one validation file per area under `results\research\validation\`. `lca_run.py` must run before `enduse_run.py`. `catalyst_comparison.py` takes about five minutes.
+
+```powershell
+python aspen\automation\make_catalyst_study_cases.py
+python aspen\automation\run_kinetic_cases.py aspen\automation\cases\kinetic_validation_cases.json
+python aspen\automation\run_kinetic_cases.py aspen\automation\cases\kinetic_lhhw_check_cases.json
+python aspen\automation\run_kinetic_cases.py aspen\automation\cases\catalyst_validation_cases.json
+python aspen\automation\run_kinetic_cases.py aspen\automation\cases\catalyst_study_cases.json
+python aspen\automation\run_kinetic_cases.py aspen\automation\cases\catalyst_integrated_cases.json
+python aspen\automation\sanitise_models.py --check
+```
+
+**[needs Aspen Plus V15]**. Runs the kinetic RPlug cases (standalone and integrated flowsheet) one at a time through the existing session and lock code (`aspen\runs\.aspen.lock`) and writes `results\research\aspen_kinetic\<case_id>.json` and `run_status.json`; cases already marked `ok` are skipped (`--force` re-runs). The sanitising check confirms that no user name, host name or user path remains in the research `.bkp` files.
+
+```powershell
+python aspen\automation\validate_kinetic_vs_python.py
+python aspen\automation\summarise_catalyst_studies.py
+```
+
+**[Python only]**. Compare the stored Aspen results with the Python PFR and summarise the catalyst studies. Run in this order: the second step replaces the validation items with ids starting `cat_` and keeps the others.
+
+```powershell
+python aspen\automation\capture_kinetic_screenshots.py CASE_ID [CASE_ID ...] [--only 01 04 ...]
+```
+
+**[needs Aspen Plus V15]**. Captures the Aspen window of a case into `docs\images\aspen_evidence\` and updates `manifest.json`; user name, host name and user paths are masked before saving. Open every new PNG and record the result (`visually_verified`, `inspection_note`, `publish`) before using it.
+
+```powershell
+python scripts\research\build_research_validation.py
+```
+
+**[Python only]**. Aggregates `results\research\validation\*.json` into `results\research\validation\summary.json` and `docs\validation\research_validation.md`. Deterministic. It does not read or change the core validation matrix. Run it last.

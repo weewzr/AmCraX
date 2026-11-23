@@ -1,0 +1,113 @@
+{
+ "name": "membrane_required_selectivity",
+ "area": "purification",
+ "file": "membrane_required_selectivity.csv",
+ "columns": [
+  "permeate_bar",
+  "recovery",
+  "area_m2",
+  "limit",
+  "limit_ppm",
+  "required_alpha_H2_N2"
+ ],
+ "rows": [
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.8,
+   "area_m2": 25.564319547025086,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 10575.221930402258
+  },
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.8,
+   "area_m2": 25.564319547025086,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 3168.664481847824
+  },
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.9,
+   "area_m2": 31.063154423479943,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 12919.012144694208
+  },
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.9,
+   "area_m2": 31.063154423479943,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 3871.2590965098034
+  },
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.95,
+   "area_m2": 35.71308798584954,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 15548.787219184
+  },
+  {
+   "permeate_bar": 1.0,
+   "recovery": 0.95,
+   "area_m2": 35.71308798584954,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 4659.855586625391
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.8,
+   "area_m2": 19.809496540043916,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 8124.535053857489
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.8,
+   "area_m2": 19.809496540043916,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 2434.3910460335646
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.9,
+   "area_m2": 23.48166084556424,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 9566.060226999633
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.9,
+   "area_m2": 23.48166084556424,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 2866.494977571957
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.95,
+   "area_m2": 25.996882878675965,
+   "limit": "grade D N2 300 ppm",
+   "limit_ppm": 300.0,
+   "required_alpha_H2_N2": 10847.582679670504
+  },
+  {
+   "permeate_bar": 0.1,
+   "recovery": 0.95,
+   "area_m2": 25.996882878675965,
+   "limit": "grade B/E3 total 1000 ppm",
+   "limit_ppm": 1000.0,
+   "required_alpha_H2_N2": 3250.785659325105
+  }
+ ],
+ "count": 12,
+ "source_note": "results/research/purification/membrane_required_selectivity.csv; values as stored, no post-processing"
+}

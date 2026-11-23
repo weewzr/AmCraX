@@ -1,0 +1,331 @@
+{
+ "areas": {
+  "kinetics": [
+   {
+    "name": "study_conversion_vs_T",
+    "file": "study_conversion_vs_T.csv",
+    "kind": "csv",
+    "bytes": 25861,
+    "modified_utc": "2026-11-23T04:23:05+00:00"
+   },
+   {
+    "name": "study_conversion_vs_P",
+    "file": "study_conversion_vs_P.csv",
+    "kind": "csv",
+    "bytes": 11150,
+    "modified_utc": "2026-11-23T04:23:07+00:00"
+   },
+   {
+    "name": "study_mass_for_fraction_of_equilibrium",
+    "file": "study_mass_for_fraction_of_equilibrium.csv",
+    "kind": "csv",
+    "bytes": 13343,
+    "modified_utc": "2026-11-23T04:23:41+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 3791,
+    "modified_utc": "2026-11-23T04:23:50+00:00"
+   }
+  ],
+  "aspen_kinetic": [
+   {
+    "name": "catalyst_mass_targets",
+    "file": "catalyst_mass_targets.csv",
+    "kind": "csv",
+    "bytes": 4605,
+    "modified_utc": "2026-11-23T05:34:12+00:00"
+   },
+   {
+    "name": "aspen_vs_python",
+    "file": "aspen_vs_python.csv",
+    "kind": "csv",
+    "bytes": 3412,
+    "modified_utc": "2026-11-23T04:38:52+00:00"
+   },
+   {
+    "name": "aspen_kinetic_plotdata",
+    "file": "aspen_kinetic_plotdata.csv",
+    "kind": "csv",
+    "bytes": 10843,
+    "modified_utc": "2026-11-23T05:34:13+00:00"
+   }
+  ],
+  "catalyst_comparison": [
+   {
+    "name": "catalyst_heat_duty_plotdata",
+    "file": "catalyst_heat_duty_plotdata.csv",
+    "kind": "csv",
+    "bytes": 837,
+    "modified_utc": "2026-11-23T06:03:35+00:00"
+   },
+   {
+    "name": "catalyst_cost_breakdown_plotdata",
+    "file": "catalyst_cost_breakdown_plotdata.csv",
+    "kind": "csv",
+    "bytes": 1255,
+    "modified_utc": "2026-11-23T06:03:35+00:00"
+   },
+   {
+    "name": "catalyst_breakeven_price",
+    "file": "catalyst_breakeven_price.csv",
+    "kind": "csv",
+    "bytes": 3142,
+    "modified_utc": "2026-11-23T05:59:24+00:00"
+   },
+   {
+    "name": "catalyst_design_curves",
+    "file": "catalyst_design_curves.csv",
+    "kind": "csv",
+    "bytes": 129133,
+    "modified_utc": "2026-11-23T05:59:21+00:00"
+   },
+   {
+    "name": "catalyst_sensitivity_ranking",
+    "file": "catalyst_sensitivity_ranking.csv",
+    "kind": "csv",
+    "bytes": 31582,
+    "modified_utc": "2026-11-23T06:03:33+00:00"
+   },
+   {
+    "name": "catalyst_ranking_robustness",
+    "file": "catalyst_ranking_robustness.json",
+    "kind": "json",
+    "bytes": 99861,
+    "modified_utc": "2026-11-23T06:03:33+00:00"
+   },
+   {
+    "name": "catalyst_comparison",
+    "file": "catalyst_comparison.json",
+    "kind": "json",
+    "bytes": 90631,
+    "modified_utc": "2026-11-23T06:03:34+00:00"
+   },
+   {
+    "name": "catalyst_cho_comparison",
+    "file": "catalyst_cho_comparison.json",
+    "kind": "json",
+    "bytes": 18977,
+    "modified_utc": "2026-11-23T06:03:34+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 4571,
+    "modified_utc": "2026-11-23T06:03:34+00:00"
+   }
+  ],
+  "singapore": [
+   {
+    "name": "scenario_results",
+    "file": "scenario_results.json",
+    "kind": "json",
+    "bytes": 11364,
+    "modified_utc": "2026-11-23T07:42:11+00:00"
+   },
+   {
+    "name": "tornado",
+    "file": "tornado.json",
+    "kind": "json",
+    "bytes": 4739,
+    "modified_utc": "2026-11-23T07:42:11+00:00"
+   },
+   {
+    "name": "breakeven_ammonia_price",
+    "file": "breakeven_ammonia_price.json",
+    "kind": "json",
+    "bytes": 3791,
+    "modified_utc": "2026-11-23T07:42:12+00:00"
+   },
+   {
+    "name": "monte_carlo",
+    "file": "monte_carlo.json",
+    "kind": "json",
+    "bytes": 2648,
+    "modified_utc": "2026-11-23T07:42:13+00:00"
+   },
+   {
+    "name": "benchmarks",
+    "file": "benchmarks.json",
+    "kind": "json",
+    "bytes": 1685,
+    "modified_utc": "2026-11-23T07:42:13+00:00"
+   },
+   {
+    "name": "cost_vs_capacity",
+    "file": "cost_vs_capacity.csv",
+    "kind": "csv",
+    "bytes": 521,
+    "modified_utc": "2026-11-23T07:42:12+00:00"
+   },
+   {
+    "name": "heatmap_nh3_price_x_capacity",
+    "file": "heatmap_nh3_price_x_capacity.csv",
+    "kind": "csv",
+    "bytes": 2678,
+    "modified_utc": "2026-11-23T07:42:12+00:00"
+   },
+   {
+    "name": "heatmap_nh3_price_x_carbon_tax_nh3_heat",
+    "file": "heatmap_nh3_price_x_carbon_tax_nh3_heat.csv",
+    "kind": "csv",
+    "bytes": 5548,
+    "modified_utc": "2026-11-23T07:42:12+00:00"
+   },
+   {
+    "name": "heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical",
+    "file": "heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv",
+    "kind": "csv",
+    "bytes": 5514,
+    "modified_utc": "2026-11-23T07:42:12+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 8204,
+    "modified_utc": "2026-11-23T07:42:13+00:00"
+   }
+  ],
+  "purification": [
+   {
+    "name": "purification_configurations",
+    "file": "purification_configurations.csv",
+    "kind": "csv",
+    "bytes": 22259,
+    "modified_utc": "2026-11-23T04:10:08+00:00"
+   },
+   {
+    "name": "recovery_vs_cost",
+    "file": "recovery_vs_cost.csv",
+    "kind": "csv",
+    "bytes": 3204,
+    "modified_utc": "2026-11-23T04:10:09+00:00"
+   },
+   {
+    "name": "psa_recovery_vs_purity",
+    "file": "psa_recovery_vs_purity.csv",
+    "kind": "csv",
+    "bytes": 3497,
+    "modified_utc": "2026-11-23T04:10:08+00:00"
+   },
+   {
+    "name": "singapore_price_scenario",
+    "file": "singapore_price_scenario.csv",
+    "kind": "csv",
+    "bytes": 11593,
+    "modified_utc": "2026-11-23T04:10:09+00:00"
+   },
+   {
+    "name": "membrane_required_selectivity",
+    "file": "membrane_required_selectivity.csv",
+    "kind": "csv",
+    "bytes": 971,
+    "modified_utc": "2026-11-23T04:10:09+00:00"
+   },
+   {
+    "name": "purification_study",
+    "file": "purification_study.json",
+    "kind": "json",
+    "bytes": 370597,
+    "modified_utc": "2026-11-23T04:10:08+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 5517,
+    "modified_utc": "2026-11-23T04:10:09+00:00"
+   }
+  ],
+  "enduse": [
+   {
+    "name": "pathway_table_power",
+    "file": "pathway_table_power.csv",
+    "kind": "csv",
+    "bytes": 12779,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   },
+   {
+    "name": "pathway_table_hydrogen",
+    "file": "pathway_table_hydrogen.csv",
+    "kind": "csv",
+    "bytes": 2733,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   },
+   {
+    "name": "claim_check_direct_vs_cracking",
+    "file": "claim_check_direct_vs_cracking.csv",
+    "kind": "csv",
+    "bytes": 1230,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   },
+   {
+    "name": "price_sweep",
+    "file": "price_sweep.csv",
+    "kind": "csv",
+    "bytes": 2212,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   },
+   {
+    "name": "enduse_results",
+    "file": "enduse_results.json",
+    "kind": "json",
+    "bytes": 59619,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 3347,
+    "modified_utc": "2026-11-23T04:16:10+00:00"
+   }
+  ],
+  "lca": [
+   {
+    "name": "lca_routes",
+    "file": "lca_routes.csv",
+    "kind": "csv",
+    "bytes": 1386,
+    "modified_utc": "2026-11-23T06:17:10+00:00"
+   },
+   {
+    "name": "lca_distance",
+    "file": "lca_distance.csv",
+    "kind": "csv",
+    "bytes": 926,
+    "modified_utc": "2026-11-23T06:17:10+00:00"
+   },
+   {
+    "name": "lca_results",
+    "file": "lca_results.json",
+    "kind": "json",
+    "bytes": 24626,
+    "modified_utc": "2026-11-23T06:17:10+00:00"
+   },
+   {
+    "name": "assumptions",
+    "file": "assumptions.json",
+    "kind": "json",
+    "bytes": 15152,
+    "modified_utc": "2026-11-23T06:17:10+00:00"
+   }
+  ]
+ },
+ "evidence_matrix": true,
+ "aspen_evidence": true,
+ "validation_areas": [
+  "aspen_kinetic",
+  "catalyst_comparison",
+  "economics",
+  "enduse",
+  "kinetics",
+  "lca",
+  "purification",
+  "summary"
+ ]
+}

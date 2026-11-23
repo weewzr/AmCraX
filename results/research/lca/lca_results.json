@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:17:40Z",
+    "generated_utc": "2026-11-23T06:17:10Z",
     "script": "scripts/research/lca_run.py",
     "source_type": "python+literature",
     "inputs_summary": "route factors lca.FACTORS; cracker activities from stored Aspen baseline; comparators literature",

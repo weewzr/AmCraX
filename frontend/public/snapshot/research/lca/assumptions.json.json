@@ -1,0 +1,360 @@
+[
+ {
+  "name": "ng_based_nh3_wtg",
+  "value": 2.6,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) Green Chem. 24:4830, doi 10.1039/D2GC00843B, accepted manuscript p. 13 and Fig. 8 (OSTI 1960296)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Conventional NG-based NH3, well-to-plant-gate. Onsite 2.30, upstream (NG production, electricity) 0.30."
+ },
+ {
+  "name": "nh3_process_co2",
+  "value": 1.49,
+  "unit": "kg CO2/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022), manuscript p. 13 (process CO2 from aMDEA unit, captured in version 1)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Concentrated process CO2 stream; Lee capture it fully (rate implicit, not stated as a percentage)."
+ },
+ {
+  "name": "nh3_combustion_co2",
+  "value": 0.45,
+  "unit": "kg CO2/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022), manuscript p. 13 (boiler flue-gas CO2 captured with Cansolv in version 2)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Dilute combustion CO2 stream."
+ },
+ {
+  "name": "capture_penalty_process",
+  "value": 0.03355704697986577,
+  "unit": "kg CO2e per kg CO2 captured",
+  "source_type": "literature",
+  "source": "Derived from Lee et al. (2022) p. 13: version 1 net 1.16 minus (2.60 - 1.49) = 0.05 kg CO2e/kg NH3 for capture, compression, transport electricity",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Derived by AmCraX arithmetic from published totals."
+ },
+ {
+  "name": "capture_penalty_combustion",
+  "value": 0.13333333333333333,
+  "unit": "kg CO2e per kg CO2 captured",
+  "source_type": "literature",
+  "source": "Derived from Lee et al. (2022) p. 13: version 2 net 0.77 minus (2.60 - 1.49 - 0.45) = 0.11; minus 0.05 for the process stream",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Derived by AmCraX arithmetic from published totals."
+ },
+ {
+  "name": "ng_per_nh3",
+  "value": 0.6904458598726114,
+  "unit": "kg NG/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) energy table: 32.52 GJ NG (LHV)/t NH3; NG LHV 47.1 MJ/kg (manuscript p. 8)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Used to convert an upstream methane leakage rate into kg CH4 per kg NH3. Whole NG mass treated as CH4 (upper-bound simplification)."
+ },
+ {
+  "name": "blue_nh3_lee_v1",
+  "value": 1.16,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) p. 13 (carbon-capturing NH3 version 1)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Reproduced by blue_nh3_ef(capture_process=1)."
+ },
+ {
+  "name": "blue_nh3_lee_v2",
+  "value": 0.77,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) p. 13 (carbon-capturing NH3 version 2)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Reproduced by blue_nh3_ef(1, 1)."
+ },
+ {
+  "name": "green_nh3_lee",
+  "value": 0.0,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) p. 13 (renewable NH3 WTG = 0; equipment manufacture excluded)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Boundary limitation, not a claim that green NH3 is emission-free."
+ },
+ {
+  "name": "embedded_renewable_h2_low",
+  "value": 0.4,
+  "unit": "kg CO2e/kg H2",
+  "source_type": "literature",
+  "source": "IEA Global Hydrogen Review 2024, 'GHG emissions of hydrogen and its derivatives', highlights: embedded emissions of renewable assets 0.4-2.7 kg CO2-eq/kg H2",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Converted to per kg NH3 with 0.1775 kg H2/kg NH3 (stoichiometry). Only the page highlights were read."
+ },
+ {
+  "name": "embedded_renewable_h2_high",
+  "value": 2.7,
+  "unit": "kg CO2e/kg H2",
+  "source_type": "literature",
+  "source": "IEA Global Hydrogen Review 2024 (as above)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Upper end of the embedded-emissions range."
+ },
+ {
+  "name": "grey_nh3_range_low",
+  "value": 2.0,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "cechetto2023membrane p. 19 (2.0-4.6 t CO2/t NH3), as recorded in amcrax/data/environmental.yaml",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Lower end of the quoted grey-ammonia range."
+ },
+ {
+  "name": "grey_nh3_range_high",
+  "value": 4.6,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "cechetto2023membrane p. 19, as above",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Upper end; likely includes coal-based plants."
+ },
+ {
+  "name": "coal_nh3_low",
+  "value": 2.18,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "Zhang et al. (2022) Int. J. Life Cycle Assess. 27:50-61, doi 10.1007/s11367-021-02010-z ('Life cycle assessment of ammonia synthesis in China'; coal gasification routes): 3.88 -> 2.18 kg GHG per kg NH3",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "LOW CONFIDENCE: abstract-level value from a search extract; the publisher page could not be opened; boundary and unit not verified."
+ },
+ {
+  "name": "coal_nh3_high",
+  "value": 3.88,
+  "unit": "kg CO2e/kg NH3",
+  "source_type": "literature",
+  "source": "as above (older gasification technology)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "LOW CONFIDENCE, see coal_nh3_low."
+ },
+ {
+  "name": "gwp100_ch4_fossil",
+  "value": 29.8,
+  "unit": "kg CO2e/kg CH4",
+  "source_type": "literature",
+  "source": "IPCC AR6 WGI Ch. 7 Table 7.15 (fossil CH4, GWP-100); US EPA 'Understanding Global Warming Potentials' confirms the AR6 range 27-30 (accessed 2026-11-23)",
+  "access_date": "2026-11-23",
+  "applicability_note": "The exact 29.8 is from AR6 Table 7.15; the IPCC PDF returned HTTP 403 in this session so only the EPA range was re-checked."
+ },
+ {
+  "name": "gwp100_n2o",
+  "value": 273.0,
+  "unit": "kg CO2e/kg N2O",
+  "source_type": "literature",
+  "source": "IPCC AR6 WGI Ch. 7 Table 7.15; US EPA page accessed 2026-11-23 states 273",
+  "access_date": "2026-11-23",
+  "applicability_note": "GWP-100."
+ },
+ {
+  "name": "ship_ef",
+  "value": 0.011,
+  "unit": "kg CO2e/(t km)",
+  "source_type": "literature",
+  "source": "GLEC Framework v3.0 liquefied-gas tanker 100-199 kcbm, VLSFO, WTW, via Climatiq listing (see amcrax/data/environmental.yaml)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Generic liquefied-gas carrier, not ammonia specific. Applied per tonne NH3 cargo, one way, no ballast return."
+ },
+ {
+  "name": "ship_distance_baseline_km",
+  "value": 5000.0,
+  "unit": "km",
+  "source_type": "assumption",
+  "source": "amcrax/data/environmental.yaml (existing illustrative assumption)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Route distance is a SCENARIO parameter. No sea-distance dataset could be opened in this session (port-distance site refused the connection), so Middle East and Australia distances are not quoted."
+ },
+ {
+  "name": "ship_distance_range_km",
+  "value": [
+   2000.0,
+   12000.0
+  ],
+  "unit": "km",
+  "source_type": "assumption",
+  "source": "scenario bounds chosen by AmCraX to span regional to long-haul voyages",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Sensitivity bounds only; the shipping term is small either way (0.011 x 12000 / 1000 = 0.13 kg CO2e/kg NH3)."
+ },
+ {
+  "name": "boil_off_fraction",
+  "value": 0.0,
+  "unit": "fraction of cargo",
+  "source_type": "assumption",
+  "source": "no sourced boil-off or terminal-loss value found; excluded by default",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Parameter kept in the model (default 0). Not varied because no source supports a value."
+ },
+ {
+  "name": "grid_ef_singapore_2024",
+  "value": 0.402,
+  "unit": "kg CO2/kWh",
+  "source_type": "literature",
+  "source": "EMA, Singapore Energy Statistics Ch. 2: average Grid Emission Factor 0.412 (2023) -> 0.402 (2024); page text confirmed by search extract 2026-11-23, https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2",
+  "access_date": "2026-11-23",
+  "applicability_note": "Operating-margin average. Used both for process electricity and as the 'average grid' comparator."
+ },
+ {
+  "name": "ng_co2_ef",
+  "value": 56100.0,
+  "unit": "kg CO2/TJ (LHV)",
+  "source_type": "literature",
+  "source": "IPCC 2006 Guidelines Vol. 2 Ch. 2 Table 2.2 (natural gas)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Combustion CO2 only."
+ },
+ {
+  "name": "ng_lhv",
+  "value": 47.1,
+  "unit": "MJ/kg",
+  "source_type": "literature",
+  "source": "Lee et al. (2022) manuscript p. 8 (NG LHV 47.1 MJ/kg)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Used to convert NG leakage fraction to kg CH4 per MWh."
+ },
+ {
+  "name": "ccgt_efficiency",
+  "value": 0.55,
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "no Singapore plant-level source retrieved; range 0.50-0.60",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Net electrical efficiency (LHV) of the natural-gas CCGT comparator. Compare the EMA grid average above, which is a mix of plants."
+ },
+ {
+  "name": "ccgt_efficiency_range",
+  "value": [
+   0.5,
+   0.6
+  ],
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "scenario bounds",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Sensitivity bounds."
+ },
+ {
+  "name": "ng_upstream_leak_scenarios",
+  "value": [
+   0.002,
+   0.015,
+   0.03
+  ],
+  "unit": "fraction of NG supplied",
+  "source_type": "literature",
+  "source": "Leakage cases 0.2 %, 1.5 %, 3.0 % named in Analysis of Hydrogen Production Costs across the United States (arXiv 2206.10689), seen in a search extract only; Agora Energiewende chart cites 0.15 % (Norway) and 1.2 % (Russia) cases",
+  "access_date": "2026-11-23",
+  "applicability_note": "LOW CONFIDENCE for the exact values (full text not opened). Used as scenario values for methane leakage; default is 0 (lower bound)."
+ },
+ {
+  "name": "smr_h2_unabated",
+  "value": [
+   10.0,
+   12.0
+  ],
+  "unit": "kg CO2e/kg H2",
+  "source_type": "literature",
+  "source": "IEA Global Hydrogen Review 2024, GHG emissions chapter highlights: unabated natural gas 10-12 kg CO2-eq/kg H2; 75-95 % occurs at the production site",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Central value taken as the midpoint 11."
+ },
+ {
+  "name": "smr_h2_ccs",
+  "value": [
+   3.4,
+   3.6
+  ],
+  "unit": "kg CO2e/kg H2",
+  "source_type": "literature",
+  "source": "Elgowainy et al. (2024) Front. Energy Res. 12:1473383, doi 10.3389/fenrg.2024.1473383 (introduction, summary of other studies: SMR with CCS 3.4-3.6 kg CO2e/kg H2), search extract only",
+  "access_date": "2026-11-23",
+  "applicability_note": "LOW CONFIDENCE: capture rate and boundary not confirmed. Upper sensitivity 5.3 (90 % CCS, 3 % methane leakage, arXiv 2206.10689 interpolation)."
+ },
+ {
+  "name": "smr_h2_ccs_high",
+  "value": 5.3,
+  "unit": "kg CO2e/kg H2",
+  "source_type": "literature",
+  "source": "arXiv 2206.10689 (search extract): 5.3 with 90 % CCS at 3.0 % leakage; 12.9 without CCS",
+  "access_date": "2026-11-23",
+  "applicability_note": "LOW CONFIDENCE, upper sensitivity only."
+ },
+ {
+  "name": "ahmad_gas_flow_per_MWh",
+  "value": 3.492343387470998,
+  "unit": "t flue gas/MWh net",
+  "source_type": "literature",
+  "source": "Ahmad et al. (2025) IJHE 173:151337 Table 6 (Case 2a: gas flow 150.52 t/h, W_net 43.1 MW)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Used only to turn exhaust ppmv values into mass per MWh. Assumes the ppmv values refer to the whole turbine exhaust stream (not stated unambiguously)."
+ },
+ {
+  "name": "ahmad_n2o_ppmv_vnh3",
+  "value": 0.15,
+  "unit": "ppmv",
+  "source_type": "literature",
+  "source": "Ahmad et al. (2025) p. 9 (Chemkin simulation, VNH3 case)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "SIMULATED, not measured. Experiments cited by the paper show higher NO (282-337 ppmv)."
+ },
+ {
+  "name": "ahmad_no_ppmv_vnh3",
+  "value": 107.0,
+  "unit": "ppmv",
+  "source_type": "literature",
+  "source": "Ahmad et al. (2025) p. 9 (Chemkin simulation, VNH3 case)",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "SIMULATED; Chemkin underestimates NO per the paper. Local pollutant: reported separately."
+ },
+ {
+  "name": "flue_gas_molar_mass",
+  "value": 28.8,
+  "unit": "g/mol",
+  "source_type": "assumption",
+  "source": "air-like exhaust approximation",
+  "access_date": "n/a (paper or standard)",
+  "applicability_note": "Used to convert ppmv to mass fraction."
+ },
+ {
+  "name": "carbon_tax_sg_2026",
+  "value": 45.0,
+  "unit": "SGD/t CO2e",
+  "source_type": "literature",
+  "source": "NEA Singapore carbon tax page (accessed 2026-11-23): SGD 25 in 2024-25, SGD 45 in 2026-27, SGD 50-80 by 2030; facilities emitting >= 25,000 t CO2e/yr direct; covers CO2, CH4, N2O",
+  "access_date": "2026-11-23",
+  "applicability_note": "Applies only to direct in-scope Singapore emissions. Reported in SGD; no exchange rate is sourced, so it is not added to USD costs."
+ },
+ {
+  "name": "eta_direct_ahmad",
+  "value": 0.4912,
+  "unit": "-",
+  "source_type": "literature",
+  "source": "Ahmad 2025 Table 6 Case 2a (LHV 18.8 MJ/kg basis)",
+  "access_date": "n/a",
+  "applicability_note": "Literature-calibrated scenario input, not an Aspen result."
+ },
+ {
+  "name": "eta_full_crack_ahmad",
+  "value": 0.54,
+  "unit": "-",
+  "source_type": "literature",
+  "source": "Ahmad 2025 p. 15 (alpha = 0, about 54 %)",
+  "access_date": "n/a",
+  "applicability_note": "Exhaust-heated cracker, PR 8; value read from text, approximate."
+ },
+ {
+  "name": "eta_gt_gas",
+  "value": 0.4964304737373737,
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "electricity per kg NH3 of Ahmad Case 2a re-expressed on the AmCraX LHV basis (18.6 MJ/kg)",
+  "access_date": "n/a",
+  "applicability_note": "Applied to every gaseous fuel in the fired and purified variants."
+ }
+]

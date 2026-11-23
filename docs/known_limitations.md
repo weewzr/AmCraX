@@ -111,3 +111,25 @@ Code review found several issues. Those that were fixed are not repeated here. T
 | Unbounded Aspen job queue | See section 1 | Bound the queue |
 
 Fixed after review: the economics module prices the feed on its contained NH3 (section 6); the KPI `tailgas_combustion_heat_kW` is `max(-Q_FLUEHX, 0)`, which is the heat released by the flue gas and is zero if the flue-gas cooler would need heating; and the FEHE feasibility guard is pressure dependent (section 2).
+
+## 11. Research expansion (Singapore hypothesis tests)
+
+Added on 2026-11-23. The full per-workstream account, with what was validated, what failed and why, is in [research/validation_and_limitations.md](research/validation_and_limitations.md); the aggregated failures are in [validation/research_validation.md](validation/research_validation.md). The earlier sections still apply. The roadmap item "an Aspen Plus RPlug reactor using the implemented kinetics" is now available as an option for the research cases; the baseline flowsheet is still the equilibrium (RGibbs) cracker.
+
+| Limitation | Consequence | Remedy |
+|---|---|---|
+| Ni/CeO2, Ru/CeO2 (Lucentini et al., 2019) have no published rate law, and Ru-K/CaO (Sayas et al., 2020) could not be read in full | These catalysts, which were priority catalysts, are not modelled; no parameter was derived from conversion points; the essay values for Ru-K/CaO are unverified | Obtain the Sayas 2020 full text and rate data for the Ni-Ru and Ru ceria catalysts |
+| Rate laws are extrapolated from 1 atm (Takahashi, Lucentini) or up to 10 bar (Kum) to 20 bar | Conversion and catalyst mass at 20 bar are less certain than the Aspen and Python agreement suggests, because both use the same law | Kinetic data at 10 to 20 bar |
+| Ni/MgO and Ru/MgO use a fitted LHHW approximation of the Takahashi law (RMS rate error 12 %, maximum about 50 %), valid at 20 bar only | Results for these two catalysts are labelled `python` approximation, not literature | A user kinetics subroutine (needs a Fortran compiler) |
+| `KIN-NI-PRED` and `KIN-RU-PRED` still fail (about 0.11 against 0.05) | Takahashi curves are reproduced only approximately | See section 5 |
+| Effectiveness factor 1 and no pressure drop in the kinetic studies | Catalyst masses are lower bounds | Add an effectiveness factor and an Ergun pressure drop to the cost comparison |
+| The CAPEX model does not respond to temperature, pressure, reactor volume or exchanger area | A capital advantage or penalty of the operating temperature cannot be shown; the catalyst volume scaling is a sensitivity only | Equipment-level costing with sized units |
+| Catalyst prices are proxies (Cho et al., 2026 Ni and Ru, 2-year life); no sourced price exists for Ni-Ru/CeO2 | Catalyst cost conclusions rest on a break-even price, not a price | Vendor prices for the actual catalysts |
+| Python FEHE recovered heat is 3.6 to 4.4 % above Aspen (5 items fail a 3 % tolerance) | Absolute duties from the Python flowsheet carry a systematic offset; catalyst-to-catalyst differences are affected less | Use Aspen duties or align the property basis |
+| LHHW runs can sit up to 4.9e-4 in conversion above the RGibbs equilibrium of the same model (3 items fail a 1e-4 tolerance) | Conversion at 40 bar is slightly optimistic | Use fugacity-based equilibrium constants in the reverse term |
+| Purification: only two PSA recovery and purity points; recovery at 99.97 % H2 is bounded, not computed; membrane H2/N2 selectivity is taken as infinite in the base case; TSA, housing, skid and compression CAPEX are not modelled | The PSA trade-off is not quantified from data; membrane costs are lower bounds; only the index, total, NH3, N2 and H2O of ISO 14687 are evaluated | Adsorption-cycle simulation and membrane module data |
+| No product is called fuel-cell grade; the Aspen baseline H2PROD contains about 392 ppm N2, above the Grade D limit of 300 ppm | The baseline meets an industrial 99.9 % grade only | A polishing and purification design |
+| Economics use secondary web values for the blue ammonia price, exchange rate, hydrogen benchmarks and electricity; no Singapore gas price, WACC, labour rate or location factor; N2O not quantified | Absolute LCOH in Singapore has wide uncertainty (Monte Carlo grey p5 to p95 2.85 to 4.43 USD/kg in `results/research/singapore/monte_carlo.json`) | Official price and tariff data |
+| Halim et al. (2025) and Deka et al. (2025) could not be read in full | The essay figures taken from them (60.1 MW, 15.1 and 10.1 USD/kg, 40 %, 81 % PSA recovery, 5.21 to 3.58 USD/kg) are unverified | Obtain the full texts |
+| LCA uses unsourced scenario distances (5000 km baseline), a parameterised boil-off of zero, and low-confidence factors for coal ammonia, SMR with CCS and methane leakage | Break-even emission intensities are scenario results, not measurements | Sea-distance and leakage sources |
+| The end-use and life-cycle packages are not wired into the API or the dashboard | They run from scripts only | Add endpoints and pages |

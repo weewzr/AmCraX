@@ -1,0 +1,528 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T04:10:08Z",
+  "script": "scripts/research/purification_study.py",
+  "source_type": "python",
+  "inputs_summary": "stored Aspen Plus V15 cracked gas; reduced-order purification models; existing AmCraX economics defaults (no Singapore economics output existed)",
+  "model_versions": {
+   "separation": "amcrax.separation.purification (reduced-order)",
+   "aspen_inputs": "Aspen Plus V15 stored results"
+  }
+ },
+ "iso_14687": {
+  "source": "ISO 14687:2019 Hydrogen fuel quality - Product specification, first edition 2019-11; Table 2 (grade D), Table 3 (grade E), Table 4 (grades A-C); text read from https://consultations.standards.govt.nz/draft-standards/hydrogen-standards-pc/user_uploads/dz-14687.pdf, accessed 2026-11-23",
+  "grades": {
+   "D": {
+    "name": "ISO 14687:2019 Type I/II grade D (PEM fuel cell road vehicles)",
+    "table": "Table 2",
+    "index_min_pct": 99.97,
+    "total_non_h2_max_ppm": 300.0,
+    "limits_ppm": {
+     "H2O": 5.0,
+     "THC_ex_CH4": 2.0,
+     "CH4": 100.0,
+     "O2": 5.0,
+     "He": 300.0,
+     "N2": 300.0,
+     "Ar": 300.0,
+     "CO2": 2.0,
+     "CO": 0.2,
+     "S_total": 0.004,
+     "HCHO": 0.2,
+     "HCOOH": 0.2,
+     "NH3": 0.1,
+     "halogenated": 0.05
+    },
+    "other": {
+     "particulate_mg_per_kg": 1.0,
+     "CO_HCHO_HCOOH_sum_ppm": 0.2
+    }
+   },
+   "E3": {
+    "name": "ISO 14687:2019 Type I grade E category 3 (PEM stationary, gaseous hydrogen)",
+    "table": "Table 3",
+    "index_min_pct": 99.9,
+    "total_non_h2_max_ppm": 1000.0,
+    "limits_ppm": {
+     "THC_ex_CH4": 2.0,
+     "CH4": 100.0,
+     "O2": 50.0,
+     "N2+Ar+He": 1000.0,
+     "CO2": 2.0,
+     "CO": 0.2,
+     "S_total": 0.004,
+     "HCHO": 0.2,
+     "HCOOH": 0.2,
+     "NH3": 0.1,
+     "halogenated": 0.05
+    },
+    "other": {
+     "water": "non-condensing at any ambient conditions (site specific, not evaluated)",
+     "particulate_mg_per_kg": 1.0
+    }
+   },
+   "B": {
+    "name": "ISO 14687:2019 Type I grade B (Table 4, applications other than PEM fuel cells), used here as the industrial 99.9 % hydrogen specification",
+    "table": "Table 4",
+    "index_min_pct": 99.9,
+    "total_non_h2_max_ppm": 1000.0,
+    "limits_ppm": {},
+    "other": {
+     "note": "Only the hydrogen fuel index (99.90 %) and total gases (1000 umol/mol) are used. Per-species rows of Table 4 (N2 400, O2 100, total hydrocarbons 100 umol/mol and others) are printed in a column layout that the text extraction could not assign to a grade with certainty, so they are NOT applied and are listed as not evaluated."
+    }
+   },
+   "A": {
+    "name": "ISO 14687:2019 Type I grade A (Table 4, gaseous hydrogen for combustion engines and other non-PEM uses)",
+    "table": "Table 4",
+    "index_min_pct": 98.0,
+    "total_non_h2_max_ppm": 20000.0,
+    "limits_ppm": {},
+    "other": {
+     "note": "Combined water, oxygen, nitrogen and argon at most 1.9 % (19 000 umol/mol) per Table 4 footnote b; other rows not applied."
+    }
+   }
+  }
+ },
+ "summary": {
+  "20bar_baseline": {
+   "industrial_99.9": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.786322116341959,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.820110571285622,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.888744937535283,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9225330925500703,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.9366571667445975,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.146944657924904,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.148856582639573,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.388980184498752,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.38899217048922,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "fuel_cell_grade_D": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.938259053528208,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.040679824398096,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.264011072404615,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.504134674263794,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "turbine_blend": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "RAW",
+      "usd_per_kg": 3.574475044448385,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.786322116341959,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.820110571285622,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.888744937535283,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9225330925500703,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.9366571667445975,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_CHO",
+      "usd_per_kg": 4.123207902544567,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.146944657924904,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.148856582639573,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.388980184498752,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.38899217048922,
+      "conditional_on": ""
+     }
+    ]
+   }
+  },
+  "10bar": {
+   "industrial_99.9": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.8000411369433915,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.8335065176560033,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.8900004382564295,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9234655190401657,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.9602213639347204,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.144246309238976,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.146153591904446,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.383480967081389,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.383516542776996,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "fuel_cell_grade_D": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.9516549998985897,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.041612250888192,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.264384437281017,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.50171181245796,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "turbine_blend": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "RAW",
+      "usd_per_kg": 3.5911986027981753,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.8000411369433915,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.8335065176560033,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.8900004382564295,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9234655190401657,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.9602213639347204,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_CHO",
+      "usd_per_kg": 4.120567185412244,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.144246309238976,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.146153591904446,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.383480967081389,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.383516542776996,
+      "conditional_on": ""
+     }
+    ]
+   }
+  },
+  "30bar": {
+   "industrial_99.9": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.7869702452791256,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.821079494014173,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.892254109287548,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9263630580937248,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.929710912560067,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.1679163795640415,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.169821742944688,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.412712341395486,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.412712781936756,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "fuel_cell_grade_D": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.9392279762567592,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 4.044509789941752,
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.288367955011279,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.531258553462078,
+      "conditional_on": ""
+     }
+    ]
+   },
+   "turbine_blend": {
+    "ranking_usd_per_kg_usable_h2": [
+     {
+      "config": "RAW",
+      "usd_per_kg": 3.5805745058257212,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_raw",
+      "usd_per_kg": 3.7869702452791256,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_1bar_polish",
+      "usd_per_kg": 3.821079494014173,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_raw",
+      "usd_per_kg": 3.892254109287548,
+      "conditional_on": ""
+     },
+     {
+      "config": "MEM_vac0.1bar_polish",
+      "usd_per_kg": 3.9263630580937248,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_AMCRAX",
+      "usd_per_kg": 3.929710912560067,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_CHO",
+      "usd_per_kg": 4.1442610838655405,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_MB",
+      "usd_per_kg": 4.1679163795640415,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_MB",
+      "usd_per_kg": 4.169821742944688,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_D_LOW",
+      "usd_per_kg": 4.412712341395486,
+      "conditional_on": ""
+     },
+     {
+      "config": "PSA_B_LOW",
+      "usd_per_kg": 4.412712781936756,
+      "conditional_on": ""
+     }
+    ]
+   }
+  }
+ },
+ "not_modelled": [
+  "TSA regeneration heat and electricity",
+  "compression CAPEX",
+  "membrane housing, skid and heating CAPEX",
+  "pressure drop in beds and modules",
+  "NH3 inhibition of Pd permeation (not supported quantitatively by the library)",
+  "real-gas behaviour at 350 bar",
+  "contaminants other than NH3, N2, H2O (O2, Ar, He, CO, CO2, hydrocarbons, S, halogens, HCHO, HCOOH, particulates) are listed as not evaluated",
+  "Singapore-specific prices (no singapore economics output existed at run time)",
+  "heat integration effect of placing the membrane on the hot effluent"
+ ],
+ "delivery_pressures_bar": {
+  "industrial_99.9": 30.0,
+  "fuel_cell_grade_D": 350.0,
+  "turbine_blend": 30.0
+ },
+ "config_labels": {
+  "RAW": "No purification (cooled cracked gas)",
+  "PSA_CHO": "TSA + PSA, published point (R 0.756 at 99.11 %, Cho 2026)",
+  "PSA_B_MB": "TSA + PSA at 99.910 %, recovery from mass-balance relation (tail H2 fraction 0.417 held from Cho point; optimistic)",
+  "PSA_B_LOW": "TSA + PSA at 99.910 %, recovery 0.71 (lowest published point, Hansen/Cha 2021)",
+  "PSA_D_MB": "TSA + PSA at 99.975 %, recovery from mass-balance relation (tail H2 fraction 0.417 held from Cho point; optimistic)",
+  "PSA_D_LOW": "TSA + PSA at 99.975 %, recovery 0.71 (lowest published point, Hansen/Cha 2021)",
+  "PSA_AMCRAX": "AmCraX baseline splitter (R 0.85, N2 slip 0.001; Aspen assumption F4)",
+  "MEM_1bar_raw": "Pd-Ag membrane R 0.90, permeate 1 bar",
+  "MEM_1bar_polish": "Pd-Ag membrane R 0.90, permeate 1 bar + NH3 polishing bed",
+  "MEM_vac0.1bar_raw": "Pd-Ag membrane R 0.90, permeate 0.1 bar",
+  "MEM_vac0.1bar_polish": "Pd-Ag membrane R 0.90, permeate 0.1 bar + NH3 polishing bed"
+ },
+ "served_keys": [
+  "provenance",
+  "iso_14687",
+  "summary",
+  "not_modelled",
+  "delivery_pressures_bar",
+  "config_labels"
+ ],
+ "source_note": "results/research/purification/purification_study.json; subset of top-level keys, values as stored"
+}

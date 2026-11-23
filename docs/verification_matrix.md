@@ -27,7 +27,7 @@ Aspen Plus was not started. "Executes" for Aspen-based features rests on the sto
 
 | Feature | Implemented | Executes | Produces valid results | Integrated | Documented | Tested |
 |---|---|---|---|---|---|---|
-| P2.1 Dashboard | yes: 11 pages in `frontend/src/pages` | yes: screenshots in `docs/screenshots` | partly: reads stored results; no own checks | yes: Vite proxy to API, snapshot mode | yes: `docs/user_guide.md` | yes: 96 vitest tests (shape, mapping) |
+| P2.1 Dashboard | yes: 11 pages in `frontend/src/pages` | yes: screenshots in `docs/screenshots` | partly: reads stored results; no own checks | yes: Vite proxy to API, snapshot mode | yes: `docs/user_guide.md` | yes: 107 vitest tests (shape, mapping) |
 | P2.2 FastAPI backend | yes: `amcrax.api` | yes: `scripts/smoke_api.py`, tests | yes: `PYTEST-test_api` pass | yes: serves dashboard and export | yes: `docs/api.md` | yes: `test_api.py` |
 | P2.3 Heat integration | yes: `amcrax.heat_integration` | yes: `heat_integration_baseline.json` | partly: no matrix family; U assumed | yes: `/api/heat-integration`, Heat page | yes: `docs/model_assumptions.md` | yes: `test_heat_integration.py` |
 | P2.4 Techno-economics | yes: `amcrax.economics` | yes: `economics_baseline.json` | partly: `ECON` 6/6 sums; costs preliminary | yes: `/api/economics/*`, Economics page | yes: `known_limitations.md` section 6 | yes: `test_economics.py` |
@@ -52,3 +52,22 @@ Aspen Plus was not started. "Executes" for Aspen-based features rests on the sto
 | Validation matrix | yes: `scripts/build_validation_matrix.py` | yes: JSON generated 2026-11-21 | yes: 22 failures kept and explained | yes: dashboard page, `/api/validation` | yes: `docs/validation` | yes: `test_validation_checks.py` |
 | Technical report | yes: `build_report.py`, 87 PDF pages | yes: PDF built 2026-11-21 | partly: build log lists 3 unresolved in-text citations | yes: linked from site and README | yes: `docs/technical_report` | partly: build-log checks only |
 | Pitch deck | yes: `build_deck.py`, 15 PDF pages | yes: PDF built 2026-11-21 | not verified: slide numbers not compared with results | yes: linked from README | yes: `speaker_script.md` | no: no automated test found |
+
+## Research expansion (Singapore hypothesis tests)
+
+Added 2026-11-23. Status values: complete and validated, complete but preliminary, partially complete, not completed. Each status is justified from the files named; pass and fail counts are read from `results/research/validation/summary.json` (all research items: 295 pass, 10 fail, 45 informational, separate from the 137-item core matrix). The full account is in [research/validation_and_limitations.md](research/validation_and_limitations.md). Test run on 2026-11-23: `python -m pytest tests -q` gave 513 passed, 1 skipped (final verification run). The frontend suite was not re-run for this entry.
+
+| Deliverable | Status | Justification |
+|---|---|---|
+| Research validation summary (`scripts/research/build_research_validation.py`, `summary.json`, `docs/validation/research_validation.md`) | complete and validated | Deterministic aggregation of 7 files, 350 items; failures listed with observed, expected, tolerance and recorded cause |
+| Kinetics: Kum, 5Ni1Ru/CeO2, 2.5Ni0.5Ru/CeO2 (`results/research/kinetics`) | complete but preliminary | `kinetics.json` 8 pass, 2 fail, 3 informational; Lucentini checks reproduce the fitting data, not independent data; extrapolated to 20 bar |
+| Kinetics: Ni/MgO and Ru/MgO (Takahashi approximation) | complete but preliminary | Fitted approximation (RMS rate error 12 %, 20 bar only); the two inherited failures `KIN-NI-PRED` and `KIN-RU-PRED` are unresolved |
+| Kinetics: Ni/CeO2, Ru/CeO2, Ru-K/CaO | not completed | No usable published rate law (Lucentini 2019); Sayas 2020 full text inaccessible |
+| Aspen RPlug infrastructure and catalyst cases (`results/research/aspen_kinetic`) | complete and validated | 162 runs, all `ok`; `aspen_kinetic.json` 161 pass, 3 fail (strict below-equilibrium check, cause recorded, not tuned), 19 informational |
+| Catalyst comparison and heat integration (`results/research/catalyst_comparison`) | complete but preliminary | `catalyst_comparison.json` 66 pass, 5 fail (FEHE property basis, 3.6 to 4.4 % against 3 %), 4 informational; proxy prices; CAPEX insensitive to temperature; no Aspen run at the Python optimum points |
+| Singapore techno-economics (`results/research/singapore`) | complete but preliminary | `economics.json` 9 pass, 0 fail, 6 informational (E09, arithmetic on Cho's own numbers, reclassified as informational in the final verification); screening CAPEX; secondary web prices; several Singapore inputs not found |
+| Purification (`results/research/purification`) | partially complete | `purification.json` 4 pass, 0 fail, 4 informational; PSA recovery-purity trade-off has two data points only; membrane costs are lower bounds; not every ISO 14687 contaminant evaluated; Cechetto 4 bar comparison not done |
+| End use (`results/research/enduse`) | complete but preliminary | `enduse.json` 40 pass, 0 fail, 5 informational; interpolated blend efficiencies; no combustion simulation; Halim figures unverified |
+| Life-cycle assessment (`results/research/lca`) | complete but preliminary | `lca.json` 7 pass, 0 fail, 4 informational; low-confidence factors and unsourced distances |
+| Aspen evidence screenshots (`docs/images/aspen_evidence`) | complete but preliminary | All 31 inspected and marked publishable; `ci_luc5_T572_P20_W100_hi__08_reactor_results.png` was recaptured on 2026-11-23 after its first capture showed the Catalyst tab; some forms not captured |
+| API and dashboard integration of the research results | complete but preliminary | Read-only router `backend/amcrax/api/routers/research.py` and the Hypotheses pages under `frontend/src/site/hyp/` show the stored result files (end use and life cycle included); the end-use and life-cycle Python packages are not exposed as live calculation endpoints |

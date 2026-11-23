@@ -41,11 +41,11 @@
   },
   {
     "citekey": "halim2025ammonia",
-    "apa7": "Halim, Zain, & Khoo (2025; initials to be completed from the PDF). Assessing the feasibility of ammonia utilization for power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+    "apa7": "Halim, I., Zain, N. S., & Khoo, H. H. (2025). Assessing the feasibility of ammonia utilization for power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
     "doi": "10.1016/j.apenergy.2025.125581",
     "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
     "access_date": "2026-11-23",
-    "taken_from_it": "Abstract only: direct NH3 use preferred over cracking for power; numeric values not verified. Author initials as given in the brief; check against the PDF."
+    "taken_from_it": "Abstract only: direct NH3 use preferred over cracking for power; numeric values not verified. Bibliographic data (authors Iskandar Halim, Nur Sara Zain, Hsien H. Khoo; vol. 386, 125581) confirmed through Crossref and IDEAS/RePEc by the independent review."
   },
   {
     "citekey": "sp_blue_ammonia_2025",
@@ -69,7 +69,7 @@
     "doi": null,
     "url": "https://view.argusmedia.com/rs/584-BUW-606/images/POW-Sample-Report-20260106-Hydrogen.pdf?version=0",
     "access_date": "2026-11-23",
-    "taken_from_it": "NE Asia SMR cost 4.68 USD/kg incl. capex (Apr 2026 marker, search-result text)"
+    "taken_from_it": "Issue 26-01, 6 Jan 2026, p. 2 regional hydrogen cost markers: Northeast Asia SMR 3.06 USD/kg incl. capex (2.09 excl. capex); read from the PDF text (corrected by the independent review; the earlier 4.68 is not in this document)"
   },
   {
     "citekey": "ace_h2_delivered",
@@ -93,6 +93,6 @@
     "doi": null,
     "url": "https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
     "access_date": "2026-11-23",
-    "taken_from_it": "1.290 SGD per USD, 18 Nov 2026"
+    "taken_from_it": "1.290 SGD per USD (recorded as 18 Nov 2026; the page showed 1.290 at the close of 20 Nov 2026 when re-checked by the independent review)"
   }
 ]

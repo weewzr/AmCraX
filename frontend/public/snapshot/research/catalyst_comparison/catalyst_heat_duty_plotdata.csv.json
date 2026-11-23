@@ -1,0 +1,97 @@
+{
+ "name": "catalyst_heat_duty_plotdata",
+ "area": "catalyst_comparison",
+ "file": "catalyst_heat_duty_plotdata.csv",
+ "columns": [
+  "catalyst_id",
+  "heat_integration",
+  "T_C",
+  "fired_process_duty_kW",
+  "tailgas_kW",
+  "source_type"
+ ],
+ "rows": [
+  {
+   "catalyst_id": "ru_kum_temkin_pyzhev",
+   "heat_integration": "True",
+   "T_C": 499.0,
+   "fired_process_duty_kW": 496.8115826900022,
+   "tailgas_kW": 1734.08934,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "ru_kum_temkin_pyzhev",
+   "heat_integration": "False",
+   "T_C": 499.0,
+   "fired_process_duty_kW": 974.661532263885,
+   "tailgas_kW": 1734.08934,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+   "heat_integration": "True",
+   "T_C": 572.0,
+   "fired_process_duty_kW": 533.0715594496758,
+   "tailgas_kW": 1719.70023,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+   "heat_integration": "False",
+   "T_C": 572.0,
+   "fired_process_duty_kW": 1115.9442718488879,
+   "tailgas_kW": 1719.70023,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+   "heat_integration": "True",
+   "T_C": 576.0,
+   "fired_process_duty_kW": 524.3401076920927,
+   "tailgas_kW": 1727.60074,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+   "heat_integration": "False",
+   "T_C": 576.0,
+   "fired_process_duty_kW": 1113.0799424016393,
+   "tailgas_kW": 1727.60074,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "ni_takahashi_microkinetic",
+   "heat_integration": "True",
+   "T_C": 594.0,
+   "fired_process_duty_kW": 598.5683853492568,
+   "tailgas_kW": 1670.35231,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "ni_takahashi_microkinetic",
+   "heat_integration": "False",
+   "T_C": 594.0,
+   "fired_process_duty_kW": 1213.8486415176174,
+   "tailgas_kW": 1670.35231,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "ru_takahashi_microkinetic",
+   "heat_integration": "True",
+   "T_C": 522.0,
+   "fired_process_duty_kW": 534.98594600429,
+   "tailgas_kW": 1707.91837,
+   "source_type": "aspen"
+  },
+  {
+   "catalyst_id": "ru_takahashi_microkinetic",
+   "heat_integration": "False",
+   "T_C": 522.0,
+   "fired_process_duty_kW": 1045.5104856010503,
+   "tailgas_kW": 1707.91837,
+   "source_type": "aspen"
+  }
+ ],
+ "count": 10,
+ "source_note": "results/research/catalyst_comparison/catalyst_heat_duty_plotdata.csv; values as stored, no post-processing"
+}

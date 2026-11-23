@@ -1,4 +1,4 @@
-﻿"""Export the real stored results into frontend/public/snapshot/ for the frontend SNAPSHOT mode.
+"""Export the real stored results into frontend/public/snapshot/ for the frontend SNAPSHOT mode.
 
 Nothing is synthesised: every file is a verbatim copy of a stored result or the JSON the live API returns
 for it (the API is called in-process through a TestClient, so the shapes are identical to LIVE mode).
@@ -12,6 +12,10 @@ Layout (URL shapes the frontend requests, see frontend/src/api/client.ts):
     snapshot/data/<category>/<name>.json   GET /api/data/<category>/<name>   (sensitivity, validation, optimisation, analysis)
     snapshot/sensitivity/<name>.csv   verbatim CSV copies;  sensitivity_index.json = list of names
     snapshot/api/<name>.json (validation, references, traceability, figures, reports, screenshots, catalysts, economics defaults,\n                                environment factors, optimisation results, scenario comparison), aspen-screenshots/*, dashboard-screenshots/*\n    snapshot/scenarios_definitions.json, validation_matrix.json, references.json (when present), figures/*.png
+    snapshot/research/{index,validation_summary,evidence_matrix,aspen_evidence}.json, research/<area>/<file>.json (GET /api/research/...),
+    aspen-evidence/*.png (captures listed in the manifest), research-figures/*.png (only figures linked from the evidence matrix)
+    snapshot/research/*  (index, <area>/<file>.json, validation_summary, evidence_matrix, aspen_evidence), aspen-evidence/*.png, research-figures/*.png
+    (research items come from GET /api/research/...; research-figures holds only figures linked from the evidence matrix)
 
 Run:  python scripts/export_snapshot.py
 """
@@ -125,6 +129,36 @@ def main() -> int:
             copy(p, f"{name}/{p.name}")
     if (paths.ASPEN_SCREENSHOTS / "manifest.json").exists():
         copy(paths.ASPEN_SCREENSHOTS / "manifest.json", "aspen-screenshots/manifest.json")
+
+    # research expansion (hypotheses H1-H4): only the whitelisted files the Hypotheses pages use, as the live API returns them
+    from amcrax.api.routers import research as rs
+
+    idx = api("/api/research/index")
+    write("research/index.json", idx, "results/research/ (whitelist)", "GET /api/research/index")
+    for area, items in idx["areas"].items():
+        for it in items:
+            write(f"research/{area}/{it['file']}.json", api(f"/api/research/{area}/{it['file']}"),
+                  f"results/research/{area}/{it['file']}", "GET /api/research/<area>/<file>")
+    write("research/validation_summary.json", api("/api/research/validation-summary"), "results/research/validation/*.json",
+          "GET /api/research/validation-summary")
+    em = client.get("/api/research/evidence-matrix")
+    if em.status_code == 200:
+        write("research/evidence_matrix.json", em.json(), "results/research/evidence_matrix.json", "GET /api/research/evidence-matrix")
+        # figures linked from the matrix rows (only those a page shows)
+        figs = {f for h in em.json().get("hypotheses", []) for r in h.get("rows", []) for f in (r.get("links", {}) or {}).get("figures", [])}
+        for f in sorted(figs):
+            src = ROOT / f
+            if src.is_file() and src.suffix.lower() == ".png" and rs.RESEARCH_FIGURES in src.parents:
+                copy(src, f"research-figures/{src.name}")
+    else:
+        skipped.append(f"/api/research/evidence-matrix -> HTTP {em.status_code}")
+    ae = client.get("/api/research/aspen-evidence")
+    if ae.status_code == 200:
+        write("research/aspen_evidence.json", ae.json(), "docs/images/aspen_evidence/manifest.json", "GET /api/research/aspen-evidence")
+        for c in ae.json()["captures"]:
+            copy(rs.ASPEN_EVIDENCE_DIR / Path(c["file"]).name, f"aspen-evidence/{Path(c['file']).name}")
+    else:
+        skipped.append(f"/api/research/aspen-evidence -> HTTP {ae.status_code}")
 
     sources = sorted({"/".join(f["source"].split("/")[:2]) for f in files if "/" in f["source"]})
     manifest = {"exported_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"), "files": files,

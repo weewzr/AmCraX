@@ -93,5 +93,5 @@ Two items were reclassified as informational in the independent review because t
 
 ## 16.11 What is not validated
 
-Not validated are the reduced-order PSA and membrane models, the costs, the carbon-intensity accounting, the kinetics at 20 bar (data at 1 atm, or up to 10 bar), the NH~3~–H~2~O dew point and the remaining 0.18 pp Peng–Robinson gap. No plant data were available; AmCraX is not a validated digital twin (Section 24).
+Not validated are the reduced-order PSA and membrane models, the costs, the carbon-intensity accounting, the kinetics at 20 bar (data at 1 atm, or up to 10 bar), the NH~3~–H~2~O dew point and the remaining 0.18 pp Peng–Robinson gap. No plant data were available; AmCraX is not a validated digital twin (Section 32). The validation items of the research expansion are summarised in Appendix H.
 <!-- data: results/validation/validation_matrix.json (no items for these components); results/validation/kinetics_validation.csv conditions -->

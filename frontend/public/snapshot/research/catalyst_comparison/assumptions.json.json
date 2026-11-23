@@ -1,0 +1,114 @@
+[
+ {
+  "name": "furnace_efficiency",
+  "value": 0.85,
+  "unit": "fraction of NH3 LHV",
+  "source_type": "assumption",
+  "source": "AmCraX workstream H; no sourced fired-heater efficiency in the library (economics.yaml uses 1.0)",
+  "applicability_note": "Applied only to supplementary NH3 fuel; tail-gas heat is credited by the pinch model. Range 0.65-1.0 in sensitivities."
+ },
+ {
+  "name": "thermal_loss_fraction",
+  "value": 0.02,
+  "unit": "fraction of reactor + trim heater duty",
+  "source_type": "assumption",
+  "source": "AmCraX workstream H (allowance; not sourced)",
+  "applicability_note": "Added to the fired duty; the existing KPIs have no losses (fact sheet F7)."
+ },
+ {
+  "name": "catalyst_price_Ni",
+  "value": 33.4,
+  "unit": "USD/kg",
+  "source_type": "literature",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "Used as a proxy for Ni/MgO (assumption)."
+ },
+ {
+  "name": "catalyst_price_Ru",
+  "value": 542.0,
+  "unit": "USD/kg",
+  "source_type": "literature",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "Used as a proxy for Ru/Al2O3, Ru/MgO and as an upper bound for NiRu/CeO2 (assumption)."
+ },
+ {
+  "name": "catalyst_lifetime",
+  "value": 2.0,
+  "unit": "yr",
+  "source_type": "literature",
+  "source": "cho2026nickel Table 4 (an assumption in the source)",
+  "applicability_note": "Sensitivity 1-4 yr."
+ },
+ {
+  "name": "feed_basis",
+  "value": 100.0,
+  "unit": "kmol/h liquid NH3 (0.2 mol% H2O)",
+  "source_type": "assumption",
+  "source": "AmCraX baseline CaseInputs",
+  "applicability_note": "Kinetics use the 99.8 kmol/h NH3 only."
+ },
+ {
+  "name": "kinetic_reactor",
+  "value": "isothermal PFR, no pressure drop, effectiveness factor 1",
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "as workstreams K and A",
+  "applicability_note": "Powder kinetics applied to an industrial bed; all laws extrapolated to 10-30 bar."
+ },
+ {
+  "name": "kinetic_conversion_in_flowsheet",
+  "value": "cracker outlet conversion fixed at the kinetic target X",
+  "unit": "-",
+  "source_type": "python",
+  "source": "amcrax.process_model.run_python_case with solve_equilibrium replaced by X (never above equilibrium)",
+  "applicability_note": "Same H-T property basis as the Python flowsheet."
+ },
+ {
+  "name": "cracker_capex_scaling",
+  "value": 0.8,
+  "unit": "exponent on bed volume",
+  "source_type": "assumption",
+  "source": "scaling exponent of the Singapore equipment CAPEX (Chopra 2026 Eq. 5) applied to catalyst volume",
+  "applicability_note": "Sensitivity only; in the base case CAPEX does not respond to catalyst volume."
+ },
+ {
+  "name": "price_ru_kum_temkin_pyzhev",
+  "value": 542.0,
+  "unit": "USD/kg",
+  "source_type": "assumption",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "proxy: Cho Ru-K/CaO price used for a Ru/Al2O3 catalyst (no sourced price for this catalyst)"
+ },
+ {
+  "name": "price_ru_takahashi_microkinetic",
+  "value": 542.0,
+  "unit": "USD/kg",
+  "source_type": "assumption",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "proxy: Cho Ru-K/CaO price"
+ },
+ {
+  "name": "price_nire_ceo2_5ni1ru_lucentini_lhhw",
+  "value": 542.0,
+  "unit": "USD/kg",
+  "source_type": "assumption",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "no sourced price; Cho Ru price used as an upper-bound proxy (1 wt% Ru vs 3 wt% in Cho); see break-even price"
+ },
+ {
+  "name": "price_nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "value": 542.0,
+  "unit": "USD/kg",
+  "source_type": "assumption",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "no sourced price; Cho Ru price used as an upper-bound proxy (0.5 wt% Ru); see break-even price"
+ },
+ {
+  "name": "price_ni_takahashi_microkinetic",
+  "value": 33.4,
+  "unit": "USD/kg",
+  "source_type": "assumption",
+  "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
+  "applicability_note": "proxy: Cho Ni/Al2O3 price used for Ni/MgO"
+ }
+]

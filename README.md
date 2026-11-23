@@ -118,9 +118,21 @@ The validation matrix (`results/validation/validation_matrix.json`, generated 20
 - 20 flowsheet cross-check items (`FS-<case>`): the Python and Aspen models use different property models in the feed section (Aspen PENG-ROB; Python a reference equation of state for ammonia and an ideal-liquid dew point). The duties differ by 3 to 10 %. This measures a model-form difference and is not evidence that either model is the weaker one. The primary quantities pass for all 20 cases.
 - 2 kinetics items (`KIN-NI-PRED`, `KIN-RU-PRED`): published conversion curves are reproduced within about 0.11 against a tolerance of 0.05.
 
-Tests on 2026-11-21: 391 Python tests pass and 1 opt-in live-Aspen test is skipped; 96 frontend unit tests pass. A feature-by-feature check is in [docs/verification_matrix.md](docs/verification_matrix.md) and the matrix itself in [docs/validation/validation_matrix.md](docs/validation/validation_matrix.md).
+Tests: 513 Python tests pass and 1 opt-in live-Aspen test is skipped (2026-11-23, after the research expansion below); 107 frontend unit tests pass (2026-11-23). A feature-by-feature check is in [docs/verification_matrix.md](docs/verification_matrix.md) and the matrix itself in [docs/validation/validation_matrix.md](docs/validation/validation_matrix.md).
 
 <p align="center"><img src="docs/images/equilibrium_parity.png" width="720" alt="Parity plots of NH3 conversion and reactor duty, independent Python model against Aspen Plus RGibbs."></p>
+
+## Research expansion: Singapore-specific hypothesis tests
+
+A research expansion tests four hypotheses on end-use suitability, ammonia feedstock, catalyst and heat integration, and purification for Singapore (Jurong Island as a representative industrial setting; no facility is claimed). It adds, without changing the existing results or behaviour:
+
+- Catalyst kinetics in the Python reactor model and as an Aspen Plus RPlug cracker, standalone and in the full flowsheet. 162 new Aspen Plus V15 runs were made and all 162 finished with status `ok` (`results/research/aspen_kinetic/run_status.json`).
+- Catalysts actually modelled: Ru/Al2O3 (Kum), 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 (Lucentini 2021), and Ni/MgO and Ru/MgO through a fitted approximation of the Takahashi law (valid at 20 bar only). Ni/CeO2, Ru/CeO2 and Ru-K/CaO are not modelled: no usable published rate law was available.
+- A Singapore techno-economic model with sourced prices, a catalyst and heat-integration comparison, a purification study against ISO 14687, an end-use comparison and a life-cycle assessment.
+- A research validation summary kept separate from the core matrix: 350 items, 295 pass, 10 fail and 45 informational (`results/research/validation/summary.json`). The failures are kept and explained.
+- Aspen Plus screenshots under `docs/images/aspen_evidence/`, each inspected (31 of 31 pass; one was recaptured on 2026-11-23 after its first capture showed the wrong tab).
+
+Rate laws are fitted at 1 atm or up to 10 bar and extrapolated to 20 bar, and the CAPEX model does not respond to temperature or reactor volume. Verdicts for the four hypotheses are in the [evidence matrix](docs/research/evidence_matrix.md) (generated from `results/research/evidence_matrix.json`); they are not repeated here. See [docs/research/README.md](docs/research/README.md) for the index and reproduction commands, [docs/research/validation_and_limitations.md](docs/research/validation_and_limitations.md) for validation, limitations and inaccessible sources, and [docs/validation/research_validation.md](docs/validation/research_validation.md) for every research validation failure.
 
 ## Prerequisites
 
@@ -232,7 +244,7 @@ Selected sources in APA style. The full list is in [research/references_apa.md](
 
 These are the next steps named in [docs/known_limitations.md](docs/known_limitations.md). No dates are set.
 
-- An Aspen Plus RPlug reactor using the implemented kinetics, in place of the equilibrium reactor.
+- Rate laws for Ni/CeO2, Ru/CeO2 and Ru-K/CaO, which could not be modelled because no usable published rate law was obtained. The Aspen Plus RPlug reactor now exists for the research cases (see the research expansion section above); the baseline flowsheet still uses the equilibrium reactor.
 - Designed PSA and TSA purification units, for example in Aspen Adsorption, instead of the component splitter.
 - Cracked-gas compression and NH3 polishing in the flowsheet.
 - Equipment-level costing in place of the plant-level CAPEX correlation.

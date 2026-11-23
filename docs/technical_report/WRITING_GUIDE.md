@@ -36,10 +36,25 @@ Writers only write section files. Never edit another writer's section file.
 | `21_environment.md` | `# 21 Environmental analysis` | 19 |
 | `22_dashboard.md` | `# 22 Interactive dashboard` | new |
 | `23_website.md` | `# 23 Public website` | new |
-| `24_limitations.md` | `# 24 Limitations` | 20 |
-| `25_conclusions.md` | `# 25 Conclusions` | 21 |
-| (generated) | `# 26 References` | |
-| (generated) | `# 27 Appendices` | |
+| `24_research_questions.md` | `# 24 Research questions and hypotheses` | research expansion: Singapore context, central question, H1-H4 |
+| `25_aspen_kinetic_reactor.md` | `# 25 Kinetic reactor modelling in Aspen Plus` | research expansion: rate laws, RPlug implementation, verification, studies, screenshots |
+| `26_catalyst_heat_integration.md` | `# 26 Catalyst comparison and heat integration` | research expansion (H3) |
+| `27_singapore_economics.md` | `# 27 <title set by its writer>` | research expansion (H2) |
+| `28_purification.md` | `# 28 <title set by its writer>` | research expansion (H4) |
+| `29_end_use.md` | `# 29 <title set by its writer>` | research expansion (H1) |
+| `30_life_cycle.md` | `# 30 <title set by its writer>` | research expansion (H1, H2) |
+| `31_evidence_matrix.md` | `# 31 Four-hypothesis evidence matrix` | tables generated at build time from `results/research/evidence_matrix.json` |
+| `32_limitations.md` | `# 32 Limitations` | 20 (was 24) |
+| `33_conclusions.md` | `# 33 Conclusions and future research` | 21 (was 25) |
+| (generated) | `# 34 References` | |
+| (generated) | `# 35 Appendices` | A-G as before; G.2 research screenshots; H research validation |
+
+### Build-time tokens (never retype a verdict)
+
+* `{{VERDICT:H1}}` ... `{{VERDICT:H4}}`: the verdict of that hypothesis in bold, from `results/research/evidence_matrix.json`.
+* `{{VERDICT_CONDITIONS:Hn}}`: its `verdict_conditions` text.
+* `{{EVIDENCE_SUMMARY_TABLE}}` and `{{EVIDENCE_ROWS:Hn}}`: the verdict table and the per-hypothesis row tables of Section 31.
+* Screenshots from `docs/images/aspen_evidence/` whose manifest entry has `publish: false` are dropped at build time and reported.
 ## Markdown rules
 
 * Headings: `# N Title`, `## N.M Title`, `### Title` (numbers typed by hand, matching the table above).

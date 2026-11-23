@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:07:31+00:00",
+    "generated_utc": "2026-11-23T07:42:11+00:00",
     "script": "scripts/research/economics_singapore.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
@@ -19,9 +19,9 @@
         "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
       },
       "ne_asia_smr_production_cost": {
-        "h2_price_USD_per_kg": 4.68,
-        "breakeven_nh3_USD_per_t": 595.1764149056042,
-        "source": "Argus regional hydrogen cost markers, Northeast Asia baseline SMR incl. capex, 7 Apr 2026 sample (search-result summary); Nov 2025 value 3.34"
+        "h2_price_USD_per_kg": 3.06,
+        "breakeven_nh3_USD_per_t": 374.7732147421736,
+        "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
       },
       "blue_delivered_east_asia": {
         "h2_price_USD_per_kg": 6.0,
@@ -41,9 +41,9 @@
         "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
       },
       "ne_asia_smr_production_cost": {
-        "h2_price_USD_per_kg": 4.68,
-        "breakeven_nh3_USD_per_t": 559.101109839383,
-        "source": "Argus regional hydrogen cost markers, Northeast Asia baseline SMR incl. capex, 7 Apr 2026 sample (search-result summary); Nov 2025 value 3.34"
+        "h2_price_USD_per_kg": 3.06,
+        "breakeven_nh3_USD_per_t": 351.9690222374838,
+        "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
       },
       "blue_delivered_east_asia": {
         "h2_price_USD_per_kg": 6.0,

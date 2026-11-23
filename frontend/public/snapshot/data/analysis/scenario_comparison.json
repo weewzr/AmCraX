@@ -1,6 +1,6 @@
 {
  "engine": "evaluate_result on stored Aspen results (else python_model)",
- "created_utc": "2026-11-21T14:40:39+00:00",
+ "created_utc": "2026-11-21T15:07:11+00:00",
  "settings": {
   "nh3_origin": "grey",
   "heat_source": "ammonia",

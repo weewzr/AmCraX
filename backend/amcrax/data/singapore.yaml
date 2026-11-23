@@ -29,7 +29,7 @@ fx_SGD_per_USD:
   url: "https://asianbondsonline.adb.org/economy/?economy=SG&page=9"
   access_date: "2026-11-23"
   source_type: secondary_web
-  note: "Official MAS/data.gov.sg daily rate for 20 Nov 2026 could not be retrieved. Rate date: 2026-11-18. Used only to convert SGD tariffs and the carbon tax. Commerzbank commentary (19 Nov 2026) expects 1.28-1.30."
+  note: "Review check 2026-11-23: the cited ADB page itself shows 1.290 at 'Close of November 20, 2026' (same value). Official MAS/data.gov.sg daily rate could not be retrieved. Rate date originally recorded: 2026-11-18. Used only to convert SGD tariffs and the carbon tax. Commerzbank commentary (19 Nov 2026) expects 1.28-1.30."
 
 carbon_tax:
   schedule_SGD_per_tCO2e:
@@ -141,11 +141,12 @@ h2_price_benchmarks_USD_per_kg:
     year: 2025
     source_type: secondary_web
   ne_asia_smr_production_cost:
-    value: 4.68
-    source: "Argus regional hydrogen cost markers, Northeast Asia baseline SMR incl. capex, 7 Apr 2026 sample (search-result summary); Nov 2025 value 3.34"
+    value: 3.06
+    source: "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
     url: "https://view.argusmedia.com/rs/584-BUW-606/images/POW-Sample-Report-20260106-Hydrogen.pdf?version=0"
     year: 2026
     source_type: secondary_web
+    note: "Corrected by the independent review (docs/internal/research_review.md): the earlier value 4.68 ('7 Apr 2026 marker', search-result text) does not appear in the cited document. Production-cost marker, not a selling price."
   blue_delivered_east_asia:
     value: 6.0
     low: 5.0
@@ -193,7 +194,7 @@ gas_and_fuel:
     source_type: literature
 
 capex_equipment:
-  pec_reference_kUSD: {value: 1702, unit: kUSD, year: "not stated", source: "Farokhi/Devkota et al. 2025 p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)", url: "https://doi.org/10.1016/j.ifacol.2025.12.180", access_date: "2026-11-23", source_type: literature, note: "Cost year not stated. Unit kUSD inferred (consistent with yearly CAPEX in the text); see economics.yaml; citekey farokhi2025costoptimization."}
+  pec_reference_kUSD: {value: 1702, unit: kUSD, year: "not stated", source: "Farokhi, Oi & Hansen 2025 (IFAC-PapersOnLine 59, 48-53) p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)", url: "https://doi.org/10.1016/j.ifacol.2025.12.180", access_date: "2026-11-23", source_type: literature, note: "Cost year not stated. Unit kUSD inferred (consistent with yearly CAPEX in the text); see economics.yaml; citekey farokhi2025costoptimization."}
   reference_feed_kmol_h: {value: 500, unit: kmol/h NH3, source: "same, Table 5 capacity basis", source_type: literature}
   tci_over_pec: {value: 5.93, unit: "-", source: "Farokhi 2025 p. 5 Table 5: TCI 10,096 kUSD / PEC 1,702 kUSD (derived); installation, indirect and working-capital items are inside this ratio", source_type: derived}
   scaling_exponent: {value: 0.8, unit: "-", source: "Chopra et al. 2026 p. 4 Eq. 5 (all equipment)", source_type: literature}

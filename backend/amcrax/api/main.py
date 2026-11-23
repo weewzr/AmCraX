@@ -13,7 +13,7 @@ from fastapi.staticfiles import StaticFiles
 from amcrax import paths
 
 from .errors import install_handlers
-from .routers import core, data, domain, reports, simulation
+from .routers import core, data, domain, reports, research, simulation
 
 
 class JsonFormatter(logging.Formatter):
@@ -69,8 +69,10 @@ app.include_router(simulation.router)
 app.include_router(domain.router)
 app.include_router(data.router)
 app.include_router(reports.router)
+app.include_router(research.router)
 
-for _mount, _dir in (("/aspen-screenshots", paths.ASPEN_SCREENSHOTS), ("/dashboard-screenshots", paths.DOCS_DIR / "screenshots")):
+for _mount, _dir in (("/aspen-screenshots", paths.ASPEN_SCREENSHOTS), ("/dashboard-screenshots", paths.DOCS_DIR / "screenshots"),
+               ("/aspen-evidence", paths.DOCS_DIR / "images" / "aspen_evidence"), ("/research-figures", paths.RESULTS_FIGURES / "research")):
     if _dir.exists():
         app.mount(_mount, StaticFiles(directory=str(_dir)), name=_mount.strip("/"))
 

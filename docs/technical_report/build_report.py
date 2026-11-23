@@ -1,4 +1,4 @@
-﻿#!/usr/bin/env python
+#!/usr/bin/env python
 r"""AmCraX technical report build pipeline.
 
 Usage (from any directory):
@@ -33,10 +33,11 @@ ROOT = HERE.parents[1]
 GEN = HERE / "generated"
 REFERENCE_DOCX = HERE / "reference.docx"
 
-REPORT_DATE = "21 November 2026"
+REPORT_DATE = "23 November 2026"
 SUBTITLE = "Ammonia Cracking Simulation and Optimisation Platform"
 SCOPE_LINE = ("Aspen Plus V15 flowsheet model of ammonia cracking for hydrogen production, its Python automation, "
-              "independent Python models, validation, sensitivity, energy, techno-economic and environmental assessment.")
+              "independent Python models, validation, sensitivity, energy, techno-economic and environmental assessment, "
+              "and a test of four research hypotheses for a representative Singapore setting.")
 
 # AmCraX light-theme colours (docs/reference_projects/design_tokens.md)
 PRIMARY = "0369a1"
@@ -45,8 +46,9 @@ INK = "121a2f"
 MUTED = "5b6478"
 FONT = "Calibri"
 
-# The 27-item structure of WRITING_GUIDE.md: 25 written sections, then the generated references (26)
-# and appendices (27).
+# The 35-item structure of WRITING_GUIDE.md: 33 written sections, then the generated references (34)
+# and appendices (35). A title of None accepts the heading written in the file (sections 27-30 are
+# written by another writer); the outline check then uses that heading.
 EXPECTED = {
     1: ("01_executive_summary.md", "Executive summary"),
     2: ("02_motivation.md", "Motivation and background"),
@@ -71,11 +73,23 @@ EXPECTED = {
     21: ("21_environment.md", "Environmental analysis"),
     22: ("22_dashboard.md", "Interactive dashboard"),
     23: ("23_website.md", "Public website"),
-    24: ("24_limitations.md", "Limitations"),
-    25: ("25_conclusions.md", "Conclusions"),
+    24: ("24_research_questions.md", "Research questions and hypotheses"),
+    25: ("25_aspen_kinetic_reactor.md", "Kinetic reactor modelling in Aspen Plus"),
+    26: ("26_catalyst_heat_integration.md", "Catalyst comparison and heat integration"),
+    27: ("27_singapore_economics.md", None),
+    28: ("28_purification.md", None),
+    29: ("29_end_use.md", None),
+    30: ("30_life_cycle.md", None),
+    31: ("31_evidence_matrix.md", "Four-hypothesis evidence matrix"),
+    32: ("32_limitations.md", "Limitations"),
+    33: ("33_conclusions.md", "Conclusions and future research"),
 }
-REFERENCES_HEADING = "# 26 References"
-APPENDICES_HEADING = "# 27 Appendices"
+REFERENCES_HEADING = "# 34 References"
+APPENDICES_HEADING = "# 35 Appendices"
+EVIDENCE_JSON = ROOT / "results" / "research" / "evidence_matrix.json"
+EVIDENCE_MD = ROOT / "docs" / "research" / "evidence_matrix.md"
+EVIDENCE_SHOTS = ROOT / "docs" / "images" / "aspen_evidence" / "manifest.json"
+RESEARCH_VALIDATION = ROOT / "results" / "research" / "validation"
 # In-text abbreviations of group authors (APA 7: "International Organization for Standardization [ISO], 2019",
 # then "ISO, 2019").
 AUTHOR_ALIASES = {"iso2019hydrogen": ["ISO"]}
@@ -347,6 +361,7 @@ def generic_table_md(obj, caption: str, source: str, max_cols: int = 5) -> str:
             return f"{len(v)} field(s), see source file"
         else:
             t = str(v)
+        t = t.replace(" degC", " °C").replace("degC", "°C")
         return t if len(t) <= 160 else t[:157] + "..."
 
     first, rest = cols[0], cols[1:]
@@ -371,7 +386,7 @@ IMG_RE = re.compile(r"^[ \t]*!\[(?P<alt>.*)\]\((?P<path>[^)]+?)\)(?P<attr>\{[^}]
 def collect_sections(sdir: Path, summary: dict) -> list[tuple[str, Path]]:
     files = sorted(p for p in sdir.glob("*.md") if re.match(r"\d\d_", p.name))
     found = {p.name for p in files}
-    missing = [f"{n:02d} {t} ({f})" for n, (f, t) in EXPECTED.items() if f not in found]
+    missing = [f"{n:02d} {t or '(title set by its writer)'} ({f})" for n, (f, t) in EXPECTED.items() if f not in found]
     expected_files = {f for f, _ in EXPECTED.values()}
     unexpected = [p.name for p in files if not p.name.startswith("00_") and p.name not in expected_files]
     summary["missing_sections"] = missing
@@ -379,16 +394,22 @@ def collect_sections(sdir: Path, summary: dict) -> list[tuple[str, Path]]:
     for m in missing:
         log(f"WARNING missing section: {m}")
     for u in unexpected:
-        log(f"WARNING section file not in the 27-item structure: {u}")
+        log(f"WARNING section file not in the 35-item structure: {u}")
     # heading of each file must match the table in WRITING_GUIDE.md
     by_file = {f: (n, t) for n, (f, t) in EXPECTED.items()}
     bad = []
+    titles = {}
     for p in files:
         if p.name in by_file:
             n, t = by_file[p.name]
             first = next((ln for ln in p.read_text(encoding="utf-8-sig").splitlines() if ln.startswith("# ")), "")
-            if first.strip() != f"# {n} {t}":
+            titles[n] = first.strip()[2:]
+            if t is None:
+                if not re.match(rf"^# {n} \S", first.strip()):
+                    bad.append(f"{p.name}: '{first.strip()}' (expected '# {n} <title>')")
+            elif first.strip() != f"# {n} {t}":
                 bad.append(f"{p.name}: '{first.strip()}' (expected '# {n} {t}')")
+    summary["section_titles"] = titles
     summary["heading_mismatches"] = bad
     for b in bad:
         log(f"WARNING heading mismatch: {b}")
@@ -419,8 +440,173 @@ def pandoc_image_path(p: Path) -> str:
         return tgt.relative_to(ROOT).as_posix()
 
 
+# ----------------------------------------------------------------------------------------------
+# evidence matrix (results/research/evidence_matrix.json): verdicts are never retyped in the sections
+# ----------------------------------------------------------------------------------------------
+_EVIDENCE_CACHE: dict = {}
+
+
+def load_evidence() -> dict | None:
+    if "data" not in _EVIDENCE_CACHE:
+        d = None
+        if EVIDENCE_JSON.exists():
+            try:
+                d = read_json(EVIDENCE_JSON)
+            except Exception as e:  # noqa: BLE001
+                log(f"WARNING evidence_matrix.json unreadable: {e!r}")
+        _EVIDENCE_CACHE["data"] = d
+    return _EVIDENCE_CACHE["data"]
+
+
+def _hyp(hid: str) -> dict | None:
+    d = load_evidence()
+    if not d:
+        return None
+    return next((h for h in d.get("hypotheses", []) if str(h.get("id")).upper() == hid.upper()), None)
+
+
+def _fmt_val(v) -> str:
+    if isinstance(v, bool) or v is None:
+        return "-" if v is None else str(v)
+    if isinstance(v, int):
+        return f"{v}"
+    if isinstance(v, float):
+        a = abs(v)
+        if a != 0 and (a < 1e-3 or a >= 1e6):
+            return f"{v:.3g}"
+        return f"{v:.4g}"
+    return str(v)
+
+
+def _short_txt(v, n: int) -> str:
+    t = "" if v is None else " ".join(str(v).split())
+    t = re.sub(r"\s?degC\b", " °C", t).replace(" — ", ", ").replace("—", ", ")
+    return t if len(t) <= n else t[: n - 3].rstrip() + "..."
+
+
+_EVIDENCE_TABLE_NO = [0]
+
+
+def evidence_table_caption(text: str) -> str:
+    _EVIDENCE_TABLE_NO[0] += 1
+    return f"Table: **Table 31.{_EVIDENCE_TABLE_NO[0]}.** {text}"
+
+
+def evidence_summary_table_md() -> str:
+    d = load_evidence()
+    if not d:
+        return ("*The evidence matrix (results/research/evidence_matrix.json) was not available at build time.*\n")
+    rows = [[h.get("id"), h.get("verdict"), _row_outcomes(h), _short_txt(h.get("summary"), 400)]
+            for h in d.get("hypotheses", [])]
+    gen = (d.get("provenance") or {}).get("generated_utc", "-")
+    return (evidence_table_caption("Verdicts of the four hypotheses with the outcome of each evidence row, read from the evidence "
+                                   f"matrix at build time. *Source: results/research/evidence_matrix.json (generated {gen}).*") + "\n\n"
+            + pipe_table(["H", "Verdict", "Row outcomes", "Summary"], rows))
+
+
+def _row_outcomes(h: dict) -> str:
+    groups: dict[str, list[str]] = {}
+    for r in h.get("rows", []):
+        groups.setdefault(str(r.get("verdict")), []).append(str(r.get("row_id")))
+    if groups and "None" not in groups:
+        return "; ".join(f"{k}: {', '.join(v)}" for k, v in groups.items())
+    vc = _short_txt(h.get("verdict_conditions"), 100000)
+    return vc.split("Row outcomes:", 1)[1].strip() if "Row outcomes:" in vc else vc
+
+
+def _row_conditions(r: dict) -> str:
+    c = _short_txt(r.get("conclusion_conditions"), 100000)
+    if "Conditions:" in c:
+        return c.split("Conditions:", 1)[1].strip()
+    return "" if c.startswith("Rule:") else c
+
+
+def evidence_rows_md(hid: str) -> str:
+    h = _hyp(hid)
+    if h is None:
+        return f"*Hypothesis {hid} is not in the evidence matrix available at build time.*\n"
+    out = []
+    if h.get("summary"):
+        out.append(f"**Verdict: {h.get('verdict')}.** {esc(_short_txt(h.get('summary'), 100000))}\n")
+    rows = []
+    for r in h.get("rows", []):
+        nums = []
+        for f in (r.get("numerical_findings") or [])[:4]:
+            u = (" " + _short_txt(f.get("unit"), 30).strip()) if f.get("unit") not in (None, "", "-") else ""
+            nums.append(f"{_short_txt(f.get('quantity'), 70)} = {_fmt_val(f.get('value'))}{u} ({f.get('source_type')})")
+        extra = len(r.get("numerical_findings") or []) - 4
+        if extra > 0:
+            nums.append(f"{extra} further value(s) in the matrix")
+        concl = _short_txt(r.get("conclusion"), 100000)
+        cond = _row_conditions(r)
+        if cond:
+            concl += " Conditions: " + cond
+        rows.append([r.get("row_id"), r.get("verdict") or "-", _short_txt(r.get("sub_claim"), 200), "; ".join(nums) or "-", concl])
+    if rows:
+        out.append(evidence_table_caption(f"Evidence rows for {hid}: sub-claim, row verdict, key numbers with their origin, and the "
+                                          "row conclusion with its conditions. *Source: results/research/evidence_matrix.json; models, "
+                                          "cases, assumptions, references, uncertainty ranges and evidence files of each row are in "
+                                          "docs/research/evidence_matrix.md.*")
+                   + "\n\n" + pipe_table(["Row", "Verdict", "Sub-claim", "Key numbers (origin)", "Conclusion"], rows))
+    return "\n".join(out) + "\n"
+
+
+def substitute_tokens(text: str, summary: dict) -> str:
+    def verdict(m):
+        h = _hyp(m.group(1))
+        if h is None:
+            summary.setdefault("unresolved_tokens", []).append(m.group(0))
+            return "not available at build time"
+        return f"**{h.get('verdict')}**"
+
+    def cond(m):
+        h = _hyp(m.group(1))
+        return esc(_short_txt(h.get("verdict_conditions"), 100000)) if h and h.get("verdict_conditions") else "conditions not available at build time"
+
+    text = re.sub(r"\{\{VERDICT:(H\d)\}\}", verdict, text)
+    text = re.sub(r"\{\{VERDICT_CONDITIONS:(H\d)\}\}", cond, text)
+
+    def summ(m):
+        h = _hyp(m.group(1))
+        return esc(_short_txt(h.get("summary"), 100000)) if h and h.get("summary") else "summary not available at build time"
+
+    text = re.sub(r"\{\{VERDICT_SUMMARY:(H\d)\}\}", summ, text)
+
+    def row_verdict(m):
+        h = _hyp(m.group(1).split("-")[0])
+        r = next((x for x in (h or {}).get("rows", []) if str(x.get("row_id")) == m.group(1)), None)
+        if r is None:
+            summary.setdefault("unresolved_tokens", []).append(m.group(0))
+            return f"row {m.group(1)}: not available at build time"
+        return f"row {m.group(1)}: {r.get('verdict')}"
+
+    text = re.sub(r"\{\{ROW_VERDICT:(H\d-[a-z])\}\}", row_verdict, text)
+    text = re.sub(r"\{\{ROW_OUTCOMES:(H\d)\}\}", lambda m: esc(_row_outcomes(_hyp(m.group(1)) or {})) or "not available", text)
+    if "{{EVIDENCE_SUMMARY_TABLE}}" in text:
+        text = text.replace("{{EVIDENCE_SUMMARY_TABLE}}", evidence_summary_table_md())
+    text = re.sub(r"\{\{EVIDENCE_ROWS:(H\d)\}\}", lambda m: evidence_rows_md(m.group(1)), text)
+    if "{{" in text:
+        for t in sorted(set(re.findall(r"\{\{[^}]*\}\}", text))):
+            log(f"WARNING unknown template token left in text: {t}")
+            summary.setdefault("unresolved_tokens", []).append(t)
+    if EVIDENCE_JSON.exists():
+        summary["evidence_matrix_source"] = f"results/research/evidence_matrix.json ({(load_evidence() or {}).get('provenance', {}).get('generated_utc', '-')})"
+    else:
+        summary["evidence_matrix_source"] = "not available"
+    return text
+
+
+def unpublishable_screenshots() -> set[str]:
+    if not EVIDENCE_SHOTS.exists():
+        return set()
+    m = read_json(EVIDENCE_SHOTS)
+    return {c.get("file") for c in m.get("captures", []) if c.get("publish") is False or c.get("status") != "captured"}
+
+
 def process_section(name: str, path: Path, summary: dict, cites: set[str]) -> str:
     text = path.read_text(encoding="utf-8-sig")
+    text = substitute_tokens(text, summary)
+    blocked = unpublishable_screenshots()
     for m in COMMENT_RE.finditer(text):
         c = CITES_RE.match(m.group(1).strip())
         if c:
@@ -432,11 +618,31 @@ def process_section(name: str, path: Path, summary: dict, cites: set[str]) -> st
     def img(m):
         alt, ptxt, attr = m.group("alt").strip(), m.group("path"), m.group("attr") or ""
         found = resolve_image(ptxt, path)
+        if found is not None and found.name in blocked and "aspen_evidence" in found.as_posix():
+            summary.setdefault("unpublishable_screenshots", []).append(found.name)
+            log(f"DROPPED FIGURE ({name}): {found.name} is flagged publish:false or not captured in the evidence manifest")
+            found = None
         if found is None:
             summary["dropped_figures"].append({"section": name, "path": ptxt.strip(), "caption": alt[:120]})
             log(f"DROPPED FIGURE ({name}): {ptxt.strip()}")
             return ""
         summary["figures_inserted"] += 1
+        # optional crop="x0,y0,x1,y1" (pixels of the source image) for screenshots whose form area would
+        # otherwise be unreadable at page width; the crop is written to generated/img, the source is untouched
+        cm = re.search(r'\s*crop="?(\d+),(\d+),(\d+),(\d+)"?', attr)
+        if cm:
+            attr = attr.replace(cm.group(0), "")
+            from PIL import Image
+            box = tuple(int(v) for v in cm.groups())
+            dst = GEN / "img"
+            dst.mkdir(parents=True, exist_ok=True)
+            tgt = dst / (found.stem + "__crop_" + "_".join(cm.groups()) + found.suffix)
+            with Image.open(found) as im:
+                im.crop(box).save(tgt)
+            fm0 = re.match(r"\*\*Figure (\d+\.\d+)\.\*\*", alt)
+            if fm0:
+                summary.setdefault("figure_map", {}).setdefault(found.name, []).append(fm0.group(1))
+            found = tgt
         fm = re.match(r"\*\*Figure (\d+\.\d+)\.\*\*", alt)
         if fm:
             summary.setdefault("figure_map", {}).setdefault(found.name, []).append(fm.group(1))
@@ -488,8 +694,8 @@ def check_intext(all_text: str, cited_refs: list[dict], summary: dict) -> None:
     surnames = {}
     groups = []  # (author string, year, key) for group authors such as organisations
     for r in cited_refs:
-        m = re.match(r"^([^,]+),.*?\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
-        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
+        m = re.match(r"^([^,]+),.*?\((\d{4}[a-z]?|n\.d\.)(?:, [A-Z][a-z]+(?: \d{1,2})?)?\)", r["apa7"])
+        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)(?:, [A-Z][a-z]+(?: \d{1,2})?)?\)", r["apa7"])
         if m_org and "," not in m_org.group(1):
             groups.append((m_org.group(1).lower(), m_org.group(2), r["citekey"]))
             for alias in AUTHOR_ALIASES.get(r["citekey"], []):
@@ -515,8 +721,8 @@ def check_intext(all_text: str, cited_refs: list[dict], summary: dict) -> None:
     flat = re.sub(r"\s+", " ", all_text)
     uncited = []
     for r in cited_refs:
-        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
-        year = re.search(r"\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
+        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)(?:, [A-Z][a-z]+(?: \d{1,2})?)?\)", r["apa7"])
+        year = re.search(r"\((\d{4}[a-z]?|n\.d\.)(?:, [A-Z][a-z]+(?: \d{1,2})?)?\)", r["apa7"])
         year = year.group(1) if year else ""
         names = []
         if m_org and "," not in m_org.group(1):
@@ -659,6 +865,53 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
         summary["screenshots_not_captured"] = [c.get("file") for c in nc]
     else:
         out += ["aspen/screenshots/manifest.json is not available at build time.", ""]
+    # G.2 research-expansion screenshots (kinetic RPLUG cases)
+    if EVIDENCE_SHOTS.exists():
+        m = read_json(EVIDENCE_SHOTS)
+        caps = m.get("captures", [])
+        fmap = summary.get("figure_map", {})
+        rows = []
+        for c in caps:
+            pub = "no" if c.get("publish") is False else "yes"
+            rows.append([c.get("file"), ", ".join(fmap.get(c.get("file"), [])) or "-", c.get("title"),
+                         c.get("navigation_path"), "yes" if c.get("visually_verified") else "no", pub])
+        n_pub = sum(1 for c in caps if c.get("publish") is not False)
+        out += [f"The research expansion added {len(caps)} screenshots of kinetic RPLUG cases, captured from the sanitised "
+                f"`.bkp` files in `aspen/models/research/` after a re-run through COM, with personal identifiers masked. "
+                f"{n_pub} are cleared for publication; only those can appear as figures.", "",
+                "Table: **Table G.2.** Aspen Plus V15 screenshot index of the kinetic reactor cases. "
+                "*Source: docs/images/aspen_evidence/manifest.json.*", "",
+                pipe_table(["File", "Figure", "Title", "Navigation path", "Inspected", "Publishable"], rows)]
+    # H research-expansion validation items
+    out += ["## H Research-expansion validation summary", ""]
+    if RESEARCH_VALIDATION.exists():
+        frows, fails = [], []
+        for p in sorted(RESEARCH_VALIDATION.glob("*.json")):
+            try:
+                items = read_json(p)
+            except Exception:  # noqa: BLE001
+                continue
+            if isinstance(items, dict):
+                items = items.get("items", [])
+            if not isinstance(items, list):
+                continue
+            cnt = {"pass": 0, "fail": 0, "informational": 0}
+            for it in items:
+                s = it.get("status")
+                cnt[s] = cnt.get(s, 0) + 1
+                if s == "fail":
+                    fails.append([p.stem, it.get("id"), _short_txt(it.get("description"), 120), _fmt_val(it.get("observed")) if not isinstance(it.get("observed"), str) else _short_txt(it.get("observed"), 50),
+                                  _fmt_val(it.get("tolerance")) if not isinstance(it.get("tolerance"), str) else _short_txt(it.get("tolerance"), 30)])
+            frows.append([p.stem, len(items), cnt.get("pass", 0), cnt.get("fail", 0), cnt.get("informational", 0)])
+        out += ["Each research workstream wrote its validation items to `results/research/validation/<area>.json` with honest "
+                "pass, fail or informational statuses. The counts and every failing item are listed here as they stand at build time.", "",
+                "Table: **Table H.1.** Research-expansion validation items by workstream and status. "
+                "*Source: results/research/validation/\\*.json.*", "",
+                pipe_table(["Workstream file", "Items", "Pass", "Fail", "Informational"], frows, ["l", "r", "r", "r", "r"])]
+        if fails:
+            out += ["Table: **Table H.2.** Every failing research-expansion validation item. "
+                    "*Source: results/research/validation/\\*.json.*", "",
+                    pipe_table(["File", "ID", "Description", "Observed", "Tolerance"], fails)]
     return "\n".join(out) + "\n"
 
 
@@ -830,7 +1083,22 @@ def _set_column_widths(tbl, text_w) -> None:
     weight = [max(longest_word[j] + 1.5, 0.55 * avg_len[j] + 0.15 * min(max_len[j], 90) + 3) for j in range(ncol)]
     tot = sum(weight)
     total_tw = int(text_w / 635)  # EMU -> twips
-    widths = [int(total_tw * w / tot) for w in weight]
+    widths = [total_tw * w / tot for w in weight]
+    # every column at least as wide as its longest word (9 pt Calibri, about 105 twips per character, plus cell
+    # margins), so that short codes and words such as "INCONCLUSIVE" never break inside the word
+    minw = [min(longest_word[j], 18) * 105 + 160 for j in range(ncol)]
+    if sum(minw) < total_tw:
+        fixed: list[int] = []
+        for _ in range(ncol):
+            new = [j for j in range(ncol) if j not in fixed and widths[j] < minw[j]]
+            if not new:
+                break
+            fixed += new
+            free = [j for j in range(ncol) if j not in fixed]
+            rest = total_tw - sum(minw[j] for j in fixed)
+            wfree = sum(weight[j] for j in free) or 1.0
+            widths = [minw[j] if j in fixed else rest * weight[j] / wfree for j in range(ncol)]
+    widths = [int(w) for w in widths]
     grid = tbl._tbl.tblGrid
     if grid is not None:
         for j, gc in enumerate(grid.findall(qn("w:gridCol"))):
@@ -1056,7 +1324,8 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     summary["equations_total"] = len(body.findall(".//" + qn("m:oMath")))
     summary["word_count"] = words
     h1 = [p.text.strip() for p in doc.paragraphs if p.style is not None and p.style.name == "Heading 1"]
-    want = [f"{n} {t}" for n, (_, t) in EXPECTED.items()] + [REFERENCES_HEADING[2:], APPENDICES_HEADING[2:]]
+    st = summary.get("section_titles", {})
+    want = [st.get(n) or f"{n} {t}" for n, (_, t) in EXPECTED.items()] + [REFERENCES_HEADING[2:], APPENDICES_HEADING[2:]]
     summary["docx_heading1"] = h1
     summary["docx_outline_ok"] = h1 == want
     summary["pdf_pages"] = None
@@ -1083,7 +1352,9 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     log(f"Missing sections     : {len(summary['missing_sections'])}")
     for m in summary["missing_sections"]:
         log(f"   - {m}")
-    log(f"DOCX outline = 27 items: {summary['docx_outline_ok']} ({len(h1)} level-1 headings)")
+    log(f"DOCX outline = 35 items: {summary['docx_outline_ok']} ({len(h1)} level-1 headings)")
+    log(f"Evidence matrix      : {summary.get('evidence_matrix_source')}")
+    log(f"Unpublishable screenshots dropped: {summary.get('unpublishable_screenshots')}")
     if not summary["docx_outline_ok"]:
         for x in sorted(set(want) ^ set(h1)):
             log(f"   - outline difference: {x}")

@@ -15,6 +15,7 @@ const PfdSite = lazy(() => import('./site/pages/PfdSite'))
 // Recharts-heavy site pages are separate chunks, so the landing page loads without the chart library.
 const Results = lazy(() => import('./site/pages/Results'))
 const Research = lazy(() => import('./site/pages/Research'))
+const Hypotheses = lazy(() => import('./site/pages/Hypotheses'))
 
 const Loading = ({ what }: { what: string }) => <div className="wrap" style={{ padding: '48px 24px' }} role="status">Loading {what} ...</div>
 
@@ -36,6 +37,8 @@ export default function App() {
         <Route path="results" element={<Suspense fallback={<Loading what="the results" />}><Results /></Suspense>} />
         <Route path="architecture" element={<Architecture />} />
         <Route path="research" element={<Suspense fallback={<Loading what="the validation record" />}><Research /></Suspense>} />
+        <Route path="hypotheses" element={<Suspense fallback={<Loading what="the hypothesis evidence" />}><Hypotheses /></Suspense>} />
+        <Route path="hypotheses/:page" element={<Suspense fallback={<Loading what="the hypothesis evidence" />}><Hypotheses /></Suspense>} />
         <Route path="docs" element={<Docs />} />
         <Route path="about" element={<About />} />
         <Route path="*" element={<NotFound />} />

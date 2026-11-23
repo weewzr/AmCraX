@@ -97,10 +97,10 @@
   },
   {
     "name": "h2_price_benchmark_ne_asia_smr_production_cost",
-    "value": 4.68,
+    "value": 3.06,
     "unit": "USD/kg H2",
     "source_type": "literature",
-    "source": "Argus regional hydrogen cost markers, Northeast Asia baseline SMR incl. capex, 7 Apr 2026 sample (search-result summary); Nov 2025 value 3.34",
+    "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL",
     "applicability_note": "secondary web value; basis differs by source"
   },
   {
@@ -124,7 +124,7 @@
     "value": 1702,
     "unit": "kUSD at 500 kmol/h NH3",
     "source_type": "literature",
-    "source": "Farokhi/Devkota et al. 2025 p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)",
+    "source": "Farokhi, Oi & Hansen 2025 (IFAC-PapersOnLine 59, 48-53) p. 5 Table 5 (PEC at 500 kmol/h NH3 feed)",
     "applicability_note": "cost year not stated; kUSD inferred"
   },
   {

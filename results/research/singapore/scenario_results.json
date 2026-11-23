@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:07:31+00:00",
+    "generated_utc": "2026-11-23T07:42:11+00:00",
     "script": "scripts/research/economics_singapore.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
@@ -10,7 +10,7 @@
       "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied"
     }
   },
-  "description": "LCOH, REC and breakdown for grey/blue/green ammonia price scenarios, heat integration on and off. Ammonia prices are scenarios (data/singapore.yaml), not Singapore transaction prices. NPV/IRR/payback at the NE Asia SMR benchmark 4.68 USD/kg H2.",
+  "description": "LCOH, REC and breakdown for grey/blue/green ammonia price scenarios, heat integration on and off. Ammonia prices are scenarios (data/singapore.yaml), not Singapore transaction prices. NPV/IRR/payback at the NE Asia SMR benchmark 3.06 USD/kg H2 (Argus, 6 Jan 2026).",
   "results": {
     "grey|heat_integration_on": {
       "scenario": "grey",
@@ -28,9 +28,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 19494759.076211482,
-      "irr": 0.8825478174796713,
-      "payback_yr": 1.1330829274946297,
+      "npv_USD": -10101696.3095058,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 0.5945100760647768,
       "catalyst_mass_kg": 248.54635555555555,
@@ -55,9 +55,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 14526279.269840546,
-      "irr": 0.6856959338045256,
-      "payback_yr": 1.4583692423738468,
+      "npv_USD": -15070176.11587673,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 0.5945100760647768,
       "catalyst_mass_kg": 248.54635555555555,
@@ -82,7 +82,7 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": -54361021.82930259,
+      "npv_USD": -83957477.21501987,
       "irr": null,
       "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
@@ -109,7 +109,7 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": -15284599.568385132,
+      "npv_USD": -44881054.95410241,
       "irr": null,
       "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
@@ -136,9 +136,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 17749076.98208115,
-      "irr": 0.8133839547165216,
-      "payback_yr": 1.2294312535324203,
+      "npv_USD": -11847378.403636131,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 0.5945100760647768,
       "catalyst_mass_kg": 248.54635555555555,
@@ -163,9 +163,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 15589115.946630057,
-      "irr": 0.7278060142395446,
-      "payback_yr": 1.3739909059822977,
+      "npv_USD": -14007339.439087223,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 1.0654408475850905,
       "catalyst_mass_kg": 248.54635555555555,
@@ -190,9 +190,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 10302301.808126219,
-      "irr": 0.5183288019286694,
-      "payback_yr": 1.9292209203270503,
+      "npv_USD": -19294153.57759106,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 1.0654408475850905,
       "catalyst_mass_kg": 248.54635555555555,
@@ -217,7 +217,7 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": -62998661.787886664,
+      "npv_USD": -92595117.17360395,
       "irr": null,
       "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
@@ -244,7 +244,7 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": -21418583.022896893,
+      "npv_USD": -51015038.40861417,
       "irr": null,
       "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
@@ -271,9 +271,9 @@
         "carbon_tax": 0.0
       },
       "purification_memo_USD_per_kg": 0.11683952311034329,
-      "npv_USD": 13731586.654723302,
-      "irr": 0.654209537989249,
-      "payback_yr": 1.5285570025847697,
+      "npv_USD": -15864868.730993979,
+      "irr": null,
+      "payback_yr": null,
       "kg_nh3_feed_per_kg_h2": 6.755655433323276,
       "kg_nh3_fuel_per_kg_h2": 1.0654408475850905,
       "catalyst_mass_kg": 248.54635555555555,

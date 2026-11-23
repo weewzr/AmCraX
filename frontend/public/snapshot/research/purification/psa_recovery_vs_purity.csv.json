@@ -1,0 +1,314 @@
+{
+ "name": "psa_recovery_vs_purity",
+ "area": "purification",
+ "file": "psa_recovery_vs_purity.csv",
+ "columns": [
+  "purity",
+  "recovery_mass_balance_relation",
+  "recovery_hansen_anchor"
+ ],
+ "rows": [
+  {
+   "purity": 0.985,
+   "recovery_mass_balance_relation": 0.7594178735888811,
+   "recovery_hansen_anchor": 0.7131406579447089
+  },
+  {
+   "purity": 0.9852540677966102,
+   "recovery_mass_balance_relation": 0.759274052760773,
+   "recovery_hansen_anchor": 0.7129796282437931
+  },
+  {
+   "purity": 0.9855081355932204,
+   "recovery_mass_balance_relation": 0.7591303605098048,
+   "recovery_hansen_anchor": 0.7128187542205622
+  },
+  {
+   "purity": 0.9857622033898304,
+   "recovery_mass_balance_relation": 0.7589867966636297,
+   "recovery_hansen_anchor": 0.7126580356493701
+  },
+  {
+   "purity": 0.9860162711864406,
+   "recovery_mass_balance_relation": 0.7588433610502087,
+   "recovery_hansen_anchor": 0.7124974723050064
+  },
+  {
+   "purity": 0.9862703389830508,
+   "recovery_mass_balance_relation": 0.7587000534978106,
+   "recovery_hansen_anchor": 0.7123370639626954
+  },
+  {
+   "purity": 0.986524406779661,
+   "recovery_mass_balance_relation": 0.7585568738350099,
+   "recovery_hansen_anchor": 0.7121768103980953
+  },
+  {
+   "purity": 0.9867784745762712,
+   "recovery_mass_balance_relation": 0.7584138218906877,
+   "recovery_hansen_anchor": 0.7120167113872975
+  },
+  {
+   "purity": 0.9870325423728814,
+   "recovery_mass_balance_relation": 0.7582708974940299,
+   "recovery_hansen_anchor": 0.711856766706824
+  },
+  {
+   "purity": 0.9872866101694915,
+   "recovery_mass_balance_relation": 0.7581281004745266,
+   "recovery_hansen_anchor": 0.7116969761336284
+  },
+  {
+   "purity": 0.9875406779661017,
+   "recovery_mass_balance_relation": 0.7579854306619721,
+   "recovery_hansen_anchor": 0.7115373394450935
+  },
+  {
+   "purity": 0.9877947457627119,
+   "recovery_mass_balance_relation": 0.7578428878864636,
+   "recovery_hansen_anchor": 0.7113778564190306
+  },
+  {
+   "purity": 0.9880488135593221,
+   "recovery_mass_balance_relation": 0.7577004719784008,
+   "recovery_hansen_anchor": 0.711218526833679
+  },
+  {
+   "purity": 0.9883028813559323,
+   "recovery_mass_balance_relation": 0.7575581827684852,
+   "recovery_hansen_anchor": 0.711059350467704
+  },
+  {
+   "purity": 0.9885569491525423,
+   "recovery_mass_balance_relation": 0.7574160200877192,
+   "recovery_hansen_anchor": 0.7109003271001965
+  },
+  {
+   "purity": 0.9888110169491525,
+   "recovery_mass_balance_relation": 0.7572739837674061,
+   "recovery_hansen_anchor": 0.710741456510672
+  },
+  {
+   "purity": 0.9890650847457627,
+   "recovery_mass_balance_relation": 0.7571320736391484,
+   "recovery_hansen_anchor": 0.7105827384790695
+  },
+  {
+   "purity": 0.9893191525423729,
+   "recovery_mass_balance_relation": 0.7569902895348479,
+   "recovery_hansen_anchor": 0.7104241727857503
+  },
+  {
+   "purity": 0.9895732203389831,
+   "recovery_mass_balance_relation": 0.756848631286705,
+   "recovery_hansen_anchor": 0.710265759211497
+  },
+  {
+   "purity": 0.9898272881355932,
+   "recovery_mass_balance_relation": 0.7567070987272175,
+   "recovery_hansen_anchor": 0.710107497537513
+  },
+  {
+   "purity": 0.9900813559322034,
+   "recovery_mass_balance_relation": 0.7565656916891809,
+   "recovery_hansen_anchor": 0.7099493875454206
+  },
+  {
+   "purity": 0.9903354237288136,
+   "recovery_mass_balance_relation": 0.7564244100056864,
+   "recovery_hansen_anchor": 0.7097914290172609
+  },
+  {
+   "purity": 0.9905894915254237,
+   "recovery_mass_balance_relation": 0.7562832535101215,
+   "recovery_hansen_anchor": 0.7096336217354922
+  },
+  {
+   "purity": 0.9908435593220339,
+   "recovery_mass_balance_relation": 0.7561422220361688,
+   "recovery_hansen_anchor": 0.7094759654829891
+  },
+  {
+   "purity": 0.9910976271186441,
+   "recovery_mass_balance_relation": 0.7560013154178051,
+   "recovery_hansen_anchor": 0.709318460043042
+  },
+  {
+   "purity": 0.9913516949152542,
+   "recovery_mass_balance_relation": 0.7558605334893014,
+   "recovery_hansen_anchor": 0.7091611051993554
+  },
+  {
+   "purity": 0.9916057627118644,
+   "recovery_mass_balance_relation": 0.7557198760852216,
+   "recovery_hansen_anchor": 0.7090039007360471
+  },
+  {
+   "purity": 0.9918598305084746,
+   "recovery_mass_balance_relation": 0.7555793430404223,
+   "recovery_hansen_anchor": 0.7088468464376476
+  },
+  {
+   "purity": 0.9921138983050848,
+   "recovery_mass_balance_relation": 0.7554389341900517,
+   "recovery_hansen_anchor": 0.7086899420890987
+  },
+  {
+   "purity": 0.992367966101695,
+   "recovery_mass_balance_relation": 0.7552986493695497,
+   "recovery_hansen_anchor": 0.7085331874757529
+  },
+  {
+   "purity": 0.9926220338983051,
+   "recovery_mass_balance_relation": 0.7551584884146466,
+   "recovery_hansen_anchor": 0.7083765823833718
+  },
+  {
+   "purity": 0.9928761016949152,
+   "recovery_mass_balance_relation": 0.7550184511613625,
+   "recovery_hansen_anchor": 0.7082201265981255
+  },
+  {
+   "purity": 0.9931301694915254,
+   "recovery_mass_balance_relation": 0.7548785374460067,
+   "recovery_hansen_anchor": 0.7080638199065922
+  },
+  {
+   "purity": 0.9933842372881356,
+   "recovery_mass_balance_relation": 0.7547387471051779,
+   "recovery_hansen_anchor": 0.7079076620957561
+  },
+  {
+   "purity": 0.9936383050847458,
+   "recovery_mass_balance_relation": 0.7545990799757619,
+   "recovery_hansen_anchor": 0.7077516529530073
+  },
+  {
+   "purity": 0.9938923728813559,
+   "recovery_mass_balance_relation": 0.7544595358949329,
+   "recovery_hansen_anchor": 0.7075957922661404
+  },
+  {
+   "purity": 0.9941464406779661,
+   "recovery_mass_balance_relation": 0.7543201147001508,
+   "recovery_hansen_anchor": 0.7074400798233537
+  },
+  {
+   "purity": 0.9944005084745763,
+   "recovery_mass_balance_relation": 0.7541808162291627,
+   "recovery_hansen_anchor": 0.7072845154132481
+  },
+  {
+   "purity": 0.9946545762711865,
+   "recovery_mass_balance_relation": 0.7540416403200002,
+   "recovery_hansen_anchor": 0.7071290988248264
+  },
+  {
+   "purity": 0.9949086440677967,
+   "recovery_mass_balance_relation": 0.7539025868109808,
+   "recovery_hansen_anchor": 0.7069738298474924
+  },
+  {
+   "purity": 0.9951627118644069,
+   "recovery_mass_balance_relation": 0.7537636555407053,
+   "recovery_hansen_anchor": 0.7068187082710491
+  },
+  {
+   "purity": 0.9954167796610169,
+   "recovery_mass_balance_relation": 0.7536248463480592,
+   "recovery_hansen_anchor": 0.7066637338856993
+  },
+  {
+   "purity": 0.9956708474576271,
+   "recovery_mass_balance_relation": 0.7534861590722098,
+   "recovery_hansen_anchor": 0.7065089064820428
+  },
+  {
+   "purity": 0.9959249152542373,
+   "recovery_mass_balance_relation": 0.7533475935526079,
+   "recovery_hansen_anchor": 0.7063542258510772
+  },
+  {
+   "purity": 0.9961789830508475,
+   "recovery_mass_balance_relation": 0.7532091496289852,
+   "recovery_hansen_anchor": 0.7061996917841958
+  },
+  {
+   "purity": 0.9964330508474577,
+   "recovery_mass_balance_relation": 0.7530708271413554,
+   "recovery_hansen_anchor": 0.706045304073187
+  },
+  {
+   "purity": 0.9966871186440678,
+   "recovery_mass_balance_relation": 0.7529326259300119,
+   "recovery_hansen_anchor": 0.7058910625102336
+  },
+  {
+   "purity": 0.996941186440678,
+   "recovery_mass_balance_relation": 0.7527945458355287,
+   "recovery_hansen_anchor": 0.7057369668879114
+  },
+  {
+   "purity": 0.9971952542372882,
+   "recovery_mass_balance_relation": 0.7526565866987587,
+   "recovery_hansen_anchor": 0.7055830169991889
+  },
+  {
+   "purity": 0.9974493220338984,
+   "recovery_mass_balance_relation": 0.7525187483608337,
+   "recovery_hansen_anchor": 0.7054292126374255
+  },
+  {
+   "purity": 0.9977033898305085,
+   "recovery_mass_balance_relation": 0.7523810306631633,
+   "recovery_hansen_anchor": 0.7052755535963716
+  },
+  {
+   "purity": 0.9979574576271186,
+   "recovery_mass_balance_relation": 0.752243433447435,
+   "recovery_hansen_anchor": 0.7051220396701671
+  },
+  {
+   "purity": 0.9982115254237288,
+   "recovery_mass_balance_relation": 0.7521059565556132,
+   "recovery_hansen_anchor": 0.70496867065334
+  },
+  {
+   "purity": 0.998465593220339,
+   "recovery_mass_balance_relation": 0.7519685998299381,
+   "recovery_hansen_anchor": 0.7048154463408067
+  },
+  {
+   "purity": 0.9987196610169492,
+   "recovery_mass_balance_relation": 0.751831363112926,
+   "recovery_hansen_anchor": 0.70466236652787
+  },
+  {
+   "purity": 0.9989737288135594,
+   "recovery_mass_balance_relation": 0.7516942462473678,
+   "recovery_hansen_anchor": 0.7045094310102188
+  },
+  {
+   "purity": 0.9992277966101696,
+   "recovery_mass_balance_relation": 0.7515572490763295,
+   "recovery_hansen_anchor": 0.7043566395839268
+  },
+  {
+   "purity": 0.9994818644067797,
+   "recovery_mass_balance_relation": 0.7514203714431505,
+   "recovery_hansen_anchor": 0.704203992045452
+  },
+  {
+   "purity": 0.9997359322033899,
+   "recovery_mass_balance_relation": 0.7512836131914435,
+   "recovery_hansen_anchor": 0.7040514881916357
+  },
+  {
+   "purity": 0.99999,
+   "recovery_mass_balance_relation": 0.7511469741650943,
+   "recovery_hansen_anchor": 0.7038991278197009
+  }
+ ],
+ "count": 60,
+ "source_note": "results/research/purification/psa_recovery_vs_purity.csv; values as stored, no post-processing"
+}

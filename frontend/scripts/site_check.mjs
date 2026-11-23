@@ -6,7 +6,7 @@
 //
 // For every viewport and every route it checks: renders (one h1 / platform title), no console errors, no failed or 4xx/5xx requests,
 // no request outside the base path (so no API call and no absolute "/..." URL), no horizontal overflow. Plus interaction checks
-// (mobile menu, nav reaches nine sections, PFD equipment + stream panels on site and platform, calculator, anchors, downloads).
+// (mobile menu, nav reaches ten sections, PFD equipment + stream panels on site and platform, calculator, anchors, downloads).
 // Screenshots: full-page site routes at the desktop viewport go to <shots>/site_<page>_desktop.png (default docs/screenshots); every other
 // viewport and the platform / calculator captures go to <shots>/qa/ (git-ignored QA captures). Exit code 1 when a check fails.
 import { mkdirSync } from 'node:fs'
@@ -21,14 +21,15 @@ const origin = new URL(base).origin
 const prefix = new URL(base).pathname
 const shots = path.resolve(args.shots ?? path.join(here, '..', '..', 'docs', 'screenshots'))
 const VIEWPORTS = (args.viewports ?? '390x844,820x1180,1440x900,1920x1080').split(',').map((s) => { const [w, h] = s.split('x').map(Number); return { w, h, label: w === 390 ? 'phone' : w === 820 ? 'tablet' : w === 1440 ? 'desktop' : w === 1920 ? 'fullhd' : `${w}x${h}` } })
-const SITE = ['', 'why', 'pfd', 'methodology', 'results', 'architecture', 'research', 'docs', 'about']
+const HYP = ['hypotheses', 'hypotheses/catalyst', 'hypotheses/economics', 'hypotheses/purification', 'hypotheses/end-use', 'hypotheses/validation', 'hypotheses/aspen-evidence']
+const SITE = ['', 'why', 'pfd', 'methodology', 'results', 'architecture', 'research', 'docs', 'about', ...HYP]
 const PLATFORM = ['platform', 'platform/pfd', 'platform/simulation', 'platform/reactor', 'platform/heat', 'platform/sensitivity', 'platform/optimisation', 'platform/economics', 'platform/environment', 'platform/validation', 'platform/reports']
 const only = args.routes ? new Set(args.routes.split(',')) : null
 const ROUTES = [...SITE, ...PLATFORM].filter((r) => !only || only.has(r === '' ? 'home' : r))
-const name = (r) => (r === '' ? 'home' : r.replace('platform/', 'platform_').replace(/\//g, '_'))
+const name = (r) => (r === '' ? 'home' : r === 'hypotheses' ? 'research_matrix' : r.startsWith('hypotheses/') ? `research_${r.slice(11).replace(/-/g, '_')}` : r.replace('platform/', 'platform_').replace(/\//g, '_'))
 const qaDir = path.join(shots, 'qa')
 if (args['no-shots'] !== 'true') { mkdirSync(shots, { recursive: true }); mkdirSync(qaDir, { recursive: true }) }
-/** Published set: desktop captures of the nine site routes only; everything else is a QA capture. */
+/** Published set: desktop captures of the site routes only; everything else is a QA capture. */
 const shotPath = (route, label, isPlat, kind = 'page') => path.join(label === 'desktop' && !isPlat && kind === 'page' ? shots : qaDir, `site_${kind === 'page' ? name(route) : kind}_${label}.png`)
 
 const results = []
@@ -62,7 +63,7 @@ for (const vp of VIEWPORTS) {
   async function settle(route) {
     await page.waitForFunction(() => {
       const t = document.body.innerText
-      return !/Resolving data mode|Loading (the )?(platform|diagram|flowsheet|data|Aspen|Python|stored|Separation|Validation|Reference|Equilibrium|Plug|Techno|Optimisation|LCOH|Carbon|Single|Deliverables|Figures|Model|case)/i.test(t) && document.querySelector('.site, .shell')
+      return !/Resolving data mode|Loading [^\n]{3,90} \.\.\.|Loading (the )?(platform|diagram|flowsheet|data|Aspen|Python|stored|Separation|Validation|Reference|Equilibrium|Plug|Techno|Optimisation|LCOH|Carbon|Single|Deliverables|Figures|Model|case)/i.test(t) && document.querySelector('.site, .shell')
     }, null, { timeout: 60000 }).catch(() => pushP('settle timeout (loading text still present)'))
     if (route === 'pfd' || route === 'platform/pfd') await page.waitForSelector('.react-flow__node', { timeout: 20000 }).catch(() => pushP('no PFD nodes'))
     await page.waitForTimeout(route === 'results' ? 2500 : 1200)
@@ -99,6 +100,19 @@ for (const vp of VIEWPORTS) {
     else record(vp.label, `${id}: header notice says static site`, /Published results - static site\. Live Aspen Plus runs need the local platform\./.test(info.noteBar ?? ''), info.noteBar ?? '')
     record(vp.label, `${id}: no "undefined"/"NaN"/"[object" text`, !/\bundefined\b|\bNaN\b|\[object /.test(info.bodyText))
     if (route === 'results') record(vp.label, `${id}: charts drawn (${info.charts} cards, ${info.emptyCharts} without data marks)`, info.charts >= 9 && info.emptyCharts === 0)
+    if (route.startsWith('hypotheses')) {
+      const hy = await page.evaluate(() => ({
+        badges: document.querySelectorAll('.badge').length,
+        stored: /does not run Aspen Plus/.test(document.body.innerText),
+        tables: document.querySelectorAll('table.data').length,
+        brokenImgs: [...document.querySelectorAll('img')].filter((i) => i.complete && i.naturalWidth === 0).length,
+        notAvail: /Data not available yet|Could not load|Not in the SNAPSHOT/.test(document.body.innerText),
+        subnav: document.querySelectorAll('.chip-nav a').length,
+      }))
+      record(vp.label, `${id}: stored-results statement, sub-navigation, source badges`, hy.stored && hy.subnav === 7 && (route === 'hypotheses' || route === 'hypotheses/validation' || hy.badges >= 4), JSON.stringify(hy))
+      record(vp.label, `${id}: no missing-data notice and no broken images`, !hy.notAvail && hy.brokenImgs === 0, JSON.stringify(hy))
+      if (['hypotheses/catalyst', 'hypotheses/economics', 'hypotheses/purification', 'hypotheses/end-use'].includes(route)) record(vp.label, `${id}: charts drawn (${info.charts} cards, ${info.emptyCharts} without data marks)`, info.charts >= 4 && info.emptyCharts === 0)
+    }
     record(vp.label, `${id}: no console errors / failed or 4xx requests / requests outside base`, problems.length === before, problems.slice(before).join(' | ').slice(0, 400))
     if (args['no-shots'] !== 'true') {
       if (args.fullpage !== 'false' && !isPlat) await page.evaluate(async () => { const h = document.documentElement.scrollHeight; for (let y = 0; y < h; y += 700) { window.scrollTo(0, y); await new Promise((r) => setTimeout(r, 60)) } })  // trigger lazy images
@@ -112,11 +126,11 @@ for (const vp of VIEWPORTS) {
   if (!only || only.has('home')) {
     cur = 'interaction'
     await go('')
-    // nav reaches the nine sections
+    // nav reaches the ten sections
     const nine = vp.w >= 1331
     if (!nine) { await page.click('.nav-toggle'); await page.waitForTimeout(300) }
     const links = await page.$$eval('.site-nav a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
-    record(vp.label, `nav: ${nine ? 'top bar' : 'mobile menu'} shows all nine sections`, links.length === 9, links.join(', '))
+    record(vp.label, `nav: ${nine ? 'top bar' : 'mobile menu'} shows all ten sections`, links.length === 10, links.join(', '))
     if (!nine) {
       const expanded = await page.getAttribute('.nav-toggle', 'aria-expanded')
       record(vp.label, 'mobile menu: toggle has aria-expanded=true when open', expanded === 'true')

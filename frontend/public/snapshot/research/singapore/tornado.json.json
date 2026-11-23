@@ -1,0 +1,135 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T07:42:11+00:00",
+  "script": "scripts/research/economics_singapore.py",
+  "source_type": "python",
+  "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
+  "model_versions": {
+   "economics_module": "amcrax.economics.singapore/1",
+   "data_schema": "amcrax.singapore/1",
+   "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied"
+  }
+ },
+ "basis": "grey scenario (450 USD/t), heat integration on, equipment-level CAPEX",
+ "lcoh_base_USD_per_kg": 3.612929322384218,
+ "bars": [
+  {
+   "parameter": "nh3_price_USD_per_t",
+   "label": "NH3 price 300-610 USD/t (Cho Table 8)",
+   "low_input": 300,
+   "high_input": 610,
+   "lcoh_at_low_input": 2.5104044959760095,
+   "lcoh_at_high_input": 4.788955803886306,
+   "swing": 2.278551307910296
+  },
+  {
+   "parameter": "capacity_scale",
+   "label": "Capacity x0.25-x4 (feed 25-400 kmol/h)",
+   "low_input": 4.0,
+   "high_input": 0.25,
+   "lcoh_at_low_input": 3.5032678859444735,
+   "lcoh_at_high_input": 3.9028862699802858,
+   "swing": 0.3996183840358123
+  },
+  {
+   "parameter": "psa_recovery",
+   "label": "PSA recovery 0.95-0.756 (Cho 0.756; AmCraX 0.85)",
+   "low_input": 0.95,
+   "high_input": 0.756,
+   "lcoh_at_low_input": 3.5144162037859465,
+   "lcoh_at_high_input": 3.7613622152669173,
+   "swing": 0.24694601148097073
+  },
+  {
+   "parameter": "capex_multiplier",
+   "label": "CAPEX multiplier 0.5-1.5 (Cho Table 8)",
+   "low_input": 0.5,
+   "high_input": 1.5,
+   "lcoh_at_low_input": 3.4983874947573543,
+   "lcoh_at_high_input": 3.7274711500110813,
+   "swing": 0.22908365525372698
+  },
+  {
+   "parameter": "heat_integration",
+   "label": "Heat integration on vs off",
+   "low_input": "on",
+   "high_input": "off",
+   "lcoh_at_low_input": 3.612929322384218,
+   "lcoh_at_high_input": 3.8267097155922256,
+   "swing": 0.2137803932080078
+  },
+  {
+   "parameter": "operating_hours_h_per_yr",
+   "label": "Capacity factor 7000-8000 h/yr",
+   "low_input": 8000,
+   "high_input": 7000,
+   "lcoh_at_low_input": 3.612929322384218,
+   "lcoh_at_high_input": 3.6562722106463292,
+   "swing": 0.04334288826211141
+  },
+  {
+   "parameter": "capex_scaling_exponent",
+   "label": "Capacity exponent 0.7451-0.8 (Ahmad Fig. 6; Chopra Eq. 5)",
+   "low_input": 0.7451,
+   "high_input": 0.8,
+   "lcoh_at_low_input": 3.634119411169725,
+   "lcoh_at_high_input": 3.612929322384218,
+   "swing": 0.02119008878550721
+  },
+  {
+   "parameter": "discount_rate",
+   "label": "Discount rate 8.5-10 %",
+   "low_input": 0.085,
+   "high_input": 0.1,
+   "lcoh_at_low_input": 3.59572037016059,
+   "lcoh_at_high_input": 3.612929322384218,
+   "swing": 0.017208952223627616
+  },
+  {
+   "parameter": "plant_life_yr",
+   "label": "Plant life 25-20 yr",
+   "low_input": 25,
+   "high_input": 20,
+   "lcoh_at_low_input": 3.612929322384218,
+   "lcoh_at_high_input": 3.623002865611553,
+   "swing": 0.010073543227335335
+  },
+  {
+   "parameter": "catalyst_price_USD_per_kg",
+   "label": "Catalyst price 0.5x-2x (Cho Table 8)",
+   "low_input": 16.7,
+   "high_input": 66.8,
+   "lcoh_at_low_input": 3.6118981923459788,
+   "lcoh_at_high_input": 3.6149915824606964,
+   "swing": 0.0030933901147176535
+  },
+  {
+   "parameter": "catalyst_lifetime_yr",
+   "label": "Catalyst lifetime 4-1 yr (Cho Table 8)",
+   "low_input": 4.0,
+   "high_input": 1.0,
+   "lcoh_at_low_input": 3.6118981923459788,
+   "lcoh_at_high_input": 3.6149915824606964,
+   "swing": 0.0030933901147176535
+  },
+  {
+   "parameter": "electricity_price_USD_per_kWh",
+   "label": "Electricity 0.084-0.222 USD/kWh (Cho; SP Group Q4 2026)",
+   "low_input": 0.084,
+   "high_input": 0.22162790697674417,
+   "lcoh_at_low_input": 3.6125180668037453,
+   "lcoh_at_high_input": 3.6135275045662345,
+   "swing": 0.0010094377624891848
+  },
+  {
+   "parameter": "carbon_tax_SGD_per_t",
+   "label": "Carbon tax 0-80 SGD/t (ammonia heat: no direct CO2)",
+   "low_input": 0.0,
+   "high_input": 80.0,
+   "lcoh_at_low_input": 3.612929322384218,
+   "lcoh_at_high_input": 3.612929322384218,
+   "swing": 0.0
+  }
+ ],
+ "note": "capacity bars hold labour fixed (labour_scales_with_capacity False)."
+}

@@ -1,13 +1,13 @@
 [
   {
     "citekey": "halim2025ammoniapower",
-    "apa7": "Halim, Zain, & Khoo (2025). Assessing the feasibility of Ammonia utilization for Power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+    "apa7": "Halim, I., Zain, N. S., & Khoo, H. H. (2025). Assessing the feasibility of Ammonia utilization for Power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
     "doi": "10.1016/j.apenergy.2025.125581",
     "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
     "access_date": "2026-11-23",
     "doi_verified": false,
     "in_local_library": false,
-    "taken_from": "Abstract only (A*STAR OAR listing https://oar.a-star.edu.sg/communities-collections/articles/21565 and IDEAS https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html): direct ammonia use preferred to cracking because of cracking capital and operating cost; green NH3 near-zero emissions; coal-derived NH3 cracked could exceed Singapore grid emissions; blue NH3 an interim option. Author initials not confirmed. Numerical results (60.1 MW, LCOH 15.1/10.1, 40 %) NOT verified: full text not accessible."
+    "taken_from": "Abstract only (A*STAR OAR listing https://oar.a-star.edu.sg/communities-collections/articles/21565 and IDEAS https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html): direct ammonia use preferred to cracking because of cracking capital and operating cost; green NH3 near-zero emissions; coal-derived NH3 cracked could exceed Singapore grid emissions; blue NH3 an interim option. Authors (Iskandar Halim, Nur Sara Zain, Hsien H. Khoo) and DOI confirmed through Crossref by the independent review. Numerical results (60.1 MW, LCOH 15.1/10.1, 40 %) NOT verified: full text not accessible."
   },
   {
     "citekey": "lee2022ammonia",
@@ -48,11 +48,12 @@
   },
   {
     "citekey": "ren2021coalnh3lca",
-    "apa7": "Life cycle assessment of ammonia synthesis based on pulverized coal entrained flow gasification technology in China (2021). The International Journal of Life Cycle Assessment. https://doi.org/10.1007/s11367-021-02010-z",
+    "apa7": "Zhang, Liu, Li, Deng, Miao, Xu, Liu, Xie, & Tian (2022). Life cycle assessment of ammonia synthesis in China. The International Journal of Life Cycle Assessment, 27, 50-61. https://doi.org/10.1007/s11367-021-02010-z",
     "doi": "10.1007/s11367-021-02010-z",
     "url": "https://link.springer.com/article/10.1007/s11367-021-02010-z",
     "access_date": "2026-11-23",
-    "taken_from": "LOW CONFIDENCE: GHG intensity 3.88 -> 2.18 kg per kg NH3 (older vs advanced coal gasification) from a search extract of the abstract; publisher page redirected to a login. Author list not confirmed."
+    "review_correction": "Independent review 2026-11-23: the DOI resolves (Crossref) to Zhang et al. (2022), 'Life cycle assessment of ammonia synthesis in China', vol. 27, pp. 50-61, not to the 'pulverized coal entrained flow gasification' paper (a different study, Ren et al. 2021). Citekey kept unchanged for traceability; title, year and authors corrected. Author initials not retrieved.",
+    "taken_from": "LOW CONFIDENCE: GHG intensity 3.88 -> 2.18 kg per kg NH3 (traditional intermittent vs advanced coal-water-slurry gasification, per a secondary abstract listing) from a search extract of the abstract; publisher page redirected to a login."
   },
   {
     "citekey": "arxiv2206.10689smr",
@@ -63,11 +64,12 @@
   },
   {
     "citekey": "frontiers2024smrccs",
-    "apa7": "Frontiers in Energy Research (2024). Review of hydrogen production emissions. https://doi.org/10.3389/fenrg.2024.1473383",
+    "apa7": "Elgowainy, Vyawahare, Ng, Frank, Bafana, Burnham, Sun, Cai, Lee, Reddi, & Wang (2024). Environmental life-cycle analysis of hydrogen technology pathways in the United States. Frontiers in Energy Research, 12, 1473383. https://doi.org/10.3389/fenrg.2024.1473383",
     "doi": "10.3389/fenrg.2024.1473383",
     "url": "https://www.frontiersin.org/journals/energy-research/articles/10.3389/fenrg.2024.1473383/full",
     "access_date": "2026-11-23",
-    "taken_from": "LOW CONFIDENCE (search extract only): CCS reduced SMR emissions to 3.4-3.6 kg CO2e/kg H2; capture rate and boundary not confirmed. Title and authors not confirmed."
+    "review_correction": "Independent review 2026-11-23: title and authors resolved through Crossref (the earlier title 'Review of hydrogen production emissions' was wrong). The 3.4-3.6 kg CO2e/kg H2 range appears in the paper's introduction as a summary of OTHER studies, not as the paper's own GREET result: treat as a secondary citation. Family names from Crossref; initials not retrieved.",
+    "taken_from": "LOW CONFIDENCE (search extract only): CCS reduced SMR emissions to 3.4-3.6 kg CO2e/kg H2 (literature summary in the introduction); capture rate and boundary not confirmed."
   },
   {
     "citekey": "glec2023v3",

@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:07:31+00:00",
+    "generated_utc": "2026-11-23T07:42:11+00:00",
     "script": "scripts/research/economics_singapore.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",

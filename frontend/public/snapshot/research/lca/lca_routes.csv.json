@@ -1,0 +1,105 @@
+{
+ "name": "lca_routes",
+ "area": "lca",
+ "file": "lca_routes.csv",
+ "columns": [
+  "route",
+  "label",
+  "gate_kgCO2e_per_kgNH3",
+  "range_low",
+  "range_high",
+  "delivered_5000km",
+  "source_type",
+  "H2_kgCO2e_per_kg",
+  "direct_NH3_CCGT_kgCO2e_per_MWh",
+  "cracked_purified_H2_CCGT_kgCO2e_per_MWh"
+ ],
+ "rows": [
+  {
+   "route": "green",
+   "label": "green NH3 (renewable, incl. embedded asset emissions)",
+   "gate_kgCO2e_per_kgNH3": 0.2752157829839704,
+   "range_low": 0.07102342786683108,
+   "range_high": 0.4794081381011098,
+   "delivered_5000km": 0.3302157829839704,
+   "source_type": "literature",
+   "H2_kgCO2e_per_kg": 2.4300891449157564,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 128.94984400106932,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 146.91776944657866
+  },
+  {
+   "route": "green_lee",
+   "label": "green NH3 (Lee boundary, zero)",
+   "gate_kgCO2e_per_kgNH3": 0.0,
+   "range_low": 0.0,
+   "range_high": 0.4794081381011098,
+   "delivered_5000km": 0.055,
+   "source_type": "literature",
+   "H2_kgCO2e_per_kg": 0.4072075891877498,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 21.65974910295902,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 24.631919618332944
+  },
+  {
+   "route": "blue",
+   "label": "blue NH3 (Lee v1: process CO2 captured)",
+   "gate_kgCO2e_per_kgNH3": 1.1600000000000001,
+   "range_low": 0.77,
+   "range_high": 1.9212585987261146,
+   "delivered_5000km": 1.215,
+   "source_type": "literature",
+   "H2_kgCO2e_per_kg": 8.933399580077893,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 473.87403976759276,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 540.051436125593
+  },
+  {
+   "route": "blue_v2",
+   "label": "blue NH3 (Lee v2: process + flue-gas CO2 captured)",
+   "gate_kgCO2e_per_kgNH3": 0.7700000000000002,
+   "range_low": 0.7700000000000002,
+   "range_high": 1.5702585987261148,
+   "delivered_5000km": 0.8250000000000003,
+   "source_type": "literature",
+   "H2_kgCO2e_per_kg": 6.066835031416552,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 321.836476526897,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 366.763840058497
+  },
+  {
+   "route": "blue_param",
+   "label": "blue NH3 (95 % process capture, 1.5 % extra CH4 leakage)",
+   "gate_kgCO2e_per_kgNH3": 1.5406292993630575,
+   "range_low": 1.2011505732484078,
+   "range_high": 1.9212585987261146,
+   "delivered_5000km": 1.5956292993630574,
+   "source_type": "assumption",
+   "H2_kgCO2e_per_kg": 11.731087928118777,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 622.2585299552147,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 709.1753753033552
+  },
+  {
+   "route": "grey",
+   "label": "grey NH3 (NG SMR, no capture)",
+   "gate_kgCO2e_per_kgNH3": 2.6,
+   "range_low": 2.0,
+   "range_high": 4.6,
+   "delivered_5000km": 2.6550000000000002,
+   "source_type": "literature",
+   "H2_kgCO2e_per_kg": 19.517637913596687,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1035.243504040931,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 1179.8825600656398
+  },
+  {
+   "route": "coal",
+   "label": "coal-based NH3",
+   "gate_kgCO2e_per_kgNH3": 3.0300000000000002,
+   "range_low": 2.18,
+   "range_high": 3.88,
+   "delivered_5000km": 3.0850000000000004,
+   "source_type": "literature (low confidence)",
+   "H2_kgCO2e_per_kg": 22.67820908263355,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1202.8746635114417,
+   "cracked_purified_H2_CCGT_kgCO2e_per_MWh": 1370.9432429088483
+  }
+ ],
+ "count": 7,
+ "source_note": "results/research/lca/lca_routes.csv; values as stored, no post-processing"
+}

@@ -100,7 +100,7 @@ class SGParams:
     capex_mode: str = "equipment"                   # "equipment" | "legacy" (plant-level, as lcoh.py)
     capacity_scale: float = 1.0                     # multiplier on NH3 feed (and all flows)
     psa_recovery: Optional[float] = None            # None -> value in the stored result
-    h2_price_USD_per_kg: float = 4.68
+    h2_price_USD_per_kg: float = 3.06               # Argus NE Asia SMR incl. capex, 6 Jan 2026 (singapore.yaml)
     transport_USD_per_kg_H2: Optional[float] = None
     labour_scales_with_capacity: bool = False
     capex_scaling_exponent: Optional[float] = None  # None -> 0.8 (Chopra 2026 Eq. 5); 0.7451 = Ahmad 2025 Fig. 6

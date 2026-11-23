@@ -25,11 +25,27 @@ export const SITE_ROUTES: SiteRoute[] = [
   { path: '/research', label: 'Research', title: 'Research and validation', section: 7 },
   { path: '/docs', label: 'Docs', title: 'Documentation and downloads', section: 8 },
   { path: '/about', label: 'About', title: 'About AmCraX', section: 9 },
+  { path: '/hypotheses', label: 'Hypotheses', title: 'Hypothesis testing', section: 10 },
 ]
+
+/** Sub-pages of the Hypotheses section (/hypotheses/<slug>); the section's root page holds the evidence matrix. */
+export const HYPOTHESIS_PAGES: { slug: string; label: string; title: string }[] = [
+  { slug: '', label: 'Evidence matrix', title: 'Evidence matrix: four hypotheses' },
+  { slug: 'catalyst', label: 'Catalysts', title: 'Catalyst comparison and heat integration' },
+  { slug: 'economics', label: 'Singapore economics', title: 'Singapore techno-economics' },
+  { slug: 'purification', label: 'Purification', title: 'Hydrogen purification: PSA and membrane' },
+  { slug: 'end-use', label: 'End use and carbon', title: 'End-use comparison and life-cycle carbon' },
+  { slug: 'validation', label: 'Validation', title: 'Research validation summary' },
+  { slug: 'aspen-evidence', label: 'Aspen evidence', title: 'Aspen Plus V15 evidence gallery' },
+]
+
+export const hypothesisPath = (slug: string): string => (slug ? `/hypotheses/${slug}`  : '/hypotheses')
 
 /** Document title for a pathname ("AmCraX - <page>"). */
 export function titleFor(pathname: string): string {
   if (isPlatformPath(pathname)) return 'AmCraX platform'
+  const hp = HYPOTHESIS_PAGES.find((x) => x.slug && pathname === hypothesisPath(x.slug))
+  if (hp) return `${hp.title} - AmCraX`
   const r = SITE_ROUTES.find((x) => x.path === pathname)
   return r && r.path !== '/' ? `${r.title} - AmCraX` : 'AmCraX - Ammonia cracking simulation and optimisation platform'
 }

@@ -7,6 +7,8 @@ const API_PROXY = {
   '/files': 'http://localhost:8000',
   '/aspen-screenshots': 'http://localhost:8000',
   '/dashboard-screenshots': 'http://localhost:8000',
+  '/aspen-evidence': 'http://localhost:8000',
+  '/research-figures': 'http://localhost:8000',
 }
 
 /**

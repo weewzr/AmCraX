@@ -1,5 +1,5 @@
 {
- "created_utc": "2026-11-21T14:38:14+00:00",
+ "created_utc": "2026-11-21T15:05:43+00:00",
  "engine": "python_model",
  "source": "python_model",
  "seed": 12345,
@@ -92,7 +92,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:35:13+00:00",
+   "created_utc": "2026-11-21T15:02:33+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -1168,7 +1168,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 22.32835100000011
+    "wall_time_s": 23.59568760000184
    },
    "evaluation_options": {},
    "limitations": [
@@ -1196,7 +1196,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:35:23+00:00",
+   "created_utc": "2026-11-21T15:02:44+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -1820,7 +1820,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 10.59702340000149
+    "wall_time_s": 11.365806199999497
    },
    "evaluation_options": {},
    "limitations": [
@@ -1846,7 +1846,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:35:44+00:00",
+   "created_utc": "2026-11-21T15:03:06+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -2921,7 +2921,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 20.993209999996907
+    "wall_time_s": 21.758742699999857
    },
    "evaluation_options": {},
    "limitations": [
@@ -2950,7 +2950,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:35:55+00:00",
+   "created_utc": "2026-11-21T15:03:16+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -3577,7 +3577,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 10.558712099998957
+    "wall_time_s": 10.6668331999972
    },
    "evaluation_options": {},
    "limitations": [
@@ -3604,7 +3604,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:36:16+00:00",
+   "created_utc": "2026-11-21T15:03:38+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -4678,7 +4678,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 20.960017399997014
+    "wall_time_s": 21.28266369999983
    },
    "evaluation_options": {},
    "limitations": [
@@ -4706,7 +4706,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:36:26+00:00",
+   "created_utc": "2026-11-21T15:03:48+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -5332,7 +5332,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 10.521968699998979
+    "wall_time_s": 10.561177599996881
    },
    "evaluation_options": {},
    "limitations": [
@@ -5358,7 +5358,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:36:47+00:00",
+   "created_utc": "2026-11-21T15:04:09+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -6434,7 +6434,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 20.864007399999537
+    "wall_time_s": 21.230887400000938
    },
    "evaluation_options": {},
    "limitations": [
@@ -6464,7 +6464,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:36:58+00:00",
+   "created_utc": "2026-11-21T15:04:21+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -7093,7 +7093,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 10.698821499998303
+    "wall_time_s": 11.089612399999169
    },
    "evaluation_options": {},
    "limitations": [
@@ -7121,7 +7121,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:37:19+00:00",
+   "created_utc": "2026-11-21T15:04:42+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -8196,7 +8196,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 21.309410699999717
+    "wall_time_s": 21.68551369999841
    },
    "evaluation_options": {},
    "limitations": [
@@ -8226,7 +8226,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:37:30+00:00",
+   "created_utc": "2026-11-21T15:04:53+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -8855,7 +8855,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 10.750896800000191
+    "wall_time_s": 11.03597710000031
    },
    "evaluation_options": {},
    "limitations": [
@@ -8883,7 +8883,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:37:47+00:00",
+   "created_utc": "2026-11-21T15:05:12+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -9509,7 +9509,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 17.686147400003392
+    "wall_time_s": 19.130173800000193
    },
    "evaluation_options": {},
    "limitations": [
@@ -9535,7 +9535,7 @@
    "feasible": false,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:37:57+00:00",
+   "created_utc": "2026-11-21T15:05:25+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -10154,7 +10154,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 9.851871099999698
+    "wall_time_s": 12.597531099996559
    },
    "evaluation_options": {},
    "limitations": [
@@ -10180,7 +10180,7 @@
    "feasible": true,
    "engine": "python_model",
    "source": "python_model",
-   "created_utc": "2026-11-21T14:38:14+00:00",
+   "created_utc": "2026-11-21T15:05:43+00:00",
    "decision_variables": {
     "reactor_temperature_C": {
      "lower": 400.0,
@@ -11024,7 +11024,7 @@
     "seed": 12345,
     "popsize": 10,
     "maxiter": 30,
-    "wall_time_s": 16.519747500002268
+    "wall_time_s": 18.394492100000207
    },
    "evaluation_options": {},
    "limitations": [

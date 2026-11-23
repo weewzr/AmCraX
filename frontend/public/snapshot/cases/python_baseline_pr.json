@@ -2,7 +2,7 @@
  "schema_version": "1.0",
  "case_id": "python_baseline_pr",
  "source": "python_model",
- "created_utc": "2026-11-21T07:49:57+00:00",
+ "created_utc": "2026-11-21T15:02:06+00:00",
  "model_file": "amcrax.process_model",
  "inputs": {
   "case_id": "python_baseline_pr",
@@ -24,7 +24,7 @@
   "has_errors": false,
   "has_warnings": false,
   "messages": [],
-  "engine_time_s": 0.041040699999939534
+  "engine_time_s": 0.026951200001349207
  },
  "streams": {
   "FEED": {
@@ -140,7 +140,7 @@
    "vapor_fraction": 1.0,
    "mole_flow_kmol_h": 100.0,
    "mass_flow_kg_h": 1703.246956,
-   "enthalpy_flow_kW": -650.7659656486863,
+   "enthalpy_flow_kW": -650.0020345300971,
    "mole_frac": {
     "NH3": 0.998,
     "H2": 0.0,
@@ -169,12 +169,12 @@
    "source_block": "FEHE",
    "dest_block": "COOLER",
    "phase": "vapor",
-   "temperature_C": 216.05730865102458,
+   "temperature_C": 215.58787014840408,
    "pressure_bar": 19.7,
    "vapor_fraction": 1.0,
    "mole_flow_kmol_h": 197.87768233474483,
    "mass_flow_kg_h": 1703.2489135536468,
-   "enthalpy_flow_kW": 269.98089249907173,
+   "enthalpy_flow_kW": 269.21696138048253,
    "mole_frac": {
     "NH3": 0.009714676473738068,
     "H2": 0.7419559485932898,
@@ -503,27 +503,33 @@
    "id": "FEHE",
    "name": "Feed/effluent heat exchanger",
    "block_type": "HeatX",
-   "duty_kW": 632.2741742951436,
+   "duty_kW": 633.0381054137328,
    "power_kW": null,
    "outlet_temperature_C": 550.0,
    "outlet_pressure_bar": 20.5,
    "details": {
     "cold_outlet_C": 550.0,
-    "hot_outlet_C": 216.05730865102458,
+    "hot_outlet_C": 215.58787014840408,
     "hot_end_approach_K": 50.0,
-    "cold_end_approach_K": 145.96985640536604,
-    "min_internal_dT_K": 50.0
+    "cold_end_approach_K": 145.50041790274554,
+    "min_internal_dT_K": 50.0,
+    "cold_side_basis": "NASA-7 ideal gas + reference-EOS NH3 residual enthalpy (both eos modes)",
+    "hot_side_basis": "NASA-7 ideal gas + PR residual (both eos modes)",
+    "s6_enthalpy_minus_eos_basis_at_T6_kW": 1.1368683772161603e-13
    }
   },
   "HEATER": {
    "id": "HEATER",
    "name": "Fired trim preheater",
    "block_type": "Heater",
-   "duty_kW": 73.68065825343979,
+   "duty_kW": 72.91672713485059,
    "power_kW": null,
    "outlet_temperature_C": 600.0,
    "outlet_pressure_bar": 20.2,
-   "details": {}
+   "details": {
+    "s4_basis_minus_reference_real_gas_kW": -0.5829317188970435,
+    "basis_note": "inlet on the real-gas reference basis, outlet on the eos=pr gas basis; the duty includes the basis difference at S4 (s4_basis_minus_reference_real_gas_kW)"
+   }
   },
   "CRACKER": {
    "id": "CRACKER",
@@ -544,7 +550,7 @@
    "id": "COOLER",
    "name": "Cracked-gas cooler",
    "block_type": "Heater",
-   "duty_kW": -285.66581677854685,
+   "duty_kW": -284.90188565995766,
    "power_kW": null,
    "outlet_temperature_C": 40.0,
    "outlet_pressure_bar": 19.5,
@@ -587,7 +593,10 @@
    "power_kW": null,
    "outlet_temperature_C": 150.0,
    "outlet_pressure_bar": 1.1,
-   "details": {}
+   "details": {
+    "flame_below_stack_temperature": "no",
+    "signed_heat_released_kW": 1520.639809573549
+   }
   }
  },
  "kpis": {
@@ -598,17 +607,17 @@
   "h2_purity_mole_frac": 0.999607996863975,
   "h2_yield_overall": 0.8336275549552417,
   "reactor_duty_kW": 1479.3403741894617,
-  "preheat_duty_kW": 73.68065825343979,
+  "preheat_duty_kW": 72.91672713485059,
   "vaporiser_duty_kW": 713.6415198527745,
-  "recovered_heat_kW": 632.2741742951436,
-  "total_external_heating_kW": 2266.662552295676,
-  "cooling_duty_kW": 285.66581677854685,
+  "recovered_heat_kW": 633.0381054137328,
+  "total_external_heating_kW": 2265.898621177087,
+  "cooling_duty_kW": 284.90188565995766,
   "pump_power_kW": 1.8496414401767731,
   "tailgas_combustion_heat_kW": 1520.639809573549,
-  "tailgas_lhv_kW": 1648.4994800600803,
-  "specific_heat_demand_kWh_per_kgH2": 9.010073457187211,
-  "net_fuel_heat_deficit_kW": 746.0227427221271,
-  "lhv_efficiency": 0.8796077355771599
+  "tailgas_lhv_kW": 1648.49948006008,
+  "specific_heat_demand_kWh_per_kgH2": 9.00703680072163,
+  "net_fuel_heat_deficit_kW": 745.2588116035381,
+  "lhv_efficiency": 0.8796782491534549
  },
  "balances": {
   "mass_in_kg_h": 3670.691930189413,
@@ -618,9 +627,9 @@
   "n_atoms_out_kmol_h": 207.54790542179762,
   "h_atoms_in_kmol_h": 299.79999999999995,
   "h_atoms_out_kmol_h": 299.8,
-  "energy_in_kW": 271.20627109562497,
-  "energy_out_kW": 271.2062710956252,
-  "energy_closure_rel": -2.9761761530311824e-17
+  "energy_in_kW": -1535.0993552564707,
+  "energy_out_kW": -1535.0993552564705,
+  "energy_closure_rel": -5.582677841026868e-17
  },
  "notes": [
   "Independent AmCraX Python process model (amcrax.process_model); NOT an Aspen Plus result.",

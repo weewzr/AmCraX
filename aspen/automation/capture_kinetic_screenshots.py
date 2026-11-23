@@ -55,7 +55,7 @@ SPECS: list[dict] = [
          nav=["Blocks", "{B}", "Setup"], tab="Pressure",
          what="Pressure-drop option (none, or Ergun correlation with particle diameter)."),
     dict(n="08_reactor_results", title="RPLUG results", env="Simulation",
-         nav=["Blocks", "{B}", "Results"], tab=None,
+         nav=["Blocks", "{B}", "Results"], tab="Summary",
          what="RPLUG results summary: heat duty, residence time, outlet conditions."),
     dict(n="09_reactor_profiles", title="RPLUG profiles", env="Simulation",
          nav=["Blocks", "{B}", "Profiles"], tab=None,

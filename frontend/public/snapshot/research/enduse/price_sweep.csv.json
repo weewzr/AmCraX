@@ -1,0 +1,180 @@
+{
+ "name": "price_sweep",
+ "area": "enduse",
+ "file": "price_sweep.csv",
+ "columns": [
+  "NH3_price_USD_t",
+  "direct",
+  "full_exhaust",
+  "full_fired",
+  "full_purified",
+  "partial40_exhaust",
+  "partial40_fired"
+ ],
+ "rows": [
+  {
+   "NH3_price_USD_t": 250.0,
+   "direct": 180.9601782232732,
+   "full_exhaust": 177.323064562599,
+   "full_fired": 192.51958236592247,
+   "full_purified": 215.5908628896983,
+   "partial40_exhaust": 180.41924501767622,
+   "partial40_fired": 186.4026204690635
+  },
+  {
+   "NH3_price_USD_t": 300.0,
+   "direct": 200.45217351054188,
+   "full_exhaust": 195.05356101649969,
+   "full_fired": 212.60337111430883,
+   "full_purified": 237.80722135983885,
+   "partial40_exhaust": 199.2187862309157,
+   "partial40_fired": 206.13267632665745
+  },
+  {
+   "NH3_price_USD_t": 350.0,
+   "direct": 219.9441687978106,
+   "full_exhaust": 212.7840574704004,
+   "full_fired": 232.68715986269518,
+   "full_purified": 260.0235798299793,
+   "partial40_exhaust": 218.01832744415518,
+   "partial40_fired": 225.8627321842514
+  },
+  {
+   "NH3_price_USD_t": 400.0,
+   "direct": 239.43616408507927,
+   "full_exhaust": 230.5145539243011,
+   "full_fired": 252.7709486110815,
+   "full_purified": 282.2399383001199,
+   "partial40_exhaust": 236.81786865739465,
+   "partial40_fired": 245.59278804184535
+  },
+  {
+   "NH3_price_USD_t": 450.0,
+   "direct": 258.928159372348,
+   "full_exhaust": 248.24505037820182,
+   "full_fired": 272.85473735946783,
+   "full_purified": 304.4562967702604,
+   "partial40_exhaust": 255.61740987063413,
+   "partial40_fired": 265.3228438994393
+  },
+  {
+   "NH3_price_USD_t": 500.0,
+   "direct": 278.4201546596167,
+   "full_exhaust": 265.97554683210257,
+   "full_fired": 292.9385261078542,
+   "full_purified": 326.6726552404009,
+   "partial40_exhaust": 274.4169510838736,
+   "partial40_fired": 285.05289975703323
+  },
+  {
+   "NH3_price_USD_t": 550.0,
+   "direct": 297.91214994688534,
+   "full_exhaust": 283.70604328600325,
+   "full_fired": 313.02231485624054,
+   "full_purified": 348.8890137105414,
+   "partial40_exhaust": 293.21649229711306,
+   "partial40_fired": 304.78295561462716
+  },
+  {
+   "NH3_price_USD_t": 600.0,
+   "direct": 317.40414523415404,
+   "full_exhaust": 301.43653973990394,
+   "full_fired": 333.10610360462687,
+   "full_purified": 371.1053721806819,
+   "partial40_exhaust": 312.01603351035254,
+   "partial40_fired": 324.51301147222114
+  },
+  {
+   "NH3_price_USD_t": 650.0,
+   "direct": 336.89614052142275,
+   "full_exhaust": 319.1670361938047,
+   "full_fired": 353.18989235301325,
+   "full_purified": 393.3217306508225,
+   "partial40_exhaust": 330.815574723592,
+   "partial40_fired": 344.24306732981506
+  },
+  {
+   "NH3_price_USD_t": 700.0,
+   "direct": 356.38813580869146,
+   "full_exhaust": 336.89753264770536,
+   "full_fired": 373.2736811013996,
+   "full_purified": 415.538089120963,
+   "partial40_exhaust": 349.6151159368315,
+   "partial40_fired": 363.973123187409
+  },
+  {
+   "NH3_price_USD_t": 750.0,
+   "direct": 375.88013109596017,
+   "full_exhaust": 354.6280291016061,
+   "full_fired": 393.3574698497859,
+   "full_purified": 437.7544475911035,
+   "partial40_exhaust": 368.414657150071,
+   "partial40_fired": 383.70317904500297
+  },
+  {
+   "NH3_price_USD_t": 800.0,
+   "direct": 395.3721263832288,
+   "full_exhaust": 372.35852555550684,
+   "full_fired": 413.4412585981723,
+   "full_purified": 459.97080606124405,
+   "partial40_exhaust": 387.21419836331046,
+   "partial40_fired": 403.433234902597
+  },
+  {
+   "NH3_price_USD_t": 850.0,
+   "direct": 414.86412167049747,
+   "full_exhaust": 390.08902200940753,
+   "full_fired": 433.52504734655867,
+   "full_purified": 482.18716453138455,
+   "partial40_exhaust": 406.01373957654994,
+   "partial40_fired": 423.16329076019093
+  },
+  {
+   "NH3_price_USD_t": 900.0,
+   "direct": 434.3561169577662,
+   "full_exhaust": 407.81951846330827,
+   "full_fired": 453.608836094945,
+   "full_purified": 504.40352300152506,
+   "partial40_exhaust": 424.8132807897894,
+   "partial40_fired": 442.89334661778486
+  },
+  {
+   "NH3_price_USD_t": 950.0,
+   "direct": 453.8481122450349,
+   "full_exhaust": 425.55001491720896,
+   "full_fired": 473.6926248433313,
+   "full_purified": 526.6198814716656,
+   "partial40_exhaust": 443.6128220030289,
+   "partial40_fired": 462.62340247537884
+  },
+  {
+   "NH3_price_USD_t": 1000.0,
+   "direct": 473.3401075323036,
+   "full_exhaust": 443.2805113711097,
+   "full_fired": 493.7764135917177,
+   "full_purified": 548.8362399418061,
+   "partial40_exhaust": 462.4123632162684,
+   "partial40_fired": 482.35345833297276
+  },
+  {
+   "NH3_price_USD_t": 1050.0,
+   "direct": 492.83210281957224,
+   "full_exhaust": 461.0110078250104,
+   "full_fired": 513.860202340104,
+   "full_purified": 571.0525984119466,
+   "partial40_exhaust": 481.21190442950785,
+   "partial40_fired": 502.08351419056675
+  },
+  {
+   "NH3_price_USD_t": 1100.0,
+   "direct": 512.324098106841,
+   "full_exhaust": 478.7415042789111,
+   "full_fired": 533.9439910884904,
+   "full_purified": 593.2689568820872,
+   "partial40_exhaust": 500.01144564274733,
+   "partial40_fired": 521.8135700481606
+  }
+ ],
+ "count": 18,
+ "source_note": "results/research/enduse/price_sweep.csv; values as stored, no post-processing"
+}

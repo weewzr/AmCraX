@@ -57,3 +57,5 @@ Aspen reports UA = 1590.96 cal/(s K), which is 6.661 kW/K with the International
 ## 18.5 Comparison with published values
 
 Published efficiencies use other plants and other definitions. Mehr et al. (2026) give about 88 % thermal efficiency for a heat-recovered cracking unit and about 68 % LHV for the whole plant, which delivers H~2~ at 104 bar. Cho et al. (2026) report 79.25 % (Ni, 24.34 bar) and 80.82 % (Ru, 10 bar) with NH~3~ fuel and net power in the denominator. Richard et al. (2024) report 68.5 % for a fired tubular reactor with auxiliary work subtracted. The AmCraX value of 0.8772 lies at the upper end because Eq. (18.1) omits furnace losses and compression power; it is an upper bound, not a like-for-like result.
+
+Section 26 applies this pinch analysis to kinetic crackers with five catalysts. It adds a furnace efficiency and a thermal-loss allowance to turn the temperature-feasible import into a fired duty, and shows how much of the remaining gap a better exchanger network could close (Section 26.5).

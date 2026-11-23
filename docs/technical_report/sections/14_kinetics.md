@@ -1,4 +1,4 @@
-<!-- cites: takahashi2016kinetic, kum2026heatintegrated, dicarlo2014ammonia, maccarrone2025comprehensive, richard2024technoeconomic, smith_grimech30, goodwin2018cantera -->
+<!-- cites: takahashi2016kinetic, kum2026heatintegrated, dicarlo2014ammonia, maccarrone2025comprehensive, richard2024technoeconomic, smith_grimech30, goodwin2018cantera, lucentini2021nirukinetic -->
 
 # 14 Catalyst kinetics
 
@@ -106,4 +106,6 @@ Heat transfer, not kinetics, limits a real bed. In **illustrative examples** wit
 
 ## 14.6 Limits
 
-All 20 bar results extrapolate kinetics fitted at 1 atm (Takahashi) or at most 10 bar and 450 °C (Kum). The approach factor of Eq. (14.5) and the $K_{eq}$ reading of Eq. (14.1) are AmCraX assumptions. The model neglects intraparticle diffusion (effectiveness factor 1, although the Takahashi rates were measured on powders), external transfer, radial gradients, axial dispersion, non-ideal gas behaviour in the energy balance and deactivation, so the catalyst masses are lower bounds. Two of the four kinetic validation items fail, and no kinetic result enters the Aspen flowsheet or the economics.
+All 20 bar results extrapolate kinetics fitted at 1 atm (Takahashi) or at most 10 bar and 450 °C (Kum). The approach factor of Eq. (14.5) and the $K_{eq}$ reading of Eq. (14.1) are AmCraX assumptions. The model neglects intraparticle diffusion (effectiveness factor 1, although the Takahashi rates were measured on powders), external transfer, radial gradients, axial dispersion, non-ideal gas behaviour in the energy balance and deactivation, so the catalyst masses are lower bounds. Two of the four kinetic validation items fail, and no kinetic result of this section enters the baseline Aspen flowsheet or its economics.
+
+The research expansion builds on this model. Section 25 adds the two Ni-Ru/CeO~2~ laws of Lucentini et al. (2021), implements all five laws in Aspen Plus RPlug reactors and verifies them against this Python reactor; Section 26 uses the resulting operating temperatures and catalyst masses to compare catalysts with and without heat integration.

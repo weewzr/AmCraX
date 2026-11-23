@@ -12,6 +12,8 @@ Table: **Table N.1.** Abbreviations.
 | APA | American Psychological Association (citation style, 7th edition) |
 | CAPEX / OPEX | Capital / operating expenditure |
 | CAS | Chemical Abstracts Service (registry number) |
+| CCGT | Combined-cycle gas turbine |
+| CCS | Carbon capture and storage |
 | CEPCI | Chemical Engineering Plant Cost Index |
 | CI | Carbon intensity (kg CO~2~e per kg H~2~; simplified accounting, not an LCA) |
 | CO~2~e | Carbon dioxide equivalent |
@@ -23,13 +25,16 @@ Table: **Table N.1.** Abbreviations.
 | FS, FS-PRIMARY | Flowsheet cross-check items of the validation matrix (all key KPIs; reaction-section quantities only) |
 | G&A | General and administrative cost |
 | GRI-Mech 3.0 | Gas Research Institute reaction mechanism, source of the NASA-7 and transport data |
+| GHSV | Gas hourly space velocity of NH~3~ at standard conditions per bed volume (h^-1^) |
 | GUI | Graphical user interface |
 | GWP | Global-warming potential |
+| H1 to H4 | The four research hypotheses tested in Sections 24 to 31 |
 | HeatX, Heater, Pump, Sep | Aspen Plus heat-exchanger, heater/cooler, pump and component-splitter blocks |
 | IEA | International Energy Agency |
 | ISO | International Organization for Standardization |
 | KPI | Key performance indicator |
 | LCA | Life-cycle assessment |
+| LHHW | Langmuir-Hinshelwood-Hougen-Watson rate expression (Aspen Plus reaction class) |
 | LCOH | Levelised cost of hydrogen |
 | LHV | Lower heating value |
 | LMTD | Logarithmic-mean temperature difference |
@@ -40,10 +45,12 @@ Table: **Table N.1.** Abbreviations.
 | PEM | Proton-exchange membrane (fuel cell) |
 | PENG-ROB | Peng-Robinson property method of Aspen Plus |
 | PFR | Plug-flow reactor |
+| POWERLAW | Aspen Plus power-law reaction class |
 | pp | Percentage point(s) |
 | PR | Peng-Robinson equation of state (Python implementation) |
 | PSA / TSA | Pressure-swing / temperature-swing adsorption |
-| REquil, RGibbs, RPlug, RStoic | Aspen Plus equilibrium, Gibbs-minimisation, plug-flow and stoichiometric reactor blocks |
+| REC | Reconversion cost: LCOH minus the ammonia feed cost (USD/kg H~2~) |
+| REquil, RGibbs, RPlug, RStoic | Aspen Plus equilibrium, Gibbs-minimisation, plug-flow and stoichiometric reactor blocks (RPLUG, RGIBBS in Aspen input files) |
 | RFNBO | Renewable fuel of non-biological origin (EU definition) |
 | SLSQP | Sequential least-squares quadratic programming |
 | SMR | Steam methane reforming |
@@ -83,6 +90,9 @@ Table: **Table N.2.** Main symbols.
 | $\eta_\mathrm{LHV}$ | LHV efficiency (-), Eq. (18.1) |
 | $r$, $k_0$, $E_a$, $\beta$ | Reaction rate (mol NH~3~/(g~cat~ s) or per kg~cat~), pre-exponential factor, activation energy (J/mol), Temkin exponent (-) |
 | $\theta$ | Fractional surface coverage (-) |
+| $C_i$, $K_1$, $K_4$, $E_k$ | Concentration of species $i$ (mol/m^3^), NH~3~ adsorption constant (m^3^/mol), H~2~ adsorption constant (mol/m^3^), activation energy of the Lucentini law (kJ/mol), Eq. (25.2) |
+| $\phi$ | Equilibrium approach factor $1 - Q/K_p$ (-), Eq. (25.3) |
+| $T_\mathrm{op}$, $T_\mathrm{opt}$ | Lowest temperature for 95 % conversion with 100 kg catalyst; LCOH-optimal temperature (°C), Section 26 |
 | $A$ | Arrhenius pre-exponential factor; total tube cross-section (m^2^) in Eq. (14.6) |
 | $G$ | Total Gibbs energy in Eq. (9.1); gas mass flux (kg/(m^2^ s)) in Eq. (14.7) |
 | $\varepsilon_b$, $\rho$, $d_p$, $D_t$, $\mu$ | Bed voidage (-), density (kg/m^3^), particle diameter (m), tube diameter (m), gas viscosity (Pa s) |

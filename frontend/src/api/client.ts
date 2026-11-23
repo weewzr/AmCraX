@@ -73,6 +73,11 @@ export function snapshotUrlFor(path: string): string | null {
     '/api/optimisation/results': '/snapshot/api/optimisation_results.json',
   }
   if (SIMPLE[p]) return SIMPLE[p]
+  if (p === '/api/research/index') return '/snapshot/research/index.json'
+  if (p === '/api/research/evidence-matrix') return '/snapshot/research/evidence_matrix.json'
+  if (p === '/api/research/validation-summary') return '/snapshot/research/validation_summary.json'
+  if (p === '/api/research/aspen-evidence') return '/snapshot/research/aspen_evidence.json'
+  if ((m = p.match(/^\/api\/research\/([^/]+)\/([^/]+)$/))) return `/snapshot/research/${m[1]}/${decodeURIComponent(m[2])}.json`
   if ((m = p.match(/^\/api\/cases\/([^/]+)$/))) return `/snapshot/cases/${m[1]}.json`
   if ((m = p.match(/^\/api\/data\/([^/]+)$/))) return `/snapshot/data/${m[1]}.json`
   if ((m = p.match(/^\/api\/data\/([^/]+)\/([^/]+)$/))) return `/snapshot/data/${m[1]}/${decodeURIComponent(m[2]).replace(/\.(csv|json)$/i, '')}.json`
@@ -82,7 +87,7 @@ export function snapshotUrlFor(path: string): string | null {
   if (STATIC_PREFIXES.some((x) => p.startsWith(x))) return `/snapshot${p}`
   return null
 }
-const STATIC_PREFIXES = ['/figures/', '/aspen-screenshots/', '/dashboard-screenshots/']
+const STATIC_PREFIXES = ['/figures/', '/aspen-screenshots/', '/dashboard-screenshots/', '/aspen-evidence/', '/research-figures/']
 
 /** Static assets (PNG, deliverable links) referenced from <img>/<a>: in SNAPSHOT mode they come from the mirror, in dev from the API origin. */
 export function staticAssetUrl(u: string): string {

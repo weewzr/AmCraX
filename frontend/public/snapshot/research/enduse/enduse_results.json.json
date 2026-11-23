@@ -1,0 +1,131 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T04:16:10Z",
+  "script": "scripts/research/enduse_run.py",
+  "source_type": "python+aspen(stored)+literature",
+  "inputs_summary": "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices",
+  "model_versions": {
+   "aspen_inputs": "stored results/simulations/baseline.json and scn_fuel_cell_grade.json (Aspen Plus V15)",
+   "economics": "amcrax.economics (compute_lcoh, estimate_capex); prices and electricity from amcrax.economics.singapore (data/singapore.yaml)",
+   "purification": "results/research/purification/purification_study.json (workstream P) for the purified-H2 rows; stored scn_fuel_cell_grade kept as the Aspen-scenario variant"
+  }
+ },
+ "halim_claim_check": {
+  "halim_statement": "direct NH3 combustion about 40 % cheaper than cracking-based power (task brief; Halim abstract confirms only 'preferable because of high capital and operating costs of cracking')",
+  "computed": [
+   {
+    "basis": "AmCraX price set (450 USD/t, 8000 h)",
+    "cracking_pathway": "full_exhaust",
+    "LCOE_direct": 258.928159372348,
+    "LCOE_cracking": 248.24505037820182,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.303452970309141,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -4.125896936062279
+   },
+   {
+    "basis": "AmCraX price set (450 USD/t, 8000 h)",
+    "cracking_pathway": "full_fired",
+    "LCOE_direct": 258.928159372348,
+    "LCOE_cracking": 272.85473735946783,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.104026458141542,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 5.378549023357837
+   },
+   {
+    "basis": "AmCraX price set (450 USD/t, 8000 h)",
+    "cracking_pathway": "full_purified",
+    "LCOE_direct": 258.928159372348,
+    "LCOE_cracking": 304.4562967702604,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 14.953915514602567,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 17.5833086321219
+   },
+   {
+    "basis": "Ahmad basis (480 USD/t, 7200 h)",
+    "cracking_pathway": "full_exhaust",
+    "LCOE_direct": 279.90115674325693,
+    "LCOE_cracking": 268.7296433024813,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -4.157157097924258,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -3.991235181290398
+   },
+   {
+    "basis": "Ahmad basis (480 USD/t, 7200 h)",
+    "cracking_pathway": "full_fired",
+    "LCOE_direct": 279.90115674325693,
+    "LCOE_cracking": 295.1316277555497,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 5.160568905514862,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 5.441374801556509
+   },
+   {
+    "basis": "Ahmad basis (480 USD/t, 7200 h)",
+    "cracking_pathway": "full_purified",
+    "LCOE_direct": 279.90115674325693,
+    "LCOE_cracking": 329.3907229729333,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 15.02457804002666,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 17.68108671128905
+   },
+   {
+    "basis": "renewable NH3 today (1000 USD/t)",
+    "cracking_pathway": "full_exhaust",
+    "LCOE_direct": 473.3401075323036,
+    "LCOE_cracking": 443.2805113711097,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": -6.781167994103021,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": -6.350528020519041
+   },
+   {
+    "basis": "renewable NH3 today (1000 USD/t)",
+    "cracking_pathway": "full_fired",
+    "LCOE_direct": 473.3401075323036,
+    "LCOE_cracking": 493.7764135917177,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 4.138777288036277,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 4.3174676589220695
+   },
+   {
+    "basis": "renewable NH3 today (1000 USD/t)",
+    "cracking_pathway": "full_purified",
+    "LCOE_direct": 473.3401075323036,
+    "LCOE_cracking": 548.8362399418061,
+    "direct_cheaper_by_pct_of_cracking(1-d/c)": 13.75567553948468,
+    "cracking_dearer_by_pct_of_direct(c/d-1)": 15.949658862227345
+   }
+  ],
+  "crossover_prices": {
+   "full_exhaust_vs_direct_NH3_price_USD_t": 146.760826865834,
+   "partial_exhaust_40_vs_direct": 210.94086049278204,
+   "full_fired_vs_direct": null,
+   "full_purified_vs_direct": null,
+   "note": "None = the pathways do not cross between 1 and 5000 USD/t; below the crossover price the capital-heavy pathway is dearer, above it the efficiency gain pays."
+  },
+  "unpurified_exhaust_LCOE_with_full_cracker_correlation": 257.1135582245889,
+  "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed."
+ },
+ "hydrogen_summary": {
+  "industrial_H2_cost_vs_price": {
+   "300": 2.8167286576455055,
+   "450": 3.919253484053714,
+   "709": 5.822946350985219,
+   "1000": 7.961844514217143
+  },
+  "fuelcell_candidate_cost_vs_price": {
+   "300": 2.852724037873774,
+   "450": 3.966694063653738,
+   "709": 5.890148974833807,
+   "1000": 8.051250824846935
+  },
+  "purification_cost_increment_USD_per_kg_at_450": 0.0474405796000239,
+  "note": "Increment is the stored-scenario difference (PSA recovery 0.85 -> 0.80, N2 slip 1e-3 -> 5e-4); it excludes NH3 polishing and other ISO 14687 contaminants, so it is a lower bound."
+ },
+ "limitations": [
+  "Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).",
+  "Fired variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption).",
+  "Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.",
+  "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
+  "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."
+ ],
+ "nox_note": "NO and N2O are only available for direct NH3 (Ahmad Chemkin, simulated); other fuels are 'not quantified'. NOx is a local pollutant and is never added to CO2e.",
+ "served_keys": [
+  "provenance",
+  "halim_claim_check",
+  "hydrogen_summary",
+  "limitations",
+  "nox_note"
+ ],
+ "source_note": "results/research/enduse/enduse_results.json; subset of top-level keys, values as stored"
+}

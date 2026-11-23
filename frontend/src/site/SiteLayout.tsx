@@ -79,7 +79,7 @@ export function SiteLayout() {
           <nav id="site-nav" className={`site-nav ${open ? 'open' : ''}`} aria-label="Main">
             <ul>
               {SITE_ROUTES.map((r) => (
-                <li key={r.path}><NavLink to={r.path} end className={({ isActive }) => (isActive ? 'active' : '')}>{r.label}</NavLink></li>
+                <li key={r.path}><NavLink to={r.path} end={r.path !== '/hypotheses'} className={({ isActive }) => (isActive ? 'active' : '')}>{r.label}</NavLink></li>
               ))}
             </ul>
           </nav>

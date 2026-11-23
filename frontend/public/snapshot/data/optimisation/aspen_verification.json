@@ -1,5 +1,5 @@
 {
- "created_utc": "2026-11-21T14:40:36+00:00",
+ "created_utc": "2026-11-21T15:07:07+00:00",
  "description": "Optimisation candidates found on the Python process model, re-solved in Aspen Plus V15.",
  "tolerance_relative": 0.02,
  "criterion": "pass = Aspen Plus converged AND every primary metric agrees with the Python surrogate within the tolerance. Secondary metrics (individual duties, minor cost items) are reported, not judged.",

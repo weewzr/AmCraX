@@ -1,0 +1,150 @@
+[
+ {
+  "name": "PSA recovery-purity relation",
+  "value": "constant tail-gas H2 fraction (Cho anchor)",
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "mass balance on cho2026nickel p. 6 Table 3 point",
+  "applicability_note": "gives a lower bound on the purity penalty; the real slope is not in the library"
+ },
+ {
+  "name": "PSA recovery at 99.975 % purity (low case)",
+  "value": 0.71,
+  "unit": "-",
+  "source_type": "literature",
+  "source": "hansen2024hysys p. 2 (Cha 2021, 99 % purity, activated carbon, 2.5 bar)",
+  "applicability_note": "applied at higher purity: extrapolation"
+ },
+ {
+  "name": "TSA outlet NH3",
+  "value": 0.1,
+  "unit": "ppm",
+  "source_type": "literature",
+  "source": "cho2026nickel p. 6 Table 3 (< 0.1 ppm, zeolite 4A, 3 beds)",
+  "applicability_note": "modelled at the limit; compliance is a design target, not a computed result"
+ },
+ {
+  "name": "TSA regeneration energy",
+  "value": "not modelled",
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "no separate TSA value in the library",
+  "applicability_note": "tail gas burns in the furnace; regeneration heat omitted, so PSA/TSA cost is a lower bound"
+ },
+ {
+  "name": "Water removal to 5 ppm",
+  "value": "assumed with NH3 in TSA",
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "zeolite 4A adsorbs water; no number sourced",
+  "applicability_note": "grade D water limit is satisfied by assumption in PSA configurations"
+ },
+ {
+  "name": "Pd-Ag permeability",
+  "value": "Pe0 4.57e-8 mol m-1 s-1 Pa-0.5, Ea 9.23 kJ/mol, 5.2 um",
+  "unit": "-",
+  "source_type": "literature",
+  "source": "richard2024technoeconomic p. 7 Table 2 row [53] (fitted to Pd-Ag on ceramic support)",
+  "applicability_note": "Cechetto 2023 review gives no Sieverts parameters; primary sources cited there not obtained"
+ },
+ {
+  "name": "Membrane temperature",
+  "value": 400,
+  "unit": "degC",
+  "source_type": "assumption",
+  "source": "separation.yaml default, inside 350-500 degC Pd window",
+  "applicability_note": "equals Cechetto 2021 benchmark temperature"
+ },
+ {
+  "name": "Ideal H2/N2 selectivity",
+  "value": "infinite (base) / required value computed",
+  "unit": "-",
+  "source_type": "assumption",
+  "source": "richard2024technoeconomic p. 7 assumes infinite; no numeric selectivity in the library",
+  "applicability_note": "required selectivity reported instead of an assumed finite value"
+ },
+ {
+  "name": "Membrane permeate NH3 without polishing",
+  "value": 2.9,
+  "unit": "ppm",
+  "source_type": "literature",
+  "source": "cechetto2023membrane p. 17 Table 10",
+  "applicability_note": "single experiment (FTIR); other works 0.01-0.8 ppm; membrane alone cannot be taken to meet 0.1 ppm"
+ },
+ {
+  "name": "Polishing bed outlet NH3",
+  "value": 0.025,
+  "unit": "ppm",
+  "source_type": "literature",
+  "source": "cechetto2023membrane p. 14 (clinoptilolite, Sitar 2022)",
+  "applicability_note": "lab bed from about 1000 ppm; applied at the quoted bound"
+ },
+ {
+  "name": "Membrane cost",
+  "value": 6000.0,
+  "unit": "EUR/m2",
+  "source_type": "literature",
+  "source": "richard2024technoeconomic p. 9 Table 5 (3 y life)",
+  "applicability_note": "applied as USD at parity (assumption, no exchange rate in library); housing/skid CAPEX not modelled"
+ },
+ {
+  "name": "PSA+TSA CAPEX (base)",
+  "value": 3481500.8846766087,
+  "unit": "USD",
+  "source_type": "literature",
+  "source": "existing AmCraX economics: chopra2026 shares of the ahmad2025 plant correlation (results/simulations/economics_baseline.json)",
+  "applicability_note": "indicative split only"
+ },
+ {
+  "name": "PSA+TSA CAPEX (alternative)",
+  "value": 0.084,
+  "unit": "USD/kg H2 unit capex at 82 kg/h",
+  "source_type": "literature",
+  "source": "cho2026nickel p. 12 Fig. 7a (T/PSA 0.084)",
+  "applicability_note": "scaled with exponent 0.6 (assumption)"
+ },
+ {
+  "name": "Electricity price",
+  "value": 0.084,
+  "unit": "USD/kWh",
+  "source_type": "literature",
+  "source": "cho2026nickel p. 7 Table 4 (economics default)",
+  "applicability_note": "no Singapore price used: results/research/singapore did not exist when this ran"
+ },
+ {
+  "name": "Imported heat price",
+  "value": 696.7022727272727,
+  "unit": "USD per kW-year",
+  "source_type": "python",
+  "source": "derived from economics_baseline.json (imported_heat / net heat deficit) with NH3 fuel at 450 USD/t",
+  "applicability_note": "surplus heat not credited"
+ },
+ {
+  "name": "Delivery pressures",
+  "value": {
+   "industrial_99.9": 30.0,
+   "fuel_cell_grade_D": 350.0,
+   "turbine_blend": 30.0
+  },
+  "unit": "bar",
+  "source_type": "literature",
+  "source": "30 bar: richard2024technoeconomic p. 4 (H2 supplied to the gas turbine at 30 bar); 350 bar: chopra2026decentralized p. 4 / economics.yaml chopra2026_point (compression to 350 bar). The ideal-gas compression model is approximate at 350 bar (real-gas H2 Z about 1.2): treat as +-15 %.",
+  "applicability_note": "ideal-gas compression"
+ },
+ {
+  "name": "Compressor efficiency / stages",
+  "value": "0.75, max ratio 3.5 per stage",
+  "unit": "-",
+  "source_type": "literature",
+  "source": "cho2026nickel p. 5 Table 2",
+  "applicability_note": "compression CAPEX not modelled (electricity only)"
+ },
+ {
+  "name": "Operating hours",
+  "value": 8000.0,
+  "unit": "h/yr",
+  "source_type": "literature",
+  "source": "cho2026nickel p. 7 Table 4",
+  "applicability_note": ""
+ }
+]

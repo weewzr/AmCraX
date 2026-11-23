@@ -1,0 +1,62 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T06:17:10Z",
+  "script": "scripts/research/lca_run.py",
+  "source_type": "python+literature",
+  "inputs_summary": "route factors lca.FACTORS; cracker activities from stored Aspen baseline; comparators literature",
+  "model_versions": {
+   "amcrax.environmental.lca": "1",
+   "aspen_inputs": "stored results/simulations/baseline.json (Aspen Plus V15)"
+  }
+ },
+ "method": "Scenario-based cradle-to-gate-of-use GHG assessment; GWP100 AR6; NOx reported separately, never added to CO2e",
+ "system_boundary": "upstream NH3 (well-to-plant-gate) + sea shipping + optional boil-off (default 0, unsourced) + process electricity + direct N2O; excludes plant construction, catalyst, H2 compression/delivery, NG supply chain of the comparators except via a leakage parameter",
+ "alternatives": {
+  "ccgt_ng_kgCO2e_per_MWh": {
+   "central": 367.2,
+   "low_eff_0.50": 403.92,
+   "high_eff_0.60": 336.6,
+   "leak_0.002": 375.48257093225243,
+   "leak_0.015": 429.31928199189343,
+   "leak_0.03": 491.4385639837869,
+   "source_type": "literature combustion factor + assumption efficiency"
+  },
+  "grid_average_kgCO2e_per_MWh": {
+   "central": 402.0,
+   "source_type": "literature (EMA 2024)"
+  },
+  "smr_h2_unabated_kgCO2e_per_kgH2": {
+   "central": 11.0,
+   "range": [
+    10.0,
+    12.0
+   ],
+   "source_type": "literature"
+  },
+  "smr_h2_ccs_kgCO2e_per_kgH2": {
+   "central": 3.5,
+   "range": [
+    3.4,
+    3.6
+   ],
+   "upper_sensitivity": 5.3,
+   "source_type": "literature (low confidence)"
+  }
+ },
+ "limitations": [
+  "Coal-based NH3 factor is low confidence (abstract-level).",
+  "Blue-NH3 leakage and capture are scenario parameters, not measured values.",
+  "Boil-off and terminal losses excluded (no sourced value).",
+  "Green NH3 central value includes embedded renewable-asset emissions from the IEA range; Lee's boundary gives zero.",
+  "Distances are scenario values, not sourced route lengths.",
+  "NOx and N2O are simulated values from one paper."
+ ],
+ "served_keys": [
+  "provenance",
+  "method",
+  "system_boundary",
+  "alternatives",
+  "limitations"
+ ],
+ "source_note": "results/research/lca/lca_results.json; subset of top-level keys, values as stored"
+}

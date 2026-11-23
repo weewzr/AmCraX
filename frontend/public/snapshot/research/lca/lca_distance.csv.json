@@ -1,0 +1,121 @@
+{
+ "name": "lca_distance",
+ "area": "lca",
+ "file": "lca_distance.csv",
+ "columns": [
+  "distance_km",
+  "route",
+  "shipping_kgCO2e_per_kgNH3",
+  "H2_kgCO2e_per_kg",
+  "direct_NH3_CCGT_kgCO2e_per_MWh"
+ ],
+ "rows": [
+  {
+   "distance_km": 0.0,
+   "route": "green",
+   "shipping_kgCO2e_per_kgNH3": 0.0,
+   "H2_kgCO2e_per_kg": 2.0258300418994137,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 107.50864918507375
+  },
+  {
+   "distance_km": 0.0,
+   "route": "blue",
+   "shipping_kgCO2e_per_kgNH3": 0.0,
+   "H2_kgCO2e_per_kg": 8.52914047706155,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 452.4328449515972
+  },
+  {
+   "distance_km": 0.0,
+   "route": "grey",
+   "shipping_kgCO2e_per_kgNH3": 0.0,
+   "H2_kgCO2e_per_kg": 19.113378810580343,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1013.8023092249356
+  },
+  {
+   "distance_km": 2000.0,
+   "route": "green",
+   "shipping_kgCO2e_per_kgNH3": 0.022,
+   "H2_kgCO2e_per_kg": 2.187533683105951,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 116.08512711147198
+  },
+  {
+   "distance_km": 2000.0,
+   "route": "blue",
+   "shipping_kgCO2e_per_kgNH3": 0.022,
+   "H2_kgCO2e_per_kg": 8.690844118268087,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 461.00932287799543
+  },
+  {
+   "distance_km": 2000.0,
+   "route": "grey",
+   "shipping_kgCO2e_per_kgNH3": 0.022,
+   "H2_kgCO2e_per_kg": 19.27508245178688,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1022.3787871513338
+  },
+  {
+   "distance_km": 5000.0,
+   "route": "green",
+   "shipping_kgCO2e_per_kgNH3": 0.055,
+   "H2_kgCO2e_per_kg": 2.4300891449157564,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 128.94984400106932
+  },
+  {
+   "distance_km": 5000.0,
+   "route": "blue",
+   "shipping_kgCO2e_per_kgNH3": 0.055,
+   "H2_kgCO2e_per_kg": 8.933399580077893,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 473.87403976759276
+  },
+  {
+   "distance_km": 5000.0,
+   "route": "grey",
+   "shipping_kgCO2e_per_kgNH3": 0.055,
+   "H2_kgCO2e_per_kg": 19.517637913596687,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1035.243504040931
+  },
+  {
+   "distance_km": 8000.0,
+   "route": "green",
+   "shipping_kgCO2e_per_kgNH3": 0.088,
+   "H2_kgCO2e_per_kg": 2.6726446067255623,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 141.81456089066666
+  },
+  {
+   "distance_km": 8000.0,
+   "route": "blue",
+   "shipping_kgCO2e_per_kgNH3": 0.088,
+   "H2_kgCO2e_per_kg": 9.175955041887699,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 486.7387566571901
+  },
+  {
+   "distance_km": 8000.0,
+   "route": "grey",
+   "shipping_kgCO2e_per_kgNH3": 0.088,
+   "H2_kgCO2e_per_kg": 19.76019337540649,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1048.1082209305284
+  },
+  {
+   "distance_km": 12000.0,
+   "route": "green",
+   "shipping_kgCO2e_per_kgNH3": 0.132,
+   "H2_kgCO2e_per_kg": 2.996051889138637,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 158.9675167434631
+  },
+  {
+   "distance_km": 12000.0,
+   "route": "blue",
+   "shipping_kgCO2e_per_kgNH3": 0.132,
+   "H2_kgCO2e_per_kg": 9.499362324300773,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 503.8917125099865
+  },
+  {
+   "distance_km": 12000.0,
+   "route": "grey",
+   "shipping_kgCO2e_per_kgNH3": 0.132,
+   "H2_kgCO2e_per_kg": 20.083600657819566,
+   "direct_NH3_CCGT_kgCO2e_per_MWh": 1065.2611767833248
+  }
+ ],
+ "count": 15,
+ "source_note": "results/research/lca/lca_distance.csv; values as stored, no post-processing"
+}

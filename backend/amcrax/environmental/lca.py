@@ -68,7 +68,7 @@ FACTORS: dict[str, dict] = {
         source="cechetto2023membrane p. 19, as above", note="Upper end; likely includes coal-based plants."),
     "coal_nh3_low": dict(
         value=2.18, unit="kg CO2e/kg NH3", source_type="literature",
-        source="Int. J. Life Cycle Assess. (2021), doi 10.1007/s11367-021-02010-z (Chinese pulverised-coal ammonia LCA): 3.88 -> 2.18 kg GHG per kg NH3",
+        source="Zhang et al. (2022) Int. J. Life Cycle Assess. 27:50-61, doi 10.1007/s11367-021-02010-z ('Life cycle assessment of ammonia synthesis in China'; coal gasification routes): 3.88 -> 2.18 kg GHG per kg NH3",
         note="LOW CONFIDENCE: abstract-level value from a search extract; the publisher page could not be opened; boundary and unit not verified."),
     "coal_nh3_high": dict(
         value=3.88, unit="kg CO2e/kg NH3", source_type="literature",
@@ -122,7 +122,7 @@ FACTORS: dict[str, dict] = {
         note="Central value taken as the midpoint 11."),
     "smr_h2_ccs": dict(
         value=[3.4, 3.6], unit="kg CO2e/kg H2", source_type="literature",
-        source="Frontiers in Energy Research 2024, doi 10.3389/fenrg.2024.1473383 (review: SMR with CCS 3.4-3.6 kg CO2e/kg H2), search extract only",
+        source="Elgowainy et al. (2024) Front. Energy Res. 12:1473383, doi 10.3389/fenrg.2024.1473383 (introduction, summary of other studies: SMR with CCS 3.4-3.6 kg CO2e/kg H2), search extract only",
         note="LOW CONFIDENCE: capture rate and boundary not confirmed. Upper sensitivity 5.3 (90 % CCS, 3 % methane leakage, arXiv 2206.10689 interpolation)."),
     "smr_h2_ccs_high": dict(
         value=5.3, unit="kg CO2e/kg H2", source_type="literature",

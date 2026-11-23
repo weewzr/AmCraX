@@ -1,5 +1,5 @@
 {
-  "exported_utc": "2026-11-21T14:41:53+00:00",
+  "exported_utc": "2026-11-23T07:55:29+00:00",
   "files": [
     {
       "path": "flowsheet.json",
@@ -94,13 +94,13 @@
     {
       "path": "cases/python_baseline_no_hi_pr.json",
       "source": "results/simulations/python_baseline_no_hi_pr.json",
-      "bytes": 13937,
+      "bytes": 14283,
       "how": "GET /api/cases/<id>"
     },
     {
       "path": "cases/python_baseline_pr.json",
       "source": "results/simulations/python_baseline_pr.json",
-      "bytes": 15968,
+      "bytes": 16555,
       "how": "GET /api/cases/<id>"
     },
     {
@@ -502,7 +502,7 @@
     {
       "path": "data/optimisation/single_objective.json",
       "source": "results/optimisation/single_objective.json",
-      "bytes": 307955,
+      "bytes": 307952,
       "how": "GET /api/data/optimisation/<name>"
     },
     {
@@ -592,7 +592,7 @@
     {
       "path": "references.json",
       "source": "research/references.json",
-      "bytes": 31022,
+      "bytes": 48724,
       "how": "verbatim copy"
     },
     {
@@ -826,7 +826,7 @@
     {
       "path": "figures/opt_pareto_lcoh_ci_overlays.png",
       "source": "results/figures/opt_pareto_lcoh_ci_overlays.png",
-      "bytes": 111969,
+      "bytes": 119122,
       "how": "verbatim copy"
     },
     {
@@ -970,7 +970,7 @@
     {
       "path": "api/references.json",
       "source": "api: references",
-      "bytes": 30320,
+      "bytes": 47584,
       "how": "GET /api/references"
     },
     {
@@ -988,13 +988,13 @@
     {
       "path": "api/reports.json",
       "source": "api: reports",
-      "bytes": 5378,
+      "bytes": 4745,
       "how": "GET /api/reports"
     },
     {
       "path": "api/screenshots.json",
       "source": "api: screenshots",
-      "bytes": 29521,
+      "bytes": 16949,
       "how": "GET /api/screenshots"
     },
     {
@@ -1018,7 +1018,7 @@
     {
       "path": "api/optimisation_results.json",
       "source": "api: optimisation/results",
-      "bytes": 695687,
+      "bytes": 695684,
       "how": "GET /api/optimisation/results"
     },
     {
@@ -1124,18 +1124,6 @@
       "how": "verbatim copy"
     },
     {
-      "path": "dashboard-screenshots/check_pfd_no_hi.png",
-      "source": "docs/screenshots/check_pfd_no_hi.png",
-      "bytes": 232255,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/check_pfd_overlays.png",
-      "source": "docs/screenshots/check_pfd_overlays.png",
-      "bytes": 241451,
-      "how": "verbatim copy"
-    },
-    {
       "path": "dashboard-screenshots/dashboard_economics.png",
       "source": "docs/screenshots/dashboard_economics.png",
       "bytes": 203538,
@@ -1150,7 +1138,7 @@
     {
       "path": "dashboard-screenshots/dashboard_heat.png",
       "source": "docs/screenshots/dashboard_heat.png",
-      "bytes": 202837,
+      "bytes": 202904,
       "how": "verbatim copy"
     },
     {
@@ -1162,13 +1150,13 @@
     {
       "path": "dashboard-screenshots/dashboard_optimisation.png",
       "source": "docs/screenshots/dashboard_optimisation.png",
-      "bytes": 284100,
+      "bytes": 282926,
       "how": "verbatim copy"
     },
     {
       "path": "dashboard-screenshots/dashboard_overview.png",
       "source": "docs/screenshots/dashboard_overview.png",
-      "bytes": 201686,
+      "bytes": 201771,
       "how": "verbatim copy"
     },
     {
@@ -1192,19 +1180,19 @@
     {
       "path": "dashboard-screenshots/dashboard_reactor.png",
       "source": "docs/screenshots/dashboard_reactor.png",
-      "bytes": 187858,
+      "bytes": 187985,
       "how": "verbatim copy"
     },
     {
       "path": "dashboard-screenshots/dashboard_reports.png",
       "source": "docs/screenshots/dashboard_reports.png",
-      "bytes": 278042,
+      "bytes": 282724,
       "how": "verbatim copy"
     },
     {
       "path": "dashboard-screenshots/dashboard_sensitivity.png",
       "source": "docs/screenshots/dashboard_sensitivity.png",
-      "bytes": 208552,
+      "bytes": 219852,
       "how": "verbatim copy"
     },
     {
@@ -1222,541 +1210,631 @@
     {
       "path": "dashboard-screenshots/dashboard_validation.png",
       "source": "docs/screenshots/dashboard_validation.png",
-      "bytes": 233859,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_about_desktop.png",
-      "source": "docs/screenshots/site_about_desktop.png",
-      "bytes": 495991,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_about_fullhd.png",
-      "source": "docs/screenshots/site_about_fullhd.png",
-      "bytes": 510219,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_about_phone.png",
-      "source": "docs/screenshots/site_about_phone.png",
-      "bytes": 433704,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_about_tablet.png",
-      "source": "docs/screenshots/site_about_tablet.png",
-      "bytes": 462170,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_architecture_desktop.png",
-      "source": "docs/screenshots/site_architecture_desktop.png",
-      "bytes": 579416,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_architecture_fullhd.png",
-      "source": "docs/screenshots/site_architecture_fullhd.png",
-      "bytes": 596448,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_architecture_phone.png",
-      "source": "docs/screenshots/site_architecture_phone.png",
-      "bytes": 483454,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_architecture_tablet.png",
-      "source": "docs/screenshots/site_architecture_tablet.png",
-      "bytes": 516051,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_calculator_desktop.png",
-      "source": "docs/screenshots/site_calculator_desktop.png",
-      "bytes": 110509,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_calculator_fullhd.png",
-      "source": "docs/screenshots/site_calculator_fullhd.png",
-      "bytes": 151105,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_calculator_phone.png",
-      "source": "docs/screenshots/site_calculator_phone.png",
-      "bytes": 48237,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_calculator_tablet.png",
-      "source": "docs/screenshots/site_calculator_tablet.png",
-      "bytes": 101513,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_docs_desktop.png",
-      "source": "docs/screenshots/site_docs_desktop.png",
-      "bytes": 436464,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_docs_fullhd.png",
-      "source": "docs/screenshots/site_docs_fullhd.png",
-      "bytes": 449573,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_docs_phone.png",
-      "source": "docs/screenshots/site_docs_phone.png",
-      "bytes": 427974,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_docs_tablet.png",
-      "source": "docs/screenshots/site_docs_tablet.png",
-      "bytes": 416601,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_home_desktop.png",
-      "source": "docs/screenshots/site_home_desktop.png",
-      "bytes": 242141,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_home_fullhd.png",
-      "source": "docs/screenshots/site_home_fullhd.png",
-      "bytes": 831481,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_home_mobile.png",
-      "source": "docs/screenshots/site_home_mobile.png",
-      "bytes": 92080,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_home_phone.png",
-      "source": "docs/screenshots/site_home_phone.png",
-      "bytes": 727633,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_home_tablet.png",
-      "source": "docs/screenshots/site_home_tablet.png",
-      "bytes": 813109,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_methodology_desktop.png",
-      "source": "docs/screenshots/site_methodology_desktop.png",
-      "bytes": 219306,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_methodology_fullhd.png",
-      "source": "docs/screenshots/site_methodology_fullhd.png",
-      "bytes": 1593026,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_methodology_phone.png",
-      "source": "docs/screenshots/site_methodology_phone.png",
-      "bytes": 1505676,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_methodology_tablet.png",
-      "source": "docs/screenshots/site_methodology_tablet.png",
-      "bytes": 1698114,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_pfd_desktop.png",
-      "source": "docs/screenshots/site_pfd_desktop.png",
-      "bytes": 518505,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_pfd_fullhd.png",
-      "source": "docs/screenshots/site_pfd_fullhd.png",
-      "bytes": 536879,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_pfd_phone.png",
-      "source": "docs/screenshots/site_pfd_phone.png",
-      "bytes": 426313,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_pfd_tablet.png",
-      "source": "docs/screenshots/site_pfd_tablet.png",
-      "bytes": 477688,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_desktop.png",
-      "source": "docs/screenshots/site_platform_desktop.png",
-      "bytes": 192941,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_economics_desktop.png",
-      "source": "docs/screenshots/site_platform_economics_desktop.png",
-      "bytes": 200840,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_economics_fullhd.png",
-      "source": "docs/screenshots/site_platform_economics_fullhd.png",
-      "bytes": 233169,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_economics_phone.png",
-      "source": "docs/screenshots/site_platform_economics_phone.png",
-      "bytes": 82728,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_economics_tablet.png",
-      "source": "docs/screenshots/site_platform_economics_tablet.png",
-      "bytes": 180694,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_environment_desktop.png",
-      "source": "docs/screenshots/site_platform_environment_desktop.png",
-      "bytes": 155737,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_environment_fullhd.png",
-      "source": "docs/screenshots/site_platform_environment_fullhd.png",
-      "bytes": 250594,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_environment_phone.png",
-      "source": "docs/screenshots/site_platform_environment_phone.png",
-      "bytes": 81181,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_environment_tablet.png",
-      "source": "docs/screenshots/site_platform_environment_tablet.png",
-      "bytes": 142943,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_fullhd.png",
-      "source": "docs/screenshots/site_platform_fullhd.png",
-      "bytes": 231900,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_heat_desktop.png",
-      "source": "docs/screenshots/site_platform_heat_desktop.png",
-      "bytes": 176957,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_heat_fullhd.png",
-      "source": "docs/screenshots/site_platform_heat_fullhd.png",
-      "bytes": 232321,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_heat_phone.png",
-      "source": "docs/screenshots/site_platform_heat_phone.png",
-      "bytes": 83940,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_heat_tablet.png",
-      "source": "docs/screenshots/site_platform_heat_tablet.png",
-      "bytes": 171320,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_optimisation_desktop.png",
-      "source": "docs/screenshots/site_platform_optimisation_desktop.png",
-      "bytes": 242949,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_optimisation_fullhd.png",
-      "source": "docs/screenshots/site_platform_optimisation_fullhd.png",
-      "bytes": 384582,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_optimisation_phone.png",
-      "source": "docs/screenshots/site_platform_optimisation_phone.png",
-      "bytes": 83191,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_optimisation_tablet.png",
-      "source": "docs/screenshots/site_platform_optimisation_tablet.png",
-      "bytes": 194508,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_pfd_desktop.png",
-      "source": "docs/screenshots/site_platform_pfd_desktop.png",
-      "bytes": 189997,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_pfd_fullhd.png",
-      "source": "docs/screenshots/site_platform_pfd_fullhd.png",
-      "bytes": 251846,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_pfd_phone.png",
-      "source": "docs/screenshots/site_platform_pfd_phone.png",
-      "bytes": 74743,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_pfd_tablet.png",
-      "source": "docs/screenshots/site_platform_pfd_tablet.png",
-      "bytes": 159280,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_phone.png",
-      "source": "docs/screenshots/site_platform_phone.png",
-      "bytes": 92917,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reactor_desktop.png",
-      "source": "docs/screenshots/site_platform_reactor_desktop.png",
-      "bytes": 183124,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reactor_fullhd.png",
-      "source": "docs/screenshots/site_platform_reactor_fullhd.png",
-      "bytes": 215275,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reactor_phone.png",
-      "source": "docs/screenshots/site_platform_reactor_phone.png",
-      "bytes": 97609,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reactor_tablet.png",
-      "source": "docs/screenshots/site_platform_reactor_tablet.png",
-      "bytes": 173887,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reports_desktop.png",
-      "source": "docs/screenshots/site_platform_reports_desktop.png",
-      "bytes": 204786,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reports_fullhd.png",
-      "source": "docs/screenshots/site_platform_reports_fullhd.png",
-      "bytes": 292557,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reports_phone.png",
-      "source": "docs/screenshots/site_platform_reports_phone.png",
-      "bytes": 82111,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_reports_tablet.png",
-      "source": "docs/screenshots/site_platform_reports_tablet.png",
-      "bytes": 206398,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_sensitivity_desktop.png",
-      "source": "docs/screenshots/site_platform_sensitivity_desktop.png",
-      "bytes": 177392,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_sensitivity_fullhd.png",
-      "source": "docs/screenshots/site_platform_sensitivity_fullhd.png",
-      "bytes": 245492,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_sensitivity_phone.png",
-      "source": "docs/screenshots/site_platform_sensitivity_phone.png",
-      "bytes": 85688,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_sensitivity_tablet.png",
-      "source": "docs/screenshots/site_platform_sensitivity_tablet.png",
-      "bytes": 173238,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_simulation_desktop.png",
-      "source": "docs/screenshots/site_platform_simulation_desktop.png",
-      "bytes": 163354,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_simulation_fullhd.png",
-      "source": "docs/screenshots/site_platform_simulation_fullhd.png",
-      "bytes": 220778,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_simulation_phone.png",
-      "source": "docs/screenshots/site_platform_simulation_phone.png",
-      "bytes": 80772,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_simulation_tablet.png",
-      "source": "docs/screenshots/site_platform_simulation_tablet.png",
-      "bytes": 165568,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_tablet.png",
-      "source": "docs/screenshots/site_platform_tablet.png",
-      "bytes": 170011,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_validation_desktop.png",
-      "source": "docs/screenshots/site_platform_validation_desktop.png",
-      "bytes": 168869,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_validation_fullhd.png",
-      "source": "docs/screenshots/site_platform_validation_fullhd.png",
-      "bytes": 268412,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_validation_phone.png",
-      "source": "docs/screenshots/site_platform_validation_phone.png",
-      "bytes": 78624,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_platform_validation_tablet.png",
-      "source": "docs/screenshots/site_platform_validation_tablet.png",
-      "bytes": 147493,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_research_desktop.png",
-      "source": "docs/screenshots/site_research_desktop.png",
-      "bytes": 1547443,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_research_fullhd.png",
-      "source": "docs/screenshots/site_research_fullhd.png",
-      "bytes": 1583440,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_research_phone.png",
-      "source": "docs/screenshots/site_research_phone.png",
-      "bytes": 1435907,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_research_tablet.png",
-      "source": "docs/screenshots/site_research_tablet.png",
-      "bytes": 1496286,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_results_desktop.png",
-      "source": "docs/screenshots/site_results_desktop.png",
-      "bytes": 141457,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_results_fullhd.png",
-      "source": "docs/screenshots/site_results_fullhd.png",
-      "bytes": 1317482,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_results_phone.png",
-      "source": "docs/screenshots/site_results_phone.png",
-      "bytes": 1048972,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_results_tablet.png",
-      "source": "docs/screenshots/site_results_tablet.png",
-      "bytes": 1234308,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_why_desktop.png",
-      "source": "docs/screenshots/site_why_desktop.png",
-      "bytes": 609377,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_why_fullhd.png",
-      "source": "docs/screenshots/site_why_fullhd.png",
-      "bytes": 626977,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_why_phone.png",
-      "source": "docs/screenshots/site_why_phone.png",
-      "bytes": 553523,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/site_why_tablet.png",
-      "source": "docs/screenshots/site_why_tablet.png",
-      "bytes": 580676,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/snapshot_overview.png",
-      "source": "docs/screenshots/snapshot_overview.png",
-      "bytes": 216451,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/snapshot_pfd.png",
-      "source": "docs/screenshots/snapshot_pfd.png",
-      "bytes": 224041,
-      "how": "verbatim copy"
-    },
-    {
-      "path": "dashboard-screenshots/snapshot_sensitivity.png",
-      "source": "docs/screenshots/snapshot_sensitivity.png",
-      "bytes": 234183,
+      "bytes": 210065,
       "how": "verbatim copy"
     },
     {
       "path": "aspen-screenshots/manifest.json",
       "source": "aspen/screenshots/manifest.json",
       "bytes": 14173,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research/index.json",
+      "source": "results/research/ (whitelist)",
+      "bytes": 8217,
+      "how": "GET /api/research/index"
+    },
+    {
+      "path": "research/kinetics/study_conversion_vs_T.csv.json",
+      "source": "results/research/kinetics/study_conversion_vs_T.csv",
+      "bytes": 71786,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/kinetics/study_conversion_vs_P.csv.json",
+      "source": "results/research/kinetics/study_conversion_vs_P.csv",
+      "bytes": 30654,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/kinetics/study_mass_for_fraction_of_equilibrium.csv.json",
+      "source": "results/research/kinetics/study_mass_for_fraction_of_equilibrium.csv",
+      "bytes": 42192,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/kinetics/assumptions.json.json",
+      "source": "results/research/kinetics/assumptions.json",
+      "bytes": 3582,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/aspen_kinetic/catalyst_mass_targets.csv.json",
+      "source": "results/research/aspen_kinetic/catalyst_mass_targets.csv",
+      "bytes": 11701,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/aspen_kinetic/aspen_vs_python.csv.json",
+      "source": "results/research/aspen_kinetic/aspen_vs_python.csv",
+      "bytes": 7986,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/aspen_kinetic/aspen_kinetic_plotdata.csv.json",
+      "source": "results/research/aspen_kinetic/aspen_kinetic_plotdata.csv",
+      "bytes": 32161,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_heat_duty_plotdata.csv.json",
+      "source": "results/research/catalyst_comparison/catalyst_heat_duty_plotdata.csv",
+      "bytes": 2581,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_cost_breakdown_plotdata.csv.json",
+      "source": "results/research/catalyst_comparison/catalyst_cost_breakdown_plotdata.csv",
+      "bytes": 2870,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_breakeven_price.csv.json",
+      "source": "results/research/catalyst_comparison/catalyst_breakeven_price.csv",
+      "bytes": 8049,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_design_curves.csv.json",
+      "source": "results/research/catalyst_comparison/catalyst_design_curves.csv",
+      "bytes": 334087,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_sensitivity_ranking.csv.json",
+      "source": "results/research/catalyst_comparison/catalyst_sensitivity_ranking.csv",
+      "bytes": 79322,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_ranking_robustness.json.json",
+      "source": "results/research/catalyst_comparison/catalyst_ranking_robustness.json",
+      "bytes": 13353,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_comparison.json.json",
+      "source": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "bytes": 9845,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/catalyst_cho_comparison.json.json",
+      "source": "results/research/catalyst_comparison/catalyst_cho_comparison.json",
+      "bytes": 4382,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_comparison/assumptions.json.json",
+      "source": "results/research/catalyst_comparison/assumptions.json",
+      "bytes": 4375,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/scenario_results.json.json",
+      "source": "results/research/singapore/scenario_results.json",
+      "bytes": 10468,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/tornado.json.json",
+      "source": "results/research/singapore/tornado.json",
+      "bytes": 4386,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/breakeven_ammonia_price.json.json",
+      "source": "results/research/singapore/breakeven_ammonia_price.json",
+      "bytes": 3601,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/monte_carlo.json.json",
+      "source": "results/research/singapore/monte_carlo.json",
+      "bytes": 2478,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/benchmarks.json.json",
+      "source": "results/research/singapore/benchmarks.json",
+      "bytes": 1601,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/cost_vs_capacity.csv.json",
+      "source": "results/research/singapore/cost_vs_capacity.csv",
+      "bytes": 1385,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/heatmap_nh3_price_x_capacity.csv.json",
+      "source": "results/research/singapore/heatmap_nh3_price_x_capacity.csv",
+      "bytes": 5530,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/heatmap_nh3_price_x_carbon_tax_nh3_heat.csv.json",
+      "source": "results/research/singapore/heatmap_nh3_price_x_carbon_tax_nh3_heat.csv",
+      "bytes": 11291,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv.json",
+      "source": "results/research/singapore/heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv",
+      "bytes": 11296,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/singapore/assumptions.json.json",
+      "source": "results/research/singapore/assumptions.json",
+      "bytes": 7868,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/purification_configurations.csv.json",
+      "source": "results/research/purification/purification_configurations.csv",
+      "bytes": 69295,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/recovery_vs_cost.csv.json",
+      "source": "results/research/purification/recovery_vs_cost.csv",
+      "bytes": 6679,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/psa_recovery_vs_purity.csv.json",
+      "source": "results/research/purification/psa_recovery_vs_purity.csv",
+      "bytes": 9424,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/singapore_price_scenario.csv.json",
+      "source": "results/research/purification/singapore_price_scenario.csv",
+      "bytes": 32905,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/membrane_required_selectivity.csv.json",
+      "source": "results/research/purification/membrane_required_selectivity.csv",
+      "bytes": 2809,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/purification_study.json.json",
+      "source": "results/research/purification/purification_study.json",
+      "bytes": 17199,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/assumptions.json.json",
+      "source": "results/research/purification/assumptions.json",
+      "bytes": 5517,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/pathway_table_power.csv.json",
+      "source": "results/research/enduse/pathway_table_power.csv",
+      "bytes": 26025,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/pathway_table_hydrogen.csv.json",
+      "source": "results/research/enduse/pathway_table_hydrogen.csv",
+      "bytes": 5467,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/claim_check_direct_vs_cracking.csv.json",
+      "source": "results/research/enduse/claim_check_direct_vs_cracking.csv",
+      "bytes": 3253,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/price_sweep.csv.json",
+      "source": "results/research/enduse/price_sweep.csv",
+      "bytes": 5358,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/enduse_results.json.json",
+      "source": "results/research/enduse/enduse_results.json",
+      "bytes": 6161,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/assumptions.json.json",
+      "source": "results/research/enduse/assumptions.json",
+      "bytes": 3168,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/lca/lca_routes.csv.json",
+      "source": "results/research/lca/lca_routes.csv",
+      "bytes": 3521,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/lca/lca_distance.csv.json",
+      "source": "results/research/lca/lca_distance.csv",
+      "bytes": 3322,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/lca/lca_results.json.json",
+      "source": "results/research/lca/lca_results.json",
+      "bytes": 2267,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/lca/assumptions.json.json",
+      "source": "results/research/lca/assumptions.json",
+      "bytes": 14501,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/validation_summary.json",
+      "source": "results/research/validation/*.json",
+      "bytes": 15412,
+      "how": "GET /api/research/validation-summary"
+    },
+    {
+      "path": "research/evidence_matrix.json",
+      "source": "results/research/evidence_matrix.json",
+      "bytes": 163829,
+      "how": "GET /api/research/evidence-matrix"
+    },
+    {
+      "path": "research-figures/aspen_kinetic_conversion_vs_T.png",
+      "source": "results/figures/research/aspen_kinetic_conversion_vs_T.png",
+      "bytes": 211595,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/aspen_kinetic_operating_point.png",
+      "source": "results/figures/research/aspen_kinetic_operating_point.png",
+      "bytes": 160513,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/catalyst_breakeven_price.png",
+      "source": "results/figures/research/catalyst_breakeven_price.png",
+      "bytes": 44155,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/catalyst_cost_breakdown.png",
+      "source": "results/figures/research/catalyst_cost_breakdown.png",
+      "bytes": 52746,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/catalyst_heat_duty.png",
+      "source": "results/figures/research/catalyst_heat_duty.png",
+      "bytes": 86094,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/catalyst_ranking_robustness.png",
+      "source": "results/figures/research/catalyst_ranking_robustness.png",
+      "bytes": 110949,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/enduse_hydrogen_cost_ci.png",
+      "source": "results/figures/research/enduse_hydrogen_cost_ci.png",
+      "bytes": 182083,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/enduse_partial_cracking_cost.png",
+      "source": "results/figures/research/enduse_partial_cracking_cost.png",
+      "bytes": 185326,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/enduse_power_cost_vs_ci.png",
+      "source": "results/figures/research/enduse_power_cost_vs_ci.png",
+      "bytes": 159581,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/enduse_power_cost_vs_price.png",
+      "source": "results/figures/research/enduse_power_cost_vs_price.png",
+      "bytes": 203342,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/enduse_power_efficiency.png",
+      "source": "results/figures/research/enduse_power_efficiency.png",
+      "bytes": 97581,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/kinetics_conversion_vs_T.png",
+      "source": "results/figures/research/kinetics_conversion_vs_T.png",
+      "bytes": 152757,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/lca_breakeven_power.png",
+      "source": "results/figures/research/lca_breakeven_power.png",
+      "bytes": 173549,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/lca_h2_by_route.png",
+      "source": "results/figures/research/lca_h2_by_route.png",
+      "bytes": 128353,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/lca_power_by_route.png",
+      "source": "results/figures/research/lca_power_by_route.png",
+      "bytes": 114957,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/lca_sensitivity_blue_power.png",
+      "source": "results/figures/research/lca_sensitivity_blue_power.png",
+      "bytes": 131973,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/purification_config_comparison.png",
+      "source": "results/figures/research/purification_config_comparison.png",
+      "bytes": 124793,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/purification_recovery_cost.png",
+      "source": "results/figures/research/purification_recovery_cost.png",
+      "bytes": 113977,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/purification_recovery_purity.png",
+      "source": "results/figures/research/purification_recovery_purity.png",
+      "bytes": 110861,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/purification_sensitivity.png",
+      "source": "results/figures/research/purification_sensitivity.png",
+      "bytes": 106811,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/singapore_breakeven.png",
+      "source": "results/figures/research/singapore_breakeven.png",
+      "bytes": 95789,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/singapore_cost_breakdown.png",
+      "source": "results/figures/research/singapore_cost_breakdown.png",
+      "bytes": 47820,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/singapore_heatmap_nh3_price_carbon_tax.png",
+      "source": "results/figures/research/singapore_heatmap_nh3_price_carbon_tax.png",
+      "bytes": 91887,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/singapore_monte_carlo.png",
+      "source": "results/figures/research/singapore_monte_carlo.png",
+      "bytes": 39499,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research-figures/singapore_tornado.png",
+      "source": "results/figures/research/singapore_tornado.png",
+      "bytes": 89751,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "research/aspen_evidence.json",
+      "source": "docs/images/aspen_evidence/manifest.json",
+      "bytes": 28298,
+      "how": "GET /api/research/aspen-evidence"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__01_flowsheet.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__01_flowsheet.png",
+      "bytes": 115795,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__02_reactions_kinetic.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__02_reactions_kinetic.png",
+      "bytes": 119830,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__03_reactions_kinetic_tab.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__03_reactions_kinetic_tab.png",
+      "bytes": 146764,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__05_reactor_configuration.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__05_reactor_configuration.png",
+      "bytes": 145386,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__06_reactor_catalyst.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__06_reactor_catalyst.png",
+      "bytes": 138992,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__08_reactor_results.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__08_reactor_results.png",
+      "bytes": 136135,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__09_reactor_profiles.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__09_reactor_profiles.png",
+      "bytes": 196599,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__10_run_status.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__10_run_status.png",
+      "bytes": 133541,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__11_components.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__11_components.png",
+      "bytes": 112538,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__12_property_method.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__12_property_method.png",
+      "bytes": 123719,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__13_stream_results.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__13_stream_results.png",
+      "bytes": 173885,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ci_luc5_T572_P20_W100_hi__14_psa_block.png",
+      "source": "docs/images/aspen_evidence/ci_luc5_T572_P20_W100_hi__14_psa_block.png",
+      "bytes": 137032,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cs_AD_kum_Tin650_P20_W100__04_reactor_specifications.png",
+      "source": "docs/images/aspen_evidence/cs_AD_kum_Tin650_P20_W100__04_reactor_specifications.png",
+      "bytes": 130570,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cs_AD_kum_Tin650_P20_W100__09_reactor_profiles.png",
+      "source": "docs/images/aspen_evidence/cs_AD_kum_Tin650_P20_W100__09_reactor_profiles.png",
+      "bytes": 188379,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cs_OP_tni_T594_P20_W100__02_reactions_kinetic.png",
+      "source": "docs/images/aspen_evidence/cs_OP_tni_T594_P20_W100__02_reactions_kinetic.png",
+      "bytes": 119695,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/cs_OP_tni_T594_P20_W100__03_reactions_kinetic_tab.png",
+      "source": "docs/images/aspen_evidence/cs_OP_tni_T594_P20_W100__03_reactions_kinetic_tab.png",
+      "bytes": 146832,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ki_ru_kum_T600_P20_W200_hi__01_flowsheet.png",
+      "source": "docs/images/aspen_evidence/ki_ru_kum_T600_P20_W200_hi__01_flowsheet.png",
+      "bytes": 115824,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ki_ru_kum_T600_P20_W200_hi__04_reactor_specifications.png",
+      "source": "docs/images/aspen_evidence/ki_ru_kum_T600_P20_W200_hi__04_reactor_specifications.png",
+      "bytes": 138145,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ki_ru_kum_T600_P20_W200_hi__05_reactor_configuration.png",
+      "source": "docs/images/aspen_evidence/ki_ru_kum_T600_P20_W200_hi__05_reactor_configuration.png",
+      "bytes": 145558,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ki_ru_kum_T600_P20_W200_hi__08_reactor_results.png",
+      "source": "docs/images/aspen_evidence/ki_ru_kum_T600_P20_W200_hi__08_reactor_results.png",
+      "bytes": 135934,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/ki_ru_kum_T600_P20_W200_hi__10_run_status.png",
+      "source": "docs/images/aspen_evidence/ki_ru_kum_T600_P20_W200_hi__10_run_status.png",
+      "bytes": 133625,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__01_flowsheet.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__01_flowsheet.png",
+      "bytes": 106828,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__02_reactions_kinetic.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__02_reactions_kinetic.png",
+      "bytes": 119962,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__03_reactions_kinetic_tab.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__03_reactions_kinetic_tab.png",
+      "bytes": 145820,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__04_reactor_specifications.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__04_reactor_specifications.png",
+      "bytes": 136522,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__05_reactor_configuration.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__05_reactor_configuration.png",
+      "bytes": 144157,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__06_reactor_catalyst.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__06_reactor_catalyst.png",
+      "bytes": 137675,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__07_reactor_pressure.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__07_reactor_pressure.png",
+      "bytes": 146253,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__08_reactor_results.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__08_reactor_results.png",
+      "bytes": 134729,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__09_reactor_profiles.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__09_reactor_profiles.png",
+      "bytes": 192273,
+      "how": "verbatim copy"
+    },
+    {
+      "path": "aspen-evidence/kv_ru_kum_T450_P5_W20__10_run_status.png",
+      "source": "docs/images/aspen_evidence/kv_ru_kum_T450_P5_W20__10_run_status.png",
+      "bytes": 133246,
       "how": "verbatim copy"
     }
   ],
@@ -1770,11 +1848,13 @@
     "aspen/screenshots",
     "config/flowsheet.json",
     "config/scenarios.json",
+    "docs/images",
     "docs/screenshots",
     "index of cases/",
     "research/references.json",
     "results/figures",
     "results/optimisation",
+    "results/research",
     "results/sensitivity",
     "results/simulations",
     "results/validation"

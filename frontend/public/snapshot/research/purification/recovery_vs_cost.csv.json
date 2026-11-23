@@ -1,0 +1,279 @@
+{
+ "name": "recovery_vs_cost",
+ "area": "purification",
+ "file": "recovery_vs_cost.csv",
+ "columns": [
+  "config",
+  "recovery",
+  "usd_per_kg"
+ ],
+ "rows": [
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.6,
+   "usd_per_kg": 5.3054025925527775
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.625,
+   "usd_per_kg": 5.098529784558167
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.65,
+   "usd_per_kg": 4.907570269486219
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.675,
+   "usd_per_kg": 4.730755903678859
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.7,
+   "usd_per_kg": 4.566571135429169
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.725,
+   "usd_per_kg": 4.413709454644974
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.75,
+   "usd_per_kg": 4.271038552579726
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.775,
+   "usd_per_kg": 4.171922273707967
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.8,
+   "usd_per_kg": 4.129382117630703
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.825,
+   "usd_per_kg": 4.08942015283085
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.8500000000000001,
+   "usd_per_kg": 4.051808891842752
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.875,
+   "usd_per_kg": 4.016346845768259
+  },
+  {
+   "config": "PSA+TSA grade D purity 99.975 %",
+   "recovery": 0.9,
+   "usd_per_kg": 3.9828549133645734
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.4,
+   "usd_per_kg": 7.567055941404725
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.43000000000000005,
+   "usd_per_kg": 7.060425531144127
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.46,
+   "usd_per_kg": 6.619901106640921
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.49,
+   "usd_per_kg": 6.233343254533789
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.52,
+   "usd_per_kg": 5.891414390074921
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.55,
+   "usd_per_kg": 5.58681472614291
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.5800000000000001,
+   "usd_per_kg": 5.313755389769281
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.61,
+   "usd_per_kg": 5.06758706011016
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.64,
+   "usd_per_kg": 4.844533119743131
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.67,
+   "usd_per_kg": 4.641494596180765
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.7,
+   "usd_per_kg": 4.45590541306043
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.73,
+   "usd_per_kg": 4.2856235745001605
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.76,
+   "usd_per_kg": 4.1288485268674515
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.79,
+   "usd_per_kg": 4.068585799007127
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.8200000000000001,
+   "usd_per_kg": 4.0293368055333465
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.85,
+   "usd_per_kg": 3.992989659106697
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.88,
+   "usd_per_kg": 3.959308767551302
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.91,
+   "usd_per_kg": 3.9281497542825328
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.9400000000000001,
+   "usd_per_kg": 3.899573118485807
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 1 bar",
+   "recovery": 0.97,
+   "usd_per_kg": 3.874859140773893
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.4,
+   "usd_per_kg": 7.671680855203362
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.43000000000000005,
+   "usd_per_kg": 7.165005739565457
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.46,
+   "usd_per_kg": 6.72443327912005
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.49,
+   "usd_per_kg": 6.337823610155364
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.52,
+   "usd_per_kg": 5.995838604875817
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.55,
+   "usd_per_kg": 5.691177813831086
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.5800000000000001,
+   "usd_per_kg": 5.418051545734986
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.61,
+   "usd_per_kg": 5.171809453616412
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.64,
+   "usd_per_kg": 4.948673611485297
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.67,
+   "usd_per_kg": 4.74554334422168
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.7,
+   "usd_per_kg": 4.559850307870853
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.73,
+   "usd_per_kg": 4.389449400889612
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.76,
+   "usd_per_kg": 4.232535667010334
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.79,
+   "usd_per_kg": 4.172108120834296
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.8200000000000001,
+   "usd_per_kg": 4.132657991102165
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.85,
+   "usd_per_kg": 4.09605624213113
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.88,
+   "usd_per_kg": 4.062035234780985
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.91,
+   "usd_per_kg": 4.0303802992998365
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.9400000000000001,
+   "usd_per_kg": 4.0009470483469505
+  },
+  {
+   "config": "Pd-Ag + polish, permeate 0.1 bar",
+   "recovery": 0.97,
+   "usd_per_kg": 3.9737608453331363
+  }
+ ],
+ "count": 53,
+ "source_note": "results/research/purification/recovery_vs_cost.csv; values as stored, no post-processing"
+}
