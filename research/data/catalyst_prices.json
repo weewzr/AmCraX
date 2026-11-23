@@ -1,0 +1,749 @@
+{
+ "provenance": {
+  "task": "P1 catalyst price data",
+  "produced": "2026-11-23",
+  "method": "web fetch/search plus local extracted papers; no value invented; see caution fields",
+  "evidence_grades": "A supplier quotation; B catalogue price; C TEA price; D synthesis-cost method; E metal price; F laboratory proxy",
+  "evidence_kind_note": "Economic input data, not validation evidence of any kind (1-4)."
+ },
+ "fx": {
+  "sgd_per_usd": 1.2801,
+  "source": "Board of Governors of the Federal Reserve System, G.5 release, series EXSIUS (monthly average of daily noon buying rates in New York), value for 2026-10 (preliminary)",
+  "url": "https://fred.stlouisfed.org/series/EXSIUS",
+  "date": "2026-10 monthly average",
+  "access_date": "2026-11-23",
+  "mas_attempt": "MAS exchange-rate page and API returned no data (page content without table; API endpoint serving a maintenance page) on the access date; the MAS value should replace this when the reference scenario is frozen.",
+  "cross_check": {
+   "value": 1.29,
+   "source": "AsianBondsOnline (ADB) market watch, SGD per USD close 2026-11-20",
+   "url": "https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
+   "note": "not official; 0.8% above the rate used"
+  },
+  "usd_per_eur": 1.1198,
+  "usd_per_eur_source": "Federal Reserve G.5, series EXUSEU, 2026-10 monthly average",
+  "usd_per_eur_url": "https://fred.stlouisfed.org/series/EXUSEU",
+  "other": "KRW not converted"
+ },
+ "inputs": {
+  "P_Ni_usd_per_kg": {
+   "low": "USGS 2025e annual average 15,000 USD/t (M4)",
+   "central": "LME cash 15,310 USD/t on 2026-11-20 (M5)",
+   "high": "USGS 2022 annual average 25,815 USD/t (same table as M4)"
+  },
+  "P_Ru_usd_per_kg": {
+   "low": "USGS/Engelhard 2025e annual average 690 USD/oz (M3)",
+   "central": "JM Base 1,850 USD/oz on 2026-11-20 (M1)",
+   "high": "same as central: no sourced higher value; Ru rose about 3x in 18 months so upside risk is real and unquantified"
+  },
+  "N_usd_per_kg": {
+   "low": "0 (explicit metal-content floor; excludes support and manufacture)",
+   "central": "33.4 - 0.08*15.0 = 32.2 USD/kg: Cho et al. 8 wt% Ni/Al2O3 price (C1) minus Ni metal at 15 USD/kg; proxy for support + preparation of a supported-oxide catalyst, applied to all formulations",
+   "high": "same as central: no sourced higher value (Cho sensitivity +100% is an assumption, not evidence)"
+  },
+  "troy_oz_g": 31.1034768
+ },
+ "scenarios_usd_per_kg_finished_catalyst": {
+  "Ni/MgO": {
+   "loading_wt_pct": {
+    "Ni": 30,
+    "Ru": 0
+   },
+   "loading_basis": "30 wt% Ni from project kinetics source (model_parameters.yaml line 28)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 4.5,
+    "sgd_per_kg": 5.76,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 36.79,
+    "sgd_per_kg": 47.1,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 39.94,
+    "sgd_per_kg": 51.13,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "Ru/MgO": {
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 5
+   },
+   "loading_basis": "5 wt% Ru from project kinetics source (line 81)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 1109.2,
+    "sgd_per_kg": 1419.89,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 3006.14,
+    "sgd_per_kg": 3848.17,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 3006.14,
+    "sgd_per_kg": 3848.17,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "Ru/Al2O3": {
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 8
+   },
+   "loading_basis": "8 wt% Ru, Hypermec 10010 per project source (line 118)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 1774.72,
+    "sgd_per_kg": 2271.82,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 4790.51,
+    "sgd_per_kg": 6132.33,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 4790.51,
+    "sgd_per_kg": 6132.33,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "5Ni1Ru/CeO2": {
+   "loading_wt_pct": {
+    "Ni": 5,
+    "Ru": 1
+   },
+   "loading_basis": "5 wt% Ni + 1 wt% Ru from name",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 222.59,
+    "sgd_per_kg": 284.94,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 627.75,
+    "sgd_per_kg": 803.59,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 628.28,
+    "sgd_per_kg": 804.26,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "2.5Ni0.5Ru/CeO2": {
+   "loading_wt_pct": {
+    "Ni": 2.5,
+    "Ru": 0.5
+   },
+   "loading_basis": "2.5 wt% Ni + 0.5 wt% Ru from name",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 111.3,
+    "sgd_per_kg": 142.47,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 329.98,
+    "sgd_per_kg": 422.4,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 330.24,
+    "sgd_per_kg": 422.74,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "Ni/CeO2": {
+   "loading_wt_pct": {
+    "Ni": 5,
+    "Ru": 0
+   },
+   "loading_basis": "loading NOT specified in any source; ASSUMED 5 wt% Ni (monometallic counterpart of 5Ni1Ru); change in JSON to recompute",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 0.75,
+    "sgd_per_kg": 0.96,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 32.97,
+    "sgd_per_kg": 42.2,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 33.49,
+    "sgd_per_kg": 42.87,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "Ru/CeO2": {
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 1
+   },
+   "loading_basis": "loading NOT specified; ASSUMED 1 wt% Ru (counterpart of 5Ni1Ru)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 221.84,
+    "sgd_per_kg": 283.98,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 626.99,
+    "sgd_per_kg": 802.61,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 626.99,
+    "sgd_per_kg": 802.61,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  },
+  "Ru-K/CaO": {
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 3
+   },
+   "loading_basis": "3 wt% Ru (Cho et al. table); K promoter (10 wt% K2O/K in project source) priced at zero, below resolution",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "low": {
+    "usd_per_kg": 665.52,
+    "sgd_per_kg": 851.93,
+    "P_Ni_usd_per_kg": 15.0,
+    "P_Ru_usd_per_kg": 22184.0,
+    "N_usd_per_kg": 0.0
+   },
+   "central": {
+    "usd_per_kg": 1816.57,
+    "sgd_per_kg": 2325.39,
+    "P_Ni_usd_per_kg": 15.31,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   },
+   "high": {
+    "usd_per_kg": 1816.57,
+    "sgd_per_kg": 2325.39,
+    "P_Ni_usd_per_kg": 25.815,
+    "P_Ru_usd_per_kg": 59478.9,
+    "N_usd_per_kg": 32.2
+   }
+  }
+ },
+ "scenario_caveats": [
+  "Central values for Ru catalysts are dominated by Ru at JM spot, a market that has tripled in about 18 months; low uses the 2025 annual average.",
+  "N is taken from one paper's 'Calculated' Ni/Al2O3 price (derivation not visible) and applied to MgO, CeO2 and CaO supports; support-specific manufacturing costs not found. CeO2 oxide raw cost (1.71 USD/kg, M6) is negligible versus N.",
+  "Metal content is treated as mass fraction of finished catalyst times metal price; precursor salt, yield and loss, and refining margins are not included (no sourced values).",
+  "Published TEA Ru catalyst prices (C2 542, C3 25, C6 22.3 EUR, C7 24 USD) are below the Ru metal floor and must not be used as central values.",
+  "No recovery credit is deducted: no sourced refining charge. Gross credit upper bound = metal content x Ru price x recovery fraction (85-95% hydro, snippet-level)."
+ ],
+ "entries": [
+  {
+   "id": "M1",
+   "material": "Ruthenium metal (JM Base Price, spot)",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 1850.0,
+   "unit": "USD per troy ounce",
+   "currency": "USD",
+   "price_date": "2026-11-20",
+   "supplier_or_publication": "Johnson Matthey Base Price as displayed by wallstreet-online.de (secondary display of the JM benchmark; JM's own page not retrievable)",
+   "url": "https://www.wallstreet-online.de/rohstoffe/ruthentiumpreis",
+   "location": "price widget, 'Kurszeit 20.11.26'",
+   "pack_size": null,
+   "quote": "1.850,00 USD ... Ruthenium 1 Troy Ounce ... JM Base Price",
+   "quoted_or_derived": "quoted",
+   "derivation": "USD/kg = 1850 / 31.1034768 g/oz x 1000 = 59479",
+   "usd_per_kg": 59479.0,
+   "caution": "Secondary display. Kitco/Reuters (LSEG) gives about 1,750 USD/oz on 13 Mar 2026 citing JM benchmark, same order. Ru price roughly tripled in about 18 months.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 76139.1
+  },
+  {
+   "id": "M2",
+   "material": "Ruthenium metal, Reuters/LSEG citing JM benchmark",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 1750.0,
+   "unit": "USD per troy ounce (approximate)",
+   "currency": "USD",
+   "price_date": "2026-03-13",
+   "supplier_or_publication": "Reuters via Kitco (2026-03-16)",
+   "url": "https://www.kitco.com/news/off-the-wire/2026-03-16/ruthenium-prices-hit-record-high-ai-boom-squeezes-supply",
+   "location": "article body",
+   "quote": "Roughly $1,750 per ounce on March 13, 2026 ... citing Johnson Matthey's benchmark prices (about $560 a year earlier)",
+   "quoted_or_derived": "quoted (fetch tool paraphrase plus short quote)",
+   "usd_per_kg": 56264.0,
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 72023.5
+  },
+  {
+   "id": "M3",
+   "material": "Ruthenium, annual average (Engelhard unfabricated)",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 690.0,
+   "unit": "USD per troy ounce, 2025 estimate",
+   "currency": "USD",
+   "price_date": "2025 (annual average, estimate)",
+   "supplier_or_publication": "USGS Mineral Commodity Summaries 2026, Platinum-group metals chapter",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+   "location": "Salient statistics table, 'Price, dollars per troy ounce: Ruthenium 576.12 577.02 466.49 451.02 690' (2021 to 2025e); p. 1-2",
+   "quote": "Ruthenium 576.12 577.02 466.49 451.02 690; 'increased by 53% for ruthenium' in 2025 vs 2024",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": 22184.0,
+   "derivation": "690 / 31.1034768 x 1000",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 28397.7
+  },
+  {
+   "id": "M4",
+   "material": "Nickel metal, LME cash, annual average",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 15000.0,
+   "unit": "USD per metric ton, 2025 estimate",
+   "currency": "USD",
+   "price_date": "2025 (annual average, estimate)",
+   "supplier_or_publication": "USGS Mineral Commodity Summaries 2026, Nickel chapter",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+   "location": "Salient statistics, 'Price, average annual, London Metal Exchange (LME), cash: Dollars per metric ton 18,476 25,815 21,495 16,812 15,000' (2021 to 2025e)",
+   "quote": "18,476 25,815 21,495 16,812 15,000",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": 15.0,
+   "derivation": "15000/1000",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 19.2
+  },
+  {
+   "id": "M5",
+   "material": "Nickel metal, LME cash, spot",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 15310.0,
+   "unit": "USD per metric ton",
+   "currency": "USD",
+   "price_date": "2026-11-20",
+   "supplier_or_publication": "Tacto commodity page citing LME cash",
+   "url": "https://www.tacto.ai/en/commodities/nickel-price",
+   "location": "article text",
+   "quote": "15,310.00 USD/t as of 20 November",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": 15.31,
+   "caution": "Secondary aggregator; Trading Economics/Kalkine give about 16,100-16,300 USD/t for 6-13 Nov 2026 (search snippets only).",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 19.6
+  },
+  {
+   "id": "M6",
+   "material": "Cerium oxide 99.5% min (US price)",
+   "grade": "E",
+   "kind": "metal",
+   "price_value": 1.71,
+   "unit": "USD per kg, 2025 estimate",
+   "currency": "USD",
+   "price_date": "2025 (average)",
+   "supplier_or_publication": "USGS Mineral Commodity Summaries 2026, Rare earths chapter",
+   "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+   "location": "'Price, average, dollars per kilogram: Cerium oxide, 99.5% minimum 1.54 1.45 1.03 1.21 1.71' (2021 to 2025e)",
+   "quote": "1.54 1.45 1.03 1.21 1.71",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": 1.71,
+   "caution": "Oxide price, not catalyst-grade high-surface-area ceria; floor only. Mg and Al precursor prices NOT collected (magnesium chapter gave no dollar figure in search; negligible vs support+manufacture term).",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 2.2
+  },
+  {
+   "id": "C1",
+   "material": "Ni/Al2O3 catalyst, 8 wt% Ni",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 33.4,
+   "unit": "USD per kg catalyst",
+   "currency": "USD",
+   "price_date": "not stated (paper 2025/2026)",
+   "supplier_or_publication": "Cho, Lee & Lee (2026), Energy Conversion and Management 348, 120796",
+   "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+   "location": "economic parameter table, p. 7 ('Ni catalyst price 33.4 $/kg  Calculated'); sensitivity 16.7 to 66.8 $/kg-cat, 'Catalyst lifetime 2 years Assumed' (sensitivity 1-4 yr)",
+   "quote": "Ni catalyst price 33.4 $/kg Calculated",
+   "quoted_or_derived": "quoted (authors say 'Calculated'; derivation in their Supplementary S3, not available to this task)",
+   "usd_per_kg": 33.4,
+   "caution": "Derivation not visible; metal price year unknown. Authors conclude catalyst parameters had 'a minor influence' on overall economics.",
+   "loading_wt_pct": {
+    "Ni": 8
+   },
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 42.8
+  },
+  {
+   "id": "C2",
+   "material": "Ru-K/CaO catalyst, 3 wt% Ru",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 542.0,
+   "unit": "USD per kg catalyst",
+   "currency": "USD",
+   "price_date": "not stated",
+   "supplier_or_publication": "Cho, Lee & Lee (2026), Energy Conversion and Management 348, 120796",
+   "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+   "location": "economic parameter table, p. 7 ('Ru catalyst price 542 $/kg  Calculated'); sensitivity 271 to 1,084 $/kg-cat; catalyst identified as Ru-K/CaO (3% Ru wt.) in the process-parameter table",
+   "quote": "Ru catalyst price 542 $/kg Calculated",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": 542.0,
+   "loading_wt_pct": {
+    "Ru": 3
+   },
+   "caution": "Metal-content floor check: 3 wt% Ru x 22,184 USD/kg (USGS 2025 average) = 666 USD/kg, which already exceeds 542. The published figure is therefore BELOW the Ru metal floor at 2025 prices and about 3.3x below it at the Nov 2026 JM price (1784 USD/kg). Treat as outdated or low.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 693.8
+  },
+  {
+   "id": "C3",
+   "material": "Ru-based catalyst, 4 wt% Ru",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 25.0,
+   "unit": "USD per kg catalyst",
+   "currency": "USD",
+   "price_date": "not stated",
+   "supplier_or_publication": "Kum et al. (2026), Applied Energy 406, 127210, citing Devkota et al. (2024) Applied Energy 358, 122605",
+   "url": "https://doi.org/10.1016/j.apenergy.2025.127210",
+   "location": "Sec. 2 economics text: 'the price of a Ru-based catalyst with 4 wt% loading (25 USD/kg [14])'; extrapolated to 8 wt% Ru",
+   "quote": "Ru-based catalyst with 4 wt% loading (25 USD/kg [14])",
+   "quoted_or_derived": "quoted (secondary; original is Devkota 2024, not read)",
+   "usd_per_kg": 25.0,
+   "loading_wt_pct": {
+    "Ru": 4
+   },
+   "caution": "25 USD/kg for 4 wt% Ru is far below the metal floor (4% x 22,184 = 887 USD/kg). Physically inconsistent with Ru prices at any time since 2020; do NOT use.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 32.0
+  },
+  {
+   "id": "C4",
+   "material": "Ru/C or Ru-type ammonia catalyst (Yoshida et al.), as cited",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 295.0,
+   "unit": "EUR per kg catalyst",
+   "currency": "EUR",
+   "price_date": "2021 (publication)",
+   "supplier_or_publication": "Richard et al. (2024) Int. J. Hydrogen Energy 71, 571-587, citing Yoshida et al. (2021)",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "location": "Sec. on economic assumptions (text before Table 5)",
+   "quote": "Yoshida et al. (2021) [78] estimated the cost of Ru/C catalyst at around 295 EUR/kg",
+   "quoted_or_derived": "quoted (secondary; Yoshida DOI 10.1016/j.ijhydene.2020.12.081 not read)",
+   "usd_per_kg": 330.3,
+   "fx_used": "EUR->USD 1.1198 (Federal Reserve G.5, Oct 2026 monthly average)",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 422.8
+  },
+  {
+   "id": "C5",
+   "material": "Catalyst for ammonia decomposition (type not specified), Richard et al. base case",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 143.0,
+   "unit": "EUR per kg catalyst",
+   "currency": "EUR",
+   "price_date": "2024",
+   "supplier_or_publication": "Richard et al. (2024), Int. J. Hydrogen Energy 71, 571-587",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "location": "Table 5 (key assumptions): 'Catalyst cost 143 EUR/kg', 'Catalyst lifetime 5 years'",
+   "quote": "this study adopts a catalyst cost of 143 EUR/kg [79] and assumes a lifespan of 5 years",
+   "quoted_or_derived": "quoted; 'compromise' between 295 and 22.3 EUR/kg; source [79] is a CO2-to-methanol paper (Atsbha et al. 2021, doi 10.3390/catal11060687), so it is not a cracking-catalyst price",
+   "usd_per_kg": 160.1,
+   "fx_used": "EUR->USD 1.1198",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 204.9
+  },
+  {
+   "id": "C6",
+   "material": "Catalyst, Makhloufi & Kezibri (2021) as cited",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 22.3,
+   "unit": "EUR per kg catalyst",
+   "currency": "EUR",
+   "price_date": "2021",
+   "supplier_or_publication": "Richard et al. (2024), citing Makhloufi & Kezibri (2021) Int. J. Hydrogen Energy 46(70)",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "location": "text before Table 5",
+   "quote": "Makhloufi et al. (2021) [47] used a cost of 22.3 EUR/kg",
+   "quoted_or_derived": "quoted (secondary, original not read; DOI 10.1016/j.ijhydene.2021.07.188 resolves)",
+   "usd_per_kg": 25.0,
+   "fx_used": "EUR->USD 1.1198",
+   "caution": "Ru 8.5 wt% on Al2O3 per Cho et al. description of the same study; price is far below metal floor.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 32.0
+  },
+  {
+   "id": "C7",
+   "material": "Catalyst, Chopra et al. (2026)",
+   "grade": "C",
+   "kind": "tea_price",
+   "price_value": 24.0,
+   "unit": "USD per kg catalyst",
+   "currency": "USD",
+   "price_date": "not stated",
+   "supplier_or_publication": "Chopra, Srivastava & Arora (2026), Fuel, doi 10.1016/j.fuel.2026.138463",
+   "url": "https://doi.org/10.1016/j.fuel.2026.138463",
+   "location": "Table 2 (key assumptions for economic analysis): 'Catalyst cost, $/kg 24 [18]' (ref [18] = Devkota et al. 2024)",
+   "quote": "Catalyst cost, $/kg 24",
+   "quoted_or_derived": "quoted (secondary)",
+   "usd_per_kg": 24.0,
+   "caution": "Catalyst type/loading not stated in the table; originates from Devkota 2024 (Ru). Same implausibility as C3.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 30.7
+  },
+  {
+   "id": "D1",
+   "material": "Catalyst synthesis cost method (step method; Ni/Al2O3, Pt/C, FCC compared with market)",
+   "grade": "D",
+   "kind": "method",
+   "price_value": null,
+   "unit": "no numbers retrievable",
+   "currency": null,
+   "price_date": "2018",
+   "supplier_or_publication": "Org. Process Res. Dev. 22(12) (2018), 'Estimating precommercial heterogeneous catalyst price: a simple step-based method'",
+   "url": "https://www.osti.gov/pages/biblio/1496561",
+   "doi": "10.1021/acs.oprd.8b00245",
+   "location": "abstract page",
+   "quote": "price estimates for Pt/C, Ni/Al2O3, and fluid catalytic cracking catalysts are 'shown to compare favorably (within +/-20%) with market prices'",
+   "quoted_or_derived": "quoted",
+   "usd_per_kg": null,
+   "caution": "Author list not verified by this task. NREL CatCost tool numbers for Ni/MgO, Ru/CeO2 etc. were NOT obtained (tool not run).",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F1",
+   "material": "Nickel on silica/alumina catalyst (Thermo Scientific, ex Alfa Aesar), 5 g pack",
+   "grade": "F",
+   "kind": "lab_proxy",
+   "price_value": 41.12,
+   "unit": "USD per 5 g (currency not stated on listing; assumed USD, US site)",
+   "currency": "USD (assumed)",
+   "price_date": "2026-11-23 (search listing)",
+   "supplier_or_publication": "Fisher Scientific US listing for Thermo Scientific 'Nickel on silica-alumina, catalyst'",
+   "url": "https://www.fishersci.com/shop/products/nickel-silica-alumina-1/208779100G",
+   "location": "pack table: 5 g $41.12, 25 g $65.67, 100 g $194.18",
+   "pack_size": "5 g",
+   "quote": "5 g Each $41.12; 25 g $65.67; 100 g $194.18 (from search-result text; product page blocked to automated fetch, HTTP 403)",
+   "quoted_or_derived": "quoted; derived 8,224 USD/kg at 5 g, 1,942 USD/kg at 100 g",
+   "usd_per_kg": 8224.0,
+   "caution": "PROXY. Laboratory small pack, not an industrial price. Not used in scenarios. Page not independently re-read.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 10527.5
+  },
+  {
+   "id": "F2",
+   "material": "Nickel on silica-alumina catalyst (Sigma-Aldrich 208779), 100 g pack",
+   "grade": "F",
+   "kind": "lab_proxy",
+   "price_value": 112.0,
+   "unit": "USD per 100 g (US site, from search listing)",
+   "currency": "USD",
+   "price_date": "2026-11-23 (search listing)",
+   "supplier_or_publication": "Sigma-Aldrich product 208779",
+   "url": "https://www.sigmaaldrich.com/product/ALDRICH/208779",
+   "location": "pack table 100 G",
+   "pack_size": "100 g",
+   "quote": "100 g $112.00 (search-result text; page fetch timed out)",
+   "quoted_or_derived": "quoted; derived 1,120 USD/kg",
+   "usd_per_kg": 1120.0,
+   "caution": "PROXY. Not re-read on the page. Krackeler reseller shows 110.00 for 100 g.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 1433.7
+  },
+  {
+   "id": "F3",
+   "material": "Evonik Noblyst P3061, 5 wt% Ru on alumina (Sigma-Aldrich 908142), 10 g",
+   "grade": "F",
+   "kind": "lab_proxy",
+   "price_value": 124.0,
+   "unit": "EUR per 10 g",
+   "currency": "EUR",
+   "price_date": "2026-11-23 (search listing, Portugal site)",
+   "supplier_or_publication": "Sigma-Aldrich product 908142",
+   "url": "https://www.sigmaaldrich.com/product/ALDRICH/908142",
+   "location": "pack table 10 G",
+   "pack_size": "10 g",
+   "quote": "EUR 124.00 for 10 g (search-result text; page fetch timed out)",
+   "quoted_or_derived": "quoted; derived 12,400 EUR/kg = 13886 USD/kg at EUR->USD 1.1198",
+   "usd_per_kg": 13886.0,
+   "loading_wt_pct": {
+    "Ru": 5
+   },
+   "fx_used": "EUR->USD 1.1198",
+   "caution": "PROXY. Compare metal floor of 5 wt% Ru at JM spot: 2974 USD/kg; the lab price is 4.7x the floor.",
+   "access_date": "2026-11-23",
+   "sgd_per_kg": 17775.5
+  },
+  {
+   "id": "F4",
+   "material": "Ruthenium on alumina, 0.5 wt% (Sigma-Aldrich 206199), 100 mg",
+   "grade": "F",
+   "kind": "lab_proxy",
+   "price_value": 136416.0,
+   "unit": "KRW per 100 mg (Korea site)",
+   "currency": "KRW",
+   "price_date": "2026-11-23 (search listing)",
+   "supplier_or_publication": "Sigma-Aldrich Korea product 206199",
+   "url": "https://b2b.sigmaaldrich.com/KR/en/product/aldrich/206199",
+   "location": "pack table 100 MG",
+   "pack_size": "100 mg",
+   "quote": "100 MG KRW 136,416 (search-result text)",
+   "quoted_or_derived": "quoted; NOT converted (no sourced KRW rate)",
+   "usd_per_kg": null,
+   "caution": "PROXY, mg pack, useless for scale. Currency conversion deliberately omitted.",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "A1",
+   "material": "Industrial Ni cracking catalysts: Johnson Matthey KATALCO 27-200MQ / 27-2, Topsoe DNK-20/DNK-30 Retake, DNK-2R (Fe-Co), Clariant HyProGen 820/821/830/850 DCARB; Ru low-T catalyst (JM)",
+   "grade": "A/B",
+   "kind": "not_public",
+   "price_value": null,
+   "unit": null,
+   "currency": null,
+   "price_date": "2026-11-23",
+   "supplier_or_publication": "Vendor product pages (JM, Topsoe, Clariant)",
+   "url": "https://matthey.com/products-and-markets/chemicals/ammonia-cracking-catalysts",
+   "location": "product pages",
+   "quote": "No price published. Topsoe: 'The cost of ammonia feed is the primary expense'; iron-cobalt 'reasonable cost'; no figure.",
+   "quoted_or_derived": "finding: not public",
+   "usd_per_kg": null,
+   "caution": "Topsoe URL https://www.topsoe.com/blog/ammonia-cracking-catalyst-technology and Clariant URL https://www.clariant.com/Business-Units/Catalysts/Energy-Transition/Ammonia-cracking resolve (HTTP 200). JM URL timed out for a direct request in this run but returned in search. BASF, Heraeus, Amogy: no public price found (search not exhaustive). No quotation was requested.",
+   "access_date": "2026-11-23"
+  }
+ ],
+ "lifetime_deactivation_recovery": [
+  {
+   "id": "L1",
+   "topic": "Ni/Al2O3 ammonia decomposition stability",
+   "value": "13.5% relative conversion loss over 800 h TOS at 534 C; Ni crystallite 3.5 nm (fresh) to 5.0 nm (after 1000 h); no nickel nitride indicated; deactivation by sintering of Ni0",
+   "source": "Purcel et al. (2024) Energy Technology, 'Long-Term Stability of Ammonia Decomposition over Nickel-Based Catalysts'",
+   "doi": "10.1002/ente.202400678",
+   "location": "Results text, Scherrer analysis paragraph (local extracted copy)",
+   "grade": "lab data",
+   "quoted_or_derived": "quoted from text"
+  },
+  {
+   "id": "L2",
+   "topic": "Steam reforming Ni catalyst changeout cycle (comparable service)",
+   "value": "average changeout cycle of steam reforming catalysts is now four to six years",
+   "source": "Shah (Johnson Matthey), 'Reducing catalyst changeout costs for steam reforming', Refining India, Sept 2025, p. 25",
+   "url": "https://ptqmagazines.digitalrefining.com/Refining-India-September-2025/25",
+   "location": "p. 25",
+   "grade": "industrial trade article (vendor)",
+   "quoted_or_derived": "quoted"
+  },
+  {
+   "id": "L3",
+   "topic": "Assumed catalyst lifetime in ammonia cracking TEA",
+   "value": "Cho et al.: 2 years (assumed; sensitivity 1 to 4 yr), both Ni and Ru. Richard et al.: 5 years. Neither is measured.",
+   "source": "Cho et al. (2026) table p. 7; Richard et al. (2024) Table 5",
+   "doi": "10.1016/j.enconman.2025.120796; 10.1016/j.ijhydene.2024.05.308",
+   "grade": "C (assumption)",
+   "quoted_or_derived": "quoted"
+  },
+  {
+   "id": "L4",
+   "topic": "Vendor claim, Ni/Fe-Co cracking catalyst lifespan",
+   "value": "Topsoe page fetched in this run gave NO lifetime or operating-hour figure; an earlier search snippet claiming >100,000 h could not be confirmed on the page and must not be used.",
+   "source": "Topsoe blog",
+   "url": "https://www.topsoe.com/blog/ammonia-cracking-catalyst-technology",
+   "grade": "unverified",
+   "quoted_or_derived": "finding: not confirmed"
+  },
+  {
+   "id": "L5",
+   "topic": "Deactivation mechanisms (steam reforming)",
+   "value": "carbon deposition, sulfur poisoning, thermally driven sintering (search snippets of AFPM and a 2026 preprint; full texts not read)",
+   "source": "AFPM technical pages; preprints.org 202609.1311",
+   "grade": "not verified at source",
+   "quoted_or_derived": "search-snippet only"
+  },
+  {
+   "id": "L6",
+   "topic": "Spent PGM catalyst recovery: hydrometallurgy vs pyrometallurgy",
+   "value": "Hydrometallurgical PGM recovery from spent catalysts 85-95% (search snippet of a Sabin Metal/digitalrefining article; NOT confirmed on the fetched page 1001449). Plasma/pyro route >98% for Ru from petrochemical catalysts (environmental-expert case study; page blocked, snippet only). Umicore confirms route (pyro plus hydro, pure Ru powder, Hoboken) but gives no rate or fee.",
+   "source": "digitalrefining.com articles (Sabin Metal), Umicore, environmental-expert.com",
+   "url": "https://www.umicore.com/en/markets-products/metals/ruthenium/recycling-refining/",
+   "grade": "not verified numerically",
+   "quoted_or_derived": "search-snippet only for the percentages"
+  },
+  {
+   "id": "L7",
+   "topic": "Ru refining charge / credit",
+   "value": "NOT FOUND. Refiners settle on assay and total contained PGM; schedules are contractual and not public. No refining-charge number is recorded.",
+   "source": "digitalrefining.com 1001449 (Cook, Sabin Metal, 2017): returns should be 'based on total precious metals contained'",
+   "url": "https://www.digitalrefining.com/article/1001449/154",
+   "grade": "finding: not public",
+   "quoted_or_derived": "quoted"
+  }
+ ],
+ "not_found": [
+  "Any supplier quotation (grade A) or published commercial price (grade B) for ammonia-cracking catalysts from JM, Topsoe, Clariant, BASF, Heraeus, Amogy",
+  "Ru refining charge and recovery fraction with primary source",
+  "NREL CatCost output for any of the eight catalysts (tool not run, no accessible numbers)",
+  "Mg and Al precursor prices",
+  "Co-based and Fe-based catalyst prices (Topsoe DNK-2R Fe-Co: 'reasonable cost', no number)",
+  "Official MAS exchange rate for the date (portal unavailable)",
+  "Sigma/Fisher product pages not re-read directly (blocked/timeouts)"
+ ]
+}

@@ -1,0 +1,200 @@
+[
+  {
+    "citekey": "wu2018iuqpart1",
+    "apa7": "Wu, X., Kozlowski, T., Meidani, H., & Shirvan, K. (2018a). Inverse uncertainty quantification using the modular Bayesian approach based on Gaussian process, Part 1: Theory. Nuclear Engineering and Design, 335, 339-355. https://doi.org/10.1016/j.nucengdes.2018.06.004",
+    "doi": "10.1016/j.nucengdes.2018.06.004",
+    "url": "https://doi.org/10.1016/j.nucengdes.2018.06.004",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "arXiv abstract page; full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "wu2018iuqpart2",
+    "apa7": "Wu, X., Kozlowski, T., Meidani, H., & Shirvan, K. (2018b). Inverse uncertainty quantification using the modular Bayesian approach based on Gaussian process, Part 2: Application to TRACE. Nuclear Engineering and Design, 335, 417-431. https://doi.org/10.1016/j.nucengdes.2018.06.003",
+    "doi": "10.1016/j.nucengdes.2018.06.003",
+    "url": "https://doi.org/10.1016/j.nucengdes.2018.06.003",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "arXiv abstract page; full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "che2021kriging",
+    "apa7": "Che, Y., Wu, X., Pastore, G., Li, W., & Shirvan, K. (2021). Application of Kriging and Variational Bayesian Monte Carlo method for improved prediction of doped UO2 fission gas release. Annals of Nuclear Energy, 153, 108046. https://doi.org/10.1016/j.anucene.2020.108046",
+    "doi": "10.1016/j.anucene.2020.108046",
+    "url": "https://doi.org/10.1016/j.anucene.2020.108046",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "bibliographic record and secondary summaries only; abstract and full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "che2022thesis",
+    "apa7": "Che, Y. (2022). Application of data-driven methods in nuclear fuel performance analysis [Doctoral dissertation, Massachusetts Institute of Technology]. DSpace@MIT. https://dspace.mit.edu/handle/1721.1/143359",
+    "doi": null,
+    "url": "https://dspace.mit.edu/handle/1721.1/143359",
+    "access_date": "2026-11-23",
+    "doi_verified": false,
+    "url_verified": true,
+    "verification": "DSpace@MIT record fetched, 2026-11-23",
+    "taken_from": "DSpace record and abstract (thesis supervised by K. Shirvan); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "stewart2022capitalcost",
+    "apa7": "Stewart, W. R., & Shirvan, K. (2022). Capital cost estimation for advanced nuclear power plants. Renewable and Sustainable Energy Reviews, 155, 111880. https://doi.org/10.1016/j.rser.2021.111880",
+    "doi": "10.1016/j.rser.2021.111880",
+    "url": "https://doi.org/10.1016/j.rser.2021.111880",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract via RePEc; full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "stewart2021hchtgr",
+    "apa7": "Stewart, W. R., Velez-Lopez, E., Wiser, R., & Shirvan, K. (2021). Economic solution for low carbon process heat: A horizontal, compact high temperature gas reactor. Applied Energy, 304, 117650. https://doi.org/10.1016/j.apenergy.2021.117650",
+    "doi": "10.1016/j.apenergy.2021.117650",
+    "url": "https://doi.org/10.1016/j.apenergy.2021.117650",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (OpenAlex); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "stewart2023scheduleRisk",
+    "apa7": "Stewart, W. R., & Shirvan, K. (2023). Construction schedule and cost risk for large and small light water reactors. Nuclear Engineering and Design, 407, 112305. https://doi.org/10.1016/j.nucengdes.2023.112305",
+    "doi": "10.1016/j.nucengdes.2023.112305",
+    "url": "https://doi.org/10.1016/j.nucengdes.2023.112305",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (OpenAlex); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "radaideh2021rl",
+    "apa7": "Radaideh, M. I., Wolverton, I., Joseph, J., Tusar, J. J., Otgonbaatar, U., Roy, N., Forget, B., & Shirvan, K. (2021). Physics-informed reinforcement learning optimization of nuclear assembly design. Nuclear Engineering and Design, 372, 110966. https://doi.org/10.1016/j.nucengdes.2020.110966",
+    "doi": "10.1016/j.nucengdes.2020.110966",
+    "url": "https://doi.org/10.1016/j.nucengdes.2020.110966",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "DSpace@MIT abstract; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "forsberg2016fhrnacc",
+    "apa7": "Forsberg, C., & Peterson, P. F. (2016). Basis for fluoride salt-cooled high-temperature reactors with nuclear air-Brayton combined cycles and firebrick resistance-heated energy storage. Nuclear Technology, 196(1), 13-33. https://doi.org/10.13182/NT16-28",
+    "doi": "10.13182/NT16-28",
+    "url": "https://doi.org/10.13182/NT16-28",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (OpenAlex); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "forsberg2017fires",
+    "apa7": "Forsberg, C. W., Stack, D. C., Curtis, D., Haratyk, G., & Sepulveda, N. A. (2017). Converting excess low-price electricity into high-temperature stored heat for industry and high-value electricity production. The Electricity Journal, 30(6), 42-52. https://doi.org/10.1016/j.tej.2017.06.009",
+    "doi": "10.1016/j.tej.2017.06.009",
+    "url": "https://doi.org/10.1016/j.tej.2017.06.009",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (OpenAlex); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "forsberg2025baseload",
+    "apa7": "Forsberg, C. (2025). Base-load nuclear reactors for fully dispatchable electricity: Nuclear air-Brayton combined cycles, firebrick heat storage, hydrogen storage, and hydrocarbon biofuels. Energies, 18(4), 821. https://doi.org/10.3390/en18040821",
+    "doi": "10.3390/en18040821",
+    "url": "https://doi.org/10.3390/en18040821",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (Crossref); full text returned HTTP 403 to automated access; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "forsberg2021biorefineries",
+    "apa7": "Forsberg, C. W., Dale, B. E., Jones, D. S., Hossain, T., Morais, A. R. C., & Wendt, L. M. (2021). Replacing liquid fossil fuels and hydrocarbon chemical feedstocks with liquid biofuels from large-scale nuclear biorefineries. Applied Energy, 298, 117225. https://doi.org/10.1016/j.apenergy.2021.117225",
+    "doi": "10.1016/j.apenergy.2021.117225",
+    "url": "https://doi.org/10.1016/j.apenergy.2021.117225",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "abstract (OpenAlex); full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "forsberg2003ahtr",
+    "apa7": "Forsberg, C. W., Peterson, P. F., & Pickard, P. S. (2003). Molten-salt-cooled advanced high-temperature reactor for production of hydrogen and electricity. Nuclear Technology, 144(3), 289-302. https://doi.org/10.13182/NT03-1",
+    "doi": "10.13182/NT03-1",
+    "url": "https://doi.org/10.13182/NT03-1",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "DOI resolved via https://doi.org/api/handles (responseCode 1) and metadata checked on Crossref, 2026-11-23",
+    "taken_from": "bibliographic record only (key earlier paper on nuclear heat for hydrogen); abstract and full text not read; used for the methodology-transfer assessment only, no numerical input to any model"
+  },
+  {
+    "citekey": "saltelli2010sobol",
+    "apa7": "Saltelli, A., Annoni, P., Azzini, I., Campolongo, F., Ratto, M., & Tarantola, S. (2010). Variance based sensitivity analysis of model output. Design and estimator for the total sensitivity index. Computer Physics Communications, 181(2), 259-270. https://doi.org/10.1016/j.cpc.2009.09.018",
+    "doi": "10.1016/j.cpc.2009.09.018",
+    "url": "https://doi.org/10.1016/j.cpc.2009.09.018",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "metadata checked on Crossref 2026-11-23",
+    "taken_from": "method reference: Saltelli sampling design and first-order estimator (Table 2) for T1"
+  },
+  {
+    "citekey": "jansen1999anova",
+    "apa7": "Jansen, M. J. W. (1999). Analysis of variance designs for model output. Computer Physics Communications, 117(1-2), 35-43. https://doi.org/10.1016/S0010-4655(98)00154-4",
+    "doi": "10.1016/S0010-4655(98)00154-4",
+    "url": "https://doi.org/10.1016/S0010-4655(98)00154-4",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "metadata checked on Crossref 2026-11-23",
+    "taken_from": "method reference: Jansen total-effect estimator for T1"
+  },
+  {
+    "citekey": "kennedy2001calibration",
+    "apa7": "Kennedy, M. C., & O'Hagan, A. (2001). Bayesian calibration of computer models. Journal of the Royal Statistical Society Series B: Statistical Methodology, 63(3), 425-464. https://doi.org/10.1111/1467-9868.00294",
+    "doi": "10.1111/1467-9868.00294",
+    "url": "https://doi.org/10.1111/1467-9868.00294",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "metadata checked on Crossref 2026-11-23",
+    "taken_from": "method reference: model-discrepancy formulation used by S1 and by T2"
+  },
+  {
+    "citekey": "haario2001adaptive",
+    "apa7": "Haario, H., Saksman, E., & Tamminen, J. (2001). An adaptive Metropolis algorithm. Bernoulli, 7(2), 223-242. https://doi.org/10.2307/3318737",
+    "doi": "10.2307/3318737",
+    "url": "https://doi.org/10.2307/3318737",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "metadata checked on Crossref 2026-11-23",
+    "taken_from": "method reference: adaptive Metropolis sampler for T2 (Crossref returns first page 223 only; last page 242 not machine-verified)"
+  },
+  {
+    "citekey": "vehtari2021rhat",
+    "apa7": "Vehtari, A., Gelman, A., Simpson, D., Carpenter, B., & Burkner, P.-C. (2021). Rank-normalization, folding, and localization: An improved R-hat for assessing convergence of MCMC (with discussion). Bayesian Analysis, 16(2), 667-718. https://doi.org/10.1214/20-BA1221",
+    "doi": "10.1214/20-BA1221",
+    "url": "https://doi.org/10.1214/20-BA1221",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "metadata checked on Crossref 2026-11-23",
+    "taken_from": "method reference: convergence diagnostics (rank-normalised split R-hat, bulk ESS) for T2"
+  }
+]

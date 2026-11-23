@@ -1,0 +1,222 @@
+[
+ {
+  "citekey": "usgs_mcs2026_pgm",
+  "apa7": "U.S. Geological Survey. (2026). Platinum-group metals. In Mineral commodity summaries 2026. https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+  "doi": null,
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-platinum-group.pdf",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Ruthenium annual average price 2021-2025e (USD/troy oz); 690 for 2025e"
+ },
+ {
+  "citekey": "usgs_mcs2026_nickel",
+  "apa7": "U.S. Geological Survey. (2026). Nickel. In Mineral commodity summaries 2026. https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+  "doi": null,
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-nickel.pdf",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "LME cash nickel annual average 2021-2025e (USD/t); 15,000 for 2025e"
+ },
+ {
+  "citekey": "usgs_mcs2026_rare_earths",
+  "apa7": "U.S. Geological Survey. (2026). Rare earths. In Mineral commodity summaries 2026. https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+  "doi": null,
+  "url": "https://pubs.usgs.gov/periodicals/mcs2026/mcs2026-rare-earths.pdf",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Cerium oxide 99.5% price 2021-2025e (USD/kg); 1.71 for 2025e"
+ },
+ {
+  "citekey": "jm_base_price_wso_2026",
+  "apa7": "wallstreet-online.de. (2026). Ruthenium price (JM Base Price, 1 troy ounce). https://www.wallstreet-online.de/rohstoffe/ruthentiumpreis",
+  "doi": null,
+  "url": "https://www.wallstreet-online.de/rohstoffe/ruthentiumpreis",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Ru 1,850 USD/oz, quote time 20 Nov 2026 (secondary display of JM Base Price)"
+ },
+ {
+  "citekey": "kitco_ru_2026",
+  "apa7": "Reuters. (2026, March 16). Ruthenium prices hit record high as AI boom squeezes supply. Kitco. https://www.kitco.com/news/off-the-wire/2026-03-16/ruthenium-prices-hit-record-high-ai-boom-squeezes-supply",
+  "doi": null,
+  "url": "https://www.kitco.com/news/off-the-wire/2026-03-16/ruthenium-prices-hit-record-high-ai-boom-squeezes-supply",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Ru about 1,750 USD/oz on 13 March 2026 (LSEG, JM benchmark)"
+ },
+ {
+  "citekey": "tacto_nickel_2026",
+  "apa7": "Tacto. (2026). Nickel price. https://www.tacto.ai/en/commodities/nickel-price",
+  "doi": null,
+  "url": "https://www.tacto.ai/en/commodities/nickel-price",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "LME nickel cash 15,310 USD/t on 20 Nov 2026 (secondary aggregator)"
+ },
+ {
+  "citekey": "fed_g5_exsius",
+  "apa7": "Board of Governors of the Federal Reserve System. (2026). Singapore dollars to U.S. dollar spot exchange rate [EXSIUS], G.5 release. FRED, Federal Reserve Bank of St. Louis. https://fred.stlouisfed.org/series/EXSIUS",
+  "doi": null,
+  "url": "https://fred.stlouisfed.org/series/EXSIUS",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "Series data read via fetch tool on 2026-11-23; a direct scripted request to the series page did not return success in this run",
+  "taken_from": "SGD per USD 1.2801 (Oct 2026 monthly average, preliminary)"
+ },
+ {
+  "citekey": "fed_g5_exuseu",
+  "apa7": "Board of Governors of the Federal Reserve System. (2026). U.S. dollars to one euro [EXUSEU], G.5 release. FRED, Federal Reserve Bank of St. Louis. https://fred.stlouisfed.org/series/EXUSEU",
+  "doi": null,
+  "url": "https://fred.stlouisfed.org/series/EXUSEU",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "Series data read via fetch tool on 2026-11-23; direct scripted request not confirmed",
+  "taken_from": "USD per EUR 1.1198 (Oct 2026 monthly average)"
+ },
+ {
+  "citekey": "adb_abo_sgd_2026",
+  "apa7": "Asian Development Bank. (2026). AsianBondsOnline: Singapore market watch (SGD per USD). https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
+  "doi": null,
+  "url": "https://asianbondsonline.adb.org/economy/?economy=SG&page=9",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "SGD per USD 1.290, close 20 Nov 2026 (cross-check only)"
+ },
+ {
+  "citekey": "shah2025changeout",
+  "apa7": "Shah, J. (2025, September). Reducing catalyst changeout costs for steam reforming. Refining India, 25. https://ptqmagazines.digitalrefining.com/Refining-India-September-2025/25",
+  "doi": null,
+  "url": "https://ptqmagazines.digitalrefining.com/Refining-India-September-2025/25",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Steam reforming catalyst changeout cycle four to six years (Johnson Matthey author)"
+ },
+ {
+  "citekey": "topsoe_nh3_cracking_catalyst",
+  "apa7": "Topsoe. (n.d.). Ammonia cracking catalyst technology. https://www.topsoe.com/blog/ammonia-cracking-catalyst-technology",
+  "doi": null,
+  "url": "https://www.topsoe.com/blog/ammonia-cracking-catalyst-technology",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Product positioning (DNK-20/30 Retake Ni, DNK-2R Fe-Co); no price or lifetime figure"
+ },
+ {
+  "citekey": "catcost_step_method_osti",
+  "apa7": "Estimating precommercial heterogeneous catalyst price: A simple step-based method. (2018). Organic Process Research & Development, 22(12). OSTI record. https://www.osti.gov/pages/biblio/1496561",
+  "doi": null,
+  "url": "https://www.osti.gov/pages/biblio/1496561",
+  "access_date": "2026-11-23",
+  "doi_verified": null,
+  "url_verified": true,
+  "verification": "HTTP 200 on 2026-11-23 (direct request)",
+  "taken_from": "Step method; Ni/Al2O3 price estimates within +/-20% of market"
+ },
+ {
+  "citekey": "cho2026nickel_econ",
+  "apa7": "Cho, S., Lee, Y., & Lee, I. (2026). Comparative assessment of ammonia decomposition processes based on nickel and ruthenium catalysts: A techno-economic perspective. Energy Conversion and Management, 348, 120796. https://doi.org/10.1016/j.enconman.2025.120796",
+  "doi": "10.1016/j.enconman.2025.120796",
+  "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "Ni 33.4 and Ru 542 USD/kg-cat, lifetime 2 yr (table p. 7)"
+ },
+ {
+  "citekey": "kum2026_econ",
+  "apa7": "Kum, J., Ko, Y., Chang, J. H., & Lee, C.-H. (2026). Dynamic modeling and techno-economic analysis of a heat-integrated NH3 cracking plant for cost-effective H2 production under uncertainty. Applied Energy, 406, 127210. https://doi.org/10.1016/j.apenergy.2025.127210",
+  "doi": "10.1016/j.apenergy.2025.127210",
+  "url": "https://doi.org/10.1016/j.apenergy.2025.127210",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "Ru 4 wt% catalyst 25 USD/kg citing Devkota"
+ },
+ {
+  "citekey": "richard2024_econ",
+  "apa7": "Richard, S., Ramirez Santos, A., Olivier, P., & Gallucci, F. (2024). Techno-economic analysis of ammonia cracking for large scale power generation. International Journal of Hydrogen Energy, 71, 571-587. https://doi.org/10.1016/j.ijhydene.2024.05.308",
+  "doi": "10.1016/j.ijhydene.2024.05.308",
+  "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "Catalyst cost 143 EUR/kg, 295 and 22.3 EUR/kg cited, lifetime 5 yr (Table 5)"
+ },
+ {
+  "citekey": "chopra2026_econ",
+  "apa7": "Chopra, M., Srivastava, N., & Arora, P. (2026). Decentralized hydrogen production via ammonia decomposition: process simulation, techno-economic, and environmental assessment. Fuel. https://doi.org/10.1016/j.fuel.2026.138463",
+  "doi": "10.1016/j.fuel.2026.138463",
+  "url": "https://doi.org/10.1016/j.fuel.2026.138463",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "Catalyst cost 24 USD/kg (Table 2)"
+ },
+ {
+  "citekey": "devkota2024_econ",
+  "apa7": "Devkota, S., Cha, J.-Y., Shin, B.-J., Mun, J.-H., Yoon, H. C., Mazari, S. A., et al. (2024). Techno-economic and environmental assessment of hydrogen production through ammonia decomposition. Applied Energy, 358, 122605. https://doi.org/10.1016/j.apenergy.2023.122605",
+  "doi": "10.1016/j.apenergy.2023.122605",
+  "url": "https://doi.org/10.1016/j.apenergy.2023.122605",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "Original of the 24-25 USD/kg Ru catalyst figure (NOT read; cited second-hand)"
+ },
+ {
+  "citekey": "makhloufi2021_econ",
+  "apa7": "Makhloufi, C., & Kezibri, N. (2021). Large-scale decomposition of green ammonia for pure hydrogen production. International Journal of Hydrogen Energy, 46(70), 34777-34787. https://doi.org/10.1016/j.ijhydene.2021.07.188",
+  "doi": "10.1016/j.ijhydene.2021.07.188",
+  "url": "https://doi.org/10.1016/j.ijhydene.2021.07.188",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "22.3 EUR/kg cited second-hand by Richard et al. (NOT read)"
+ },
+ {
+  "citekey": "purcel2024_stability_p1",
+  "apa7": "Purcel, M., Mueller, A. S., Diehl, P., Kappis, K., Trunschke, A., & Muhler, M. (2024). Long-term stability of ammonia decomposition over nickel-based catalysts. Energy Technology. https://doi.org/10.1002/ente.202400678",
+  "doi": "10.1002/ente.202400678",
+  "url": "https://doi.org/10.1002/ente.202400678",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "13.5% conversion loss over 800 h TOS; Ni sintering 3.5 to 5.0 nm (same paper as existing key purcel2024stability)"
+ },
+ {
+  "citekey": "yoshida2021_econ",
+  "apa7": "Yoshida, M., Ogawa, T., Imamura, Y., & Ishihara, K. N. (2021). Economies of scale in ammonia synthesis loops embedded with iron- and ruthenium-based catalysts. International Journal of Hydrogen Energy, 46, 28840-28854. https://doi.org/10.1016/j.ijhydene.2020.12.081",
+  "doi": "10.1016/j.ijhydene.2020.12.081",
+  "url": "https://doi.org/10.1016/j.ijhydene.2020.12.081",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "url_verified": true,
+  "verification": "doi.org handle API responseCode=1, 2026-11-23",
+  "taken_from": "295 EUR/kg Ru/C figure cited second-hand (NOT read)"
+ }
+]

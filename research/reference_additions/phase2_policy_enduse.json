@@ -1,0 +1,165 @@
+[
+  {
+    "citekey": "sg_cpa2018",
+    "apa7": "Singapore Statutes Online (2026). Carbon Pricing Act 2018 (2020 Revised Edition, as amended up to Act 37 of 2022 wef 1 January 2024; current version as at 23 November 2026). Attorney-General's Chambers of Singapore. https://sso.agc.gov.sg/Act/CPA2018",
+    "url": "https://sso.agc.gov.sg/Act/CPA2018",
+    "access_date": "2026-11-23", "url_verified": "partial",
+    "verification": "The base URL answers automated requests with HTTP 202 and an empty body when throttled. The provision views https://sso.agc.gov.sg/Act/CPA2018?WholeDoc=1 and ...?ProvIds=Sc1-, Sc2-, Sc3-, pr5-, pr7-, pr20-, pr33A-&ViewType=Within returned HTTP 200 with text and were read.",
+    "taken_from": "s 2(1) definitions (GHG emission, reckonable, taxable facility); s 3; s 5; s 7; s 33A; First Schedule (gases and GWP, N2O 265); Second Schedule (thresholds 2,000 and 25,000 tCO2e; non-reckonable emissions); Third Schedule (rates SGD 5 / 25 / 45; carbon price). Sections 16, 20A-20G, 26, 33B not read."
+  },
+  {
+    "citekey": "nea_carbon_tax",
+    "apa7": "National Environment Agency, Singapore (2026). Carbon tax. https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+    "url": "https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23. Page text is about 144,000 characters; the first 100,000 were read with the fetch tool and the remainder partly. The reckonable/non-reckonable tables are images and were not read from this page.",
+    "taken_from": "Rates SGD 5 (2019-2023), 25 (2024-2025), 45 (2026-2027), 50-80 by 2030 intended; 25,000 tCO2e direct emissions; seven covered gases; Scope 1 only; international carbon credits up to 5 % of taxable emissions from 2024; transition framework allowances 'determined based on efficiency standards and decarbonisation targets'."
+  },
+  {
+    "citekey": "nccs_carbon_tax",
+    "apa7": "National Climate Change Secretariat, Singapore (2026). Carbon tax. https://www.nccs.gov.sg/singapores-climate-action/mitigation-efforts/carbontax/",
+    "url": "https://www.nccs.gov.sg/singapores-climate-action/mitigation-efforts/carbontax/",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23.",
+    "taken_from": "Rates and 2030 aim (S$50-80/tCO2e); about 50 facilities; seven gases; 5 % credit offset from 2024; allowances limited to a portion of emissions; new investments do not qualify; tax levied on large emitters with cost pass-through to electricity tariffs."
+  },
+  {
+    "citekey": "mse2022carbonpricingamendment",
+    "apa7": "Ministry of Sustainability and the Environment, Singapore (2022). Opening speech by Minister Grace Fu, Second Reading of the Carbon Pricing (Amendment) Bill, 8 November 2022. https://www.mse.gov.sg/latest-news/opening-speech-by-minister-grace-fu-carbon-pricing-amendment-2nd-reading/",
+    "url": "https://www.mse.gov.sg/latest-news/opening-speech-by-minister-grace-fu-carbon-pricing-amendment-2nd-reading/",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23.",
+    "taken_from": "New sections 20A to 20G in Part 5; 'These transitory allowances will not offset the entire carbon tax obligation of the EITE companies'; facility-level credit limit 'currently intended to be set at 5% of taxable emissions'; rates $25 for 2024-2025 and $45 for 2026 and beyond; $50-$80 by 2030; EU border adjustment mentioned only as a global trend."
+  },
+  {
+    "citekey": "mti_pq_transition_framework",
+    "apa7": "Ministry of Trade and Industry, Singapore (n.d.). Oral reply to PQ on transition framework for carbon tax. https://www.meti.gov.sg/newsroom/oral-reply-to-pq-on-transition-framework-for-carbon-tax/",
+    "url": "https://www.meti.gov.sg/newsroom/oral-reply-to-pq-on-transition-framework-for-carbon-tax/",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23 (the mti.gov.sg address issued a 301 redirect to the meti.gov.sg address, which is the address recorded). Publication date not recorded from the page.",
+    "taken_from": "Allowances only for a proportion of emissions; remainder at the headline rate; based on internationally recognised efficiency benchmarks or decarbonisation plans; government review of allowances."
+  },
+  {
+    "citekey": "ec_cbam_page",
+    "apa7": "European Commission, Taxation and Customs Union (2026). Carbon Border Adjustment Mechanism. https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en",
+    "url": "https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23.",
+    "taken_from": "Sectors cement, iron and steel, aluminium, fertilisers, electricity and hydrogen; definitive regime from 1 January 2026; certificate price linked to EU ETS auction prices. Ammonia (CN 2814) not named on this page."
+  },
+  {
+    "citekey": "gmk2026euaprice",
+    "apa7": "Yermolenko, H. (2026). European carbon prices exceeded EUR 90/t in November. GMK Center. https://gmk.center/en/news/european-carbon-prices-exceeded-e90-t-in-november/",
+    "url": "https://gmk.center/en/news/european-carbon-prices-exceeded-e90-t-in-november/",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23. Trade press citing ICE data; the page date (1 November 2026) predates some prices it reports.",
+    "taken_from": "EUA December 2026 futures EUR 90.5/t on 2 Nov 2026; EUR 90.2/t on 4 Nov; above EUR 90/t on 12-13 Nov. Context for a hypothetical scenario only."
+  },
+  {
+    "citekey": "netl2024nh3cc",
+    "apa7": "National Energy Technology Laboratory (2024). Cooled gas turbine and combined cycle analysis for NH3-CH4 fuel mixes (up to 100% NH3). U.S. Department of Energy. https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf",
+    "url": "https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 77-page PDF downloaded and text extracted. File name carries the date 103024 (30 October 2024); author names not recorded.",
+    "taken_from": "Exhibit 4-6 combined-cycle LHV efficiency (NG 61.0 %, 100 % NH3 59.6 %); NOx statements; TPC 12-16 % above NGCC; LCOE ratios; sensitivity to capacity factor."
+  },
+  {
+    "citekey": "netl2023h2cc",
+    "apa7": "National Energy Technology Laboratory (2023). Cooled gas turbine and combined cycle analysis for H2-CH4 fuel mixes (up to 100% H2). U.S. Department of Energy. https://netl.doe.gov/projects/files/CooledGasTurbineandCombinedCycleAnalysisforH2CH4FuelMixesUpto100H2_052523.pdf",
+    "url": "https://netl.doe.gov/projects/files/CooledGasTurbineandCombinedCycleAnalysisforH2CH4FuelMixesUpto100H2_052523.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 98-page PDF downloaded and text extracted. File name date 052523 (25 May 2023); authors not recorded.",
+    "taken_from": "Exhibit 4-9 (100 % H2 steam-diluted: LHV combined-cycle 66.9 %); NOx design target under 45 ppm; SCR to 2-3 ppm; LCOE ratios."
+  },
+  {
+    "citekey": "netl2022h2turbinereview",
+    "apa7": "National Energy Technology Laboratory (2022). A literature review of hydrogen and natural gas turbines: Current state of the art with regard to performance and NOx control (DOE/NETL-2022/3812). https://netl.doe.gov/sites/default/files/publication/A-Literature-Review-of-Hydrogen-and-Natural-Gas-Turbines-081222.pdf",
+    "url": "https://netl.doe.gov/sites/default/files/publication/A-Literature-Review-of-Hydrogen-and-Natural-Gas-Turbines-081222.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 28-page PDF downloaded. The report number DOE/NETL-2022/3812 comes from a search-result summary, not from the page text read.",
+    "taken_from": "Baker Hughes turbines 'currently handle around 30-60% hydrogen'; Ansaldo 25-50 %; MAN up to 60 % (diffusion) or 20 % (DLE)."
+  },
+  {
+    "citekey": "karpilov2025crgt",
+    "apa7": "Karpilov, I., Papkov, V., & Pashchenko, D. (2025). Thermodynamic analysis of combined cycle power plant fired with ammonia. Energy Proceedings, 52 (16th International Conference on Applied Energy, ICAE2024, Niigata). https://energy-proceedings.org/wp-content/uploads/icae2024/1728014537.pdf",
+    "url": "https://energy-proceedings.org/wp-content/uploads/icae2024/1728014537.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 5-page PDF read in full.",
+    "taken_from": "CCPP with chemically recuperated gas turbine versus simple gas turbine, efficiency gain up to 5.5 % (abstract) and up to 5 % (conclusion), Aspen HYSYS, TIT 800-1200 degC."
+  },
+  {
+    "citekey": "abuzayed2025ccgtblends",
+    "apa7": "Abuzayed, A., Pollitt, M. G., Liebensteiner, M., & Hochgreb, S. (2025). Exploring the feasibility of low-carbon fuel blends in CCGTs for deep decarbonization of power systems (EPRG Working Paper EPRG2520; Cambridge Working Paper in Economics CWPE2557). University of Cambridge. https://www.jbs.cam.ac.uk/wp-content/uploads/2025/09/eprg-wp2520.pdf",
+    "url": "https://www.jbs.cam.ac.uk/wp-content/uploads/2025/09/eprg-wp2520.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 35-page PDF downloaded and read in the relevant pages.",
+    "taken_from": "Assumed capital uplifts (H2 7.98 %, NH3 11.34 %); SCR cost 15-36 EUR/kW standard and up to 60 EUR/kW more for 90 % removal (their ref. 109); 20 % cracking energy loss assumption."
+  },
+  {
+    "citekey": "mhi2021h25ammonia",
+    "apa7": "Mitsubishi Power (2021, March 1). Mitsubishi Power commences development of world's first ammonia-fired 40MW class gas turbine system. https://power.mhi.com/news/20210301.html",
+    "url": "https://power.mhi.com/news/20210301.html",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23.",
+    "taken_from": "40 MW class, 100 % ammonia, H-25 series, SCR plus new combustor, commercialisation in or around 2025. Vendor claim; no efficiency number."
+  },
+  {
+    "citekey": "egawa2025mhireview",
+    "apa7": "Egawa, T., Abe, N., Morishita, M., Takeishi, H., Isobe, T., & Kawakami, T. (2025). Development and verification of power generation gas turbine combustors for A) hydrogen fired and B) ammonia fired. Mitsubishi Heavy Industries Technical Review, 62(3). https://www.mhi.com/technology/review/abstract-62-3-20",
+    "url": "https://www.mhi.com/technology/review/abstract-62-3-20",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; abstract page only (full paper not opened).",
+    "taken_from": "M501JAC verified at 30 vol% H2; H-25 100 % H2 dry firing verification ongoing; ammonia single-fired system and high-efficiency SCR under development."
+  },
+  {
+    "citekey": "gevernova2026ihiammonia",
+    "apa7": "GE Vernova & IHI Corporation (2026, March 18). IHI and GE Vernova achieve milestone in 100% ammonia combustion for F-class gas turbines [press release]. https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia",
+    "url": "https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200 on 2026-11-23. Press-release title as inferred from the URL.",
+    "taken_from": "Full-scale combustor test on 100 % ammonia at F-class full-load conditions; no numeric emissions; commercial goal 2030."
+  },
+  {
+    "citekey": "mhi2023patentus11702988",
+    "apa7": "Mitsubishi Heavy Industries, Ltd. (2023). Ammonia decomposition facility, gas turbine plant equipped with same, and ammonia decomposition method (U.S. Patent No. 11,702,988 B2; filed 13 March 2020; granted 18 July 2023). https://patents.google.com/patent/US11702988B2/en",
+    "url": "https://patents.google.com/patent/US11702988B2/en",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; the first 100,000 of about 219,000 characters read with the fetch tool. Inventor names not recorded.",
+    "taken_from": "Gross thermal efficiency about 97.4 % of natural-gas firing (60 % or more LHV versus 63 % or more); decomposed fuel about 75 % H2 / 25 % N2; decomposer heated by steam from the exhaust heat recovery boilers. Vendor claim."
+  },
+  {
+    "citekey": "ge2022hydrogenpower",
+    "apa7": "GE Vernova (n.d.). Hydrogen for power generation (GEA34805). https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/future-of-energy/GEA34805-Hydrogen-For-Power-Generation.pdf",
+    "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/future-of-energy/GEA34805-Hydrogen-For-Power-Generation.pdf",
+    "access_date": "2026-11-23", "url_verified": true,
+    "verification": "HTTP 200; 18-page PDF downloaded. Publication year not recorded.",
+    "taken_from": "NOx up to +35 % at 50 vol% H2, potentially double near 100 % H2; diffusion flame NOx 200-600 ppm; lean premixed single-digit ppm."
+  },
+  {
+    "citekey": "ahmad2024energy304",
+    "apa7": "Ahmad, A. H., Darmanto, P. S., Hariana, H., Darmawan, A., Aziz, M., & Juangsa, F. B. (2024). Integration ammonia cracking process and co-firing of natural gas in combined cycle power plant: A thermodynamic analysis. Energy, 304, 132098. https://doi.org/10.1016/j.energy.2024.132098",
+    "doi": "10.1016/j.energy.2024.132098",
+    "url": "https://doi.org/10.1016/j.energy.2024.132098",
+    "access_date": "2026-11-23", "doi_verified": true,
+    "verification": "Crossref returned the matching title on 2026-11-23. Abstract only read (IDEAS page); no numbers taken.",
+    "taken_from": "Abstract only: cracked NH3-H2-N2 (52 % cracking) co-fired with natural gas; cracker uses a large share of exhaust, which limits steam-turbine output."
+  },
+  {
+    "citekey": "yazdani2024heliyon",
+    "apa7": "Yazdani, Salimi, & Amidpour (2024). Techno-economic study of gas turbines with hydrogen, ammonia, and their mixture fuels. Heliyon. https://doi.org/10.1016/j.heliyon.2024.e40727",
+    "doi": "10.1016/j.heliyon.2024.e40727",
+    "url": "https://doi.org/10.1016/j.heliyon.2024.e40727",
+    "access_date": "2026-11-23", "doi_verified": true,
+    "verification": "Crossref returned the matching title. Full text not read (publisher page HTTP 403); author initials, volume and article number not recorded; no numbers taken.",
+    "taken_from": "Existence and subject only (Iran case, LCOE, blend ratios)."
+  },
+  {
+    "citekey": "su2023crgt",
+    "apa7": "Su et al. (2023). Novel ammonia-driven chemically recuperated gas turbine cycle based on dual fuel mode. Applied Energy, 343, 121184. https://doi.org/10.1016/j.apenergy.2023.121184",
+    "doi": "10.1016/j.apenergy.2023.121184",
+    "url": "https://doi.org/10.1016/j.apenergy.2023.121184",
+    "access_date": "2026-11-23", "doi_verified": true,
+    "verification": "Crossref returned the title above (authors not recorded). Not opened; numbers are taken from the library's review note on Xu et al. 2025.",
+    "taken_from": "Microturbine efficiency 29.16-31.79 % rising to 35.48-36.09 % (via Xu et al. 2025 review)."
+  }
+]

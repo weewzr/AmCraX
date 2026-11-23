@@ -1,0 +1,67 @@
+{
+  "schema": "phase2_membrane_trl_v1",
+  "access_date": "2026-11-23",
+  "method": "TRL (EU/NASA 1-9 scale) assigned separately for four specific configurations. Each assignment cites the evidence; a TRL stated by a project or vendor is recorded as such and kept apart from the assessment made here. The assessment is conservative: it counts only what a source shows, and says where nothing was found.",
+  "assessments": [
+    {
+      "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+      "assessed_trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)",
+      "status": "commercially demonstrated in parts; integrated fuel-cell-grade chain not shown at scale in the sources found",
+      "evidence": [
+        "Ammonia Energy Association (2025 article): PSA is 'mature and readily available' for ISO 14687:2019 PEM grade (99.97 mol %); cracking plants are 'similar in design to steam methane reformers'; 'demonstration of the full, integrated process under relevant conditions is still required to reach TRL 9'. [aea_industrial_demo]",
+        "Air Liquide: process = fired cracker, water wash column for residual NH3, PSA; a pilot at Port of Antwerp is 'operating' per the company page, with no capacity, year or purity given. [airliquide_cracking]",
+        "Air Products design for the Rotterdam facility: PSA to 99.97 mol %, tail-gas compressor recycling part of the tail gas (secondary excerpt of a permitting note; planned, not operating). [mer_airproducts_rotterdam]",
+        "Topsoe Arroyito: largest operating cracker, 2,400 t NH3/day, over 100,000 h on one catalyst loading, but for heavy water with no purification; KBR (10 t H2/day target 2027; above 200 t H2/day licensed) and Topsoe (Approtium) are planned or licensed, for gas-turbine firing where purification is not needed. [aea_industrial_demo]",
+        "No peer-reviewed measurement of PSA on real cracked-ammonia gas (75 % H2, 25 % N2, NH3) with recovery was found in this search. Published recovery-purity points are models (S01-S06 in purification_literature.json). A search-result summary of a 2025 Chemical Engineering Journal paper (Abdoos et al.) could not be confirmed. 'Deka et al. 2025' was not found."
+      ],
+      "what_is_commercially_demonstrated": "PSA for N2/H2-rich gases (ammonia purge gas, refinery gas) and fired cracker + PSA in small units (patent literature states small crackers typically use PSA; not independently verified). Whether any fuel-cell-grade cracked-ammonia PSA plant operates commercially at tens of tonnes per day: NOT shown by the sources found.",
+      "what_is_emerging": "Integrated large-scale (hundreds of t/day) cracker + NH3 scrubber + PSA at 99.97 %; peer-reviewed measured recovery at Grade D.",
+      "confidence": "medium for PSA unit operation; low for the integrated chain (company pages without numbers)"
+    },
+    {
+      "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+      "assessed_trl": "4 to 5",
+      "status": "emerging; laboratory validation; no published demonstration of this exact arrangement found",
+      "evidence": [
+        "Lab: Pd-Ag double-skin membrane single-gas tests, H2 permeance above 1.5e-6 mol m-2 s-1 Pa-1 and ideal H2/N2 above 400,000 at 450 degC. [cechetto2021fpt] These tests were done inside a membrane reactor, not on a cracker effluent in a separate separator.",
+        "Ammogen design had an optional second-stage membrane separator (40 barg, 99 % H2 extraction) after the membrane reactor, but the report says ISO purity was reached in the first membrane reactor so it was not needed. This is evidence of design, not of operation as a stand-alone downstream separator. [ammogen2025]",
+        "Nearest scale-up of a downstream membrane purifier: CSIRO/Fortescue vanadium-core membrane purification module after a Ru cracker: 5 kg/day (2018), 40 kg/day (2022), two 100 kg/day modules (Siemens Energy-led, commissioning planned end-2023/early-2024). The membrane is a self-supporting 0.25 mm V or V-alloy tube with Pd catalyst layers, NOT a supported thin-film Pd-Ag membrane, so it does not count as evidence for the stated configuration. Whether the 200 kg/day pilot ran was not confirmed. [wong2023csiro; csiro_hyresource]",
+        "Pd-Ag purifiers for H2 from reformate are sold commercially in small sizes in general; no source on this was opened in this workstream, so it is not counted."
+      ],
+      "what_is_commercially_demonstrated": "Nothing for the exact configuration was verified.",
+      "what_is_emerging": "Everything for this configuration: stand-alone Pd-Ag thin-film separator on cracker effluent with NH3 present at percent level (inhibition and NH3 attack on Ag not quantified at that level; the only quantitative NH3 data are trace 10-500 ppm, Peters 2016).",
+      "confidence": "low (absence of evidence in sources reachable by this search; vendor data may exist)"
+    },
+    {
+      "configuration": "Pd-Ag supported thin-film membrane REACTOR for ammonia cracking (reaction and separation in one vessel)",
+      "assessed_trl": "7 (project self-assessment, accepted with caveats); 6 for the technology as stated by the same company at grant signature",
+      "status": "pilot / pre-commercial demonstration; the most advanced of the three Pd-Ag routes",
+      "evidence": [
+        "Ammogen (H2SITE, Tyseley Energy Park, UK), final report 7 Aug 2025: 2,068 test and operational hours, 375-450 degC, 2-8 barg, minimum H2 purity 99.98 %, NH3 conversion always above 99.5 %, 5,289 kg H2 produced (about 61 kg/day on average, derived), zero safety incidents. The 200 kg/day target was NOT achieved (pressure drop and temperature losses); the H2 recovery KPI (>97 %) and the cost KPI were NOT achieved. Report states TRL progressed 'from an initial TRL 6 to a final TRL 7' and that TRL 8 would require a commercial off-taker. [ammogen2025]",
+        "CORDIS grant 101247935 (EIC Accelerator, 1 Dec 2025 to 30 Nov 2027, 2.5 MEUR EU contribution): 'We are currently at TRL6'; target a 1 t/day minimum viable product at Port of Antwerp. [cordis_h2site] The two statements (TRL 7 in August 2025, TRL 6 in the grant text) differ and are both company-linked.",
+        "Company claims: reactors at 425-450 degC, membranes rated to 100 bar differential, 'thousands of membranes' produced since 2022, first manufacturing line 2022, systems 'commercialized since 2019'; Bertha B ship demonstration completed. These are vendor statements without numbers beyond those given. [aea_h2site2024]",
+        "Lab: Eindhoven/Tecnalia/Hydrogen Onsite 600 h at 450 degC, 3 bar without loss of purity or recovery; recovery 90.5 % at 5 bar, permeate 1 bar. [cechetto2021fpt; cechetto2023membrane]",
+        "Cechetto et al. 2023: metallic-supported Pd-Ag in a membrane reactor, proof of concept, over 99 % conversion above 475 degC with H2 feed recovery above 60 % (abstract, secondary excerpt). [cechetto2023catalysts]",
+        "Review statement (2023): 'there are no publicly known large-scale units for ammonia decomposition' delivering hundreds of t H2/day using membranes. [cechetto2023membrane]"
+      ],
+      "what_is_commercially_demonstrated": "A 200 kg/day-class unit was built and operated for about 2,000 h but did not reach its rate or recovery targets and had no commercial off-taker (the report's own reason for stopping at TRL 7). Not commercially demonstrated.",
+      "what_is_emerging": "Scale-up to 1 t/day (grant project, 2025-2027); long membrane life under cycling; recovery above 90 % at pilot scale; cost per kg.",
+      "confidence": "medium (a government-funded final report, but written with the vendor)"
+    },
+    {
+      "configuration": "Metallic (vanadium-alloy core, Pd-coated) membrane purifier, CSIRO/Fortescue (listed for contrast: NOT the Pd-Ag thin-film configuration)",
+      "assessed_trl": "6 (pilot at 40 kg/day completed 2022; 200 kg/day pilot status unconfirmed)",
+      "status": "pilot",
+      "evidence": [
+        "5 kg/day proof of concept in Brisbane 2018; 40 kg/day pilot completed 2022 'with no N2 / NH3 leaks'; two 100 kg/day modules planned with commissioning end-2023/early-2024; minor ammonia leak in a 2022 pilot caused a safe shutdown. [wong2023csiro]",
+        "CSIRO page: 'technology development final phase completed', reviewed Aug 2020; met ISO specifications for fuel-cell vehicles; 1,000 h operation with extraction efficiency above 80 % (secondary excerpt of a CSIRO impact page, not opened). [csiro_hyresource]",
+        "No TRL is stated by CSIRO or Fortescue in the sources read."
+      ],
+      "what_is_commercially_demonstrated": "Nothing verified.",
+      "what_is_emerging": "All of it.",
+      "confidence": "medium-low"
+    }
+  ],
+  "summary_statement": "PSA on cracked ammonia is the only one of the routes with mature unit operations and company-reported pilot or design use at scale; the Pd-Ag membrane REACTOR has reached an approximately 60 kg/day average pilot (TRL 6 to 7) with unmet rate and recovery targets; the Pd-Ag membrane as a stand-alone DOWNSTREAM separator is laboratory-level (TRL 4 to 5) in the evidence found. Membranes as a whole are not assessed.",
+  "limits": "TRLs of companies are self-reported. Several vendor pages could not be opened (patent and permitting documents were seen only as search excerpts). The assessments rely on documents available on 2026-11-23."
+}

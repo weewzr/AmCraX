@@ -1,0 +1,212 @@
+[
+ {
+  "citekey": "cechetto2021fpt",
+  "apa7": "Cechetto, V., Di Felice, L., Medrano, J. A., Makhloufi, C., Zuniga, J., & Gallucci, F. (2021). H2 production via ammonia decomposition in a catalytic membrane reactor. Fuel Processing Technology, 216, 106772. https://doi.org/10.1016/j.fuproc.2021.106772",
+  "doi": "10.1016/j.fuproc.2021.106772",
+  "url": "https://doi.org/10.1016/j.fuproc.2021.106772",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; full text (open access) read from a downloaded copy; N2 permeance exponent sign restored from the stated selectivity (see purification_literature.json P01-P03)",
+  "taken_from": "H2 permeance above 1.5e-6 mol m-2 s-1 Pa-1 and N2 permeance 3e-12 / 3.7e-12 at 450 degC, ideal H2/N2 above 500,000 / 400,000, 600 h stability test at 450 degC and 3 bar, Table 4 purity values"
+ },
+ {
+  "citekey": "cechetto2023catalysts",
+  "apa7": "Cechetto, V., Agnolin, S., Di Felice, L., Pacheco Tanaka, A., Llosa Tanco, M., & Gallucci, F. (2023). Metallic supported Pd-Ag membranes for simultaneous ammonia decomposition and H2 separation in a membrane reactor: Experimental proof of concept. Catalysts, 13(6), 920. https://doi.org/10.3390/catal13060920",
+  "doi": "10.3390/catal13060920",
+  "url": "https://doi.org/10.3390/catal13060920",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read; full text not opened (publisher page returned 403); abstract content known only from a search-result excerpt",
+  "taken_from": "Cited in membrane_trl.json only (conversion above 99 % above 475 degC and H2 feed recovery above 60 % with a metallic-supported Pd-Ag membrane); no number used in a calculation"
+ },
+ {
+  "citekey": "ammogen2025",
+  "apa7": "Gemserv Ltd, H2SITE, Equans, University of Birmingham, Yara, & Tyseley Energy Park. (2025). AMMOGEN: HYS2204 Deliverable 1.21, final project report (7 August 2025). UK Department for Energy Security and Net Zero, Low Carbon Hydrogen Supply 2 programme. https://assets.publishing.service.gov.uk/media/695ceb3a6056a077857e735a/tyseley-ammonia-to-green-hydrogen.pdf",
+  "doi": null,
+  "url": "https://assets.publishing.service.gov.uk/media/695ceb3a6056a077857e735a/tyseley-ammonia-to-green-hydrogen.pdf",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; PDF (61 pages) downloaded and text extracted; figures read from the executive summary, KPI table and section 4.1",
+  "taken_from": "2,068 h, 5,289 kg H2, 375-450 degC, 2-8 barg, minimum purity 99.98 %, conversion above 99.5 %, 200 kg/day target not achieved, TRL 6 to 7, expected commercial cost of cracking 1-1.5 GBP/kg excluding NH3"
+ },
+ {
+  "citekey": "cordis_h2site",
+  "apa7": "European Commission. (2025). A next-gen ammonia cracking: Unlocking high H2 recovery, on demand, low-carbon hydrogen (H2SITE), grant agreement 101247935. CORDIS. https://cordis.europa.eu/project/id/101247935",
+  "doi": null,
+  "url": "https://cordis.europa.eu/project/id/101247935",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read",
+  "taken_from": "Project dates 1 Dec 2025 to 30 Nov 2027, EU contribution 2,499,999 EUR, statement 'currently at TRL6', 1 t/day MVP at Port of Antwerp (page's wording on '1 tonne of ammonia per day' is inconsistent and not used)"
+ },
+ {
+  "citekey": "aea_h2site2024",
+  "apa7": "Ammonia Energy Association. (2024, July 15). Ammonia cracking in H2SITE membrane reactors. https://ammoniaenergy.org/articles/ammonia-cracking-in-h2site-membrane-reactors",
+  "doi": null,
+  "url": "https://ammoniaenergy.org/articles/ammonia-cracking-in-h2site-membrane-reactors",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read; vendor-sourced statements",
+  "taken_from": "Pd-Ag double-skin membrane on porous support, 425-450 degC, 100 bar rating, more than 86 % recovery and 99.998 % purity and over 600 h in the Eindhoven/Tecnalia demonstration, production of thousands of membranes since 2022"
+ },
+ {
+  "citekey": "wong2023csiro",
+  "apa7": "Wong, D. S., & Dolan, M. (2023, August 16-18). CSIRO's Metal Membrane Technology (MMT): Technical update [Conference slides]. Ammonia Energy Association 5th APAC Conference, Newcastle, Australia. https://ammoniaenergy.org/wp-content/uploads/2023/08/David-Wong-Michael-Dolan_APAC-2023.pdf",
+  "doi": null,
+  "url": "https://ammoniaenergy.org/wp-content/uploads/2023/08/David-Wong-Michael-Dolan_APAC-2023.pdf",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; PDF text extracted; slide numbers 4, 5, 7, 12, 17, 18 read",
+  "taken_from": "5 / 40 / 200 kg/day demonstration steps, tube dimensions, V or V-alloy core with Pd catalyst layers, 300-350 degC membrane module, 2022 leak incident"
+ },
+ {
+  "citekey": "csiro_hyresource",
+  "apa7": "CSIRO. (2020). Ammonia to hydrogen metal membrane separation technology. CSIRO HyResource. https://research.csiro.au/hyresource/ammonia-to-hydrogen-metal-membrane-separation-technology",
+  "doi": null,
+  "url": "https://research.csiro.au/hyresource/ammonia-to-hydrogen-metal-membrane-separation-technology",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read; page last reviewed August 2020 per the page",
+  "taken_from": "Vanadium-based membrane, Ru catalyst, partners, status 'development final phase completed'"
+ },
+ {
+  "citekey": "aea_industrial_demo",
+  "apa7": "Ammonia Energy Association. (n.d.). Industrial demonstration of ammonia cracking: Exploring global progress. https://ammoniaenergy.org/articles/industrial-demonstration-of-ammonia-cracking-exploring-global-progress/",
+  "doi": null,
+  "url": "https://ammoniaenergy.org/articles/industrial-demonstration-of-ammonia-cracking-exploring-global-progress/",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read; publication date not shown in the fetched text (the article appears to date from 2025)",
+  "taken_from": "PSA described as mature for 99.97 mol % grade, statement that full integrated demonstration is required to reach TRL 9, project list (KBR, Topsoe, Air Liquide), Topsoe Arroyito unit"
+ },
+ {
+  "citekey": "airliquide_cracking",
+  "apa7": "Air Liquide Engineering & Construction. (n.d.). Ammonia cracking. https://engineering-technologies.airliquide.com/technologies/hydrogen-syngas/ammonia-cracking",
+  "doi": null,
+  "url": "https://engineering-technologies.airliquide.com/technologies/hydrogen-syngas/ammonia-cracking",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read; company marketing page without capacity, year or purity",
+  "taken_from": "Process description (catalytic furnace above 500 degC, wash column for residual NH3, PSA) and the statement that a pilot operates at Port of Antwerp"
+ },
+ {
+  "citekey": "sweeney2023",
+  "apa7": "Sweeney, D. M., Alves, V., Sakhai, S., Dinh, S., & Lima, F. V. (2023). Techno-economic analysis and optimization of intensified, large-scale hydrogen production with membrane reactors. Industrial & Engineering Chemistry Research, 62(46), 19740-19751. https://doi.org/10.1021/acs.iecr.3c02045",
+  "doi": "10.1021/acs.iecr.3c02045",
+  "url": "https://doi.org/10.1021/acs.iecr.3c02045",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; open-access full text (PMC10682983) read through the fetch tool",
+  "taken_from": "Membrane cost 5,000-15,000 USD/m2 (10,000 used), future 1,000-5,000, lifetime 2-3 years (3 used), selectivity statement above 1000"
+ },
+ {
+  "citekey": "dimarcoberardino2019",
+  "apa7": "Di Marcoberardino, G., Knijff, J., Binotti, M., Gallucci, F., & Manzolini, G. (2019). Techno-economic assessment in a fluidized bed membrane reactor for small-scale H2 production: Effect of membrane support thickness. Membranes, 9(9), 116. https://doi.org/10.3390/membranes9090116",
+  "doi": "10.3390/membranes9090116",
+  "url": "https://doi.org/10.3390/membranes9090116",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; open-access full text (PMC6780302) read through the fetch tool; derived per-m2 costs computed from Tables 7 and 11 by this workstream",
+  "taken_from": "Membrane areas and totals (Tables 7, 11), lifetime 5 years (Table 10), pressure exponent 0.5 and Pd layer 5 um (Table 4)"
+ },
+ {
+  "citekey": "peters2016fpt",
+  "apa7": "Peters, T. A., Polfus, J. M., Stange, M., Veenstra, P., Nijmeijer, A., & Bredesen, R. (2016). H2 flux inhibition and stability of Pd-Ag membranes under exposure to trace amounts of NH3. Fuel Processing Technology, 152, 259-265. https://doi.org/10.1016/j.fuproc.2016.06.012",
+  "doi": "10.1016/j.fuproc.2016.06.012",
+  "url": "https://doi.org/10.1016/j.fuproc.2016.06.012",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref metadata read; abstract content known only from a search-result excerpt (publisher and SINTEF pages returned 403)",
+  "taken_from": "No inhibition at 450 degC with 200-500 ppm NH3 for a 10 um Pd77Ag23 membrane; inhibition at lower temperatures"
+ },
+ {
+  "citekey": "yanez2020",
+  "apa7": "Yanez, M., Relvas, F., Ortiz, A., Gorri, D., Mendes, A., & Ortiz, I. (2020). PSA purification of waste hydrogen from ammonia plants to fuel cell grade. Separation and Purification Technology, 240, 116334. https://doi.org/10.1016/j.seppur.2019.116334",
+  "doi": "10.1016/j.seppur.2019.116334",
+  "url": "https://doi.org/10.1016/j.seppur.2019.116334",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; abstract read from the University of Porto repository page; volume and article number as printed by Crossref/ISSN match, not independently re-read",
+  "taken_from": "4-column PSA, 5A zeolite, 9 bar, 58 % H2 / 25 % N2 / 15 % CH4 / 2 % Ar feed: 99.25 % purity at 75.3 % recovery, 99.97 % at 55.5 %"
+ },
+ {
+  "citekey": "abdoos2025psa",
+  "apa7": "Abdoos, B., Di Benedetto, A., & Russo, D. (2025). Integrated design, scale-up, and surrogate-based optimization of PSA systems for hydrogen purification from ammonia decomposition. Chemical Engineering Journal, 526, 170994. https://doi.org/10.1016/j.cej.2025.170994",
+  "doi": "10.1016/j.cej.2025.170994",
+  "url": "https://doi.org/10.1016/j.cej.2025.170994",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read (no abstract); full text and abstract NOT read (403); no number from it is used",
+  "taken_from": "Nothing. Listed so that the next agent can obtain the abstract and the PSA purity, recovery and specific energy."
+ },
+ {
+  "citekey": "doe_osti1460402",
+  "apa7": "U.S. Department of Energy, Office of Scientific and Technical Information. (n.d.). Report 1460402 (hydrogen separation membrane project report). https://www.osti.gov/servlets/purl/1460402",
+  "doi": null,
+  "url": "https://www.osti.gov/servlets/purl/1460402",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200 on HEAD; the document exceeded the fetch size limit and was NOT read; title, authors and year unknown; numbers come from a search-result excerpt and are flagged as secondary",
+  "taken_from": "Excerpt only: 2 um Pd membrane with ideal H2/N2 above 6,000 and 210 SCFH/ft2 at 20 psig; WPI membranes over 6,000 h at 500 degC and 40 bar in natural-gas reforming. Complete this reference before citing."
+ },
+ {
+  "citekey": "nus_zhangsui_lab",
+  "apa7": "Zhang, S. (n.d.). Advanced Membrane Lab: People and research [Laboratory web page]. National University of Singapore. https://blog.nus.edu.sg/suizhang/people",
+  "doi": null,
+  "url": "https://blog.nus.edu.sg/suizhang/people",
+  "access_date": "2026-11-23",
+  "url_verified": true,
+  "verification": "HTTP 200; page text read",
+  "taken_from": "Identity, rank (Associate Professor since January 2024), research areas"
+ },
+ {
+  "citekey": "jia2025mofhf",
+  "apa7": "Jia, S., Tan, J., Zhou, Z., & Zhang, S. (2025). A sustainable method to prepare ultra-thin MOF hollow fiber membranes for H2 separation. Journal of Membrane Science, 721, 123794. https://doi.org/10.1016/j.memsci.2025.123794",
+  "doi": "10.1016/j.memsci.2025.123794",
+  "url": "https://doi.org/10.1016/j.memsci.2025.123794",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read; abstract and results not read; NUS affiliation not printed in the record",
+  "taken_from": "Context only"
+ },
+ {
+  "citekey": "jia2026cfd",
+  "apa7": "Jia, Y., Wang, K., Lipscomb, G. G., & Zhang, S. (2026). Guiding the design of hollow fiber membrane modules for gas separation using computational fluid dynamics. Advanced Membranes, 9, 100264. https://doi.org/10.1016/j.advmem.2026.100264",
+  "doi": "10.1016/j.advmem.2026.100264",
+  "url": "https://doi.org/10.1016/j.advmem.2026.100264",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read; content not read",
+  "taken_from": "Context only"
+ },
+ {
+  "citekey": "agrawal2025twod",
+  "apa7": "Agrawal, K. V., Liu, G., & Zhang, S. (2025). Advancing membrane science via two-dimensional materials. Journal of Membrane Science, 726, 124012. https://doi.org/10.1016/j.memsci.2025.124012",
+  "doi": "10.1016/j.memsci.2025.124012",
+  "url": "https://doi.org/10.1016/j.memsci.2025.124012",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read; content not read",
+  "taken_from": "Context only"
+ },
+ {
+  "citekey": "kang2015mmm",
+  "apa7": "Kang, Z., Peng, Y., Hu, Z., Qian, Y., Chi, C., Yeo, L. Y., Tee, L., & Zhao, D. (2015). Mixed matrix membranes composed of two-dimensional metal-organic framework nanosheets for pre-combustion CO2 capture: A relationship study of filler morphology versus membrane performance. Journal of Materials Chemistry A, 3. https://doi.org/10.1039/C5TA03739E",
+  "doi": "10.1039/C5TA03739E",
+  "url": "https://doi.org/10.1039/C5TA03739E",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read, NUS Chemical and Biomolecular Engineering affiliation and ORCID printed for Dan Zhao; volume pages not recorded",
+  "taken_from": "Context only (H2/CO2, not H2/N2)"
+ },
+ {
+  "citekey": "fan2021mmm",
+  "apa7": "Fan, D., Ozcan, A., Ramsahye, N. A., Zhao, D., Maurin, G., & Semino, R. (2021). Is porosity at the MOF/polymer interface necessarily an obstacle to optimal gas-separation performances in mixed matrix membranes? ACS Materials Letters, 3. https://doi.org/10.1021/acsmaterialslett.0c00560",
+  "doi": "10.1021/acsmaterialslett.0c00560",
+  "url": "https://doi.org/10.1021/acsmaterialslett.0c00560",
+  "access_date": "2026-11-23",
+  "doi_verified": true,
+  "verification": "doi.org handle responseCode=1; Crossref record read, NUS Chemical and Biomolecular Engineering affiliation printed for Dan Zhao; content not read",
+  "taken_from": "Context only"
+ }
+]
