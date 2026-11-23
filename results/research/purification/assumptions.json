@@ -60,8 +60,8 @@
   "value": "infinite (base) / required value computed",
   "unit": "-",
   "source_type": "assumption",
-  "source": "richard2024technoeconomic p. 7 assumes infinite; no numeric selectivity in the library",
-  "applicability_note": "required selectivity reported instead of an assumed finite value"
+  "source": "richard2024technoeconomic p. 7 assumes infinite; Phase 2 sourced value: cechetto2021fpt Sec. 3.1 p. 4, ideal H2/N2 above 400,000 (double sealed) / above 500,000 (dead end) at 450 degC; about 40,500 from the printed double-sealed N2 permeance 3.7e-11 (internal inconsistency of the paper)",
+  "applicability_note": "required selectivity reported beside the sourced value; sourced value is ideal (single gas), new membrane, trace NH3 only; see results/research/purification/phase2_comparison.json"
  },
  {
   "name": "Membrane permeate NH3 without polishing",

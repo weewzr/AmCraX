@@ -1,0 +1,419 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:36:56+00:00",
+  "script": "scripts/research/uq_gsa_sobol.py",
+  "source_type": "python",
+  "inputs_summary": "amcrax.economics.singapore.evaluate (default capex_mode reference) on results/simulations/baseline.json and baseline_no_hi.json; ranges from the reference scenario (REF.sens), data/singapore.yaml NH3 ranges, and results/research/singapore/tornado.json bounds",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  }
+ },
+ "evidence_kind": "numerical_verification",
+ "analysis_kind": "cost_accounting",
+ "label": "Deterministic cost accounting at the base point (not a sensitivity analysis). Uncertainty of a model given its stated input ranges. Not experimental validation.",
+ "fractions": {
+  "osbl_frac_isbl": 0.12,
+  "engineering_plus_contingency_frac_isbl_osbl": 0.28
+ },
+ "fx_SGD_per_USD": 1.288444,
+ "cases": {
+  "grey|heat_integration_on": {
+   "lcoh_USD_per_kg": 4.015461254695034,
+   "lcoh_SGD_per_kg": 5.173696960844288,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 3.0400449449954747,
+    "heat_fuel": 0.2675295342291495,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 3.916927669109749,
+    "heat_fuel": 0.3446968232003423,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.0011947330923540319,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.10450581001594986,
+    "fixed_opex": 0.07078380338632467,
+    "ammonia_feed": 0.7570848657650314,
+    "heat_fuel": 0.06662485758425474,
+    "electricity": 0.0002561589329596577,
+    "cooling_water": 0.00023092444366108853,
+    "catalyst": 0.0005135798718185687,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "blue|heat_integration_on": {
+   "lcoh_USD_per_kg": 4.287417378542392,
+   "lcoh_SGD_per_kg": 5.524097196878673,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 3.2900041960284354,
+    "heat_fuel": 0.28952640704354626,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 4.238986166347662,
+    "heat_fuel": 0.3730385619968149,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.0011947330923540319,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.09787687877316788,
+    "fixed_opex": 0.06629390023473022,
+    "ammonia_feed": 0.767362704758861,
+    "heat_fuel": 0.06752932627753111,
+    "electricity": 0.00023991045879774453,
+    "cooling_water": 0.00021627662399370922,
+    "catalyst": 0.00048100287291829246,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "green_current|heat_integration_on": {
+   "lcoh_USD_per_kg": 8.058052284858464,
+   "lcoh_SGD_per_kg": 10.382349118112177,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 6.755655433323277,
+    "heat_fuel": 0.5945100760647767,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 8.704283709132776,
+    "heat_fuel": 0.765992940445205,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.0011947330923540319,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.05207698041350419,
+    "fixed_opex": 0.035272744567793564,
+    "ammonia_feed": 0.8383732438690594,
+    "heat_fuel": 0.07377838403728092,
+    "electricity": 0.0001276482497236111,
+    "cooling_water": 0.00011507348469623318,
+    "catalyst": 0.0002559253779419883,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "green_2030|heat_integration_on": {
+   "lcoh_USD_per_kg": 5.91915412162654,
+   "lcoh_SGD_per_kg": 7.626498613084985,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 4.789759702226203,
+    "heat_fuel": 0.4215076439299267,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.0009272681562831073,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 6.1713371497751375,
+    "heat_fuel": 0.5430889947756504,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.0011947330923540319,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.07089510129096845,
+    "fixed_opex": 0.04801862126199101,
+    "ammonia_feed": 0.8091966527322002,
+    "heat_fuel": 0.07121079047255818,
+    "electricity": 0.0001737741996927219,
+    "cooling_water": 0.000156655518209129,
+    "catalyst": 0.0003484045243802523,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "grey|heat_integration_off": {
+   "lcoh_USD_per_kg": 4.229241647903042,
+   "lcoh_SGD_per_kg": 5.449141025790787,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 3.0400449449954747,
+    "heat_fuel": 0.4794483814132907,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.002788814180149774,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 3.916927669109749,
+    "heat_fuel": 0.6177423903416659,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.003593230897528895,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.09922323337036885,
+    "fixed_opex": 0.06720581220481114,
+    "ammonia_feed": 0.7188156170983516,
+    "heat_fuel": 0.1133650950522093,
+    "electricity": 0.00024321056964279411,
+    "cooling_water": 0.0006594123515104732,
+    "catalyst": 0.00048761935310582735,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "blue|heat_integration_off": {
+   "lcoh_USD_per_kg": 4.518622210296651,
+   "lcoh_SGD_per_kg": 5.821991675123457,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 3.2900041960284354,
+    "heat_fuel": 0.518869692773939,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.002788814180149774,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 4.238986166347662,
+    "heat_fuel": 0.6685345424364251,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.003593230897528895,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.09286880192226056,
+    "fixed_opex": 0.06290183306541088,
+    "ammonia_feed": 0.7280989741809913,
+    "heat_fuel": 0.11482918213246131,
+    "electricity": 0.00022763493438323983,
+    "cooling_water": 0.0006171824176393553,
+    "catalyst": 0.00045639134685334,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "green_current|heat_integration_off": {
+   "lcoh_USD_per_kg": 8.530844602402643,
+   "lcoh_SGD_per_kg": 10.991515542898071,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 6.755655433323277,
+    "heat_fuel": 1.0654408475850905,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.002788814180149774,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 8.704283709132776,
+    "heat_fuel": 1.3727608674259242,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.003593230897528895,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.049190795351187026,
+    "fixed_opex": 0.03331787568580102,
+    "ammonia_feed": 0.7919093299883344,
+    "heat_fuel": 0.12489277407362663,
+    "electricity": 0.00012057379055455217,
+    "cooling_water": 0.0003269095042903873,
+    "catalyst": 0.00024174160620601222,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  },
+  "green_2030|heat_integration_off": {
+   "lcoh_USD_per_kg": 6.254905584658308,
+   "lcoh_SGD_per_kg": 8.059095571119489,
+   "breakdown_USD_per_kg": {
+    "capex": 0.4196390310095669,
+    "fixed_opex": 0.2842296199577379,
+    "ammonia_feed": 4.789759702226203,
+    "heat_fuel": 0.7553975609378291,
+    "electricity": 0.0010285962703435283,
+    "cooling_water": 0.002788814180149774,
+    "catalyst": 0.0020622600764787047,
+    "carbon_tax": 0.0
+   },
+   "breakdown_SGD_per_kg": {
+    "capex": 0.5406813916700903,
+    "fixed_opex": 0.3662139484568276,
+    "ammonia_feed": 6.1713371497751375,
+    "heat_fuel": 0.9732874550049802,
+    "electricity": 0.0013252886929464968,
+    "cooling_water": 0.003593230897528895,
+    "catalyst": 0.002657106621978528,
+    "carbon_tax": 0.0
+   },
+   "breakdown_share": {
+    "capex": 0.06708958677790991,
+    "fixed_opex": 0.04544107278851352,
+    "ammonia_feed": 0.7657605118731551,
+    "heat_fuel": 0.12076881908347699,
+    "electricity": 0.000164446330391687,
+    "cooling_water": 0.0004458603159398642,
+    "catalyst": 0.0003297028306129678,
+    "carbon_tax": 0.0
+   },
+   "capex_isbl_by_item_USD": {
+    "boiler": 1878182.0875819195,
+    "heat_exchangers": 1460808.290341493,
+    "psa": 1085171.8728251092,
+    "adsorber": 166949.51889617063,
+    "reactor": 536623.4535948341,
+    "other_isbl": 220032.91782134282
+   },
+   "capex_indirect_block_USD": {
+    "OSBL": 641732.1769273042,
+    "engineering_and_contingency": 1677060.089036689
+   },
+   "capex_total_USD": 7666560.407024863,
+   "capex_total_SGD": 9877933.757068742,
+   "indirect_share_of_tci": 0.3024553571428571
+  }
+ }
+}

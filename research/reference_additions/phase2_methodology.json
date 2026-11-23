@@ -1,5 +1,27 @@
 [
   {
+    "citekey": "ishigami1990importance",
+    "apa7": "Ishigami, T., & Homma, T. (1990). An importance quantification technique in uncertainty analysis for computer models. In Proceedings of the First International Symposium on Uncertainty Modeling and Analysis (pp. 398-403). IEEE. https://doi.org/10.1109/ISUMA.1990.151285",
+    "doi": "10.1109/ISUMA.1990.151285",
+    "url": "https://doi.org/10.1109/ISUMA.1990.151285",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "doi.org handle responseCode=1 (resolves to IEEE Xplore document 151285); title, authors and pages 398-403 checked on Crossref 2026-11-23; full text not read",
+    "taken_from": "method reference: the Ishigami test function used in the Sobol acceptance checks (uq checks_t1); analytic index values taken from Marrel et al. (2009), not from this paper"
+  },
+  {
+    "citekey": "marrel2009sobolgp",
+    "apa7": "Marrel, A., Iooss, B., Laurent, B., & Roustant, O. (2009). Calculations of Sobol indices for the Gaussian process metamodel. Reliability Engineering & System Safety, 94(3), 742-751. https://doi.org/10.1016/j.ress.2008.07.008",
+    "doi": "10.1016/j.ress.2008.07.008",
+    "url": "https://doi.org/10.1016/j.ress.2008.07.008",
+    "access_date": "2026-11-23",
+    "doi_verified": true,
+    "url_verified": true,
+    "verification": "doi.org handle responseCode=1; title, authors, volume 94, issue 3, pages 742-751 checked on Crossref 2026-11-23; analytic Ishigami indices confirmed by the UQ workstream against the preprint (arXiv 0802.1008) and the OpenTURNS closed form",
+    "taken_from": "analytic Sobol indices of the Ishigami function used as the acceptance reference in uq checks_t1"
+  },
+  {
     "citekey": "wu2018iuqpart1",
     "apa7": "Wu, X., Kozlowski, T., Meidani, H., & Shirvan, K. (2018a). Inverse uncertainty quantification using the modular Bayesian approach based on Gaussian process, Part 1: Theory. Nuclear Engineering and Design, 335, 339-355. https://doi.org/10.1016/j.nucengdes.2018.06.004",
     "doi": "10.1016/j.nucengdes.2018.06.004",

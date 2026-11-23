@@ -16,20 +16,20 @@
     "applicability_note": "Added to the fired duty; the existing KPIs have no losses (fact sheet F7)."
   },
   {
-    "name": "catalyst_price_Ni",
+    "name": "catalyst_price_Ni_published_TEA",
     "value": 33.4,
     "unit": "USD/kg",
     "source_type": "literature",
     "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "Used as a proxy for Ni/MgO (assumption)."
+    "applicability_note": "Phase 2: used only in the Cho reconstruction and the labelled 'published TEA price' case (not a current price). Default prices are the derived central scenario prices."
   },
   {
-    "name": "catalyst_price_Ru",
+    "name": "catalyst_price_Ru_published_TEA",
     "value": 542.0,
     "unit": "USD/kg",
     "source_type": "literature",
     "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "Used as a proxy for Ru/Al2O3, Ru/MgO and as an upper bound for NiRu/CeO2 (assumption)."
+    "applicability_note": "Phase 2: Cho reconstruction and 'published TEA price' case only. 542 USD/kg is below the Ru metal-content floor of a 3 wt% Ru catalyst (666 USD/kg at the USGS 2025 average, research/data/catalyst_prices.json C2 caution)."
   },
   {
     "name": "catalyst_lifetime",
@@ -73,42 +73,42 @@
   },
   {
     "name": "price_ru_kum_temkin_pyzhev",
-    "value": 542.0,
+    "value": 4790.51,
     "unit": "USD/kg",
-    "source_type": "assumption",
-    "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "proxy: Cho Ru-K/CaO price used for a Ru/Al2O3 catalyst (no sourced price for this catalyst)"
+    "source_type": "derived",
+    "source": "research/data/catalyst_prices.json scenarios_usd_per_kg_finished_catalyst['Ru/Al2O3'].central",
+    "applicability_note": "DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg (research/data/catalyst_prices.json); not a supplier quotation; 8 wt% Ru"
   },
   {
     "name": "price_ru_takahashi_microkinetic",
-    "value": 542.0,
+    "value": 3006.14,
     "unit": "USD/kg",
-    "source_type": "assumption",
-    "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "proxy: Cho Ru-K/CaO price"
+    "source_type": "derived",
+    "source": "research/data/catalyst_prices.json scenarios_usd_per_kg_finished_catalyst['Ru/MgO'].central",
+    "applicability_note": "DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg (research/data/catalyst_prices.json); not a supplier quotation; 5 wt% Ru"
   },
   {
     "name": "price_nire_ceo2_5ni1ru_lucentini_lhhw",
-    "value": 542.0,
+    "value": 627.75,
     "unit": "USD/kg",
-    "source_type": "assumption",
-    "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "no sourced price; Cho Ru price used as an upper-bound proxy (1 wt% Ru vs 3 wt% in Cho); see break-even price"
+    "source_type": "derived",
+    "source": "research/data/catalyst_prices.json scenarios_usd_per_kg_finished_catalyst['5Ni1Ru/CeO2'].central",
+    "applicability_note": "DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg (research/data/catalyst_prices.json); not a supplier quotation; 5 wt% Ni + 1 wt% Ru"
   },
   {
     "name": "price_nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
-    "value": 542.0,
+    "value": 329.98,
     "unit": "USD/kg",
-    "source_type": "assumption",
-    "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "no sourced price; Cho Ru price used as an upper-bound proxy (0.5 wt% Ru); see break-even price"
+    "source_type": "derived",
+    "source": "research/data/catalyst_prices.json scenarios_usd_per_kg_finished_catalyst['2.5Ni0.5Ru/CeO2'].central",
+    "applicability_note": "DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg (research/data/catalyst_prices.json); not a supplier quotation; 2.5 wt% Ni + 0.5 wt% Ru"
   },
   {
     "name": "price_ni_takahashi_microkinetic",
-    "value": 33.4,
+    "value": 36.79,
     "unit": "USD/kg",
-    "source_type": "assumption",
-    "source": "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)",
-    "applicability_note": "proxy: Cho Ni/Al2O3 price used for Ni/MgO"
+    "source_type": "derived",
+    "source": "research/data/catalyst_prices.json scenarios_usd_per_kg_finished_catalyst['Ni/MgO'].central",
+    "applicability_note": "DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg (research/data/catalyst_prices.json); not a supplier quotation; 30 wt% Ni"
   }
 ]

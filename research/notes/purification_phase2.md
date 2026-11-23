@@ -79,3 +79,26 @@ Plain statement: what is commercially demonstrated is PSA for N2/H2-rich gas and
 - Membrane cost: Phase 1 used 6,000 EUR/m2 at parity as USD. The literature range is 5,000 to 15,000 USD/m2; the Phase 1 sensitivity (x0.5 to x2) covers it.
 - TRL wording: do not write "Pd-Ag membranes are at TRL x". Use the table in section 3.
 - Ammogen did not meet its rate and recovery targets; a favourable membrane cost per kg that assumes 0.90 recovery is not supported by the demonstration.
+
+## 8. Phase 2 task D2: PSA against Pd-Ag membrane on the unified basis
+
+Script `scripts/research/purification_phase2.py`; results `results/research/purification/phase2_comparison.json` (+ `phase2_*.csv`); figures `results/figures/research/purification_phase2_{comparison,psa_recovery,tradeoff}.png`; validation items `P2-*` in `results/research/validation/purification.json`. Same plant (20 bar Aspen baseline), same furnace, same delivery pressure per specification, same cost functions (reference scenario, grey NH3 450 USD/t, 1.288444 SGD/USD).
+
+**Correction to section 2 (Cechetto 2021 re-checked against the open-access publisher PDF).** The paper prints the double-sealed N2 permeance as 3.7 x 10^-11 (dead end 3 x 10^-12); only the minus glyph is lost in text extraction. Round 1 had changed -11 to -12. With the printed value, 1.5e-6 / 3.7e-11 = about 40,500, which does not reproduce the "above 400,000" stated in the same paragraph. The paper is internally inconsistent for this membrane. Sourced range used: 40,500 (printed values) / 400,000 (stated) / 500,000 (dead end, consistent).
+
+**Selectivity requirement.** Grade D (N2 300 ppm, R 0.90, 1 bar permeate, 400 degC) needs ideal H2/N2 of at least 12,919; industrial 99.9 % needs 3,871. All sourced values exceed 12,919 (by about 3.1 times for the printed value, 31 times for the stated value). Caveats: ideal single-gas values, new membranes, one group, 450 degC, trace NH3 only; no mixed-gas or aged value found. The 6,000 secondary-excerpt value would fail Grade D.
+
+**Comparison (central; range over every sourced input combination, USD per kg usable H2).**
+
+| Specification | PSA + TSA (TRL: unit 9, integrated 6 to 7) | Pd-Ag membrane (TRL 4 to 5) | Membrane cheaper in |
+|---|---|---|---|
+| Industrial 99.9 %, 30 bar | 4.27 (3.97-5.62) | 4.13 (3.99-4.42) | 59 % of input pairs |
+| Grade D, 350 bar | 4.46 (4.15-6.09) | 4.34 (4.12-4.75) (with NH3 polishing bed) | 60 % of input pairs |
+
+Neither ranking is robust. The ranking is decided by the PSA recovery, which has no cracked-ammonia source: parity at a PSA recovery of about 0.79 (Grade D) and 0.80 (industrial) against the central membrane, and about 0.75 against the most expensive sourced membrane case. Sourced PSA values straddle this (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above; 0.85 is the AmCraX assumption). Membrane cost and life do not decide the ranking inside their sourced ranges: parity needs about 34,800 USD/m2 (sourced up to 15,000) or a life of about 0.9 years (sourced 2 to 5) against the central PSA. Against PSA at 0.81, parity needs about 2,070 USD/m2, below every sourced cost. Housing, skid and heating CAPEX of the membrane (not modelled) favour PSA further; TSA heat and PSA power (not modelled) favour the membrane.
+
+**PSA recovery sensitivity.** Against the 0.85 assumption, the Yanez points (labelled: different feed) add 1.56 USD/kg (industrial) and 1.72 USD/kg (Grade D).
+
+**Trade-offs (H4-B).** Computed: cost and energy for a given recovery; membrane N2 leakage against recovery at a sourced selectivity; the recovery (0.765) at which tail-gas heat equals the furnace demand. Assumed: the PSA recovery-purity relation.
+
+**NUS researchers.** Nothing quantitative is used. Safe wording kept from `nus_membrane_researchers.md`.

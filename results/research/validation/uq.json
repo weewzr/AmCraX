@@ -1,0 +1,1095 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T12:23:11+00:00",
+  "script": "scripts/research/uq_build_validation.py",
+  "source_type": "python",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  }
+ },
+ "label": "Uncertainty of a model given its stated input ranges. Not experimental validation.",
+ "note": "All items are numerical verification of the UQ code, except the T2b posterior-predictive coverage (literature_comparison against digitised published figures, informational). None is experimental validation; AmCraX has no experimental validation.",
+ "counts": {
+  "pass": 78,
+  "fail": 0,
+  "informational": 6
+ },
+ "items": [
+  {
+   "study": "T1",
+   "id": "T1-ISHIGAMI",
+   "evidence_kind": "numerical_verification",
+   "description": "Ishigami (a=7, b=0.1) indices at N=2^13 against the analytic values within 0.02 absolute",
+   "estimated": {
+    "S1": [
+     0.31338721306438677,
+     0.4424232043094545,
+     -0.000283390156795889
+    ],
+    "ST": [
+     0.5558847881028195,
+     0.4424149176251309,
+     0.24370347153844382
+    ]
+   },
+   "analytic": {
+    "V": 13.844587940719254,
+    "S": [
+     0.31390519114781146,
+     0.4424111447900409,
+     0.0
+    ],
+    "ST": [
+     0.5575888552099592,
+     0.4424111447900409,
+     0.2436836640621477
+    ]
+   },
+   "max_abs_error": 0.0017040671071396618,
+   "tolerance": 0.02,
+   "analytic_source": "closed-form variances as given in OpenTURNS use-case documentation (Ishigami function) and Marrel et al. (2009), Reliab. Eng. Syst. Saf. 94, 742-751 (S1 = 0.3139, 0.4424, 0); checked 23 Nov 2026",
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-LINEAR",
+   "evidence_kind": "numerical_verification",
+   "description": "linear additive f = sum c_i x_i, x_i ~ U(0,1), c = 1..4: S_i = ST_i = c_i^2/sum c^2 within 0.01",
+   "estimated": {
+    "S1": [
+     0.033333333333330495,
+     0.13333333333333336,
+     0.299945068359375,
+     0.5333333333333333
+    ],
+    "ST": [
+     0.03333333333333334,
+     0.13333333333333336,
+     0.299945068359375,
+     0.5333333333333334
+    ]
+   },
+   "analytic": [
+    0.03333333333333333,
+    0.13333333333333333,
+    0.3,
+    0.5333333333333333
+   ],
+   "max_abs_error": 5.4931640624977796e-05,
+   "tolerance": 0.01,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.999206703891876,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9795899613289141,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9945732512248063,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9981355911007976,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9904884583391044,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "psa_recovery",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "top3_N8192": [
+    "psa_recovery",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9948114495967567,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9982383767966468,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9970801844212234,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "psa_recovery",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "top3_N8192": [
+    "psa_recovery",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9954918734597392,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "operating_hours_h_per_yr"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "operating_hours_h_per_yr"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.999583460219679,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_on-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9791525497923801,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_on-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9944320732513149,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_on-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "operating_hours_h_per_yr"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "operating_hours_h_per_yr"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9992042166918321,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9818622308003397,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-grey|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9948120085563571,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-grey|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "capex_scaling_exponent"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9982556546676635,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "psa_recovery"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9904058082909475,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "capex_multiplier",
+    "psa_recovery",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-blue|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9949970263094943,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-blue|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "discount_rate"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "discount_rate"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9984164443570558,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9967889845797004,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_current|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9956299649356534,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_current|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "operating_hours_h_per_yr"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "operating_hours_h_per_yr"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9995429948253006,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_off-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "psa_recovery",
+    "capex_multiplier"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9815550160345796,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_off-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "top3_N8192": [
+    "psa_recovery",
+    "capex_multiplier",
+    "nh3_price_USD_per_t"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-SUM-green_2030|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
+   "sum_S1": 0.9947052924730124,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-CONV-green_2030|heat_integration_off-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "top-3 ranking by ST identical at N = 2^12 and 2^13",
+   "top3_N4096": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "operating_hours_h_per_yr"
+   ],
+   "top3_N8192": [
+    "nh3_price_USD_per_t",
+    "capex_multiplier",
+    "operating_hours_h_per_yr"
+   ],
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-DUMMY-lcoh_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "carbon tax (ignored by evaluate for ammonia-fired heat) as a dummy input: |S|, |ST| < 0.01",
+   "S1": 0.0,
+   "ST": 0.0,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-DUMMY-rec_USD_per_kg",
+   "evidence_kind": "numerical_verification",
+   "description": "carbon tax (ignored by evaluate for ammonia-fired heat) as a dummy input: |S|, |ST| < 0.01",
+   "S1": 0.0,
+   "ST": 0.0,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-DUMMY-npv_USD",
+   "evidence_kind": "numerical_verification",
+   "description": "carbon tax (ignored by evaluate for ammonia-fired heat) as a dummy input: |S|, |ST| < 0.01",
+   "S1": 0.0,
+   "ST": 0.0,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-MCMEAN-grey",
+   "evidence_kind": "numerical_verification",
+   "description": "mean LCOH (Sobol base sample, PSA recovery and CAPEX exponent at base as in the Monte Carlo) within 1 % of monte_carlo.json lcoh_mean",
+   "sobol_mean": 4.076906617652638,
+   "monte_carlo_mean": 4.06607356065208,
+   "rel_diff": 0.0026642550457991465,
+   "same_reference_scenario": true,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-MCMEAN-blue",
+   "evidence_kind": "numerical_verification",
+   "description": "mean LCOH (Sobol base sample, PSA recovery and CAPEX exponent at base as in the Monte Carlo) within 1 % of monte_carlo.json lcoh_mean",
+   "sobol_mean": 4.32436208337681,
+   "monte_carlo_mean": 4.317378363313361,
+   "rel_diff": 0.0016175835138270145,
+   "same_reference_scenario": true,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-MCMEAN-green_current",
+   "evidence_kind": "numerical_verification",
+   "description": "mean LCOH (Sobol base sample, PSA recovery and CAPEX exponent at base as in the Monte Carlo) within 1 % of monte_carlo.json lcoh_mean",
+   "sobol_mean": 7.945543643623489,
+   "monte_carlo_mean": 7.938067155644432,
+   "rel_diff": 0.0009418524475119927,
+   "same_reference_scenario": true,
+   "status": "pass"
+  },
+  {
+   "study": "T1",
+   "id": "T1-MCMEAN-green_2030",
+   "evidence_kind": "numerical_verification",
+   "description": "mean LCOH (Sobol base sample, PSA recovery and CAPEX exponent at base as in the Monte Carlo) within 1 % of monte_carlo.json lcoh_mean",
+   "sobol_mean": 5.956099071620893,
+   "monte_carlo_mean": 5.94038944612455,
+   "rel_diff": 0.0026445447118945697,
+   "same_reference_scenario": true,
+   "status": "pass"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-LAB-5Ni1Ru_CeO2",
+   "description": "nominal parameters reproduce X_python of the validation file (Table 1 points)",
+   "value": 0.0,
+   "tolerance": 1e-06,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-TREQ-5Ni1Ru_CeO2",
+   "description": "nominal T_required equals the stored study (study_temperature_for_target_conversion.json)",
+   "value": 0.013170713062436334,
+   "n_compared": 8,
+   "tolerance_K": 0.1,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-MASS-5Ni1Ru_CeO2",
+   "description": "nominal catalyst mass for 99 % of equilibrium at 600 degC, 20 bar equals the stored study",
+   "value_rel": 0.0,
+   "tolerance_rel": 0.001,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MONO-5Ni1Ru_CeO2",
+   "description": "T_required decreases as k0 increases (C1), rank correlation < -0.5 (informational)",
+   "value": -0.1303934132745883,
+   "threshold": -0.5,
+   "status": "informational",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-5Ni1Ru_CeO2-lnk0",
+   "description": "sample mean and sd of ln k0 within 2 % of the specified values",
+   "mean": 15.176488367003302,
+   "sd": 0.09155473325965476,
+   "spec_mean": 15.176487111099874,
+   "spec_sd": 0.09157509157509158,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-5Ni1Ru_CeO2-lnK1",
+   "description": "sample mean and sd of ln K1 within 2 % of the specified values",
+   "mean": 0.09530806169938308,
+   "sd": 0.09282489465268483,
+   "spec_mean": 0.09531017980432493,
+   "spec_sd": 0.0927643784786642,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-5Ni1Ru_CeO2-lnK4",
+   "description": "sample mean and sd of ln K4 within 2 % of the specified values",
+   "mean": -3.057607584748942,
+   "sd": 0.010859405065363818,
+   "spec_mean": -3.0576076772720784,
+   "spec_sd": 0.010855405992184108,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-5Ni1Ru_CeO2-Ek",
+   "description": "sample mean and sd of Ek within 2 % of the specified values",
+   "mean": 123.99948321026446,
+   "sd": 4.089126694869396,
+   "spec_mean": 124.0,
+   "spec_sd": 4.081632653061225,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-LAB-2p5Ni0p5Ru_CeO2",
+   "description": "nominal parameters reproduce X_python of the validation file (Table 1 points)",
+   "value": 0.0,
+   "tolerance": 1e-06,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-TREQ-2p5Ni0p5Ru_CeO2",
+   "description": "nominal T_required equals the stored study (study_temperature_for_target_conversion.json)",
+   "value": 0.011441104152254411,
+   "n_compared": 8,
+   "tolerance_K": 0.1,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-NOM-MASS-2p5Ni0p5Ru_CeO2",
+   "description": "nominal catalyst mass for 99 % of equilibrium at 600 degC, 20 bar equals the stored study",
+   "value_rel": 0.0,
+   "tolerance_rel": 0.001,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MONO-2p5Ni0p5Ru_CeO2",
+   "description": "T_required decreases as k0 increases (C1), rank correlation < -0.5 (informational)",
+   "value": -0.12629177833073613,
+   "threshold": -0.5,
+   "status": "informational",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-2p5Ni0p5Ru_CeO2-lnk0",
+   "description": "sample mean and sd of ln k0 within 2 % of the specified values",
+   "mean": 12.706849629727811,
+   "sd": 0.1236583410260272,
+   "spec_mean": 12.706847933442663,
+   "spec_sd": 0.12368583797155226,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-2p5Ni0p5Ru_CeO2-lnK1",
+   "description": "sample mean and sd of ln K1 within 2 % of the specified values",
+   "mean": 0.18231864439965953,
+   "sd": 0.12763423014744163,
+   "spec_mean": 0.1823215567939546,
+   "spec_sd": 0.12755102040816327,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-2p5Ni0p5Ru_CeO2-lnK4",
+   "description": "sample mean and sd of ln K4 within 2 % of the specified values",
+   "mean": -3.1010925959412656,
+   "sd": 0.022684090580982204,
+   "spec_mean": -3.101092789211817,
+   "spec_sd": 0.022675736961451247,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-MOM-2p5Ni0p5Ru_CeO2-Ek",
+   "description": "sample mean and sd of Ek within 2 % of the specified values",
+   "mean": 106.99928941411362,
+   "sd": 5.622549205445419,
+   "spec_mean": 107.0,
+   "spec_sd": 5.612244897959184,
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2a",
+   "id": "T2A-EXTRAP-FLAG",
+   "description": "every 20 bar output carries extrapolation: true",
+   "status": "pass",
+   "evidence_kind": "numerical_verification"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-SURROGATE-ni",
+   "evidence_kind": "numerical_verification",
+   "description": "bicubic logit(X) interpolation of the PFR grid against direct PFR solves at 25 posterior draws x all points",
+   "max_abs_error_X": 0.00043749082045208,
+   "tolerance": 0.002,
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-CONV-ni",
+   "evidence_kind": "numerical_verification",
+   "description": "rank-normalised split R-hat < 1.01 and bulk ESS > 400 for every parameter (main run)",
+   "diagnostics": {
+    "ln_s": {
+     "rhat": 1.0066647443360857,
+     "ess_bulk": 2329.4751613307494
+    },
+    "dE_kJ_mol": {
+     "rhat": 1.004861697683059,
+     "ess_bulk": 1735.3760051537652
+    },
+    "ln_sigma_d": {
+     "rhat": 1.0090236700118345,
+     "ess_bulk": 1190.4240325768133
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-SYNTH-ni",
+   "evidence_kind": "numerical_verification",
+   "description": "synthetic recovery at theta* = (ln s 0.5, dE +10 kJ/mol, sigma_d 0.02), 20 data sets: 90 % interval coverage between 14 and 20",
+   "coverage": {
+    "ln_s": 18,
+    "dE_kJ_mol": 20
+   },
+   "iterations_per_chain": 8000,
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-PPC-ni",
+   "evidence_kind": "literature_comparison",
+   "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)",
+   "coverage": {
+    "calibration": {
+     "n": 8,
+     "n_inside": 8,
+     "fraction": 1.0
+    },
+    "held_out": {
+     "n": 19,
+     "n_inside": 11,
+     "fraction": 0.5789473684210527
+    },
+    "held_out_excluding_repeated_condition": {
+     "n": 18,
+     "n_inside": 10,
+     "fraction": 0.5555555555555556
+    },
+    "paper_fitting_data_reported_separately": {
+     "n": 5,
+     "n_inside": 5,
+     "fraction": 1.0
+    }
+   },
+   "status": "informational"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-PRIOR-ni",
+   "evidence_kind": "numerical_verification",
+   "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)",
+   "change": {
+    "ln_s": -0.004364173238050606,
+    "dE_kJ_mol": 2.1585718476668525,
+    "ln_sigma_d": 0.03246815728205066
+   },
+   "status": "informational"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-SURROGATE-ru",
+   "evidence_kind": "numerical_verification",
+   "description": "bicubic logit(X) interpolation of the PFR grid against direct PFR solves at 25 posterior draws x all points",
+   "max_abs_error_X": 0.0009710198724054431,
+   "tolerance": 0.002,
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-CONV-ru",
+   "evidence_kind": "numerical_verification",
+   "description": "rank-normalised split R-hat < 1.01 and bulk ESS > 400 for every parameter (main run)",
+   "diagnostics": {
+    "ln_s": {
+     "rhat": 1.0006767191117207,
+     "ess_bulk": 5037.273264221291
+    },
+    "dE_kJ_mol": {
+     "rhat": 1.0006805586780831,
+     "ess_bulk": 4563.790847775745
+    },
+    "ln_sigma_d": {
+     "rhat": 1.0012271941543682,
+     "ess_bulk": 4524.961215141196
+    }
+   },
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-SYNTH-ru",
+   "evidence_kind": "numerical_verification",
+   "description": "synthetic recovery at theta* = (ln s 0.5, dE +10 kJ/mol, sigma_d 0.02), 20 data sets: 90 % interval coverage between 14 and 20",
+   "coverage": {
+    "ln_s": 18,
+    "dE_kJ_mol": 20
+   },
+   "iterations_per_chain": 8000,
+   "status": "pass"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-PPC-ru",
+   "evidence_kind": "literature_comparison",
+   "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)",
+   "coverage": {
+    "calibration": {
+     "n": 6,
+     "n_inside": 6,
+     "fraction": 1.0
+    },
+    "held_out": {
+     "n": 19,
+     "n_inside": 16,
+     "fraction": 0.8421052631578947
+    },
+    "held_out_excluding_repeated_condition": {
+     "n": 18,
+     "n_inside": 15,
+     "fraction": 0.8333333333333334
+    },
+    "paper_fitting_data_reported_separately": {
+     "n": 5,
+     "n_inside": 5,
+     "fraction": 1.0
+    }
+   },
+   "status": "informational"
+  },
+  {
+   "study": "T2b",
+   "id": "T2B-PRIOR-ru",
+   "evidence_kind": "numerical_verification",
+   "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)",
+   "change": {
+    "ln_s": -0.0010086825300089641,
+    "dE_kJ_mol": 10.881684029134567,
+    "ln_sigma_d": -0.009478990607191928
+   },
+   "status": "informational"
+  }
+ ]
+}

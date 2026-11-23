@@ -1,0 +1,338 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T11:34:19Z",
+    "script": "scripts/research/carbon_pricing_run.py",
+    "source_type": "python",
+    "inputs_summary": "validation of the carbon_pricing workstream",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
+    "model_versions": {
+      "carbon_pricing": "amcrax.economics.carbon_pricing/1",
+      "economics": "amcrax.economics.singapore (reference scenario, default output unchanged)",
+      "carbon_intensity": "carbon.ts-equivalent simplified accounting, gate factors amcrax.environmental.lca.route_spec"
+    },
+    "hypothetical_warning": "Every quantity under mode 'hypothetical_lca' is a HYPOTHETICAL life-cycle carbon price, not Singapore law."
+  },
+  "summary": {
+    "pass": 27,
+    "fail": 0,
+    "other": 1
+  },
+  "items": [
+    {
+      "id": "CP01",
+      "description": "Frozen basis: singapore.evaluate default LCOH equals the stored reference baseline",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.015461254695034,
+      "expected": 4.015461254695034,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP02",
+      "description": "Mode A LCOH equals singapore.evaluate for every route (carbon_cost actual)",
+      "evidence_kind": "numerical_verification",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP03",
+      "description": "Mode B at P = 0 equals Mode A LCOH minus the actual tax (no double counting)",
+      "evidence_kind": "numerical_verification",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP04",
+      "description": "Replacement, not addition: with a non-zero actual tax (natural-gas heat, threshold off) Mode B LCOH = LCOH - tax + P*CI/1000/fx",
+      "evidence_kind": "numerical_verification",
+      "observed": 5.235400722727771,
+      "expected": 5.235400722727771,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": "actual tax term in that case 0.02167 USD/kg"
+    },
+    {
+      "id": "CP05-grey",
+      "description": "Carbon intensity (grey) reproduces results/research/lca/lca_results.json H2_kgCO2e_per_kg (two Python paths)",
+      "evidence_kind": "numerical_verification",
+      "observed": 19.51763791359669,
+      "expected": 19.517637913596687,
+      "tolerance": 1e-06,
+      "unit": "kg CO2e/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP05-blue",
+      "description": "Carbon intensity (blue) reproduces results/research/lca/lca_results.json H2_kgCO2e_per_kg (two Python paths)",
+      "evidence_kind": "numerical_verification",
+      "observed": 8.933399580077891,
+      "expected": 8.933399580077893,
+      "tolerance": 1e-06,
+      "unit": "kg CO2e/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP05-green",
+      "description": "Carbon intensity (green) reproduces results/research/lca/lca_results.json H2_kgCO2e_per_kg (two Python paths)",
+      "evidence_kind": "numerical_verification",
+      "observed": 2.4300891449157564,
+      "expected": 2.4300891449157564,
+      "tolerance": 1e-06,
+      "unit": "kg CO2e/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP05-green_lee",
+      "description": "Carbon intensity (green_lee) reproduces results/research/lca/lca_results.json H2_kgCO2e_per_kg (two Python paths)",
+      "evidence_kind": "numerical_verification",
+      "observed": 0.4072075891877498,
+      "expected": 0.4072075891877498,
+      "tolerance": 1e-06,
+      "unit": "kg CO2e/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP06",
+      "description": "Crossover blue over grey equals the analytic Delta p x fx / Delta EF (CAPEX independent)",
+      "evidence_kind": "numerical_verification",
+      "observed": 33.10585277777772,
+      "expected": 33.10585277777778,
+      "tolerance": 3.310585277777772e-05,
+      "unit": "SGD/tCO2e",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP07",
+      "description": "Crossover blue over grey from the 0-500 sweep (linear interpolation) equals the closed form",
+      "evidence_kind": "numerical_verification",
+      "observed": 33.10585277777777,
+      "expected": 33.10585277777772,
+      "tolerance": 1e-06,
+      "unit": "SGD/tCO2e",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP08",
+      "description": "Mode A tax liability is zero for the self-fired reference plant (direct CO2 0, N2O 0 by default)",
+      "evidence_kind": "numerical_verification",
+      "observed": 0.0,
+      "expected": 0.0,
+      "tolerance": 0.0,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP09",
+      "description": "N2O GWP used for the Singapore tax equals the CPA First Schedule value",
+      "evidence_kind": "literature_comparison",
+      "observed": 265.0,
+      "expected": 265.0,
+      "tolerance": 0.0,
+      "unit": "-",
+      "status": "pass",
+      "note": "research/data/carbon_policy_sg.json gases_covered; amcrax.environmental.lca uses AR6 273 for the CI (not for the tax)"
+    },
+    {
+      "id": "CP10",
+      "description": "Legislated rate for 2026 and every later year equals the CPA Third Schedule value",
+      "evidence_kind": "literature_comparison",
+      "observed": 45.0,
+      "expected": 45.0,
+      "tolerance": 0.0,
+      "unit": "SGD/tCO2e",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP11",
+      "description": "Break-even NH3 vs NE Asia SMR (route_case) equals results/research/singapore/breakeven_ammonia_price.json",
+      "evidence_kind": "numerical_verification",
+      "observed": 320.0081986623751,
+      "expected": 320.0081986623751,
+      "tolerance": 1e-06,
+      "unit": "USD/t",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP12",
+      "description": "Mode A NPV equals singapore.evaluate npv_USD",
+      "evidence_kind": "numerical_verification",
+      "observed": -17455719.99837225,
+      "expected": -17455719.99837225,
+      "tolerance": 1e-06,
+      "unit": "USD",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP13",
+      "description": "At the computed CAPEX multiple, capital + fixed opex equal the feed cost",
+      "evidence_kind": "numerical_verification",
+      "observed": 3.0400449449954747,
+      "expected": 3.0400449449954747,
+      "tolerance": 1e-09,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP14",
+      "description": "Feed share at the computed 50 % NH3 price equals 0.5",
+      "evidence_kind": "numerical_verification",
+      "observed": 0.5,
+      "expected": 0.5,
+      "tolerance": 1e-09,
+      "unit": "-",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP15",
+      "description": "EU ETS context price conversion (EUR 90 x 1.0990 x 1.288444)",
+      "evidence_kind": "numerical_verification",
+      "observed": 127.43999603999998,
+      "expected": 127.43999603999998,
+      "tolerance": 1e-09,
+      "unit": "SGD/tCO2e",
+      "status": "pass",
+      "note": "EUR 90 is a secondary press report; context only"
+    },
+    {
+      "id": "CP16-CC01",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.015461254695034,
+      "expected": 4.015461254695034,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC02",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.69713132038035,
+      "expected": 4.69713132038035,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC03",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.84209570868808,
+      "expected": 4.84209570868808,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC04",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 9.00108478953688,
+      "expected": 9.00108478953688,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC05",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 6.159514238950157,
+      "expected": 6.159514238950157,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC06",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.015461254695034,
+      "expected": 4.015461254695034,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC07",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 3.8166009922693527,
+      "expected": 3.8166009922693527,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC08",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 5.235400722727771,
+      "expected": 5.235400722727771,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP16-CC09",
+      "description": "Test vector round trip (carbon_cost)",
+      "evidence_kind": "numerical_verification",
+      "observed": 4.582529658656288,
+      "expected": 4.582529658656288,
+      "tolerance": 1e-12,
+      "unit": "USD/kg H2",
+      "status": "pass",
+      "note": ""
+    },
+    {
+      "id": "CP17",
+      "description": "Experimental validation of the carbon-pricing results",
+      "evidence_kind": "experimental_validation",
+      "observed": null,
+      "expected": null,
+      "tolerance": null,
+      "unit": "-",
+      "status": "not_available",
+      "note": "AmCraX has no independent experimental validation; none is claimed."
+    }
+  ]
+}

@@ -47,7 +47,7 @@ carbon_tax:
   url: "https://www.nea.gov.sg/OUR-SERVICES/CLIMATE-CHANGE-ENERGY-EFFICIENCY/CLIMATE-CHANGE/CARBON-TAX"
   access_date: "2026-11-23"
   source_type: official
-  note: "Verified: 5 (2019-23), 25 (2024-25), 45 (2026-27), 50-80 by 2030 'with a view to'. Budget 2026 statements said the 2030 rate could be at the lower end of the range if global momentum weakens (search-result summary). N2O is a covered gas but no N2O emission factor for ammonia combustion is available from a primary source, so AmCraX does not quantify it (see singapore.py)."
+  note: "Verified: 5 (2019-23), 25 (2024-25), 45 (2026 and any later emissions year under the Carbon Pricing Act 2018, Third Schedule; the key '2026-2027' above is kept for compatibility), 50-80 by 2030 'with a view to' (an aim, not legislated). Budget 2026 statements said the 2030 rate could be at the lower end of the range if global momentum weakens (search-result summary). N2O is a covered gas but no N2O emission factor for ammonia combustion is available from a primary source, so AmCraX does not quantify it (see singapore.py)."
 
 electricity:
   regulated_tariff_Q4_2026_SGD_per_kWh:

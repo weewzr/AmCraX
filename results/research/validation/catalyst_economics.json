@@ -1,0 +1,1854 @@
+[
+  {
+    "id": "CE-FROZEN-BASELINE",
+    "description": "Default singapore.evaluate on the stored baseline is unchanged by this task (frozen basis)",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.015461254695034,
+    "expected": 4.015461254695034,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "results/research/reference_scenario/baseline.json"
+    ]
+  },
+  {
+    "id": "CE-FX",
+    "description": "SGD conversion uses the one reference rate (reference_scenario.yaml), not the 1.2801 of the price file",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.288444,
+    "expected": 1.288444,
+    "tolerance": 1e-09,
+    "unit": "SGD/USD",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/data/reference_scenario.yaml"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/Al2O3-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 1774.72,
+    "expected": 1774.72,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/Al2O3-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 4790.512,
+    "expected": 4790.51,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/Al2O3-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 4790.512,
+    "expected": 4790.51,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/MgO-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 1109.2,
+    "expected": 1109.2,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/MgO-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 3006.145,
+    "expected": 3006.14,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/MgO-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 3006.145,
+    "expected": 3006.14,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-5Ni1Ru/CeO2-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 222.59,
+    "expected": 222.59,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-5Ni1Ru/CeO2-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 627.7545,
+    "expected": 627.75,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-5Ni1Ru/CeO2-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 628.27975,
+    "expected": 628.28,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-2.5Ni0.5Ru/CeO2-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 111.295,
+    "expected": 111.3,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-2.5Ni0.5Ru/CeO2-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 329.97724999999997,
+    "expected": 329.98,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-2.5Ni0.5Ru/CeO2-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 330.239875,
+    "expected": 330.24,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/MgO-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.5,
+    "expected": 4.5,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/MgO-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 36.793000000000006,
+    "expected": 36.79,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/MgO-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 39.944500000000005,
+    "expected": 39.94,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/CeO2-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.75,
+    "expected": 0.75,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/CeO2-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 32.965500000000006,
+    "expected": 32.97,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ni/CeO2-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 33.490750000000006,
+    "expected": 33.49,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/CeO2-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 221.84,
+    "expected": 221.84,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/CeO2-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 626.989,
+    "expected": 626.99,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru/CeO2-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 626.989,
+    "expected": 626.99,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru-K/CaO-low",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 665.52,
+    "expected": 665.52,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru-K/CaO-central",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 1816.567,
+    "expected": 1816.57,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-PRICE-Ru-K/CaO-high",
+    "description": "Derived price recomputed from metal prices, loadings and N equals the price-file value",
+    "evidence_kind": "numerical_verification",
+    "observed": 1816.567,
+    "expected": 1816.57,
+    "tolerance": 0.01,
+    "unit": "USD/kg catalyst",
+    "status": "pass",
+    "source_files": [
+      "research/data/catalyst_prices.json"
+    ]
+  },
+  {
+    "id": "CE-CATCOST-HAND-Ru/Al2O3",
+    "description": "Catalyst cost per kg H2 = W p / (L H) (hand calculation) equals the catalyst item of singapore.evaluate",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.12290820772910768,
+    "expected": 0.12290820772910768,
+    "tolerance": 1e-12,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-CATCOST-HAND-Ru/MgO",
+    "description": "Catalyst cost per kg H2 = W p / (L H) (hand calculation) equals the catalyst item of singapore.evaluate",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.07681802660680373,
+    "expected": 0.07681802660680373,
+    "tolerance": 1e-12,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-CATCOST-HAND-5Ni1Ru/CeO2",
+    "description": "Catalyst cost per kg H2 = W p / (L H) (hand calculation) equals the catalyst item of singapore.evaluate",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.01607045208359596,
+    "expected": 0.01607045208359596,
+    "tolerance": 1e-12,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-CATCOST-HAND-2.5Ni0.5Ru/CeO2",
+    "description": "Catalyst cost per kg H2 = W p / (L H) (hand calculation) equals the catalyst item of singapore.evaluate",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.008457645471561737,
+    "expected": 0.008457645471561737,
+    "tolerance": 1e-12,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-CATCOST-HAND-Ni/MgO",
+    "description": "Catalyst cost per kg H2 = W p / (L H) (hand calculation) equals the catalyst item of singapore.evaluate",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.0009348130902365437,
+    "expected": 0.0009348130902365437,
+    "tolerance": 1e-12,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_reference-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 5.412337245047638e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_reference-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -9.71445146547012e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_reference-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 5.689893001203927e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_reference-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.95516952522712e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_reference-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.5673907444456745e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_reference-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.645453300864631e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_reference-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 8.326672684688674e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_reference-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -9.540979117872439e-18,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -7.91033905045424e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -9.71445146547012e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.0122792321330962e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.95516952522712e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.2327252813834093e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.645453300864631e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.7755575615628914e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -9.540979117872439e-18,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 5.412337245047638e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.469446951953614e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger_reactor_mass-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.983724378680108e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger_reactor_mass-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 6.938893903907228e-18,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.469446951953614e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.3505503099485736e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_HI_exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.7755575615628914e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-aspen_fixed_100kg_noHI_exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.597017211338539e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_reference-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -8.326672684688674e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_reference-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.0,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_reference-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 6.522560269672795e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_reference-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.6653345369377348e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_reference-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -9.020562075079397e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_reference-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.185020385794047e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_reference-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 7.806255641895632e-18,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_reference-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.6219664500383146e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -8.326672684688674e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 0.0,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.0408340855860843e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.6653345369377348e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 7.632783294297951e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.185020385794047e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -7.138387103644561e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.6219664500383146e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.3877787807814457e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.6653345369377348e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger_reactor_mass-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.400058012914542e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger_reactor_mass-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.6653345369377348e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 7.632783294297951e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.0747973611688906e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_HI_exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.5872719805187785e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-python_Top_X095_noHI_exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.8424124992886277e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-RESOLUTION",
+    "description": "Python vs Aspen LCOH at the same T, X, 100 kg (all five catalysts): demonstrated model offset",
+    "evidence_kind": "python_vs_aspen",
+    "observed": 0.006022354316313816,
+    "expected": null,
+    "tolerance": null,
+    "unit": "USD/kg H2",
+    "status": "informational",
+    "source_files": [
+      "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json",
+      "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json",
+      "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json",
+      "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json",
+      "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+    ],
+    "note": "spread between catalysts 0.00061 USD/kg"
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_reference-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.1510571102112408e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_reference-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 7.806255641895632e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_reference-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.220446049250313e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_reference-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.2959746043559335e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.7470027081099033e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.2898349882893854e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.5959455978986625e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.491862189340054e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.128641872824801e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_reactor_mass-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.741581697247476e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.745918505937418e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 3.41740524767431e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_low-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.163336342344337e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_low-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -5.898059818321144e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_low-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -2.0122792321330962e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_low-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -7.806255641895632e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_high-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -6.38378239159465e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_high-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.718447854656915e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_high-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.5959455978986625e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-cost_optimal_exchanger_U_high-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.491862189340054e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_700C_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -5.967448757360216e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_700C_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 6.938893903907228e-18,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_700C_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -3.8163916471489756e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_700C_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -6.938893903907228e-17,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_735.52C_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -4.0245584642661925e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_735.52C_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 2.0122792321330962e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_735.52C_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.8041124150158794e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_735.52C_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.249000902703301e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_760C_exchanger-Ru/Al2O3",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": -1.0408340855860843e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_760C_exchanger-Ru/MgO",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.996003610813204e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_760C_exchanger-5Ni1Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 1.1796119636642288e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-DECOMP-vs_Ni_fixed_760C_exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Decomposition of the LCOH difference sums to the net difference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.3021142204224816e-16,
+    "expected": 0.0,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger-5Ni1Ru/CeO2",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.189602688553384,
+    "expected": 4.189602688553384,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger-5Ni1Ru/CeO2",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.189602688553384,
+    "expected": 4.189602688553384,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.189602688553384,
+    "expected": 4.189602688553384,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.189602688553384,
+    "expected": 4.189602688553384,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger_reactor_mass-Ru/Al2O3",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.1700052754839385,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger_reactor_mass-Ru/Al2O3",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.1700052754839385,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger_reactor_mass-Ru/MgO",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger_reactor_mass-Ru/MgO",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-PRICE-HAND-exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "At the fixed-design break-even price the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-BE-LIFE-HAND-exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "At the fixed-design break-even lifetime the full evaluate() LCOH equals the reference",
+    "evidence_kind": "numerical_verification",
+    "observed": 4.170005275483938,
+    "expected": 4.170005275483938,
+    "tolerance": 1e-09,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-HX-RATIO",
+    "description": "FEHE passed through the reference CAPEX size ratio: total CAPEX = reference CAPEX + FEHE TCI-equivalent",
+    "evidence_kind": "numerical_verification",
+    "observed": 1528519.2427461827,
+    "expected": 1528519.2427461823,
+    "tolerance": 1.5285192427461822,
+    "unit": "USD",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/heat_integration/exchanger.py",
+      "backend/amcrax/economics/reference.py"
+    ]
+  },
+  {
+    "id": "CE-REACTOR-MASS",
+    "description": "Reactor item by catalyst mass = Cho reactor installed cost x (W / Cho inventory)^0.8 x indirect factor (hand calculation)",
+    "evidence_kind": "numerical_verification",
+    "observed": 646540.4769464746,
+    "expected": 646540.4769464746,
+    "tolerance": 0.6465404769464747,
+    "unit": "USD",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/economics/reference.py"
+    ]
+  },
+  {
+    "id": "CE-NPV-SMOOTHED",
+    "description": "NPV of choosing the low-T design (smoothed catalyst) equals the difference of singapore.evaluate NPVs",
+    "evidence_kind": "numerical_verification",
+    "observed": -648576.6131949932,
+    "expected": -648576.6131949835,
+    "tolerance": 0.6485766131949834,
+    "unit": "USD",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-reference-Ru/Al2O3",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 643.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger-Ru/Al2O3",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 614.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger_reactor_mass-Ru/Al2O3",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 630.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-reference-Ru/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 654.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger-Ru/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 622.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger_reactor_mass-Ru/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 644.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-reference-5Ni1Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 628.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger-5Ni1Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 537.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger_reactor_mass-5Ni1Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 658.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-reference-2.5Ni0.5Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 598.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger-2.5Ni0.5Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 537.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger_reactor_mass-2.5Ni0.5Ru/CeO2",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 655.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-reference-Ni/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 549.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger-Ni/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 537.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  },
+  {
+    "id": "CE-OPT-INTERIOR-exchanger_reactor_mass-Ni/MgO",
+    "description": "Cost-optimal temperature lies inside the 470-760 degC grid",
+    "evidence_kind": "numerical_verification",
+    "observed": 654.0,
+    "expected": "interior",
+    "tolerance": null,
+    "unit": "degC",
+    "status": "pass",
+    "source_files": [
+      "scripts/research/catalyst_economics.py"
+    ]
+  }
+]

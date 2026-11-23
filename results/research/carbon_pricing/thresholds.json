@@ -1,0 +1,296 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T11:34:19Z",
+    "script": "scripts/research/carbon_pricing_run.py",
+    "source_type": "python",
+    "inputs_summary": "route LCOH from amcrax.economics.singapore.evaluate (reference scenario), CI from carbon_pricing.carbon_intensity_h2",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
+    "model_versions": {
+      "carbon_pricing": "amcrax.economics.carbon_pricing/1",
+      "economics": "amcrax.economics.singapore (reference scenario, default output unchanged)",
+      "carbon_intensity": "carbon.ts-equivalent simplified accounting, gate factors amcrax.environmental.lca.route_spec"
+    },
+    "hypothetical_warning": "Every quantity under mode 'hypothetical_lca' is a HYPOTHETICAL life-cycle carbon price, not Singapore law."
+  },
+  "label": "HYPOTHETICAL life-cycle carbon price, not Singapore law; replaces the actual tax term (no double counting)",
+  "reference_prices_SGD_per_tCO2e": {
+    "singapore_legislated_2026_onward": 45.0,
+    "singapore_2030_aim_not_legislated": [
+      50.0,
+      80.0
+    ],
+    "eu_ets_context_only": 127.43999603999998,
+    "eu_ets_EUR": 90.0,
+    "eu_ets_status": "secondary press report (GMK Center citing ICE, EUA Dec-2026 future EUR 90.2-90.5, 2-13 Nov 2026); context only, not Singapore law"
+  },
+  "pairwise": [
+    {
+      "route": "blue",
+      "overtakes": "grey",
+      "lcoh_gap_at_zero_USD_per_kg": 0.27195612384735757,
+      "ci_gap_central_kgCO2e_per_kgH2": 10.5842383335188,
+      "threshold_central_SGD_per_tCO2e": 33.10585277777772,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        12.447109138381185,
+        605.4302721154467
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 33.10585277777778
+    },
+    {
+      "route": "green_current",
+      "overtakes": "grey",
+      "lcoh_gap_at_zero_USD_per_kg": 4.04259103016343,
+      "ci_gap_central_kgCO2e_per_kgH2": 17.087548768680932,
+      "threshold_central_SGD_per_tCO2e": 304.8214947491249,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        156.46894805336242,
+        466.03182468374973
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 304.82149474912484
+    },
+    {
+      "route": "green_2030",
+      "overtakes": "grey",
+      "lcoh_gap_at_zero_USD_per_kg": 1.9036928669315056,
+      "ci_gap_central_kgCO2e_per_kgH2": 17.087548768680932,
+      "threshold_central_SGD_per_tCO2e": 143.5432129818606,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        73.68265008331065,
+        219.45862289652933
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 143.5432129818606
+    },
+    {
+      "route": "green_2050",
+      "overtakes": "grey",
+      "lcoh_gap_at_zero_USD_per_kg": 0.09555215162204522,
+      "ci_gap_central_kgCO2e_per_kgH2": 17.087548768680932,
+      "threshold_central_SGD_per_tCO2e": 7.204871694070263,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        3.6983569539885863,
+        11.015297674343234
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 7.204871694070223
+    },
+    {
+      "route": "green_current",
+      "overtakes": "blue",
+      "lcoh_gap_at_zero_USD_per_kg": 3.7706349063160722,
+      "ci_gap_central_kgCO2e_per_kgH2": 6.503310435162135,
+      "threshold_central_SGD_per_tCO2e": 747.0429052511289,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        357.2366272191402,
+        2274.5708282428827
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 747.0429052511287
+    },
+    {
+      "route": "green_2030",
+      "overtakes": "blue",
+      "lcoh_gap_at_zero_USD_per_kg": 1.631736743084148,
+      "ci_gap_central_kgCO2e_per_kgH2": 6.503310435162135,
+      "threshold_central_SGD_per_tCO2e": 323.28172507943594,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        154.59362815331215,
+        984.3172005261599
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 323.2817250794358
+    },
+    {
+      "route": "green_2050",
+      "overtakes": "blue",
+      "lcoh_gap_at_zero_USD_per_kg": -0.17640397222531234,
+      "ci_gap_central_kgCO2e_per_kgH2": 6.503310435162135,
+      "threshold_central_SGD_per_tCO2e": 0.0,
+      "threshold_range_from_ci_ranges_SGD_per_tCO2e": [
+        0.0,
+        0.0
+      ],
+      "upper_unbounded": false,
+      "analytic_dp_fx_over_def_SGD_per_tCO2e": 0.0
+    }
+  ],
+  "monte_carlo": {
+    "n": 20000,
+    "seed": 20261124,
+    "draws": "NH3 prices triangular(low, value, high) per scenario (data/singapore.yaml), independent; gate EFs uniform(low, high) per route (lca.route_spec), independent; green scenarios share one EF draw; distance 5000 km",
+    "caveat": "Independent price draws ignore the correlation of grey and blue ammonia prices (both natural-gas based); the spread of the blue-grey gap is therefore probably overstated.",
+    "results": {
+      "blue_over_grey": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          0.0,
+          21.89514105474648,
+          155.65658545325826
+        ],
+        "P_below_or_at_SG_45": 0.6669,
+        "P_below_or_at_80": 0.8328,
+        "P_below_or_at_EU_ETS": 0.9268,
+        "P_below_or_at_500": 0.99665,
+        "P_already_cheaper_at_zero": 0.33205,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_current_over_grey": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          145.24032749641265,
+          225.01347216134548,
+          384.0717101103769
+        ],
+        "P_below_or_at_SG_45": 0.0,
+        "P_below_or_at_80": 0.0,
+        "P_below_or_at_EU_ETS": 0.01095,
+        "P_below_or_at_500": 0.99865,
+        "P_already_cheaper_at_zero": 0.0,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_2030_over_grey": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          25.976522891305606,
+          108.531513904424,
+          236.68964414043708
+        ],
+        "P_below_or_at_SG_45": 0.1086,
+        "P_below_or_at_80": 0.30095,
+        "P_below_or_at_EU_ETS": 0.6197,
+        "P_below_or_at_500": 1.0,
+        "P_already_cheaper_at_zero": 0.01125,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_2050_over_grey": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          0.0,
+          4.28890383853553,
+          70.9159036774863
+        ],
+        "P_below_or_at_SG_45": 0.85295,
+        "P_below_or_at_80": 0.96625,
+        "P_below_or_at_EU_ETS": 0.9964,
+        "P_below_or_at_500": 1.0,
+        "P_already_cheaper_at_zero": 0.45585,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_current_over_blue": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          370.69013636568815,
+          591.4304861490841,
+          1267.1495097592822
+        ],
+        "P_below_or_at_SG_45": 0.0,
+        "P_below_or_at_80": 0.0,
+        "P_below_or_at_EU_ETS": 0.0,
+        "P_below_or_at_500": 0.33095,
+        "P_already_cheaper_at_zero": 0.0,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_2030_over_blue": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          58.36780331933926,
+          265.25954272412895,
+          688.0267350182656
+        ],
+        "P_below_or_at_SG_45": 0.03815,
+        "P_below_or_at_80": 0.0749,
+        "P_below_or_at_EU_ETS": 0.154,
+        "P_below_or_at_500": 0.86145,
+        "P_already_cheaper_at_zero": 0.01155,
+        "P_never": 0.0,
+        "n_finite": 20000
+      },
+      "green_2050_over_blue": {
+        "p5_p50_p95_SGD_per_tCO2e": [
+          0.0,
+          0.0,
+          124.90245603820343
+        ],
+        "P_below_or_at_SG_45": 0.79965,
+        "P_below_or_at_80": 0.888,
+        "P_below_or_at_EU_ETS": 0.95265,
+        "P_below_or_at_500": 0.9999,
+        "P_already_cheaper_at_zero": 0.63025,
+        "P_never": 0.0,
+        "n_finite": 20000
+      }
+    }
+  },
+  "cheapest_route_changes": [
+    {
+      "set": "all_scenarios",
+      "routes": [
+        "grey",
+        "blue",
+        "green_current",
+        "green_2030",
+        "green_2050"
+      ],
+      "cheapest_from_price_SGD": [
+        {
+          "from_price": 0.0,
+          "cheapest": "grey"
+        },
+        {
+          "from_price": 10.0,
+          "cheapest": "green_2050"
+        }
+      ]
+    },
+    {
+      "set": "current_prices_only",
+      "routes": [
+        "grey",
+        "blue",
+        "green_current"
+      ],
+      "cheapest_from_price_SGD": [
+        {
+          "from_price": 0.0,
+          "cheapest": "grey"
+        },
+        {
+          "from_price": 35.0,
+          "cheapest": "blue"
+        }
+      ]
+    },
+    {
+      "set": "2030_set",
+      "routes": [
+        "grey",
+        "blue",
+        "green_2030"
+      ],
+      "cheapest_from_price_SGD": [
+        {
+          "from_price": 0.0,
+          "cheapest": "grey"
+        },
+        {
+          "from_price": 35.0,
+          "cheapest": "blue"
+        },
+        {
+          "from_price": 325.0,
+          "cheapest": "green_2030"
+        }
+      ]
+    }
+  ],
+  "note_time_basis": "green_2030 and green_2050 are price projections (IRENA via Cho 2026); setting them against today's grey and blue prices mixes time bases. They are reported, but the 'current_prices_only' set is the like-for-like comparison."
+}

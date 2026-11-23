@@ -1,0 +1,1168 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T12:21:24+00:00",
+  "script": "scripts/research/uq_takahashi_calibration.py",
+  "source_type": "python",
+  "inputs_summary": "takahashi_digitised_points.json; amcrax.reactor.pfr with the Takahashi law (kinetics.yaml Table 1) through param_overrides",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "seed": 20261123
+ },
+ "evidence_kind": "numerical_verification",
+ "analysis_kind": "bayesian_calibration_diagnostic",
+ "label": "Uncertainty of a model given its stated input ranges. Not experimental validation.",
+ "label_t2b": "calibration to digitised published figures (about +/-2 percentage points reading error); 1 atm only; not independent experimental validation of AmCraX",
+ "catalyst_id": "ni_takahashi_microkinetic",
+ "rds_constant": "k2",
+ "calibrated_constant": "k2",
+ "T_ref_K": 773.15,
+ "screening": {
+  "dX_dlnk_at_calibration_points": {
+   "k1": {
+    "mean_abs_dX_dlnk": 8.758726282739592e-07,
+    "per_point": [
+     2.80579586926591e-06,
+     6.681734165923012e-07,
+     1.3108790807970487e-09,
+     5.197922968811492e-07,
+     7.53033399987645e-07,
+     7.981853244395674e-07,
+     7.494234874957429e-07,
+     7.112663524485616e-07
+    ]
+   },
+   "k2": {
+    "mean_abs_dX_dlnk": 0.1276919506635201,
+    "per_point": [
+     0.18162713048722096,
+     0.013326503181047628,
+     2.5050938088293456e-07,
+     0.14069957925556026,
+     0.1896620496136134,
+     0.1865988508226844,
+     0.16156964333097532,
+     0.14805159810767804
+    ]
+   },
+   "k3": {
+    "mean_abs_dX_dlnk": 0.016412130759998658,
+    "per_point": [
+     0.022041075513983013,
+     0.0007595812384817924,
+     5.873510588645642e-09,
+     0.010129684755126314,
+     0.019561730983884543,
+     0.024807940829333585,
+     0.02695533216204197,
+     0.02704169472362746
+    ]
+   },
+   "k4": {
+    "mean_abs_dX_dlnk": 0.025663477659045548,
+    "per_point": [
+     0.04024630252665436,
+     0.001414227933715208,
+     9.192809130419261e-09,
+     0.009547363996986595,
+     0.02336962267357003,
+     0.03567680418431077,
+     0.04587790986862673,
+     0.04917558089569159
+    ]
+   },
+   "K1": {
+    "mean_abs_dX_dlnk": 0.1276919323394013,
+    "per_point": [
+     0.18162698647231224,
+     0.013326502891886588,
+     2.511635671885034e-07,
+     0.14069957906451447,
+     0.18966204916169227,
+     0.18659885011099606,
+     0.16156964256364686,
+     0.14805159728659475
+    ]
+   },
+   "K4": {
+    "mean_abs_dX_dlnk": 0.14477772817590123,
+    "per_point": [
+     0.17529464398747274,
+     0.010942338233085977,
+     1.5856399801002568e-07,
+     0.18014561269110207,
+     0.23374606629591002,
+     0.2198130485716783,
+     0.17916764560167617,
+     0.15911231146228647
+    ]
+   }
+  },
+  "most_sensitive_overall": "K4",
+  "most_sensitive_rate_constant": "k2",
+  "rds_is_most_sensitive_rate_constant": true,
+  "note": "K1 and K4 (equilibrium constants) are fixed at Table 1 by the specification; K1 has the same sensitivity as k2 because the rate depends on their product at these conditions; K4 (H2 adsorption) is the most sensitive quantity overall but is not calibrated.",
+  "decision": "calibrate the activation-energy shift of the RDS as specified"
+ },
+ "rds_shift_as_specified": null,
+ "priors": {
+  "ln_s": "N(0, 2^2)",
+  "dE_kJ_mol": "N(0, 20^2)",
+  "sigma_d": "half-normal(0.05)",
+  "sigma_r": 0.01,
+  "truncation": "ln s in [-6.0, 6.000000000000011], dE in [-96.0, 96.0] kJ/mol (grid domain)"
+ },
+ "assumptions": [
+  "W/F_total = rho_bed / (SV c0), rho_bed 1000 kg/m3, SV on total flow at 0 degC 1 atm (assumption; absorbed by s)",
+  "H2 yield taken as NH3 conversion; equilibrium approach factor ON (AmCraX extension, registry default)",
+  "iid Gaussian discrepancy (Kennedy-O'Hagan term reduced to iid because the series are short)",
+  "forward model tabulated on the grid and interpolated (checked, see T2B-SURROGATE)"
+ ],
+ "n_points": {
+  "calibration": 8,
+  "held_out": 19,
+  "paper_fitting_data": 5
+ },
+ "mcmc": {
+  "algorithm": "adaptive Metropolis (Haario et al. 2001)",
+  "chains": 4,
+  "iterations": 20000,
+  "burn_in": 5000,
+  "adapt_from": 1000,
+  "acceptance_rate": [
+   0.0326,
+   0.21286666666666668,
+   0.07413333333333333,
+   0.2518666666666667
+  ],
+  "diagnostics": {
+   "ln_s": {
+    "rhat": 1.0066647443360857,
+    "ess_bulk": 2329.4751613307494
+   },
+   "dE_kJ_mol": {
+    "rhat": 1.004861697683059,
+    "ess_bulk": 1735.3760051537652
+   },
+   "ln_sigma_d": {
+    "rhat": 1.0090236700118345,
+    "ess_bulk": 1190.4240325768133
+   }
+  }
+ },
+ "posterior": {
+  "ln_s": {
+   "mean": -0.8683368285435634,
+   "sd": 0.045948045103699695,
+   "p5": -0.9416432156652526,
+   "p50": -0.8692605127036311,
+   "p95": -0.7941984969277641
+  },
+  "dE_kJ_mol": {
+   "mean": 11.89044444261191,
+   "sd": 8.866306298842815,
+   "p5": -2.571587326132475,
+   "p50": 11.988382697207188,
+   "p95": 26.521406343480848
+  },
+  "ln_sigma_d": {
+   "mean": -4.032211171866167,
+   "sd": 0.4575357295964406,
+   "p5": -4.730888670700416,
+   "p50": -4.03320435367948,
+   "p95": -3.3227467958264065
+  },
+  "sigma_d": {
+   "mean": 0.01956974262027197,
+   "p5": 0.008818630709510056,
+   "p50": 0.017717465869047662,
+   "p95": 0.03605366356640465
+  }
+ },
+ "posterior_without_ceiling_points": {
+  "posterior": {
+   "ln_s": {
+    "mean": -0.8668771228607827,
+    "sd": 0.04991727144056654,
+    "p5": -0.9452319304305641,
+    "p50": -0.8698663686532085,
+    "p95": -0.7878049848756403
+   },
+   "dE_kJ_mol": {
+    "mean": 11.338478536057112,
+    "sd": 9.82042317123294,
+    "p5": -5.052095072059488,
+    "p50": 11.584530773761314,
+    "p95": 26.955857782084017
+   },
+   "ln_sigma_d": {
+    "mean": -3.884756310448495,
+    "sd": 0.4200260723371074,
+    "p5": -4.586770329535387,
+    "p50": -3.8999710049659218,
+    "p95": -3.182507814258777
+   },
+   "sigma_d": {
+    "mean": 0.02245387086550047,
+    "p5": 0.010185701768312445,
+    "p50": 0.02024249836922546,
+    "p95": 0.041481496788681224
+   }
+  },
+  "n_calibration": 7,
+  "diagnostics": {
+   "ln_s": {
+    "rhat": 1.0056561924821048,
+    "ess_bulk": 1155.9814760996676
+   },
+   "dE_kJ_mol": {
+    "rhat": 1.0139091177023878,
+    "ess_bulk": 574.1381803136658
+   },
+   "ln_sigma_d": {
+    "rhat": 1.0042026642674813,
+    "ess_bulk": 775.6166754949461
+   }
+  }
+ },
+ "prior_sensitivity_dE_sd40": {
+  "posterior": {
+   "ln_s": {
+    "mean": -0.872701001781614,
+    "sd": 0.04938122281936461,
+    "p5": -0.9504767454315821,
+    "p50": -0.8741186430785646,
+    "p95": -0.7929494602440728
+   },
+   "dE_kJ_mol": {
+    "mean": 14.049016290278763,
+    "sd": 10.788442119270082,
+    "p5": -1.7879361549416792,
+    "p50": 13.434888508002125,
+    "p95": 32.15636379057341
+   },
+   "ln_sigma_d": {
+    "mean": -3.999743014584116,
+    "sd": 0.45377840299870165,
+    "p5": -4.758413479558211,
+    "p50": -3.9819155003037263,
+    "p95": -3.2916073021269385
+   },
+   "sigma_d": {
+    "mean": 0.02022643051954714,
+    "p5": 0.008579209697627939,
+    "p50": 0.01864988125519798,
+    "p95": 0.0371940193002454
+   }
+  },
+  "change_in_posterior_mean": {
+   "ln_s": -0.004364173238050606,
+   "dE_kJ_mol": 2.1585718476668525,
+   "ln_sigma_d": 0.03246815728205066
+  },
+  "diagnostics": {
+   "ln_s": {
+    "rhat": 1.0034381588421708,
+    "ess_bulk": 2443.920734143414
+   },
+   "dE_kJ_mol": {
+    "rhat": 1.0024581260139358,
+    "ess_bulk": 2118.0700849672376
+   },
+   "ln_sigma_d": {
+    "rhat": 1.0039690163017858,
+    "ess_bulk": 1079.04666820808
+   }
+  }
+ },
+ "interpretation": "published temperature dependence consistent with the paper's extrapolation data within reading error",
+ "posterior_predictive": [
+  {
+   "figure": "3a",
+   "series": "T, 1 atm NH3, SV 15000",
+   "T_C": 550,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.62,
+   "median": 0.6113893413417706,
+   "p5": 0.5650998413492004,
+   "p95": 0.6557805745420715,
+   "model_median_no_noise": 0.6110657751414867,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.008610658658229409,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3a",
+   "series": "T, 1 atm NH3, SV 15000",
+   "T_C": 600,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.94,
+   "median": 0.9427137958307874,
+   "p5": 0.8940031138762076,
+   "p95": 0.9878961597821433,
+   "model_median_no_noise": 0.9436314436780928,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.0027137958307874577,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3a",
+   "series": "T, 1 atm NH3, SV 15000",
+   "T_C": 650,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.99,
+   "median": 0.9998076029410032,
+   "p5": 0.9615510129387626,
+   "p95": 1.036381121149419,
+   "model_median_no_noise": 0.9992338855571252,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.009807602941003246,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3b",
+   "series": "p_NH3 at 500 degC, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.25,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.705,
+   "median": 0.5673046479026518,
+   "p5": 0.5222225022823275,
+   "p95": 0.6114123618772498,
+   "model_median_no_noise": 0.5667358533402189,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.13769535209734818,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3b",
+   "series": "p_NH3 at 500 degC, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.5,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.47,
+   "median": 0.40782491808186994,
+   "p5": 0.3656085207054145,
+   "p95": 0.44992946021573293,
+   "model_median_no_noise": 0.4070396772757266,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.06217508191813004,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3b",
+   "series": "p_NH3 at 500 degC, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.75,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.355,
+   "median": 0.32642947636815883,
+   "p5": 0.28771391876824276,
+   "p95": 0.3668469229623085,
+   "model_median_no_noise": 0.3268349967700873,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02857052363184115,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3b",
+   "series": "p_NH3 at 500 degC, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.3,
+   "median": 0.2754863207649605,
+   "p5": 0.23689707981962033,
+   "p95": 0.3171961108687678,
+   "model_median_no_noise": 0.2769911623354107,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.0245136792350395,
+   "repeats_calibration_condition": true
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 550 degC, 1 atm NH3",
+   "T_C": 550,
+   "SV_h_inv": 2000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.96,
+   "median": 0.9935239941301481,
+   "p5": 0.9575307902852795,
+   "p95": 1.0310722464187112,
+   "model_median_no_noise": 0.9940671955419913,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.03352399413014817,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 550 degC, 1 atm NH3",
+   "T_C": 550,
+   "SV_h_inv": 4000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.9,
+   "median": 0.941798783499427,
+   "p5": 0.8998556735530441,
+   "p95": 0.9825016057432013,
+   "model_median_no_noise": 0.9419425153552821,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.041798783499427006,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 550 degC, 1 atm NH3",
+   "T_C": 550,
+   "SV_h_inv": 7000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.82,
+   "median": 0.8298318241624187,
+   "p5": 0.7844612012576234,
+   "p95": 0.8704966462801567,
+   "model_median_no_noise": 0.8295592224181629,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.00983182416241879,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 550 degC, 1 atm NH3",
+   "T_C": 550,
+   "SV_h_inv": 12000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.7,
+   "median": 0.6787320727280703,
+   "p5": 0.633575097232444,
+   "p95": 0.7218751227640121,
+   "model_median_no_noise": 0.6781766883193918,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02126792727192961,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 550 degC, 1 atm NH3",
+   "T_C": 550,
+   "SV_h_inv": 20000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.58,
+   "median": 0.5253935741484511,
+   "p5": 0.48156404233024863,
+   "p95": 0.5680123944449552,
+   "model_median_no_noise": 0.5252657653343222,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.054606425851548845,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 500 degC, 1 atm NH3",
+   "T_C": 500,
+   "SV_h_inv": 2000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.69,
+   "median": 0.7261467785463189,
+   "p5": 0.6851732806142515,
+   "p95": 0.7693293057719532,
+   "model_median_no_noise": 0.7259573789912032,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.03614677854631898,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 500 degC, 1 atm NH3",
+   "T_C": 500,
+   "SV_h_inv": 4000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.55,
+   "median": 0.5566929443190556,
+   "p5": 0.5149328337012722,
+   "p95": 0.5987260553639274,
+   "model_median_no_noise": 0.5559320747847709,
+   "inside_90": true,
+   "residual_obs_minus_median": -0.006692944319055538,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 500 degC, 1 atm NH3",
+   "T_C": 500,
+   "SV_h_inv": 7000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.43,
+   "median": 0.42684597715084627,
+   "p5": 0.38653848141474545,
+   "p95": 0.46608307014099304,
+   "model_median_no_noise": 0.42627794787730044,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.003154022849153726,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 500 degC, 1 atm NH3",
+   "T_C": 500,
+   "SV_h_inv": 12000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.34,
+   "median": 0.31765488107038686,
+   "p5": 0.2773802815724964,
+   "p95": 0.35888711857315214,
+   "model_median_no_noise": 0.31689431727033934,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02234511892961316,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 500 degC, 1 atm NH3",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "calibration",
+   "observed": 0.29,
+   "median": 0.2775533925811421,
+   "p5": 0.23695957851696986,
+   "p95": 0.3212062406797687,
+   "model_median_no_noise": 0.2769911623354107,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.012446607418857891,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 450 degC, 1 atm NH3",
+   "T_C": 450,
+   "SV_h_inv": 2000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.32,
+   "median": 0.30706745924598844,
+   "p5": 0.2601291018196521,
+   "p95": 0.3525158781039362,
+   "model_median_no_noise": 0.3065537577468281,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.012932540754011568,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 450 degC, 1 atm NH3",
+   "T_C": 450,
+   "SV_h_inv": 4000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.24,
+   "median": 0.21698513622863963,
+   "p5": 0.1766791825591333,
+   "p95": 0.25949572877566174,
+   "model_median_no_noise": 0.21759628043298057,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02301486377136036,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 450 degC, 1 atm NH3",
+   "T_C": 450,
+   "SV_h_inv": 7000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.19,
+   "median": 0.1612583659864923,
+   "p5": 0.11876745671342966,
+   "p95": 0.2013512639125265,
+   "model_median_no_noise": 0.15987905405412597,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02874163401350771,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 450 degC, 1 atm NH3",
+   "T_C": 450,
+   "SV_h_inv": 12000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.15,
+   "median": 0.11384735109285447,
+   "p5": 0.07461510312664173,
+   "p95": 0.1543267647412743,
+   "model_median_no_noise": 0.11511700814769292,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.03615264890714552,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "3c",
+   "series": "SV at 450 degC, 1 atm NH3",
+   "T_C": 450,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "held_out",
+   "observed": 0.12,
+   "median": 0.09882019616213811,
+   "p5": 0.0601751498225219,
+   "p95": 0.13765300644294184,
+   "model_median_no_noise": 0.09952182744706231,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.021179803837861888,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "5a",
+   "series": "p_H2 at 500 degC, 0.3 atm NH3, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.3,
+   "y_H2": 0,
+   "role": "held_out",
+   "observed": 0.61,
+   "median": 0.5236421757623803,
+   "p5": 0.4788267235873354,
+   "p95": 0.5653872102525392,
+   "model_median_no_noise": 0.5226343455172393,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.08635782423761973,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "5a",
+   "series": "p_H2 at 500 degC, 0.3 atm NH3, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.3,
+   "y_H2": 0.1,
+   "role": "held_out",
+   "observed": 0.54,
+   "median": 0.4254306786490948,
+   "p5": 0.3854421040660322,
+   "p95": 0.4673391006676673,
+   "model_median_no_noise": 0.4249509965309379,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.11456932135090525,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "5a",
+   "series": "p_H2 at 500 degC, 0.3 atm NH3, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.3,
+   "y_H2": 0.3,
+   "role": "held_out",
+   "observed": 0.37,
+   "median": 0.28707139775192825,
+   "p5": 0.2461014474587584,
+   "p95": 0.330014639329,
+   "model_median_no_noise": 0.2862623298749114,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.08292860224807175,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "5a",
+   "series": "p_H2 at 500 degC, 0.3 atm NH3, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.3,
+   "y_H2": 0.5,
+   "role": "held_out",
+   "observed": 0.27,
+   "median": 0.20175525584922943,
+   "p5": 0.15996538094036958,
+   "p95": 0.24373957948292552,
+   "model_median_no_noise": 0.2017616103882695,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.06824474415077059,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "5a",
+   "series": "p_H2 at 500 degC, 0.3 atm NH3, SV 15000",
+   "T_C": 500,
+   "SV_h_inv": 15000,
+   "y_NH3": 0.3,
+   "y_H2": 0.7,
+   "role": "held_out",
+   "observed": 0.23,
+   "median": 0.1489279156394711,
+   "p5": 0.11027290961827714,
+   "p95": 0.1888276171473731,
+   "model_median_no_noise": 0.14896097807038106,
+   "inside_90": false,
+   "residual_obs_minus_median": 0.0810720843605289,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "1a",
+   "series": "T, low-conversion fitting data, SV 15000",
+   "T_C": 350,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "paper_fitting_data",
+   "observed": 0.01,
+   "median": 0.005958125935311906,
+   "p5": -0.03453794402066258,
+   "p95": 0.04574178109379893,
+   "model_median_no_noise": 0.006742992870762626,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.004041874064688094,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "1a",
+   "series": "T, low-conversion fitting data, SV 15000",
+   "T_C": 375,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "paper_fitting_data",
+   "observed": 0.025,
+   "median": 0.015316266787577807,
+   "p5": -0.02148505620609222,
+   "p95": 0.05402050967051406,
+   "model_median_no_noise": 0.014444460114942565,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.009683733212422194,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "1a",
+   "series": "T, low-conversion fitting data, SV 15000",
+   "T_C": 400,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "paper_fitting_data",
+   "observed": 0.04,
+   "median": 0.029226277608454462,
+   "p5": -0.008413359685933324,
+   "p95": 0.06698119808175935,
+   "model_median_no_noise": 0.029044147570620477,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.010773722391545539,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "1a",
+   "series": "T, low-conversion fitting data, SV 15000",
+   "T_C": 425,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "paper_fitting_data",
+   "observed": 0.075,
+   "median": 0.05460315683213557,
+   "p5": 0.01859564716202717,
+   "p95": 0.09307450626429906,
+   "model_median_no_noise": 0.05520098619144909,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.02039684316786443,
+   "repeats_calibration_condition": false
+  },
+  {
+   "figure": "1a",
+   "series": "T, low-conversion fitting data, SV 15000",
+   "T_C": 450,
+   "SV_h_inv": 15000,
+   "y_NH3": 1.0,
+   "y_H2": 0.0,
+   "role": "paper_fitting_data",
+   "observed": 0.12,
+   "median": 0.09984071604760275,
+   "p5": 0.06174061552577989,
+   "p95": 0.13830390851768862,
+   "model_median_no_noise": 0.09952182744706231,
+   "inside_90": true,
+   "residual_obs_minus_median": 0.020159283952397244,
+   "repeats_calibration_condition": false
+  }
+ ],
+ "coverage_90": {
+  "calibration": {
+   "n": 8,
+   "n_inside": 8,
+   "fraction": 1.0
+  },
+  "held_out": {
+   "n": 19,
+   "n_inside": 11,
+   "fraction": 0.5789473684210527
+  },
+  "held_out_excluding_repeated_condition": {
+   "n": 18,
+   "n_inside": 10,
+   "fraction": 0.5555555555555556
+  },
+  "paper_fitting_data_reported_separately": {
+   "n": 5,
+   "n_inside": 5,
+   "fraction": 1.0
+  }
+ },
+ "residual_trends_by_series": {
+  "SV at 450 degC, 1 atm NH3": {
+   "mean_residual": 0.02440429825677741,
+   "all_same_sign": true,
+   "n": 5
+  },
+  "SV at 550 degC, 1 atm NH3": {
+   "mean_residual": -0.0018560497337031024,
+   "all_same_sign": false,
+   "n": 5
+  },
+  "T, low-conversion fitting data, SV 15000": {
+   "mean_residual": 0.0130110913577835,
+   "all_same_sign": true,
+   "n": 5
+  },
+  "p_H2 at 500 degC, 0.3 atm NH3, SV 15000": {
+   "mean_residual": 0.08663451526957924,
+   "all_same_sign": true,
+   "n": 5
+  },
+  "p_NH3 at 500 degC, SV 15000": {
+   "mean_residual": 0.06323865922058972,
+   "all_same_sign": true,
+   "n": 4
+  }
+ },
+ "synthetic_recovery": {
+  "theta_star": {
+   "ln_s": 0.5,
+   "dE_kJ_mol": 10.0,
+   "sigma_d": 0.02
+  },
+  "coverage": {
+   "ln_s": 18,
+   "dE_kJ_mol": 20
+  },
+  "sets": [
+   {
+    "ln_s": [
+     0.43155296237966845,
+     0.7026167705250251,
+     true
+    ],
+    "dE_kJ_mol": [
+     -24.974821003519104,
+     32.195265305177685,
+     true
+    ],
+    "max_rhat": 1.0177445373915703
+   },
+   {
+    "ln_s": [
+     0.5444902482635412,
+     0.6841091037632199,
+     false
+    ],
+    "dE_kJ_mol": [
+     -9.752902758422348,
+     40.12172263698218,
+     true
+    ],
+    "max_rhat": 1.04300743116407
+   },
+   {
+    "ln_s": [
+     0.35810603056523155,
+     0.5263317831029898,
+     true
+    ],
+    "dE_kJ_mol": [
+     -10.76393833580255,
+     43.07436479843194,
+     true
+    ],
+    "max_rhat": 1.0225588495316047
+   },
+   {
+    "ln_s": [
+     0.3888801227737942,
+     0.6181787939239624,
+     true
+    ],
+    "dE_kJ_mol": [
+     -24.4938781819316,
+     28.80357851943479,
+     true
+    ],
+    "max_rhat": 1.0180538875472258
+   },
+   {
+    "ln_s": [
+     0.403794152700852,
+     0.6593187657640701,
+     true
+    ],
+    "dE_kJ_mol": [
+     -23.690586623488123,
+     33.31887945634445,
+     true
+    ],
+    "max_rhat": 1.015609655066468
+   },
+   {
+    "ln_s": [
+     0.41726361648701793,
+     0.6065580234664062,
+     true
+    ],
+    "dE_kJ_mol": [
+     -20.054295094780663,
+     31.788815907593275,
+     true
+    ],
+    "max_rhat": 1.0324152734801015
+   },
+   {
+    "ln_s": [
+     0.38353527622771133,
+     0.5454432070677603,
+     true
+    ],
+    "dE_kJ_mol": [
+     -0.8000005663895653,
+     51.819676311295936,
+     true
+    ],
+    "max_rhat": 1.014526046243496
+   },
+   {
+    "ln_s": [
+     0.4064267926175755,
+     0.5797325877988627,
+     true
+    ],
+    "dE_kJ_mol": [
+     -31.333087798487284,
+     17.030465489458244,
+     true
+    ],
+    "max_rhat": 1.0079989938299616
+   },
+   {
+    "ln_s": [
+     0.4433325700650574,
+     0.741222022144428,
+     true
+    ],
+    "dE_kJ_mol": [
+     -25.624914222542763,
+     34.13989036837121,
+     true
+    ],
+    "max_rhat": 1.0050535653982606
+   },
+   {
+    "ln_s": [
+     0.5314292982813075,
+     0.6358173421673989,
+     false
+    ],
+    "dE_kJ_mol": [
+     -17.12763392231833,
+     25.305144608192414,
+     true
+    ],
+    "max_rhat": 1.0828101665641157
+   },
+   {
+    "ln_s": [
+     0.43469822959117616,
+     0.6281535727099521,
+     true
+    ],
+    "dE_kJ_mol": [
+     -21.478821794134127,
+     31.43980554515884,
+     true
+    ],
+    "max_rhat": 1.0358124577030225
+   },
+   {
+    "ln_s": [
+     0.3794816769000513,
+     0.5100237518400872,
+     true
+    ],
+    "dE_kJ_mol": [
+     -13.146375032146643,
+     31.684915528182877,
+     true
+    ],
+    "max_rhat": 1.0280158452349386
+   },
+   {
+    "ln_s": [
+     0.44346607226067936,
+     0.6622419511033785,
+     true
+    ],
+    "dE_kJ_mol": [
+     -24.578892858367034,
+     30.331356551932018,
+     true
+    ],
+    "max_rhat": 1.0080286532887215
+   },
+   {
+    "ln_s": [
+     0.426712810342388,
+     0.6875169132535448,
+     true
+    ],
+    "dE_kJ_mol": [
+     -17.96539080808433,
+     41.6320794855199,
+     true
+    ],
+    "max_rhat": 1.0024529314445916
+   },
+   {
+    "ln_s": [
+     0.4673385286401134,
+     0.5737086546890896,
+     true
+    ],
+    "dE_kJ_mol": [
+     -16.20342425648556,
+     19.628544753538687,
+     true
+    ],
+    "max_rhat": 1.0216673513650418
+   },
+   {
+    "ln_s": [
+     0.3660761133184459,
+     0.6169018614162137,
+     true
+    ],
+    "dE_kJ_mol": [
+     -22.52626537689795,
+     31.295965572102563,
+     true
+    ],
+    "max_rhat": 1.0062435489298642
+   },
+   {
+    "ln_s": [
+     0.4488945869657447,
+     0.6704241309600312,
+     true
+    ],
+    "dE_kJ_mol": [
+     -21.509592651751753,
+     33.406043226038676,
+     true
+    ],
+    "max_rhat": 1.0370021798744626
+   },
+   {
+    "ln_s": [
+     0.48698156673507154,
+     0.6063171881488266,
+     true
+    ],
+    "dE_kJ_mol": [
+     -29.568093786674844,
+     10.691105249796124,
+     true
+    ],
+    "max_rhat": 1.0095840529225615
+   },
+   {
+    "ln_s": [
+     0.467477257224072,
+     0.583573420555535,
+     true
+    ],
+    "dE_kJ_mol": [
+     -23.961956667277917,
+     15.227042379887529,
+     true
+    ],
+    "max_rhat": 1.0081261073703136
+   },
+   {
+    "ln_s": [
+     0.36197570255254397,
+     0.5291904140606742,
+     true
+    ],
+    "dE_kJ_mol": [
+     -23.806363625888096,
+     22.34243046662978,
+     true
+    ],
+    "max_rhat": 1.0194839718002962
+   }
+  ]
+ },
+ "grid": {
+  "ln_s": [
+   -6.0,
+   6.000000000000011,
+   0.4
+  ],
+  "dE": [
+   -96.0,
+   96.0,
+   8.0
+  ],
+  "n_failed_solves": 0,
+  "surrogate_max_abs_error": 0.00043749082045208
+ },
+ "no_change": "kinetics.yaml is not changed (no tuning); not propagated to plant catalyst mass or LCOH"
+}

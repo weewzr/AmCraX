@@ -1,0 +1,132 @@
+{
+  "schema": "amcrax.carbon_pricing.site/1",
+  "generated_utc": "2026-11-23T11:34:19Z",
+  "reference_scenario": {
+    "file": "backend/amcrax/data/reference_scenario.yaml",
+    "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+    "version": "1.0.0",
+    "id": "amcrax_reference_2026_11_23",
+    "fx_SGD_per_USD": 1.288444,
+    "fx_date": "2026-11-20",
+    "capex_method": "cho2026_itemised_v1"
+  },
+  "fx_SGD_per_USD": 1.288444,
+  "default_mode": "actual_sg",
+  "labels": {
+    "actual_sg": "Singapore carbon tax, actual boundary (Carbon Pricing Act 2018): direct reckonable facility emissions only, only at or above 25,000 tCO2e/yr",
+    "hypothetical_lca": "HYPOTHETICAL life-cycle carbon price, not Singapore law; replaces the actual tax term (no double counting)"
+  },
+  "policy": {
+    "rate_SGD_2026_onward": 45.0,
+    "aim_2030_not_law": [
+      50.0,
+      80.0
+    ],
+    "threshold_tCO2e": 25000.0,
+    "n2o_gwp": 265.0,
+    "eu_ets_SGD_context": 127.44
+  },
+  "routes": {
+    "grey": {
+      "nh3_USD_per_t": 450,
+      "lcoh_USD_per_kg": 4.0155,
+      "lcoh_SGD_per_kg": 5.1737,
+      "ci_kgCO2e_per_kgH2": {
+        "central": 19.518,
+        "low": 15.108,
+        "high": 34.218
+      }
+    },
+    "blue": {
+      "nh3_USD_per_t": 487,
+      "lcoh_USD_per_kg": 4.2874,
+      "lcoh_SGD_per_kg": 5.5241,
+      "ci_kgCO2e_per_kgH2": {
+        "central": 8.933,
+        "low": 6.067,
+        "high": 14.529
+      }
+    },
+    "green_current": {
+      "nh3_USD_per_t": 1000,
+      "lcoh_USD_per_kg": 8.0581,
+      "lcoh_SGD_per_kg": 10.3823,
+      "ci_kgCO2e_per_kgH2": {
+        "central": 2.43,
+        "low": 0.929,
+        "high": 3.931
+      }
+    },
+    "green_2030": {
+      "nh3_USD_per_t": 709,
+      "lcoh_USD_per_kg": 5.9192,
+      "lcoh_SGD_per_kg": 7.6265,
+      "ci_kgCO2e_per_kgH2": {
+        "central": 2.43,
+        "low": 0.929,
+        "high": 3.931
+      }
+    },
+    "green_2050": {
+      "nh3_USD_per_t": 463,
+      "lcoh_USD_per_kg": 4.111,
+      "lcoh_SGD_per_kg": 5.2968,
+      "ci_kgCO2e_per_kgH2": {
+        "central": 2.43,
+        "low": 0.929,
+        "high": 3.931
+      }
+    }
+  },
+  "mode_a": {
+    "carbon_tax_USD_per_kg": 0.0,
+    "n2o_ppmv_for_threshold": 1521.0,
+    "upstream_taxed": false
+  },
+  "thresholds_SGD_per_tCO2e": {
+    "blue_over_grey": {
+      "central": 33.1,
+      "low": 12.4,
+      "high": 605.4
+    },
+    "green_current_over_grey": {
+      "central": 304.8,
+      "low": 156.5,
+      "high": 466.0
+    },
+    "green_2030_over_grey": {
+      "central": 143.5,
+      "low": 73.7,
+      "high": 219.5
+    },
+    "green_2050_over_grey": {
+      "central": 7.2,
+      "low": 3.7,
+      "high": 11.0
+    },
+    "green_current_over_blue": {
+      "central": 747.0,
+      "low": 357.2,
+      "high": 2274.6
+    },
+    "green_2030_over_blue": {
+      "central": 323.3,
+      "low": 154.6,
+      "high": 984.3
+    },
+    "green_2050_over_blue": {
+      "central": 0.0,
+      "low": 0.0,
+      "high": 0.0
+    }
+  },
+  "feed": {
+    "share": 0.7571,
+    "breakeven_nh3_vs_smr_USD_per_t": 320.0,
+    "capex_multiple_capital_overtakes_feed": 4.7,
+    "nh3_price_feed_share_50pct": 114.9
+  },
+  "sweep_step_SGD": 5,
+  "sweep_max_SGD": 500,
+  "note": "LCOH under Mode B = Mode A LCOH - actual tax + price x CI / 1000 / fx. Mode B is hypothetical, not Singapore law."
+}

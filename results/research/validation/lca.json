@@ -12,7 +12,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "LCA-blue-v2",
@@ -27,7 +28,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "LCA-baseline-grey",
@@ -42,7 +44,8 @@
     "source_files": [
       "backend/amcrax/environmental/__init__.py",
       "results/simulations/baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "LCA-baseline-blue",
@@ -57,7 +60,8 @@
     "source_files": [
       "backend/amcrax/environmental/__init__.py",
       "results/simulations/baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "LCA-baseline-green",
@@ -72,7 +76,8 @@
     "source_files": [
       "backend/amcrax/environmental/__init__.py",
       "results/simulations/baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "LCA-sum",
@@ -87,7 +92,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "LCA-nh3-per-h2",
@@ -101,7 +107,8 @@
     "status": "pass",
     "source_files": [
       "results/simulations/baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "LCA-ccgt-vs-grid",
@@ -116,7 +123,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "LCA-ref-EU_RFNBO",
@@ -131,7 +139,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "LCA-ref-IEA_low-",
@@ -146,7 +155,8 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "LCA-smr",
@@ -164,6 +174,7 @@
     "source_files": [
       "backend/amcrax/environmental/lca.py",
       "results/research/lca/lca_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   }
 ]

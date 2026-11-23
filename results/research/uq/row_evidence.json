@@ -1,0 +1,182 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T12:23:11+00:00",
+  "script": "scripts/research/uq_build_validation.py",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  }
+ },
+ "note": "Proposed row evidence only; the orchestrator decides the verdicts.",
+ "row_evidence": {
+  "H2-a": {
+   "proposed_verdict": "SUPPORTED",
+   "numbers": {
+    "feed_NH3_share_of_LCOH_base_HIon": {
+     "grey": 0.7570848657650314,
+     "blue": 0.767362704758861,
+     "green_current": 0.8383732438690594,
+     "green_2030": 0.8091966527322002
+    },
+    "feed_plus_heat_fuel_share_base_HIon": {
+     "grey": 0.8237097233492862,
+     "blue": 0.8348920310363921,
+     "green_current": 0.9121516279063403,
+     "green_2030": 0.8804074432047584
+    },
+    "sobol_nh3_price_lcoh_HIon": {
+     "grey": {
+      "S1": 0.8956070807486975,
+      "S1_ci": [
+       0.6616528584227,
+       1.1336646127809948
+      ],
+      "ST": 0.8957177806728917,
+      "ST_ci": [
+       0.8752863585155998,
+       0.917237399155294
+      ],
+      "ST_capital_group": 0.0689733913698244,
+      "ST_operation_group": 0.035817585046544795,
+      "ST_catalyst_group": 5.976064696845266e-06,
+      "lcoh_mean": 4.017053234231514,
+      "lcoh_p5": 3.20631856686513,
+      "lcoh_p95": 4.84029758205087
+     },
+     "blue": {
+      "S1": 0.7255368069662953,
+      "S1_ci": [
+       0.36579812198463657,
+       1.0832296577563485
+      ],
+      "ST": 0.7256056022706876,
+      "ST_ci": [
+       0.7075846223989393,
+       0.7447222522687545
+      ],
+      "ST_capital_group": 0.17741339207124082,
+      "ST_operation_group": 0.09803918682928513,
+      "ST_catalyst_group": 1.5371636627517788e-05,
+      "lcoh_mean": 4.2646019953431855,
+      "lcoh_p5": 3.7642739677003463,
+      "lcoh_p95": 4.772359704048677
+     },
+     "green_current": {
+      "S1": 0.6360434109680797,
+      "S1_ci": [
+       0.037171944875340604,
+       1.2186292784825747
+      ],
+      "ST": 0.6361830381761977,
+      "ST_ci": [
+       0.6196871608580076,
+       0.653491555081444
+      ],
+      "ST_capital_group": 0.16544282445393602,
+      "ST_operation_group": 0.1994321275013194,
+      "ST_catalyst_group": 1.4334470191037745e-05,
+      "lcoh_mean": 7.887160190158307,
+      "lcoh_p5": 7.351197906889918,
+      "lcoh_p95": 8.396801320813648
+     },
+     "green_2030": {
+      "S1": 0.9436482982133941,
+      "S1_ci": [
+       0.7052101407741553,
+       1.184614556104035
+      ],
+      "ST": 0.9437716285684701,
+      "ST_ci": [
+       0.9232360624247593,
+       0.9650852498173227
+      ],
+      "ST_capital_group": 0.031095282240200674,
+      "ST_operation_group": 0.02544238942322009,
+      "ST_catalyst_group": 2.694189958526538e-06,
+      "lcoh_mean": 5.896961050409402,
+      "lcoh_p5": 4.676315692765967,
+      "lcoh_p95": 7.11681276455916
+     }
+    },
+    "rec_grey_HIon_top_inputs_ST": {
+     "capex_multiplier": 0.4728048985040982,
+     "psa_recovery": 0.4197920332203672,
+     "nh3_price_USD_per_t": 0.058795034606388547
+    },
+    "nh3_price_threshold_feed_share_50pct_USD_per_t": {
+     "base": 114.89532131171723,
+     "adverse_capex1.5_psa0.756_cat_life1_price2x_hours7000": 174.27266310396595,
+     "heat_integration_off_base": 124.73138065358245
+    },
+    "lowest_sourced_nh3_price_USD_per_t": 300
+   },
+   "assumptions": [
+    "NH3 price ranges are scenario inputs (data/singapore.yaml; Cho 2026 Table 8 and secondary web), not Singapore transaction prices",
+    "the feed share is accounting at fixed stoichiometry of the stored Aspen baseline; the Sobol indices depend on the stated input ranges",
+    "CAPEX cho2026_itemised_v1 with multiplier 0.5-1.5; no Singapore location factor"
+   ],
+   "uncertainty": "Sobol ST of the NH3 price: grey 0.896 [0.875, 0.917], blue 0.726, green_current 0.636, green_2030 0.944 (95 % bootstrap CI in gsa_sobol.json); S1 CIs are wide (Saltelli 2010 estimator variance), ST CIs narrow; top-3 ranking unchanged under a right-skewed lognormal CAPEX",
+   "envelope": "NH3 price above the 50 %-feed-share threshold (see numbers) at capacity scale 1, both heat-integration cases, reference CAPEX with multiplier up to 1.5 and PSA recovery down to 0.756",
+   "threshold": {
+    "quantity": "NH3 delivered price at which feed cost equals all other LCOH items",
+    "values_USD_per_t": {
+     "base": 114.89532131171723,
+     "adverse_capex1.5_psa0.756_cat_life1_price2x_hours7000": 174.27266310396595,
+     "heat_integration_off_base": 124.73138065358245
+    },
+    "sourced_range_USD_per_t": [
+     300,
+     1052
+    ],
+    "side": "all sourced prices above the threshold"
+   },
+   "reason": "Feed dominance does not rest only on the assumed price: the threshold price for a 50 % feed share lies below every sourced NH3 price even with adverse CAPEX/PSA/operation values. The variance attribution (ST) is range-dependent and is reported as supporting, not as the basis. Note against over-reading: the reconversion cost (REC) is driven by CAPEX and PSA recovery, not by the NH3 price."
+  },
+  "H2-b": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "h2_benchmark_USD_per_kg": 3.06,
+    "breakeven_nh3_price_base_USD_per_t": 320.0081986623751,
+    "breakeven_nh3_price_favourable_nonfeed_inputs_USD_per_t": 379.26324211770896,
+    "lowest_sourced_nh3_price_USD_per_t": 300,
+    "lcoh_p5_p95_by_scenario_HIon": {
+     "grey": [
+      3.20631856686513,
+      4.84029758205087
+     ],
+     "blue": [
+      3.7642739677003463,
+      4.772359704048677
+     ],
+     "green_current": [
+      7.351197906889918,
+      8.396801320813648
+     ],
+     "green_2030": [
+      4.676315692765967,
+      7.11681276455916
+     ]
+    },
+    "npv_mean_grey_HIon_USD": -16776505.196492352,
+    "npv_p95_grey_HIon_USD": -2623057.4643293354
+   },
+   "assumptions": [
+    "single H2 benchmark of the reference scenario (3.06 USD/kg, NE Asia SMR, secondary web); other benchmarks in breakeven_ammonia_price.json are not re-evaluated here"
+   ],
+   "uncertainty": "LCOH 90 % ranges from the Sobol base sample per scenario (see numbers); NPV at 3.06 USD/kg negative over the 5-95 % range for grey",
+   "envelope": "reference scenario, capacity scale 1, benchmark 3.06 USD/kg",
+   "threshold": {
+    "quantity": "NH3 price for LCOH = 3.06 USD/kg",
+    "base_USD_per_t": 320.0081986623751,
+    "with_favourable_non_feed_inputs_USD_per_t": 379.26324211770896,
+    "sourced_min_USD_per_t": 300
+   },
+   "reason": "Break-even NH3 price for the 3.06 USD/kg benchmark: 320 USD/t at base and 379 USD/t with every non-feed input at its favourable bound. Sourced scenario prices span 300-1052 USD/t: only the lower part of the grey range (and the low bound of the green_2050 projection) lies below the threshold; every current green and blue price lies above. Competitiveness therefore requires ammonia at or below about the bottom of the grey range, and the sourced values straddle the threshold, so by rule the row stays INCONCLUSIVE from the UQ side and the threshold is the finding. The result depends on the single benchmark used (other benchmarks are another workstream's)."
+  }
+ }
+}

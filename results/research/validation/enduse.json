@@ -12,7 +12,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.5",
@@ -27,7 +28,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.4",
@@ -42,7 +44,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.3",
@@ -57,7 +60,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.2",
@@ -72,7 +76,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.1",
@@ -87,7 +92,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-stoich-alpha-0.0",
@@ -102,7 +108,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-30",
@@ -117,7 +124,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-N-30",
@@ -132,7 +140,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-H-30",
@@ -147,7 +156,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-40",
@@ -162,7 +172,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-N-40",
@@ -177,7 +188,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-H-40",
@@ -192,7 +204,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-50",
@@ -207,7 +220,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-N-50",
@@ -222,7 +236,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-H-50",
@@ -237,7 +252,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-60",
@@ -252,7 +268,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-N-60",
@@ -267,7 +284,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-blend-H-60",
@@ -282,7 +300,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-direct",
@@ -297,7 +316,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_exhaust_30",
@@ -312,7 +332,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_fired_30",
@@ -327,7 +348,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_exhaust_40",
@@ -342,7 +364,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_fired_40",
@@ -357,7 +380,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_exhaust_50",
@@ -372,7 +396,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_fired_50",
@@ -387,7 +412,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_exhaust_60",
@@ -402,7 +428,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-partial_fired_60",
@@ -417,7 +444,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-full_exhaust",
@@ -432,7 +460,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-full_fired",
@@ -447,7 +476,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-full_purified",
@@ -462,7 +492,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-blend_purified_30",
@@ -477,7 +508,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-blend_purified_40",
@@ -492,7 +524,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-blend_purified_50",
@@ -507,7 +540,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-blend_purified_60",
@@ -522,7 +556,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-energy-h2",
@@ -536,7 +571,8 @@
     "status": "pass",
     "source_files": [
       "results/simulations/baseline.json"
-    ]
+    ],
+    "evidence_kind": "python_vs_aspen"
   },
   {
     "id": "EU-baseline-CI",
@@ -550,7 +586,8 @@
     "status": "pass",
     "source_files": [
       "backend/amcrax/environmental/__init__.py"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-lcoh",
@@ -564,7 +601,8 @@
     "status": "pass",
     "source_files": [
       "results/simulations/economics_baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-lcoh-reference",
@@ -578,7 +616,8 @@
     "status": "pass",
     "source_files": [
       "results/research/reference_scenario/baseline.json"
-    ]
+    ],
+    "evidence_kind": "numerical_verification"
   },
   {
     "id": "EU-ahmad-lcoe",
@@ -593,7 +632,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-ahmad-tci-full",
@@ -608,7 +648,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-ahmad-320",
@@ -629,7 +670,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-ahmad-eta",
@@ -644,7 +686,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-halim-claim",
@@ -663,7 +706,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-halim-plant",
@@ -682,7 +726,8 @@
     "source_files": [
       "backend/amcrax/enduse/pathways.py",
       "results/research/enduse/enduse_results.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
   },
   {
     "id": "EU-iso",
@@ -704,6 +749,480 @@
     "source_files": [
       "results/simulations/baseline.json",
       "results/simulations/scn_fuel_cell_grade.json"
-    ]
+    ],
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "EU-P2-defaults-direct",
+    "description": "Default LCOE of direct unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 2.58928159372348e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-partial_exhaust_40",
+    "description": "Default LCOE of partial_exhaust_40 unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.9301481476088,
+    "expected": 258.9301481476088,
+    "tolerance": 2.5893014814760884e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-partial_fired_40",
+    "description": "Default LCOE of partial_fired_40 unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 268.6137169851577,
+    "expected": 268.6137169851577,
+    "tolerance": 2.686137169851577e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-full_exhaust",
+    "description": "Default LCOE of full_exhaust unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 255.58562736192215,
+    "expected": 255.58562736192215,
+    "tolerance": 2.555856273619222e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-full_fired",
+    "description": "Default LCOE of full_fired unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 280.0850665923625,
+    "expected": 280.0850665923625,
+    "tolerance": 2.8008506659236255e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-full_purified",
+    "description": "Default LCOE of full_purified unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 310.179325155085,
+    "expected": 310.179325155085,
+    "tolerance": 3.1017932515508504e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-defaults-blend_purified_40",
+    "description": "Default LCOE of blend_purified_40 unchanged by the new optional arguments",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 277.96855012640356,
+    "expected": 277.96855012640356,
+    "tolerance": 2.7796855012640355e-07,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-full_fired",
+    "description": "LCOE of full_fired at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.9281593723399,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-full_purified",
+    "description": "LCOE of full_purified at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-blend_purified_40",
+    "description": "LCOE of blend_purified_40 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.9281593723441,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-full_exhaust",
+    "description": "LCOE of full_exhaust at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_20",
+    "description": "LCOE of partial_fired_20 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234803,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_20",
+    "description": "LCOE of partial_exhaust_20 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_30",
+    "description": "LCOE of partial_fired_30 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_30",
+    "description": "LCOE of partial_exhaust_30 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234894,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_40",
+    "description": "LCOE of partial_fired_40 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234786,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_40",
+    "description": "LCOE of partial_exhaust_40 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_50",
+    "description": "LCOE of partial_fired_50 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234775,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_50",
+    "description": "LCOE of partial_exhaust_50 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_60",
+    "description": "LCOE of partial_fired_60 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234695,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_60",
+    "description": "LCOE of partial_exhaust_60 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234775,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_fired_70",
+    "description": "LCOE of partial_fired_70 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.92815937234366,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-partial_exhaust_70",
+    "description": "LCOE of partial_exhaust_70 at its threshold equals direct NH3",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 258.928159372348,
+    "expected": 258.928159372348,
+    "tolerance": 1e-06,
+    "unit": "USD/MWh",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-no-double-count",
+    "description": "Exhaust-heated electricity per kg NH3 equals Ahmad's 0.54 x 18.8 MJ/kg and does not depend on eta_h2_fuel",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": [
+      10.152000000000001,
+      10.152000000000001
+    ],
+    "expected": [
+      10.152000000000001,
+      10.152000000000001
+    ],
+    "tolerance": 1e-09,
+    "unit": "MJ/kg NH3",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-eta-default",
+    "description": "eta_h2_fuel = ETA_GT_GAS reproduces the default fired efficiency",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 0.48180254113272913,
+    "expected": 0.48180254113272913,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-frozen-lcoh",
+    "description": "singapore.evaluate default LCOH unchanged (frozen 4.015 USD/kg)",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 4.015461254695034,
+    "expected": 4.015461254695034,
+    "tolerance": 4.015461254695034e-06,
+    "unit": "USD/kg H2",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-ahmad-gain",
+    "description": "Ahmad system gain on the AmCraX LHV basis equals (0.54 - 0.4912) x 18.8 / 18.6",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 4.931963989898994,
+    "expected": 4.931963989898991,
+    "tolerance": 1e-09,
+    "unit": "pp",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
+  },
+  {
+    "id": "EU-P2-threshold-vs-literature",
+    "description": "Full exhaust-heated threshold system gain against the like-for-like literature gain (Ahmad 2025, 4.4-5.4 pp on LHV 18.8)",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "research/data/turbine_efficiency_literature.json",
+    "observed": 4.040191130059833,
+    "expected": [
+      4.446852777777778,
+      5.4575011363636365
+    ],
+    "tolerance": null,
+    "unit": "pp",
+    "status": "informational",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "EU-P2-n2o-gwp",
+    "description": "Carbon-tax N2O uses GWP 265 (Carbon Pricing Act First Schedule); ratio of tax CO2e to life-cycle CO2e = 265/273",
+    "method": "recomputation in scripts/research/enduse_threshold.py",
+    "reference_source": "internal",
+    "observed": 0.9706959706959706,
+    "expected": 0.9706959706959707,
+    "tolerance": 1e-12,
+    "unit": "-",
+    "status": "pass",
+    "source_files": [
+      "backend/amcrax/enduse/pathways.py",
+      "results/research/enduse/turbine_threshold.json"
+    ],
+    "evidence_kind": "numerical_verification"
   }
 ]

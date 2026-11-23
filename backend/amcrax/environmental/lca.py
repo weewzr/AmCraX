@@ -142,8 +142,8 @@ FACTORS: dict[str, dict] = {
         note="Used to convert ppmv to mass fraction."),
     "carbon_tax_sg_2026": dict(
         value=45.0, unit="SGD/t CO2e", source_type="literature",
-        source="NEA Singapore carbon tax page (accessed 2026-11-23): SGD 25 in 2024-25, SGD 45 in 2026-27, SGD 50-80 by 2030; facilities emitting >= 25,000 t CO2e/yr direct; covers CO2, CH4, N2O",
-        note="Applies only to direct in-scope Singapore emissions. Reported in SGD; no exchange rate is sourced, so it is not added to USD costs."),
+        source="NEA Singapore carbon tax page (accessed 2026-11-23): SGD 25 in 2024-25, SGD 45 for 2026 and any later emissions year (Carbon Pricing Act 2018, Third Schedule), SGD 50-80 by 2030 as a stated aim only; facilities emitting >= 25,000 t CO2e/yr direct; covers CO2, CH4, N2O",
+        note="Applies only to direct in-scope Singapore emissions. Reported in SGD here. Cost models convert with the single exchange rate of the reference scenario (amcrax.economics.reference). The Act uses GWP 265 for N2O; this module's 273 (AR6) is for life-cycle intensity only."),
 }
 
 

@@ -1,12 +1,12 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T08:47:22+00:00",
+    "generated_utc": "2026-11-23T11:55:50+00:00",
     "script": "scripts/research/economics_singapore.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline results (results/simulations/baseline.json, baseline_no_hi.json) costed by amcrax.economics.singapore; prices from backend/amcrax/data/singapore.yaml (scenarios)",
     "reference_scenario": {
       "file": "backend/amcrax/data/reference_scenario.yaml",
-      "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
       "version": "1.0.0",
       "id": "amcrax_reference_2026_11_23",
       "fx_SGD_per_USD": 1.288444,
@@ -33,7 +33,8 @@
       "status": "pass",
       "source_files": [
         "results/simulations/economics_baseline.json"
-      ]
+      ],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E02",
@@ -45,7 +46,8 @@
       "tolerance": 1e-09,
       "unit": "USD/kg H2",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E03",
@@ -59,7 +61,8 @@
       "status": "pass",
       "source_files": [
         "results/research/singapore/scenario_results.json"
-      ]
+      ],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E04",
@@ -71,7 +74,8 @@
       "tolerance": 1e-09,
       "unit": "USD/kg H2",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E05",
@@ -83,7 +87,8 @@
       "tolerance": 1e-12,
       "unit": "USD/kg H2",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E06",
@@ -97,7 +102,8 @@
       "status": "pass",
       "source_files": [
         "results/research/singapore/breakeven_ammonia_price.json"
-      ]
+      ],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E07",
@@ -109,7 +115,8 @@
       "tolerance": 0.0,
       "unit": "kg NH3/kg H2",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E08",
@@ -121,7 +128,8 @@
       "tolerance": null,
       "unit": "USD/kg H2",
       "status": "informational",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E09",
@@ -135,7 +143,8 @@
       "status": "informational",
       "source_files": [
         "research/notes/cho2026nickel.md"
-      ]
+      ],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E10",
@@ -147,7 +156,8 @@
       "tolerance": null,
       "unit": "USD/kg H2",
       "status": "informational",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E11",
@@ -159,7 +169,8 @@
       "tolerance": null,
       "unit": "USD/kg H2",
       "status": "informational",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E12",
@@ -171,7 +182,8 @@
       "tolerance": null,
       "unit": "USD/kg H2",
       "status": "informational",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E13",
@@ -185,7 +197,8 @@
       "status": "informational",
       "source_files": [
         "results/research/singapore/cost_vs_capacity.csv"
-      ]
+      ],
+      "evidence_kind": "literature_comparison"
     },
     {
       "id": "E14",
@@ -197,7 +210,8 @@
       "tolerance": 0.0,
       "unit": "USD/kg H2",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     },
     {
       "id": "E15",
@@ -209,7 +223,8 @@
       "tolerance": null,
       "unit": "tCO2e/yr",
       "status": "pass",
-      "source_files": []
+      "source_files": [],
+      "evidence_kind": "numerical_verification"
     }
   ]
 }

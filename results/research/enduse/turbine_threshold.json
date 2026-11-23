@@ -1,0 +1,2682 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T11:24:58Z",
+    "script": "scripts/research/enduse_threshold.py",
+    "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
+    "inputs_summary": "stored Aspen baseline cracker; Ahmad 2025 turbine end points; reference scenario costs; literature ranges from research/data",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
+    "literature_files": [
+      "research/data/turbine_efficiency_literature.json",
+      "research/data/enduse_cost_literature.json",
+      "research/notes/enduse_turbine_literature.md",
+      "research/data/carbon_policy_sg.json"
+    ]
+  },
+  "what_each_pathway_assumes": {
+    "direct": "Ahmad Case 2a system efficiency 49.12 % on LHV 18.8 = 9.2346 MJ electricity per kg NH3 = 49.64 % on the AmCraX LHV 18.60 MJ/kg.",
+    "full_fired / partial_fired": "Cracker heat = stored Aspen reactor + pre-heater duty (3.291 MJ per kg NH3 cracked) supplied by burning extra NH3 at 100 % heat-transfer efficiency (assumption, favourable to cracking). Combined cycle on the H2/N2(/NH3) fuel gas LHV at eta_h2_fuel = 49.64 % (copy of the direct value; assumption eta_gt_gas).",
+    "full_purified / blend_purified": "Stored Aspen baseline cracker + PSA (recovery 0.85); heat deficit after tail-gas firing from extra NH3; combined cycle on the H2 (or NH3 + H2 blend) LHV at eta_h2_fuel = 49.64 % (assumption).",
+    "full_exhaust / partial_exhaust": "Electricity per kg NH3 from Ahmad's two system end points (49.12 % and about 54 % on LHV 18.8, i.e. 49.64 % and 54.58 % on LHV 18.60, +4.93 pp), linear in the cracked share (assumption). No extra NH3 for cracker heat (exhaust supplies it) and ETA_GT_GAS is NOT used. The implied combined-cycle efficiency on cracked-gas LHV is 47.78 % (below 49.64 %, because exhaust heat goes to the cracker instead of the steam cycle).",
+    "double_counting_check": "Ahmad's efficiency gain enters only the exhaust-heated kinds through eta_exhaust_integrated(); those kinds neither add cracker-heat NH3 nor apply ETA_GT_GAS, and the fired/purified kinds never use the Ahmad 54 % value. Nothing is counted twice (validation EU-P2-no-double-count).",
+    "brief_correction": "The statement that all four stored power costs assume a 49.64 % hydrogen-rich turbine is true for fired cracking (280.1) and cracking + PSA (310.2) only. The exhaust-heated value (255.6) uses Ahmad's 54 % system efficiency."
+  },
+  "statement_of_result": {
+    "text": "On the unified reference scenario (grey NH3 450 USD/t, 8000 h/yr, 10 %, 25 y), direct NH3 combustion gives 258.9 USD/MWh. It is 7.6 % cheaper than a standalone fired cracker (280.1) and 16.5 % cheaper than cracking + PSA (310.2), as 1 - direct/cracking, ON THE ASSUMPTION that the turbine reaches the direct-NH3 efficiency (49.64 %) on the H2-rich fuel. Against an exhaust-heated cracker (Ahmad's +4.93 pp system gain) direct use is 1.3 % dearer (255.6).",
+    "old_pre_unification": {
+      "fired_pct": 5.0,
+      "purified_pct": 15.0,
+      "exhaust_pct": -4.0,
+      "source": "docs/internal/research_reports/enduse-lca.md (Phase 1: LCOE 259 / 273 / 304 / 248 USD/MWh); the user's 'about 5 to 15 %'"
+    },
+    "new_unified": {
+      "full_fired": {
+        "LCOE": 280.0850665923625,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 7.553743395682866,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": 8.17095648124937
+      },
+      "full_purified": {
+        "LCOE": 310.179325155085,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 16.523076048705764,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": 19.793585180913453
+      },
+      "full_exhaust": {
+        "LCOE": 255.58562736192215,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": -1.3077934173867378,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": -1.2909109687135878
+      },
+      "partial_exhaust_40": {
+        "LCOE": 258.9301481476088,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 0.0007680740443105627,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": 0.0007680799437359553
+      },
+      "partial_fired_40": {
+        "LCOE": 268.6137169851577,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 3.6057568919106497,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": 3.740635099823786
+      },
+      "blend_purified_40": {
+        "LCOE": 277.96855012640356,
+        "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 6.849836337742932,
+        "cracking_dearer_pct_of_direct_c_over_d_minus_1": 7.353541924605733
+      }
+    }
+  },
+  "sourced_values": {
+    "exhaust_heated_system_delta_pp": {
+      "ahmad2025_like_for_like_AmCraX_basis": [
+        4.446852777777778,
+        4.931963989898994,
+        5.4575011363636365
+      ],
+      "karpilov2025_maximum": [
+        5.0,
+        5.5
+      ],
+      "supported_range": [
+        4.9,
+        5.5
+      ],
+      "sensitivity_range": [
+        0.0,
+        5.5
+      ],
+      "basis": "combined-cycle system efficiency on NH3 LHV supplied, exhaust-heated cracker; Ahmad 4.4-5.4 pp on LHV 18.8 rescaled by 18.8/18.6; Karpilov unit and basis not stated ('up to', a maximum over TIT 800-1200 C)",
+      "grade": "cycle_simulation (no measurement); small or idealised machines only; nothing for F/H class",
+      "source": "research/data/turbine_efficiency_literature.json key_deliverable_efficiency_difference"
+    },
+    "fired_H2N2_fuel_delta_pp": {
+      "sourced": null,
+      "indirect_bracket": [
+        -1.8635592645963095,
+        7.3
+      ],
+      "basis": "nothing sourced for a turbine on H2/N2 from a standalone fired cracker. Bracket for orientation only: lower = Ahmad exhaust-heated implied efficiency on cracked-gas LHV (derived here, exhaust heat diverted to the cracker); upper = NETL 2023 vs 2024 pure H2 (steam-diluted) minus NH3, +7.3 pp, which the literature note says NOT to use for cracked gas.",
+      "grade": "derived / not like-for-like"
+    },
+    "purified_H2_fuel_delta_pp": {
+      "netl_absolute": 7.3,
+      "netl_relative_on_AmCraX_turbine": 6.080440366246359,
+      "basis": "NETL 2023 (66.9 %, 100 % H2 steam-diluted, Exhibit 4-9) minus NETL 2024 (59.6 %, 100 % NH3, Exhibit 4-6), same agency method and B32A baseline, H-class-like. Steam dilution inflates the H2 figure, so it is an UPPER bound for dry H2 firing. No lower-side source.",
+      "grade": "cycle_simulation, not like-for-like (no cracker, steam diluent)"
+    }
+  },
+  "thresholds": {
+    "full_fired": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5480785342535772,
+          "delta_fuel_pp_vs_direct_turbine": 5.164806051620352,
+          "ratio_to_direct_turbine": 1.1040388599180293,
+          "system_efficiency_at_threshold": 0.5319287282177878,
+          "delta_system_pp_vs_direct": 3.5498254480414104,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.9281593723399,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5591712979468018,
+          "delta_fuel_pp_vs_direct_turbine": 6.274082420942806,
+          "ratio_to_direct_turbine": 1.126383909789188,
+          "system_efficiency_at_threshold": 0.5426946300274496,
+          "delta_system_pp_vs_direct": 4.626415629007585,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5521294696858748,
+          "delta_fuel_pp_vs_direct_turbine": 5.5698995948501135,
+          "ratio_to_direct_turbine": 1.1121989863538626,
+          "system_efficiency_at_threshold": 0.5358602978705367,
+          "delta_system_pp_vs_direct": 3.9429824133162983,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5298933738086635,
+          "delta_fuel_pp_vs_direct_turbine": 3.3462900071289825,
+          "ratio_to_direct_turbine": 1.0674070224161796,
+          "system_efficiency_at_threshold": 0.5142794158230354,
+          "delta_system_pp_vs_direct": 1.7848942085661679,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.9281593723477,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5842920207915537,
+          "delta_fuel_pp_vs_direct_turbine": 8.786154705418003,
+          "ratio_to_direct_turbine": 1.1769866108192653,
+          "system_efficiency_at_threshold": 0.5670751399719206,
+          "delta_system_pp_vs_direct": 7.06446662345469,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5627273673058019,
+          "delta_fuel_pp_vs_direct_turbine": 6.629689356842816,
+          "ratio_to_direct_turbine": 1.1335471875231842,
+          "system_efficiency_at_threshold": 0.5461459154425284,
+          "delta_system_pp_vs_direct": 4.9715441705154735,
+          "cracked_share": 1.0,
+          "LCOE_check": 200.45217351054183,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5359706848095583,
+          "delta_fuel_pp_vs_direct_turbine": 3.954021107218464,
+          "ratio_to_direct_turbine": 1.0796490408304438,
+          "system_efficiency_at_threshold": 0.5201776514036216,
+          "delta_system_pp_vs_direct": 2.37471776662479,
+          "cracked_share": 1.0,
+          "LCOE_check": 359.89669496039846,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5293323189849868,
+          "delta_fuel_pp_vs_direct_turbine": 3.290184524761308,
+          "ratio_to_direct_turbine": 1.06627684436838,
+          "system_efficiency_at_threshold": 0.5137348931676732,
+          "delta_system_pp_vs_direct": 1.7304419430299478,
+          "cracked_share": 1.0,
+          "LCOE_check": 473.34010753230314,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5653396816362055,
+          "delta_fuel_pp_vs_direct_turbine": 6.8909207898831815,
+          "ratio_to_direct_turbine": 1.138809383275868,
+          "system_efficiency_at_threshold": 0.5486812547281094,
+          "delta_system_pp_vs_direct": 5.225078099073565,
+          "cracked_share": 1.0,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5493643393812873,
+          "delta_fuel_pp_vs_direct_turbine": 5.293386564391356,
+          "ratio_to_direct_turbine": 1.1066289610414148,
+          "system_efficiency_at_threshold": 0.5331766455208258,
+          "delta_system_pp_vs_direct": 3.6746171783452075,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.553558410559593,
+          "delta_fuel_pp_vs_direct_turbine": 5.712793682221928,
+          "ratio_to_direct_turbine": 1.1150774173715243,
+          "system_efficiency_at_threshold": 0.5372471332493213,
+          "delta_system_pp_vs_direct": 4.081665951194758,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 5.164806051620352,
+      "threshold_delta_pp_range_over_bases": [
+        3.290184524761308,
+        8.786154705418003
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "full_purified": {
+      "class": "purified_H2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6219411251569432,
+          "delta_fuel_pp_vs_direct_turbine": 12.551065141956952,
+          "ratio_to_direct_turbine": 1.2528262426652887,
+          "system_efficiency_at_threshold": 0.5456732928040953,
+          "delta_system_pp_vs_direct": 4.924281906672157,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6219411251569432,
+          "delta_fuel_pp_vs_direct_turbine": 12.551065141956952,
+          "ratio_to_direct_turbine": 1.2528262426652887,
+          "system_efficiency_at_threshold": 0.5456732928040953,
+          "delta_system_pp_vs_direct": 4.924281906672157,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6134457152440176,
+          "delta_fuel_pp_vs_direct_turbine": 11.701524150664389,
+          "ratio_to_direct_turbine": 1.2357132523023726,
+          "system_efficiency_at_threshold": 0.5382196639742974,
+          "delta_system_pp_vs_direct": 4.178919023692373,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.9281593723481,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5940199136015548,
+          "delta_fuel_pp_vs_direct_turbine": 9.758943986418112,
+          "ratio_to_direct_turbine": 1.1965822910295567,
+          "system_efficiency_at_threshold": 0.521176023155519,
+          "delta_system_pp_vs_direct": 2.474554941814533,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6774632384069805,
+          "delta_fuel_pp_vs_direct_turbine": 18.103276466960683,
+          "ratio_to_direct_turbine": 1.3646689199127982,
+          "system_efficiency_at_threshold": 0.5943868014226875,
+          "delta_system_pp_vs_direct": 9.795632768531382,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.92815937233,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6443371573876029,
+          "delta_fuel_pp_vs_direct_turbine": 14.790668365022919,
+          "ratio_to_direct_turbine": 1.297940379317802,
+          "system_efficiency_at_threshold": 0.5653229286920048,
+          "delta_system_pp_vs_direct": 6.889245495463115,
+          "cracked_share": 1.0,
+          "LCOE_check": 200.45217351054188,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6033854684906931,
+          "delta_fuel_pp_vs_direct_turbine": 10.695499475331937,
+          "ratio_to_direct_turbine": 1.2154480846997755,
+          "system_efficiency_at_threshold": 0.5293930922133081,
+          "delta_system_pp_vs_direct": 3.29626184759344,
+          "cracked_share": 1.0,
+          "LCOE_check": 359.89669496039977,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5931993279664132,
+          "delta_fuel_pp_vs_direct_turbine": 9.676885422903947,
+          "ratio_to_direct_turbine": 1.1949293191058876,
+          "system_efficiency_at_threshold": 0.5204560648709748,
+          "delta_system_pp_vs_direct": 2.4025591133601143,
+          "cracked_share": 1.0,
+          "LCOE_check": 473.34010753230353,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.6483583170431277,
+          "delta_fuel_pp_vs_direct_turbine": 15.192784330575403,
+          "ratio_to_direct_turbine": 1.3060405260014887,
+          "system_efficiency_at_threshold": 0.5688509787619653,
+          "delta_system_pp_vs_direct": 7.242050502459163,
+          "cracked_share": 1.0,
+          "LCOE_check": 309.0282804445668,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.623916106062143,
+          "delta_fuel_pp_vs_direct_turbine": 12.74856323247693,
+          "ratio_to_direct_turbine": 1.2568046062220848,
+          "system_efficiency_at_threshold": 0.5474060843661482,
+          "delta_system_pp_vs_direct": 5.097561062877453,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.615121305613736,
+          "delta_fuel_pp_vs_direct_turbine": 11.869083187636232,
+          "ratio_to_direct_turbine": 1.239088529321738,
+          "system_efficiency_at_threshold": 0.5396897788733634,
+          "delta_system_pp_vs_direct": 4.3259305135989745,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.901156743257,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 12.551065141956952,
+      "threshold_delta_pp_range_over_bases": [
+        9.676885422903947,
+        18.103276466960683
+      ],
+      "vs_netl_upper_bound_absolute": "all sourced values BELOW threshold: direct NH3 cheaper",
+      "vs_netl_upper_bound_relative": "all sourced values BELOW threshold: direct NH3 cheaper",
+      "vs_netl_all_bases": [
+        "all sourced values BELOW threshold: direct NH3 cheaper"
+      ]
+    },
+    "blend_purified_40": {
+      "class": "purified_H2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5429999124254333,
+          "delta_fuel_pp_vs_direct_turbine": 4.656943868805962,
+          "ratio_to_direct_turbine": 1.0938085817686853,
+          "system_efficiency_at_threshold": 0.5185559065858276,
+          "delta_system_pp_vs_direct": 2.212543284845392,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 258.9281593723441,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5429999124254333,
+          "delta_fuel_pp_vs_direct_turbine": 4.656943868805962,
+          "ratio_to_direct_turbine": 1.0938085817686853,
+          "system_efficiency_at_threshold": 0.5185559065858276,
+          "delta_system_pp_vs_direct": 2.212543284845392,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 258.9281593723441,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5405907690460097,
+          "delta_fuel_pp_vs_direct_turbine": 4.416029530863597,
+          "ratio_to_direct_turbine": 1.0889556496727033,
+          "system_efficiency_at_threshold": 0.516255214632431,
+          "delta_system_pp_vs_direct": 1.9824740895057258,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 258.92815937234536,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5314534701416248,
+          "delta_fuel_pp_vs_direct_turbine": 3.5022996404251105,
+          "ratio_to_direct_turbine": 1.0705496504688374,
+          "system_efficiency_at_threshold": 0.5075292457902911,
+          "delta_system_pp_vs_direct": 1.1098772052917427,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 258.9281593723475,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5660278564582231,
+          "delta_fuel_pp_vs_direct_turbine": 6.959738272084937,
+          "ratio_to_direct_turbine": 1.1401956294038236,
+          "system_efficiency_at_threshold": 0.5405472110436726,
+          "delta_system_pp_vs_direct": 4.411673730629895,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5523137007786696,
+          "delta_fuel_pp_vs_direct_turbine": 5.588322704129589,
+          "ratio_to_direct_turbine": 1.1125700979244473,
+          "system_efficiency_at_threshold": 0.5274504199232016,
+          "delta_system_pp_vs_direct": 3.101994618582793,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 200.45217351054185,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5353206110452136,
+          "delta_fuel_pp_vs_direct_turbine": 3.8890137307839856,
+          "ratio_to_direct_turbine": 1.0783395447403856,
+          "system_efficiency_at_threshold": 0.5112223011872954,
+          "delta_system_pp_vs_direct": 1.479182744992169,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 359.89669496039863,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5311155525340644,
+          "delta_fuel_pp_vs_direct_turbine": 3.4685078796690694,
+          "ratio_to_direct_turbine": 1.0698689557382814,
+          "system_efficiency_at_threshold": 0.5072065400820027,
+          "delta_system_pp_vs_direct": 1.077606634462902,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 473.3401075323028,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5540009696142442,
+          "delta_fuel_pp_vs_direct_turbine": 5.757049587687046,
+          "ratio_to_direct_turbine": 1.115968899820858,
+          "system_efficiency_at_threshold": 0.5290617336649981,
+          "delta_system_pp_vs_direct": 3.263125992762439,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5438206429186608,
+          "delta_fuel_pp_vs_direct_turbine": 4.739016918128714,
+          "ratio_to_direct_turbine": 1.0954618454916971,
+          "system_efficiency_at_threshold": 0.5193396905888068,
+          "delta_system_pp_vs_direct": 2.29092168514331,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 279.90115674325216,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5413258973024034,
+          "delta_fuel_pp_vs_direct_turbine": 4.489542356502973,
+          "ratio_to_direct_turbine": 1.0904364778959577,
+          "system_efficiency_at_threshold": 0.5169572499195977,
+          "delta_system_pp_vs_direct": 2.0526776182223982,
+          "cracked_share": 0.3477293486941358,
+          "LCOE_check": 279.90115674325364,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 4.656943868805962,
+      "threshold_delta_pp_range_over_bases": [
+        3.4685078796690694,
+        6.959738272084937
+      ],
+      "vs_netl_upper_bound_absolute": "sourced values STRADDLE the threshold",
+      "vs_netl_upper_bound_relative": "sourced values STRADDLE the threshold",
+      "vs_netl_all_bases": [
+        "sourced values STRADDLE the threshold"
+      ]
+    },
+    "full_exhaust": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.8191850423754972,
+          "system_efficiency": 0.536832385037972,
+          "delta_system_pp_vs_direct": 4.040191130059833,
+          "delta_full_cracking_equivalent_pp": 4.040191130059833,
+          "implied_eta_on_fuel_gas_LHV": 0.4699875623775697,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0676272947974121,
+          "system_efficiency": 0.5490854674631149,
+          "delta_system_pp_vs_direct": 5.265499372574123,
+          "delta_full_cracking_equivalent_pp": 5.265499372574115,
+          "implied_eta_on_fuel_gas_LHV": 0.48071492626452483,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9018747292446253,
+          "system_efficiency": 0.5409106106177177,
+          "delta_system_pp_vs_direct": 4.448013688034402,
+          "delta_full_cracking_equivalent_pp": 4.448013688034398,
+          "implied_eta_on_fuel_gas_LHV": 0.4735579790522548,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.41177540352207825,
+          "system_efficiency": 0.5167390883583439,
+          "delta_system_pp_vs_direct": 2.0308614620970222,
+          "delta_full_cracking_equivalent_pp": 2.0308614620970173,
+          "implied_eta_on_fuel_gas_LHV": 0.4523962251375115,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.6300651117755238,
+          "system_efficiency": 0.5768246980620494,
+          "delta_system_pp_vs_direct": 8.03942243246757,
+          "delta_full_cracking_equivalent_pp": 8.039422432467562,
+          "implied_eta_on_fuel_gas_LHV": 0.5050001477503715,
+          "cracked_share": 1.0,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1468359232830185,
+          "system_efficiency": 0.5529920084969178,
+          "delta_system_pp_vs_direct": 5.656153475954406,
+          "delta_full_cracking_equivalent_pp": 5.656153475954413,
+          "implied_eta_on_fuel_gas_LHV": 0.4841350360585252,
+          "cracked_share": 1.0,
+          "LCOE_check": 200.45217351054188,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.5481326812663374,
+          "system_efficiency": 0.5234641801942973,
+          "delta_system_pp_vs_direct": 2.70337064569236,
+          "delta_full_cracking_equivalent_pp": 2.703370645692359,
+          "implied_eta_on_fuel_gas_LHV": 0.45828392790440303,
+          "cracked_share": 1.0,
+          "LCOE_check": 359.8966949603998,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.3994563058837586,
+          "system_efficiency": 0.5161315148989414,
+          "delta_system_pp_vs_direct": 1.9701041161567678,
+          "delta_full_cracking_equivalent_pp": 1.9701041161567752,
+          "implied_eta_on_fuel_gas_LHV": 0.45186430497563507,
+          "cracked_share": 1.0,
+          "LCOE_check": 473.34010753230353,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2054472234715898,
+          "system_efficiency": 0.5558826967162297,
+          "delta_system_pp_vs_direct": 5.9452222978856,
+          "delta_full_cracking_equivalent_pp": 5.945222297885607,
+          "implied_eta_on_fuel_gas_LHV": 0.486665784105128,
+          "cracked_share": 1.0,
+          "LCOE_check": 309.02828044450587,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.8480002432149764,
+          "system_efficiency": 0.5382535403669922,
+          "delta_system_pp_vs_direct": 4.182306662961855,
+          "delta_full_cracking_equivalent_pp": 4.182306662961852,
+          "implied_eta_on_fuel_gas_LHV": 0.4712317595375433,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.933606922106137,
+          "system_efficiency": 0.5424756309428527,
+          "delta_system_pp_vs_direct": 4.604515720547897,
+          "delta_full_cracking_equivalent_pp": 4.604515720547903,
+          "implied_eta_on_fuel_gas_LHV": 0.47492812755331715,
+          "cracked_share": 1.0,
+          "LCOE_check": 279.9011567432569,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 4.040191130059833,
+      "threshold_delta_pp_range_over_bases": [
+        1.9701041161567678,
+        8.03942243246757
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 4.040191130059833,
+      "threshold_full_equiv_pp_range_over_bases": [
+        1.9701041161567752,
+        8.039422432467562
+      ]
+    },
+    "partial_fired_20": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5081153968155423,
+          "delta_fuel_pp_vs_direct_turbine": 1.1684923078168596,
+          "ratio_to_direct_turbine": 1.0235378843490384,
+          "system_efficiency_at_threshold": 0.5054260723814404,
+          "delta_system_pp_vs_direct": 0.8995598644066738,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5108702669363377,
+          "delta_fuel_pp_vs_direct_turbine": 1.4439793198964046,
+          "ratio_to_direct_turbine": 1.0290872417445571,
+          "system_efficiency_at_threshold": 0.5081663616814714,
+          "delta_system_pp_vs_direct": 1.1735887944097745,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5101110828887249,
+          "delta_fuel_pp_vs_direct_turbine": 1.3680609151351164,
+          "ratio_to_direct_turbine": 1.027557955998061,
+          "system_efficiency_at_threshold": 0.5074111958002476,
+          "delta_system_pp_vs_direct": 1.0980722062873927,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.50360694075187,
+          "delta_fuel_pp_vs_direct_turbine": 0.7176467014496257,
+          "ratio_to_direct_turbine": 1.014456137151429,
+          "system_efficiency_at_threshold": 0.5009414784190311,
+          "delta_system_pp_vs_direct": 0.4511004681657438,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.517121534900858,
+          "delta_fuel_pp_vs_direct_turbine": 2.0691061163484292,
+          "ratio_to_direct_turbine": 1.0416796757211775,
+          "system_efficiency_at_threshold": 0.5143845432884704,
+          "delta_system_pp_vs_direct": 1.7954069551096685,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5117649025646923,
+          "delta_fuel_pp_vs_direct_turbine": 1.5334428827318614,
+          "ratio_to_direct_turbine": 1.0308893785505822,
+          "system_efficiency_at_threshold": 0.5090562622329714,
+          "delta_system_pp_vs_direct": 1.26257884955977,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 200.45217351054188,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5051140099584429,
+          "delta_fuel_pp_vs_direct_turbine": 0.868353622106921,
+          "ratio_to_direct_turbine": 1.017491948380395,
+          "system_efficiency_at_threshold": 0.5024405710949449,
+          "delta_system_pp_vs_direct": 0.6010097357571187,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 359.89669496039977,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5034725935810664,
+          "delta_fuel_pp_vs_direct_turbine": 0.704211984369274,
+          "ratio_to_direct_turbine": 1.0141855107940416,
+          "system_efficiency_at_threshold": 0.5008078423133349,
+          "delta_system_pp_vs_direct": 0.437736857596116,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 473.3401075323037,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5124261653521169,
+          "delta_fuel_pp_vs_direct_turbine": 1.5995691614743235,
+          "ratio_to_direct_turbine": 1.0322214135935688,
+          "system_efficiency_at_threshold": 0.5097140251261146,
+          "delta_system_pp_vs_direct": 1.3283551388740933,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 309.0282804445057,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.508436301925341,
+          "delta_fuel_pp_vs_direct_turbine": 1.200582818796725,
+          "ratio_to_direct_turbine": 1.0241843094312513,
+          "system_efficiency_at_threshold": 0.5057452790228238,
+          "delta_system_pp_vs_direct": 0.9314805285450145,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 279.9011567432568,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5105031806869209,
+          "delta_fuel_pp_vs_direct_turbine": 1.407270694954721,
+          "ratio_to_direct_turbine": 1.0283477902627551,
+          "system_efficiency_at_threshold": 0.5078012183253938,
+          "delta_system_pp_vs_direct": 1.137074458802012,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 279.9011567432569,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 1.1684923078168596,
+      "threshold_delta_pp_range_over_bases": [
+        0.704211984369274,
+        2.0691061163484292
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_20": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.188465532208726,
+          "system_efficiency": 0.5056245496473125,
+          "delta_system_pp_vs_direct": 0.9194075909938815,
+          "delta_full_cracking_equivalent_pp": 5.861469208089581,
+          "implied_eta_on_fuel_gas_LHV": 0.49459065298478916,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.5505140911202249,
+          "system_efficiency": 0.508425389758788,
+          "delta_system_pp_vs_direct": 1.1994916021414337,
+          "delta_full_cracking_equivalent_pp": 7.6470796632359175,
+          "implied_eta_on_fuel_gas_LHV": 0.49733037228957155,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.448569802238505,
+          "system_efficiency": 0.507636739600107,
+          "delta_system_pp_vs_direct": 1.1206265862733322,
+          "delta_full_cracking_equivalent_pp": 7.144294101495414,
+          "implied_eta_on_fuel_gas_LHV": 0.49655893230068915,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.5959502033899469,
+          "system_efficiency": 0.5010407979411625,
+          "delta_system_pp_vs_direct": 0.4610324203788818,
+          "delta_full_cracking_equivalent_pp": 2.9392049428921996,
+          "implied_eta_on_fuel_gas_LHV": 0.4901069293383677,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 2.3720498993788257,
+          "system_efficiency": 0.514780864426888,
+          "delta_system_pp_vs_direct": 1.8350390689514273,
+          "delta_full_cracking_equivalent_pp": 11.6988646859799,
+          "implied_eta_on_fuel_gas_LHV": 0.5035471558067414,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.6680444143793371,
+          "system_efficiency": 0.5093346148767901,
+          "delta_system_pp_vs_direct": 1.2904141139416403,
+          "delta_full_cracking_equivalent_pp": 8.226734985271047,
+          "implied_eta_on_fuel_gas_LHV": 0.4982197560133969,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 200.4521735105419,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.7940398630205224,
+          "system_efficiency": 0.5025732373079422,
+          "delta_system_pp_vs_direct": 0.6142763570568532,
+          "delta_full_cracking_equivalent_pp": 3.9161760109615464,
+          "implied_eta_on_fuel_gas_LHV": 0.49160592733520914,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 359.8966949603999,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.578329765715307,
+          "system_efficiency": 0.5009044846555379,
+          "delta_system_pp_vs_direct": 0.44740109181642396,
+          "delta_full_cracking_equivalent_pp": 2.852301578794616,
+          "implied_eta_on_fuel_gas_LHV": 0.48997359072378777,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 473.3401075323036,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.7549735500812227,
+          "system_efficiency": 0.510007106464277,
+          "delta_system_pp_vs_direct": 1.3576632726903348,
+          "delta_full_cracking_equivalent_pp": 8.655466352225789,
+          "implied_eta_on_fuel_gas_LHV": 0.4988775722796639,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2306430842009397,
+          "system_efficiency": 0.5059508389709845,
+          "delta_system_pp_vs_direct": 0.9520365233610772,
+          "delta_full_cracking_equivalent_pp": 6.06948737569727,
+          "implied_eta_on_fuel_gas_LHV": 0.49490982192104715,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 279.901156743257,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.5000254012410714,
+          "system_efficiency": 0.5080348047272814,
+          "delta_system_pp_vs_direct": 1.1604330989907652,
+          "delta_full_cracking_equivalent_pp": 7.398071262854755,
+          "implied_eta_on_fuel_gas_LHV": 0.49694831072647355,
+          "cracked_share": 0.1568561666629558,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 0.9194075909938815,
+      "threshold_delta_pp_range_over_bases": [
+        0.44740109181642396,
+        1.8350390689514273
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "all sourced values BELOW threshold: direct NH3 cheaper",
+      "vs_supported_range": "all sourced values BELOW threshold: direct NH3 cheaper",
+      "vs_sensitivity_range": "all sourced values BELOW threshold: direct NH3 cheaper",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper"
+      ],
+      "threshold_full_equiv_pp_reference": 5.861469208089581,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.852301578794616,
+        11.6988646859799
+      ]
+    },
+    "partial_fired_30": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5138645596947022,
+          "delta_fuel_pp_vs_direct_turbine": 1.7434085957328538,
+          "ratio_to_direct_turbine": 1.0351188874971275,
+          "system_efficiency_at_threshold": 0.509518302500334,
+          "delta_system_pp_vs_direct": 1.308782876296033,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5178823960273715,
+          "delta_fuel_pp_vs_direct_turbine": 2.1451922289997816,
+          "ratio_to_direct_turbine": 1.0432123397431612,
+          "system_efficiency_at_threshold": 0.513502156045638,
+          "delta_system_pp_vs_direct": 1.707168230826428,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5163674452753891,
+          "delta_fuel_pp_vs_direct_turbine": 1.9936971538015436,
+          "ratio_to_direct_turbine": 1.0401606520806832,
+          "system_efficiency_at_threshold": 0.512000018719841,
+          "delta_system_pp_vs_direct": 1.556954498246732,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.507287344730932,
+          "delta_fuel_pp_vs_direct_turbine": 1.0856870993558254,
+          "ratio_to_direct_turbine": 1.0218698721531383,
+          "system_efficiency_at_threshold": 0.5029967175023122,
+          "delta_system_pp_vs_direct": 0.6566243764938529,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5269964460257504,
+          "delta_fuel_pp_vs_direct_turbine": 3.0565972288376653,
+          "ratio_to_direct_turbine": 1.061571506797842,
+          "system_efficiency_at_threshold": 0.5225391195732184,
+          "delta_system_pp_vs_direct": 2.6108645835844713,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.92815937234775,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5191847517756988,
+          "delta_fuel_pp_vs_direct_turbine": 2.275427803832508,
+          "ratio_to_direct_turbine": 1.0458357801184517,
+          "system_efficiency_at_threshold": 0.5147934964924934,
+          "delta_system_pp_vs_direct": 1.8363022755119696,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 200.4521735105418,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5094856408749358,
+          "delta_fuel_pp_vs_direct_turbine": 1.3055167137562051,
+          "ratio_to_direct_turbine": 1.026298077632657,
+          "system_efficiency_at_threshold": 0.5051764204971079,
+          "delta_system_pp_vs_direct": 0.8745946759734169,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 359.8966949603999,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5070899081965738,
+          "delta_fuel_pp_vs_direct_turbine": 1.0659434459200146,
+          "ratio_to_direct_turbine": 1.0214721597950074,
+          "system_efficiency_at_threshold": 0.5028009508826071,
+          "delta_system_pp_vs_direct": 0.6370477145233422,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 473.34010753230353,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5201459351750609,
+          "delta_fuel_pp_vs_direct_turbine": 2.3715461437687213,
+          "ratio_to_direct_turbine": 1.047771969474689,
+          "system_efficiency_at_threshold": 0.5157465502199686,
+          "delta_system_pp_vs_direct": 1.9316076482594924,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 309.0282804445057,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5143321776903858,
+          "delta_fuel_pp_vs_direct_turbine": 1.790170395301205,
+          "ratio_to_direct_turbine": 1.0360608481953961,
+          "system_efficiency_at_threshold": 0.509981965391429,
+          "delta_system_pp_vs_direct": 1.3551491654055337,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5169242080301749,
+          "delta_fuel_pp_vs_direct_turbine": 2.0493734292801213,
+          "ratio_to_direct_turbine": 1.041282184267445,
+          "system_efficiency_at_threshold": 0.5125520723852707,
+          "delta_system_pp_vs_direct": 1.6121598647896973,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 279.9011567432569,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 1.7434085957328538,
+      "threshold_delta_pp_range_over_bases": [
+        1.0659434459200146,
+        3.0565972288376653
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_30": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.078339681688502,
+          "system_efficiency": 0.5099864389798334,
+          "delta_system_pp_vs_direct": 1.3555965242459722,
+          "delta_full_cracking_equivalent_pp": 5.318332478966836,
+          "implied_eta_on_fuel_gas_LHV": 0.49214501699762553,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.92815937234894,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.4065943686950588,
+          "system_efficiency": 0.5141129764738146,
+          "delta_system_pp_vs_direct": 1.7682502736440897,
+          "delta_full_cracking_equivalent_pp": 6.937272774798739,
+          "implied_eta_on_fuel_gas_LHV": 0.49612719124755106,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.92815937234815,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.279733897586737,
+          "system_efficiency": 0.5125181950091341,
+          "delta_system_pp_vs_direct": 1.6087721271760391,
+          "delta_full_cracking_equivalent_pp": 6.311601499550874,
+          "implied_eta_on_fuel_gas_LHV": 0.49458820179400254,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.9281593723485,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.540968108675338,
+          "system_efficiency": 0.5032310626454989,
+          "delta_system_pp_vs_direct": 0.6800588908125182,
+          "delta_full_cracking_equivalent_pp": 2.6680352316705327,
+          "implied_eta_on_fuel_gas_LHV": 0.48562597149606873,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.92815937234724,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 2.1511779369669597,
+          "system_efficiency": 0.5234732449893864,
+          "delta_system_pp_vs_direct": 2.704277125201271,
+          "delta_full_cracking_equivalent_pp": 10.609532120986254,
+          "implied_eta_on_fuel_gas_LHV": 0.5051599990941937,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.5129163982390152,
+          "system_efficiency": 0.5154495661973318,
+          "delta_system_pp_vs_direct": 1.9019092459958142,
+          "delta_full_cracking_equivalent_pp": 7.46164919584251,
+          "implied_eta_on_fuel_gas_LHV": 0.49741702156836326,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 200.45217351054228,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.7206174911944386,
+          "system_efficiency": 0.5054894612063725,
+          "delta_system_pp_vs_direct": 0.9058987468998803,
+          "delta_full_cracking_equivalent_pp": 3.554059517062327,
+          "implied_eta_on_fuel_gas_LHV": 0.4878053619919256,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 359.8966949603981,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.5248965926177455,
+          "system_efficiency": 0.5030290252756701,
+          "delta_system_pp_vs_direct": 0.659855153829636,
+          "delta_full_cracking_equivalent_pp": 2.588771093211403,
+          "implied_eta_on_fuel_gas_LHV": 0.4854310022239299,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 473.3401075323018,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.5914823043442867,
+          "system_efficiency": 0.5164372296492951,
+          "delta_system_pp_vs_direct": 2.000675591192136,
+          "delta_full_cracking_equivalent_pp": 7.8491334155874934,
+          "implied_eta_on_fuel_gas_LHV": 0.4983701324928943,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 309.02828044450627,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1165496058731352,
+          "system_efficiency": 0.5104667815035852,
+          "delta_system_pp_vs_direct": 1.4036307766211453,
+          "delta_full_cracking_equivalent_pp": 5.506782449102218,
+          "implied_eta_on_fuel_gas_LHV": 0.49260855516540375,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 279.90115674325784,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.3251155530170147,
+          "system_efficiency": 0.5130886944112286,
+          "delta_system_pp_vs_direct": 1.6658220673854918,
+          "delta_full_cracking_equivalent_pp": 6.535422189935009,
+          "implied_eta_on_fuel_gas_LHV": 0.49513874278192094,
+          "cracked_share": 0.2548912708273032,
+          "LCOE_check": 279.90115674325733,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 1.3555965242459722,
+      "threshold_delta_pp_range_over_bases": [
+        0.659855153829636,
+        2.704277125201271
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "sourced values STRADDLE the threshold",
+      "vs_supported_range": "sourced values STRADDLE the threshold",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 5.318332478966836,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.588771093211403,
+        10.609532120986254
+      ]
+    },
+    "partial_fired_40": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5200939345365994,
+          "delta_fuel_pp_vs_direct_turbine": 2.3663460799225655,
+          "ratio_to_direct_turbine": 1.0476672203885378,
+          "system_efficiency_at_threshold": 0.5138185413206785,
+          "delta_system_pp_vs_direct": 1.73880675833048,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.92815937234786,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5254473911384661,
+          "delta_fuel_pp_vs_direct_turbine": 2.9016917401092357,
+          "ratio_to_direct_turbine": 1.0584511204210303,
+          "system_efficiency_at_threshold": 0.5191074037348221,
+          "delta_system_pp_vs_direct": 2.2676929997448414,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.92815937234786,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5230263655770419,
+          "delta_fuel_pp_vs_direct_turbine": 2.659589183966815,
+          "ratio_to_direct_turbine": 1.0535742530861192,
+          "system_efficiency_at_threshold": 0.5167155899876007,
+          "delta_system_pp_vs_direct": 2.0285116250226998,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5113277527118683,
+          "delta_fuel_pp_vs_direct_turbine": 1.4897278974494554,
+          "ratio_to_direct_turbine": 1.030008792293391,
+          "system_efficiency_at_threshold": 0.5051581312312041,
+          "delta_system_pp_vs_direct": 0.8727657493830421,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5375869658599332,
+          "delta_fuel_pp_vs_direct_turbine": 4.115649212255946,
+          "ratio_to_direct_turbine": 1.0829048462974342,
+          "system_efficiency_at_threshold": 0.5311005037527933,
+          "delta_system_pp_vs_direct": 3.4670030015419573,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.9281593723464,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5271790518696667,
+          "delta_fuel_pp_vs_direct_turbine": 3.0748578132293036,
+          "ratio_to_direct_turbine": 1.0619393444983394,
+          "system_efficiency_at_threshold": 0.5208181704480709,
+          "delta_system_pp_vs_direct": 2.438769671069718,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 200.45217351054168,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5142574713904627,
+          "delta_fuel_pp_vs_direct_turbine": 1.7826997653089038,
+          "ratio_to_direct_turbine": 1.0359103612614242,
+          "system_efficiency_at_threshold": 0.5080525002633226,
+          "delta_system_pp_vs_direct": 1.1622026525948903,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 359.8966949603997,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5110629731570179,
+          "delta_fuel_pp_vs_direct_turbine": 1.4632499419644174,
+          "ratio_to_direct_turbine": 1.0294754254497784,
+          "system_efficiency_at_threshold": 0.5048965464758156,
+          "delta_system_pp_vs_direct": 0.846607273844191,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 473.34010753230365,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.528455625857134,
+          "delta_fuel_pp_vs_direct_turbine": 3.2025152119760314,
+          "ratio_to_direct_turbine": 1.0645108505903338,
+          "system_efficiency_at_threshold": 0.5220793414415622,
+          "delta_system_pp_vs_direct": 2.5648867704188505,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 309.0282804445053,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5207164830178351,
+          "delta_fuel_pp_vs_direct_turbine": 2.428600928046143,
+          "ratio_to_direct_turbine": 1.048921270077609,
+          "system_efficiency_at_threshold": 0.5144335782039964,
+          "delta_system_pp_vs_direct": 1.8003104466622677,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5237531893068602,
+          "delta_fuel_pp_vs_direct_turbine": 2.732271556948651,
+          "ratio_to_direct_turbine": 1.055038352830735,
+          "system_efficiency_at_threshold": 0.5174336439464212,
+          "delta_system_pp_vs_direct": 2.1003170209047517,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 279.9011567432568,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 2.3663460799225655,
+      "threshold_delta_pp_range_over_bases": [
+        1.4632499419644174,
+        4.115649212255946
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_40": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0002748989942156,
+          "system_efficiency": 0.5147208031714173,
+          "delta_system_pp_vs_direct": 1.8290329434043628,
+          "delta_full_cracking_equivalent_pp": 4.933319781839325,
+          "implied_eta_on_fuel_gas_LHV": 0.4889387145492002,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.3045409469974987,
+          "system_efficiency": 0.5202843999978202,
+          "delta_system_pp_vs_direct": 2.3853926260446467,
+          "delta_full_cracking_equivalent_pp": 6.433948973940396,
+          "implied_eta_on_fuel_gas_LHV": 0.4942236337982585,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1628976315354136,
+          "system_efficiency": 0.5176944090817862,
+          "delta_system_pp_vs_direct": 2.126393534441251,
+          "delta_full_cracking_equivalent_pp": 5.735369242671489,
+          "implied_eta_on_fuel_gas_LHV": 0.49176337413636567,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.5020149929151075,
+          "system_efficiency": 0.5056099699043564,
+          "delta_system_pp_vs_direct": 0.9179496166982659,
+          "delta_full_cracking_equivalent_pp": 2.4759198674467093,
+          "implied_eta_on_fuel_gas_LHV": 0.48028423802790565,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.9944498503548298,
+          "system_efficiency": 0.532899593215778,
+          "delta_system_pp_vs_direct": 3.6469119478404255,
+          "delta_full_cracking_equivalent_pp": 9.836554841609459,
+          "implied_eta_on_fuel_gas_LHV": 0.506206938762375,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 258.9281593723483,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.4028337029073663,
+          "system_efficiency": 0.5220817128049086,
+          "delta_system_pp_vs_direct": 2.565123906753486,
+          "delta_full_cracking_equivalent_pp": 6.918725306555795,
+          "implied_eta_on_fuel_gas_LHV": 0.49593092017200924,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 200.45217351054185,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.6686039741976558,
+          "system_efficiency": 0.508656099874031,
+          "delta_system_pp_vs_direct": 1.2225626136657342,
+          "delta_full_cracking_equivalent_pp": 3.2975307242461946,
+          "implied_eta_on_fuel_gas_LHV": 0.4831777889831923,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 359.8966949603998,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.4870532001733726,
+          "system_efficiency": 0.5053363889933035,
+          "delta_system_pp_vs_direct": 0.8905915255929764,
+          "delta_full_cracking_equivalent_pp": 2.4021288444201403,
+          "implied_eta_on_fuel_gas_LHV": 0.48002436063777254,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 473.34010753230365,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.4754393642549046,
+          "system_efficiency": 0.52340932930929,
+          "delta_system_pp_vs_direct": 2.697885557191626,
+          "delta_full_cracking_equivalent_pp": 7.2768138137846545,
+          "implied_eta_on_fuel_gas_LHV": 0.4971920370786255,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0356657338536785,
+          "system_efficiency": 0.5153679353039704,
+          "delta_system_pp_vs_direct": 1.8937461566596703,
+          "delta_full_cracking_equivalent_pp": 5.107866104938658,
+          "implied_eta_on_fuel_gas_LHV": 0.4895534321807481,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2040692825213093,
+          "system_efficiency": 0.5184472451877733,
+          "delta_system_pp_vs_direct": 2.2016771450399597,
+          "delta_full_cracking_equivalent_pp": 5.938426342738616,
+          "implied_eta_on_fuel_gas_LHV": 0.49247850108608204,
+          "cracked_share": 0.37075093938516823,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 1.8290329434043628,
+      "threshold_delta_pp_range_over_bases": [
+        0.8905915255929764,
+        3.6469119478404255
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "sourced values STRADDLE the threshold",
+      "vs_supported_range": "sourced values STRADDLE the threshold",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 4.933319781839325,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.4021288444201403,
+        9.836554841609459
+      ]
+    },
+    "partial_fired_50": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5270007662552968,
+          "delta_fuel_pp_vs_direct_turbine": 3.057029251792309,
+          "ratio_to_direct_turbine": 1.061580209385163,
+          "system_efficiency_at_threshold": 0.5184547676154873,
+          "delta_system_pp_vs_direct": 2.2024293878113554,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.92815937234775,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5338049814197735,
+          "delta_fuel_pp_vs_direct_turbine": 3.7374507682399805,
+          "ratio_to_direct_turbine": 1.0752864895682694,
+          "system_efficiency_at_threshold": 0.5251486436357655,
+          "delta_system_pp_vs_direct": 2.871816989839182,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.9281593723472,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5303097660856568,
+          "delta_fuel_pp_vs_direct_turbine": 3.387929234828313,
+          "ratio_to_direct_turbine": 1.068245795011783,
+          "system_efficiency_at_threshold": 0.5217101077362983,
+          "delta_system_pp_vs_direct": 2.5279633998924633,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.9281593723476,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5158555828184264,
+          "delta_fuel_pp_vs_direct_turbine": 1.942510908105266,
+          "ratio_to_direct_turbine": 1.0391295661904292,
+          "system_efficiency_at_threshold": 0.5074903177346014,
+          "delta_system_pp_vs_direct": 1.1059843997227703,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5492287815906277,
+          "delta_fuel_pp_vs_direct_turbine": 5.279830785325402,
+          "ratio_to_direct_turbine": 1.1063558960346698,
+          "system_efficiency_at_threshold": 0.5403223269496416,
+          "delta_system_pp_vs_direct": 4.389185321226785,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5360008250658816,
+          "delta_fuel_pp_vs_direct_turbine": 3.9570351328507947,
+          "ratio_to_direct_turbine": 1.079709754783188,
+          "system_efficiency_at_threshold": 0.527308878838747,
+          "delta_system_pp_vs_direct": 3.0878405101373296,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 200.4521735105419,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5195802795511837,
+          "delta_fuel_pp_vs_direct_turbine": 2.3149805813809987,
+          "ratio_to_direct_turbine": 1.0466325236634384,
+          "system_efficiency_at_threshold": 0.5111546136951968,
+          "delta_system_pp_vs_direct": 1.4724139957823068,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 359.89669496039977,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.515516982865316,
+          "delta_fuel_pp_vs_direct_turbine": 1.9086509127942297,
+          "ratio_to_direct_turbine": 1.0384474969561188,
+          "system_efficiency_at_threshold": 0.507157208617414,
+          "delta_system_pp_vs_direct": 1.0726734880040278,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 473.3401075323036,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5376179996306599,
+          "delta_fuel_pp_vs_direct_turbine": 4.118752589328622,
+          "ratio_to_direct_turbine": 1.0829673601284107,
+          "system_efficiency_at_threshold": 0.5288998288275553,
+          "delta_system_pp_vs_direct": 3.246935509018156,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.527791351835184,
+          "delta_fuel_pp_vs_direct_turbine": 3.1360878097810296,
+          "ratio_to_direct_turbine": 1.0631727497744248,
+          "system_efficiency_at_threshold": 0.519232532828265,
+          "delta_system_pp_vs_direct": 2.280205909089128,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 279.90115674325665,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5312178186112183,
+          "delta_fuel_pp_vs_direct_turbine": 3.4787344873844606,
+          "ratio_to_direct_turbine": 1.0700749585575364,
+          "system_efficiency_at_threshold": 0.5226034350163854,
+          "delta_system_pp_vs_direct": 2.6172961279011697,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 279.9011567432564,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 3.057029251792309,
+      "threshold_delta_pp_range_over_bases": [
+        1.9086509127942297,
+        5.279830785325402
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_50": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9382959297165617,
+          "system_efficiency": 0.5200213834040986,
+          "delta_system_pp_vs_direct": 2.3590909666724946,
+          "delta_full_cracking_equivalent_pp": 4.6276417372308805,
+          "implied_eta_on_fuel_gas_LHV": 0.4848662821778249,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2234890601345276,
+          "system_efficiency": 0.5271917921889828,
+          "delta_system_pp_vs_direct": 3.076131845160912,
+          "delta_full_cracking_equivalent_pp": 6.034203986618856,
+          "implied_eta_on_fuel_gas_LHV": 0.4915519484988199,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0719251468724067,
+          "system_efficiency": 0.5233811281188722,
+          "delta_system_pp_vs_direct": 2.6950654381498462,
+          "delta_full_cracking_equivalent_pp": 5.286696224241901,
+          "implied_eta_on_fuel_gas_LHV": 0.4879988974527105,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.4711068817240367,
+          "system_efficiency": 0.5082751802293666,
+          "delta_system_pp_vs_direct": 1.1844706491992874,
+          "delta_full_cracking_equivalent_pp": 2.3234821760565536,
+          "implied_eta_on_fuel_gas_LHV": 0.47391415973671375,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.8698882781003145,
+          "system_efficiency": 0.5434437496756566,
+          "delta_system_pp_vs_direct": 4.701327593828286,
+          "delta_full_cracking_equivalent_pp": 9.222221652724988,
+          "implied_eta_on_fuel_gas_LHV": 0.5067052219144096,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.3153370149697703,
+          "system_efficiency": 0.5295010602322177,
+          "delta_system_pp_vs_direct": 3.3070586494843957,
+          "delta_full_cracking_equivalent_pp": 6.487194792412142,
+          "implied_eta_on_fuel_gas_LHV": 0.4937051026697999,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 200.4521735105419,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.6273363390212872,
+          "system_efficiency": 0.5122031467670604,
+          "delta_system_pp_vs_direct": 1.5772673029686657,
+          "delta_full_cracking_equivalent_pp": 3.094000233608056,
+          "implied_eta_on_fuel_gas_LHV": 0.47757658323011554,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 359.89669496039977,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.4570362615613684,
+          "system_efficiency": 0.5079214125973226,
+          "delta_system_pp_vs_direct": 1.1490938859948896,
+          "delta_full_cracking_equivalent_pp": 2.2540863840987266,
+          "implied_eta_on_fuel_gas_LHV": 0.4735843079229649,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 473.34010753230353,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.3831845050300415,
+          "system_efficiency": 0.5312069015967958,
+          "delta_system_pp_vs_direct": 3.4776427859422143,
+          "delta_full_cracking_equivalent_pp": 6.821816170194429,
+          "implied_eta_on_fuel_gas_LHV": 0.4952956237268647,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9714430797728596,
+          "system_efficiency": 0.5208547787092703,
+          "delta_system_pp_vs_direct": 2.4424304971896627,
+          "delta_full_cracking_equivalent_pp": 4.79112228767632,
+          "implied_eta_on_fuel_gas_LHV": 0.4856433373069003,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1098133530351413,
+          "system_efficiency": 0.5243337244381264,
+          "delta_system_pp_vs_direct": 2.7903250700752724,
+          "delta_full_cracking_equivalent_pp": 5.473559492678377,
+          "implied_eta_on_fuel_gas_LHV": 0.48888709522778967,
+          "cracked_share": 0.5097825416546063,
+          "LCOE_check": 279.9011567432569,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 2.3590909666724946,
+      "threshold_delta_pp_range_over_bases": [
+        1.1490938859948896,
+        4.701327593828286
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "sourced values STRADDLE the threshold",
+      "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 4.6276417372308805,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.2540863840987266,
+        9.222221652724988
+      ]
+    },
+    "partial_fired_60": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5348060379964616,
+          "delta_fuel_pp_vs_direct_turbine": 3.8375564259087946,
+          "ratio_to_direct_turbine": 1.077302998686156,
+          "system_efficiency_at_threshold": 0.5235529080359879,
+          "delta_system_pp_vs_direct": 2.712243429861416,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234695,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.543219645565624,
+          "delta_fuel_pp_vs_direct_turbine": 4.678917182825026,
+          "ratio_to_direct_turbine": 1.0942512079808442,
+          "system_efficiency_at_threshold": 0.5317894805444262,
+          "delta_system_pp_vs_direct": 3.5359006807052507,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234394,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5384491057195648,
+          "delta_fuel_pp_vs_direct_turbine": 4.2018631982191135,
+          "ratio_to_direct_turbine": 1.0846415242518335,
+          "system_efficiency_at_threshold": 0.5271193200902499,
+          "delta_system_pp_vs_direct": 3.0688846352876165,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234616,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5210201773888585,
+          "delta_fuel_pp_vs_direct_turbine": 2.458970365148483,
+          "ratio_to_direct_turbine": 1.0495330261785933,
+          "system_efficiency_at_threshold": 0.5100571228389308,
+          "delta_system_pp_vs_direct": 1.3626649101557087,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5622843870333063,
+          "delta_fuel_pp_vs_direct_turbine": 6.58539132959326,
+          "ratio_to_direct_turbine": 1.1326548565807248,
+          "system_efficiency_at_threshold": 0.5504530709439523,
+          "delta_system_pp_vs_direct": 5.402259720657865,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5459279490989261,
+          "delta_fuel_pp_vs_direct_turbine": 4.949747536155236,
+          "ratio_to_direct_turbine": 1.0997067625379864,
+          "system_efficiency_at_threshold": 0.5344407972648142,
+          "delta_system_pp_vs_direct": 3.8010323527440493,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 200.45217351054185,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5256273458654103,
+          "delta_fuel_pp_vs_direct_turbine": 2.9196872128036566,
+          "ratio_to_direct_turbine": 1.0588136177624796,
+          "system_efficiency_at_threshold": 0.5145673495049325,
+          "delta_system_pp_vs_direct": 1.8136875767558847,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 359.89669496039966,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5205988668357329,
+          "delta_fuel_pp_vs_direct_turbine": 2.4168393098359164,
+          "ratio_to_direct_turbine": 1.0486843463021267,
+          "system_efficiency_at_threshold": 0.5096446772986718,
+          "delta_system_pp_vs_direct": 1.32142035612981,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 473.3401075323035,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5479206179550565,
+          "delta_fuel_pp_vs_direct_turbine": 5.149014421768284,
+          "ratio_to_direct_turbine": 1.103720756363,
+          "system_efficiency_at_threshold": 0.5363915373467479,
+          "delta_system_pp_vs_direct": 3.9961063609374237,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5357827343405156,
+          "delta_fuel_pp_vs_direct_turbine": 3.9352260603141898,
+          "ratio_to_direct_turbine": 1.0792704370198685,
+          "system_efficiency_at_threshold": 0.5245090532080081,
+          "delta_system_pp_vs_direct": 2.8078579470634413,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 279.90115674325557,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5395548947619355,
+          "delta_fuel_pp_vs_direct_turbine": 4.312442102456182,
+          "ratio_to_direct_turbine": 1.0868690044345986,
+          "system_efficiency_at_threshold": 0.5282018416544723,
+          "delta_system_pp_vs_direct": 3.177136791709856,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 279.9011567432545,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 3.8375564259087946,
+      "threshold_delta_pp_range_over_bases": [
+        2.4168393098359164,
+        6.58539132959326
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_60": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.88552675405371,
+          "system_efficiency": 0.5261160359723922,
+          "delta_system_pp_vs_direct": 2.9685562235018503,
+          "delta_full_cracking_equivalent_pp": 4.367386063085041,
+          "implied_eta_on_fuel_gas_LHV": 0.47973830454846167,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234775,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1544564412585843,
+          "system_efficiency": 0.5351313807147378,
+          "delta_system_pp_vs_direct": 3.870090697736406,
+          "delta_full_cracking_equivalent_pp": 5.693737596194282,
+          "implied_eta_on_fuel_gas_LHV": 0.487958936321487,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234764,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9957858770974778,
+          "system_efficiency": 0.5298122586377279,
+          "delta_system_pp_vs_direct": 3.338178490035415,
+          "delta_full_cracking_equivalent_pp": 4.9111800874947455,
+          "implied_eta_on_fuel_gas_LHV": 0.48310870095051095,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234775,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.44480860712129117,
+          "system_efficiency": 0.5113418172161842,
+          "delta_system_pp_vs_direct": 1.4911343478810513,
+          "delta_full_cracking_equivalent_pp": 2.1937800327193373,
+          "implied_eta_on_fuel_gas_LHV": 0.4662664501047336,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234803,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.7637220946559782,
+          "system_efficiency": 0.5555558268297679,
+          "delta_system_pp_vs_direct": 5.91253530923942,
+          "delta_full_cracking_equivalent_pp": 8.698613859032509,
+          "implied_eta_on_fuel_gas_LHV": 0.5065829441080129,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 258.92815937234786,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2407530549925012,
+          "system_efficiency": 0.5380243068583495,
+          "delta_system_pp_vs_direct": 4.159383312097575,
+          "delta_full_cracking_equivalent_pp": 6.119349387580183,
+          "implied_eta_on_fuel_gas_LHV": 0.490596847710664,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 200.45217351054174,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.592227056366315,
+          "system_efficiency": 0.5162837340240276,
+          "delta_system_pp_vs_direct": 1.9853260286653907,
+          "delta_full_cracking_equivalent_pp": 2.9208425158425477,
+          "implied_eta_on_fuel_gas_LHV": 0.47077273128324293,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 359.89669496039977,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.4315063630992942,
+          "system_efficiency": 0.5108958853558845,
+          "delta_system_pp_vs_direct": 1.4465411618510782,
+          "delta_full_cracking_equivalent_pp": 2.1281738442179994,
+          "implied_eta_on_fuel_gas_LHV": 0.4658598276488928,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 473.34010753230365,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.3045259149028519,
+          "system_efficiency": 0.5401621679597871,
+          "delta_system_pp_vs_direct": 4.373169422241341,
+          "delta_full_cracking_equivalent_pp": 6.433874836190904,
+          "implied_eta_on_fuel_gas_LHV": 0.49254625390632994,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 309.0282804445057,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9167585620745495,
+          "system_efficiency": 0.5271630215958877,
+          "delta_system_pp_vs_direct": 3.073254785851398,
+          "delta_full_cracking_equivalent_pp": 4.52142021558326,
+          "implied_eta_on_fuel_gas_LHV": 0.48069299718955183,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 279.90115674325665,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0309212368099692,
+          "system_efficiency": 0.5309901032399608,
+          "delta_system_pp_vs_direct": 3.4559629502587064,
+          "delta_full_cracking_equivalent_pp": 5.084466416368902,
+          "implied_eta_on_fuel_gas_LHV": 0.4841827172014172,
+          "cracked_share": 0.679710055539475,
+          "LCOE_check": 279.90115674325665,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 2.9685562235018503,
+      "threshold_delta_pp_range_over_bases": [
+        1.4465411618510782,
+        5.91253530923942
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 4.367386063085041,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.1281738442179994,
+        8.698613859032509
+      ]
+    },
+    "partial_fired_70": {
+      "class": "fired_H2N2_fuel_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5437903268893134,
+          "delta_fuel_pp_vs_direct_turbine": 4.735985315193969,
+          "ratio_to_direct_turbine": 1.095400777465153,
+          "system_efficiency_at_threshold": 0.5292598709200765,
+          "delta_system_pp_vs_direct": 3.2829397182702835,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.92815937234366,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5540244521366462,
+          "delta_fuel_pp_vs_direct_turbine": 5.759397839927249,
+          "ratio_to_direct_turbine": 1.1160162025624185,
+          "system_efficiency_at_threshold": 0.5392205332186646,
+          "delta_system_pp_vs_direct": 4.279005948129089,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5477279415465983,
+          "delta_fuel_pp_vs_direct_turbine": 5.129746780922462,
+          "ratio_to_direct_turbine": 1.1033326327109454,
+          "system_efficiency_at_threshold": 0.5330922697734527,
+          "delta_system_pp_vs_direct": 3.6661796036078997,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.92815937234025,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.527015530224724,
+          "delta_fuel_pp_vs_direct_turbine": 3.0585056487350326,
+          "ratio_to_direct_turbine": 1.0616099496412679,
+          "system_efficiency_at_threshold": 0.5129333084962874,
+          "delta_system_pp_vs_direct": 1.6502834758913676,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.92815937234775,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5772049580444222,
+          "delta_fuel_pp_vs_direct_turbine": 8.077448430704848,
+          "ratio_to_direct_turbine": 1.1627105679047829,
+          "system_efficiency_at_threshold": 0.561781639876799,
+          "delta_system_pp_vs_direct": 6.5351166139425265,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5573095059227676,
+          "delta_fuel_pp_vs_direct_turbine": 6.087903218539392,
+          "ratio_to_direct_turbine": 1.1226335517380037,
+          "system_efficiency_at_threshold": 0.5424178080814851,
+          "delta_system_pp_vs_direct": 4.598733434411139,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 200.45217351054188,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5326215513855059,
+          "delta_fuel_pp_vs_direct_turbine": 3.619107764813223,
+          "ratio_to_direct_turbine": 1.072902610864454,
+          "system_efficiency_at_threshold": 0.5183895328703089,
+          "delta_system_pp_vs_direct": 2.1959059132935166,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 359.89669496039903,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5264995595181392,
+          "delta_fuel_pp_vs_direct_turbine": 3.0069085780765503,
+          "ratio_to_direct_turbine": 1.0605705881719762,
+          "system_efficiency_at_threshold": 0.5124311248860569,
+          "delta_system_pp_vs_direct": 1.600065114868321,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 473.3401075323033,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5597239738739755,
+          "delta_fuel_pp_vs_direct_turbine": 6.329350013660184,
+          "ratio_to_direct_turbine": 1.127497209548997,
+          "system_efficiency_at_threshold": 0.5447677597687594,
+          "delta_system_pp_vs_direct": 4.833728603138566,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 309.02828044450587,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5449771643267757,
+          "delta_fuel_pp_vs_direct_turbine": 4.854669058940198,
+          "ratio_to_direct_turbine": 1.09779151997644,
+          "system_efficiency_at_threshold": 0.5304149952352656,
+          "delta_system_pp_vs_direct": 3.3984521497891884,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 279.90115674325125,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "combined-cycle efficiency on the LHV of the H2-rich fuel fired (same basis as the direct-NH3 49.64 %)",
+          "eta_h2_fuel": 0.5490540355273372,
+          "delta_fuel_pp_vs_direct_turbine": 5.262356178996352,
+          "ratio_to_direct_turbine": 1.1060038909251226,
+          "system_efficiency_at_threshold": 0.5343829296001703,
+          "delta_system_pp_vs_direct": 3.795245586279661,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 279.9011567432569,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 4.735985315193969,
+      "threshold_delta_pp_range_over_bases": [
+        3.0069085780765503,
+        8.077448430704848
+      ],
+      "vs_sourced": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding",
+      "vs_indirect_bracket": "sourced values STRADDLE the threshold"
+    },
+    "partial_exhaust_70": {
+      "class": "exhaust_heated_system_delta_pp",
+      "bases": {
+        "reference": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.838287108629553,
+          "system_efficiency": 0.5333142765433382,
+          "delta_system_pp_vs_direct": 3.6883802805964483,
+          "delta_full_cracking_equivalent_pp": 4.1344018329575025,
+          "implied_eta_on_fuel_gas_LHV": 0.47326487416773083,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_reference_with_psa_items": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.0926336991930603,
+          "system_efficiency": 0.5445052747039211,
+          "delta_system_pp_vs_direct": 4.8074800966547375,
+          "delta_full_cracking_equivalent_pp": 5.388830058570304,
+          "implied_eta_on_fuel_gas_LHV": 0.4831958033950664,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_ahmad_fig6_correlation": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.9287014909495757,
+          "system_efficiency": 0.5372924198476847,
+          "delta_system_pp_vs_direct": 4.086194611031102,
+          "delta_full_cracking_equivalent_pp": 4.580322310728814,
+          "implied_eta_on_fuel_gas_LHV": 0.47679509185204916,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.9281593723479,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x0.5": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.4212829538674685,
+          "system_efficiency": 0.5149665066024914,
+          "delta_system_pp_vs_direct": 1.8536032865117735,
+          "delta_full_cracking_equivalent_pp": 2.077752358032634,
+          "implied_eta_on_fuel_gas_LHV": 0.45698300170672296,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "capex_cracker_x2": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.6685730195403967,
+          "system_efficiency": 0.5698460345715284,
+          "delta_system_pp_vs_direct": 7.341556083415468,
+          "delta_full_cracking_equivalent_pp": 8.229342046890267,
+          "implied_eta_on_fuel_gas_LHV": 0.5056832785247207,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 258.928159372348,
+          "LCOE_direct": 258.928159372348
+        },
+        "nh3_300": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.1738974879108997,
+          "system_efficiency": 0.548080800949618,
+          "delta_system_pp_vs_direct": 5.165032721224428,
+          "delta_full_cracking_equivalent_pp": 5.789620138209447,
+          "implied_eta_on_fuel_gas_LHV": 0.4863687373538588,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 200.45217351054185,
+          "LCOE_direct": 200.45217351054188
+        },
+        "nh3_709": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.5608229623011225,
+          "system_efficiency": 0.5211061288173953,
+          "delta_system_pp_vs_direct": 2.4675655080021563,
+          "delta_full_cracking_equivalent_pp": 2.7659586547776174,
+          "implied_eta_on_fuel_gas_LHV": 0.46243132301138945,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 359.8966949603998,
+          "LCOE_direct": 359.8966949603998
+        },
+        "nh3_1000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.40867845320765084,
+          "system_efficiency": 0.5144119210529601,
+          "delta_system_pp_vs_direct": 1.7981447315586374,
+          "delta_full_cracking_equivalent_pp": 2.015587414667755,
+          "implied_eta_on_fuel_gas_LHV": 0.4564908606337043,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 473.34010753230353,
+          "LCOE_direct": 473.3401075323036
+        },
+        "hours_5000": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 1.2340000115787921,
+          "system_efficiency": 0.5507252524845241,
+          "delta_system_pp_vs_direct": 5.4294778747150385,
+          "delta_full_cracking_equivalent_pp": 6.086043620641545,
+          "implied_eta_on_fuel_gas_LHV": 0.48871543249770855,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 309.0282804445058,
+          "LCOE_direct": 309.0282804445058
+        },
+        "ahmad_basis_480_7200": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.8677992713852153,
+          "system_efficiency": 0.5346127824850994,
+          "delta_system_pp_vs_direct": 3.8182308747725657,
+          "delta_full_cracking_equivalent_pp": 4.279954756932466,
+          "implied_eta_on_fuel_gas_LHV": 0.47441717268693934,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 279.90115674325693,
+          "LCOE_direct": 279.90115674325693
+        },
+        "ahmad_basis_480_7200_ahmad_capex": {
+          "parameter": "system efficiency on NH3 LHV supplied (exhaust-heated cracker, heat internal)",
+          "gain_scale": 0.961406843567762,
+          "system_efficiency": 0.5387314229818745,
+          "delta_system_pp_vs_direct": 4.2300949244500785,
+          "delta_full_cracking_equivalent_pp": 4.7416239321186575,
+          "implied_eta_on_fuel_gas_LHV": 0.47807206805010527,
+          "cracked_share": 0.892119447895561,
+          "LCOE_check": 279.9011567432568,
+          "LCOE_direct": 279.90115674325693
+        }
+      },
+      "threshold_delta_pp_reference": 3.6883802805964483,
+      "threshold_delta_pp_range_over_bases": [
+        1.7981447315586374,
+        7.341556083415468
+      ],
+      "compared_quantity": "full-cracking-equivalent system gain (pp); for partial cracking this uses the linear interpolation assumption",
+      "vs_ahmad_like_for_like": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+      "vs_sensitivity_range": "sourced values STRADDLE the threshold",
+      "vs_supported_range_all_bases": [
+        "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "all sourced values BELOW threshold: direct NH3 cheaper",
+        "sourced values STRADDLE the threshold"
+      ],
+      "threshold_full_equiv_pp_reference": 4.1344018329575025,
+      "threshold_full_equiv_pp_range_over_bases": [
+        2.015587414667755,
+        8.229342046890267
+      ]
+    }
+  },
+  "threshold_bases": {
+    "reference": {
+      "NH3_USD_t": 450.0,
+      "hours": 8000.0,
+      "capex_basis": "reference"
+    },
+    "capex_reference_with_psa_items": {
+      "NH3_USD_t": 450.0,
+      "hours": 8000.0,
+      "capex_basis": "reference_with_psa_items"
+    },
+    "capex_ahmad_fig6_correlation": {
+      "NH3_USD_t": 450.0,
+      "hours": 8000.0,
+      "capex_basis": "ahmad_fig6_correlation"
+    },
+    "capex_cracker_x0.5": {
+      "NH3_USD_t": 450.0,
+      "hours": 8000.0,
+      "capex_basis": "cracker_x0.5"
+    },
+    "capex_cracker_x2": {
+      "NH3_USD_t": 450.0,
+      "hours": 8000.0,
+      "capex_basis": "cracker_x2"
+    },
+    "nh3_300": {
+      "NH3_USD_t": 300.0,
+      "hours": 8000.0,
+      "capex_basis": "reference"
+    },
+    "nh3_709": {
+      "NH3_USD_t": 709.0,
+      "hours": 8000.0,
+      "capex_basis": "reference"
+    },
+    "nh3_1000": {
+      "NH3_USD_t": 1000.0,
+      "hours": 8000.0,
+      "capex_basis": "reference"
+    },
+    "hours_5000": {
+      "NH3_USD_t": 450.0,
+      "hours": 5000.0,
+      "capex_basis": "reference"
+    },
+    "ahmad_basis_480_7200": {
+      "NH3_USD_t": 480.0,
+      "hours": 7200.0,
+      "capex_basis": "reference"
+    },
+    "ahmad_basis_480_7200_ahmad_capex": {
+      "NH3_USD_t": 480.0,
+      "hours": 7200.0,
+      "capex_basis": "ahmad_fig6_correlation"
+    }
+  },
+  "twoway_map": {
+    "file": "results/research/enduse/twoway_map_efficiency_capital.csv",
+    "panelA_thresholds_by_capex": [
+      {
+        "cracker_capex_factor": 0.25,
+        "full_fired_threshold_delta_fuel_pp": 2.4349469919984545,
+        "full_purified_threshold_delta_fuel_pp": 8.358532273371978
+      },
+      {
+        "cracker_capex_factor": 0.5,
+        "full_fired_threshold_delta_fuel_pp": 3.3462900071289825,
+        "full_purified_threshold_delta_fuel_pp": 9.758943986418112
+      },
+      {
+        "cracker_capex_factor": 0.75,
+        "full_fired_threshold_delta_fuel_pp": 4.256230477297629,
+        "full_purified_threshold_delta_fuel_pp": 11.156419271651885
+      },
+      {
+        "cracker_capex_factor": 1.0,
+        "full_fired_threshold_delta_fuel_pp": 5.164806051620352,
+        "full_purified_threshold_delta_fuel_pp": 12.551065141956952
+      },
+      {
+        "cracker_capex_factor": 1.25,
+        "full_fired_threshold_delta_fuel_pp": 6.072052668334315,
+        "full_purified_threshold_delta_fuel_pp": 13.942982052161302
+      },
+      {
+        "cracker_capex_factor": 1.5,
+        "full_fired_threshold_delta_fuel_pp": 6.978004663068715,
+        "full_purified_threshold_delta_fuel_pp": 15.332264455042655
+      },
+      {
+        "cracker_capex_factor": 2.0,
+        "full_fired_threshold_delta_fuel_pp": 8.786154705418003,
+        "full_purified_threshold_delta_fuel_pp": 18.103276466960683
+      },
+      {
+        "cracker_capex_factor": 2.5,
+        "full_fired_threshold_delta_fuel_pp": 10.58950240346176,
+        "full_purified_threshold_delta_fuel_pp": 20.864754378869144
+      },
+      {
+        "cracker_capex_factor": 3.0,
+        "full_fired_threshold_delta_fuel_pp": 12.388273956109641,
+        "full_purified_threshold_delta_fuel_pp": 23.617282270844274
+      },
+      {
+        "cracker_capex_factor": 4.0,
+        "full_fired_threshold_delta_fuel_pp": 15.972906391569175,
+        "full_purified_threshold_delta_fuel_pp": 29.097536586646587
+      }
+    ],
+    "panelB_thresholds_by_capex": [
+      {
+        "cracker_capex_factor": 0.25,
+        "full_exhaust_threshold_delta_system_pp": 1.0235935039370487
+      },
+      {
+        "cracker_capex_factor": 0.5,
+        "full_exhaust_threshold_delta_system_pp": 2.0308614620970173
+      },
+      {
+        "cracker_capex_factor": 0.75,
+        "full_exhaust_threshold_delta_system_pp": 3.036376286681088
+      },
+      {
+        "cracker_capex_factor": 1.0,
+        "full_exhaust_threshold_delta_system_pp": 4.040191130059833
+      },
+      {
+        "cracker_capex_factor": 1.25,
+        "full_exhaust_threshold_delta_system_pp": 5.042356423145456
+      },
+      {
+        "cracker_capex_factor": 1.5,
+        "full_exhaust_threshold_delta_system_pp": 6.042920068958392
+      },
+      {
+        "cracker_capex_factor": 2.0,
+        "full_exhaust_threshold_delta_system_pp": 8.039422432467562
+      },
+      {
+        "cracker_capex_factor": 2.5,
+        "full_exhaust_threshold_delta_system_pp": 10.03003720289799
+      },
+      {
+        "cracker_capex_factor": 3.0,
+        "full_exhaust_threshold_delta_system_pp": 12.01507270593118
+      },
+      {
+        "cracker_capex_factor": 4.0,
+        "full_exhaust_threshold_delta_system_pp": 15.969508093093152
+      }
+    ],
+    "cracker_capex_factor_where_full_exhaust_equals_direct_at_ahmad_gain": 1.2224417147439715
+  },
+  "forty_percent_figure": {
+    "claim": "direct NH3 combustion about 40 % cheaper than cracking-based power (essay, attributed to Halim et al. 2025)",
+    "computed_gaps_pct_1_minus_d_over_c": {
+      "AmCraX price set (450 USD/t, 8000 h) | full_exhaust": -1.3077934173867378,
+      "AmCraX price set (450 USD/t, 8000 h) | full_fired": 7.553743395682866,
+      "AmCraX price set (450 USD/t, 8000 h) | full_purified": 16.523076048705764,
+      "Ahmad basis (480 USD/t, 7200 h) | full_exhaust": -1.0890134714951483,
+      "Ahmad basis (480 USD/t, 7200 h) | full_fired": 7.673754396570187,
+      "Ahmad basis (480 USD/t, 7200 h) | full_purified": 16.633965279196094,
+      "renewable NH3 today (1000 USD/t) | full_exhaust": -5.041712375339191,
+      "renewable NH3 today (1000 USD/t) | full_fired": 5.5222081715562865,
+      "renewable NH3 today (1000 USD/t) | full_purified": 14.64571334988305
+    },
+    "largest_computed_pct": 16.633965279196094,
+    "smallest_computed_pct": -5.041712375339191,
+    "largest_in_sensitivities_pct": 27.295990386561176,
+    "cracker_capex_factor_for_40pct_fired": 11.137072768344265,
+    "cracker_capex_factor_for_40pct_purified": 6.281351765235253,
+    "halim_status": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them."
+  },
+  "h1d_evidence": {
+    "efficiency_NH3_LHV_to_H2_aspen": 0.8772018962224742,
+    "H2_cost_USD_per_kg_by_NH3_scenario": {
+      "grey": 4.015461254695034,
+      "blue": 4.287417378542392,
+      "green_2050": 4.111013406317079,
+      "green_2030": 5.91915412162654,
+      "green_current": 8.058052284858464
+    },
+    "H2_cost_SGD_per_kg_grey": 5.173696960844288,
+    "H2_CI_kgCO2e_per_kg_5000km": {
+      "green": 2.4300891449157564,
+      "blue": 8.933399580077893,
+      "grey": 19.517637913596687
+    },
+    "benchmarks_USD_per_kg": {
+      "sg_low_carbon_willingness_to_pay": {
+        "USD_per_kg": 3.0,
+        "breakeven_NH3_USD_t": 311.84511717484065,
+        "source": "S&P Global, 'Power generation firms face high hydrogen costs in Singapore', 7 May 2025: willingness to pay for low-carbon hydrogen in Singapore about 3 USD/kg (search-result summary; article not fetched)"
+      },
+      "ne_asia_smr_production_cost": {
+        "USD_per_kg": 3.06,
+        "breakeven_NH3_USD_t": 320.0081986623751,
+        "source": "Argus Hydrogen and Future Fuels, issue 26-01 (6 Jan 2026) sample report, p. 2 'Regional hydrogen cost markers 6 Jan': Northeast Asia baseline SMR, incl. capex 3.06 USD/kg (excl. capex 2.09); read from the PDF text of the cited URL"
+      },
+      "blue_delivered_east_asia": {
+        "USD_per_kg": 6.0,
+        "breakeven_NH3_USD_t": 719.9991915515642,
+        "source": "ACE report estimate for delivered cost to East Asia: 5-7 USD/kg blue, 9-11 USD/kg green (search-result summary); 6.0 = midpoint (derived)"
+      },
+      "low_carbon_offer_fob_malaysia": {
+        "USD_per_kg": 10.0,
+        "breakeven_NH3_USD_t": 1264.2046240538623,
+        "source": "S&P Global, indicative offers of low-carbon hydrogen at about 10 USD/kg FOB Malaysia, May 2025 (search-result summary)"
+      }
+    },
+    "electricity_kWh_per_kg_NH3": {
+      "direct": 2.5651555555555556,
+      "cracked_purified_at_eta_copy": 2.2505938615998464,
+      "cracked_purified_at_NETL_plus_7p3pp_absolute": 2.581543230319916,
+      "cracked_purified_at_NETL_ratio_1p1225": 2.526253848003855
+    },
+    "evidence_beyond_definition": [
+      "Cost against alternatives: grey-NH3 cracked H2 4.015 USD/kg (5.174 SGD/kg) is ABOVE the NE Asia SMR cost marker 3.06 (Argus, read from PDF) and the Singapore willingness to pay about 3.0 (S&P, search summary); break-even NH3 320 and 312 USD/t.",
+      "Green NH3 2030 (709 USD/t) gives 5.92 USD/kg, below the blue delivered East Asia midpoint 6.0 (ACE, search summary) and the 10 USD/kg low-carbon offer FOB Malaysia (S&P, search summary); green today (1000) gives 8.06, above 6.0 and below 10.",
+      "Carbon intensity: green-NH3 H2 2.4 kg CO2e/kg against SMR 10-12; blue 8.9; grey 19.5 (lca workstream).",
+      "Energy: cracker + PSA keeps 87.7 % of NH3 LHV as H2 (stored Aspen). Not like-for-like with an electrical efficiency."
+    ],
+    "what_does_not_exist": [
+      "No Singapore hydrogen transaction price; three of four benchmarks are search-summary grade and differ in basis (production cost, willingness to pay, delivered, FOB).",
+      "No AmCraX comparison with other H2 import carriers (liquid H2, LOHC) or with local electrolysis.",
+      "No end-user (refinery, fuel-cell) cost or value of H2 purity in Singapore; Grade D cost is a lower bound (purification workstream).",
+      "The 'loss is larger when H2 is an intermediate fuel' half: with the NETL +7.3 pp upper bound applied absolutely, the cracked + PSA route gives slightly MORE electricity per kg NH3 than direct; applied as a ratio it gives less. The energy ranking is not established independently of the turbine assumption."
+    ]
+  },
+  "row_evidence": {
+    "H1-a": {
+      "proposed_verdict": "INCONCLUSIVE",
+      "numbers": {
+        "LCOE_direct": 258.928159372348,
+        "LCOE_full_fired": 280.0850665923625,
+        "LCOE_full_purified": 310.179325155085,
+        "direct_cheaper_pct_fired": 7.553743395682866,
+        "direct_cheaper_pct_purified": 16.523076048705764,
+        "threshold_delta_fuel_pp_fired": 5.164806051620352,
+        "threshold_delta_fuel_pp_purified": 12.551065141956952
+      },
+      "assumptions": "eta_h2_fuel = 49.64 % (copy of direct) for fired and purified; fired cracker heat from NH3 at 100 % transfer efficiency; Cho-itemised cracker capex extrapolated about 30-fold; Ahmad plant capital scaled ^0.67; 8000 h (not sourced).",
+      "uncertainty": "fired threshold over bases 3.29 to 8.79 pp; purified 9.68 to 18.10 pp",
+      "envelope": "AmCraX boundary, grey 450 USD/t (300-1000 checked), 5000-8000 h, capex x0.5-x2 and Ahmad correlation.",
+      "threshold": {
+        "fired": 5.164806051620352,
+        "purified": 12.551065141956952,
+        "fired_vs_sources": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding; indirect bracket: sourced values STRADDLE the threshold",
+        "purified_vs_sources": "all sourced values BELOW threshold: direct NH3 cheaper (NETL absolute); all sourced values BELOW threshold: direct NH3 cheaper (NETL ratio); all bases: all sourced values BELOW threshold: direct NH3 cheaper"
+      },
+      "reason": "The purified sub-pathway passes the threshold test (the only sourced H2-turbine gain, an upper bound, lies below the threshold on every basis checked), but the fired sub-pathway has no sourced turbine efficiency and its threshold lies inside the indirect bracket. The row claims both, so it stays INCONCLUSIVE; the purified half alone would be SUPPORTED inside the stated envelope."
+    },
+    "H1-b": {
+      "proposed_verdict": "CONTRADICTED (secondary, does not vote)",
+      "numbers": {
+        "claim_pct": 40.0,
+        "largest_computed_pct_stored_bases": 16.633965279196094,
+        "largest_in_all_sensitivities_pct": 27.295990386561176,
+        "cracker_capex_factor_needed_for_40pct_purified": 6.281351765235253,
+        "cracker_capex_factor_needed_for_40pct_fired": 11.137072768344265
+      },
+      "assumptions": "as H1-a; three price/hour bases",
+      "uncertainty": "Halim's inputs unknown (full text not accessible)",
+      "envelope": "AmCraX boundaries; does not show Halim's own calculation is wrong",
+      "threshold": "existing rule: CONTRADICTED if the largest computed gap is below half the claim (20 %)",
+      "reason": "Largest computed gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The figure could not be located in any accessible Halim text."
+    },
+    "H1-c": {
+      "proposed_verdict": "INCONCLUSIVE",
+      "numbers": {
+        "LCOE_full_exhaust": 255.58562736192215,
+        "LCOE_partial_exhaust_40": 258.9301481476088,
+        "LCOE_partial_fired_40": 268.6137169851577,
+        "LCOE_direct": 258.928159372348,
+        "threshold_delta_system_pp_full_exhaust": 4.040191130059833,
+        "threshold_full_equiv_pp_partial": {
+          "0.2": 5.861469208089581,
+          "0.3": 5.318332478966836,
+          "0.4": 4.933319781839325,
+          "0.5": 4.6276417372308805,
+          "0.6": 4.367386063085041,
+          "0.7": 4.1344018329575025
+        },
+        "ahmad_gain_AmCraX_basis_pp": 4.931963989898994,
+        "capex_factor_where_full_exhaust_equals_direct": 1.2224417147439715
+      },
+      "assumptions": "Ahmad system end points (54 % 'about'), linear interpolation for partial cracking, reference cracker capex, 8000 h",
+      "uncertainty": "full-exhaust threshold over bases 1.97 to 8.04 pp",
+      "envelope": "small or mid-size machines (Ahmad 43 MW class, PR 8); no F/H-class source",
+      "threshold": {
+        "full_exhaust_reference": 4.040191130059833,
+        "vs_ahmad": "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+        "vs_supported_range_all_bases": [
+          "all sourced values ABOVE threshold: cracking pathway cheaper",
+          "all sourced values BELOW threshold: direct NH3 cheaper",
+          "sourced values STRADDLE the threshold"
+        ],
+        "vs_sensitivity_range": "sourced values STRADDLE the threshold"
+      },
+      "reason": "The row says cracking in front of a turbine does not pay. The full-exhaust threshold lies below the like-for-like sourced gains on the reference basis, so on the reference basis the sourced values favour CRACKING (against the row and the essay), but by about 1 % of LCOE, the threshold moves across the supported range when the cracker capex basis or NH3 price changes, and the sensitivity range (0 to 5.5 pp) straddles it. Neither side is clear: INCONCLUSIVE, with the threshold as the finding. Fired partial cracking is dearer than direct at the copy efficiency, but that again follows from the assumption (see partial_fired thresholds)."
+    },
+    "H1-d": {
+      "proposed_verdict": "INCONCLUSIVE",
+      "numbers": {
+        "eta_H2_product": 0.8772018962224742,
+        "LCOH_grey_USD": 4.015461254695034,
+        "LCOH_grey_SGD": 5.173696960844288,
+        "LCOH_green_2030": 5.91915412162654,
+        "LCOH_green_current": 8.058052284858464,
+        "benchmarks": {
+          "sg_low_carbon_willingness_to_pay": 3.0,
+          "ne_asia_smr_production_cost": 3.06,
+          "blue_delivered_east_asia": 6.0,
+          "low_carbon_offer_fob_malaysia": 10.0
+        },
+        "kWh_per_kg_NH3": {
+          "direct": 2.5651555555555556,
+          "cracked_purified_at_eta_copy": 2.2505938615998464,
+          "cracked_purified_at_NETL_plus_7p3pp_absolute": 2.581543230319916,
+          "cracked_purified_at_NETL_ratio_1p1225": 2.526253848003855
+        }
+      },
+      "assumptions": "stored Aspen PSA split; reference capex; benchmarks of mixed basis and grade",
+      "uncertainty": "benchmarks 3.0-10 USD/kg straddle the computed LCOH range 4.0-8.1",
+      "envelope": "Jurong Island cracker, plant-gate 19.5 bar H2",
+      "threshold": {
+        "breakeven_NH3_vs_SMR_3p06": 320.0081986623751,
+        "breakeven_NH3_vs_WTP_3p0": 311.84511717484065,
+        "breakeven_NH3_vs_blue_delivered_6": 719.9991915515642,
+        "breakeven_NH3_vs_offer_10": 1264.2046240538623
+      },
+      "reason": "Beyond the definition (H2 is the product, so some conversion is unavoidable) the evidence is a cost comparison against benchmarks that straddle the computed LCOH: cracked grey-NH3 H2 is dearer than NE Asia SMR H2 and the Singapore willingness to pay, cheaper than delivered low-carbon offers. The energy half depends on the turbine assumption (NETL bound applied absolutely reverses it). INCONCLUSIVE."
+    }
+  },
+  "files": [
+    "turbine_threshold.csv",
+    "sensitivity_turbine_efficiency.csv",
+    "sensitivity_heat_integration_exhaust.csv",
+    "sensitivity_heat_integration_fired_cases.csv",
+    "sensitivity_nh3_price.csv",
+    "sensitivity_capacity_factor.csv",
+    "sensitivity_capital.csv",
+    "twoway_map_efficiency_capital.csv",
+    "nox_n2o_blends.json"
+  ],
+  "notes": [
+    "Capacity factor: no sourced base value (NETL sensitivity starts at 10 %); 8000 h is the reference-scenario choice.",
+    "Thresholds do not change any default; defaults reproduce the stored pathway table (validation EU-P2-defaults)."
+  ]
+}

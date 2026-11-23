@@ -103,7 +103,7 @@ def main():
         c = power_cost(a, PRICE)
         flex = ""
         if a.h2_fraction_vol is not None and a.h2_fraction_vol > 0:
-            flex = ("inside 30-60 vol% H2 turbine range (brief/Halim, unverified)" if 0.3 - 1e-9 <= a.h2_fraction_vol <= 0.6 + 1e-9 else
+            flex = ("inside the essay's 30-60 vol% H2 range (not found for the H-25 or for NH3-H2 blends; NETL 2022 gives 30-60 % for H2 in natural gas, Baker Hughes)" if 0.3 - 1e-9 <= a.h2_fraction_vol <= 0.6 + 1e-9 else
                     "below 30 vol%: NG-combustor-compatible range" if a.h2_fraction_vol < 0.3 else "above 60 vol%: beyond the quoted blend range, needs a H2-capable combustor (not demonstrated here)")
         row = {"id": a.id, "pathway": names[kind], "product": "electricity", "functional_unit": a.functional_unit,
                "H2_vol_fraction_in_fuel": a.h2_fraction_vol, "cracked_NH3_share": a.cracked_share,
@@ -118,7 +118,11 @@ def main():
             row[f"CI_{r}_kgCO2e_per_MWh"] = carbon_intensity(a, EF[r], D0)["total"]
         for lab, p_ in PRICE_COLS.items():
             row[f"cost_USD_per_MWh_at_{lab}"] = power_cost(a, p_)["LCOE_USD_per_MWh"]
-        row["carbon_tax_USD_per_MWh_direct_in_scope"] = a.n2o_kgCO2e / 1000.0 * TAX_SGD / FX
+        # Singapore carbon tax on direct N2O uses the Carbon Pricing Act GWP 265 (life-cycle CI keeps AR6 273)
+        n2o_cpa = a.n2o_kgCO2e / lca.f("gwp100_n2o") * P.GWP_N2O_SG_CARBON_PRICING_ACT
+        row["N2O_kgCO2e_per_MWh_CPA_GWP265"] = n2o_cpa
+        row["carbon_tax_USD_per_MWh_direct_in_scope"] = n2o_cpa / 1000.0 * TAX_SGD / FX
+        row["carbon_tax_SGD_per_MWh_direct_in_scope"] = n2o_cpa / 1000.0 * TAX_SGD
         row["cost_SGD_per_MWh_at_450"] = row["cost_USD_per_MWh_at_450"] * FX
         row["TCI_cracker_MUSD"] = c["TCI_cracker_MUSD"]
         rows.append(row)
@@ -242,7 +246,7 @@ def main():
                                    "source_type": "literature (task brief; Ahmad 2025 p. 2)", "note": "Not Aspen results; combustion behaviour not simulated here."},
               "nox_note": "NO and N2O are only available for direct NH3 (Ahmad Chemkin, simulated); other fuels are 'not quantified'. NOx is a local pollutant and is never added to CO2e.",
               "limitations": ["Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).",
-                              "Fired variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption).",
+                              "Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).",
                               "Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.",
                               "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
                               "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."]}
@@ -273,9 +277,16 @@ def main():
     # ---------------- validation ----------------
     items = []
 
+    def kind_of(id_):
+        if id_ == "EU-energy-h2":
+            return "python_vs_aspen"      # Python pathway efficiency against the stored Aspen KPI
+        if id_.startswith(("EU-ahmad", "EU-halim", "EU-iso")):
+            return "literature_comparison"
+        return "numerical_verification"
+
     def add(id_, desc, method, ref, obs, exp, tol, unit, status, files):
         items.append({"id": id_, "description": desc, "method": method, "reference_source": ref, "observed": obs, "expected": exp,
-                      "tolerance": tol, "unit": unit, "status": status, "source_files": files})
+                      "tolerance": tol, "unit": unit, "status": status, "source_files": files, "evidence_kind": kind_of(id_)})
     sf = ["backend/amcrax/enduse/pathways.py", "results/research/enduse/enduse_results.json"]
     for alpha, byp in P.AHMAD_ALPHA_BYPASS.items():
         # find f for alpha with X = 0.97

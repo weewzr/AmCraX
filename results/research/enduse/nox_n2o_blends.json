@@ -1,0 +1,50 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T11:24:58Z",
+    "script": "scripts/research/enduse_threshold.py",
+    "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
+    "inputs_summary": "Ahmad 2025 Chemkin ppmv via amcrax.environmental.lca.n2o_noX_per_MWh; Carbon Pricing Act First Schedule GWP",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
+    "literature_files": [
+      "research/data/turbine_efficiency_literature.json",
+      "research/data/enduse_cost_literature.json",
+      "research/notes/enduse_turbine_literature.md",
+      "research/data/carbon_policy_sg.json"
+    ]
+  },
+  "direct_NH3": {
+    "N2O_kg_per_MWh": 0.0008005651537122971,
+    "N2O_kgCO2e_per_MWh_AR6_273_lifecycle": 0.2185542869634571,
+    "N2O_kgCO2e_per_MWh_CPA_265_tax": 0.2121497657337587,
+    "carbon_tax_SGD_per_MWh_at_CPA_265": 0.009546739458019142,
+    "carbon_tax_USD_per_MWh_at_CPA_265": 0.007409510586427615,
+    "carbon_tax_rate_SGD_per_t": 45.0,
+    "NO_kg_per_MWh": 0.38932862354988407,
+    "source": "Ahmad 2025 Chemkin reactor network (simulated): N2O 0.15 ppmv (vaporised NH3), NO 83.8-116 ppmv; the paper says Chemkin underestimates NO and cites AIST tests at 282 and 337 ppmv; exhaust-basis conversion is an AmCraX assumption",
+    "gwp_note": "Singapore carbon tax: GWP 265 (Carbon Pricing Act 2018, First Schedule). Life-cycle intensity: AR6 273 (lca.py). Both reported; the tax is negligible either way."
+  },
+  "blends_and_cracked_gas": {
+    "N2O": "No source gives N2O for NH3-H2 blends or for cracked gas. pathway_table_power.csv scales the direct-NH3 N2O by the NH3 energy share of the fuel: this is an AmCraX assumption, not a sourced value.",
+    "NOx": "No turbine NOx measurement or simulation for NH3-H2 blends or H2/N2 cracked gas was found (NO_kg_per_MWh = 'not quantified'). GE Vernova (vendor): NOx up to +35 % at 50 vol% H2 in natural gas, possibly double near 100 % H2; NETL 2023: N2-diluted H2 has higher NOx potential than steam-diluted. Qualitative only; not used in costs.",
+    "blend_limits": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' was not found. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas; Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No sourced H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
+    "partial_cracking_efficiency": "Only Ahmad's two end points are sourced (alpha = 1 and 0). Intermediate efficiencies are a linear interpolation (assumption). Ahmad reports LCOE non-monotonic in the cracked fraction (not reproduced, Supplementary Material not available)."
+  },
+  "SCR": {
+    "standard_EUR_per_kW": [
+      15,
+      36
+    ],
+    "advanced_additional_EUR_per_kW": 60,
+    "USD_per_EUR": 1.099,
+    "source": "Abuzayed et al. 2025 (EPRG2520) citing their ref. 109 (secondary quote, price year not stated)",
+    "use_here": "capital sensitivity only (sensitivity_capital.csv); which pathway needs the advanced SCR is not sourced; SCR reagent (NH3) demand not quantified in any source read; whether Ahmad's Case 2a TCI already includes SCR is not stated in the project note"
+  }
+}

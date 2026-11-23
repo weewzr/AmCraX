@@ -59,5 +59,9 @@ NH3_PRICE_GREEN_USD_T = (NH3_PRICE_SET_USD_T["green_2030"], NH3_PRICE_SET_USD_T[
 ELECTRICITY_USD_KWH = _REF.electricity_USD_per_kWh    # reference scenario (USEP + network + fees, derived)
 LEGACY_ELECTRICITY_USD_KWH = _REF.reproduction("legacy_v1")["electricity_price_USD_per_kWh"]  # only to reproduce v1
 
+# N2O GWP for the Singapore carbon tax: Carbon Pricing Act 2018, First Schedule ("3. Nitrous oxide N2O 265"),
+# research/data/carbon_policy_sg.json (accessed 2026-11-23). Life-cycle intensity keeps AR6 273 (amcrax.environmental.lca).
+GWP_N2O_SG_CARBON_PRICING_ACT = 265.0
+
 # Singapore end-use anchors (literature)
 ISO14687_GRADE_D = {"H2_min_mol_pct": 99.97, "N2_plus_Ar_max_ppm": 300.0, "NH3_max_ppm": 0.1}

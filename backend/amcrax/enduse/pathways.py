@@ -218,11 +218,17 @@ def _n2o_per_MWh(nh3_energy_share: float) -> float:
     return lca.n2o_noX_per_MWh()["N2O_kgCO2e_per_MWh"] * nh3_energy_share
 
 
-def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline", gain_scale: float = 1.0) -> Activity:
+def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline", gain_scale: float = 1.0,
+                   eta_h2_fuel: float | None = None) -> Activity:
     """kind: direct | partial_exhaust | partial_fired | full_exhaust | full_fired | full_purified | blend_purified.
 
-    gain_scale scales the exhaust-integration efficiency gain (1 = Ahmad end points, 0 = no gain).
+    gain_scale scales the exhaust-integration efficiency gain (1 = Ahmad end points, 0 = no gain). The exhaust-heated
+    kinds take their electricity per kg NH3 from Ahmad's system efficiencies (cracker heat internal); they do NOT use
+    ETA_GT_GAS, so Ahmad's gain is counted once.
+    eta_h2_fuel (Phase 2, optional): combined-cycle efficiency on the LHV of the H2-rich fuel actually fired, for the
+    fired, purified and blend kinds. None keeps the Phase 1 assumption ETA_GT_GAS (copy of the direct-NH3 value).
     """
+    eta_gas = P.ETA_GT_GAS if eta_h2_fuel is None else eta_h2_fuel
     c = load_cracker(case)
     X = c.conversion
     heat_nh3_per_kg_cracked = c.crack_heat_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
@@ -250,7 +256,7 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
         cap = "unpurified" if f > 0 else "none"
         pure = ""
     elif kind in ("partial_fired", "full_fired"):
-        elec = P.ETA_GT_GAS * fuel_lhv_mj_per_kg_nh3_fed(f, X)
+        elec = eta_gas * fuel_lhv_mj_per_kg_nh3_fed(f, X)
         total_nh3 = 1.0 + f * heat_nh3_per_kg_cracked
         h2f = h2_fraction_of_blend(f, X)
         nh3_energy_share = max(0.0, (1 - f * X) * P.LHV_NH3_MJ_KG / fuel_lhv_mj_per_kg_nh3_fed(f, X))
@@ -259,7 +265,7 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
         cap, pure = "unpurified", ""
     elif kind == "full_purified":
         h2p = c.h2_product_per_kg_nh3
-        elec = P.ETA_GT_GAS * h2p * P.LHV_H2_MJ_KG
+        elec = eta_gas * h2p * P.LHV_H2_MJ_KG
         total_nh3 = 1.0 + c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
         h2f, nh3_energy_share, cracked = 1.0, 0.0, 1.0
         heat_mode = "tail gas + extra NH3 (stored Aspen heat deficit)"
@@ -273,7 +279,7 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
             return n_h2 / (n_h2 + n_nh3) - y_h2
 
         g = brentq(yfun, 1e-9, 1.0)
-        elec = P.ETA_GT_GAS * ((1 - g) * P.LHV_NH3_MJ_KG + g * h2p * P.LHV_H2_MJ_KG)
+        elec = eta_gas * ((1 - g) * P.LHV_NH3_MJ_KG + g * h2p * P.LHV_H2_MJ_KG)
         total_nh3 = 1.0 + g * c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
         n_h2 = g * h2p / MOLAR_MASS["H2"]
         n_nh3 = (1 - g) / MOLAR_MASS["NH3"]
@@ -314,7 +320,9 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
 def power_cost(a: Activity, nh3_price: float, hours: float = P.POWER_PLANT_HOURS_PER_YEAR,
                discount: float = P.DISCOUNT_RATE, life: float = P.PLANT_LIFE_YR,
                mass_basis_kg_s: float = P.AHMAD_MASS_FLOW_KG_S,
-               electricity_price: float = P.ELECTRICITY_USD_KWH, unpurified_full_correlation: bool = False) -> dict:
+               electricity_price: float = P.ELECTRICITY_USD_KWH, unpurified_full_correlation: bool = False,
+               cracker_capex_factor: float = 1.0, plant_capex_factor: float = 1.0,
+               extra_capex_USD_per_kW: float = 0.0) -> dict:
     """LCOE (USD/MWh) of the reference plant (Ahmad basis: 4.667 kg/s total NH3).
 
     Non-cracker plant TCI = Ahmad Case 2a (181.25 MUSD at 43.1 MW) scaled with (W / 43.1)^0.67 (assumption);
@@ -322,16 +330,21 @@ def power_cost(a: Activity, nh3_price: float, hours: float = P.POWER_PLANT_HOURS
     reference-scenario CAPEX method (cho2026_itemised_v1, sized on the NH3 through the cracker; unpurified: PSA and
     adsorber items removed); maintenance + insurance 4.5 % of cracker TCI (Ahmad, named field of the reference
     scenario). Hours, discount and life come from the reference scenario (power_plant fields).
+
+    Phase 2 optional sensitivity arguments (defaults reproduce the stored results): cracker_capex_factor multiplies the
+    cracker TCI (and so its 4.5 % O&M); plant_capex_factor multiplies the non-cracker plant TCI only (its fixed O&M is
+    kept); extra_capex_USD_per_kW adds a capital item per kW net (for example SCR), annualised with the same CRF and
+    without O&M.
     """
     eff_MJ = 3600.0 / a.nh3_kg                       # MJ per kg total NH3
     W_MW = mass_basis_kg_s * eff_MJ                  # MW (kg/s x MJ/kg)
     scale = (W_MW / P.AHMAD_W_NET_2A_MW) ** P.PLANT_SCALE_EXPONENT
-    tci_plant = P.AHMAD_TCI_2A_MUSD * 1e6 * scale
+    tci_plant = P.AHMAD_TCI_2A_MUSD * 1e6 * scale * plant_capex_factor + extra_capex_USD_per_kW * W_MW * 1e3
     fixed_plant = P.AHMAD_OC_FIXED_2A_USD_PER_KWH * P.AHMAD_W_NET_2A_MW * 1e3 * P.AHMAD_HOURS_IMPLIED * scale
     tci_crk = 0.0
     if a.capex_kind != "none" and a.cracker_nh3_kg_h > 0:
         excl = ("psa", "adsorber") if (a.capex_kind == "unpurified" and not unpurified_full_correlation) else ()
-        tci_crk = reference_capex(a.cracker_nh3_kg_h / MOLAR_MASS["NH3"], exclude=excl)["total_capex_USD"]
+        tci_crk = reference_capex(a.cracker_nh3_kg_h / MOLAR_MASS["NH3"], exclude=excl)["total_capex_USD"] * cracker_capex_factor
     k = crf(discount, life)
     mwh_y = W_MW * hours
     capital = (tci_plant + tci_crk) * k

@@ -210,7 +210,10 @@ def cfg_membrane(feed, case, cid, label, R, P_perm, alpha, nh3_ppm_perm, nh3_bas
         cfg["required_alpha_H2_N2_for_N2_300ppm"] = a300
         cfg["required_alpha_H2_N2_for_N2_1000ppm"] = a1000
         cond = (f"CONDITIONAL on ideal H2/N2 selectivity >= {a300:.0f} (N2 300 ppm); the base model assumes infinite "
-                "selectivity and no numeric selectivity is available in the library")
+                "selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double "
+                "sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) "
+                "gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new "
+                "membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found")
     cfg["n2_conditional_note"] = cond
     return finalise(cfg, feed, case, {"D": "water: Pd permeate carries no water in this model; NH3 basis as stated. " + cond,
                                       "B": cond})
@@ -486,8 +489,11 @@ def main():
     A("Membrane temperature", 400, "degC", "assumption", "separation.yaml default, inside 350-500 degC Pd window",
       "equals Cechetto 2021 benchmark temperature")
     A("Ideal H2/N2 selectivity", "infinite (base) / required value computed", "-", "assumption",
-      "richard2024technoeconomic p. 7 assumes infinite; no numeric selectivity in the library",
-      "required selectivity reported instead of an assumed finite value")
+      "richard2024technoeconomic p. 7 assumes infinite; Phase 2 sourced value: cechetto2021fpt Sec. 3.1 p. 4, ideal "
+      "H2/N2 above 400,000 (double sealed) / above 500,000 (dead end) at 450 degC; about 40,500 from the printed "
+      "double-sealed N2 permeance 3.7e-11 (internal inconsistency of the paper)",
+      "required selectivity reported beside the sourced value; sourced value is ideal (single gas), new membrane, "
+      "trace NH3 only; see results/research/purification/phase2_comparison.json")
     A("Membrane permeate NH3 without polishing", 2.9, "ppm", "literature", "cechetto2023membrane p. 17 Table 10",
       "single experiment (FTIR); other works 0.01-0.8 ppm; membrane alone cannot be taken to meet 0.1 ppm")
     A("Polishing bed outlet NH3", 0.025, "ppm", "literature", "cechetto2023membrane p. 14 (clinoptilolite, Sitar 2022)",
@@ -770,7 +776,9 @@ def validation(results, cases, mem_rows, sel_rows):
     obs = req[0]["required_alpha_H2_N2"] if req else None
     add("P-MEM-2", "H2/N2 selectivity needed for N2 <= 300 ppm in the permeate at R = 0.90, 1 bar permeate, 400 degC, "
         "20 bar baseline", "bisection on ideal selectivity; compared with measured Pd-Ag purity 99.995 % (50 ppm total "
-        "impurities) at 450 degC, 4.61 um (a membrane reactor, different feed)", "cechetto2023membrane p. 17 Table 10", obs,
+        "impurities) at 450 degC, 4.61 um (a membrane reactor, different feed), and (Phase 2) with the sourced ideal "
+        "H2/N2 of cechetto2021fpt Sec. 3.1 (stated above 400,000; about 40,500 from the printed double-sealed N2 "
+        "permeance): see P2-SEL-1", "cechetto2023membrane p. 17 Table 10; cechetto2021fpt p. 4", obs,
         None, None, "-", "informational", ["results/research/purification/membrane_required_selectivity.csv"])
     # 6 like-for-like comparison with Cechetto not possible
     add("P-MEM-3", "Comparison with Cechetto 4 bar / 400 degC membrane reactor (X 99.3 %, R_H2 93.5 %)",
@@ -787,6 +795,20 @@ def validation(results, cases, mem_rows, sel_rows):
         "N2 / (H2 + N2) from results/simulations/baseline.json H2PROD, compared with 300 umol/mol", "ISO 14687:2019 Table 2",
         1e6 * 0.0489424371 / (124.803215 + 0.0489424371), 300.0, None, "umol/mol",
         "informational", ["results/simulations/baseline.json"])
+    # Phase 2: every item names its kind of evidence (AmCraX has no experimental validation)
+    kinds = {"P-MB-1": "numerical_verification", "P-SIEV-1": "numerical_verification",
+             "P-PINCH-1": "numerical_verification", "P-PSA-1": "numerical_verification",
+             "P-MEM-2": "literature_comparison", "P-MEM-3": "literature_comparison",
+             "P-ISO-1": "literature_comparison", "P-ISO-2": "literature_comparison"}
+    for it in items:
+        it["evidence_kind"] = kinds[it["id"]]
+    # Phase 2 items (P2-*) are appended by scripts/research/purification_phase2.py; keep them if present
+    old = VAL / "purification.json"
+    if old.exists():
+        try:
+            items += [i for i in json.loads(old.read_text(encoding="utf-8")) if str(i.get("id", "")).startswith("P2-")]
+        except (ValueError, OSError):
+            pass
     json.dump(_clean(items), open(VAL / "purification.json", "w", encoding="utf-8"), indent=1)
 
 

@@ -1,0 +1,158 @@
+[
+ {
+  "id": "T2B-SURROGATE-ni",
+  "evidence_kind": "numerical_verification",
+  "description": "bicubic logit(X) interpolation of the PFR grid against direct PFR solves at 25 posterior draws x all points",
+  "max_abs_error_X": 0.00043749082045208,
+  "tolerance": 0.002,
+  "status": "pass"
+ },
+ {
+  "id": "T2B-CONV-ni",
+  "evidence_kind": "numerical_verification",
+  "description": "rank-normalised split R-hat < 1.01 and bulk ESS > 400 for every parameter (main run)",
+  "diagnostics": {
+   "ln_s": {
+    "rhat": 1.0066647443360857,
+    "ess_bulk": 2329.4751613307494
+   },
+   "dE_kJ_mol": {
+    "rhat": 1.004861697683059,
+    "ess_bulk": 1735.3760051537652
+   },
+   "ln_sigma_d": {
+    "rhat": 1.0090236700118345,
+    "ess_bulk": 1190.4240325768133
+   }
+  },
+  "status": "pass"
+ },
+ {
+  "id": "T2B-SYNTH-ni",
+  "evidence_kind": "numerical_verification",
+  "description": "synthetic recovery at theta* = (ln s 0.5, dE +10 kJ/mol, sigma_d 0.02), 20 data sets: 90 % interval coverage between 14 and 20",
+  "coverage": {
+   "ln_s": 18,
+   "dE_kJ_mol": 20
+  },
+  "iterations_per_chain": 8000,
+  "status": "pass"
+ },
+ {
+  "id": "T2B-PPC-ni",
+  "evidence_kind": "literature_comparison",
+  "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)",
+  "coverage": {
+   "calibration": {
+    "n": 8,
+    "n_inside": 8,
+    "fraction": 1.0
+   },
+   "held_out": {
+    "n": 19,
+    "n_inside": 11,
+    "fraction": 0.5789473684210527
+   },
+   "held_out_excluding_repeated_condition": {
+    "n": 18,
+    "n_inside": 10,
+    "fraction": 0.5555555555555556
+   },
+   "paper_fitting_data_reported_separately": {
+    "n": 5,
+    "n_inside": 5,
+    "fraction": 1.0
+   }
+  },
+  "status": "informational"
+ },
+ {
+  "id": "T2B-PRIOR-ni",
+  "evidence_kind": "numerical_verification",
+  "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)",
+  "change": {
+   "ln_s": -0.004364173238050606,
+   "dE_kJ_mol": 2.1585718476668525,
+   "ln_sigma_d": 0.03246815728205066
+  },
+  "status": "informational"
+ },
+ {
+  "id": "T2B-SURROGATE-ru",
+  "evidence_kind": "numerical_verification",
+  "description": "bicubic logit(X) interpolation of the PFR grid against direct PFR solves at 25 posterior draws x all points",
+  "max_abs_error_X": 0.0009710198724054431,
+  "tolerance": 0.002,
+  "status": "pass"
+ },
+ {
+  "id": "T2B-CONV-ru",
+  "evidence_kind": "numerical_verification",
+  "description": "rank-normalised split R-hat < 1.01 and bulk ESS > 400 for every parameter (main run)",
+  "diagnostics": {
+   "ln_s": {
+    "rhat": 1.0006767191117207,
+    "ess_bulk": 5037.273264221291
+   },
+   "dE_kJ_mol": {
+    "rhat": 1.0006805586780831,
+    "ess_bulk": 4563.790847775745
+   },
+   "ln_sigma_d": {
+    "rhat": 1.0012271941543682,
+    "ess_bulk": 4524.961215141196
+   }
+  },
+  "status": "pass"
+ },
+ {
+  "id": "T2B-SYNTH-ru",
+  "evidence_kind": "numerical_verification",
+  "description": "synthetic recovery at theta* = (ln s 0.5, dE +10 kJ/mol, sigma_d 0.02), 20 data sets: 90 % interval coverage between 14 and 20",
+  "coverage": {
+   "ln_s": 18,
+   "dE_kJ_mol": 20
+  },
+  "iterations_per_chain": 8000,
+  "status": "pass"
+ },
+ {
+  "id": "T2B-PPC-ru",
+  "evidence_kind": "literature_comparison",
+  "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)",
+  "coverage": {
+   "calibration": {
+    "n": 6,
+    "n_inside": 6,
+    "fraction": 1.0
+   },
+   "held_out": {
+    "n": 19,
+    "n_inside": 16,
+    "fraction": 0.8421052631578947
+   },
+   "held_out_excluding_repeated_condition": {
+    "n": 18,
+    "n_inside": 15,
+    "fraction": 0.8333333333333334
+   },
+   "paper_fitting_data_reported_separately": {
+    "n": 5,
+    "n_inside": 5,
+    "fraction": 1.0
+   }
+  },
+  "status": "informational"
+ },
+ {
+  "id": "T2B-PRIOR-ru",
+  "evidence_kind": "numerical_verification",
+  "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)",
+  "change": {
+   "ln_s": -0.0010086825300089641,
+   "dE_kJ_mol": 10.881684029134567,
+   "ln_sigma_d": -0.009478990607191928
+  },
+  "status": "informational"
+ }
+]

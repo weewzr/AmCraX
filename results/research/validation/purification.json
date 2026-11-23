@@ -11,7 +11,8 @@
   "status": "pass",
   "source_files": [
    "results/research/purification/purification_study.json"
-  ]
+  ],
+  "evidence_kind": "numerical_verification"
  },
  {
   "id": "P-SIEV-1",
@@ -25,7 +26,8 @@
   "status": "pass",
   "source_files": [
    "backend/amcrax/separation/purification.py"
-  ]
+  ],
+  "evidence_kind": "numerical_verification"
  },
  {
   "id": "P-PINCH-1",
@@ -39,7 +41,8 @@
   "status": "pass",
   "source_files": [
    "backend/amcrax/separation/purification.py"
-  ]
+  ],
+  "evidence_kind": "numerical_verification"
  },
  {
   "id": "P-PSA-1",
@@ -53,13 +56,14 @@
   "status": "informational",
   "source_files": [
    "results/research/purification/purification_study.json"
-  ]
+  ],
+  "evidence_kind": "numerical_verification"
  },
  {
   "id": "P-MEM-2",
   "description": "H2/N2 selectivity needed for N2 <= 300 ppm in the permeate at R = 0.90, 1 bar permeate, 400 degC, 20 bar baseline",
-  "method": "bisection on ideal selectivity; compared with measured Pd-Ag purity 99.995 % (50 ppm total impurities) at 450 degC, 4.61 um (a membrane reactor, different feed)",
-  "reference_source": "cechetto2023membrane p. 17 Table 10",
+  "method": "bisection on ideal selectivity; compared with measured Pd-Ag purity 99.995 % (50 ppm total impurities) at 450 degC, 4.61 um (a membrane reactor, different feed), and (Phase 2) with the sourced ideal H2/N2 of cechetto2021fpt Sec. 3.1 (stated above 400,000; about 40,500 from the printed double-sealed N2 permeance): see P2-SEL-1",
+  "reference_source": "cechetto2023membrane p. 17 Table 10; cechetto2021fpt p. 4",
   "observed": 12919.012144694208,
   "expected": null,
   "tolerance": null,
@@ -67,7 +71,8 @@
   "status": "informational",
   "source_files": [
    "results/research/purification/membrane_required_selectivity.csv"
-  ]
+  ],
+  "evidence_kind": "literature_comparison"
  },
  {
   "id": "P-MEM-3",
@@ -79,7 +84,8 @@
   "tolerance": null,
   "unit": "-",
   "status": "informational",
-  "source_files": []
+  "source_files": [],
+  "evidence_kind": "literature_comparison"
  },
  {
   "id": "P-ISO-1",
@@ -99,7 +105,8 @@
   "status": "pass",
   "source_files": [
    "backend/amcrax/separation/purification.py"
-  ]
+  ],
+  "evidence_kind": "literature_comparison"
  },
  {
   "id": "P-ISO-2",
@@ -113,6 +120,140 @@
   "status": "informational",
   "source_files": [
    "results/simulations/baseline.json"
+  ],
+  "evidence_kind": "literature_comparison"
+ },
+ {
+  "id": "P2-FX-1",
+  "description": "SGD LCOH equals USD LCOH x 1.288444 for every Phase 2 configuration",
+  "method": "max absolute difference",
+  "reference_source": "reference scenario fx_SGD_per_USD",
+  "observed": 0.0,
+  "expected": 0.0,
+  "tolerance": 1e-09,
+  "unit": "SGD/kg",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
   ]
+ },
+ {
+  "id": "P2-REP-1",
+  "description": "Phase 2 code path reproduces the stored MEM_1bar_polish Grade D LCOH when given the Phase 1 inputs (6000 EUR/m2, 3 yr, infinite selectivity)",
+  "method": "recompute through purification_phase2 helpers",
+  "reference_source": "results/research/purification/purification_study.json",
+  "observed": 4.326549688729102,
+  "expected": 4.326549688729102,
+  "tolerance": 1e-09,
+  "unit": "USD/kg",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ]
+ },
+ {
+  "id": "P2-REP-2",
+  "description": "Phase 2 code path reproduces the stored PSA_D_MB Grade D LCOH",
+  "method": "recompute",
+  "reference_source": "purification_study.json",
+  "observed": 4.463460302263019,
+  "expected": 4.463460302263019,
+  "tolerance": 1e-09,
+  "unit": "USD/kg",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ]
+ },
+ {
+  "id": "P2-THR-1",
+  "description": "Membrane cost at parity (Grade D, PSA central recovery) gives LCOH equal to the PSA LCOH",
+  "method": "re-evaluate at the solved cost",
+  "reference_source": "internal consistency",
+  "observed": 4.4634603022630195,
+  "expected": 4.463460302263019,
+  "tolerance": 1e-09,
+  "unit": "USD/kg",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ]
+ },
+ {
+  "id": "P2-MEM-1",
+  "description": "At fixed ideal selectivity, permeate N2 rises with recovery (more area, lower H2 driving force)",
+  "method": "monotonicity over the trade-off grid",
+  "reference_source": "physical expectation (python)",
+  "observed": true,
+  "expected": true,
+  "tolerance": null,
+  "unit": "-",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_tradeoff_membrane.csv"
+  ]
+ },
+ {
+  "id": "P2-SEL-1",
+  "description": "Required ideal H2/N2 for Grade D N2 300 ppm against the sourced Cechetto 2021 values",
+  "method": "required value from required_selectivity at R 0.90, 1 bar, 400 degC; sourced: 40,500 (printed permeances), 400,000 (stated), 500,000 (dead end); ideal, new membrane, 450 degC",
+  "reference_source": "cechetto2021fpt Sec. 3.1 p. 4",
+  "observed": 12919.012144694208,
+  "expected": [
+   40540.54054054054,
+   400000.0,
+   500000.0
+  ],
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ]
+ },
+ {
+  "id": "P2-SEL-2",
+  "description": "Cechetto 2021 dead-end ratio of printed permeances reproduces the stated selectivity above 500,000",
+  "method": "1.5e-6 / 3e-12",
+  "reference_source": "cechetto2021fpt Sec. 3.1 p. 4",
+  "observed": 500000.0,
+  "expected": 500000.0,
+  "tolerance": 0.5,
+  "unit": "-",
+  "status": "pass",
+  "evidence_kind": "literature_comparison",
+  "source_files": []
+ },
+ {
+  "id": "P2-SEL-3",
+  "description": "Cechetto 2021 double-sealed ratio of printed permeances against the stated selectivity above 400,000",
+  "method": "1.5e-6 / 3.7e-11 (printed exponent -11)",
+  "reference_source": "cechetto2021fpt Sec. 3.1 p. 4",
+  "observed": 40540.54054054054,
+  "expected": 400000.0,
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": []
+ },
+ {
+  "id": "P2-PSA-1",
+  "description": "PSA recovery at Grade D against Yanez 2020 (55.5 % at 99.97 %)",
+  "method": "not a validation: AmCraX has no adsorption-cycle model; the Yanez point is a different feed (purge gas). Reported as a pessimistic input case only",
+  "reference_source": "yanez2020",
+  "observed": 0.7512760443382585,
+  "expected": 0.555,
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": []
  }
 ]

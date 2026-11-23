@@ -215,7 +215,7 @@ carbon_pricing:
     source_type: official
     source: "NEA carbon tax: Scope 1 facility emissions, threshold 25,000 tCO2e/yr (data/singapore.yaml)"
     note: "Default. A hypothetical life-cycle carbon price is a separate, labelled case and is never described as Singapore law."
-  rate_SGD_per_tCO2e: {value: 45, unit: SGD/tCO2e, source_type: official, source: "NEA, 2026-2027 rate", note: ""}
+  rate_SGD_per_tCO2e: {value: 45, unit: SGD/tCO2e, source_type: official, source: "Carbon Pricing Act 2018, Third Schedule Part 1 para 1(c)", note: "SGD 45/tCO2e for emissions year 2026 and any later year; no later step is legislated (50 to 80 by 2030 is a stated aim only)"}
   threshold_tCO2e_per_yr: {value: 25000, unit: tCO2e/yr, source_type: official, source: "NEA", note: ""}
 
 power_plant:

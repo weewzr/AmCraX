@@ -157,9 +157,14 @@ def kum_keq(T_K: float, basis: str = "published") -> float:
     raise ValueError("keq_basis must be 'published' or 'amcrax_thermo'")
 
 
-def takahashi_constants(catalyst_id: str, T_K: float) -> dict[str, float]:
-    """k1, k_minus1, k2, k3, k4, k_minus4 [mol s^-1 g^-1], K1, K4 [-] (Eqs. 9-10, 20-25; T in K)."""
+def takahashi_constants(catalyst_id: str, T_K: float, *, param_overrides: dict[str, float] | None = None) -> dict[str, float]:
+    """k1, k_minus1, k2, k3, k4, k_minus4 [mol s^-1 g^-1], K1, K4 [-] (Eqs. 9-10, 20-25; T in K).
+
+    ``param_overrides`` (optional, uncertainty analysis only) replaces registry parameter values by name
+    (A1..A6, Ea2..Ea5); None leaves every result unchanged."""
     p = _p(catalyst_id)
+    if param_overrides:
+        p.update({k: float(v) for k, v in param_overrides.items()})
     RT = R_KIN_J_molK * T_K
     k1 = p["A1"]
     k2 = p["A2"] * math.exp(-p["Ea2"] * 1e3 / RT)
@@ -170,13 +175,15 @@ def takahashi_constants(catalyst_id: str, T_K: float) -> dict[str, float]:
     return {"k1": k1, "k_minus1": k1 / K1, "k2": k2, "k3": k3, "k4": k4, "k_minus4": k4 / K4, "K1": K1, "K4": K4}
 
 
-def takahashi_coverages(catalyst_id: str, T_K: float, y_NH3: float, y_H2: float) -> dict[str, float]:
+def takahashi_coverages(catalyst_id: str, T_K: float, y_NH3: float, y_H2: float, *,
+                        param_overrides: dict[str, float] | None = None) -> dict[str, float]:
     """Quasi-steady-state coverages (Eqs. 11-14) and r_NH3 = r2 [mol s^-1 g^-1].
 
     For a given vacant fraction th_s the QSS relations give th_NH3 (r1=r2), th_N (r2=2 r3) and
     th_H (3 r2 = 2 r4) explicitly; the site balance (Eq. 11) is then solved for ln(th_s) with brentq.
+    ``param_overrides``: see :func:`takahashi_constants` (default None = registry values).
     """
-    c = takahashi_constants(catalyst_id, T_K)
+    c = takahashi_constants(catalyst_id, T_K, param_overrides=param_overrides)
     y_NH3 = max(y_NH3, 0.0)
     y_H2 = max(y_H2, 0.0)
 
@@ -203,11 +210,14 @@ def takahashi_coverages(catalyst_id: str, T_K: float, y_NH3: float, y_H2: float)
 
 # ----------------------------------------------------------------------------------------------- public
 def rate_mol_per_kgcat_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], *,
-                         approach_factor: bool | None = None, keq_basis: str = "published") -> float:
+                         approach_factor: bool | None = None, keq_basis: str = "published",
+                         param_overrides: dict[str, float] | None = None) -> float:
     """Net NH3 consumption rate [mol NH3 / (kg_cat s)] at T_K and partial pressures p_bar [bar].
 
     approach_factor: Takahashi models only; None -> registry default (True, AmCraX extension), False -> published.
     keq_basis: Kum model only; 'published' (Eq. 4, AmCraX reading) or 'amcrax_thermo'.
+    param_overrides: optional dict {parameter name: value} replacing registry values for this call only
+        (uncertainty analysis; Takahashi and Lucentini forms). None (default) leaves every result bit-identical.
     """
     reg = _registry()
     cats = _all_cats()
@@ -225,13 +235,15 @@ def rate_mol_per_kgcat_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], 
         y_h2 = max(p_bar.get("H2", 0.0), 0.0) / P
         if y_nh3 <= 0.0:
             return 0.0
-        r_g = takahashi_coverages(catalyst_id, T_K, y_nh3, y_h2)["r_mol_per_g_s"]
+        r_g = takahashi_coverages(catalyst_id, T_K, y_nh3, y_h2, param_overrides=param_overrides)["r_mol_per_g_s"]
         use = reg["equilibrium_approach_factor"]["default_on"] if approach_factor is None else approach_factor
         if use:
             r_g *= 1.0 - reaction_quotient(p_bar) / equilibrium_constant(T_K)
         return r_g * G_PER_KG
     if form == "temkin_pyzhev":
         par = _p(catalyst_id)
+        if param_overrides:
+            par.update({k: float(v) for k, v in param_overrides.items()})
         pn, ph, pn2 = p_bar.get("NH3", 0.0), p_bar.get("H2", 0.0), max(p_bar.get("N2", 0.0), 0.0)
         if pn <= 0.0 or ph <= 0.0:
             raise ValueError("Temkin-Pyzhev form is singular for p_NH3 <= 0 or p_H2 <= 0 (seed H2 in the reactor)")
@@ -245,7 +257,7 @@ def rate_mol_per_kgcat_s(catalyst_id: str, T_K: float, p_bar: dict[str, float], 
     if form == "lhhw_lucentini":
         if max(p_bar.get("NH3", 0.0), 0.0) <= 0.0:
             return 0.0
-        r_g = lucentini_rate_mol_per_g_s(catalyst_id, T_K, p_bar)
+        r_g = lucentini_rate_mol_per_g_s(catalyst_id, T_K, p_bar, overrides=param_overrides)
         use = reg["equilibrium_approach_factor"]["default_on"] if approach_factor is None else approach_factor
         if use:
             r_g *= 1.0 - reaction_quotient(p_bar) / equilibrium_constant(T_K)

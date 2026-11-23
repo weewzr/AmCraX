@@ -6,8 +6,8 @@
   "url": "https://doi.org/10.1016/j.fuproc.2021.106772",
   "access_date": "2026-11-23",
   "doi_verified": true,
-  "verification": "doi.org handle responseCode=1; full text (open access) read from a downloaded copy; N2 permeance exponent sign restored from the stated selectivity (see purification_literature.json P01-P03)",
-  "taken_from": "H2 permeance above 1.5e-6 mol m-2 s-1 Pa-1 and N2 permeance 3e-12 / 3.7e-12 at 450 degC, ideal H2/N2 above 500,000 / 400,000, 600 h stability test at 450 degC and 3 bar, Table 4 purity values"
+  "verification": "doi.org handle responseCode=1; full text (open access) read from a downloaded copy; the second N2 permeance is carried as printed, 3.7e-11 mol m-2 s-1 Pa-1 (purification_literature.json P03). Recorded inconsistency: 1.5e-6 / 3.7e-11 gives an ideal H2/N2 selectivity of 40,541, which does not reproduce the 'above 400,000' stated in the same paragraph; both values are carried as a range (40,541 to 500,000) and neither is corrected",
+  "taken_from": "H2 permeance above 1.5e-6 mol m-2 s-1 Pa-1 and N2 permeance 3e-12 / 3.7e-11 (as printed) at 450 degC, ideal H2/N2 stated as above 500,000 / 400,000 (the printed 3.7e-11 gives 40,541), 600 h stability test at 450 degC and 3 bar, Table 4 purity values"
  },
  {
   "citekey": "cechetto2023catalysts",

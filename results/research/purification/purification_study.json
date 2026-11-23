@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:49:54Z",
+  "generated_utc": "2026-11-23T11:25:01Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "stored Aspen Plus V15 cracked gas; reduced-order purification models; Phase 2 unified reference scenario (data/reference_scenario.yaml) for every cost input",
   "reference_scenario": {
    "file": "backend/amcrax/data/reference_scenario.yaml",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0",
    "id": "amcrax_reference_2026_11_23",
    "fx_SGD_per_USD": 1.288444,
@@ -2599,7 +2599,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 12919.012144694208,
      "required_alpha_H2_N2_for_N2_1000ppm": 3871.2590965098034,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -2690,7 +2690,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -2723,7 +2723,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -2809,7 +2809,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.1118822518809,
        "sgd_per_kg_usable_h2": 5.297930016142434,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -2893,7 +2893,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 12919.012144694208,
      "required_alpha_H2_N2_for_N2_1000ppm": 3871.2590965098034,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -2984,7 +2984,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -3017,7 +3017,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -3103,7 +3103,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.129297984566003,
        "sgd_per_kg_usable_h2": 5.320369212426159,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -3128,7 +3128,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.326549688729102,
        "sgd_per_kg_usable_h2": 5.574516987144879,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -3187,7 +3187,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 9566.060226999633,
      "required_alpha_H2_N2_for_N2_1000ppm": 2866.494977571957,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -3278,7 +3278,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -3311,7 +3311,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -3397,7 +3397,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.286938922038355,
        "sgd_per_kg_usable_h2": 5.523480732466786,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -3481,7 +3481,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 9566.060226999633,
      "required_alpha_H2_N2_for_N2_1000ppm": 2866.494977571957,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -3572,7 +3572,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -3605,7 +3605,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -3691,7 +3691,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.304354153985061,
        "sgd_per_kg_usable_h2": 5.545919283577128,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -3716,7 +3716,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.501602935822765,
        "sgd_per_kg_usable_h2": 5.800063293043227,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -6248,7 +6248,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 11739.209573449354,
      "required_alpha_H2_N2_for_N2_1000ppm": 3517.817471810042,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -6339,7 +6339,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -6372,7 +6372,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -6458,7 +6458,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.125869884292033,
        "sgd_per_kg_usable_h2": 5.315952297196764,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -6542,7 +6542,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 11739.209573449354,
      "required_alpha_H2_N2_for_N2_1000ppm": 3517.817471810042,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -6633,7 +6633,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -6666,7 +6666,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -6752,7 +6752,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.143119045999827,
        "sgd_per_kg_usable_h2": 5.3381768761042006,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -6777,7 +6777,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.340370750162926,
        "sgd_per_kg_usable_h2": 5.5923246508229205,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -6836,7 +6836,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 7064.82981701631,
      "required_alpha_H2_N2_for_N2_1000ppm": 2117.0122168770963,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -6927,7 +6927,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -6960,7 +6960,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -7046,7 +7046,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.287229146101055,
        "sgd_per_kg_usable_h2": 5.523854669919027,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -7130,7 +7130,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 7064.82981701631,
      "required_alpha_H2_N2_for_N2_1000ppm": 2117.0122168770963,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -7221,7 +7221,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -7254,7 +7254,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -7340,7 +7340,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.304477807070449,
        "sgd_per_kg_usable_h2": 5.546078603653077,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -7365,7 +7365,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.501726588908153,
        "sgd_per_kg_usable_h2": 5.800222613119176,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -9897,7 +9897,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 14443.374016834225,
      "required_alpha_H2_N2_for_N2_1000ppm": 4327.994357981201,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -9988,7 +9988,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -10021,7 +10021,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -10107,7 +10107,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.113848081602081,
        "sgd_per_kg_usable_h2": 5.300462877651711,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -10191,7 +10191,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 14443.374016834225,
      "required_alpha_H2_N2_for_N2_1000ppm": 4327.994357981201,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -10282,7 +10282,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -10315,7 +10315,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -10401,7 +10401,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.131429209914841,
        "sgd_per_kg_usable_h2": 5.323115176939517,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -10426,7 +10426,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.32868091407794,
        "sgd_per_kg_usable_h2": 5.577262951658237,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -10485,7 +10485,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 11463.958350618548,
      "required_alpha_H2_N2_for_N2_1000ppm": 3435.180617491537,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -10576,7 +10576,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": false,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -10609,7 +10609,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -10695,7 +10695,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.292049037813351,
        "sgd_per_kg_usable_h2": 5.530064830476385,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -10779,7 +10779,7 @@
      "pd_window_ok": true,
      "required_alpha_H2_N2_for_N2_300ppm": 11463.958350618548,
      "required_alpha_H2_N2_for_N2_1000ppm": 3435.180617491537,
-     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library",
+     "n2_conditional_note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found",
      "closure": {
       "component_rel_error": {
        "H2": 0.0,
@@ -10870,7 +10870,7 @@
        ],
        "modelled_species_without_limit_in_grade": [],
        "meets_within_model_scope": true,
-       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "water: Pd permeate carries no water in this model; NH3 basis as stated. CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "B": {
        "grade": "B",
@@ -10903,7 +10903,7 @@
         "H2O"
        ],
        "meets_within_model_scope": true,
-       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "note": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "E3": {
        "grade": "E3",
@@ -10989,7 +10989,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.309629665387714,
        "sgd_per_kg_usable_h2": 5.552716484590808,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "fuel_cell_grade_D": {
        "delivery_pressure_bar": 350.0,
@@ -11014,7 +11014,7 @@
        "meets_spec_within_model_scope": true,
        "usd_per_kg_usable_h2": 4.506878447225418,
        "sgd_per_kg_usable_h2": 5.806860494056906,
-       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+       "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
       },
       "turbine_blend": {
        "delivery_pressure_bar": 30.0,
@@ -11059,12 +11059,12 @@
      {
       "config": "MEM_1bar_raw",
       "usd_per_kg": 4.1118822518809,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.129297984566003,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_B_MB",
@@ -11079,12 +11079,12 @@
      {
       "config": "MEM_vac0.1bar_raw",
       "usd_per_kg": 4.286938922038355,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.304354153985061,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",
@@ -11103,7 +11103,7 @@
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.326549688729102,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 12919 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_MB",
@@ -11113,7 +11113,7 @@
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.501602935822765,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 9566 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",
@@ -11193,17 +11193,17 @@
      {
       "config": "MEM_1bar_raw",
       "usd_per_kg": 4.125869884292033,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.143119045999827,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_vac0.1bar_raw",
       "usd_per_kg": 4.287229146101055,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_B_MB",
@@ -11218,7 +11218,7 @@
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.304477807070449,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",
@@ -11237,7 +11237,7 @@
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.340370750162926,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11739 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_MB",
@@ -11247,7 +11247,7 @@
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.501726588908153,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 7065 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",
@@ -11327,12 +11327,12 @@
      {
       "config": "MEM_1bar_raw",
       "usd_per_kg": 4.113848081602081,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.131429209914841,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_B_MB",
@@ -11347,12 +11347,12 @@
      {
       "config": "MEM_vac0.1bar_raw",
       "usd_per_kg": 4.292049037813351,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.309629665387714,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",
@@ -11371,7 +11371,7 @@
      {
       "config": "MEM_1bar_polish",
       "usd_per_kg": 4.32868091407794,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 14443 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_MB",
@@ -11381,7 +11381,7 @@
      {
       "config": "MEM_vac0.1bar_polish",
       "usd_per_kg": 4.506878447225418,
-      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity and no numeric selectivity is available in the library"
+      "conditional_on": "CONDITIONAL on ideal H2/N2 selectivity >= 11464 (N2 300 ppm); the base model assumes infinite selectivity. Sourced value (Phase 2): Cechetto et al. 2021 state ideal H2/N2 above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance (3.7e-11) gives only about 40,500, so the sourced range is 40,500 to 500,000. Caveats: ideal (single gas), new membrane, one group, 450 degC, trace NH3 only; mixed-gas and aged values not found"
      },
      {
       "config": "PSA_D_LOW",

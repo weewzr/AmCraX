@@ -22,9 +22,11 @@ Every output names its source_type: 'python' (this model), 'aspen' (stored Aspen
 from __future__ import annotations
 
 import dataclasses
+import json
 import math
 import warnings
 from functools import lru_cache
+from pathlib import Path
 from typing import Any, Optional
 from unittest import mock
 
@@ -49,27 +51,75 @@ LCA_ROUTES = ("grey", "blue", "green")
 CHO_PRICE = {"Ni": 33.4, "Ru": 542.0}  # USD/kg, cho2026nickel Table 4 p. 7 ("calculated"; method in unavailable SI)
 CHO_PRICE_SOURCE = "cho2026nickel Table 4 p. 7 (Ni/Al2O3 8 wt% 33.4, Ru-K/CaO 3 wt% 542 USD/kg)"
 
+#: Phase 2 (task C2): catalyst prices are DERIVED scenario prices (metal content + non-metal part) from
+#: research/data/catalyst_prices.json; no supplier quotation exists. The Cho TEA prices above are kept for the Cho
+#: reconstruction and as a separately labelled 'published TEA price' case (they lie below the Ru metal floor).
+PRICE_FILE = Path(__file__).resolve().parents[3] / "research" / "data" / "catalyst_prices.json"
+PRICE_FILE_REL = "research/data/catalyst_prices.json"
+PRICE_SCENARIOS = ("low", "central", "high")
+
+
+@lru_cache(maxsize=1)
+def load_price_data() -> dict:
+    return json.loads(PRICE_FILE.read_text(encoding="utf-8"))
+
+
+def derived_price(price_key: str, scenario: str = "central") -> float:
+    """Derived catalyst price, USD/kg finished catalyst (research/data/catalyst_prices.json scenario table)."""
+    return float(load_price_data()["scenarios_usd_per_kg_finished_catalyst"][price_key][scenario]["usd_per_kg"])
+
+
+_PRICE_NOTE = ("DERIVED scenario price (central): metal content x metal price + non-metal part 32.2 USD/kg "
+               "(research/data/catalyst_prices.json); not a supplier quotation")
+
 #: catalyst registry for the comparison. Bed data as workstream K (scripts/research/kinetics_studies.py BED).
 CATALYSTS: dict[str, dict[str, Any]] = {
     "ru_kum_temkin_pyzhev": dict(
         label="Ru/Al2O3 (Kum)", family="Ru", short="Ru/Al2O3", approximation=False, eps_b=0.36, rho_particle=980.0,
-        price=CHO_PRICE["Ru"], price_source_type="assumption",
-        price_note="proxy: Cho Ru-K/CaO price used for a Ru/Al2O3 catalyst (no sourced price for this catalyst)"),
+        price_key="Ru/Al2O3", price=derived_price("Ru/Al2O3"), price_source_type="derived",
+        price_note=_PRICE_NOTE + "; 8 wt% Ru"),
     "ru_takahashi_microkinetic": dict(
         label="Ru/MgO (Takahashi)", family="Ru", short="Ru/MgO", approximation=False, eps_b=0.36, rho_particle=980.0,
-        price=CHO_PRICE["Ru"], price_source_type="assumption", price_note="proxy: Cho Ru-K/CaO price"),
+        price_key="Ru/MgO", price=derived_price("Ru/MgO"), price_source_type="derived",
+        price_note=_PRICE_NOTE + "; 5 wt% Ru"),
     "nire_ceo2_5ni1ru_lucentini_lhhw": dict(
         label="5Ni1Ru/CeO2 (Lucentini)", family="NiRu", short="5Ni1Ru/CeO2", approximation=False, eps_b=0.36,
-        rho_particle=1651.8, price=CHO_PRICE["Ru"], price_source_type="assumption",
-        price_note="no sourced price; Cho Ru price used as an upper-bound proxy (1 wt% Ru vs 3 wt% in Cho); see break-even price"),
+        rho_particle=1651.8, price_key="5Ni1Ru/CeO2", price=derived_price("5Ni1Ru/CeO2"), price_source_type="derived",
+        price_note=_PRICE_NOTE + "; 5 wt% Ni + 1 wt% Ru"),
     "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": dict(
         label="2.5Ni0.5Ru/CeO2 (Lucentini)", family="NiRu", short="2.5Ni0.5Ru/CeO2", approximation=False, eps_b=0.36,
-        rho_particle=1651.8, price=CHO_PRICE["Ru"], price_source_type="assumption",
-        price_note="no sourced price; Cho Ru price used as an upper-bound proxy (0.5 wt% Ru); see break-even price"),
+        rho_particle=1651.8, price_key="2.5Ni0.5Ru/CeO2", price=derived_price("2.5Ni0.5Ru/CeO2"),
+        price_source_type="derived", price_note=_PRICE_NOTE + "; 2.5 wt% Ni + 0.5 wt% Ru"),
     "ni_takahashi_microkinetic": dict(
         label="Ni/MgO (Takahashi)", family="Ni", short="Ni/MgO", approximation=False, eps_b=0.36, rho_particle=980.0,
-        price=CHO_PRICE["Ni"], price_source_type="assumption", price_note="proxy: Cho Ni/Al2O3 price used for Ni/MgO"),
+        price_key="Ni/MgO", price=derived_price("Ni/MgO"), price_source_type="derived",
+        price_note=_PRICE_NOTE + "; 30 wt% Ni"),
 }
+VALIDITY_FILE = Path(__file__).resolve().parents[3] / "results" / "research" / "kinetics" / "validity_classification.json"
+VALIDITY_FILE_REL = "results/research/kinetics/validity_classification.json"
+
+
+@lru_cache(maxsize=1)
+def _validity_data() -> dict:
+    return json.loads(VALIDITY_FILE.read_text(encoding="utf-8"))
+
+
+def kinetic_validity(cid: str, P_bar: float = 20.0, T_C: Optional[float] = None) -> dict:
+    """Kinetic validity class (task K1) of the rate law a result rests on, with an extrapolation label."""
+    law = next(x for x in _validity_data()["laws"] if x.get("catalyst_id") == cid)
+    fr = law["fitted_range"]
+    p_out = not (fr["P_bar"][0] - 1e-9 <= P_bar <= fr["P_bar"][1] + 1e-9)
+    t_out = None if T_C is None else not (fr["T_C"][0] <= T_C <= fr["T_C"][1])
+    cls = law["class"]
+    label = ("extrapolation" if cls == "extrapolated" else
+             "pressure extrapolation of a law validated against literature" if p_out else cls)
+    return {"kinetic_validity_class": cls, "kinetic_result_label": label, "kinetic_pressure_extrapolated": p_out,
+            "kinetic_T_outside_fitted_range": t_out, "kinetic_fitted_P_bar": fr["P_bar"], "kinetic_fitted_T_C": fr["T_C"],
+            "kinetic_validity_source": VALIDITY_FILE_REL}
+
+
+#: published TEA price used for each catalyst in the separately labelled 'published TEA' case (not a current price)
+PUBLISHED_TEA_PRICE = {cid: (CHO_PRICE["Ni"] if c["family"] == "Ni" else CHO_PRICE["Ru"]) for cid, c in CATALYSTS.items()}
 REFERENCE_NI = "ni_takahashi_microkinetic"
 
 #: ASSUMPTIONS for the fired heater (no sourced value in the AmCraX library; labelled, varied in sensitivities)
@@ -85,10 +135,15 @@ ASSUMPTIONS = [
     dict(name="thermal_loss_fraction", value=THERMAL_LOSS_FRACTION, unit="fraction of reactor + trim heater duty",
          source_type="assumption", source="AmCraX workstream H (allowance; not sourced)",
          applicability_note="Added to the fired duty; the existing KPIs have no losses (fact sheet F7)."),
-    dict(name="catalyst_price_Ni", value=CHO_PRICE["Ni"], unit="USD/kg", source_type="literature", source=CHO_PRICE_SOURCE,
-         applicability_note="Used as a proxy for Ni/MgO (assumption)."),
-    dict(name="catalyst_price_Ru", value=CHO_PRICE["Ru"], unit="USD/kg", source_type="literature", source=CHO_PRICE_SOURCE,
-         applicability_note="Used as a proxy for Ru/Al2O3, Ru/MgO and as an upper bound for NiRu/CeO2 (assumption)."),
+    dict(name="catalyst_price_Ni_published_TEA", value=CHO_PRICE["Ni"], unit="USD/kg", source_type="literature",
+         source=CHO_PRICE_SOURCE,
+         applicability_note="Phase 2: used only in the Cho reconstruction and the labelled 'published TEA price' case "
+                            "(not a current price). Default prices are the derived central scenario prices."),
+    dict(name="catalyst_price_Ru_published_TEA", value=CHO_PRICE["Ru"], unit="USD/kg", source_type="literature",
+         source=CHO_PRICE_SOURCE,
+         applicability_note="Phase 2: Cho reconstruction and 'published TEA price' case only. 542 USD/kg is below the "
+                            "Ru metal-content floor of a 3 wt% Ru catalyst (666 USD/kg at the USGS 2025 average, "
+                            "research/data/catalyst_prices.json C2 caution)."),
     dict(name="catalyst_lifetime", value=CATALYST_LIFETIME_YR, unit="yr", source_type="literature",
          source="cho2026nickel Table 4 (an assumption in the source)", applicability_note="Sensitivity 1-4 yr."),
     dict(name="feed_basis", value=FEED_TOTAL_KMOL_H, unit="kmol/h liquid NH3 (0.2 mol% H2O)", source_type="assumption",

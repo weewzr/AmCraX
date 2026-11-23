@@ -1,0 +1,549 @@
+[
+ {
+  "id": "HX-DIAG-ru_kum_temkin_pyzhev",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.809478879466894,
+  "expected": 20.809478879466894,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-ru_kum_temkin_pyzhev",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 468.5553606933188,
+  "expected": 469.13745,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-ru_kum_temkin_pyzhev",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 468.8896811893511,
+  "expected": 469.13745,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_kum_T499_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-ru_takahashi_microkinetic",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.842595913788557,
+  "expected": 20.842595913788557,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-ru_takahashi_microkinetic",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 500.58386646793224,
+  "expected": 501.058703,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-ru_takahashi_microkinetic",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 500.8339157300218,
+  "expected": 501.058703,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tru_T522_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-nire_ceo2_5ni1ru_lucentini_lhhw",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.859143362304394,
+  "expected": 20.859143362304394,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-nire_ceo2_5ni1ru_lucentini_lhhw",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 571.5113165938782,
+  "expected": 571.796932,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-nire_ceo2_5ni1ru_lucentini_lhhw",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 571.7283281920594,
+  "expected": 571.796932,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc5_T572_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.856337825971195,
+  "expected": 20.856337825971195,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 577.2611639811381,
+  "expected": 577.53548,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 577.4861498383148,
+  "expected": 577.53548,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_luc25_T576_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-ni_takahashi_microkinetic",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.83507550181139,
+  "expected": 20.83507550181139,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-ni_takahashi_microkinetic",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 603.2722236557688,
+  "expected": 603.504301,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-ni_takahashi_microkinetic",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 603.526720591115,
+  "expected": 603.504301,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/research/aspen_kinetic/ci_tni_T594_P20_W100_hi.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-baseline_rgibbs_600C",
+  "description": "Decomposition of Python minus Aspen FEHE duty into vaporiser-outlet state and cold-side residual-enthalpy basis (sum must reproduce the total difference)",
+  "evidence_kind": "numerical_verification",
+  "observed": 20.824761413732745,
+  "expected": 20.824761413732745,
+  "tolerance": 1e-06,
+  "unit": "kW",
+  "status": "pass",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-PRBASIS-baseline_rgibbs_600C",
+  "description": "Python cold-side enthalpy change on the Peng-Robinson basis at the Aspen S2/S3 states vs Aspen PENG-ROB FEHE duty (shows the property offset is the residual-enthalpy model choice)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 611.9920740442343,
+  "expected": 612.213344,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-HOT-baseline_rgibbs_600C",
+  "description": "Python PR hot-side enthalpy change S5->S6 at the Aspen states vs Aspen FEHE duty",
+  "evidence_kind": "python_vs_aspen",
+  "observed": 612.2273889025673,
+  "expected": 612.213344,
+  "tolerance": 0.01,
+  "unit": "relative",
+  "status": "pass",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ]
+ },
+ {
+  "id": "HX-DIAG-CAUSE",
+  "description": "HCAT-ASPY-*-HI-heat failures: quantified cause (model-form, not an implementation error; checks kept failing, tolerance unchanged)",
+  "evidence_kind": "python_vs_aspen",
+  "observed": {
+   "ru_kum_temkin_pyzhev": 0.0444,
+   "ru_takahashi_microkinetic": 0.0416,
+   "nire_ceo2_5ni1ru_lucentini_lhhw": 0.0365,
+   "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": 0.0361,
+   "ni_takahashi_microkinetic": 0.0345,
+   "baseline_rgibbs_600C": 0.034
+  },
+  "expected": "<= 0.03",
+  "tolerance": 0.03,
+  "unit": "relative",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/fehe_duty_diagnosis.json"
+  ],
+  "note": "+20.8 kW in every case = (i) vaporiser outlet S2 5.81 K colder in Python (Raoult dew point 60.09 degC + 10 K vs Aspen PENG-ROB dew point 65.90 + 10 K): +8.76 kW; (ii) cold-side NH3 residual enthalpy from the reference EOS (CoolProp) instead of PR: +12.1 kW. On the PR basis at Aspen states Python reproduces Aspen within 0.12 %."
+ },
+ {
+  "id": "HX-BASE-LCOH-FROZEN",
+  "description": "Reference baseline LCOH unchanged (frozen basis)",
+  "evidence_kind": "numerical_verification",
+  "observed": 4.015461254695034,
+  "expected": 4.015461254695034,
+  "tolerance": 1e-09,
+  "unit": "USD/kg",
+  "status": "pass",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ]
+ },
+ {
+  "id": "HX-BASE-SAVING",
+  "description": "Phase 1 heat-integration saving on the reference basis (4.229 - 4.015)",
+  "evidence_kind": "numerical_verification",
+  "observed": 0.21378039320800823,
+  "expected": 0.214,
+  "tolerance": 0.001,
+  "unit": "USD/kg",
+  "status": "pass",
+  "source_files": [
+   "results/simulations/baseline.json",
+   "results/simulations/baseline_no_hi.json"
+  ]
+ },
+ {
+  "id": "HX-REFCAPEX-CONSISTENT",
+  "description": "FEHE TCI-equivalent below the reference heat-exchanger item (which covers all exchangers)",
+  "evidence_kind": "literature_comparison",
+  "observed": {
+   "low": 1783538.3818558306,
+   "central": 1542046.1119238148,
+   "high": 1437300.5761951434
+  },
+  "expected": 2094214.7650335645,
+  "tolerance": null,
+  "unit": "USD",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/data/reference_scenario.yaml"
+  ]
+ },
+ {
+  "id": "HX-TURTON-HAND",
+  "description": "Turton Cp0 at 100 m2 (fixed tube sheet) vs hand evaluation",
+  "evidence_kind": "numerical_verification",
+  "observed": 23566.766563181303,
+  "expected": 23566.766563181303,
+  "tolerance": 1e-06,
+  "unit": "USD (2001)",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/heat_integration/exchanger.py"
+  ]
+ },
+ {
+  "id": "HX-F-HAND",
+  "description": "F correction (1-2 shell, R = 2, P = 1/3) vs closed form",
+  "evidence_kind": "numerical_verification",
+  "observed": 0.8052193095797175,
+  "expected": 0.8052193095797172,
+  "tolerance": 1e-12,
+  "unit": "-",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/heat_integration/exchanger.py"
+  ]
+ },
+ {
+  "id": "HX-UA-SEG-VS-LMTD",
+  "description": "Segmented UA (H-T curves) vs Q/LMTD for the baseline FEHE (cp variation)",
+  "evidence_kind": "numerical_verification",
+  "observed": 7.319157946694697,
+  "expected": 6.661046313080189,
+  "tolerance": null,
+  "unit": "kW/K",
+  "status": "informational",
+  "source_files": [
+   "results/simulations/baseline.json"
+  ],
+  "note": "ratio 1.099; the segmented value is used for area"
+ },
+ {
+  "id": "HX-NET-baseline_aspen_600C",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.06684247408825286,
+   "central": 0.08673796497776992,
+   "high": 0.09536749110046543
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ru_kum_temkin_pyzhev@499C_aspen_W100",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.08046538038121748,
+   "central": 0.09718809811274294,
+   "high": 0.10452963048725765
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ru_takahashi_microkinetic@522C_aspen_W100",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.09132518503358514,
+   "central": 0.10923616172493877,
+   "high": 0.11747096917009951
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-nire_ceo2_5ni1ru_lucentini_lhhw@572C_aspen_W100",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.0975725597854237,
+   "central": 0.11678975009498671,
+   "high": 0.12471671962680812
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-nire_ceo2_2p5ni0p5ru_lucentini_lhhw@576C_aspen_W100",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.09973184996087309,
+   "central": 0.11919372537689427,
+   "high": 0.12729782202976858
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ni_takahashi_microkinetic@594C_aspen_W100",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.10818474276388901,
+   "central": 0.12837433223146502,
+   "high": 0.13708190690537048
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ru_kum_temkin_pyzhev@Topt_python",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.09377576323550713,
+   "central": 0.11797327989129183,
+   "high": 0.12955011514530151
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ru_takahashi_microkinetic@Topt_python",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.09686496493824334,
+   "central": 0.12176275578982612,
+   "high": 0.1338383543345292
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-nire_ceo2_5ni1ru_lucentini_lhhw@Topt_python",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.0924425205260678,
+   "central": 0.11571631091713075,
+   "high": 0.12662964649128358
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-nire_ceo2_2p5ni0p5ru_lucentini_lhhw@Topt_python",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.078329985774405,
+   "central": 0.0998447168221745,
+   "high": 0.10947567430218462
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-NET-ni_takahashi_microkinetic@Topt_python",
+  "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 0.07212232483407163,
+   "central": 0.09094828846985431,
+   "high": 0.09856539206809246
+  },
+  "expected": "> 0",
+  "tolerance": null,
+  "unit": "USD/kg H2",
+  "status": "informational",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ]
+ },
+ {
+  "id": "HX-FEHE-AREA-RANGE",
+  "description": "Baseline FEHE area per costed unit inside the Turton correlation range 10-1000 m2 (all U cases)",
+  "evidence_kind": "numerical_verification",
+  "observed": {
+   "low": 49.77447922901574,
+   "central": 24.043357695101598,
+   "high": 11.614045153437006
+  },
+  "expected": [
+   10,
+   1000
+  ],
+  "tolerance": null,
+  "unit": "m2",
+  "status": "pass",
+  "source_files": [
+   "results/research/heat_exchanger/heat_exchanger_study.json"
+  ],
+  "note": "below 10 m2 per unit the cost is evaluated at 10 m2 (flagged below_correlation_range)"
+ }
+]

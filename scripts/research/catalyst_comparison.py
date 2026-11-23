@@ -122,8 +122,12 @@ def main() -> None:
     val: list[dict] = []
 
     def add(id_, desc, method, ref, obs, exp, tol, unit, status, files):
-        val.append({"id": id_, "description": desc, "method": method, "reference_source": ref, "observed": obs,
-                    "expected": exp, "tolerance": tol, "unit": unit, "status": status, "source_files": files})
+        # Phase 2: every item names its kind of evidence (docs/internal/phase2_brief.md); none is experimental
+        kind = ("python_vs_aspen" if id_.startswith("HCAT-ASPY-") else
+                "literature_comparison" if id_.startswith("HCAT-CHO-") else "numerical_verification")
+        val.append({"id": id_, "description": desc, "evidence_kind": kind, "method": method, "reference_source": ref,
+                    "observed": obs, "expected": exp, "tolerance": tol, "unit": unit, "status": status,
+                    "source_files": files})
 
     # ---------------------------------------------------------------- 0. pinch check against the baseline value
     base = SimulationResult.model_validate(json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8")))
@@ -256,6 +260,8 @@ def main() -> None:
                         "reference": cc.CATALYSTS[cc.REFERENCE_NI]["label"] + " at its cost-optimal T",
                         "reference_lcoh_USD_per_kg": ref["lcoh_USD_per_kg"], "reference_T_C": ref["T_C"],
                         "breakeven_price_USD_per_kg": pbe, "assumed_price_USD_per_kg": cc.CATALYSTS[cid]["price"],
+                        "assumed_price_basis": "derived central scenario price (research/data/catalyst_prices.json)",
+                        "ratio_breakeven_to_assumed_price": (pbe / cc.CATALYSTS[cid]["price"]) if pbe not in (None, float("inf")) else None,
                         "ratio_breakeven_to_Cho_Ru_price": (pbe / cc.CHO_PRICE["Ru"]) if pbe not in (None, float("inf")) else None,
                         "T_opt_at_breakeven_C": o_be["T_C"] if o_be else None, "W_at_breakeven_kg": o_be["W_kg"] if o_be else None,
                         "lcoh_at_zero_price_minus_ref_USD_per_kg": f(0.0), "source_type": "python",
@@ -276,6 +282,8 @@ def main() -> None:
                             "reference": f"Ni/MgO fixed at {Tn:.0f} degC", "reference_lcoh_USD_per_kg": cN["lcoh_USD_per_kg"],
                             "reference_T_C": Tn, "breakeven_price_USD_per_kg": pbe,
                             "assumed_price_USD_per_kg": cc.CATALYSTS[cid]["price"],
+                            "assumed_price_basis": "derived central scenario price (research/data/catalyst_prices.json)",
+                            "ratio_breakeven_to_assumed_price": pbe / cc.CATALYSTS[cid]["price"] if pbe else None,
                             "ratio_breakeven_to_Cho_Ru_price": pbe / cc.CHO_PRICE["Ru"] if pbe else None,
                             "lcoh_at_zero_price_minus_ref_USD_per_kg": g(0.0), "source_type": "python",
                             "basis": "grey 450 USD/t, 20 bar, X 0.95, HI on"})
@@ -285,10 +293,20 @@ def main() -> None:
     # ---------------------------------------------------------------- 4. sensitivities and ranking robustness
     ru_like = [c for c in CATS if cc.CATALYSTS[c]["family"] != "Ni"]
     cases = [("base", {}, None, None)]
-    for m in (0.5, 2.0, 4.0, 8.0):
-        cases.append((f"Ru_price_x{m:g}", {}, {c: cc.CHO_PRICE["Ru"] * m for c in ru_like}, None))
-    for p in (16.7, 66.8):
-        cases.append((f"Ni_price_{p:g}", {}, {cc.REFERENCE_NI: p}, None))
+    # Phase 2 price cases (research/data/catalyst_prices.json; all derived, none a quotation)
+    pdat = cc.load_price_data()
+    def _price_with(cid, P_Ru=None, scen="central"):
+        s = pdat["scenarios_usd_per_kg_finished_catalyst"][cc.CATALYSTS[cid]["price_key"]]
+        e = s[scen]
+        return (s["loading_wt_pct"]["Ni"] / 100 * e["P_Ni_usd_per_kg"]
+                + s["loading_wt_pct"]["Ru"] / 100 * (e["P_Ru_usd_per_kg"] if P_Ru is None else P_Ru) + e["N_usd_per_kg"])
+    p_ru_low = pdat["scenarios_usd_per_kg_finished_catalyst"]["Ru/MgO"]["low"]["P_Ru_usd_per_kg"]
+    cases.append(("Ru_price_USGS_2025_average", {}, {c: _price_with(c, P_Ru=p_ru_low) for c in ru_like}, None))
+    cases.append(("price_scenario_low_metal_floor", {}, {c: cc.derived_price(cc.CATALYSTS[c]["price_key"], "low") for c in CATS}, None))
+    cases.append(("price_scenario_high", {}, {c: cc.derived_price(cc.CATALYSTS[c]["price_key"], "high") for c in CATS}, None))
+    cases.append(("published_TEA_prices_Cho_not_current", {}, dict(cc.PUBLISHED_TEA_PRICE), None))
+    for scen in ("low", "high"):
+        cases.append((f"Ni_price_{scen}", {}, {cc.REFERENCE_NI: cc.derived_price("Ni/MgO", scen)}, None))
     for lt in (1.0, 4.0):
         cases.append((f"lifetime_{lt:g}yr", {"lifetime": lt}, None, None))
     for pr in (300.0, 610.0, 1000.0):
@@ -312,7 +330,7 @@ def main() -> None:
     # Ni nominal; and the reverse
     cases.append(("Ru_NiRu_rates_div5_Ni_nominal", {}, None, {c: 0.2 for c in ru_like}))
     cases.append(("Ni_rate_div5_others_nominal", {}, None, {cc.REFERENCE_NI: 0.2}))
-    cases.append(("Ru_price_x4_and_rates_div5", {}, {c: cc.CHO_PRICE["Ru"] * 4 for c in ru_like}, {c: 0.2 for c in ru_like}))
+    cases.append(("published_TEA_prices_and_Ni_rate_div5", {}, dict(cc.PUBLISHED_TEA_PRICE), {cc.REFERENCE_NI: 0.2}))
 
     rank_rows, rob = [], []
     base_rank = None
@@ -360,7 +378,9 @@ def main() -> None:
             for name, cid, T, P in designs:
                 Wk = cc.required_mass_kg(cid, T, P, 0.97)
                 W = m_cho if inv == "cho_ghsv_9000" else Wk
-                d = cc.design_point(cid, T, P, 0.97, W_kg=W, psa_recovery=psa, econ_overrides=cho_ov)
+                # Cho reconstruction keeps Cho's own (published TEA) catalyst prices
+                d = cc.design_point(cid, T, P, 0.97, W_kg=W, psa_recovery=psa, econ_overrides=cho_ov,
+                                    price=cc.PUBLISHED_TEA_PRICE[cid])
                 cho_rows.append({"design": name, "psa_recovery": psa, "inventory_basis": inv, "catalyst": d["catalyst"],
                                  "T_C": T, "P_bar": P, "X": 0.97, "W_kg": W, "W_kinetic_min_kg": Wk,
                                  "X_cho_basis_at_W": None, "external_heat_import_kW": d["heat_external_heat_import_kW"],
@@ -416,6 +436,8 @@ def main() -> None:
         d["source_type"] = "python"
         table.append({"row_id": f"python_fixed_Ni_{Tn:.0f}C_HI", "design_basis": f"fixed reference design: Ni at {Tn:.0f} degC",
                       "source_files": ["results/research/catalyst_comparison/catalyst_design_curves.csv"], **d})
+    for r in table:   # Phase 2: kinetic validity class of the law each row rests on (task K1 classification)
+        r.update(cc.kinetic_validity(r["catalyst_id"], r["P_bar"], r["T_C"]))
     summary_obj = {
         "provenance": prov("mixed (per row)", "Aspen integrated ci_* runs at the kinetic T_op; python flowsheet at kinetic X elsewhere"),
         "basis": {"feed": "100 kmol/h liquid NH3 (0.2 mol% H2O), 20 bar, 95 % NH3 conversion for every catalyst, PSA recovery 0.85",
@@ -424,7 +446,11 @@ def main() -> None:
                                  "without FEHE: problem table of feed + reaction vs flue gas), dT_min 20 K",
                   "furnace": f"supplementary NH3 at furnace efficiency {cc.FURNACE_EFFICIENCY} plus {cc.THERMAL_LOSS_FRACTION:.0%} "
                              "thermal loss of reactor + trim heater duty (assumptions)",
-                  "economics": "amcrax.economics.singapore.evaluate, grey 450 USD/t, catalyst W*price/lifetime (2 yr)",
+                  "economics": "amcrax.economics.singapore.evaluate, grey 450 USD/t, catalyst W*price/lifetime (2 yr); "
+                               "Phase 2: catalyst prices are the DERIVED central scenario prices of "
+                               "research/data/catalyst_prices.json (Cho TEA prices only in the Cho reconstruction and "
+                               "the labelled published-TEA sensitivity case); full catalyst economics in "
+                               "results/research/catalyst_economics/",
                   "lca": "GWP100, 5000 km ship, routes grey/blue/green (amcrax.environmental.lca)"},
         "rows": table}
     asp = {(d["catalyst_id"], d["heat_integration"]): d for d in aspen_rows}
@@ -459,7 +485,8 @@ def main() -> None:
     dump("catalyst_comparison.json", summary_obj)
     write_csv(OUT / "catalyst_comparison.csv", [flat(r) for r in table])
     assum = list(cc.ASSUMPTIONS) + [dict(name=f"price_{c}", value=v["price"], unit="USD/kg", source_type=v["price_source_type"],
-                                         source=cc.CHO_PRICE_SOURCE, applicability_note=v["price_note"]) for c, v in cc.CATALYSTS.items()]
+                                         source=f"{cc.PRICE_FILE_REL} scenarios_usd_per_kg_finished_catalyst['{v['price_key']}'].central",
+                                         applicability_note=v["price_note"]) for c, v in cc.CATALYSTS.items()]
     (OUT / "assumptions.json").write_text(json.dumps(assum, indent=2), encoding="utf-8")
 
     # kinetics consistency: W at the K/A operating temperature
@@ -537,7 +564,9 @@ def main() -> None:
     ax.bar(range(len(bb)), vals, 0.6, color=PALETTE[0], label="break-even vs Ni/MgO at its optimum")
     bb2 = [r for r in be_rows if r["reference"].startswith("Ni/MgO fixed at 735")]
     ax.plot(range(len(bb2)), [r["breakeven_price_USD_per_kg"] or 0 for r in bb2], "s", color=PALETTE[1], label="break-even vs Ni fixed at 735 degC")
-    ax.axhline(cc.CHO_PRICE["Ru"], color=C_GREY, ls="--", label="Cho Ru catalyst price 542 USD/kg")
+    ax.plot(range(len(bb)), [cc.CATALYSTS[r["catalyst_id"]]["price"] for r in bb], "D", color="k", ms=5,
+            label="derived central price (metal content + non-metal part)")
+    ax.axhline(cc.CHO_PRICE["Ru"], color=C_GREY, ls="--", label="Cho Ru catalyst price 542 USD/kg (published TEA, below Ru floor)")
     ax.set_yscale("log")
     ax.set_xticks(range(len(bb)), [cc.CATALYSTS[r["catalyst_id"]]["short"] for r in bb], fontsize=8)
     ax.set_ylabel("catalyst price (USD/kg)")

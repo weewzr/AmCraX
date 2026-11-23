@@ -1,0 +1,235 @@
+{
+  "provenance": {
+    "generated_utc": "2026-11-23T11:34:19Z",
+    "script": "scripts/research/carbon_pricing_run.py",
+    "source_type": "python",
+    "inputs_summary": "carbon.ts-equivalent carbon intensity on the stored Aspen activity; gate factors and ranges from amcrax.environmental.lca.route_spec; comparators from results/research/lca/lca_results.json",
+    "reference_scenario": {
+      "file": "backend/amcrax/data/reference_scenario.yaml",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+      "version": "1.0.0",
+      "id": "amcrax_reference_2026_11_23",
+      "fx_SGD_per_USD": 1.288444,
+      "fx_date": "2026-11-20",
+      "capex_method": "cho2026_itemised_v1"
+    },
+    "model_versions": {
+      "carbon_pricing": "amcrax.economics.carbon_pricing/1",
+      "economics": "amcrax.economics.singapore (reference scenario, default output unchanged)",
+      "carbon_intensity": "carbon.ts-equivalent simplified accounting, gate factors amcrax.environmental.lca.route_spec"
+    },
+    "hypothetical_warning": "Every quantity under mode 'hypothetical_lca' is a HYPOTHETICAL life-cycle carbon price, not Singapore law."
+  },
+  "statement": "Simplified carbon-intensity accounting (cradle to cracker/PSA outlet, GWP100 as reported by each source); not a full LCA. Kept apart from cost.",
+  "activity": {
+    "kg_nh3_total_per_kg_h2": 7.350165509388053,
+    "distance_km": 5000.0,
+    "grid_kgCO2_per_kWh": 0.402
+  },
+  "routes": {
+    "grey": {
+      "label": "grey NH3 (NG SMR, no capture)",
+      "gate_ef_kgCO2e_per_kgNH3": {
+        "central": 2.6,
+        "low": 2.0,
+        "high": 4.6
+      },
+      "ci_kgCO2e_per_kgH2": {
+        "central": 19.51763791359669,
+        "low": 15.107538607963855,
+        "high": 34.21796893237279
+      },
+      "ci_at_distance_kgCO2e_per_kgH2": {
+        "2000_km": 19.275082451786883,
+        "12000_km": 20.08360065781957
+      },
+      "breakdown_central": {
+        "upstream_ammonia": 17.56470412664052,
+        "transport": 0.37156104883278024,
+        "electricity": 0.002948486171406863,
+        "external_heat": 1.5784242519519822
+      }
+    },
+    "blue": {
+      "label": "blue NH3 (Lee v1: process CO2 captured)",
+      "gate_ef_kgCO2e_per_kgNH3": {
+        "central": 1.1600000000000001,
+        "low": 0.77,
+        "high": 1.9212585987261146
+      },
+      "ci_kgCO2e_per_kgH2": {
+        "central": 8.933399580077891,
+        "low": 6.0668350314165504,
+        "high": 14.52877627615966
+      },
+      "ci_at_distance_kgCO2e_per_kgH2": {
+        "2000_km": 8.690844118268085,
+        "12000_km": 9.499362324300773
+      },
+      "breakdown_central": {
+        "upstream_ammonia": 7.836560302655001,
+        "transport": 0.37156104883278024,
+        "electricity": 0.002948486171406863,
+        "external_heat": 0.7223297424187036
+      }
+    },
+    "blue_v2": {
+      "label": "blue NH3 (Lee v2: process + flue-gas CO2 captured)",
+      "gate_ef_kgCO2e_per_kgNH3": {
+        "central": 0.7700000000000002,
+        "low": 0.7700000000000002,
+        "high": 1.5702585987261148
+      },
+      "ci_kgCO2e_per_kgH2": {
+        "central": 6.066835031416552,
+        "low": 6.066835031416552,
+        "high": 11.948868182364453
+      },
+      "ci_at_distance_kgCO2e_per_kgH2": {
+        "2000_km": 5.824279569606746,
+        "12000_km": 6.632797775639432
+      },
+      "breakdown_central": {
+        "upstream_ammonia": 5.201854683658924,
+        "transport": 0.37156104883278024,
+        "electricity": 0.002948486171406863,
+        "external_heat": 0.4904708127534409
+      }
+    },
+    "green": {
+      "label": "green NH3 (renewable, incl. embedded asset emissions)",
+      "gate_ef_kgCO2e_per_kgNH3": {
+        "central": 0.2752157829839704,
+        "low": 0.07102342786683108,
+        "high": 0.4794081381011098
+      },
+      "ci_kgCO2e_per_kgH2": {
+        "central": 2.4300891449157564,
+        "low": 0.9292415390530419,
+        "high": 3.9309367507784714
+      },
+      "ci_at_distance_kgCO2e_per_kgH2": {
+        "2000_km": 2.1875336831059506,
+        "12000_km": 2.9960518891386365
+      },
+      "breakdown_central": {
+        "upstream_ammonia": 1.8592629996519794,
+        "transport": 0.37156104883278024,
+        "electricity": 0.002948486171406863,
+        "external_heat": 0.19631661025959002
+      }
+    },
+    "green_lee": {
+      "label": "green NH3 (Lee boundary, zero)",
+      "gate_ef_kgCO2e_per_kgNH3": {
+        "central": 0.0,
+        "low": 0.0,
+        "high": 0.4794081381011098
+      },
+      "ci_kgCO2e_per_kgH2": {
+        "central": 0.4072075891877498,
+        "low": 0.4072075891877498,
+        "high": 3.9309367507784714
+      },
+      "ci_at_distance_kgCO2e_per_kgH2": {
+        "2000_km": 0.16465212737794402,
+        "12000_km": 0.9731703334106299
+      },
+      "breakdown_central": {
+        "upstream_ammonia": 0.0,
+        "transport": 0.37156104883278024,
+        "electricity": 0.002948486171406863,
+        "external_heat": 0.03269805418356272
+      }
+    }
+  },
+  "comparators_kgCO2e_per_kgH2": {
+    "smr_unabated": [
+      10.0,
+      12.0
+    ],
+    "smr_ccs": [
+      3.4,
+      3.6
+    ],
+    "smr_ccs_high": 5.3,
+    "eu_rfnbo_threshold": 3.382886481338175
+  },
+  "power_ci_from_lca_results_kgCO2e_per_MWh": {
+    "grey": 1035.243504040931,
+    "blue": 473.87403976759276,
+    "blue_v2": 321.836476526897,
+    "green": 128.94984400106932,
+    "green_lee": 21.65974910295902
+  },
+  "power_comparators_kgCO2e_per_MWh": {
+    "ng_ccgt": {
+      "central": 367.2,
+      "low_eff_0.50": 403.92,
+      "high_eff_0.60": 336.6,
+      "leak_0.002": 375.48257093225243,
+      "leak_0.015": 429.31928199189343,
+      "leak_0.03": 491.4385639837869,
+      "source_type": "literature combustion factor + assumption efficiency"
+    },
+    "grid_average": {
+      "central": 402.0,
+      "source_type": "literature (EMA 2024)"
+    }
+  },
+  "breakeven_gate_ef_kgCO2e_per_kgNH3": {
+    "vs_smr_unabated": {
+      "10": 1.305112435707711,
+      "11": 1.4411637938332857,
+      "12": 1.5772151519588602
+    },
+    "vs_smr_ccs": {
+      "3.4": 0.407173472078919,
+      "3.6": 0.434383743704034,
+      "5.3": 0.6656710525175107
+    }
+  },
+  "power_breakeven_gate_ef_kgCO2e_per_kgNH3": {
+    "vs_ng_ccgt": {
+      "eff_0.50_leak_0.000": {
+        "ccgt_kgCO2e_per_MWh": 403.92,
+        "breakeven_gate_ef": 0.9805570062566055
+      },
+      "eff_0.50_leak_0.015": {
+        "ccgt_kgCO2e_per_MWh": 472.2512101910828,
+        "breakeven_gate_ef": 1.155837189696096
+      },
+      "eff_0.50_leak_0.030": {
+        "ccgt_kgCO2e_per_MWh": 540.5824203821657,
+        "breakeven_gate_ef": 1.3311173731355865
+      },
+      "eff_0.55_leak_0.000": {
+        "ccgt_kgCO2e_per_MWh": 367.2,
+        "breakeven_gate_ef": 0.8863644942566054
+      },
+      "eff_0.55_leak_0.015": {
+        "ccgt_kgCO2e_per_MWh": 429.31928199189343,
+        "breakeven_gate_ef": 1.045710115565233
+      },
+      "eff_0.55_leak_0.030": {
+        "ccgt_kgCO2e_per_MWh": 491.4385639837869,
+        "breakeven_gate_ef": 1.2050557368738606
+      },
+      "eff_0.60_leak_0.000": {
+        "ccgt_kgCO2e_per_MWh": 336.6,
+        "breakeven_gate_ef": 0.8078707342566054
+      },
+      "eff_0.60_leak_0.015": {
+        "ccgt_kgCO2e_per_MWh": 393.54267515923567,
+        "breakeven_gate_ef": 0.9539375537895141
+      },
+      "eff_0.60_leak_0.030": {
+        "ccgt_kgCO2e_per_MWh": 450.4853503184714,
+        "breakeven_gate_ef": 1.100004373322423
+      }
+    },
+    "vs_grid_average": 0.9756319075899387,
+    "method": "direct NH3 CCGT CI is linear in the gate factor: a + b*EF with a, b from results/research/lca/lca_results.json (green_lee and grey rows); CCGT CI from amcrax.environmental.lca.ccgt_ci_kg_per_MWh",
+    "nh3_kg_per_MWh": 389.83990574537387
+  }
+}
