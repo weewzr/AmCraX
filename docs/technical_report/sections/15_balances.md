@@ -68,9 +68,9 @@ The plant boundary is {FEED, AIR} → {H2PROD, STACK}; FEHE is internal. The ove
 * **Oxygen atoms:** 0.200 + 2 × 14.316 = 28.831 kmol/h in; 25.097 + 2 × 1.867 = 28.831 kmol/h out.
 * **Energy:** the boundary enthalpies plus all external duties and the pump power equal the outlet enthalpies:
 
-$$ \underbrace{-2004.37 - 0.20}_{H_\mathrm{FEED} + H_\mathrm{AIR}} + \underbrace{739.46 + 73.66 + 1480.00 - 304.95 + 0.73 + 0 - 1520.25}_{\sum Q\ (\mathrm{VAPORIZR \ldots FLUEHX})} + \underbrace{1.85}_{W_\mathrm{PUMP}} = \underbrace{15.43 - 1549.51}_{H_\mathrm{H2PROD} + H_\mathrm{STACK}} = -1534.08\ \mathrm{kW} \qquad (15.1) $$
+$$ H_\mathrm{FEED} + H_\mathrm{AIR} + \sum_\mathrm{blocks} Q + W_\mathrm{PUMP} = H_\mathrm{H2PROD} + H_\mathrm{STACK} \qquad (15.1) $$
 
-where $H$ is an enthalpy flow, $Q$ a block duty and $W$ the pump power (all kW). The relative closures are -5.4 × 10^-10^ (mass), 2.5 × 10^-9^ (N), -2.0 × 10^-9^ (H), -3.5 × 10^-9^ (O) and 3.2 × 10^-9^ (energy, normalised by the sum of absolute external duties). Block by block, outlet minus inlet enthalpy reproduces every reported duty, for example 902.81 - (-577.19) = 1480.00 kW for CRACKER, and the FEHE cold side gains the 612.21 kW that the hot side loses.
+where $H$ is an enthalpy flow, $Q$ a block duty and $W$ the pump power (all kW), and the sum runs over VAPORIZR, HEATER, CRACKER, COOLER, PSA, BURNER and FLUEHX. With the Aspen values, (-2004.37) + (-0.20) + (739.46 + 73.66 + 1480.00 - 304.95 + 0.73 + 0 - 1520.25) + 1.85 = -1534.08 kW on the left and 15.43 + (-1549.51) = -1534.08 kW on the right (terms rounded to 0.01 kW). The relative closures are -5.4 × 10^-10^ (mass), 2.5 × 10^-9^ (N), -2.0 × 10^-9^ (H), -3.5 × 10^-9^ (O) and 3.2 × 10^-9^ (energy, normalised by the sum of absolute external duties). Block by block, outlet minus inlet enthalpy reproduces every reported duty, for example 902.81 - (-577.19) = 1480.00 kW for CRACKER, and the FEHE cold side gains the 612.21 kW that the hot side loses.
 
 <!-- data: results/simulations/baseline.json streams (mass_flow_kg_h, component_mole_flow_kmol_h, enthalpy_flow_kW), blocks, balances (mass_closure_rel -5.45e-10, energy_in_kW -1534.0794, energy_out_kW -1534.0794, energy_closure_rel 3.22e-9); N/H/O closures recomputed: 2.53e-9, -2.00e-9, -3.47e-9 -->
 

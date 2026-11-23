@@ -38,3 +38,5 @@ frontend/public/downloads/
 docs/screenshots/qa/
 # first edition of the report sections (kept locally for reference)
 docs/technical_report/sections_v1/
+
+docs/technical_report/_qa/

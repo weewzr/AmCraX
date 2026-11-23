@@ -73,10 +73,8 @@ Where conditions are fully stated, **published literature** agrees: fourteen tab
 
 ## 16.7 Kinetics
 
-Rate constants from the published Arrhenius parameters match the tabulated values within 6.8 % (Takahashi & Fujitani, 2016). The plug-flow predictions of the published conversion curves do worse (Figure 16.1); W/F was inferred from one anchor point per catalyst because the catalyst mass is not reported. Six of 12 Ni points and six of 11 Ru points miss the 0.05 tolerance (maxima 0.110 and 0.111), all under-predictions at diluted NH~3~ or with H~2~ co-feed. Both items fail; nothing was tuned. The fit to Di Carlo et al. (2014) is informational because the rate law was fitted to those data (Section 14).
+Rate constants from the published Arrhenius parameters match the tabulated values within 6.8 % (Takahashi & Fujitani, 2016). The plug-flow predictions of the published conversion curves do worse (Figure 14.1 in Section 14.4): the pure-NH~3~ temperature series agree, while the diluted and H~2~-co-fed series are under-predicted. W/F was inferred from one anchor point per catalyst because the catalyst mass is not reported. Six of 12 Ni points and six of 11 Ru points miss the 0.05 tolerance (maxima 0.110 and 0.111), all under-predictions at diluted NH~3~ or with H~2~ co-feed. Both items fail; nothing was tuned. The fit to Di Carlo et al. (2014) is informational because the rate law was fitted to those data (Section 14).
 <!-- data: results/validation/validation_matrix.json items KIN-TABLE2 (0.06828), KIN-NI-PRED (0.1096, 6 of 12), KIN-RU-PRED (0.1113, 6 of 11), KIN-DICARLO (0.003857); results/validation/kinetics_validation.csv -->
-
-![**Figure 16.1.** Microkinetic plug-flow conversion against values read from Figs. 3–5 of Takahashi and Fujitani (2016), Ni/MgO (top) and Ru/MgO (bottom). The pure-NH~3~ temperature series agree, while the diluted and H~2~-co-feed series are under-predicted, which is why KIN-NI-PRED and KIN-RU-PRED fail. *Source: independent Python calculation; published literature.*](../../results/figures/kinetics_validation.png){width=100%}
 
 ## 16.8 Aspen verification of the optimisation candidates
 

@@ -45,29 +45,40 @@ INK = "121a2f"
 MUTED = "5b6478"
 FONT = "Calibri"
 
+# The 27-item structure of WRITING_GUIDE.md: 25 written sections, then the generated references (26)
+# and appendices (27).
 EXPECTED = {
     1: ("01_executive_summary.md", "Executive summary"),
-    2: ("02_introduction.md", "Introduction and motivation"),
-    3: ("03_ammonia_carrier.md", "Ammonia as a hydrogen carrier"),
-    4: ("04_fundamentals.md", "Ammonia-cracking fundamentals"),
-    5: ("05_literature_review.md", "Literature review"),
-    6: ("06_process_design.md", "Overall process design"),
-    7: ("07_aspen_methodology.md", "Aspen Plus simulation methodology"),
-    8: ("08_components.md", "Component selection"),
-    9: ("09_property_methods.md", "Thermodynamic property methods"),
-    10: ("10_reactor.md", "Reactor configuration"),
-    11: ("11_heat_exchangers.md", "Heat exchangers and process integration"),
-    12: ("12_separation.md", "Separation and purification"),
-    13: ("13_automation.md", "Python-Aspen automation"),
-    14: ("14_validation.md", "Model validation"),
-    15: ("15_sensitivity.md", "Sensitivity analysis"),
-    16: ("16_energy_efficiency.md", "Energy efficiency"),
-    17: ("17_techno_economics.md", "Techno-economic assessment"),
-    18: ("18_optimisation.md", "Process optimisation"),
-    19: ("19_environment.md", "Environmental implications"),
-    20: ("20_limitations.md", "Limitations and future work"),
-    21: ("21_conclusion.md", "Conclusion"),
+    2: ("02_motivation.md", "Motivation and background"),
+    3: ("03_fundamentals.md", "Ammonia-cracking fundamentals"),
+    4: ("04_literature_review.md", "Literature review"),
+    5: ("05_process_design.md", "Process design and process flow diagram"),
+    6: ("06_aspen_methodology.md", "Aspen Plus V15 methodology"),
+    7: ("07_components.md", "Component selection"),
+    8: ("08_property_method.md", "Thermodynamic property method"),
+    9: ("09_reactor.md", "Reactor configuration"),
+    10: ("10_heat_exchangers.md", "Heat exchanger modelling"),
+    11: ("11_separation.md", "Separation and purification"),
+    12: ("12_automation.md", "Python-Aspen automation"),
+    13: ("13_equilibrium.md", "Equilibrium modelling"),
+    14: ("14_kinetics.md", "Catalyst kinetics"),
+    15: ("15_balances.md", "Mass and energy balances"),
+    16: ("16_validation.md", "Model validation"),
+    17: ("17_sensitivity.md", "Sensitivity analysis"),
+    18: ("18_heat_integration.md", "Heat integration"),
+    19: ("19_techno_economics.md", "Techno-economic assessment"),
+    20: ("20_optimisation.md", "Optimisation"),
+    21: ("21_environment.md", "Environmental analysis"),
+    22: ("22_dashboard.md", "Interactive dashboard"),
+    23: ("23_website.md", "Public website"),
+    24: ("24_limitations.md", "Limitations"),
+    25: ("25_conclusions.md", "Conclusions"),
 }
+REFERENCES_HEADING = "# 26 References"
+APPENDICES_HEADING = "# 27 Appendices"
+# In-text abbreviations of group authors (APA 7: "International Organization for Standardization [ISO], 2019",
+# then "ISO, 2019").
+AUTHOR_ALIASES = {"iso2019hydrogen": ["ISO"]}
 
 LOG: list[str] = []
 
@@ -158,10 +169,13 @@ def build_reference_docx() -> None:
         s.paragraph_format.space_after = Pt(6)
         s.paragraph_format.line_spacing = 1.12
         s.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    # Compact: tight lists and table cells (table runs are set to 9 pt in post-processing). Left-aligned,
+    # because justified text in narrow cells and list items spreads the words apart.
     s = get("Compact")
-    _set_font(s, size=9, color=INK)
+    _set_font(s, size=10.5, color=INK)
     s.paragraph_format.space_before = Pt(1)
-    s.paragraph_format.space_after = Pt(1)
+    s.paragraph_format.space_after = Pt(2)
+    s.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.LEFT
 
     s = get("Title")
     _set_font(s, size=30, color=INK, bold=True)
@@ -357,11 +371,27 @@ IMG_RE = re.compile(r"^[ \t]*!\[(?P<alt>.*)\]\((?P<path>[^)]+?)\)(?P<attr>\{[^}]
 def collect_sections(sdir: Path, summary: dict) -> list[tuple[str, Path]]:
     files = sorted(p for p in sdir.glob("*.md") if re.match(r"\d\d_", p.name))
     found = {p.name for p in files}
-    missing = [f"{n:02d} {t} ({f})" for n, (f, t) in EXPECTED.items() if f not in found] if sdir.resolve() == (HERE / "sections").resolve() or True else []
-    # only expected-file check is meaningful for the real section folder
-    summary["missing_sections"] = [m for m in missing]
+    missing = [f"{n:02d} {t} ({f})" for n, (f, t) in EXPECTED.items() if f not in found]
+    expected_files = {f for f, _ in EXPECTED.values()}
+    unexpected = [p.name for p in files if not p.name.startswith("00_") and p.name not in expected_files]
+    summary["missing_sections"] = missing
+    summary["unexpected_section_files"] = unexpected
     for m in missing:
         log(f"WARNING missing section: {m}")
+    for u in unexpected:
+        log(f"WARNING section file not in the 27-item structure: {u}")
+    # heading of each file must match the table in WRITING_GUIDE.md
+    by_file = {f: (n, t) for n, (f, t) in EXPECTED.items()}
+    bad = []
+    for p in files:
+        if p.name in by_file:
+            n, t = by_file[p.name]
+            first = next((ln for ln in p.read_text(encoding="utf-8-sig").splitlines() if ln.startswith("# ")), "")
+            if first.strip() != f"# {n} {t}":
+                bad.append(f"{p.name}: '{first.strip()}' (expected '# {n} {t}')")
+    summary["heading_mismatches"] = bad
+    for b in bad:
+        log(f"WARNING heading mismatch: {b}")
     return [(p.name, p) for p in files if not p.name.startswith("00_")]
 
 
@@ -407,6 +437,10 @@ def process_section(name: str, path: Path, summary: dict, cites: set[str]) -> st
             log(f"DROPPED FIGURE ({name}): {ptxt.strip()}")
             return ""
         summary["figures_inserted"] += 1
+        fm = re.match(r"\*\*Figure (\d+\.\d+)\.\*\*", alt)
+        if fm:
+            summary.setdefault("figure_map", {}).setdefault(found.name, []).append(fm.group(1))
+            summary.setdefault("figure_files", []).append((fm.group(1), found.relative_to(ROOT).as_posix() if found.is_relative_to(ROOT) else str(found)))
         rel = pandoc_image_path(found)
         cap = f'\n\n::: {{custom-style="Caption"}}\n{alt}\n:::\n' if alt else ""
         return f"![]({rel}){attr}\n{cap}"
@@ -438,9 +472,10 @@ def build_references(cites: set[str], summary: dict) -> tuple[str, dict]:
     summary["missing_citation_keys"] = missing
     used = [by_key[k] for k in cites if k in by_key]
     used.sort(key=lambda r: re.sub(r"[^a-z0-9 ]", "", r["apa7"].lower()))
-    lines = ["# 22 References", ""]
+    lines = [REFERENCES_HEADING, ""]
     for r in used:
-        body, url = italicise_apa(r["apa7"])
+        # house style has no em dashes; an em dash in a source title (e.g. ISO titles) is set as an en dash
+        body, url = italicise_apa(r["apa7"].replace(" — ", " – ").replace("—", "–"))
         url = url or r.get("url") or ""
         entry = body + ("\\\n<" + url + ">" if url else "")
         lines.append(f'::: {{custom-style="Bibliography"}}\n{entry}\n:::\n')
@@ -451,9 +486,15 @@ def build_references(cites: set[str], summary: dict) -> tuple[str, dict]:
 
 def check_intext(all_text: str, cited_refs: list[dict], summary: dict) -> None:
     surnames = {}
+    groups = []  # (author string, year, key) for group authors such as organisations
     for r in cited_refs:
         m = re.match(r"^([^,]+),.*?\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
-        if m:
+        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
+        if m_org and "," not in m_org.group(1):
+            groups.append((m_org.group(1).lower(), m_org.group(2), r["citekey"]))
+            for alias in AUTHOR_ALIASES.get(r["citekey"], []):
+                groups.append((alias.lower(), m_org.group(2), r["citekey"]))
+        elif m:
             surnames[(m.group(1).strip().lower(), m.group(2))] = r["citekey"]
     pat = re.compile(r"((?:[A-Z][\w'’\-]+|van|de|di|del)(?: (?:de|di|del|van|der|Di|Del|Van))*(?: [A-Z][\w'’\-]+)?)(?: et al\.|(?:,? (?:&|and) [A-Z][\w'’\-]+))?, (\d{4}[a-z]?)")
     unresolved = set()
@@ -464,11 +505,30 @@ def check_intext(all_text: str, cited_refs: list[dict], summary: dict) -> None:
                 continue
             sn = m.group(1).split(" ")[-1].lower() if m.group(1).split(" ")[0].lower() not in ("di", "del", "van", "de") else m.group(1).lower()
             cands = {k for k in surnames if k[1] == m.group(2) and (k[0].lower() == sn or k[0].lower().endswith(sn) or sn in k[0].lower() or k[0].lower() in m.group(1).lower())}
+            cands |= {g for g in groups if g[1] == m.group(2) and (m.group(1).lower() in g[0] or g[0] == m.group(1).lower())}
             if not cands:
                 unresolved.add(m.group(0))
     summary["unresolved_intext"] = sorted(unresolved)
     for u in sorted(unresolved):
         log(f"WARNING in-text citation without listed reference: ({u})")
+    # the reverse check: every listed reference must be cited somewhere in the text
+    flat = re.sub(r"\s+", " ", all_text)
+    uncited = []
+    for r in cited_refs:
+        m_org = re.match(r"^(.+?)\.\s+\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
+        year = re.search(r"\((\d{4}[a-z]?|n\.d\.)\)", r["apa7"])
+        year = year.group(1) if year else ""
+        names = []
+        if m_org and "," not in m_org.group(1):
+            names = [m_org.group(1)] + AUTHOR_ALIASES.get(r["citekey"], [])
+        else:
+            names = [r["apa7"].split(",")[0].strip()]
+        hit = any(re.search(re.escape(n) + r"[^()]{0,80}?\(?" + re.escape(year), flat) for n in names)
+        if not hit:
+            uncited.append(r["citekey"])
+    summary["listed_but_not_cited"] = uncited
+    for u in uncited:
+        log(f"WARNING reference listed (cites comment) but not found as an in-text citation: {u}")
 
 
 # ----------------------------------------------------------------------------------------------
@@ -479,7 +539,7 @@ def read_json(p: Path):
 
 
 def appendix_md(summary: dict, cites: set[str]) -> str:
-    out = ["# 23 Appendices", "",
+    out = [APPENDICES_HEADING, "",
            "The appendices are generated automatically from the project result and configuration files by `build_report.py`, "
            "so that they always reflect the current repository state.", ""]
     # A
@@ -496,7 +556,7 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
         rows2 = [[s] + [fnum(d["streams"][s]["mole_frac"].get(c), "frac") for c in comps] for s in ids]
         src = f"Aspen Plus V15 simulation, results/simulations/baseline.json (case {d.get('case_id')}, run {d.get('created_utc')})."
         out += [f"Table: **Table A.1.** Aspen Plus V15 stream conditions and flows for the baseline case. *Source: {src}*", "",
-                pipe_table(["Stream", "T (degC)", "P (bar)", "Vapour fraction", "Molar flow (kmol/h)", "Mass flow (kg/h)"], rows1,
+                pipe_table(["Stream", "T (°C)", "P (bar)", "Vapour fraction", "Molar flow (kmol/h)", "Mass flow (kg/h)"], rows1,
                            ["l", "r", "r", "r", "r", "r"]),
                 f"Table: **Table A.2.** Aspen Plus V15 stream compositions (mole fractions) for the baseline case. *Source: {src}*", "",
                 pipe_table(["Stream"] + comps, rows2, ["l"] + ["r"] * 5)]
@@ -508,7 +568,7 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
             det_s = "; ".join(f"{k} = {fnum(v) if not isinstance(v, str) else v}" for k, v in list(det.items())[:6])
             rows.append([bid, b.get("block_type"), fnum(b.get("duty_kW")), fnum(b.get("power_kW")), fnum(b.get("outlet_temperature_C")), det_s])
         out += [f"Table: **Table B.1.** Aspen Plus V15 block summary for the baseline case (duty positive = heat added). *Source: {src}*", "",
-                pipe_table(["Block", "Type", "Duty (kW)", "Power (kW)", "Outlet T (degC)", "Key details"], rows, ["l", "l", "r", "r", "r", "l"])]
+                pipe_table(["Block", "Type", "Duty (kW)", "Power (kW)", "Outlet T (°C)", "Key details"], rows, ["l", "l", "r", "r", "r", "l"])]
     else:
         out += ["results/simulations/baseline.json is not available at build time.", "", "## B Aspen block summary (baseline case)", "",
                 "results/simulations/baseline.json is not available at build time.", ""]
@@ -559,7 +619,7 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
                         pipe_table(["ID", "Component", "Metric", "Value", "Tolerance", "Root cause"], rows,
                                    ["l", "l", "l", "r", "r", "l"])]
             for rc in sm.get("failure_root_causes") or []:
-                out += [f"**Root cause `{rc.get('cause')}` ({rc.get('n_items')} items).** {rc.get('description')}", ""]
+                out += [f"**Root cause `{rc.get('cause')}` ({rc.get('n_items')} items).** {esc(rc.get('description'))}", ""]
             out += ["The complete matrix with one row per item (method, reference, expected behaviour, actual result, "
                     "limitations and evidence files) is `docs/validation/validation_matrix.md`.", ""]
         else:
@@ -575,20 +635,27 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
         out += ["The traceability table (research/traceability.json) was not available at build time.", ""]
     # F
     out += ["## F Reproducibility instructions", ""]
-    out += [reproducibility_md(), ""]
+    out += [reproducibility_md(summary), ""]
     # G
     out += ["## G Aspen screenshot index", ""]
     mp = ROOT / "aspen" / "screenshots" / "manifest.json"
     if mp.exists():
         m = read_json(mp)
         caps = m.get("captures", [])
-        rows = [[c.get("file"), c.get("title"), c.get("navigation_path"), c.get("status"),
-                 c.get("reason_if_not") or c.get("what_is_shown") or ""] for c in caps]
+        fmap = summary.get("figure_map", {})
+        rows = []
+        for c in caps:
+            shown = c.get("reason_if_not") or c.get("what_is_shown") or ""
+            if c.get("redaction"):
+                shown += " Masked: " + c["redaction"].split(";")[0].rstrip(".") + "."
+            rows.append([c.get("file"), ", ".join(fmap.get(c.get("file"), [])) or "-", c.get("title"),
+                         c.get("navigation_path"), c.get("status"), shown])
         nc = [c for c in caps if c.get("status") != "captured"]
         out += [f"Screenshots of the real {m.get('aspen_version', 'Aspen Plus V15')} GUI, captured from `{m.get('model_file')}`. "
-                f"{len(caps) - len(nc)} of {len(caps)} planned items are captured; items not captured are listed with the reason.", "",
+                f"{len(caps) - len(nc)} of {len(caps)} planned items are captured; items not captured are listed with the reason. "
+                "Each captured image appears once in the report, as the figure listed.", "",
                 "Table: **Table G.1.** Aspen Plus V15 screenshot index. *Source: aspen/screenshots/manifest.json.*", "",
-                pipe_table(["File", "Title", "Navigation path", "Status", "What is shown / reason if not captured"], rows)]
+                pipe_table(["File", "Figure", "Title", "Navigation path", "Status", "What is shown / reason if not captured"], rows)]
         summary["screenshots_not_captured"] = [c.get("file") for c in nc]
     else:
         out += ["aspen/screenshots/manifest.json is not available at build time.", ""]
@@ -610,20 +677,38 @@ def _section_by_heading(text: str, pat: str) -> str | None:
     return None
 
 
-def reproducibility_md() -> str:
-    def demote(t: str) -> str:
-        t = re.sub(r"^#+\s+(.*)$", r"#### \1", t, flags=re.M)
-        return t
-    rd = ROOT / "README.md"
-    if rd.exists():
-        s = _section_by_heading(rd.read_text(encoding="utf-8"), r"reproduc")
-        if s:
-            return "Source: README.md, section \"Reproducing\".\n\n" + demote(s)
-    dg = ROOT / "docs" / "developer_guide.md"
-    s = _section_by_heading(dg.read_text(encoding="utf-8"), r"toolchain")
-    if s:
-        return "Source: docs/developer_guide.md, section \"Toolchain\" (README.md has no \"Reproducing\" section at build time).\n\n" + demote(s)
-    return "No reproducibility section was found in README.md or docs/developer_guide.md."
+REPRO_DOC = ROOT / "docs" / "reproducing.md"
+
+
+def reproducibility_md(summary: dict | None = None) -> str:
+    """Appendix F from docs/reproducing.md (the whole page below its title).
+
+    Headings are demoted below the appendix level, and relative Markdown links (which would point at
+    files outside the report) become the repository path in code font."""
+    if not REPRO_DOC.exists():
+        log("WARNING docs/reproducing.md not found; appendix F is empty")
+        return "docs/reproducing.md was not available at build time."
+    t = REPRO_DOC.read_text(encoding="utf-8-sig")
+    t = re.sub(r"\A\s*#\s+[^\n]*\n", "", t)                       # drop the page title
+    t = re.sub(r"^#+\s+(.*)$", r"#### \1", t, flags=re.M)
+
+    def link(m):
+        txt, target = m.group(1), m.group(2)
+        if re.match(r"https?://", target):
+            return m.group(0)
+        path = (REPRO_DOC.parent / target.split("#")[0]).resolve()
+        try:
+            rel = path.relative_to(ROOT).as_posix()
+        except ValueError:
+            rel = target
+        return f"{txt} (`{rel}`)" if txt.strip("`") != rel else f"`{rel}`"
+    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)", link, t)
+    flagged = sorted(set(re.findall(r"[^.\n]*\b(?:[Pp]laceholder|to be confirmed)\b[^.\n]*\.", t)))
+    if summary is not None:
+        summary["reproducing_placeholders"] = flagged
+    for f in flagged:
+        log(f"WARNING docs/reproducing.md contains placeholder text: {f.strip()[:140]}")
+    return "Source: docs/reproducing.md, reproduced as it stands at build time.\n\n" + t.strip()
 
 
 # ----------------------------------------------------------------------------------------------
@@ -717,6 +802,54 @@ def _fld(par, instr: str, size=9, color=MUTED):
     e = OxmlElement("w:fldChar"); e.set(qn("w:fldCharType"), "end"); run_with(e)
 
 
+def _set_column_widths(tbl, text_w) -> None:
+    """Column widths from the cell text: each column gets at least its longest word, then a share that
+    grows with its typical text length (pandoc gives every column of a short pipe table the same width)."""
+    from docx.oxml import OxmlElement
+    from docx.oxml.ns import qn
+    rows = tbl.rows
+    if not rows:
+        return
+    ncol = len(rows[0].cells)
+    if ncol < 2:
+        return
+    longest_word, avg_len, max_len = [1] * ncol, [0.0] * ncol, [1] * ncol
+    for j in range(ncol):
+        lens = []
+        for row in rows:
+            cells = row.cells
+            if j >= len(cells):
+                continue
+            t = cells[j].text.strip()
+            lens.append(len(t))
+            for w in t.split():
+                longest_word[j] = max(longest_word[j], min(len(w), 28))
+        if lens:
+            avg_len[j] = sum(lens) / len(lens)
+            max_len[j] = max(lens)
+    weight = [max(longest_word[j] + 1.5, 0.55 * avg_len[j] + 0.15 * min(max_len[j], 90) + 3) for j in range(ncol)]
+    tot = sum(weight)
+    total_tw = int(text_w / 635)  # EMU -> twips
+    widths = [int(total_tw * w / tot) for w in weight]
+    grid = tbl._tbl.tblGrid
+    if grid is not None:
+        for j, gc in enumerate(grid.findall(qn("w:gridCol"))):
+            if j < ncol:
+                gc.set(qn("w:w"), str(widths[j]))
+    for row in rows:
+        for j, cell in enumerate(row.cells):
+            if j < ncol:
+                tcpr = cell._tc.get_or_add_tcPr()
+                for old in tcpr.findall(qn("w:tcW")):
+                    tcpr.remove(old)
+                tw = OxmlElement("w:tcW"); tw.set(qn("w:w"), str(widths[j])); tw.set(qn("w:type"), "dxa")
+                tcpr.insert(0, tw)
+    tblpr = tbl._tbl.tblPr
+    for old in tblpr.findall(qn("w:tblLayout")):
+        tblpr.remove(old)
+    lay = OxmlElement("w:tblLayout"); lay.set(qn("w:type"), "fixed"); tblpr.append(lay)
+
+
 def postprocess_docx(path: Path) -> None:
     from docx import Document
     from docx.enum.text import WD_ALIGN_PARAGRAPH
@@ -755,8 +888,8 @@ def postprocess_docx(path: Path) -> None:
 
     body = doc.element.body
     cap_style = next(s for s in doc.styles if s.name == "Caption")
-    # Sections flow continuously (a forced page break before each of the 23 top-level headings cost
-    # about nine pages); only the first section, the references and the appendices start a new page.
+    # Sections flow continuously (a forced page break before each of the 27 top-level headings would cost
+    # about ten pages); only the first section, the references and the appendices start a new page.
     try:
         h1_style = doc.styles["Heading 1"]
         h1_style.paragraph_format.page_break_before = False
@@ -766,7 +899,7 @@ def postprocess_docx(path: Path) -> None:
     # captions, images
     for p in doc.paragraphs:
         sn = p.style.name if p.style is not None else ""
-        if sn == "Heading 1" and p.text.strip().startswith(("1 Executive", "22 References", "23 Appendices")):
+        if sn == "Heading 1" and p.text.strip().startswith(("1 Executive", REFERENCES_HEADING[2:], APPENDICES_HEADING[2:])):
             p.paragraph_format.page_break_before = True
         if sn in ("Table Caption", "Image Caption"):
             p.style = doc.styles["Caption"] if False else cap_style
@@ -812,7 +945,15 @@ def postprocess_docx(path: Path) -> None:
         for side, v in (("top", 30), ("left", 70), ("bottom", 30), ("right", 70)):
             e = OxmlElement(f"w:{side}"); e.set(qn("w:w"), str(v)); e.set(qn("w:type"), "dxa"); cm.append(e)
         tblpr.append(cm)
+        _set_column_widths(tbl, text_w)
+        nrows = len(tbl.rows)
+        # short tables are kept on one page; long ones keep the header with the first two body rows
+        keep_upto = nrows - 1 if nrows <= 22 else 3
         for ri, row in enumerate(tbl.rows):
+            if ri < keep_upto:
+                for cell in row.cells:
+                    for par in cell.paragraphs:
+                        par.paragraph_format.keep_with_next = True
             trpr = row._tr.get_or_add_trPr()
             cs = OxmlElement("w:cantSplit"); trpr.append(cs)
             if ri == 0:
@@ -914,6 +1055,10 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     summary["equations_display"] = len(body.findall(".//" + qn("m:oMathPara")))
     summary["equations_total"] = len(body.findall(".//" + qn("m:oMath")))
     summary["word_count"] = words
+    h1 = [p.text.strip() for p in doc.paragraphs if p.style is not None and p.style.name == "Heading 1"]
+    want = [f"{n} {t}" for n, (_, t) in EXPECTED.items()] + [REFERENCES_HEADING[2:], APPENDICES_HEADING[2:]]
+    summary["docx_heading1"] = h1
+    summary["docx_outline_ok"] = h1 == want
     summary["pdf_pages"] = None
     summary["toc_populated"] = None
     if pdf and pdf.exists():
@@ -938,8 +1083,16 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     log(f"Missing sections     : {len(summary['missing_sections'])}")
     for m in summary["missing_sections"]:
         log(f"   - {m}")
+    log(f"DOCX outline = 27 items: {summary['docx_outline_ok']} ({len(h1)} level-1 headings)")
+    if not summary["docx_outline_ok"]:
+        for x in sorted(set(want) ^ set(h1)):
+            log(f"   - outline difference: {x}")
+    log(f"Heading mismatches   : {summary.get('heading_mismatches')}")
+    log(f"Unexpected sections  : {summary.get('unexpected_section_files')}")
     log(f"Missing citation keys: {summary['missing_citation_keys']}")
     log(f"Unresolved in-text   : {summary['unresolved_intext']}")
+    log(f"Listed, not cited    : {summary.get('listed_but_not_cited')}")
+    log(f"Placeholders in docs/reproducing.md: {len(summary.get('reproducing_placeholders') or [])}")
     log(f"Screenshots not captured: {summary.get('screenshots_not_captured')}")
     log(f"TODO/TBD/lorem found : {hits}")
     if hits and fail_on_todo:

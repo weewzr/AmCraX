@@ -20,7 +20,9 @@ $$ r_1 = k_1\frac{p_\mathrm{NH_3}}{P}\theta_s - k_{-1}\theta_\mathrm{NH_3},\quad
 
 $$ \theta_s + \theta_\mathrm{NH_3} + \theta_\mathrm{N} + \theta_\mathrm{H} = 1,\qquad r_1 = r_2 = 2r_3 = \tfrac{2}{3}r_4,\qquad r_\mathrm{NH_3} = r_2 \qquad (14.3) $$
 
-$$ k_i = A_i\exp\!\left(-\frac{E_{a,i}}{RT}\right),\quad k_1 = A_1,\quad K_1 = A_5\exp\!\left(-\frac{E_{a,5}}{RT}\right),\quad K_4 = A_6\exp\!\left(-\frac{E_{a,4}}{RT}\right),\quad k_{-1} = \frac{k_1}{K_1},\quad k_{-4} = \frac{k_4}{K_4} \qquad (14.4) $$
+$$ k_i = A_i\exp\!\left(-\frac{E_{a,i}}{RT}\right),\quad k_1 = A_1,\quad K_1 = A_5\exp\!\left(-\frac{E_{a,5}}{RT}\right),\quad K_4 = A_6\exp\!\left(-\frac{E_{a,4}}{RT}\right) $$
+
+$$ k_{-1} = \frac{k_1}{K_1},\qquad k_{-4} = \frac{k_4}{K_4} \qquad (14.4) $$
 
 where $r_j$ are step rates (mol/(g~cat~ s)), $k_j$ rate constants (mol/(g~cat~ s)), $K_1$ and $K_4$ dimensionless equilibrium constants, $P$ the total pressure and $A$, $E_a$ the Arrhenius parameters of Table 14.1. For a given vacant fraction $\theta_s$ the quasi-steady-state relations give the other coverages explicitly; the site balance is then solved for $\ln\theta_s$. Because only $p_i/P$ enters, the model has no intrinsic total-pressure dependence. Power-law and Langmuir-Hinshelwood forms (Maccarrone et al., 2025) were not implemented.
 

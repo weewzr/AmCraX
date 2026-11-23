@@ -76,5 +76,5 @@ node scripts/e2e_sim_run.mjs                     # LIVE Simulation page run (Pyt
 node scripts/make_site_images.mjs [--base URL]   # hero picture and 1200x630 social preview
 ```
 
-`site_check.mjs` writes `docs/screenshots/site_<page>_<phone|tablet|desktop|fullhd>.png` (full-page for site routes). Typical release check:
+`site_check.mjs` writes full-page `docs/screenshots/site_<page>_desktop.png` for the nine site routes; phone, tablet, full-HD, platform and calculator captures go to `docs/screenshots/qa/` (git-ignored). `capture_site.mjs` then overwrites four of the desktop files and `site_home_mobile.png` with viewport-sized hero crops. Typical release check:
 `npm run build:pages; node scripts/serve_pages.mjs --port 4180` (second shell) `; node scripts/site_check.mjs`.

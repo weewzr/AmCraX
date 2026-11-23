@@ -22,7 +22,7 @@ Table: **Table 23.1.** The two builds of the AmCraX front end. *Source: frontend
 | API requests | Yes | None |
 | Calculation in the browser | Ideal-gas equilibrium calculator | Ideal-gas equilibrium calculator |
 
-![**Figure 23.1.** Landing page of the public site (1440 × 900 px): static-site banner, navigation to the nine sections, a picture of the process flow diagram and headline facts read from the exported results. Actual AmCraX website screenshot. *Source: AmCraX public site in static build showing Aspen Plus V15 results.*](../screenshots/site_home_desktop.png){width=100%}
+![**Figure 23.1.** Landing page of the public site at desktop width: static-site banner, navigation to the nine sections, a picture of the process flow diagram and headline facts read from the exported results. Actual AmCraX website screenshot. *Source: AmCraX public site in static build showing Aspen Plus V15 results.*](../screenshots/site_home_desktop.png){width=100%}
 
 ## 23.2 How results reach the site
 
