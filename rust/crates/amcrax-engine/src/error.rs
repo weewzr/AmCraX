@@ -21,6 +21,10 @@ pub enum EngineError {
     /// The property backend (CoolProp or a table) failed.
     #[error("property backend: {0}")]
     Property(String),
+    /// A numerical method failed where Python raises `RuntimeError` (no physical cubic root,
+    /// successive substitution not converged or trivial, brentq not converged, failed balance).
+    #[error("numerical failure: {0}")]
+    Numerical(String),
 }
 
 impl EngineError {

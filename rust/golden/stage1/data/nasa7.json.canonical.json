@@ -1,0 +1,167 @@
+{
+ "provenance": {
+  "cantera_reference_pressure_Pa": 101325.0,
+  "cantera_version": "3.2.0",
+  "extracted_by": "amcrax.thermodynamics.build_data (programmatic copy, no manual typing)",
+  "extracted_utc": "2026-11-21T07:37:38+00:00",
+  "form": "cp/R = a0 + a1 T + a2 T^2 + a3 T^3 + a4 T^4; h/RT = a0 + a1 T/2 + ... + a5/T; s/R = a0 ln T + a1 T + ... + a6",
+  "mechanism": "GRI-Mech 3.0 (Smith, Golden, Frenklach, et al., 1999, http://combustion.berkeley.edu/gri-mech/)",
+  "note": "Reference pressure of the polynomials: see cantera_reference_pressure_Pa (phase value) and per-species p_ref_Pa (null = phase default).",
+  "source_file": "cantera/data/gri30.yaml (bundled with Cantera)",
+  "units": "T in K; dimensionless coefficients"
+ },
+ "species": {
+  "H2": {
+   "T_ranges_K": [
+    200.0,
+    1000.0,
+    3500.0
+   ],
+   "coeffs_high": [
+    3.3372792,
+    -4.94024731e-05,
+    4.99456778e-07,
+    -1.79566394e-10,
+    2.00255376e-14,
+    -950.158922,
+    -3.20502331
+   ],
+   "coeffs_low": [
+    2.34433112,
+    0.00798052075,
+    -1.9478151e-05,
+    2.01572094e-08,
+    -7.37611761e-12,
+    -917.935173,
+    0.683010238
+   ],
+   "composition": {
+    "H": 2
+   },
+   "note": "TPIS78",
+   "p_ref_Pa": null
+  },
+  "H2O": {
+   "T_ranges_K": [
+    200.0,
+    1000.0,
+    3500.0
+   ],
+   "coeffs_high": [
+    3.03399249,
+    0.00217691804,
+    -1.64072518e-07,
+    -9.7041987e-11,
+    1.68200992e-14,
+    -30004.2971,
+    4.9667701
+   ],
+   "coeffs_low": [
+    4.19864056,
+    -0.0020364341,
+    6.52040211e-06,
+    -5.48797062e-09,
+    1.77197817e-12,
+    -30293.7267,
+    -0.849032208
+   ],
+   "composition": {
+    "H": 2,
+    "O": 1
+   },
+   "note": "L8/89",
+   "p_ref_Pa": null
+  },
+  "N2": {
+   "T_ranges_K": [
+    300.0,
+    1000.0,
+    5000.0
+   ],
+   "coeffs_high": [
+    2.92664,
+    0.0014879768,
+    -5.68476e-07,
+    1.0097038e-10,
+    -6.753351e-15,
+    -922.7977,
+    5.980528
+   ],
+   "coeffs_low": [
+    3.298677,
+    0.0014082404,
+    -3.963222e-06,
+    5.641515e-09,
+    -2.444854e-12,
+    -1020.8999,
+    3.950372
+   ],
+   "composition": {
+    "N": 2
+   },
+   "note": "121286",
+   "p_ref_Pa": null
+  },
+  "NH3": {
+   "T_ranges_K": [
+    200.0,
+    1000.0,
+    6000.0
+   ],
+   "coeffs_high": [
+    2.6344521,
+    0.005666256,
+    -1.7278676e-06,
+    2.3867161e-10,
+    -1.2578786e-14,
+    -6544.6958,
+    6.5662928
+   ],
+   "coeffs_low": [
+    4.2860274,
+    -0.004660523,
+    2.1718513e-05,
+    -2.2808887e-08,
+    8.2638046e-12,
+    -6741.7285,
+    -0.62537277
+   ],
+   "composition": {
+    "H": 3,
+    "N": 1
+   },
+   "note": "J6/77",
+   "p_ref_Pa": null
+  },
+  "O2": {
+   "T_ranges_K": [
+    200.0,
+    1000.0,
+    3500.0
+   ],
+   "coeffs_high": [
+    3.28253784,
+    0.00148308754,
+    -7.57966669e-07,
+    2.09470555e-10,
+    -2.16717794e-14,
+    -1088.45772,
+    5.45323129
+   ],
+   "coeffs_low": [
+    3.78245636,
+    -0.00299673416,
+    9.84730201e-06,
+    -9.68129509e-09,
+    3.24372837e-12,
+    -1063.94356,
+    3.65767573
+   ],
+   "composition": {
+    "O": 2
+   },
+   "note": "TPIS89",
+   "p_ref_Pa": null
+  }
+ }
+}

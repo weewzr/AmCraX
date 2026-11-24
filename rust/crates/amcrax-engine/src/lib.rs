@@ -26,6 +26,7 @@ pub mod optim;
 pub mod process;
 pub mod props;
 pub mod provenance;
+pub mod pyops;
 pub mod reactor;
 pub mod schema;
 pub mod separation;
@@ -33,6 +34,7 @@ pub mod species;
 pub mod thermo;
 pub mod units;
 pub mod uq;
+pub mod verify;
 
 pub use error::EngineError;
 pub use species::{Comp, N_SPECIES, Species};

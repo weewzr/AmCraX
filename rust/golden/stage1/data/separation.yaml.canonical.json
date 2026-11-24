@@ -1,0 +1,262 @@
+{
+ "ammonia_slip": {
+  "fuel_cell_limit_ppm": {
+   "citekey": "cechetto2023membrane",
+   "locator": "Sec. 2 text, quoting ISO 14687:2019 (their ref. 35); limit applies to stationary and vehicle use",
+   "page": 5,
+   "value": 0.1
+  },
+  "n2_limit_vehicle_ppm": {
+   "citekey": "cechetto2023membrane",
+   "locator": "Sec. 2 text, quoting ISO 14687:2019",
+   "page": 5,
+   "value": 300
+  },
+  "removal_evidence": [
+   {
+    "citekey": "cho2026nickel",
+    "locator": "Table 3",
+    "method": "TSA zeolite 4A",
+    "outlet_ppm": "< 0.1",
+    "page": 6
+   },
+   {
+    "H2_recovery": 0.9857,
+    "citekey": "kum2026heatintegrated",
+    "locator": "Eq. 11; Table 7",
+    "method": "TSA (Kum)",
+    "page": "6, 12"
+   },
+   {
+    "citekey": "cechetto2023membrane",
+    "locator": "Sec. 4.3.6",
+    "method": "clinoptilolite",
+    "outlet_ppm": "< 0.025 from ~1000",
+    "page": 14
+   }
+  ]
+ },
+ "compression": {
+  "intercooling": "Assumption: ideal intercooling back to the suction temperature between stages, equal pressure ratio per stage, no intercooler pressure drop, ideal-gas cp(T) from amcrax.thermodynamics (NASA-7 / GRI-Mech 3.0).",
+  "isentropic_efficiency": {
+   "citekey": "cho2026nickel",
+   "default": 0.75,
+   "locator": "Table 2 (isentropic efficiency of compressors)",
+   "note": "Literature value adopted as an AmCraX assumption for the cracked-gas compressor.",
+   "page": 5,
+   "range": [
+    0.7,
+    0.85
+   ],
+   "range_sources": [
+    {
+     "citekey": "richard2024technoeconomic",
+     "locator": "Table 1",
+     "page": 6,
+     "value": 0.7
+    },
+    {
+     "citekey": "ahmad2025gtcc",
+     "locator": "Table 2",
+     "page": 5,
+     "value": 0.85
+    }
+   ]
+  },
+  "max_pressure_ratio_per_stage": {
+   "citekey": "cho2026nickel",
+   "locator": "Table 2 (maximum compression ratio in compressors)",
+   "page": 5,
+   "value": 3.5
+  }
+ },
+ "membrane": {
+  "benchmarks_membrane_reactor": [
+   {
+    "P_bar": 5,
+    "R_H2": 0.975,
+    "T_C": 430,
+    "citekey": "cechetto2023membrane",
+    "locator": "Table 8",
+    "page": 15,
+    "ref": "Kim 2022"
+   },
+   {
+    "P_bar": 4,
+    "R_H2": 0.935,
+    "T_C": 400,
+    "citekey": "cechetto2023membrane",
+    "locator": "Table 8",
+    "page": 15,
+    "ref": "Cechetto 2021"
+   },
+   {
+    "P_bar": 7,
+    "R_H2": 0.906,
+    "T_C": 450,
+    "citekey": "cechetto2023membrane",
+    "locator": "Table 8",
+    "page": 15,
+    "ref": "Jiang 2021"
+   }
+  ],
+  "concentration_polarisation_factor": {
+   "applied_by_default": false,
+   "citekey": "richard2024technoeconomic",
+   "locator": "Table 3 / text p. 7 (\"CP factor ... used as a multiplier in Sieverts' law\")",
+   "note": "The source does not state unambiguously whether the multiplier is 0.15 or (1 - 0.15). The default run uses ideal Sieverts flux (multiplier 1.0, assumption: no polarisation); flux_multiplier is an explicit input for sensitivity.",
+   "page": 7,
+   "value": 0.15
+  },
+  "default_permeability_set": "richard_ref53",
+  "default_permeate_pressure_bar": {
+   "citekey": "richard2024technoeconomic",
+   "locator": "Table 1 (permeate pressure 1 bar)",
+   "page": 6,
+   "value": 1.0
+  },
+  "default_temperature_C": {
+   "rationale": "Inside the 350-500 degC Pd window; equals the Cechetto 2021 benchmark temperature (cechetto2023membrane Table 8).",
+   "source": "assumption",
+   "value": 400.0
+  },
+  "flux_law": {
+   "citekey": "richard2024technoeconomic",
+   "expr": "J_H2 = (Pe/delta) * (p_H2_ret**n - p_H2_perm**n)",
+   "locator": "Eqs. 1-2",
+   "n": 0.5,
+   "page": "6-7",
+   "permeability": "Pe = Pe0 * exp(-Ea/(R*T))"
+  },
+  "hydrogen_recovery_factor": {
+   "citekey": "maccarrone2025comprehensive",
+   "expr": "HRF = H2_perm / (H2_perm + H2_ret)",
+   "locator": "Table 6",
+   "page": 23
+  },
+  "operating_window_C": {
+   "citekey": "maccarrone2025comprehensive",
+   "extra": "embrittlement below 300 degC and 2 MPa; never above 500 degC (cechetto2023membrane pp. 6, 10)",
+   "locator": "Sec. 5.5",
+   "max": 500,
+   "min": 350,
+   "page": 29
+  },
+  "permeability_sets": [
+   {
+    "Ea_kJ_mol": 9.23,
+    "Pe0_mol_m_s_Pa05": 4.57e-08,
+    "citekey": "richard2024technoeconomic",
+    "id": "richard_ref53",
+    "locator": "Table 2, row [53]",
+    "page": 7,
+    "thickness_um": 5.2,
+    "usable": true
+   },
+   {
+    "Ea_kJ_mol": 7.1,
+    "Pe0_mol_m_s_Pa05": 1.76e-08,
+    "citekey": "richard2024technoeconomic",
+    "id": "richard_ref54",
+    "locator": "Table 2, row [54]",
+    "page": 7,
+    "thickness_um": 4.2,
+    "usable": true
+   },
+   {
+    "Ea_kJ_mol": 9.99,
+    "Pe0_mol_m_s_Pa05": "6.93e8",
+    "citekey": "richard2024technoeconomic",
+    "id": "richard_ref52",
+    "locator": "Table 2, row [52] (Fernandez et al. 2015)",
+    "page": 7,
+    "reason": "Pre-exponential misprinted in the source; original not verified. Not used.",
+    "thickness_um": 5.0,
+    "usable": false
+   }
+  ],
+  "selectivity": "Infinite H2 selectivity of the dense Pd-Ag layer: permeate is pure H2 (richard2024technoeconomic p. 7, model assumption of the source). Experimental Pd-Ag membranes in NH3 service reach >99.999 % H2 with NH3 < 0.01 ppm (cechetto2023membrane pp. 15, 17, Tables 8 and 10, Jiang 2021)."
+ },
+ "psa": {
+  "amcrax_baseline": {
+   "rationale": "AmCraX baseline CaseInputs.psa_h2_recovery. No local source supports 0.85 numerically (literature 0.71-0.81); kept only so the Aspen baseline can be reproduced and compared.",
+   "recovery": 0.85,
+   "source": "assumption"
+  },
+  "feed_pressure_requirement_bar": {
+   "alternatives": [
+    {
+     "citekey": "chopra2026decentralized",
+     "locator": "Sec. 2.2",
+     "page": 4,
+     "value": 15.0
+    },
+    {
+     "citekey": "hansen2024hysys",
+     "locator": "Sec. 2",
+     "page": 2,
+     "value": 2.5
+    }
+   ],
+   "citekey": "cho2026nickel",
+   "default": 7.0,
+   "locator": "Table 3 (PSA inlet 40 degC, 7 bar)",
+   "page": 6
+  },
+  "impurity_split_assumption": "Assumption: NH3 and H2O are retained completely by the adsorbent (they are far more strongly adsorbed than N2 on zeolite 5A / activated carbon) and leave with the tail gas; the non-H2 part of the product (1 - purity) is N2. Rationale: N2 is the least-adsorbed impurity, so it determines purity; the NH3 fuel-cell limit is handled separately (ammonia_slip).",
+  "operating_points": [
+   {
+    "adsorbent": "zeolite 5A, 4 beds",
+    "citekey": "cho2026nickel",
+    "feed_pressure_bar": 7.0,
+    "feed_temperature_C": 40.0,
+    "id": "cho2026_5A",
+    "locator": "Table 3 (original source Yanez et al. 2020, ref. [55] there)",
+    "page": 6,
+    "purity": 0.9911,
+    "recovery": 0.756,
+    "tail_pressure_bar": 1.2
+   },
+   {
+    "adsorbent": "lumped 4-bed PSA",
+    "citekey": "kum2026heatintegrated",
+    "feed_pressure_bar": null,
+    "id": "kum2026_lumped",
+    "locator": "Sec. 2; Appendix I",
+    "page": 3,
+    "purity": null,
+    "recovery": 0.8,
+    "tail_pressure_bar": null
+   },
+   {
+    "adsorbent": "activated carbon",
+    "citekey": "hansen2024hysys",
+    "feed_pressure_bar": 2.5,
+    "feed_temperature_C": 20.0,
+    "id": "hansen2024_cha_AC",
+    "locator": "Sec. 2 (original Cha et al. 2021)",
+    "page": 2,
+    "purity": 0.99,
+    "recovery": 0.71,
+    "tail_pressure_bar": null
+   },
+   {
+    "adsorbent": "not stated",
+    "citekey": "hansen2024hysys",
+    "feed_pressure_bar": null,
+    "id": "hansen2024_lee",
+    "locator": "Sec. 2 (original Lee et al. 2023)",
+    "page": 2,
+    "purity": null,
+    "recovery": 0.79,
+    "tail_pressure_bar": null
+   }
+  ],
+  "product_purity_spec": {
+   "citekey": "chopra2026decentralized",
+   "locator": "Sec. 2.2",
+   "page": 4,
+   "value": 0.99
+  }
+ }
+}
