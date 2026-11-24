@@ -179,7 +179,7 @@ jobs:
         uses: actions/cache@v4
         with:
           path: ${{ runner.temp }}/coolprop-dist
-          key: coolprop-${{ env.COOLPROP_COMMIT }}-static-pic-v1
+          key: coolprop-${{ env.COOLPROP_COMMIT }}-static-pic-externc-v2
       - name: fetch CoolProp at the pinned commit (with submodules)
         if: steps.cpcache.outputs.cache-hit != 'true'
         working-directory: ${{ runner.temp }}
@@ -200,10 +200,14 @@ jobs:
         working-directory: ${{ runner.temp }}
         run: |
           set -euo pipefail
-          cmake -S coolprop-src -B coolprop-build -DCOOLPROP_STATIC_LIBRARY=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+          # COOLPROP_EXTERNC_LIBRARY / EXTERNC: export the C interface of CoolPropLib.h with C linkage
+          # from the static library (without it the functions are C++-mangled)
+          cmake -S coolprop-src -B coolprop-build -DCOOLPROP_STATIC_LIBRARY=ON -DCOOLPROP_EXTERNC_LIBRARY=ON \
+            -DCMAKE_CXX_FLAGS=-DEXTERNC -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON
           cmake --build coolprop-build --config Release -j "$(nproc)"
           mkdir -p coolprop-dist
           find coolprop-build -name 'libCoolProp*.a' -exec cp {} coolprop-dist/ \;
+          echo "C symbols of the interface:"; nm -g --defined-only coolprop-dist/libCoolProp.a | grep -E ' T (PropsSI|Props1SI|AbstractState_factory|AbstractState_update|AbstractState_keyed_output|AbstractState_specify_phase|get_param_index|get_input_pair_index|get_global_param_string)$' || true
           cp coolprop-src/LICENSE coolprop-dist/LICENSE
           (cd coolprop-src && echo "commit $(git rev-parse HEAD)" && git submodule status --recursive) > coolprop-dist/SOURCE.txt
           sha256sum coolprop-dist/* | tee coolprop-dist/SHA256SUMS.txt

@@ -47,6 +47,8 @@ VERIFY TARGETS:
     props       stage 4: the CoolProp back end against Python CoolProp on a dense grid
                 (needs --props coolprop and a build with the `coolprop` feature)
     flowsheet   stage 4: run_python_case on every golden and stored case (rust/golden/stage4)
+    heat        stage 4: pinch analysis on the Python and stored Aspen results, exchanger sizing,
+                costing and break-even solves
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
@@ -507,6 +509,18 @@ fn run_engine_target(
     if matches!(target, "flowsheet" | "all") {
         let b = make_backend(props, root)?;
         out.push(ev::stage4::flowsheet(&stage("stage4")?, b.as_ref(), root).map_err(s)?);
+    }
+    if matches!(target, "heat" | "all") {
+        let b = make_backend(props, root)?;
+        out.push(
+            ev::stage4::heat(
+                &stage("stage4")?,
+                b.as_ref(),
+                EconomicsData::embedded(),
+                root,
+            )
+            .map_err(s)?,
+        );
     }
     if out.is_empty() {
         return Err(format!(

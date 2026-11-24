@@ -18,6 +18,22 @@ fn check(r: amcrax_engine::verify::Report) {
     assert!(r.passed(), "{} golden comparison failed", r.target);
 }
 
+#[cfg(feature = "yaml")]
+#[test]
+fn heat_integration_golden_tables_backend() {
+    let g = golden();
+    let b = stage4::tables_backend(&g).expect("coolprop_states table");
+    check(
+        stage4::heat(
+            &g,
+            &b,
+            amcrax_engine::economics::reference::EconomicsData::embedded(),
+            &root(),
+        )
+        .expect("heat check runs"),
+    );
+}
+
 #[test]
 fn flowsheet_golden_tables_backend() {
     let g = golden();
