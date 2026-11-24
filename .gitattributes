@@ -1,0 +1,14 @@
+# Line endings that do not depend on the platform, so that SHA-256 hashes of data files and
+# golden tables are the same on every checkout.
+
+# Rust workspace: sources, manifests and golden tables always LF
+rust/** text=auto eol=lf
+rust/golden/** text eol=lf
+rust/**/*.rs text eol=lf
+
+# Reference data read (and hashed) by Python and Rust: stored bytes are checked out unchanged,
+# without any line-ending conversion (some of these files are committed with CRLF, and their
+# hashes are recorded in the stored results).
+backend/amcrax/data/** -text
+research/data/** -text
+config/*.json -text
