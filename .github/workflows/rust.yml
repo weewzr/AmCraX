@@ -64,8 +64,13 @@ jobs:
           cargo run --profile ci --locked -p amcrax-cli -- verify numerics --golden golden/numerics
       - name: amcrax verify (Python versus Rust comparison report)
         run: |
-          cargo run --profile ci --locked -p amcrax-cli -- verify thermo --root .. --report target/verification/stage1.json
-          echo "===== BEGIN stage1.json"; cat target/verification/stage1.json; echo "===== END stage1.json"
+          cargo run --profile ci --locked -p amcrax-cli -- verify all --root .. --report target/verification/stage1_2_report.json
+          echo "===== BEGIN stage1_2_report.json"; cat target/verification/stage1_2_report.json; echo "===== END stage1_2_report.json"
+      - name: amcrax eval pfr (smoke test of the JSON interface)
+        run: |
+          echo '{"catalyst_id": "ru_takahashi_microkinetic", "W_kg": 50.0, "n_tubes": 50, "n_points": 3}' > target/case.json
+          cargo run --profile ci --locked -p amcrax-cli -- eval pfr --input target/case.json --output target/verification/eval_pfr_example.json
+          head -c 600 target/verification/eval_pfr_example.json
       - name: upload comparison report
         if: always()
         uses: actions/upload-artifact@v4

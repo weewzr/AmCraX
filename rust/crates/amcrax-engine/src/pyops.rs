@@ -69,8 +69,55 @@ pub fn linspace(start: f64, stop: f64, num: usize) -> Vec<f64> {
     }
 }
 
+/// Python `format(x, f".{prec}g")` (`{x:g}` is `prec = 6`).
+pub fn fmt_g(x: f64, prec: usize) -> String {
+    if x.is_nan() {
+        return "nan".into();
+    }
+    if x.is_infinite() {
+        return if x > 0.0 { "inf" } else { "-inf" }.into();
+    }
+    if x == 0.0 {
+        return if x.is_sign_negative() { "-0" } else { "0" }.into();
+    }
+    let p = prec.max(1);
+    let s = format!("{:.*e}", p - 1, x);
+    let (mant, exp) = s.split_once('e').unwrap_or((s.as_str(), "0"));
+    let e: i32 = exp.parse().unwrap_or(0);
+    if e < -4 || e >= p as i32 {
+        format!(
+            "{}e{}{:02}",
+            strip_zeros(mant),
+            if e < 0 { '-' } else { '+' },
+            e.abs()
+        )
+    } else {
+        let decimals = (p as i32 - 1 - e).max(0) as usize;
+        strip_zeros(&format!("{x:.decimals$}"))
+    }
+}
+
+fn strip_zeros(s: &str) -> String {
+    if s.contains('.') {
+        s.trim_end_matches('0').trim_end_matches('.').to_string()
+    } else {
+        s.to_string()
+    }
+}
+
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn format_g() {
+        use super::fmt_g;
+        assert_eq!(fmt_g(1e-6, 6), "1e-06");
+        assert_eq!(fmt_g(20.0, 6), "20");
+        assert_eq!(fmt_g(0.0370249404, 6), "0.0370249");
+        assert_eq!(fmt_g(1e6, 6), "1e+06");
+        assert_eq!(fmt_g(123456.7, 6), "123457");
+        assert_eq!(fmt_g(2.5, 6), "2.5");
+    }
+
     use super::*;
 
     #[test]

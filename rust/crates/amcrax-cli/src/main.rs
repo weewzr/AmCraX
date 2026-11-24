@@ -6,6 +6,8 @@
 mod verify;
 
 use amcrax_engine::data::DataRoot;
+use amcrax_engine::kinetics::KineticsRegistry;
+use amcrax_engine::reactor::{PfrInput, SolverOptions, simulate_pfr};
 use amcrax_engine::verify as ev;
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -18,14 +20,27 @@ USAGE:
     amcrax --version
     amcrax --help
     amcrax verify <target> [--golden <dir>] [--root <repo>] [--report <file.json>]
+    amcrax eval pfr --input <case.json> [--output <result.json>]
 
 VERIFY TARGETS:
     numerics    golden tables of amcrax-numerics (default dir rust/golden/numerics)
     thermo      stage 1: data loading parity and thermodynamics (rust/golden/stage1)
+    kinetics    stage 2: rate laws and viscosity (rust/golden/stage2)
+    reactor     stage 2: plug-flow reactor and the derived searches (rust/golden/stage2)
+    all         thermo, kinetics and reactor in one report
 
     --root      repository root (default $AMCRAX_ROOT, else . or ..)
+    --golden    golden-table directory (single-stage targets only)
     --report    write the comparison report (JSON: per quantity the number of cases, the maximum
                 deviation, the gate, pass or fail)
+
+EVAL:
+    pfr         read a JSON object with the keyword arguments of Python simulate_pfr
+                (catalyst_id, W_kg, T_in_C, P_in_bar, feed_kmol_h, mode, T_wall_C, U_W_m2K, eps_b,
+                rho_particle_kg_m3, dp_m, tube_inner_diameter_m, n_tubes, pressure_drop,
+                approach_factor, keq_basis, x_seed, n_points; unknown keys are an error) and write
+                the result as JSON (stdout when --output is not given). Errors: JSON
+                {\"error\": kind, \"message\": ...} and exit code 1.
 ";
 
 #[derive(Debug, PartialEq, Eq)]
@@ -37,6 +52,10 @@ enum Command {
         golden: Option<PathBuf>,
         root: Option<PathBuf>,
         report: Option<PathBuf>,
+    },
+    EvalPfr {
+        input: PathBuf,
+        output: Option<PathBuf>,
     },
 }
 
@@ -72,12 +91,37 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                     }
                 }
             }
-            let target = target.ok_or("verify needs a target (numerics, thermo)")?;
+            let target =
+                target.ok_or("verify needs a target (numerics, thermo, kinetics, reactor, all)")?;
             Ok(Command::Verify {
                 target,
                 golden,
                 root,
                 report,
+            })
+        }
+        Some("eval") => {
+            match it.next().map(String::as_str) {
+                Some("pfr") => {}
+                Some(other) => return Err(format!("unknown eval model {other} (available: pfr)")),
+                None => return Err("eval needs a model (pfr)".into()),
+            }
+            let mut input = None;
+            let mut output = None;
+            while let Some(a) = it.next() {
+                match a.as_str() {
+                    "--input" => {
+                        input = Some(PathBuf::from(it.next().ok_or("--input needs a file")?))
+                    }
+                    "--output" => {
+                        output = Some(PathBuf::from(it.next().ok_or("--output needs a file")?))
+                    }
+                    s => return Err(format!("unexpected argument {s}")),
+                }
+            }
+            Ok(Command::EvalPfr {
+                input: input.ok_or("eval pfr needs --input <case.json>")?,
+                output,
             })
         }
         Some(other) => Err(format!("unknown command {other}")),
@@ -122,18 +166,89 @@ fn run_engine_target(
     root: &Path,
     golden: Option<PathBuf>,
 ) -> Result<Vec<ev::Report>, String> {
-    match target {
-        "thermo" => {
-            let dir = golden.unwrap_or_else(|| default_golden_dir(root, "stage1"));
-            let g = ev::Golden::open(&dir).map_err(|e| e.to_string())?;
-            let data = ev::stage1::data(&DataRoot::new(root), &g).map_err(|e| e.to_string())?;
-            let thermo = ev::stage1::thermo(&g).map_err(|e| e.to_string())?;
-            Ok(vec![data, thermo])
-        }
-        other => Err(format!(
-            "unknown target {other} (available: numerics, thermo)"
-        )),
+    let s = |e: amcrax_engine::EngineError| e.to_string();
+    let reg = KineticsRegistry::embedded();
+    let sopt = SolverOptions::default();
+    let stage = |name: &str| -> Result<ev::Golden, String> {
+        let dir = match (&golden, target) {
+            (Some(g), t) if t != "all" => g.clone(),
+            _ => default_golden_dir(root, name),
+        };
+        ev::Golden::open(&dir).map_err(s)
+    };
+    let mut out = Vec::new();
+    if matches!(target, "thermo" | "all") {
+        let g = stage("stage1")?;
+        out.push(ev::stage1::data(&DataRoot::new(root), &g).map_err(s)?);
+        out.push(ev::stage1::thermo(&g).map_err(s)?);
     }
+    if matches!(target, "kinetics" | "all") {
+        out.push(ev::stage2::kinetics(&stage("stage2")?, reg).map_err(s)?);
+    }
+    if matches!(target, "reactor" | "all") {
+        out.push(ev::stage2::reactor(&stage("stage2")?, reg, &sopt).map_err(s)?);
+    }
+    if out.is_empty() {
+        return Err(format!(
+            "unknown target {target} (available: numerics, thermo, kinetics, reactor, all)"
+        ));
+    }
+    Ok(out)
+}
+
+fn error_kind(e: &amcrax_engine::EngineError) -> &'static str {
+    use amcrax_engine::EngineError as E;
+    match e {
+        E::Spec(_) => "spec",
+        E::Bracket(_) => "bracket",
+        E::Integration(_) => "integration",
+        E::Domain(_) => "domain",
+        E::Data { .. } => "data",
+        E::Property(_) => "property",
+        E::Numerical(_) => "numerical",
+    }
+}
+
+/// `amcrax eval pfr`: JSON case in, JSON result out.
+fn eval_pfr(input: &Path, output: Option<&Path>) -> ExitCode {
+    let write = |text: String| -> Result<(), String> {
+        match output {
+            Some(p) => std::fs::write(p, text + "\n").map_err(|e| e.to_string()),
+            None => {
+                println!("{text}");
+                Ok(())
+            }
+        }
+    };
+    let result = std::fs::read(input)
+        .map_err(|e| ("input".to_string(), format!("{}: {e}", input.display())))
+        .and_then(|b| {
+            serde_json::from_slice::<PfrInput>(&b)
+                .map_err(|e| ("input".to_string(), format!("{}: {e}", input.display())))
+        })
+        .and_then(|case| {
+            simulate_pfr(
+                KineticsRegistry::embedded(),
+                &case,
+                &SolverOptions::default(),
+            )
+            .map_err(|e| (error_kind(&e).to_string(), e.to_string()))
+        });
+    let (text, code) = match result {
+        Ok(r) => (
+            serde_json::to_string_pretty(&r).unwrap_or_default(),
+            ExitCode::SUCCESS,
+        ),
+        Err((kind, msg)) => (
+            serde_json::json!({"error": kind, "message": msg}).to_string(),
+            ExitCode::FAILURE,
+        ),
+    };
+    if let Err(e) = write(text) {
+        eprintln!("amcrax eval pfr: cannot write output: {e}");
+        return ExitCode::from(2);
+    }
+    code
 }
 
 fn main() -> ExitCode {
@@ -147,6 +262,7 @@ fn main() -> ExitCode {
             print!("{USAGE}");
             ExitCode::SUCCESS
         }
+        Ok(Command::EvalPfr { input, output }) => eval_pfr(&input, output.as_deref()),
         Ok(Command::Verify {
             target,
             golden,
@@ -232,6 +348,15 @@ mod tests {
                 report: Some(PathBuf::from("r.json")),
             })
         );
+        assert_eq!(
+            parse_args(&args(&["eval", "pfr", "--input", "c.json"])),
+            Ok(Command::EvalPfr {
+                input: PathBuf::from("c.json"),
+                output: None,
+            })
+        );
+        assert!(parse_args(&args(&["eval", "pfr"])).is_err());
+        assert!(parse_args(&args(&["eval", "flowsheet", "--input", "c.json"])).is_err());
         assert!(parse_args(&args(&["verify"])).is_err());
         assert!(parse_args(&args(&["verify", "a", "b"])).is_err());
         assert!(parse_args(&args(&["frobnicate"])).is_err());

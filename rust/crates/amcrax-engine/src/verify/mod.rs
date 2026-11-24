@@ -13,6 +13,7 @@
 //! * `info`: reported, not gated.
 
 pub mod stage1;
+pub mod stage2;
 
 use crate::error::EngineError;
 use crate::provenance::sha256_hex;
