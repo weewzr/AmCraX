@@ -9,6 +9,7 @@ import { filterItems, pageItems, type PaletteItem } from './siteHelpers'
  * matrix and the stored simulator scenarios. Everything it offers is also reachable through the normal navigation.
  *
  * Keys: Ctrl+K or Cmd+K opens it (SiteLayout); Up and Down move, Enter opens, Escape clears the text, then closes.
+ * Tab moves between the input and the Close button only (the listbox is not a tab stop; its options follow the input).
  * There is no single-key shortcut (WCAG 2.1.4).
  */
 interface Hyp { id?: string; statement?: string; verdict?: string; verdict_v1?: string }
@@ -16,6 +17,7 @@ interface Hyp { id?: string; statement?: string; verdict?: string; verdict_v1?: 
 export function CommandPalette({ open, onClose }: { open: boolean; onClose: () => void }) {
   const ref = useRef<HTMLDialogElement>(null)
   const input = useRef<HTMLInputElement>(null)
+  const closeBtn = useRef<HTMLButtonElement>(null)
   const navigate = useNavigate()
   const uid = useId()
   const [q, setQ] = useState('')
@@ -59,6 +61,11 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
     if (e.key === 'ArrowDown') { e.preventDefault(); setAct(shown.length ? (active + 1) % shown.length : 0) }
     else if (e.key === 'ArrowUp') { e.preventDefault(); setAct(shown.length ? (active - 1 + shown.length) % shown.length : 0) }
     else if (e.key === 'Enter') { e.preventDefault(); if (active >= 0) go(shown[active]) }
+    // the dialog has two tab stops (Close, then the input); Tab from the input returns to Close instead of leaving the dialog
+    else if (e.key === 'Tab' && !e.shiftKey && closeBtn.current) { e.preventDefault(); closeBtn.current.focus() }
+  }
+  const onCloseKey = (e: KeyboardEvent<HTMLButtonElement>) => {
+    if (e.key === 'Tab' && e.shiftKey && input.current) { e.preventDefault(); input.current.focus() }
   }
 
   // groups in order of first appearance
@@ -75,13 +82,13 @@ export function CommandPalette({ open, onClose }: { open: boolean; onClose: () =
       <div className="palette-box">
         <div className="palette-head">
           <h2 id={`${uid}-title`} className="palette-title">Go to a page, hypothesis or scenario</h2>
-          <button type="button" className="btn palette-close" onClick={close}>Close<span className="sr-only"> the search</span></button>
+          <button type="button" ref={closeBtn} className="btn palette-close" onClick={close} onKeyDown={onCloseKey}>Close<span className="sr-only"> the search</span></button>
         </div>
         <input ref={input} className="palette-input" type="text" role="combobox" aria-expanded="true" aria-autocomplete="list"
           aria-controls={`${uid}-list`} aria-activedescendant={active >= 0 ? optId(active) : undefined} aria-describedby={`${uid}-keys`}
           aria-label="Search pages, hypotheses and scenarios" placeholder="Type to filter, for example purification or 700 degC"
           value={q} onChange={(e) => { setQ(e.target.value); setAct(0) }} onKeyDown={onKey} autoComplete="off" spellCheck={false} />
-        <div id={`${uid}-list`} role="listbox" aria-label="Results" className="palette-list">
+        <div id={`${uid}-list`} role="listbox" aria-label="Results" className="palette-list" tabIndex={-1}>
           {groups.map((g, gi) => (
             <div key={g.name} role="group" aria-labelledby={`${uid}-g${gi}`}>
               <div id={`${uid}-g${gi}`} role="presentation" className="palette-group">{g.name}</div>
