@@ -6,6 +6,9 @@ members = [
     "crates/amcrax-cli",
     "crates/amcrax-wasm",
 ]
+# The CoolProp FFI back end is not a member: it is only built through `amcrax-cli --features
+# coolprop` (CI job `coolprop`), never by the default build, rust-analyzer or the wasm build.
+exclude = ["crates/amcrax-coolprop"]
 
 [workspace.package]
 version = "0.1.0"

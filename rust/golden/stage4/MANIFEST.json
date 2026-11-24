@@ -1,0 +1,47 @@
+{
+ "files": {
+  "coolprop_grid.json": {
+   "bytes": 332626,
+   "cases": 4335,
+   "sha256": "341851d66d44d3ad109062bbee252263f38ffad501eea215fcf1e065a95c1151"
+  },
+  "coolprop_states.json": {
+   "bytes": 1381053,
+   "cases": 8556,
+   "sha256": "5c660680081db7c33b6fc596a726b114db89222d6378663f57f59d5b8e16eee0"
+  },
+  "flowsheet.json": {
+   "bytes": 1118290,
+   "cases": 96,
+   "sha256": "bacaeb9ac815a7b773664eced84475a0907c14aa7138c7506c4993c70d82ef02"
+  },
+  "heat.json": {
+   "bytes": 9945365,
+   "cases": 2255,
+   "sha256": "118420570e923167d1bc4822b7e48b86ae50b2eafcd822e8aa4aa65559ffa801"
+  },
+  "separation.json": {
+   "bytes": 1107384,
+   "cases": 549,
+   "sha256": "8e520340777733f46c80859cc4535c47b2ce6f1c173df1c10465797ffc95decb"
+  }
+ },
+ "meta": {
+  "amcrax_source": "backend/amcrax (this repository)",
+  "coolprop": "8.0.0",
+  "coolprop_ammonia_eos": "Gao-JPCRD-2020",
+  "coolprop_gitrevision": "ae81610e7d23efc57f9d051c8e70a4d66e87537f",
+  "coolprop_reference_state": "CoolProp default reference state of each fluid file (the Python code never calls set_reference_state; the NH3 scale is anchored to NASA-7 by the Python model)",
+  "coolprop_water_eos": "Wagner-JPCRD-2002",
+  "generator": "rust/golden/generate_stage4_golden.py",
+  "git_head_at_generation": "5f65ac41474bb26052dfeb0ee5988be028d9857a",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "pydantic": "2.14.4",
+  "python": "3.12.10",
+  "python_reference_tag": "amcrax-phase2-reviewed-2026-11-24",
+  "pyyaml": "6.0.4",
+  "science_diff_vs_tag": "backend/amcrax/data/singapore.yaml | 4 ++--\n backend/amcrax/enduse/params.py    | 2 +-\n 2 files changed, 3 insertions(+), 3 deletions(-)",
+  "scipy": "1.18.1"
+ }
+}

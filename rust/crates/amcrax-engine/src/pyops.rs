@@ -97,6 +97,61 @@ pub fn fmt_g(x: f64, prec: usize) -> String {
     }
 }
 
+/// Python `repr(x)` / `str(x)` of a float (shortest round-trip digits; scientific notation when
+/// the decimal exponent is below -4 or at least 16).
+pub fn py_repr(x: f64) -> String {
+    if x.is_nan() {
+        return "nan".into();
+    }
+    if x.is_infinite() {
+        return if x > 0.0 { "inf" } else { "-inf" }.into();
+    }
+    if x == 0.0 {
+        return if x.is_sign_negative() { "-0.0" } else { "0.0" }.into();
+    }
+    let s = format!("{:e}", x.abs());
+    let (m, e) = s.split_once('e').unwrap_or((s.as_str(), "0"));
+    let e: i32 = e.parse().unwrap_or(0);
+    let digits: String = m.chars().filter(|c| *c != '.').collect();
+    let sign = if x < 0.0 { "-" } else { "" };
+    let n = digits.len() as i32;
+    if (-4..16).contains(&e) {
+        let body = if e >= 0 {
+            if n <= e + 1 {
+                format!("{digits}{}.0", "0".repeat((e + 1 - n) as usize))
+            } else {
+                let k = (e + 1) as usize;
+                format!("{}.{}", &digits[..k], &digits[k..])
+            }
+        } else {
+            format!("0.{}{digits}", "0".repeat((-e - 1) as usize))
+        };
+        format!("{sign}{body}")
+    } else {
+        let mant = if n > 1 {
+            format!("{}.{}", &digits[..1], &digits[1..])
+        } else {
+            digits.clone()
+        };
+        format!(
+            "{sign}{mant}e{}{:02}",
+            if e < 0 { '-' } else { '+' },
+            e.abs()
+        )
+    }
+}
+
+/// Python `format(x, ".{prec}f")`.
+pub fn fmt_f(x: f64, prec: usize) -> String {
+    if x.is_nan() {
+        return "nan".into();
+    }
+    if x.is_infinite() {
+        return if x > 0.0 { "inf" } else { "-inf" }.into();
+    }
+    format!("{x:.prec$}")
+}
+
 fn strip_zeros(s: &str) -> String {
     if s.contains('.') {
         s.trim_end_matches('0').trim_end_matches('.').to_string()
@@ -116,6 +171,20 @@ mod tests {
         assert_eq!(fmt_g(1e6, 6), "1e+06");
         assert_eq!(fmt_g(123456.7, 6), "123457");
         assert_eq!(fmt_g(2.5, 6), "2.5");
+    }
+
+    #[test]
+    fn python_repr() {
+        use super::py_repr;
+        assert_eq!(py_repr(0.75), "0.75");
+        assert_eq!(py_repr(5.0), "5.0");
+        assert_eq!(py_repr(100.0), "100.0");
+        assert_eq!(py_repr(1e-5), "1e-05");
+        assert_eq!(py_repr(1.5e-7), "1.5e-07");
+        assert_eq!(py_repr(0.0001), "0.0001");
+        assert_eq!(py_repr(1e16), "1e+16");
+        assert_eq!(py_repr(-2.25), "-2.25");
+        assert_eq!(py_repr(0.1 + 0.2), "0.30000000000000004");
     }
 
     use super::*;

@@ -10,6 +10,7 @@ use amcrax_engine::data::DataRoot;
 use amcrax_engine::economics::reference::EconomicsData;
 use amcrax_engine::economics::singapore::{Scenario, Summary, evaluate};
 use amcrax_engine::kinetics::KineticsRegistry;
+use amcrax_engine::props::FluidProps;
 use amcrax_engine::reactor::{PfrInput, SolverOptions, simulate_pfr};
 use amcrax_engine::studies::{GsaSetup, gsa_study, mc_singapore};
 use amcrax_engine::verify as ev;
@@ -24,6 +25,9 @@ USAGE:
     amcrax --version
     amcrax --help
     amcrax verify <target> [--golden <dir>] [--root <repo>] [--report <file.json>]
+                  [--props tables|coolprop]
+    amcrax eval flowsheet --input <case.json> [--output <result.json>] [--eos ideal|pr]
+                  [--props tables|coolprop] [--root <repo>]
     amcrax eval pfr --input <case.json> [--output <result.json>]
     amcrax eval economics --input <case.json> [--output <result.json>]
     amcrax study <name> [--root <repo>] [--output <result.json>] [--report <file.json>]
@@ -40,7 +44,10 @@ VERIFY TARGETS:
     carbon      stage 3: LCA factors, carbon intensity, carbon pricing (both modes), thresholds
     uq          stage 3: Sobol' estimators, bootstrap, Sobol' base samples, distributions
     stiff       stage 3: high-temperature (stiff) PFR cases against Python LSODA
-    all         every engine target above in one report
+    props       stage 4: the CoolProp back end against Python CoolProp on a dense grid
+                (needs --props coolprop and a build with the `coolprop` feature)
+    flowsheet   stage 4: run_python_case on every golden and stored case (rust/golden/stage4)
+    all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
 
@@ -48,8 +55,13 @@ VERIFY TARGETS:
     --golden    golden-table directory (single-stage targets only)
     --report    write the comparison report (JSON: per quantity the number of cases, the maximum
                 deviation, the gate, pass or fail)
+    --props     fluid-property back end: tables (default; tabulated CoolProp values, exact only at
+                the stored states) or coolprop (CoolProp 8.0.0 C++ library)
 
 EVAL:
+    flowsheet   read a CaseInputs JSON object (or {\"inputs\": {...}, \"eos\": \"ideal\"|\"pr\"}) and
+                write the SimulationResult of Python run_python_case (source python_model; the
+                engine is the Rust port), plus \"property_backend\"
     pfr         read a JSON object with the keyword arguments of Python simulate_pfr
                 (catalyst_id, W_kg, T_in_C, P_in_bar, feed_kmol_h, mode, T_wall_C, U_W_m2K, eps_b,
                 rho_particle_kg_m3, dp_m, tube_inner_diameter_m, n_tubes, pressure_drop,
@@ -76,6 +88,14 @@ enum Command {
         golden: Option<PathBuf>,
         root: Option<PathBuf>,
         report: Option<PathBuf>,
+        props: Option<String>,
+    },
+    EvalFlowsheet {
+        input: PathBuf,
+        output: Option<PathBuf>,
+        eos: Option<String>,
+        props: Option<String>,
+        root: Option<PathBuf>,
     },
     EvalPfr {
         input: PathBuf,
@@ -112,8 +132,16 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
             let mut golden = None;
             let mut root = None;
             let mut report = None;
+            let mut props = None;
             while let Some(a) = it.next() {
                 match a.as_str() {
+                    "--props" => {
+                        props = Some(
+                            it.next()
+                                .ok_or("--props needs tables or coolprop")?
+                                .to_string(),
+                        )
+                    }
                     "--golden" => {
                         golden = Some(PathBuf::from(
                             it.next().ok_or("--golden needs a directory")?,
@@ -141,6 +169,7 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                 golden,
                 root,
                 report,
+                props,
             })
         }
         Some("bench") => {
@@ -225,16 +254,17 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
         }
         Some("eval") => {
             let model = match it.next().map(String::as_str) {
-                Some(m @ ("pfr" | "economics")) => m.to_string(),
+                Some(m @ ("pfr" | "economics" | "flowsheet")) => m.to_string(),
                 Some(other) => {
                     return Err(format!(
-                        "unknown eval model {other} (available: pfr, economics)"
+                        "unknown eval model {other} (available: pfr, economics, flowsheet)"
                     ));
                 }
-                None => return Err("eval needs a model (pfr, economics)".into()),
+                None => return Err("eval needs a model (pfr, economics, flowsheet)".into()),
             };
             let mut input = None;
             let mut output = None;
+            let (mut eos, mut props, mut root) = (None, None, None);
             while let Some(a) = it.next() {
                 match a.as_str() {
                     "--input" => {
@@ -243,14 +273,33 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                     "--output" => {
                         output = Some(PathBuf::from(it.next().ok_or("--output needs a file")?))
                     }
+                    "--eos" if model == "flowsheet" => {
+                        eos = Some(it.next().ok_or("--eos needs ideal or pr")?.to_string())
+                    }
+                    "--props" if model == "flowsheet" => {
+                        props = Some(
+                            it.next()
+                                .ok_or("--props needs tables or coolprop")?
+                                .to_string(),
+                        )
+                    }
+                    "--root" if model == "flowsheet" => {
+                        root = Some(PathBuf::from(it.next().ok_or("--root needs a directory")?))
+                    }
                     s => return Err(format!("unexpected argument {s}")),
                 }
             }
             let input = input.ok_or("eval needs --input <case.json>")?;
-            Ok(if model == "pfr" {
-                Command::EvalPfr { input, output }
-            } else {
-                Command::EvalEconomics { input, output }
+            Ok(match model.as_str() {
+                "pfr" => Command::EvalPfr { input, output },
+                "economics" => Command::EvalEconomics { input, output },
+                _ => Command::EvalFlowsheet {
+                    input,
+                    output,
+                    eos,
+                    props,
+                    root,
+                },
             })
         }
         Some(other) => Err(format!("unknown command {other}")),
@@ -290,10 +339,106 @@ fn write_report(path: &Path, reports: &[ev::Report]) -> Result<(), String> {
     std::fs::write(path, ev::report_json(reports, meta) + "\n").map_err(|e| e.to_string())
 }
 
+#[cfg(feature = "coolprop")]
+fn coolprop_backend() -> Result<Box<dyn FluidProps>, String> {
+    let b = amcrax_coolprop::CoolPropBackend::new().map_err(|e| e.to_string())?;
+    eprintln!("CoolProp back end: version {}", b.version());
+    Ok(Box::new(b))
+}
+
+#[cfg(not(feature = "coolprop"))]
+fn coolprop_backend() -> Result<Box<dyn FluidProps>, String> {
+    Err("this amcrax was built without the `coolprop` feature (use --props tables)".into())
+}
+
+#[cfg(feature = "coolprop")]
+fn coolprop_notice() -> String {
+    format!(
+        "CoolProp linked: {}; licence of the linked CoolProp: {}",
+        amcrax_coolprop::linked(),
+        amcrax_coolprop::licence()
+            .lines()
+            .take(3)
+            .collect::<Vec<_>>()
+            .join(" / ")
+    )
+}
+
+#[cfg(not(feature = "coolprop"))]
+fn coolprop_notice() -> String {
+    "CoolProp not compiled in".into()
+}
+
+/// The fluid-property back end: `tables` (default; tabulated CoolProp values, exact only at the
+/// stored states) or `coolprop` (C++ library, feature `coolprop`).
+fn make_backend(kind: Option<&str>, root: &Path) -> Result<Box<dyn FluidProps>, String> {
+    match kind.unwrap_or("tables") {
+        "tables" => {
+            let g =
+                ev::Golden::open(&default_golden_dir(root, "stage4")).map_err(|e| e.to_string())?;
+            Ok(Box::new(
+                ev::stage4::tables_backend(&g).map_err(|e| e.to_string())?,
+            ))
+        }
+        "coolprop" => coolprop_backend(),
+        other => Err(format!(
+            "unknown property back end {other} (tables, coolprop)"
+        )),
+    }
+}
+
+/// `amcrax eval flowsheet`: JSON case in (a CaseInputs object, or {"inputs": {...}, "eos": ...}),
+/// JSON SimulationResult out.
+fn eval_flowsheet(
+    input: &Path,
+    output: Option<&Path>,
+    eos: Option<&str>,
+    props: Option<&str>,
+    root: &Path,
+) -> ExitCode {
+    use amcrax_engine::process::{CaseInputs, eos_from_name, run_python_case};
+    let result = (|| -> Result<serde_json::Value, (String, String)> {
+        let v = read_value(input).map_err(|e| ("input".to_string(), e))?;
+        let (inp, eos_name) = match v.get("inputs") {
+            Some(i) => (
+                i.clone(),
+                v.get("eos").and_then(|e| e.as_str()).map(str::to_string),
+            ),
+            None => (v.clone(), None),
+        };
+        let eos_name = eos_name
+            .or(eos.map(str::to_string))
+            .unwrap_or_else(|| "ideal".into());
+        let ci = CaseInputs::from_value(&inp)
+            .map_err(|e| (error_kind(&e).to_string(), e.to_string()))?;
+        let eos =
+            eos_from_name(&eos_name).map_err(|e| (error_kind(&e).to_string(), e.to_string()))?;
+        let b = make_backend(props, root).map_err(|e| ("property".to_string(), e))?;
+        let r = run_python_case(&ci, eos, b.as_ref())
+            .map_err(|e| (error_kind(&e).to_string(), e.to_string()))?;
+        let mut j = r.to_json();
+        j["property_backend"] = serde_json::Value::String(b.backend().to_string());
+        Ok(j)
+    })();
+    let (v, code) = match result {
+        Ok(v) => (v, ExitCode::SUCCESS),
+        Err((kind, msg)) => (
+            serde_json::json!({"error": kind, "message": msg}),
+            ExitCode::FAILURE,
+        ),
+    };
+    if let Err(e) = write_json(output, &v) {
+        eprintln!("amcrax eval flowsheet: cannot write output: {e}");
+        return ExitCode::from(2);
+    }
+    code
+}
+
 fn run_engine_target(
     target: &str,
     root: &Path,
     golden: Option<PathBuf>,
+    props: Option<&str>,
 ) -> Result<Vec<ev::Report>, String> {
     let s = |e: amcrax_engine::EngineError| e.to_string();
     let reg = KineticsRegistry::embedded();
@@ -350,9 +495,23 @@ fn run_engine_target(
             .map_err(s)?,
         );
     }
+    if target == "props" {
+        if props != Some("coolprop") {
+            return Err("verify props compares the CoolProp back end: use --props coolprop".into());
+        }
+        let b = make_backend(props, root)?;
+        let mut r = ev::stage4::props(&stage("stage4")?, b.as_ref()).map_err(s)?;
+        r.findings.push(coolprop_notice());
+        out.push(r);
+    }
+    if matches!(target, "flowsheet" | "all") {
+        let b = make_backend(props, root)?;
+        out.push(ev::stage4::flowsheet(&stage("stage4")?, b.as_ref(), root).map_err(s)?);
+    }
     if out.is_empty() {
         return Err(format!(
-            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, uq, all, studies)"
+            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, uq, \
+             flowsheet, props, all, studies)"
         ));
     }
     Ok(out)
@@ -707,11 +866,28 @@ fn main() -> ExitCode {
             }
             study(&name, &root, output.as_deref(), report.as_deref())
         }
+        Ok(Command::EvalFlowsheet {
+            input,
+            output,
+            eos,
+            props,
+            root,
+        }) => {
+            let root = root.unwrap_or_else(ev::default_repo_root);
+            eval_flowsheet(
+                &input,
+                output.as_deref(),
+                eos.as_deref(),
+                props.as_deref(),
+                &root,
+            )
+        }
         Ok(Command::Verify {
             target,
             golden,
             root,
             report,
+            props,
         }) => {
             let root = root.unwrap_or_else(ev::default_repo_root);
             if target == "numerics" {
@@ -731,7 +907,7 @@ fn main() -> ExitCode {
                     }
                 };
             }
-            match run_engine_target(&target, &root, golden) {
+            match run_engine_target(&target, &root, golden, props.as_deref()) {
                 Ok(reports) => {
                     for r in &reports {
                         print!("{}", r.render());
@@ -781,6 +957,7 @@ mod tests {
                 golden: Some(PathBuf::from("g")),
                 root: None,
                 report: None,
+                props: None,
             })
         );
         assert_eq!(
@@ -790,6 +967,7 @@ mod tests {
                 golden: None,
                 root: None,
                 report: Some(PathBuf::from("r.json")),
+                props: None,
             })
         );
         assert_eq!(
@@ -800,7 +978,24 @@ mod tests {
             })
         );
         assert!(parse_args(&args(&["eval", "pfr"])).is_err());
-        assert!(parse_args(&args(&["eval", "flowsheet", "--input", "c.json"])).is_err());
+        assert_eq!(
+            parse_args(&args(&[
+                "eval",
+                "flowsheet",
+                "--input",
+                "c.json",
+                "--eos",
+                "pr"
+            ])),
+            Ok(Command::EvalFlowsheet {
+                input: PathBuf::from("c.json"),
+                output: None,
+                eos: Some("pr".into()),
+                props: None,
+                root: None,
+            })
+        );
+        assert!(parse_args(&args(&["eval", "nope", "--input", "c.json"])).is_err());
         assert!(parse_args(&args(&["verify"])).is_err());
         assert!(parse_args(&args(&["verify", "a", "b"])).is_err());
         assert!(parse_args(&args(&["frobnicate"])).is_err());

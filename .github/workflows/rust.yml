@@ -62,7 +62,7 @@ jobs:
         run: |
           cargo run --profile ci --locked -p amcrax-cli -- --version
           cargo run --profile ci --locked -p amcrax-cli -- verify numerics --golden golden/numerics
-      - name: amcrax verify (Python versus Rust comparison report, stages 1 to 3)
+      - name: amcrax verify (Python versus Rust comparison report, stages 1 to 4)
         run: |
           cargo run --profile ci --locked -p amcrax-cli -- verify all --root .. --report target/verification/verify_all_report.json
           echo "===== BEGIN verify_all_report.json"; cat target/verification/verify_all_report.json; echo "===== END verify_all_report.json"
@@ -76,6 +76,11 @@ jobs:
           echo '{"catalyst_id": "ru_takahashi_microkinetic", "W_kg": 50.0, "n_tubes": 50, "n_points": 3}' > target/case.json
           cargo run --profile ci --locked -p amcrax-cli -- eval pfr --input target/case.json --output target/verification/eval_pfr_example.json
           head -c 600 target/verification/eval_pfr_example.json
+      - name: amcrax eval flowsheet (smoke test, tables back end at the stored baseline state)
+        run: |
+          echo '{"inputs": {"case_id": "smoke"}, "eos": "ideal"}' > target/fs_case.json
+          cargo run --profile ci --locked -p amcrax-cli -- eval flowsheet --input target/fs_case.json --root .. --output target/verification/eval_flowsheet_example.json
+          head -c 800 target/verification/eval_flowsheet_example.json
       - name: upload comparison report
         if: always()
         uses: actions/upload-artifact@v4
@@ -149,6 +154,88 @@ jobs:
         with:
           name: benchmark
           path: rust/target/benchmark_stage3.json
+          if-no-files-found: warn
+
+  coolprop:
+    name: CoolProp 8.0.0 back end (C++ built from the pinned sources, Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # commit of the CoolProp 8.0.0 Python wheel that produced the golden tables
+      # (CoolProp.__gitrevision__); the git object id is the checksum of the source tree
+      COOLPROP_COMMIT: ae81610e7d23efc57f9d051c8e70a4d66e87537f
+      COOLPROP_TAG: v8.0.0
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: coolprop
+      - name: cache the CoolProp static library
+        id: cpcache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/coolprop-dist
+          key: coolprop-${{ env.COOLPROP_COMMIT }}-static-pic-v1
+      - name: fetch CoolProp at the pinned commit (with submodules)
+        if: steps.cpcache.outputs.cache-hit != 'true'
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          git init -q coolprop-src
+          cd coolprop-src
+          git remote add origin https://github.com/CoolProp/CoolProp.git
+          git fetch -q --depth 1 origin "$COOLPROP_COMMIT"
+          git checkout -q --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$COOLPROP_COMMIT"
+          echo "tag $COOLPROP_TAG on origin (expected to resolve to $COOLPROP_COMMIT):"
+          git ls-remote origin "refs/tags/$COOLPROP_TAG" "refs/tags/$COOLPROP_TAG^{}" || true
+          git submodule update --init --recursive --depth 1 || git submodule update --init --recursive
+          git submodule status --recursive
+      - name: build CoolProp (static library, position independent, Release)
+        if: steps.cpcache.outputs.cache-hit != 'true'
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          cmake -S coolprop-src -B coolprop-build -DCOOLPROP_STATIC_LIBRARY=ON -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+          cmake --build coolprop-build --config Release -j "$(nproc)"
+          mkdir -p coolprop-dist
+          find coolprop-build -name 'libCoolProp*.a' -exec cp {} coolprop-dist/ \;
+          cp coolprop-src/LICENSE coolprop-dist/LICENSE
+          (cd coolprop-src && echo "commit $(git rev-parse HEAD)" && git submodule status --recursive) > coolprop-dist/SOURCE.txt
+          sha256sum coolprop-dist/* | tee coolprop-dist/SHA256SUMS.txt
+      - name: build amcrax with the CoolProp back end
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cat "$COOLPROP_LIB_DIR/SOURCE.txt" "$COOLPROP_LIB_DIR/SHA256SUMS.txt" || true
+          cargo build --profile ci --locked -p amcrax-cli --features coolprop
+      - name: amcrax verify props (CoolProp back end against Python CoolProp, dense grid)
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify props --props coolprop --root .. --report target/verification/verify_props_coolprop.json
+      - name: amcrax verify flowsheet on the CoolProp back end
+        if: always()
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify flowsheet --props coolprop --root .. --report target/verification/verify_flowsheet_coolprop.json
+      - name: print the reports
+        if: always()
+        run: |
+          for f in target/verification/*.json; do echo "===== BEGIN $f"; cat "$f"; echo "===== END $f"; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-report-coolprop
+          path: rust/target/verification/
           if-no-files-found: warn
 
   windows:
