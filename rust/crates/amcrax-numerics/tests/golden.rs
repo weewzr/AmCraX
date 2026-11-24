@@ -247,11 +247,14 @@ fn make_event<'a, const N: usize>(name: &str) -> Event<'a, N> {
     }
 }
 
+/// Right-hand side of a test problem.
+type RhsFn<const N: usize> = fn(f64, &[f64; N], &mut [f64; N]) -> Result<(), String>;
+
 /// Returns the worst deviation from SciPy in tolerance units.
 fn check_ode_case<const N: usize>(
     c: &Value,
     what: &str,
-    rhs: fn(f64, &[f64; N], &mut [f64; N]) -> Result<(), String>,
+    rhs: RhsFn<N>,
     exact: Option<fn(f64) -> [f64; N]>,
     gate_scipy: f64,
     gate_exact: f64,
