@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T04:20:14+00:00",
+    "generated_utc": "2026-11-24T12:49:23+00:00",
     "script": "scripts/research/kinetics_validation.py",
     "source_type": "python",
     "inputs_summary": "lucentini2021nirukinetic Table 1 (p. 10): x(%)NH3 at F/W 15.0 L gcat^-1 h^-1, 0.1 g, Ar:NH3 1.2:1, 1 atm; PFR isothermal, no pressure drop, 0.1 g, Vm 22.414 L/mol",

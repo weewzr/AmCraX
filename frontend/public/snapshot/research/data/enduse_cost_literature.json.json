@@ -138,11 +138,12 @@
    "id": "halim_numbers",
    "item": "Halim et al. (2025) figures quoted by the essay",
    "value": "60.1 MW; LCOH 15.1 (green) and 10.1 (blue) USD/kg H2; direct ammonia combustion about 40 per cent cheaper than cracking-based power; H-25 turbine takes 30 to 60 vol% H2 in NH3-H2 blends",
-   "status": "Not obtained. Full text unavailable; abstract contains none of these numbers. The directional finding 'direct ammonia use is economically preferable because cracking has high capital and operating costs' is in the abstract.",
-   "location": "n/a",
-   "evidence_grade": "n/a",
-   "access_date": "2026-11-23",
-   "see_also": "The 30-60 vol% figure matches a NETL 2022 statement about hydrogen in natural gas for Baker Hughes turbines (turbine_efficiency_literature.json id h2_blend_limits_vendor), which suggests a mis-attribution in the essay; unverified."
+   "status": "Located (full text read on 24 November 2026; research/notes/halim2025_full_text.md, research/data/halim2025_extract.json). 60.1 MW: vendor rating of the Mitsubishi H-25 used as the target output (p. 3, p. 11). LCOH 15.1 (green) and 10.1 (blue) USD/kg H2: cracked-hydrogen cost (Highlights, p. 9, Fig. 5, Table 5). 'About 40 %': located, but a different quantity: 1 - LCOA/LCOH = 39 % (green) and 44 % (blue) on p. 9, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent fuel energy, for the 40 % hydrogen energy share only, with equal turbine efficiency and the power plant excluded; it is NOT a cost of electricity (the paper computes no LCOE). 30 to 60 vol% H2 for the H-25: located (p. 3), relayed from a trade-press article (ref. [31]); vendor-claim grade.",
+   "location": "Halim et al. 2025 pp. 1, 3, 9, 11; Fig. 5; Table 5",
+   "evidence_grade": "literature (techno-economic model; turbine not modelled)",
+   "access_date": "2026-11-24",
+   "status_superseded_2026_11_23": "Not obtained. Full text unavailable; abstract contains none of these numbers. The directional finding 'direct ammonia use is economically preferable because cracking has high capital and operating costs' is in the abstract.",
+   "see_also": "The 30-60 vol% H-25 figure IS in the paper (p. 3, relayed from trade press, ref. [31]). The earlier reading of it as a likely mis-attribution from a NETL 2022 statement on Baker Hughes turbines (turbine_efficiency_literature.json id h2_blend_limits_vendor) is withdrawn (24 November 2026). The NETL statement concerns hydrogen in natural gas and is a different, separate source."
   }
  ]
 }

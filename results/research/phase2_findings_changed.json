@@ -6,7 +6,8 @@
       "results/research/catalyst_economics/catalyst_economics.json",
       "results/research_releases/2026-11-23/evidence_matrix.json",
       "results/research/evidence_matrix.json",
-      "results/research/fix_pass_2026-11-24.json"
+      "results/research/fix_pass_2026-11-24.json",
+      "results/research/addendum_2026-11-24.json"
     ],
     "note": "Phase 1 values from the 23 November release, Phase 2 values from the current result files."
   },
@@ -882,6 +883,1057 @@
         "file": "results/research/catalyst_economics/catalyst_economics.json",
         "key": "resolution",
         "what": "fired-duty offset and its spread across catalysts (both resolution readings)"
+      }
+    ]
+  },
+  "addendum_2026_11_24": {
+    "provenance": {
+      "script": "scripts/research/record_addendum.py",
+      "old_values": "git commit 227961c",
+      "new_values": "working tree after the addendum re-runs",
+      "papers_read_in_full_on_2026_11_24": {
+        "halim2025ammonia": "Halim, Zain and Khoo (2025), Applied Energy 386, 125581",
+        "abdoos2025psa": "Abdoos, Di Benedetto and Russo (2025), Chemical Engineering Journal 526, 170994",
+        "sayas2020rukcao": "Sayas et al. (2020), Catalysis Science & Technology 10, 5027-5035"
+      },
+      "notes": [
+        "research/notes/halim2025_full_text.md",
+        "research/notes/abdoos2025_full_text.md",
+        "research/notes/sayas2020_full_text.md"
+      ],
+      "extracts": [
+        "research/data/halim2025_extract.json",
+        "research/data/abdoos2025_extract.json",
+        "research/data/sayas2020_extract.json"
+      ],
+      "rule": "no model, rule or verdict changed; the frozen baseline is unchanged; new evidence is reported as computed sensitivities and literature comparisons beside the existing results"
+    },
+    "description": "Every correction of record and every new computed value of the addendum of 24 November 2026.",
+    "baseline_check": {
+      "lcoh_USD_per_kg": 4.015461254695034,
+      "frozen": 4.015461254695034,
+      "abs_difference": 0.0
+    },
+    "verdict_changes": [],
+    "verdicts_checked": 33,
+    "text_corrections": [
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/access_date",
+        "old": "2026-11-23",
+        "new": "2026-11-24",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/evidence_grade",
+        "old": "n/a",
+        "new": "literature (techno-economic model; turbine not modelled)",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/location",
+        "old": "n/a",
+        "new": "Halim et al. 2025 pp. 1, 3, 9, 11; Fig. 5; Table 5",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/see_also",
+        "old": "The 30-60 vol% figure matches a NETL 2022 statement about hydrogen in natural gas for Baker Hughes turbines (turbine_efficiency_literature.json id h2_blend_limits_vendor), which suggests a mis-attribution in the essay; unverified.",
+        "new": "The 30-60 vol% H-25 figure IS in the paper (p. 3, relayed from trade press, ref. [31]). The earlier reading of it as a likely mis-attribution from a NETL 2022 statement on Baker Hughes turbines (turbine_efficiency_literature.json id h2_blend_limits_vendor) is withdrawn (24 November 2026). The NETL statement concerns hydrogen in natural gas and is a different, separate source.",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/status",
+        "old": "Not obtained. Full text unavailable; abstract contains none of these numbers. The directional finding 'direct ammonia use is economically preferable because cracking has high capital and operating costs' is in the abstract.",
+        "new": "Located (full text read on 24 November 2026; research/notes/halim2025_full_text.md, research/data/halim2025_extract.json). 60.1 MW: vendor rating of the Mitsubishi H-25 used as the target output (p. 3, p. 11). LCOH 15.1 (green) and 10.1 (blue) USD/kg H2: cracked-hydrogen cost (Highlights, p. 9, Fig. 5, Table 5). 'About 40 %': located, but a different quantity: 1 - LCOA/LCOH = 39 % (green) and 44 % (blue) on p. 9, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent fuel energy, for the 40 % hydrogen energy share only, with equal turbine efficiency and the power plant excluded; it is NOT a cost of electricity (the paper computes no LCOE). 30 to 60 vol% H2 for the H-25: located (p. 3), relayed from a trade-press article (ref. [31]); vendor-claim grade.",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status and the 30-60 vol% H-25 attribution",
+        "file": "research/data/enduse_cost_literature.json",
+        "key": "entries/[halim_numbers]/status_superseded_2026_11_23",
+        "old": null,
+        "new": "Not obtained. Full text unavailable; abstract contains none of these numbers. The directional finding 'direct ammonia use is economically preferable because cracking has high capital and operating costs' is in the abstract.",
+        "reason": "full text read: all four numbers located; the 40 % is a fuel cost at the turbine inlet; the H-25 range is in the paper (not a mis-attribution)"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[h2_blend_limits_vendor]/note",
+        "old": "This is the likely origin of '30 to 60 vol% H2' in the essay. It refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors.",
+        "new": "Refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors. Correction of 24 November 2026: the essay's '30 to 60 vol% H2 for the H-25' is printed in Halim et al. 2025 p. 3 (relayed from trade press, their ref. [31]); this NETL statement is not its origin.",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[h2_blend_limits_vendor]/note_superseded_2026_11_23",
+        "old": null,
+        "new": "This is the likely origin of '30 to 60 vol% H2' in the essay. It refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors.",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[halim2025_status]/access_date",
+        "old": "2026-11-23",
+        "new": "2026-11-24",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[halim2025_status]/evidence_grade",
+        "old": "n/a",
+        "new": "literature (techno-economic model; turbine efficiency a vendor headline applied to every fuel)",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[halim2025_status]/status",
+        "old": "Full text NOT accessible (A*STAR repository lists the file apen-125581.pdf as request-a-copy only; publisher page not tried beyond DOI). Abstract read at the repository and IDEAS. The quoted figures 60.1 MW, LCOH 15.1 (green) and 10.1 (blue) USD/kg, 'direct combustion about 40 per cent cheaper' and '30 to 60 vol% H2 for the H-25' are NOT found in the abstract and cannot be located. The abstract does say direct ammonia use is economically preferable to cracking because of cracking capital and operating cost.",
+        "new": "Full text read on 24 November 2026 (research/notes/halim2025_full_text.md; research/data/halim2025_extract.json). All four quoted figures are located: 60.1 MW (p. 3, p. 11; vendor rating of the H-25); LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5); 'about 40 %' (Highlights; 39 % green and 44 % blue on p. 9) is 1 - LCOA/LCOH, a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet with the power plant excluded, not a cost of electricity; 30 to 60 vol% H2 for the H-25 (p. 3, relayed from trade press). The turbine is not modelled: one vendor combined-cycle efficiency (54 %, basis and fuel not stated) is applied to every fuel, so the implied efficiency difference between H2-rich fuel and NH3 is 0 pp by assumption (not a sourced value; not used as evidence for H1-a).",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Halim status; origin of the 30-60 vol% figure",
+        "file": "research/data/turbine_efficiency_literature.json",
+        "key": "entries/[halim2025_status]/status_superseded_2026_11_23",
+        "old": null,
+        "new": "Full text NOT accessible (A*STAR repository lists the file apen-125581.pdf as request-a-copy only; publisher page not tried beyond DOI). Abstract read at the repository and IDEAS. The quoted figures 60.1 MW, LCOH 15.1 (green) and 10.1 (blue) USD/kg, 'direct combustion about 40 per cent cheaper' and '30 to 60 vol% H2 for the H-25' are NOT found in the abstract and cannot be located. The abstract does say direct ammonia use is economically preferable to cracking because of cracking capital and operating cost.",
+        "reason": "full text read; the NETL Baker Hughes statement is not the origin of the essay's H-25 figure"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/conditions",
+        "old": "A search-result summary quoted about 99.99 % purity, about 77 % recovery, about 5.2 MJ/kg H2 and, for a four-layer bed at 35 bar, 99.97 % and 79 %. These numbers could NOT be confirmed: the publisher abstract and full text were not reachable (403) and the Crossref/Semantic Scholar records carry no abstract. They are NOT entered as values.",
+        "new": "Full text read on 24 November 2026 (research/notes/abdoos2025_full_text.md; research/data/abdoos2025_extract.json). Simulation (Aspen Adsorption, ANN surrogate, NSGA-II), 4-bed 8-step zeolite 5A cycle, DRY NH3-FREE 75/25 H2/N2 feed (NH3 and H2O are not model components), adsorption 6-12 bar (optima 7.9-11.6 bar), 83-98 kmol/h feed; recovery surrogate scatter about 1-3 points at 72-78 % recovery (Fig. 13). No cyclic-PSA experiment. The SEC is feed compression from about 1 bar, not PSA own power. Correction of the earlier search summary: '99.99 %, 77 %, 5.2 MJ/kg' joins two different points (5.19 MJ/kg is the lowest SEC on the front, at about 91-96 % purity); 'four-layer bed at 35 bar, 99.97 % and 79 %' is the paper's citation of Moon et al. 2016 (syngas), not a result of this paper.",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/conditions_superseded_2026_11_23",
+        "old": null,
+        "new": "A search-result summary quoted about 99.99 % purity, about 77 % recovery, about 5.2 MJ/kg H2 and, for a four-layer bed at 35 bar, 99.97 % and 79 %. These numbers could NOT be confirmed: the publisher abstract and full text were not reachable (403) and the Crossref/Semantic Scholar records carry no abstract. They are NOT entered as values.",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/location",
+        "old": "not read",
+        "new": "p. 13, Table 8 (verbatim, checked on the page image)",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/material_or_process",
+        "old": "PSA on cracked ammonia",
+        "new": "PSA on cracked-ammonia composition (idealised dry binary feed)",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/quantity",
+        "old": "PSA design optimum for cracked ammonia (Abdoos 2025)",
+        "new": "PSA purity-recovery-energy optima for cracked-ammonia composition (Abdoos 2025, Table 8)",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/unit",
+        "old": "-",
+        "new": "%, %, MJ/kg H2 product, bar",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/base_case/P_ads_bar",
+        "old": null,
+        "new": 10,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/base_case/SEC_MJ_per_kg",
+        "old": null,
+        "new": 7.2,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/base_case/purity_percent",
+        "old": null,
+        "new": 96.35,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/base_case/recovery_percent",
+        "old": null,
+        "new": 91.1,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_1/P_ads_bar",
+        "old": null,
+        "new": 11.6,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_1/SEC_MJ_per_kg",
+        "old": null,
+        "new": 8.76,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_1/purity_percent",
+        "old": null,
+        "new": 99.99,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_1/recovery_percent",
+        "old": null,
+        "new": 77.44,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_2/P_ads_bar",
+        "old": null,
+        "new": 11.29,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_2/SEC_MJ_per_kg",
+        "old": null,
+        "new": 8.1,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_2/purity_percent",
+        "old": null,
+        "new": 99.95,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_2/recovery_percent",
+        "old": null,
+        "new": 81.92,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_3/P_ads_bar",
+        "old": null,
+        "new": 7.87,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_3/SEC_MJ_per_kg",
+        "old": null,
+        "new": 6.4,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_3/purity_percent",
+        "old": null,
+        "new": 99.03,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/value/optimal_3/recovery_percent",
+        "old": null,
+        "new": 83.92,
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S07]/verbatim_or_derived",
+        "old": "unverified",
+        "new": "verbatim",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "Abdoos search-summary numbers (S07) and PSA specific energy (S08)",
+        "file": "research/data/purification_literature.json",
+        "key": "entries/[S08]/conditions",
+        "old": "No peer-reviewed, verified PSA-only specific power for cracked ammonia was obtained. Candidates, all NOT entered: Mehr 2026 overall plant SEC 1.12 kWh/kg at 100 % load (the same paper elsewhere gives 7.5 and 13.6 kWh/kg for the compressor, so it is inconsistent); Abdoos 2025 about 5.2 MJ/kg = 1.44 kWh/kg (unverified, see S07). AmCraX Phase 1 computed 0.22 kWh/kg (30 bar) to 1.59 kWh/kg (350 bar) for product compression, which is an AmCraX calculation, not a sourced PSA power.",
+        "new": "No peer-reviewed, verified PSA-only specific power for cracked ammonia was obtained. Candidates, all NOT entered: Mehr 2026 overall plant SEC 1.12 kWh/kg at 100 % load (the same paper elsewhere gives 7.5 and 13.6 kWh/kg for the compressor, so it is inconsistent); Abdoos 2025 (full text read 24 November 2026, see S07): its SEC of 6.4-8.76 MJ/kg (1.8-2.4 kWh/kg) at the Table 8 optima, and the abstract's 5.19 MJ/kg, are feed compression from about 1 bar to the adsorption pressure (reconstructed within 1-3 %), NOT a PSA own power, and do not transfer to the AmCraX 19.5 bar feed, which needs no feed compressor. AmCraX Phase 1 computed 0.22 kWh/kg (30 bar) to 1.59 kWh/kg (350 bar) for product compression, which is an AmCraX calculation, not a sourced PSA power.",
+        "reason": "Table 8 values entered; '5.2 MJ/kg' joined two points; '35 bar, 99.97 %, 79 %' is Moon et al. 2016 (syngas); SEC is feed compression"
+      },
+      {
+        "what": "stored Halim status and H1-b row evidence text",
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/halim_status",
+        "old": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them.",
+        "new": "Full text read on 24 November 2026 (research/notes/halim2025_full_text.md; research/data/halim2025_extract.json). All four quoted numbers are located: 60.1 MW (p. 3, p. 11; vendor rating of the Mitsubishi H-25); LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5); 'about 40 %' (Highlights; 39 % green and 44 % blue on p. 9), which is 1 - LCOA/LCOH, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent energy for the 40 % hydrogen share, with equal turbine efficiency and the power plant excluded, NOT a cost of electricity (the paper computes no LCOE); and 30-60 vol% H2 for the H-25 (p. 3, relayed from trade press). The same quantity on AmCraX boundaries is in fuel_cost_gap_on_paper_basis; the LCOE gaps above test the essay's sentence about power.",
+        "reason": "full text read; the row tests the essay's sentence about power"
+      },
+      {
+        "what": "stored Halim status and H1-b row evidence text",
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/halim_status_superseded_2026_11_23",
+        "old": null,
+        "new": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them.",
+        "reason": "full text read; the row tests the essay's sentence about power"
+      },
+      {
+        "what": "stored Halim status and H1-b row evidence text",
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "row_evidence/H1-b/reason",
+        "old": "Largest computed gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The figure could not be located in any accessible Halim text.",
+        "new": "Largest computed LCOE gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The row tests the essay's sentence about power; the paper's own 40 % is a different quantity (fuel cost per kg of hydrogen-equivalent energy, located on p. 9), compared like for like in forty_percent_figure/fuel_cost_gap_on_paper_basis.",
+        "reason": "full text read; the row tests the essay's sentence about power"
+      },
+      {
+        "what": "stored Halim status and H1-b row evidence text",
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "row_evidence/H1-b/uncertainty",
+        "old": "Halim's inputs unknown (full text not accessible)",
+        "new": "The paper (full text read 24 Nov 2026) computes no cost of electricity: its 'about 40 %' is a fuel cost at the turbine inlet (1 - LCOA/LCOH, 39 % green, 44 % blue). On that basis AmCraX gives 20.4 % (halim_green_FOB, HI on), 24.8 % (halim_green_FOB, HI off), 29.4 % (halim_blue_FOB, HI on), 32.9 % (halim_blue_FOB, HI off) (fuel_cost_gap_on_paper_basis)",
+        "reason": "full text read; the row tests the essay's sentence about power"
+      },
+      {
+        "what": "stored Halim texts of the end-use results",
+        "file": "results/research/enduse/enduse_results.json",
+        "key": "fuel_flexibility/source_type",
+        "old": "literature (task brief; Ahmad 2025 p. 2)",
+        "new": "literature (Halim et al. 2025 p. 3, relayed from trade press, vendor-claim grade; Ahmad 2025 p. 2)",
+        "reason": "full text read"
+      },
+      {
+        "what": "stored Halim texts of the end-use results",
+        "file": "results/research/enduse/enduse_results.json",
+        "key": "halim_claim_check/halim_statement",
+        "old": "direct NH3 combustion about 40 % cheaper than cracking-based power (task brief; Halim abstract confirms only 'preferable because of high capital and operating costs of cracking')",
+        "new": "direct NH3 combustion about 40 % cheaper than cracking-based power (essay wording, attributed to Halim et al. 2025). Full text read 24 Nov 2026: the paper's 'about 40 %' (39 % green, 44 % blue, p. 9) is 1 - LCOA/LCOH, a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet with the power plant excluded, not a cost of electricity; the same quantity computed on AmCraX boundaries is in turbine_threshold.json forty_percent_figure/fuel_cost_gap_on_paper_basis. The LCOE gaps below test the essay's sentence about power.",
+        "reason": "full text read"
+      },
+      {
+        "what": "stored Halim texts of the end-use results",
+        "file": "results/research/enduse/enduse_results.json",
+        "key": "halim_claim_check/verdict_note",
+        "old": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed.",
+        "new": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim et al. (full text read 24 Nov 2026) compute no cost of electricity, so these LCOE gaps cannot be compared with a number of the paper.",
+        "reason": "full text read"
+      },
+      {
+        "what": "stored Halim texts of the end-use results",
+        "file": "results/research/enduse/enduse_results.json",
+        "key": "limitations/4",
+        "old": "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked.",
+        "new": "Halim et al. (2025), full text read on 24 November 2026: the paper computes no cost of electricity (its 'about 40 %' is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet), and it applies one vendor turbine efficiency to every fuel, so it supplies no like-for-like LCOE and no independent turbine-efficiency difference.",
+        "reason": "full text read"
+      },
+      {
+        "what": "blend-limit statement",
+        "file": "results/research/enduse/nox_n2o_blends.json",
+        "key": "blends_and_cracked_gas/blend_limits",
+        "old": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' was not found. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas; Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No sourced H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
+        "new": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' is printed in Halim et al. 2025 p. 3 (full text read 24 Nov 2026), relayed from a trade-press article: a vendor-claim grade statement, not tested in that paper. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas (a different fuel); Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No measured or simulated H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
+        "reason": "the H-25 range is printed in Halim et al. p. 3 (trade press)"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "inputs/psa_recovery/fuel_cell_grade_D/central/note",
+        "old": "optimistic, flat by construction",
+        "new": "flat by construction; slightly pessimistic against Abdoos et al. 2025 (0.7744 at 99.99 %, simulated, dry NH3-free feed), so the earlier label 'optimistic' is withdrawn (24 Nov 2026)",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "inputs/psa_recovery/industrial_99.9/central/note",
+        "old": "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)",
+        "new": "no measured recovery at 99.9 % for cracked ammonia; flat by construction. Against the simulated front of Abdoos et al. 2025 (0.8192 at 99.95 %, dry NH3-free feed; see abdoos2025_sourced_case) it is pessimistic, not optimistic (label corrected 24 Nov 2026)",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "inputs/psa_recovery/industrial_99.9/high/note",
+        "old": "not supported by a source at this purity",
+        "new": "not supported by a source at this purity; it lies above the only published front for this composition (Abdoos et al. 2025, simulated: 0.8192 at 99.95 %, 0.7744 at 99.99 %)",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "row_evidence/H4-a/reason",
+        "old": "the direction is shown by one literature source for a different feed (literature_comparison), not computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA",
+        "new": "the direction is shown by two literature sources (literature_comparison), not computed: Yanez 2020 (measured, ammonia-plant purge gas) and Abdoos 2025 (simulated, dry NH3-free cracked-ammonia composition; its model equations and breakthrough check cite Yanez 2020, so the two are not fully independent); the AmCraX relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "row_evidence/H4-a/uncertainty",
+        "old": "Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); no cracked-ammonia value",
+        "new": "Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); for a cracked-ammonia composition only a simulated front exists: Abdoos 2025, 0.7744 at 99.99 % and 0.8192 at 99.95 % (dry, NH3-free feed, 11.3-11.6 bar, surrogate scatter about 1-3 points)",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "labels of the PSA recovery cases and H4 row evidence text",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "row_evidence/H4-d/threshold",
+        "old": "PSA recovery at parity 0.745-0.783 (Grade D; high-cost to central membrane) and 0.749-0.795 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above). Membrane cost (parity 28,824 USD/m2 against the central PSA) and life (parity 0.95 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values. Membrane annualised with CRF(i, life)",
+        "new": "PSA recovery at parity 0.745-0.783 (Grade D; high-cost to central membrane) and 0.749-0.795 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above; Abdoos 2025, simulated for this composition, 0.7744 at 99.99 % lies between the two Grade D parities and 0.8192 at 99.95 % above both industrial parities). Membrane cost (parity 28,824 USD/m2 against the central PSA) and life (parity 0.95 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values. Membrane annualised with CRF(i, life)",
+        "reason": "Abdoos front: mass-balance central recoveries are pessimistic, not optimistic; 0.85 lies above the front; two published relations"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/class_evidence",
+        "old": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
+        "new": "main text read in full on 24 Nov 2026 (research/notes/sayas2020_full_text.md); it gives the rate-law form (power law with an approach-to-equilibrium term, eqns (1)-(2)), the orders 0.5 (NH3) and -1.2 (H2) and an apparent Ea of 75 kJ/mol at 350 degC and 1 atm (Table 4), but NO complete rate law: the rate constant (pre-exponential factor, units) and the equilibrium term of the integral fit are in the supplementary information, which was not obtained. Nothing was fitted or estimated. The 10-40 bar conversions are stored as literature comparison points that no model uses.",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/experimental/conversion_note",
+        "old": "about 80 % at 550 degC, 40 bar (abstract; conditions not verified)",
+        "new": "about 84 % at 550 degC and 40 bar (figure reading; the text says 'around 80 %'); 15 points at 10-40 bar, 350-550 degC",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/experimental/conversion_range/0",
+        "old": null,
+        "new": 0.0,
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/experimental/conversion_range/1",
+        "old": null,
+        "new": 1.0,
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/experimental/feed",
+        "old": "not verified",
+        "new": "pure NH3",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/experimental/space_velocity",
+        "old": "WHSV 9000-30000 mL g-1 h-1 (abstract)",
+        "new": "WHSV 9000 mL gcat-1 h-1 at 10-40 bar (30 N mL/min over 200 mg; 'N mL' reference state not defined); 9000-30000 at 1 atm",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/reason",
+        "old": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
+        "new": "main text read in full on 24 Nov 2026 (research/notes/sayas2020_full_text.md); it gives the rate-law form (power law with an approach-to-equilibrium term, eqns (1)-(2)), the orders 0.5 (NH3) and -1.2 (H2) and an apparent Ea of 75 kJ/mol at 350 degC and 1 atm (Table 4), but NO complete rate law: the rate constant (pre-exponential factor, units) and the equilibrium term of the integral fit are in the supplementary information, which was not obtained. Nothing was fitted or estimated. The 10-40 bar conversions are stored as literature comparison points that no model uses.",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      },
+      {
+        "what": "Ru-K/CaO validity text (class unchanged: unmodelled)",
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "laws/[sayas2020rukcao]/reason_superseded_2026_11_23",
+        "old": null,
+        "new": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
+        "reason": "main text read: no complete rate law (rate constant and equilibrium term in the supplementary information, not obtained); nothing fitted"
+      }
+    ],
+    "reference_entries_removed": [
+      {
+        "file": "research/reference_additions/phase2_kinetics.json",
+        "citekey": "sayas2020rukcao",
+        "removed": true,
+        "old_entry": {
+          "citekey": "sayas2020rukcao",
+          "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
+          "doi": "10.1039/d0cy00686f",
+          "url": "https://doi.org/10.1039/d0cy00686f",
+          "access_date": "2026-11-23",
+          "doi_verified": true,
+          "url_verified": false,
+          "verification": "DOI registered (https://doi.org/api/handles/10.1039/d0cy00686f, responseCode 1, 23 November 2026). Full text and SI NOT readable by automated access (publisher HTTP 403; SI 404 / connection closed).",
+          "taken_from": "nothing numerical; abstract-level conditions only (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1), recorded as unverified in research/notes/phase2_kinetics_search.md"
+        },
+        "superseded_by": "research/references.json (full-text record) and research/reference_additions/phase2_fulltext_*.json"
+      },
+      {
+        "file": "research/reference_additions/kinetics.json",
+        "citekey": "sayas2020rukcao",
+        "removed": true,
+        "old_entry": {
+          "citekey": "sayas2020rukcao",
+          "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
+          "doi": "10.1039/d0cy00686f",
+          "url": "https://doi.org/10.1039/d0cy00686f",
+          "doi_verified": true,
+          "in_local_library": false,
+          "access": "FULL TEXT NOT RETRIEVED (publisher 403, repository bot protection), 23 November 2026",
+          "verification": "DOI and title matched in Semantic Scholar and OpenAlex metadata (23 November 2026)",
+          "taken": "nothing used numerically; abstract-level facts only (3 wt% Ru, K/Ru 0.9, 1-40 bar, 250-550 degC, X about 0.8 at 550 degC/40 bar). Not implemented."
+        },
+        "superseded_by": "research/references.json (full-text record) and research/reference_additions/phase2_fulltext_*.json"
+      },
+      {
+        "file": "research/reference_additions/phase2_purification.json",
+        "citekey": "abdoos2025psa",
+        "removed": true,
+        "old_entry": {
+          "citekey": "abdoos2025psa",
+          "apa7": "Abdoos, B., Di Benedetto, A., & Russo, D. (2025). Integrated design, scale-up, and surrogate-based optimization of PSA systems for hydrogen purification from ammonia decomposition. Chemical Engineering Journal, 526, 170994. https://doi.org/10.1016/j.cej.2025.170994",
+          "doi": "10.1016/j.cej.2025.170994",
+          "url": "https://doi.org/10.1016/j.cej.2025.170994",
+          "access_date": "2026-11-23",
+          "doi_verified": true,
+          "verification": "doi.org handle responseCode=1; Crossref record read (no abstract); full text and abstract NOT read (403); no number from it is used",
+          "taken_from": "Nothing. Listed so that the next agent can obtain the abstract and the PSA purity, recovery and specific energy."
+        },
+        "superseded_by": "research/references.json (full-text record) and research/reference_additions/phase2_fulltext_*.json"
+      },
+      {
+        "file": "research/reference_additions/enduse_lca.json",
+        "citekey": "halim2025ammoniapower",
+        "removed": true,
+        "old_entry": {
+          "citekey": "halim2025ammoniapower",
+          "apa7": "Halim, I., Zain, N. S., & Khoo, H. H. (2025). Assessing the feasibility of Ammonia utilization for Power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+          "doi": "10.1016/j.apenergy.2025.125581",
+          "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
+          "access_date": "2026-11-23",
+          "doi_verified": false,
+          "in_local_library": false,
+          "taken_from": "Abstract only (A*STAR OAR listing https://oar.a-star.edu.sg/communities-collections/articles/21565 and IDEAS https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html): direct ammonia use preferred to cracking because of cracking capital and operating cost; green NH3 near-zero emissions; coal-derived NH3 cracked could exceed Singapore grid emissions; blue NH3 an interim option. Authors (Iskandar Halim, Nur Sara Zain, Hsien H. Khoo) and DOI confirmed through Crossref by the independent review. Numerical results (60.1 MW, LCOH 15.1/10.1, 40 %) NOT verified: full text not accessible."
+        },
+        "superseded_by": "research/references.json (full-text record) and research/reference_additions/phase2_fulltext_*.json"
+      },
+      {
+        "file": "research/reference_additions/economics.json",
+        "citekey": "halim2025ammonia",
+        "removed": true,
+        "old_entry": {
+          "citekey": "halim2025ammonia",
+          "apa7": "Halim, I., Zain, N. S., & Khoo, H. H. (2025). Assessing the feasibility of ammonia utilization for power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+          "doi": "10.1016/j.apenergy.2025.125581",
+          "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
+          "access_date": "2026-11-23",
+          "taken_from_it": "Abstract only: direct NH3 use preferred over cracking for power; numeric values not verified. Bibliographic data (authors Iskandar Halim, Nur Sara Zain, Hsien H. Khoo; vol. 386, 125581) confirmed through Crossref and IDEAS/RePEc by the independent review."
+        },
+        "superseded_by": "research/references.json (full-text record) and research/reference_additions/phase2_fulltext_*.json"
+      }
+    ],
+    "text_files_corrected": [
+      {
+        "file": "research/notes/enduse_turbine_literature.md",
+        "what": "sections 3 and 7: the H-25 30-60 vol% figure is in Halim et al. p. 3; full text read; the four numbers located"
+      },
+      {
+        "file": "research/notes/carrier_cost_literature.md",
+        "what": "(d): the quoted 40 % is not a power generation cost but a fuel cost per kg of hydrogen-equivalent energy (1 - LCOA/LCOH)"
+      },
+      {
+        "file": "research/notes/purification_phase2.md",
+        "what": "Abdoos 2025 read: Table 8 entered; search-summary numbers corrected; 'optimistic' label of the mass-balance cases withdrawn"
+      },
+      {
+        "file": "research/notes/sayas2020rukcao.md",
+        "what": "superseded status: main text read; Ea and orders verified; K/Ru 0.9 inconsistent with the loadings (8.6); '40 times' is a pressure multiplication"
+      },
+      {
+        "file": "research/notes/phase2_kinetics_search.md",
+        "what": "Sayas main text read; essay values verified; still no rate constant"
+      },
+      {
+        "file": "research/notes/xu2025review.md",
+        "what": "the '40 times' Sayas claim checked against the original"
+      },
+      {
+        "file": "research/model_parameters.yaml",
+        "what": "ru_k_cao_sayas_power_law: 111 kJ/mol and K0 8584.8 not in the main text (75 kJ/mol apparent at 350 degC, 1 atm; supplementary information not obtained); K/Ru ratio inconsistency"
+      },
+      {
+        "file": "backend/amcrax/enduse/params.py",
+        "what": "comment on the H-25 blend range: source located (Halim et al. p. 3)"
+      },
+      {
+        "file": "backend/amcrax/data/singapore.yaml",
+        "what": "policy_context halim_2025: full text read; LCOH and 60.1 MW located; the 40 % is a fuel cost (text only, no number used)"
+      },
+      {
+        "file": "research/references.json",
+        "what": "halim2025ammonia, sayas2020rukcao and sayas2020high: full text read on 24 November 2026; one record per paper"
+      },
+      {
+        "file": "scripts/research/enduse_run.py",
+        "what": "Halim texts written into enduse_results.json and validation/enduse.json"
+      },
+      {
+        "file": "scripts/research/enduse_threshold.py",
+        "what": "halim_status, blend_limits, H1-b row evidence text; new computed block fuel_cost_gap_on_paper_basis"
+      },
+      {
+        "file": "scripts/research/economics_singapore.py",
+        "what": "abstract-only Halim reference entry removed (one record per paper)"
+      },
+      {
+        "file": "scripts/research/purification_phase2.py",
+        "what": "labels of the recovery cases; H4 row evidence text; new labelled case abdoos2025_sourced_case"
+      },
+      {
+        "file": "scripts/research/kinetics_validity_classification.py",
+        "what": "Ru-K/CaO reason and experimental fields; Sayas comparison points and cross-catalyst context"
+      },
+      {
+        "file": "scripts/research/kinetics_validation.py",
+        "what": "KINR-LIT-SAYAS2020 verified in the main text"
+      },
+      {
+        "file": "scripts/research/kinetics_phase2_validation.py",
+        "what": "search item note; new items K1P2-SAYAS-POINTS and K1P2-SAYAS-RUAL2O3-CONTEXT"
+      },
+      {
+        "file": "scripts/research/economics_reference_scenario.py",
+        "what": "new computed block psa_recovery_sensitivity beside the fuel-efficiency envelope"
+      },
+      {
+        "file": "scripts/research/build_evidence_matrix.py",
+        "what": "texts that were false (full text not accessible; only sourced slope; published-figures wording; Halim and Sayas literature labels and keys) and the new numbers in the rows' numerical conclusions; no rule changed"
+      }
+    ],
+    "new_computed_blocks": [
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis",
+        "what": "H1-b on the paper's own basis: 1 - direct NH3 fuel cost / cracked H2 cost per kg of hydrogen-equivalent energy, grey/blue/green and the paper's prices, heat integration on and off; reconciliation with the paper"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case",
+        "what": "Abdoos et al. 2025 Table 8 as a labelled sourced case: LCOH per kg usable H2 at both grades, purity-only increment on each relation against the resolution, position against parity and furnace-balance recoveries, boundary differences"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity",
+        "what": "baseline LCOH, NPV and break-even NH3 price at PSA recovery 0.8192 and 0.7744 (same code path as every recovery change); reference unchanged"
+      },
+      {
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "literature_comparison_points_sayas2020",
+        "what": "15 measured Sayas conversions at 10-40 bar (figure readings), not used by any model"
+      },
+      {
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "cross_catalyst_context_sayas2020",
+        "what": "the Ru/Al2O3 law at the Sayas conditions with equal Ru per mol NH3: cross-catalyst context, not a test of the law"
+      }
+    ],
+    "new_computed_values": [
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/0/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, grey 450 USD/t, heat integration on",
+        "value": 27.730073012725665,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/1/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, grey 450 USD/t, heat integration off",
+        "value": 31.3831850112122,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/2/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, blue 487 USD/t, heat integration on",
+        "value": 26.74896943073759,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/3/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, blue 487 USD/t, heat integration off",
+        "value": 30.4970128409612,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/4/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_2050 463 USD/t, heat integration on",
+        "value": 27.370569316035866,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/5/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_2050 463 USD/t, heat integration off",
+        "value": 31.058332657615708,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/6/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_2030 709 USD/t, heat integration on",
+        "value": 22.75557780142854,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/7/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_2030 709 USD/t, heat integration off",
+        "value": 26.90191181290039,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/8/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_current 1000 USD/t, heat integration on",
+        "value": 19.97043414508606,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/9/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, green_current 1000 USD/t, heat integration off",
+        "value": 24.405793793056052,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/10/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, halim_green_FOB 944.2 USD/t, heat integration on",
+        "value": 20.38377231969163,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/11/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, halim_green_FOB 944.2 USD/t, heat integration off",
+        "value": 24.77565684613139,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/12/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, halim_blue_FOB 397.96 USD/t, heat integration on",
+        "value": 29.358565409852755,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/13/gap_pct_1_minus_direct_over_cracked",
+        "label": "paper-basis fuel-cost gap, halim_blue_FOB 397.96 USD/t, heat integration off",
+        "value": 32.856659708623226,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/steps/0/gap_pct",
+        "label": "reconciliation green: 0 AmCraX unified model at the paper's price, heat integration on",
+        "value": 20.38377231969163,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/steps/1/gap_pct",
+        "label": "reconciliation green: 1 cracked side: NH3 per kg H2 at the paper's energy retention 0.6949 (AmCraX 0.8774)",
+        "value": 35.70543466691123,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/steps/2/gap_pct",
+        "label": "reconciliation green: 2 also the paper's capacity factor 0.9 (7884 h) and life 30 yr on AmCraX non-NH3 costs",
+        "value": 35.66863633335156,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/steps/3/gap_pct",
+        "label": "reconciliation green: 3 also the paper's cracked-side non-feed cost 6.40 USD/kg instead of AmCraX 0.702 (storage tank, fired furnace, compressors, PSA, O&M; Fig. 5)",
+        "value": 59.84199523629452,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/steps/4/gap_pct",
+        "label": "reconciliation green: 4 also the paper's direct-use non-feed cost 3.15 USD/kg (mostly the same storage tank, plus vaporisation and compression; Fig. 5)",
+        "value": 39.067133472135666,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/blue/steps/0/gap_pct",
+        "label": "reconciliation blue: 0 AmCraX unified model at the paper's price, heat integration on",
+        "value": 29.358565409852755,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/blue/steps/1/gap_pct",
+        "label": "reconciliation blue: 1 cracked side: NH3 per kg H2 at the paper's energy retention 0.6949 (AmCraX 0.8774)",
+        "value": 41.688101074044646,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/blue/steps/2/gap_pct",
+        "label": "reconciliation blue: 2 also the paper's capacity factor 0.9 (7884 h) and life 30 yr on AmCraX non-NH3 costs",
+        "value": 41.61623813703781,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/blue/steps/3/gap_pct",
+        "label": "reconciliation blue: 3 also the paper's cracked-side non-feed cost 6.43 USD/kg instead of AmCraX 0.702 (storage tank, fired furnace, compressors, PSA, O&M; Fig. 5)",
+        "value": 74.64866064654575,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/blue/steps/4/gap_pct",
+        "label": "reconciliation blue: 4 also the paper's direct-use non-feed cost 3.15 USD/kg (mostly the same storage tank, plus vaporisation and compression; Fig. 5)",
+        "value": 43.53210640525038,
+        "unit": "%"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/industrial_99.9/P04/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, industrial_99.9, PSA recovery 0.8392 (Abdoos 99.03 %)",
+        "value": 4.063471952230968,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/industrial_99.9/P03/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, industrial_99.9, PSA recovery 0.8192 (Abdoos 99.95 %)",
+        "value": 4.096568417852784,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/industrial_99.9/P02/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, industrial_99.9, PSA recovery 0.7744 (Abdoos 99.99 %)",
+        "value": 4.176908036715924,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/fuel_cell_grade_D/P04/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, fuel_cell_grade_D, PSA recovery 0.8392 (Abdoos 99.03 %)",
+        "value": 4.255705103542585,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/fuel_cell_grade_D/P03/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, fuel_cell_grade_D, PSA recovery 0.8192 (Abdoos 99.95 %)",
+        "value": 4.2888015691644,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/lcoh_by_specification/fuel_cell_grade_D/P02/lcoh_usd_per_kg_usable",
+        "label": "LCOH per kg usable H2, fuel_cell_grade_D, PSA recovery 0.7744 (Abdoos 99.99 %)",
+        "value": 4.36914118802754,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment/abdoos2025_table8/increment",
+        "label": "purity-only Grade D increment at 30 bar, abdoos2025_table8 (above resolution True)",
+        "value": 0.08031960773845359,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment/abdoos2025_interpolated_at_modelled_purities/increment",
+        "label": "purity-only Grade D increment at 30 bar, abdoos2025_interpolated_at_modelled_purities (above resolution True)",
+        "value": 0.050598610082684736,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment/psa_yanez_different_feed/increment",
+        "label": "purity-only Grade D increment at 30 bar, psa_yanez_different_feed (above resolution True)",
+        "value": 0.16570395764941903,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment/psa_mass_balance_assumption/increment",
+        "label": "purity-only Grade D increment at 30 bar, psa_mass_balance_assumption (above resolution False)",
+        "value": 0.001955142550585265,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/0/increment",
+        "label": "Abdoos-relation increment with 0.01 surrogate scatter, adverse (industrial lower, Grade D higher)",
+        "value": 0.04442932334348093,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/1/increment",
+        "label": "Abdoos-relation increment with 0.01 surrogate scatter, favourable (industrial higher, Grade D lower)",
+        "value": 0.11858254145016822,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/2/increment",
+        "label": "Abdoos-relation increment with 0.03 surrogate scatter, adverse (industrial lower, Grade D higher)",
+        "value": -0.027259031870335626,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/3/increment",
+        "label": "Abdoos-relation increment with 0.03 surrogate scatter, favourable (industrial higher, Grade D lower)",
+        "value": 0.2628678940521727,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/model_resolution_USD_per_kg",
+        "label": "model resolution (Python against Aspen LCOH offset), read",
+        "value": 0.006022354316313816,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "abdoos2025_sourced_case/position/furnace_balance/grade_D_point_margin",
+        "label": "Abdoos Grade D recovery minus the furnace-balance recovery",
+        "value": 0.009344244328146623,
+        "unit": "-"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/0/lcoh_USD_per_kg",
+        "label": "baseline at PSA recovery 0.85: lcoh_USD_per_kg",
+        "value": 4.015461275608357,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/0/npv_USD",
+        "label": "baseline at PSA recovery 0.85: npv_USD",
+        "value": -17455720.289533574,
+        "unit": "USD"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/0/breakeven_nh3_USD_per_t_vs_marker",
+        "label": "baseline at PSA recovery 0.85: breakeven_nh3_USD_per_t_vs_marker",
+        "value": 320.0081964941125,
+        "unit": "USD/t"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/1/lcoh_USD_per_kg",
+        "label": "baseline at PSA recovery 0.8192: lcoh_USD_per_kg",
+        "value": 4.065782232135955,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/1/npv_USD",
+        "label": "baseline at PSA recovery 0.8192: npv_USD",
+        "value": -17709229.302815042,
+        "unit": "USD"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/1/breakeven_nh3_USD_per_t_vs_marker",
+        "label": "baseline at PSA recovery 0.8192: breakeven_nh3_USD_per_t_vs_marker",
+        "value": 314.1357294708592,
+        "unit": "USD/t"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/2/lcoh_USD_per_kg",
+        "label": "baseline at PSA recovery 0.7744: lcoh_USD_per_kg",
+        "value": 4.146121850934717,
+        "unit": "USD/kg H2"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/2/npv_USD",
+        "label": "baseline at PSA recovery 0.7744: npv_USD",
+        "value": -18077969.685769923,
+        "unit": "USD"
+      },
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "psa_recovery_sensitivity/cases/2/breakeven_nh3_USD_per_t_vs_marker",
+        "label": "baseline at PSA recovery 0.7744: breakeven_nh3_USD_per_t_vs_marker",
+        "value": 304.93137059800483,
+        "unit": "USD/t"
+      },
+      {
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "cross_catalyst_context_sayas2020/cases/0/rows/8/X_RuAl2O3_law_equal_Ru",
+        "label": "Ru/Al2O3 law at 20 bar, 500 degC, equal Ru per NH3 (0 degC flow basis); measured Ru-K/CaO 0.68",
+        "value": 0.9478469849304964,
+        "unit": "conversion"
+      },
+      {
+        "file": "results/research/kinetics/validity_classification.json",
+        "key": "cross_catalyst_context_sayas2020/cases/1/rows/8/X_RuAl2O3_law_equal_Ru",
+        "label": "Ru/Al2O3 law at 20 bar, 500 degC, equal Ru per NH3 (25 degC flow basis); measured Ru-K/CaO 0.68",
+        "value": 0.9506166566178327,
+        "unit": "conversion"
       }
     ]
   },

@@ -72,15 +72,20 @@ INPUTS = {
                        "9 bar, 5A; not cracked ammonia"),
             "central": inp(psa_recovery_at_purity(_feed20, 0.9991, _yt), "-", "assumption",
                            "mass-balance relation, tail-gas H2 fraction held at the Cho 2026 point (Phase 1 PSA_B_MB)",
-                           "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)"),
+                           "no measured recovery at 99.9 % for cracked ammonia; flat by construction. Against the simulated "
+                           "front of Abdoos et al. 2025 (0.8192 at 99.95 %, dry NH3-free feed; see abdoos2025_sourced_case) it is "
+                           "pessimistic, not optimistic (label corrected 24 Nov 2026)"),
             "high": inp(0.85, "-", "assumption", "AmCraX Aspen splitter assumption F4 (PSA_AMCRAX, 99.96 %)",
-                        "not supported by a source at this purity"),
+                        "not supported by a source at this purity; it lies above the only published front for this composition "
+                        "(Abdoos et al. 2025, simulated: 0.8192 at 99.95 %, 0.7744 at 99.99 %)"),
         },
         "fuel_cell_grade_D": {
             "low": inp(0.555, "-", "literature", "yanez2020 (S01): 55.5 % at 99.97 %",
                        "PESSIMISTIC CASE, DIFFERENT FEED (purge gas, see above); applied at the modelled 99.975 %"),
             "central": inp(psa_recovery_at_purity(_feed20, 0.99975, _yt), "-", "assumption",
-                           "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)", "optimistic, flat by construction"),
+                           "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)",
+                           "flat by construction; slightly pessimistic against Abdoos et al. 2025 (0.7744 at 99.99 %, simulated, "
+                           "dry NH3-free feed), so the earlier label 'optimistic' is withdrawn (24 Nov 2026)"),
             "high": inp(0.81, "-", "literature (low confidence)", "mehr2026highcapacity (S06): 81 % at 99.96 %",
                         "paper internally inconsistent; LOW confidence"),
         },
@@ -390,7 +395,154 @@ def psa_recovery_sensitivity():
                              ("mehr_0.81", 0.81, "Mehr 2026, low confidence")):
             v = lcoh_psa(spec, R, cv["elec"])
             pts[spec][name] = {"recovery": R, "lcoh_usd": v, "lcoh_sgd": v * FX, "delta_vs_0.85_usd": v - base, "label": lab}
+        # addendum of 24 November 2026: the three Table 8 optima of Abdoos et al. 2025 as a labelled sourced case
+        # (computed with the model at each recovery, not interpolated; the existing cases are kept)
+        for p in ABDOOS_POINTS:
+            v = lcoh_psa(spec, p["recovery"], cv["elec"])
+            rel = abdoos_relation(spec, p["purity"])
+            pts[spec][f"abdoos2025_{p['purity'] * 100:.2f}"] = {
+                "recovery": p["recovery"], "lcoh_usd": v, "lcoh_sgd": v * FX, "delta_vs_0.85_usd": v - base,
+                "label": f"Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, {p['P_ads_bar']} bar, purity {p['purity'] * 100:.2f} % ({rel})"}
     return rows, pts
+
+
+# ------------------------------------------------------------------------------------------ Abdoos et al. 2025 (addendum)
+ABDOOS_X = ROOT / "research" / "data" / "abdoos2025_extract.json"
+_ax = {e["id"]: e for e in json.loads(ABDOOS_X.read_text(encoding="utf-8"))["entries"]}
+ABDOOS_POINTS = [{"id": i, "purity": round(_ax[i]["value"]["purity_percent"] / 100.0, 6),
+                  "recovery": round(_ax[i]["value"]["recovery_percent"] / 100.0, 6),
+                  "SEC_MJ_per_kg": _ax[i]["value"]["SEC_MJ_per_kg"], "P_ads_bar": float(_ax[i]["operating_point"].split(", ")[-1].split()[0]),
+                  "location": _ax[i]["location"]} for i in ("P04", "P03", "P02")]   # 99.03, 99.95, 99.99 %
+ABDOOS_SCATTER_POINTS = (0.01, 0.03)   # surrogate recovery scatter at 72-78 % recovery (Fig. 13, figure reading)
+
+
+def abdoos_relation(spec: str, purity: float) -> str:
+    """How a Table 8 point relates to the modelled purity of a specification (front assumed monotonic)."""
+    target = SPECS[spec]["psa_purity"]
+    if purity < target:
+        return "purity below the specification: an upper bound on the recovery at the specification"
+    return "purity at or above the specification: a lower bound on the recovery at the specification"
+
+
+def abdoos_interp(purity: float) -> float:
+    """Linear interpolation between neighbouring Table 8 optima (points from different Pareto regions; labelled)."""
+    pts = sorted(ABDOOS_POINTS, key=lambda p: p["purity"])
+    for a, b in zip(pts, pts[1:]):
+        if a["purity"] <= purity <= b["purity"]:
+            return a["recovery"] + (b["recovery"] - a["recovery"]) * (purity - a["purity"]) / (b["purity"] - a["purity"])
+    raise ValueError("purity outside the Table 8 optima")
+
+
+def abdoos_case(comp):
+    """Abdoos et al. 2025 (simulated front for a dry, NH3-free cracked-ammonia composition) as a labelled sourced case
+    beside Yanez 2020 (different feed), the mass-balance assumption and 0.85. Nothing existing is replaced."""
+    cv = central_vals()
+    res = json.loads((ROOT / "results/research/catalyst_economics/catalyst_economics.json").read_text(encoding="utf-8"))[
+        "resolution"]["max_abs_python_minus_aspen_lcoh_USD_per_kg"]
+    lc = {}
+    for spec in SPECS:
+        base = lcoh_psa(spec, 0.85, cv["elec"])
+        lc[spec] = {}
+        for p in ABDOOS_POINTS:
+            cfg = psa_cfg(spec, p["recovery"])
+            c = cost(cfg, spec, elec=cv["elec"])
+            lc[spec][p["id"]] = {"purity_of_point": p["purity"], "recovery": p["recovery"],
+                                 "lcoh_usd_per_kg_usable": c["usd_per_kg_product_h2"] if c["meets_spec_within_model_scope"] else None,
+                                 "lcoh_sgd_per_kg_usable": c["sgd_per_kg_product_h2"] if c["meets_spec_within_model_scope"] else None,
+                                 "delta_vs_0.85_usd": c["usd_per_kg_product_h2"] - base,
+                                 "net_heat_deficit_kW": cfg["net_heat_deficit_kW"],
+                                 "relation_to_specification_purity": abdoos_relation(spec, p["purity"]),
+                                 "modelled_purity": SPECS[spec]["psa_purity"]}
+    def c30(spec, R):
+        return ps.purification_cost(psa_cfg(spec, R), CASE, 30.0, elec=cv["elec"])["usd_per_kg_product_h2"]
+    P = {p["id"]: p for p in ABDOOS_POINTS}
+    inc = {}
+    for name, (Rb, Rd, how) in {
+            "abdoos2025_table8": (P["P03"]["recovery"], P["P02"]["recovery"],
+                                  "industrial at 0.8192 (99.95 %, the lowest-purity Table 8 point that meets 99.9 %), Grade D at 0.7744 "
+                                  "(99.99 %, the only Table 8 point that meets the Grade D N2 limit)"),
+            "abdoos2025_interpolated_at_modelled_purities": (abdoos_interp(SPECS["industrial_99.9"]["psa_purity"]),
+                                                             abdoos_interp(SPECS["fuel_cell_grade_D"]["psa_purity"]),
+                                                             "linear interpolation between Table 8 optima at 99.91 % and 99.975 % "
+                                                             "(points from different Pareto regions)")}.items():
+        b, d = c30("industrial_99.9", Rb), c30("fuel_cell_grade_D", Rd)
+        inc[name] = {"industrial_recovery": Rb, "grade_D_recovery": Rd, "industrial": b, "grade_D_at_30bar": d,
+                     "increment": d - b, "basis": how, "source_type": "literature (simulated) applied in the python model"}
+    # surrogate recovery scatter (1-3 points): shift the two recoveries against each other and recompute the increment
+    scatter = []
+    for s in ABDOOS_SCATTER_POINTS:
+        for lab, sb, sd in (("adverse (industrial lower, Grade D higher)", -s, +s), ("favourable (industrial higher, Grade D lower)", +s, -s)):
+            Rb, Rd = P["P03"]["recovery"] + sb, P["P02"]["recovery"] + sd
+            scatter.append({"scatter_points": s, "direction": lab, "industrial_recovery": Rb, "grade_D_recovery": Rd,
+                            "increment": c30("fuel_cell_grade_D", Rd) - c30("industrial_99.9", Rb)})
+    old = comp["h4b_purity_cost_check"]["equal_delivery_increment"]
+    for k in ("psa_yanez_different_feed", "psa_mass_balance_assumption"):
+        inc[k] = {"increment": old[k]["increment"], "basis": "existing case (read from h4b_purity_cost_check)",
+                  "source_type": "literature (measured, different feed)" if "yanez" in k else "assumption"}
+    for v in inc.values():
+        v["above_resolution"] = v["increment"] > res
+        v["multiple_of_resolution"] = v["increment"] / res
+    tD, tB = comp["specs"]["fuel_cell_grade_D"]["thresholds"], comp["specs"]["industrial_99.9"]["thresholds"]
+    R_thr = comp["tradeoff"]["psa_recovery_where_tail_heat_equals_furnace_demand"]
+    pD = {"central": tD["psa_recovery_at_parity_with_central_membrane"], "high_cost": tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]}
+    pB = {"central": tB["psa_recovery_at_parity_with_central_membrane"], "high_cost": tB["psa_recovery_at_parity_with_high_cost_membrane"]["value"]}
+    rD, rB = P["P02"]["recovery"], P["P03"]["recovery"]
+    pos = {
+        "grade_D": {"abdoos_recovery": rD, "parity_recovery_central_membrane": pD["central"],
+                    "parity_recovery_high_cost_membrane": pD["high_cost"],
+                    "reading": ("between the two parities: membrane cheaper against the central membrane, PSA cheaper against the "
+                                "high-cost membrane" if min(pD.values()) < rD < max(pD.values()) else
+                                ("above both parities: PSA cheaper" if rD > max(pD.values()) else "below both parities: membrane cheaper")),
+                    "interpolated_recovery_at_99.975": abdoos_interp(SPECS["fuel_cell_grade_D"]["psa_purity"])},
+        "industrial": {"abdoos_recovery": rB, "parity_recovery_central_membrane": pB["central"],
+                       "parity_recovery_high_cost_membrane": pB["high_cost"],
+                       "reading": ("above both parities: PSA cheaper" if rB > max(pB.values()) else
+                                   ("between the two parities" if rB > min(pB.values()) else "below both parities: membrane cheaper"))},
+        "furnace_balance": {"recovery_where_tail_heat_equals_furnace_demand": R_thr,
+                            "table8_recoveries": [p["recovery"] for p in ABDOOS_POINTS],
+                            "all_above": all(p["recovery"] > R_thr for p in ABDOOS_POINTS),
+                            "grade_D_point_margin": rD - R_thr,
+                            "margin_inside_surrogate_scatter": (rD - R_thr) <= ABDOOS_SCATTER_POINTS[1],
+                            "front_at_99.99_reaches_down_to_about": _ax["P09"]["value"]["purity_99.99_recovery_range_percent"][0] / 100.0,
+                            "note": "the front at about 99.99 % reaches about 0.69 (figure reading), below the threshold"},
+    }
+    return {
+        "description": abdoos_case.__doc__.replace("\n    ", " "),
+        "source": "abdoos2025psa, Table 8 p. 13 (research/data/abdoos2025_extract.json P02-P04; research/notes/abdoos2025_full_text.md)",
+        "points": ABDOOS_POINTS,
+        "evidence_grade": "simulated (Aspen Adsorption, ANN surrogate, NSGA-II); no cyclic-PSA experiment",
+        "boundary_differences": [
+            "adsorption pressure 7.9-11.6 bar at the optima (bounds 6-12 bar) against the AmCraX 19.5 bar PSA feed; the paper's own "
+            "trend (higher pressure: higher purity, lower recovery) makes the extrapolation to 20 bar not neutral",
+            "dry, NH3-free 75/25 H2/N2 feed (NH3 and H2O are not model components) against AmCraX cracked gas with about 1 % NH3 "
+            "and water upstream of the TSA",
+            "purity is the N2 impurity only; Grade D also needs NH3 <= 0.1 ppm, which the paper leaves out of scope",
+            "simulation and surrogate: recovery scatter about 1-3 points at 72-78 % recovery (Fig. 13); whether Table 8 values "
+            "are surrogate or full-order outputs is not stated",
+            "feed 83-98 kmol/h against about 198 kmol/h; optimum feed temperature about 10 degC against 40 degC",
+            "the paper's specific energy (6.4-8.76 MJ/kg) is feed compression from about 1 bar; it is not used (AmCraX needs no "
+            "feed compressor at 19.5 bar)",
+        ],
+        "lcoh_by_specification": lc,
+        "lcoh_basis": "USD per kg usable H2, unified reference basis, PSA at each recovery applied at the modelled purity of the "
+                      "specification (99.91 % industrial at 30 bar; 99.975 % Grade D at 350 bar); computed with the model, not interpolated",
+        "equal_delivery_increment": inc,
+        "equal_delivery_basis": "purity-only increment at equal (30 bar) delivery, same functions as h4b_purity_cost_check",
+        "equal_delivery_increment_surrogate_scatter": [{**x, "above_resolution": x["increment"] > res} for x in scatter],
+        "surrogate_scatter_note": "recoveries shifted by the 1 and 3 point surrogate scatter (Fig. 13, figure reading) in opposite "
+                                  "directions; a negative increment means Grade D would cost less than industrial grade at 30 bar",
+        "model_resolution_USD_per_kg": res,
+        "model_resolution_source": "results/research/catalyst_economics/catalyst_economics.json resolution/max_abs_python_minus_aspen_lcoh_USD_per_kg",
+        "position": pos,
+        "assumption_comparison": {
+            "amcrax_0.85_at_99.96": "above the front at matching purity (0.8192 at 99.95 %, 0.7744 at 99.99 %); recoveries of about "
+                                    "0.85 appear on the front only at about 99.2-99.8 % purity (figure reading)",
+            "mass_balance_central": {"industrial_99.91": INPUTS["psa_recovery"]["industrial_99.9"]["central"]["value"],
+                                     "grade_D_99.975": INPUTS["psa_recovery"]["fuel_cell_grade_D"]["central"]["value"],
+                                     "reading": "below the front at both purities: pessimistic against this simulation, not optimistic"},
+            "yanez_low_cases": "well below the front (different feed, measured)"},
+        "not_used_by_any_rule": "stored beside the existing cases; inputs/psa_recovery, the factorial and the coded row rules are unchanged",
+    }
 
 
 # ------------------------------------------------------------------------------------------ trade-off curves (H4-B)
@@ -482,20 +634,31 @@ def row_evidence(comp):
     tD, tB = D["thresholds"], B["thresholds"]
     h4b = comp["h4b_purity_cost_check"]
     to = comp["tradeoff"]
+    ab = comp["abdoos2025_sourced_case"]
+    abp = {f"abdoos2025_recovery_{p['purity'] * 100:.2f}": p["recovery"] for p in ab["points"]}
     return {
         "H4-a": {"proposed_verdict": "INCONCLUSIVE",
                  "numbers": {"yanez2020_recovery_99.25": 0.753, "yanez2020_recovery_99.97": 0.555,
                              "mass_balance_recovery_99.91": INPUTS["psa_recovery"]["industrial_99.9"]["central"]["value"],
-                             "mass_balance_recovery_99.975": INPUTS["psa_recovery"]["fuel_cell_grade_D"]["central"]["value"]},
+                             "mass_balance_recovery_99.975": INPUTS["psa_recovery"]["fuel_cell_grade_D"]["central"]["value"],
+                             "abdoos2025_table8_simulated": abp},
                  "assumptions": "AmCraX has no adsorption-cycle model; the PSA recovery at any purity is an input",
-                 "uncertainty": "Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); no cracked-ammonia value",
+                 "uncertainty": ("Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); for a cracked-ammonia "
+                                 "composition only a simulated front exists: Abdoos 2025, 0.7744 at 99.99 % and 0.8192 at 99.95 % "
+                                 "(dry, NH3-free feed, 11.3-11.6 bar, surrogate scatter about 1-3 points)"),
                  "envelope": "none (not computed)",
                  "threshold": None,
-                 "reason": "the direction is shown by one literature source for a different feed (literature_comparison), not "
-                           "computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed "
+                 "reason": "the direction is shown by two literature sources (literature_comparison), not computed: Yanez 2020 "
+                           "(measured, ammonia-plant purge gas) and Abdoos 2025 (simulated, dry NH3-free cracked-ammonia "
+                           "composition; its model equations and breakthrough check cite Yanez 2020, so the two are not fully "
+                           "independent); the AmCraX relation is flat by construction. Computed for the membrane instead: at a fixed "
                            "sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"},
         "H4-b": {"proposed_verdict": "SUPPORTED (direction), narrow envelope; the evidence matrix rule decides",
-                 "numbers": {"by_electricity": h4b["by_electricity"], "equal_delivery_increment": h4b["equal_delivery_increment"]},
+                 "numbers": {"by_electricity": h4b["by_electricity"], "equal_delivery_increment": h4b["equal_delivery_increment"],
+                             # addendum 24 Nov 2026: kept OUTSIDE equal_delivery_increment so the coded rule reads the same inputs
+                             "equal_delivery_increment_abdoos2025": {k: ab["equal_delivery_increment"][k] for k in
+                                                                     ("abdoos2025_table8", "abdoos2025_interpolated_at_modelled_purities")},
+                             "model_resolution_USD_per_kg": ab["model_resolution_USD_per_kg"]},
                  "assumptions": "PSA recoveries are inputs; polishing-bed cost is a proxy (adsorber share); delivery 30 / 350 bar",
                  "uncertainty": "factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, "
                                 "selectivity, flux, recovery)",
@@ -527,7 +690,8 @@ def row_evidence(comp):
                              "required_selectivity": tD["selectivity"]["required_alpha_H2_N2"],
                              "sourced_selectivity": [tD["selectivity"]["sourced_low"], 400000.0, 500000.0],
                              "industrial_share_pairs_membrane_cheaper": B["factorial_summary"]["share_membrane_cheaper"],
-                             "industrial_psa_recovery_at_parity": tB["psa_recovery_at_parity_with_central_membrane"]},
+                             "industrial_psa_recovery_at_parity": tB["psa_recovery_at_parity_with_central_membrane"],
+                             "abdoos2025_position": ab["position"]},
                  "assumptions": "membrane housing, skid and heating CAPEX not modelled (favours the membrane); PSA own power and "
                                 "TSA heat not modelled (favours PSA); permeate at 1 bar",
                  "uncertainty": "factorial over sourced inputs; ranking reverses inside it",
@@ -536,7 +700,8 @@ def row_evidence(comp):
                                                        tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
                  "threshold": ("PSA recovery at parity %.3f-%.3f (Grade D; high-cost to central membrane) and %.3f-%.3f "
                                "(industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low "
-                               "confidence, above). Membrane cost (parity %s USD/m2 against the central PSA) and life (parity "
+                               "confidence, above; Abdoos 2025, simulated for this composition, 0.7744 at 99.99 %% lies between the "
+                               "two Grade D parities and 0.8192 at 99.95 %% above both industrial parities). Membrane cost (parity %s USD/m2 against the central PSA) and life (parity "
                                "%s yr) are outside the sourced ranges, so they do not decide the ranking; selectivity "
                                "requirement %s is below all sourced ideal values. Membrane annualised with CRF(i, life)"
                                % (min(tD["psa_recovery_at_parity_with_central_membrane"], tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
@@ -554,7 +719,8 @@ def row_evidence(comp):
                  "numbers": {"furnace_demand_kW": to["furnace_demand_kW"],
                              "recovery_where_tail_heat_equals_demand": to["psa_recovery_where_tail_heat_equals_furnace_demand"],
                              "psa_0.85_net_deficit_kW": B["configurations"]["PSA_high_recovery"]["energy"]["net_heat_deficit_kW"],
-                             "membrane_0.90_imported_heat_kWh_per_kg": D["configurations"]["MEM_central"]["energy"]["imported_heat_kWh_per_kg_h2"]},
+                             "membrane_0.90_imported_heat_kWh_per_kg": D["configurations"]["MEM_central"]["energy"]["imported_heat_kWh_per_kg_h2"],
+                             "abdoos2025_furnace_balance": ab["position"]["furnace_balance"]},
                  "assumptions": "tail gas or retentate burned in the cracker furnace with the baseline furnace model; surplus not credited",
                  "uncertainty": "computed for recoveries 0.50-0.95 (PSA and membrane trade-off grids)",
                  "envelope": "20 bar baseline; above recovery %.3f the tail gas does not cover the furnace and NH3 is burned; "
@@ -662,6 +828,7 @@ def main():
                                    "life); it covers the module replacement."),
     }
     comp["h4b_purity_cost_check"] = h4b_check(fact)
+    comp["abdoos2025_sourced_case"] = abdoos_case(comp)
     comp["row_evidence"] = row_evidence(comp)
     json.dump(ps._clean(comp), open(OUT / "phase2_comparison.json", "w", encoding="utf-8"), indent=1,
               default=lambda o: o.item() if hasattr(o, "item") else str(o))
@@ -830,6 +997,45 @@ def validation(comp, mem_t):
         "not a validation: AmCraX has no adsorption-cycle model; the Yanez point is a different feed (purge gas). Reported "
         "as a pessimistic input case only", "yanez2020", INPUTS["psa_recovery"]["fuel_cell_grade_D"]["central"]["value"],
         0.555, None, "-", "informational", "literature_comparison", [])
+    # 8 addendum of 24 November 2026: Abdoos et al. 2025 (simulated front for a dry, NH3-free cracked-ammonia composition)
+    ab = comp["abdoos2025_sourced_case"]
+    P = {p["id"]: p for p in ab["points"]}
+    add("P2-PSA-ABDOOS-1", "AmCraX PSA recovery assumption 0.85 at 99.96 % against the published front for a cracked-ammonia "
+        "composition (Abdoos 2025 Table 8: 0.8192 at 99.95 %, 0.7744 at 99.99 %)",
+        "comparison of an input with a simulated literature front; no AmCraX adsorption-cycle model; dry NH3-free feed at 11.3-11.6 bar "
+        "against 19.5 bar; surrogate scatter 1-3 points", "abdoos2025psa p. 13 Table 8", 0.85,
+        [P["P03"]["recovery"], P["P02"]["recovery"]], None, "-", "informational", "literature_comparison", SF)
+    items[-1]["note"] = "the assumption lies above the front at matching purity; the baseline sensitivity is in reference_scenario/baseline.json psa_recovery_sensitivity"
+    add("P2-PSA-ABDOOS-2", "AmCraX mass-balance central recoveries (0.7516 at 99.91 %, 0.7513 at 99.975 %) against the Abdoos 2025 front",
+        "comparison with the Table 8 point of the next higher purity (front assumed monotonic)", "abdoos2025psa p. 13 Table 8",
+        [INPUTS["psa_recovery"]["industrial_99.9"]["central"]["value"], INPUTS["psa_recovery"]["fuel_cell_grade_D"]["central"]["value"]],
+        [P["P03"]["recovery"], P["P02"]["recovery"]], None, "-", "informational", "literature_comparison", SF)
+    items[-1]["note"] = "both mass-balance values lie below the front: the earlier label 'optimistic' is withdrawn"
+    lcs = [ab["lcoh_by_specification"]["fuel_cell_grade_D"][i]["lcoh_usd_per_kg_usable"] for i in ("P04", "P03", "P02")]
+    add("P2-PSA-ABDOOS-3", "Grade D LCOH at the three Abdoos recoveries rises as recovery falls (computed with the model at each "
+        "recovery, not interpolated)", "monotonicity of the computed LCOH over 0.8392 > 0.8192 > 0.7744", "internal consistency",
+        lcs, "strictly increasing", None, "USD/kg", "pass" if lcs[0] < lcs[1] < lcs[2] else "fail", "numerical_verification", SF)
+    inc = ab["equal_delivery_increment"]["abdoos2025_table8"]
+    add("P2-PSA-ABDOOS-4", "Purity-only Grade D increment at equal (30 bar) delivery on the Abdoos 2025 relation against the model "
+        "resolution (Python against Aspen LCOH offset)", "industrial at 0.8192, Grade D at 0.7744, both delivered at 30 bar; relation "
+        "simulated for a dry NH3-free feed at 11.3-11.6 bar, applied at 19.5 bar", "abdoos2025psa Table 8; catalyst_economics.json resolution",
+        inc["increment"], ab["model_resolution_USD_per_kg"], None, "USD/kg", "informational", "literature_comparison", SF)
+    adv3 = next(x for x in ab["equal_delivery_increment_surrogate_scatter"] if x["scatter_points"] == 0.03 and x["direction"].startswith("adverse"))
+    items[-1]["note"] = ("above the resolution (%.1f times) at the printed recoveries, but %.4f with 3 points of adverse surrogate scatter; "
+                         "the Yanez relation (different feed) gives %.4f and the assumed mass-balance relation %.4f (below the resolution); "
+                         "the coded H4-b rule is unchanged" % (
+                             inc["multiple_of_resolution"], adv3["increment"],
+                             ab["equal_delivery_increment"]["psa_yanez_different_feed"]["increment"],
+                             ab["equal_delivery_increment"]["psa_mass_balance_assumption"]["increment"]))
+    bl = json.loads((ROOT / "results/research/reference_scenario/baseline.json").read_text(encoding="utf-8")).get("psa_recovery_sensitivity")
+    if bl:
+        cs = {c["psa_recovery"]: c for c in bl["cases"]}
+        add("P2-PSA-ABDOOS-BASELINE", "Reference baseline LCOH (PSA 0.85 at 99.96 %) beside the same economics code path at the Abdoos "
+            "2025 recoveries 0.8192 (99.95 %) and 0.7744 (99.99 %)", "singapore.evaluate psa_recovery override (linear re-scaling of the "
+            "stored Aspen result); reference value frozen", "abdoos2025psa Table 8; results/research/reference_scenario/baseline.json",
+            [cs[0.8192]["lcoh_USD_per_kg"], cs[0.7744]["lcoh_USD_per_kg"]], bl["reference_lcoh_USD_per_kg"], None, "USD/kg",
+            "informational", "literature_comparison", ["results/research/reference_scenario/baseline.json"])
+        items[-1]["note"] = "sensitivity beside the frozen reference; the reference value does not change"
     f = VAL / "purification.json"
     old = json.loads(f.read_text(encoding="utf-8")) if f.exists() else []
     old = [i for i in old if not str(i.get("id", "")).startswith("P2-")]

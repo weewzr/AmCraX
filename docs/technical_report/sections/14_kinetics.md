@@ -1,4 +1,4 @@
-<!-- cites: takahashi2016kinetic, kum2026heatintegrated, dicarlo2014ammonia, maccarrone2025comprehensive, richard2024technoeconomic, smith_grimech30, goodwin2018cantera, lucentini2021nirukinetic -->
+<!-- cites: takahashi2016kinetic, kum2026heatintegrated, dicarlo2014ammonia, maccarrone2025comprehensive, richard2024technoeconomic, smith_grimech30, goodwin2018cantera, lucentini2021nirukinetic, sayas2020rukcao -->
 
 # 14 Catalyst kinetics
 
@@ -106,6 +106,6 @@ Heat transfer, not kinetics, limits a real bed. In **illustrative examples** wit
 
 ## 14.6 Limits
 
-All 20 bar results extrapolate kinetics fitted at 1 atm (Takahashi) or at most 10 bar and 450 °C (Kum). The approach factor of Eq. (14.5) and the $K_{eq}$ reading of Eq. (14.1) are AmCraX assumptions. The model neglects intraparticle diffusion (effectiveness factor 1, although the Takahashi rates were measured on powders), external transfer, radial gradients, axial dispersion, non-ideal gas behaviour in the energy balance and deactivation, so the catalyst masses are lower bounds. Two of the four kinetic validation items fail, and no kinetic result of this section enters the baseline Aspen flowsheet or its economics.
+All 20 bar results extrapolate kinetics fitted at 1 atm (Takahashi) or at most 10 bar and 450 °C (Kum). The approach factor of Eq. (14.5) and the $K_{eq}$ reading of Eq. (14.1) are AmCraX assumptions. The model neglects intraparticle diffusion (effectiveness factor 1, although the Takahashi rates were measured on powders), external transfer, radial gradients, axial dispersion, non-ideal gas behaviour in the energy balance and deactivation, so the catalyst masses are lower bounds. Two of the four kinetic validation items fail, and no kinetic result of this section enters the baseline Aspen flowsheet or its economics. No rate law is validated at 20 bar. The only measured conversions at that pressure in the library are those of a different catalyst, Ru-K/CaO (Sayas et al., 2020, read in full on 24 November 2026): about 68 % at 500 °C and 20 bar, where the Ru/Al~2~O~3~ law gives about 95 % at the same ruthenium per mole of NH~3~. That is a cross-catalyst comparison, not a test of either law, but it supports treating every 20 bar kinetic result as an extrapolation (Section 35.2).
 
 The research expansion builds on this model. Section 25 adds the two Ni-Ru/CeO~2~ laws of Lucentini et al. (2021), implements all five laws in Aspen Plus RPlug reactors and verifies them against this Python reactor; Section 26 uses the resulting operating temperatures and catalyst masses to compare catalysts with and without heat integration.

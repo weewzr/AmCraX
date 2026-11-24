@@ -365,7 +365,8 @@
    "verbatim": "verbatim",
    "url": "https://netl.doe.gov/sites/default/files/publication/A-Literature-Review-of-Hydrogen-and-Natural-Gas-Turbines-081222.pdf",
    "access_date": "2026-11-23",
-   "note": "This is the likely origin of '30 to 60 vol% H2' in the essay. It refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors."
+   "note": "Refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors. Correction of 24 November 2026: the essay's '30 to 60 vol% H2 for the H-25' is printed in Halim et al. 2025 p. 3 (relayed from trade press, their ref. [31]); this NETL statement is not its origin.",
+   "note_superseded_2026_11_23": "This is the likely origin of '30 to 60 vol% H2' in the essay. It refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors."
   },
   {
    "id": "programme_mhi",
@@ -401,14 +402,15 @@
   {
    "id": "halim2025_status",
    "machine_or_study": "Halim, Zain and Khoo (2025), Applied Energy 386, 125581",
-   "status": "Full text NOT accessible (A*STAR repository lists the file apen-125581.pdf as request-a-copy only; publisher page not tried beyond DOI). Abstract read at the repository and IDEAS. The quoted figures 60.1 MW, LCOH 15.1 (green) and 10.1 (blue) USD/kg, 'direct combustion about 40 per cent cheaper' and '30 to 60 vol% H2 for the H-25' are NOT found in the abstract and cannot be located. The abstract does say direct ammonia use is economically preferable to cracking because of cracking capital and operating cost.",
-   "evidence_grade": "n/a",
+   "status": "Full text read on 24 November 2026 (research/notes/halim2025_full_text.md; research/data/halim2025_extract.json). All four quoted figures are located: 60.1 MW (p. 3, p. 11; vendor rating of the H-25); LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5); 'about 40 %' (Highlights; 39 % green and 44 % blue on p. 9) is 1 - LCOA/LCOH, a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet with the power plant excluded, not a cost of electricity; 30 to 60 vol% H2 for the H-25 (p. 3, relayed from trade press). The turbine is not modelled: one vendor combined-cycle efficiency (54 %, basis and fuel not stated) is applied to every fuel, so the implied efficiency difference between H2-rich fuel and NH3 is 0 pp by assumption (not a sourced value; not used as evidence for H1-a).",
+   "status_superseded_2026_11_23": "Full text NOT accessible (A*STAR repository lists the file apen-125581.pdf as request-a-copy only; publisher page not tried beyond DOI). Abstract read at the repository and IDEAS. The quoted figures 60.1 MW, LCOH 15.1 (green) and 10.1 (blue) USD/kg, 'direct combustion about 40 per cent cheaper' and '30 to 60 vol% H2 for the H-25' are NOT found in the abstract and cannot be located. The abstract does say direct ammonia use is economically preferable to cracking because of cracking capital and operating cost.",
+   "evidence_grade": "literature (techno-economic model; turbine efficiency a vendor headline applied to every fuel)",
    "sources": [
     "https://oar.a-star.edu.sg/communities-collections/articles/21565",
     "https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html",
     "https://doi.org/10.1016/j.apenergy.2025.125581"
    ],
-   "access_date": "2026-11-23"
+   "access_date": "2026-11-24"
   }
  ],
  "not_found": [

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:49:24+00:00",
+  "generated_utc": "2026-11-24T12:49:11+00:00",
   "script": "scripts/research/kinetics_validity_classification.py",
   "source_type": "literature (ranges) + classification rule (this script)",
   "inputs_summary": "backend/amcrax/data/kinetics.yaml validity fields; research/notes/*; results/research/validation/kinetics.json statuses",
@@ -478,7 +478,8 @@
    "catalyst": "Ru-K/CaO",
    "catalyst_id": null,
    "citekey": "sayas2020rukcao",
-   "reason": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
+   "reason": "main text read in full on 24 Nov 2026 (research/notes/sayas2020_full_text.md); it gives the rate-law form (power law with an approach-to-equilibrium term, eqns (1)-(2)), the orders 0.5 (NH3) and -1.2 (H2) and an apparent Ea of 75 kJ/mol at 350 degC and 1 atm (Table 4), but NO complete rate law: the rate constant (pre-exponential factor, units) and the equilibrium term of the integral fit are in the supplementary information, which was not obtained. Nothing was fitted or estimated. The 10-40 bar conversions are stored as literature comparison points that no model uses.",
+   "reason_superseded_2026_11_23": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
    "experimental": {
     "T_C": [
      250,
@@ -488,13 +489,16 @@
      1.0,
      40.0
     ],
-    "feed": "not verified",
-    "space_velocity": "WHSV 9000-30000 mL g-1 h-1 (abstract)",
-    "conversion_range": null,
-    "conversion_note": "about 80 % at 550 degC, 40 bar (abstract; conditions not verified)"
+    "feed": "pure NH3",
+    "space_velocity": "WHSV 9000 mL gcat-1 h-1 at 10-40 bar (30 N mL/min over 200 mg; 'N mL' reference state not defined); 9000-30000 at 1 atm",
+    "conversion_range": [
+     0.0,
+     1.0
+    ],
+    "conversion_note": "about 84 % at 550 degC and 40 bar (figure reading; the text says 'around 80 %'); 15 points at 10-40 bar, 350-550 degC"
    },
    "class": "unmodelled",
-   "class_evidence": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; no parameter is estimated.",
+   "class_evidence": "main text read in full on 24 Nov 2026 (research/notes/sayas2020_full_text.md); it gives the rate-law form (power law with an approach-to-equilibrium term, eqns (1)-(2)), the orders 0.5 (NH3) and -1.2 (H2) and an apparent Ea of 75 kJ/mol at 350 degC and 1 atm (Table 4), but NO complete rate law: the rate constant (pre-exponential factor, units) and the equilibrium term of the integral fit are in the supplementary information, which was not obtained. Nothing was fitted or estimated. The 10-40 bar conversions are stored as literature comparison points that no model uses.",
    "fitted_range": null,
    "domain_warning": {
     "pressure_extrapolated_at_20_bar": null,
@@ -504,5 +508,385 @@
    "evidence_kinds_available": [],
    "experimental_validation": false
   }
- ]
+ ],
+ "literature_comparison_points_sayas2020": {
+  "description": "The 15 measured conversions of 3%Ru10%K/CaO at 10, 20 and 40 bar (Fig. 4A, figure readings). Literature comparison points only: NOT used by any model, fit or rule (addendum of 24 November 2026).",
+  "source": "sayas2020rukcao p. 5032 Fig. 4A (research/data/sayas2020_extract.json SAY-HP-X-10/20/40)",
+  "catalyst": "3%Ru10%K/CaO (ICP 2.8 wt% Ru, 9.6 wt% K), 200 mg, 300-500 um, diluted in 1 g SiC",
+  "conditions": "pure NH3, 30 N mL/min (WHSV 9000 mL gcat-1 h-1) at every pressure, isothermal set-point, fresh catalyst, 7 h",
+  "uncertainty": {
+   "figure_reading_points": 0.02,
+   "flow_reference_state": "'N mL' not defined: 0 or 25 degC, about 9 % in F",
+   "bed": "reactor diameter, bed length and temperature profile not given"
+  },
+  "status": "figure reading",
+  "used_by_any_model": false,
+  "n_points": 15,
+  "points": [
+   {
+    "P_bar": 10.0,
+    "T_C": 350.0,
+    "X_measured": 0.07,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 10.0,
+    "T_C": 400.0,
+    "X_measured": 0.215,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 10.0,
+    "T_C": 450.0,
+    "X_measured": 0.505,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 10.0,
+    "T_C": 500.0,
+    "X_measured": 0.805,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 10.0,
+    "T_C": 550.0,
+    "X_measured": 0.935,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 20.0,
+    "T_C": 350.0,
+    "X_measured": 0.055,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 20.0,
+    "T_C": 400.0,
+    "X_measured": 0.17,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 20.0,
+    "T_C": 450.0,
+    "X_measured": 0.395,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 20.0,
+    "T_C": 500.0,
+    "X_measured": 0.68,
+    "in_amcrax_window": true
+   },
+   {
+    "P_bar": 20.0,
+    "T_C": 550.0,
+    "X_measured": 0.875,
+    "in_amcrax_window": true
+   },
+   {
+    "P_bar": 40.0,
+    "T_C": 350.0,
+    "X_measured": 0.045,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 40.0,
+    "T_C": 400.0,
+    "X_measured": 0.135,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 40.0,
+    "T_C": 450.0,
+    "X_measured": 0.33,
+    "in_amcrax_window": false
+   },
+   {
+    "P_bar": 40.0,
+    "T_C": 500.0,
+    "X_measured": 0.62,
+    "in_amcrax_window": true
+   },
+   {
+    "P_bar": 40.0,
+    "T_C": 550.0,
+    "X_measured": 0.845,
+    "in_amcrax_window": true
+   }
+  ]
+ },
+ "cross_catalyst_context_sayas2020": {
+  "description": "Context only, NOT a test of any law: the existing AmCraX Ru/Al2O3 law (Kum et al. 2026, fitted at 1-10 bar on an 8 wt% Ru commercial catalyst) evaluated at the Sayas test conditions with the SAME ruthenium per mol of NH3 fed. The two catalysts differ (support, promoter, dispersion), so a difference says nothing about either law's validity.",
+  "label": "cross-catalyst context comparison, not a test of the law",
+  "law": "ru_kum_temkin_pyzhev (kinetics.yaml), isothermal PFR, keq_basis amcrax_thermo, pure NH3, no pressure drop",
+  "law_fitted_range": "1-10 bar, 350-450 degC (Kum et al. fit to Di Carlo et al. 2014)",
+  "cases": [
+   {
+    "flow_reference_state": "0 degC",
+    "F_mol_NH3_per_h": 0.08030695101275986,
+    "g_Ru_h_per_mol_NH3": 0.06973244444444447,
+    "W_RuAl2O3_kg_s_per_mol": 3.137960000000001,
+    "rows": [
+     {
+      "P_bar": 10.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.07,
+      "X_RuAl2O3_law_equal_Ru": 0.14757562980516314,
+      "X_equilibrium_ideal": 0.855073287703574,
+      "difference": 0.07757562980516314
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.215,
+      "X_RuAl2O3_law_equal_Ru": 0.3530342736685397,
+      "X_equilibrium_ideal": 0.9227537611684288,
+      "difference": 0.13803427366853968
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.505,
+      "X_RuAl2O3_law_equal_Ru": 0.6995497978674591,
+      "X_equilibrium_ideal": 0.9573516542949994,
+      "difference": 0.19454979786745907
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.805,
+      "X_RuAl2O3_law_equal_Ru": 0.9748521739712329,
+      "X_equilibrium_ideal": 0.9752320421334545,
+      "difference": 0.16985217397123287
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.935,
+      "X_RuAl2O3_law_equal_Ru": 0.9848508883231227,
+      "X_equilibrium_ideal": 0.9848508883213863,
+      "difference": 0.04985088832312268
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.055,
+      "X_RuAl2O3_law_equal_Ru": 0.13331977433755543,
+      "X_equilibrium_ideal": 0.7590987100073824,
+      "difference": 0.07831977433755544
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.17,
+      "X_RuAl2O3_law_equal_Ru": 0.32022800060973666,
+      "X_equilibrium_ideal": 0.8610244891363714,
+      "difference": 0.15022800060973665
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.395,
+      "X_RuAl2O3_law_equal_Ru": 0.6432304403998103,
+      "X_equilibrium_ideal": 0.9197323905329697,
+      "difference": 0.24823044039981024
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.68,
+      "X_RuAl2O3_law_equal_Ru": 0.9478469849304964,
+      "X_equilibrium_ideal": 0.95221774119023,
+      "difference": 0.2678469849304963
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.875,
+      "X_RuAl2O3_law_equal_Ru": 0.9703700409420204,
+      "X_equilibrium_ideal": 0.9703700409770306,
+      "difference": 0.0953700409420204
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.045,
+      "X_RuAl2O3_law_equal_Ru": 0.12041136433755426,
+      "X_equilibrium_ideal": 0.636177733282911,
+      "difference": 0.07541136433755426
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.135,
+      "X_RuAl2O3_law_equal_Ru": 0.29015800911636125,
+      "X_equilibrium_ideal": 0.7674768528605687,
+      "difference": 0.15515800911636124
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.33,
+      "X_RuAl2O3_law_equal_Ru": 0.588437828104855,
+      "X_equilibrium_ideal": 0.8561329343165045,
+      "difference": 0.258437828104855
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.62,
+      "X_RuAl2O3_law_equal_Ru": 0.8981215614331732,
+      "X_equilibrium_ideal": 0.9106894265477777,
+      "difference": 0.27812156143317324
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.845,
+      "X_RuAl2O3_law_equal_Ru": 0.9432268614875478,
+      "X_equilibrium_ideal": 0.9432268621475883,
+      "difference": 0.09822686148754778
+     }
+    ]
+   },
+   {
+    "flow_reference_state": "25 degC",
+    "F_mol_NH3_per_h": 0.07357449417535254,
+    "g_Ru_h_per_mol_NH3": 0.07611333333333335,
+    "W_RuAl2O3_kg_s_per_mol": 3.425100000000001,
+    "rows": [
+     {
+      "P_bar": 10.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.07,
+      "X_RuAl2O3_law_equal_Ru": 0.15474451141636866,
+      "X_equilibrium_ideal": 0.855073287703574,
+      "difference": 0.08474451141636866
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.215,
+      "X_RuAl2O3_law_equal_Ru": 0.36936214661749944,
+      "X_equilibrium_ideal": 0.9227537611684288,
+      "difference": 0.15436214661749945
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.505,
+      "X_RuAl2O3_law_equal_Ru": 0.7259994370704594,
+      "X_equilibrium_ideal": 0.9573516542949994,
+      "difference": 0.22099943707045944
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.805,
+      "X_RuAl2O3_law_equal_Ru": 0.9751575771206147,
+      "X_equilibrium_ideal": 0.9752320421334545,
+      "difference": 0.17015757712061463
+     },
+     {
+      "P_bar": 10.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.935,
+      "X_RuAl2O3_law_equal_Ru": 0.984850888322738,
+      "X_equilibrium_ideal": 0.9848508883213863,
+      "difference": 0.049850888322737985
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.055,
+      "X_RuAl2O3_law_equal_Ru": 0.13981121147188375,
+      "X_equilibrium_ideal": 0.7590987100073824,
+      "difference": 0.08481121147188375
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.17,
+      "X_RuAl2O3_law_equal_Ru": 0.33517275468893204,
+      "X_equilibrium_ideal": 0.8610244891363714,
+      "difference": 0.16517275468893203
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.395,
+      "X_RuAl2O3_law_equal_Ru": 0.6686042111782322,
+      "X_equilibrium_ideal": 0.9197323905329697,
+      "difference": 0.2736042111782322
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.68,
+      "X_RuAl2O3_law_equal_Ru": 0.9506166566178327,
+      "X_equilibrium_ideal": 0.95221774119023,
+      "difference": 0.27061665661783263
+     },
+     {
+      "P_bar": 20.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.875,
+      "X_RuAl2O3_law_equal_Ru": 0.9703700409915732,
+      "X_equilibrium_ideal": 0.9703700409770306,
+      "difference": 0.0953700409915732
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 350.0,
+      "X_measured_RuK_CaO": 0.045,
+      "X_RuAl2O3_law_equal_Ru": 0.12628521814471153,
+      "X_equilibrium_ideal": 0.636177733282911,
+      "difference": 0.08128521814471153
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 400.0,
+      "X_measured_RuK_CaO": 0.135,
+      "X_RuAl2O3_law_equal_Ru": 0.30378401313160847,
+      "X_equilibrium_ideal": 0.7674768528605687,
+      "difference": 0.16878401313160846
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 450.0,
+      "X_measured_RuK_CaO": 0.33,
+      "X_RuAl2O3_law_equal_Ru": 0.6121525055611562,
+      "X_equilibrium_ideal": 0.8561329343165045,
+      "difference": 0.2821525055611562
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 500.0,
+      "X_measured_RuK_CaO": 0.62,
+      "X_RuAl2O3_law_equal_Ru": 0.9041999902295323,
+      "X_equilibrium_ideal": 0.9106894265477777,
+      "difference": 0.28419999022953235
+     },
+     {
+      "P_bar": 40.0,
+      "T_C": 550.0,
+      "X_measured_RuK_CaO": 0.845,
+      "X_RuAl2O3_law_equal_Ru": 0.9432268621823198,
+      "X_equilibrium_ideal": 0.9432268621475883,
+      "difference": 0.0982268621823198
+     }
+    ]
+   }
+  ],
+  "headline_20bar_500C": {
+   "X_measured_RuK_CaO": 0.68,
+   "X_RuAl2O3_law_equal_Ru": [
+    0.9478469849304964,
+    0.9506166566178327
+   ],
+   "X_equilibrium_ideal": 0.95221774119023
+  },
+  "reading": "at equal Ru per mol NH3 the pressure-extrapolated Ru/Al2O3 law converts far more than the measured Ru-K/CaO at 20 bar and 500 degC; this is a reason to keep the Ru/Al2O3 20 bar results labelled as extrapolation, which the project already does, not evidence under the verdict rules",
+  "source_type": "python (existing law) against literature (figure readings)"
+ }
 }

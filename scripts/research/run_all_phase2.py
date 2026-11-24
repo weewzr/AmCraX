@@ -8,8 +8,11 @@ Usage (from the repository root, virtual environment active):
 Nothing here runs Aspen Plus. The Aspen kinetic cases are stored results (results/research/aspen_kinetic) and are
 re-run only through aspen/automation on a machine with Aspen Plus V15. After this script, run
 `python scripts/research/economics_reference_scenario.py --supersession`, then `python scripts/research/record_fix_pass.py`
-(the record of the 24 November 2026 fix pass, read by the matrix builder), then rebuild the evidence matrix, the report
-and the website snapshot as described in docs/reproducing.md.
+(the record of the 24 November 2026 fix pass, read by the matrix builder) and `python scripts/research/record_addendum.py`
+(the record of the addendum after three papers were read in full, also read by the matrix builder), then rebuild the
+evidence matrix, the report and the website snapshot as described in docs/reproducing.md. The kinetics items of the
+addendum are written by scripts/research/kinetics_validity_classification.py and scripts/research/kinetics_validation.py
+(not in STEPS; run them first when the kinetic literature data change).
 """
 from __future__ import annotations
 

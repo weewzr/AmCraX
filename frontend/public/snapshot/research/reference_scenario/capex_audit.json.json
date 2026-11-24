@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T07:34:29+00:00",
+  "generated_utc": "2026-11-24T12:47:20+00:00",
   "script": "scripts/research/economics_reference_scenario.py",
   "source_type": "python",
   "inputs_summary": "library CAPEX data (economics.yaml capex_references, reference_scenario.yaml) normalised to the AmCraX H2 capacity; informational",

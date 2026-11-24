@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T07:33:40Z",
+  "generated_utc": "2026-11-24T13:05:28Z",
   "script": "scripts/research/purification_phase2.py",
   "source_type": "python",
   "inputs_summary": "Phase 2 D2: PSA against Pd-Ag membrane on the unified reference basis; low/central/high from sourced inputs (purification_literature.json)",
@@ -55,14 +55,14 @@
      "unit": "-",
      "source_type": "assumption",
      "source": "mass-balance relation, tail-gas H2 fraction held at the Cho 2026 point (Phase 1 PSA_B_MB)",
-     "note": "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)"
+     "note": "no measured recovery at 99.9 % for cracked ammonia; flat by construction. Against the simulated front of Abdoos et al. 2025 (0.8192 at 99.95 %, dry NH3-free feed; see abdoos2025_sourced_case) it is pessimistic, not optimistic (label corrected 24 Nov 2026)"
     },
     "high": {
      "value": 0.85,
      "unit": "-",
      "source_type": "assumption",
      "source": "AmCraX Aspen splitter assumption F4 (PSA_AMCRAX, 99.96 %)",
-     "note": "not supported by a source at this purity"
+     "note": "not supported by a source at this purity; it lies above the only published front for this composition (Abdoos et al. 2025, simulated: 0.8192 at 99.95 %, 0.7744 at 99.99 %)"
     }
    },
    "fuel_cell_grade_D": {
@@ -78,7 +78,7 @@
      "unit": "-",
      "source_type": "assumption",
      "source": "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)",
-     "note": "optimistic, flat by construction"
+     "note": "flat by construction; slightly pessimistic against Abdoos et al. 2025 (0.7744 at 99.99 %, simulated, dry NH3-free feed), so the earlier label 'optimistic' is withdrawn (24 Nov 2026)"
     },
     "high": {
      "value": 0.81,
@@ -326,7 +326,7 @@
       "unit": "-",
       "source_type": "assumption",
       "source": "mass-balance relation, tail-gas H2 fraction held at the Cho 2026 point (Phase 1 PSA_B_MB)",
-      "note": "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)"
+      "note": "no measured recovery at 99.9 % for cracked ammonia; flat by construction. Against the simulated front of Abdoos et al. 2025 (0.8192 at 99.95 %, dry NH3-free feed; see abdoos2025_sourced_case) it is pessimistic, not optimistic (label corrected 24 Nov 2026)"
      }
     },
     "PSA_high_recovery": {
@@ -366,7 +366,7 @@
       "unit": "-",
       "source_type": "assumption",
       "source": "AmCraX Aspen splitter assumption F4 (PSA_AMCRAX, 99.96 %)",
-      "note": "not supported by a source at this purity"
+      "note": "not supported by a source at this purity; it lies above the only published front for this composition (Abdoos et al. 2025, simulated: 0.8192 at 99.95 %, 0.7744 at 99.99 %)"
      }
     },
     "MEM_cost_low": {
@@ -785,7 +785,7 @@
       "unit": "-",
       "source_type": "assumption",
       "source": "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)",
-      "note": "optimistic, flat by construction"
+      "note": "flat by construction; slightly pessimistic against Abdoos et al. 2025 (0.7744 at 99.99 %, simulated, dry NH3-free feed), so the earlier label 'optimistic' is withdrawn (24 Nov 2026)"
      }
     },
     "PSA_high_recovery": {
@@ -1203,6 +1203,27 @@
      "lcoh_sgd": 5.298521887953508,
      "delta_vs_0.85_usd": 0.06609416004560398,
      "label": "Mehr 2026, low confidence"
+    },
+    "abdoos2025_99.03": {
+     "recovery": 0.8392,
+     "lcoh_usd": 4.063471952230968,
+     "lcoh_sgd": 5.235556056020276,
+     "delta_vs_0.85_usd": 0.01722449094610745,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 7.87 bar, purity 99.03 % (purity below the specification: an upper bound on the recovery at the specification)"
+    },
+    "abdoos2025_99.95": {
+     "recovery": 0.8192,
+     "lcoh_usd": 4.096568417852784,
+     "lcoh_sgd": 5.278198998571912,
+     "delta_vs_0.85_usd": 0.05032095656792368,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 11.29 bar, purity 99.95 % (purity at or above the specification: a lower bound on the recovery at the specification)"
+    },
+    "abdoos2025_99.99": {
+     "recovery": 0.7744,
+     "lcoh_usd": 4.176908036715924,
+     "lcoh_sgd": 5.3817120984584115,
+     "delta_vs_0.85_usd": 0.13066057543106346,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 11.6 bar, purity 99.99 % (purity at or above the specification: a lower bound on the recovery at the specification)"
     }
    },
    "fuel_cell_grade_D": {
@@ -1238,6 +1259,27 @@
      "lcoh_sgd": 5.546203538362054,
      "delta_vs_0.85_usd": 0.06609416004560398,
      "label": "Mehr 2026, low confidence"
+    },
+    "abdoos2025_99.03": {
+     "recovery": 0.8392,
+     "lcoh_usd": 4.255705103542585,
+     "lcoh_sgd": 5.483237706428822,
+     "delta_vs_0.85_usd": 0.01722449094610745,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 7.87 bar, purity 99.03 % (purity below the specification: an upper bound on the recovery at the specification)"
+    },
+    "abdoos2025_99.95": {
+     "recovery": 0.8192,
+     "lcoh_usd": 4.2888015691644,
+     "lcoh_sgd": 5.525880648980456,
+     "delta_vs_0.85_usd": 0.05032095656792279,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 11.29 bar, purity 99.95 % (purity below the specification: an upper bound on the recovery at the specification)"
+    },
+    "abdoos2025_99.99": {
+     "recovery": 0.7744,
+     "lcoh_usd": 4.36914118802754,
+     "lcoh_sgd": 5.629393748866955,
+     "delta_vs_0.85_usd": 0.13066057543106258,
+     "label": "Abdoos 2025 Table 8, SIMULATED, dry NH3-free 75/25 feed, 11.6 bar, purity 99.99 % (purity at or above the specification: a lower bound on the recovery at the specification)"
     }
    }
   },
@@ -1315,6 +1357,226 @@
   },
   "raw_turbine_blend_stored": 3.784259176229415
  },
+ "abdoos2025_sourced_case": {
+  "description": "Abdoos et al. 2025 (simulated front for a dry, NH3-free cracked-ammonia composition) as a labelled sourced case beside Yanez 2020 (different feed), the mass-balance assumption and 0.85. Nothing existing is replaced.",
+  "source": "abdoos2025psa, Table 8 p. 13 (research/data/abdoos2025_extract.json P02-P04; research/notes/abdoos2025_full_text.md)",
+  "points": [
+   {
+    "id": "P04",
+    "purity": 0.9903,
+    "recovery": 0.8392,
+    "SEC_MJ_per_kg": 6.4,
+    "P_ads_bar": 7.87,
+    "location": "p. 13, Table 8; text gives recovery 83.9 %"
+   },
+   {
+    "id": "P03",
+    "purity": 0.9995,
+    "recovery": 0.8192,
+    "SEC_MJ_per_kg": 8.1,
+    "P_ads_bar": 11.29,
+    "location": "p. 13, Table 8 and text; p. 12 Fig. 12"
+   },
+   {
+    "id": "P02",
+    "purity": 0.9999,
+    "recovery": 0.7744,
+    "SEC_MJ_per_kg": 8.76,
+    "P_ads_bar": 11.6,
+    "location": "p. 13, Table 8 and text; p. 12 Fig. 12 callout"
+   }
+  ],
+  "evidence_grade": "simulated (Aspen Adsorption, ANN surrogate, NSGA-II); no cyclic-PSA experiment",
+  "boundary_differences": [
+   "adsorption pressure 7.9-11.6 bar at the optima (bounds 6-12 bar) against the AmCraX 19.5 bar PSA feed; the paper's own trend (higher pressure: higher purity, lower recovery) makes the extrapolation to 20 bar not neutral",
+   "dry, NH3-free 75/25 H2/N2 feed (NH3 and H2O are not model components) against AmCraX cracked gas with about 1 % NH3 and water upstream of the TSA",
+   "purity is the N2 impurity only; Grade D also needs NH3 <= 0.1 ppm, which the paper leaves out of scope",
+   "simulation and surrogate: recovery scatter about 1-3 points at 72-78 % recovery (Fig. 13); whether Table 8 values are surrogate or full-order outputs is not stated",
+   "feed 83-98 kmol/h against about 198 kmol/h; optimum feed temperature about 10 degC against 40 degC",
+   "the paper's specific energy (6.4-8.76 MJ/kg) is feed compression from about 1 bar; it is not used (AmCraX needs no feed compressor at 19.5 bar)"
+  ],
+  "lcoh_by_specification": {
+   "industrial_99.9": {
+    "P04": {
+     "purity_of_point": 0.9903,
+     "recovery": 0.8392,
+     "lcoh_usd_per_kg_usable": 4.063471952230968,
+     "lcoh_sgd_per_kg_usable": 5.235556056020276,
+     "delta_vs_0.85_usd": 0.01722449094610745,
+     "net_heat_deficit_kW": 674.6041369915915,
+     "relation_to_specification_purity": "purity below the specification: an upper bound on the recovery at the specification",
+     "modelled_purity": 0.9991
+    },
+    "P03": {
+     "purity_of_point": 0.9995,
+     "recovery": 0.8192,
+     "lcoh_usd_per_kg_usable": 4.096568417852784,
+     "lcoh_sgd_per_kg_usable": 5.278198998571912,
+     "delta_vs_0.85_usd": 0.05032095656792368,
+     "net_heat_deficit_kW": 492.63340075682277,
+     "relation_to_specification_purity": "purity at or above the specification: a lower bound on the recovery at the specification",
+     "modelled_purity": 0.9991
+    },
+    "P02": {
+     "purity_of_point": 0.9999,
+     "recovery": 0.7744,
+     "lcoh_usd_per_kg_usable": 4.176908036715924,
+     "lcoh_sgd_per_kg_usable": 5.3817120984584115,
+     "delta_vs_0.85_usd": 0.13066057543106346,
+     "net_heat_deficit_kW": 85.01895159093738,
+     "relation_to_specification_purity": "purity at or above the specification: a lower bound on the recovery at the specification",
+     "modelled_purity": 0.9991
+    }
+   },
+   "fuel_cell_grade_D": {
+    "P04": {
+     "purity_of_point": 0.9903,
+     "recovery": 0.8392,
+     "lcoh_usd_per_kg_usable": 4.255705103542585,
+     "lcoh_sgd_per_kg_usable": 5.483237706428822,
+     "delta_vs_0.85_usd": 0.01722449094610745,
+     "net_heat_deficit_kW": 674.6041363406648,
+     "relation_to_specification_purity": "purity below the specification: an upper bound on the recovery at the specification",
+     "modelled_purity": 0.99975
+    },
+    "P03": {
+     "purity_of_point": 0.9995,
+     "recovery": 0.8192,
+     "lcoh_usd_per_kg_usable": 4.2888015691644,
+     "lcoh_sgd_per_kg_usable": 5.525880648980456,
+     "delta_vs_0.85_usd": 0.05032095656792279,
+     "net_heat_deficit_kW": 492.63340012140907,
+     "relation_to_specification_purity": "purity below the specification: an upper bound on the recovery at the specification",
+     "modelled_purity": 0.99975
+    },
+    "P02": {
+     "purity_of_point": 0.9999,
+     "recovery": 0.7744,
+     "lcoh_usd_per_kg_usable": 4.36914118802754,
+     "lcoh_sgd_per_kg_usable": 5.629393748866955,
+     "delta_vs_0.85_usd": 0.13066057543106258,
+     "net_heat_deficit_kW": 85.01895099027297,
+     "relation_to_specification_purity": "purity at or above the specification: a lower bound on the recovery at the specification",
+     "modelled_purity": 0.99975
+    }
+   }
+  },
+  "lcoh_basis": "USD per kg usable H2, unified reference basis, PSA at each recovery applied at the modelled purity of the specification (99.91 % industrial at 30 bar; 99.975 % Grade D at 350 bar); computed with the model, not interpolated",
+  "equal_delivery_increment": {
+   "abdoos2025_table8": {
+    "industrial_recovery": 0.8192,
+    "grade_D_recovery": 0.7744,
+    "industrial": 4.096568417852784,
+    "grade_D_at_30bar": 4.1768880255912375,
+    "increment": 0.08031960773845359,
+    "basis": "industrial at 0.8192 (99.95 %, the lowest-purity Table 8 point that meets 99.9 %), Grade D at 0.7744 (99.99 %, the only Table 8 point that meets the Grade D N2 limit)",
+    "source_type": "literature (simulated) applied in the python model",
+    "above_resolution": true,
+    "multiple_of_resolution": 13.336911699279742
+   },
+   "abdoos2025_interpolated_at_modelled_purities": {
+    "industrial_recovery": 0.8200695652173915,
+    "grade_D_recovery": 0.7912,
+    "industrial": 4.095095872896374,
+    "grade_D_at_30bar": 4.145694482979058,
+    "increment": 0.050598610082684736,
+    "basis": "linear interpolation between Table 8 optima at 99.91 % and 99.975 % (points from different Pareto regions)",
+    "source_type": "literature (simulated) applied in the python model",
+    "above_resolution": true,
+    "multiple_of_resolution": 8.401798935280068
+   },
+   "psa_yanez_different_feed": {
+    "increment": 0.16570395764941903,
+    "basis": "existing case (read from h4b_purity_cost_check)",
+    "source_type": "literature (measured, different feed)",
+    "above_resolution": true,
+    "multiple_of_resolution": 27.514813799737325
+   },
+   "psa_mass_balance_assumption": {
+    "increment": 0.001955142550585265,
+    "basis": "existing case (read from h4b_purity_cost_check)",
+    "source_type": "assumption",
+    "above_resolution": false,
+    "multiple_of_resolution": 0.3246475461081764
+   }
+  },
+  "equal_delivery_basis": "purity-only increment at equal (30 bar) delivery, same functions as h4b_purity_cost_check",
+  "equal_delivery_increment_surrogate_scatter": [
+   {
+    "scatter_points": 0.01,
+    "direction": "adverse (industrial lower, Grade D higher)",
+    "industrial_recovery": 0.8092,
+    "grade_D_recovery": 0.7844,
+    "increment": 0.04442932334348093,
+    "above_resolution": true
+   },
+   {
+    "scatter_points": 0.01,
+    "direction": "favourable (industrial higher, Grade D lower)",
+    "industrial_recovery": 0.8292,
+    "grade_D_recovery": 0.7644,
+    "increment": 0.11858254145016822,
+    "above_resolution": true
+   },
+   {
+    "scatter_points": 0.03,
+    "direction": "adverse (industrial lower, Grade D higher)",
+    "industrial_recovery": 0.7892,
+    "grade_D_recovery": 0.8044,
+    "increment": -0.027259031870335626,
+    "above_resolution": false
+   },
+   {
+    "scatter_points": 0.03,
+    "direction": "favourable (industrial higher, Grade D lower)",
+    "industrial_recovery": 0.8492000000000001,
+    "grade_D_recovery": 0.7444,
+    "increment": 0.2628678940521727,
+    "above_resolution": true
+   }
+  ],
+  "surrogate_scatter_note": "recoveries shifted by the 1 and 3 point surrogate scatter (Fig. 13, figure reading) in opposite directions; a negative increment means Grade D would cost less than industrial grade at 30 bar",
+  "model_resolution_USD_per_kg": 0.006022354316313816,
+  "model_resolution_source": "results/research/catalyst_economics/catalyst_economics.json resolution/max_abs_python_minus_aspen_lcoh_USD_per_kg",
+  "position": {
+   "grade_D": {
+    "abdoos_recovery": 0.7744,
+    "parity_recovery_central_membrane": 0.7829339880444707,
+    "parity_recovery_high_cost_membrane": 0.7452664016132048,
+    "reading": "between the two parities: membrane cheaper against the central membrane, PSA cheaper against the high-cost membrane",
+    "interpolated_recovery_at_99.975": 0.7912
+   },
+   "industrial": {
+    "abdoos_recovery": 0.8192,
+    "parity_recovery_central_membrane": 0.7952126379803761,
+    "parity_recovery_high_cost_membrane": 0.7493442321113698,
+    "reading": "above both parities: PSA cheaper"
+   },
+   "furnace_balance": {
+    "recovery_where_tail_heat_equals_furnace_demand": 0.7650557556718534,
+    "table8_recoveries": [
+     0.8392,
+     0.8192,
+     0.7744
+    ],
+    "all_above": true,
+    "grade_D_point_margin": 0.009344244328146623,
+    "margin_inside_surrogate_scatter": true,
+    "front_at_99.99_reaches_down_to_about": 0.69,
+    "note": "the front at about 99.99 % reaches about 0.69 (figure reading), below the threshold"
+   }
+  },
+  "assumption_comparison": {
+   "amcrax_0.85_at_99.96": "above the front at matching purity (0.8192 at 99.95 %, 0.7744 at 99.99 %); recoveries of about 0.85 appear on the front only at about 99.2-99.8 % purity (figure reading)",
+   "mass_balance_central": {
+    "industrial_99.91": 0.751626143976041,
+    "grade_D_99.975": 0.7512760443382585,
+    "reading": "below the front at both purities: pessimistic against this simulation, not optimistic"
+   },
+   "yanez_low_cases": "well below the front (different feed, measured)"
+  },
+  "not_used_by_any_rule": "stored beside the existing cases; inputs/psa_recovery, the factorial and the coded row rules are unchanged"
+ },
  "row_evidence": {
   "H4-a": {
    "proposed_verdict": "INCONCLUSIVE",
@@ -1322,13 +1584,18 @@
     "yanez2020_recovery_99.25": 0.753,
     "yanez2020_recovery_99.97": 0.555,
     "mass_balance_recovery_99.91": 0.751626143976041,
-    "mass_balance_recovery_99.975": 0.7512760443382585
+    "mass_balance_recovery_99.975": 0.7512760443382585,
+    "abdoos2025_table8_simulated": {
+     "abdoos2025_recovery_99.03": 0.8392,
+     "abdoos2025_recovery_99.95": 0.8192,
+     "abdoos2025_recovery_99.99": 0.7744
+    }
    },
    "assumptions": "AmCraX has no adsorption-cycle model; the PSA recovery at any purity is an input",
-   "uncertainty": "Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); no cracked-ammonia value",
+   "uncertainty": "Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); for a cracked-ammonia composition only a simulated front exists: Abdoos 2025, 0.7744 at 99.99 % and 0.8192 at 99.95 % (dry, NH3-free feed, 11.3-11.6 bar, surrogate scatter about 1-3 points)",
    "envelope": "none (not computed)",
    "threshold": null,
-   "reason": "the direction is shown by one literature source for a different feed (literature_comparison), not computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"
+   "reason": "the direction is shown by two literature sources (literature_comparison), not computed: Yanez 2020 (measured, ammonia-plant purge gas) and Abdoos 2025 (simulated, dry NH3-free cracked-ammonia composition; its model equations and breakthrough check cite Yanez 2020, so the two are not fully independent); the AmCraX relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"
   },
   "H4-b": {
    "proposed_verdict": "SUPPORTED (direction), narrow envelope; the evidence matrix rule decides",
@@ -1373,7 +1640,32 @@
       "increment": 0.017415732580203347,
       "cause": "NH3 polishing bed (measured permeate NH3 2.9 ppm > 0.1 ppm limit); bed cost is a proxy"
      }
-    }
+    },
+    "equal_delivery_increment_abdoos2025": {
+     "abdoos2025_table8": {
+      "industrial_recovery": 0.8192,
+      "grade_D_recovery": 0.7744,
+      "industrial": 4.096568417852784,
+      "grade_D_at_30bar": 4.1768880255912375,
+      "increment": 0.08031960773845359,
+      "basis": "industrial at 0.8192 (99.95 %, the lowest-purity Table 8 point that meets 99.9 %), Grade D at 0.7744 (99.99 %, the only Table 8 point that meets the Grade D N2 limit)",
+      "source_type": "literature (simulated) applied in the python model",
+      "above_resolution": true,
+      "multiple_of_resolution": 13.336911699279742
+     },
+     "abdoos2025_interpolated_at_modelled_purities": {
+      "industrial_recovery": 0.8200695652173915,
+      "grade_D_recovery": 0.7912,
+      "industrial": 4.095095872896374,
+      "grade_D_at_30bar": 4.145694482979058,
+      "increment": 0.050598610082684736,
+      "basis": "linear interpolation between Table 8 optima at 99.91 % and 99.975 % (points from different Pareto regions)",
+      "source_type": "literature (simulated) applied in the python model",
+      "above_resolution": true,
+      "multiple_of_resolution": 8.401798935280068
+     }
+    },
+    "model_resolution_USD_per_kg": 0.006022354316313816
    },
    "assumptions": "PSA recoveries are inputs; polishing-bed cost is a proxy (adsorber share); delivery 30 / 350 bar",
    "uncertainty": "factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, selectivity, flux, recovery)",
@@ -1420,12 +1712,40 @@
      500000.0
     ],
     "industrial_share_pairs_membrane_cheaper": 0.5689300411522634,
-    "industrial_psa_recovery_at_parity": 0.7952126379803761
+    "industrial_psa_recovery_at_parity": 0.7952126379803761,
+    "abdoos2025_position": {
+     "grade_D": {
+      "abdoos_recovery": 0.7744,
+      "parity_recovery_central_membrane": 0.7829339880444707,
+      "parity_recovery_high_cost_membrane": 0.7452664016132048,
+      "reading": "between the two parities: membrane cheaper against the central membrane, PSA cheaper against the high-cost membrane",
+      "interpolated_recovery_at_99.975": 0.7912
+     },
+     "industrial": {
+      "abdoos_recovery": 0.8192,
+      "parity_recovery_central_membrane": 0.7952126379803761,
+      "parity_recovery_high_cost_membrane": 0.7493442321113698,
+      "reading": "above both parities: PSA cheaper"
+     },
+     "furnace_balance": {
+      "recovery_where_tail_heat_equals_furnace_demand": 0.7650557556718534,
+      "table8_recoveries": [
+       0.8392,
+       0.8192,
+       0.7744
+      ],
+      "all_above": true,
+      "grade_D_point_margin": 0.009344244328146623,
+      "margin_inside_surrogate_scatter": true,
+      "front_at_99.99_reaches_down_to_about": 0.69,
+      "note": "the front at about 99.99 % reaches about 0.69 (figure reading), below the threshold"
+     }
+    }
    },
    "assumptions": "membrane housing, skid and heating CAPEX not modelled (favours the membrane); PSA own power and TSA heat not modelled (favours PSA); permeate at 1 bar",
    "uncertainty": "factorial over sourced inputs; ranking reverses inside it",
    "envelope": "membrane cheaper only if PSA Grade D recovery is below about 0.783 (central membrane) or 0.745 (high-cost membrane)",
-   "threshold": "PSA recovery at parity 0.745-0.783 (Grade D; high-cost to central membrane) and 0.749-0.795 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above). Membrane cost (parity 28,824 USD/m2 against the central PSA) and life (parity 0.95 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values. Membrane annualised with CRF(i, life)",
+   "threshold": "PSA recovery at parity 0.745-0.783 (Grade D; high-cost to central membrane) and 0.749-0.795 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above; Abdoos 2025, simulated for this composition, 0.7744 at 99.99 % lies between the two Grade D parities and 0.8192 at 99.95 % above both industrial parities). Membrane cost (parity 28,824 USD/m2 against the central PSA) and life (parity 0.95 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values. Membrane annualised with CRF(i, life)",
    "reason": "the ranking is decided by an unsourced PSA recovery; readiness also differs: Pd-Ag downstream separator TRL 4 to 5 against PSA unit 9 / integrated chain 6 to 7; Ammogen did not meet its recovery KPI. Secondary row, does not vote"
   },
   "H4-e": {
@@ -1434,7 +1754,20 @@
     "furnace_demand_kW": 2293.1167774,
     "recovery_where_tail_heat_equals_demand": 0.7650557556718534,
     "psa_0.85_net_deficit_kW": 772.8683345583675,
-    "membrane_0.90_imported_heat_kWh_per_kg": 4.6090519871361835
+    "membrane_0.90_imported_heat_kWh_per_kg": 4.6090519871361835,
+    "abdoos2025_furnace_balance": {
+     "recovery_where_tail_heat_equals_furnace_demand": 0.7650557556718534,
+     "table8_recoveries": [
+      0.8392,
+      0.8192,
+      0.7744
+     ],
+     "all_above": true,
+     "grade_D_point_margin": 0.009344244328146623,
+     "margin_inside_surrogate_scatter": true,
+     "front_at_99.99_reaches_down_to_about": 0.69,
+     "note": "the front at about 99.99 % reaches about 0.69 (figure reading), below the threshold"
+    }
    },
    "assumptions": "tail gas or retentate burned in the cracker furnace with the baseline furnace model; surplus not credited",
    "uncertainty": "computed for recoveries 0.50-0.95 (PSA and membrane trade-off grids)",

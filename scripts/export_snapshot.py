@@ -203,6 +203,11 @@ def main() -> int:
             copy(rs.ASPEN_EVIDENCE_DIR / Path(c["file"]).name, f"aspen-evidence/{Path(c['file']).name}")
     else:
         skipped.append(f"/api/research/aspen-evidence -> HTTP {ae.status_code}")
+    ad = client.get("/api/research/addendum")
+    if ad.status_code == 200:
+        write("research/addendum.json", ad.json(), "results/research/addendum_2026-11-24.json", "GET /api/research/addendum")
+    else:
+        skipped.append(f"/api/research/addendum -> HTTP {ad.status_code}")
 
     export_phase2(files, skipped, write, copy, rel, api)
 

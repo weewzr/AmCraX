@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T11:24:55Z",
+    "generated_utc": "2026-11-24T12:47:39Z",
     "script": "scripts/research/enduse_run.py",
     "source_type": "python+aspen(stored)+literature",
     "inputs_summary": "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices",
@@ -714,7 +714,7 @@
     }
   ],
   "halim_claim_check": {
-    "halim_statement": "direct NH3 combustion about 40 % cheaper than cracking-based power (task brief; Halim abstract confirms only 'preferable because of high capital and operating costs of cracking')",
+    "halim_statement": "direct NH3 combustion about 40 % cheaper than cracking-based power (essay wording, attributed to Halim et al. 2025). Full text read 24 Nov 2026: the paper's 'about 40 %' (39 % green, 44 % blue, p. 9) is 1 - LCOA/LCOH, a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet with the power plant excluded, not a cost of electricity; the same quantity computed on AmCraX boundaries is in turbine_threshold.json forty_percent_figure/fuel_cost_gap_on_paper_basis. The LCOE gaps below test the essay's sentence about power.",
     "computed": [
       {
         "basis": "AmCraX price set (450 USD/t, 8000 h)",
@@ -797,7 +797,7 @@
       "note": "None = the pathways do not cross between 1 and 5000 USD/t; below the crossover price the capital-heavy pathway is dearer, above it the efficiency gain pays."
     },
     "unpurified_exhaust_LCOE_with_full_cracker_correlation": 260.1795458440106,
-    "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed."
+    "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim et al. (full text read 24 Nov 2026) compute no cost of electricity, so these LCOE gaps cannot be compared with a number of the paper."
   },
   "partial_cracking": {
     "scan": [
@@ -1353,7 +1353,7 @@
       0.6
     ],
     "NG_combustor_limit_vol_H2": 0.3,
-    "source_type": "literature (task brief; Ahmad 2025 p. 2)",
+    "source_type": "literature (Halim et al. 2025 p. 3, relayed from trade press, vendor-claim grade; Ahmad 2025 p. 2)",
     "note": "Not Aspen results; combustion behaviour not simulated here."
   },
   "nox_note": "NO and N2O are only available for direct NH3 (Ahmad Chemkin, simulated); other fuels are 'not quantified'. NOx is a local pollutant and is never added to CO2e.",
@@ -1362,6 +1362,6 @@
     "Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).",
     "Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.",
     "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
-    "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."
+    "Halim et al. (2025), full text read on 24 November 2026: the paper computes no cost of electricity (its 'about 40 %' is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet), and it applies one vendor turbine efficiency to every fuel, so it supplies no like-for-like LCOE and no independent turbine-efficiency difference."
   ]
 }

@@ -119,6 +119,27 @@ export function FuelEnvelope({ b, compact = false }: { b: O; compact?: boolean }
   )
 }
 
+/** PSA-recovery sensitivity of the frozen baseline (baseline.json key psa_recovery_sensitivity, addendum of 24 November 2026):
+ *  the reference assumes 0.85; the other recoveries are the simulated front of Abdoos et al. (2025). Read from the file. */
+export function PsaRecoverySensitivity({ b }: { b: O }) {
+  const ps = b.psa_recovery_sensitivity as O | undefined
+  const cases = (Array.isArray(ps?.cases) ? ps!.cases : []) as O[]
+  if (!cases.length) return null
+  return (
+    <div data-testid="psa-recovery-sensitivity">
+      <DTable caption="PSA-recovery sensitivity of the baseline: reference 0.85; 0.82 and 0.77 from the only published front for this gas composition, simulated at 8 to 12 bar (grey NH3, heat integration on)" rows={cases} keyOf={(_, i) => String(i)}
+        cols={[
+          { h: 'PSA H2 recovery', cell: (c) => <><strong>{f(c.psa_recovery, 4)}</strong><div className="muted small">{num(c.psa_recovery) === 0.85 ? 'reference assumption (frozen baseline)' : show(c.label)}</div></>, th: true },
+          { h: 'LCOH (USD/kg)', cell: (c) => f(c.lcoh_USD_per_kg, 3), right: true },
+          { h: 'LCOH (SGD/kg)', cell: (c) => f(c.lcoh_SGD_per_kg, 3), right: true },
+          { h: 'NPV (MUSD)', cell: (c) => mUSD(c.npv_USD, 2), right: true },
+          { h: 'Break-even NH3 (USD/t)', cell: (c) => f(c.breakeven_nh3_USD_per_t_vs_marker, 1), right: true },
+        ]} />
+      <p className="muted small">The baseline stays frozen at recovery 0.85; these cases are its PSA-recovery sensitivity. Source boundary: {show(ps?.boundary_of_the_source)}.</p>
+    </div>
+  )
+}
+
 export function UnifiedBaseline() {
   const b = useBaseline()
   const fd = useRJson<O & Prov>('carbon_pricing', 'feed_dominance.json')
@@ -140,6 +161,7 @@ export function UnifiedBaseline() {
           </div>
           <p className="prose-p">{show(d.description)}</p>
           <FuelEnvelope b={d} />
+          <PsaRecoverySensitivity b={d} />
           <DTable caption="Unified baseline LCOH by component (grey NH3, heat integration on)" rows={PARTS} keyOf={([k]) => k}
             cols={[
               { h: 'Component', cell: ([, l]) => l, th: true },
@@ -355,6 +377,38 @@ export function EconomicsPhase2() {
 /* ================================================================== Catalysts (H3) */
 interface Law extends O { catalyst: string; catalyst_id?: string; class: string; fitted_range_basis?: string; class_evidence?: string }
 
+/** Ru-K/CaO after reading Sayas et al. (2020) in full (validity_classification.json keys laws[Ru-K/CaO],
+ *  literature_comparison_points_sayas2020, cross_catalyst_context_sayas2020; addendum of 24 November 2026). */
+export function SayasStatus({ d }: { d: O }) {
+  const pts = at(d, 'literature_comparison_points_sayas2020') as O | undefined
+  const cc = at(d, 'cross_catalyst_context_sayas2020') as O | undefined
+  if (!pts && !cc) return null
+  const law = (Array.isArray(d.laws) ? d.laws : []).find((l) => String((l as O).catalyst).includes('K/CaO')) as O | undefined
+  const h = (at(cc, 'headline_20bar_500C') ?? {}) as O
+  const ru = Array.isArray(h.X_RuAl2O3_law_equal_Ru) ? (h.X_RuAl2O3_law_equal_Ru as unknown[]) : []
+  const rows = (Array.isArray(at(pts, 'points')) ? at(pts, 'points') : []) as O[]
+  return (
+    <div className="p2-sayas" data-testid="sayas-status" style={{ marginTop: 20 }}>
+      <h3>Ru-K/CaO: Sayas et al. (2020), main text read in full</h3>
+      <p className="prose-p">Class: <strong>{label(show(law?.class) || 'unmodelled')}</strong>. The main text gives the rate-law form, the orders and an apparent activation energy of 75 kJ/mol at 350 °C and 1 atm, but no complete rate law: the rate constant and the equilibrium term are in the supplementary information, which was not obtained. Nothing was fitted. The 111 kJ/mol carried from a review is not in the main text, and the abstract's 40-fold productivity at pressure comes from multiplying the rates by the pressure. The paper's {f(at(pts, 'n_points'), 0)} measured conversions at 10 to 40 bar are stored as literature comparison points that no model uses ({show(at(pts, 'status'))}).</p>
+      <Callout kind="warn" title="Cross-catalyst caution at 20 bar (context, not a test of either law).">
+        <span data-testid="sayas-cross">At 20 bar and 500 °C the measured Ru-K/CaO conversion is about {pct(h.X_measured_RuK_CaO, 0)}; the AmCraX Ru/Al2O3 law (fitted at 1 to 10 bar), at the same ruthenium per mole of NH3, gives {ru.length === 2 ? `${pct(ru[0], 1)} to ${pct(ru[1], 1)}` : 'n/a'} (equilibrium {pct(h.X_equilibrium_ideal, 1)}). This supports keeping every 20 bar kinetic result labelled as an extrapolation.</span>
+      </Callout>
+      {rows.length ? (
+        <details className="hyp-details"><summary>The {rows.length} stored Sayas conversions (figure readings, not used by any model)</summary>
+          <DTable caption="Measured Ru-K/CaO conversions (Sayas et al., 2020, Fig. 4A, figure reading)" rows={rows} keyOf={(_, i) => String(i)}
+            cols={[
+              { h: 'Pressure (bar)', cell: (r) => f(r.P_bar, 0), th: true },
+              { h: 'Temperature (°C)', cell: (r) => f(r.T_C, 0), right: true },
+              { h: 'Conversion measured', cell: (r) => f(r.X_measured, 3), right: true },
+              { h: 'In the AmCraX window', cell: (r) => (r.in_amcrax_window ? 'yes' : 'no') },
+            ]} />
+        </details>
+      ) : null}
+    </div>
+  )
+}
+
 function useValidity() { return useRJson<O & { laws?: Law[]; counts?: O } & Prov>('kinetics', 'validity_classification.json') }
 
 export function CatalystPhase2() {
@@ -389,6 +443,7 @@ export function CatalystPhase2() {
                 { h: 'Fitted range', cell: (l) => <span className="small">{show(l.fitted_range_basis)}</span> },
                 { h: 'Why', cell: (l) => <span className="small">{show(l.class_evidence)}</span> },
               ]} />
+            <SayasStatus d={d} />
             <FileNote prov={d.provenance as Prov['provenance']} file="results/research/kinetics/validity_classification.json" />
           </>
         )}</AsyncView>
@@ -557,6 +612,48 @@ export function CatalystPhase2() {
 }
 
 /* ================================================================== Purification (H4) */
+const REL_LABEL: Record<string, string> = {
+  abdoos2025_table8: 'Abdoos et al. (2025), Table 8 points (simulated, this gas composition)',
+  abdoos2025_interpolated_at_modelled_purities: 'Abdoos et al. (2025), interpolated at the modelled purities (simulated)',
+  psa_yanez_different_feed: 'Yáñez et al. (2020) points (measured, different feed)',
+  psa_mass_balance_assumption: 'Mass-balance relation (assumption)',
+}
+/** The simulated PSA front of Abdoos et al. (2025) as a labelled sourced case (phase2_comparison.json key
+ *  abdoos2025_sourced_case, addendum of 24 November 2026); replaces no input. Every number read from the file. */
+export function AbdoosCase({ ab }: { ab: unknown }) {
+  const pts = (Array.isArray(at(ab, 'points')) ? at(ab, 'points') : []) as O[]
+  if (!pts.length) return null
+  const inc = (at(ab, 'equal_delivery_increment') ?? {}) as Record<string, O>
+  const sc = (Array.isArray(at(ab, 'equal_delivery_increment_surrogate_scatter')) ? at(ab, 'equal_delivery_increment_surrogate_scatter') : []) as O[]
+  const neg = sc.filter((x) => (num(x.increment) ?? 0) < 0)
+  const res = at(ab, 'model_resolution_USD_per_kg')
+  const lc = (spec: string, id: unknown) => at(ab, ['lcoh_by_specification', spec, String(id), 'lcoh_usd_per_kg_usable'])
+  return (
+    <div className="p2-abdoos" data-testid="abdoos-case" style={{ marginTop: 20 }}>
+      <h3>Labelled case: the simulated PSA front for cracked-ammonia composition (Abdoos et al., 2025)</h3>
+      <p className="prose-p">The only published purity-recovery front for this gas composition, read in full on 24 November 2026. It is a simulation (no cyclic PSA experiment) on a dry, ammonia-free feed at 8 to 12 bar; the AmCraX PSA is fed at 19.5 bar. It is stored beside the existing cases and replaces no input, factorial case or row rule. The reference plant's 0.85 at 99.96 % lies above this front.</p>
+      <DTable caption="Abdoos et al. (2025) optimal points and the LCOH per kg of usable H2 at each specification (unified basis)" rows={pts} keyOf={(p) => show(p.id)}
+        cols={[
+          { h: 'H2 purity', cell: (p) => pct(p.purity, 2), th: true },
+          { h: 'H2 recovery', cell: (p) => f(p.recovery, 4), right: true },
+          { h: 'Adsorption pressure (bar)', cell: (p) => f(p.P_ads_bar, 2), right: true },
+          { h: 'LCOH industrial 99.9 % (USD/kg)', cell: (p) => f(lc('industrial_99.9', p.id), 3), right: true },
+          { h: 'LCOH grade D (USD/kg)', cell: (p) => f(lc('fuel_cell_grade_D', p.id), 3), right: true },
+        ]} />
+      <DTable caption={`Purity-only cost increment, industrial grade to grade D at equal 30 bar delivery, on each relation (model resolution ${f(res, 4)} USD/kg)`} rows={Object.keys(REL_LABEL).filter((k) => inc[k])} keyOf={(k) => k}
+        cols={[
+          { h: 'Recovery relation', cell: (k) => REL_LABEL[k], th: true, wide: true },
+          { h: 'Increment (USD/kg)', cell: (k) => <span data-testid={`inc-${k}`}>{f(inc[k].increment, 3)}</span>, right: true },
+          { h: 'Above resolution', cell: (k) => (inc[k].above_resolution === true ? 'yes' : inc[k].above_resolution === false ? 'no' : 'n/a') },
+        ]} />
+      <Callout kind="warn" title="Surrogate scatter changes the sign.">
+        <span data-testid="abdoos-scatter">The paper's surrogate model has a recovery scatter of about 1 to 3 points. Shifting the two recoveries by that scatter gives increments of {sc.map((x) => `${f(x.increment, 3)} (${f(num(x.scatter_points) !== null ? (num(x.scatter_points) as number) * 100 : null, 0)} point${(num(x.scatter_points) ?? 0) * 100 === 1 ? '' : 's'}, ${show(x.direction).split(' (')[0]})`).join(', ')} USD/kg{neg.length ? `; with ${f((num(neg[0].scatter_points) ?? 0) * 100, 0)} points in the adverse direction the increment is negative` : ''}. Both published relations are also applied outside their pressure range, so row H4-b stays not established.</span>
+      </Callout>
+      <p className="muted small" data-testid="abdoos-position">Grade D: {show(at(ab, 'position.grade_D.reading'))}. Industrial: {show(at(ab, 'position.industrial.reading'))}. Furnace balance: {show(at(ab, 'position.furnace_balance.note'))}.</p>
+    </div>
+  )
+}
+
 export function PurificationPhase2() {
   const pc = useRJson<O & Prov>('purification', 'phase2_comparison.json')
   const tab = useRRows<Row>('purification', 'phase2_comparison.csv')
@@ -603,6 +700,7 @@ export function PurificationPhase2() {
                   { h: 'Change against 0.85 (USD/kg)', cell: ([, v]) => f(v.delta_vs_0_85_usd ?? v['delta_vs_0.85_usd'], 3), right: true },
                 ]} />
             ))}
+            <AbdoosCase ab={at(d, 'abdoos2025_sourced_case')} />
             <h3>Membrane selectivity</h3>
             <p className="prose-p" data-testid="selectivity">{show(at(d, 'selectivity_statement.phase2'))}</p>
             <p className="prose-p muted small">Phase 1 statement, kept for the record: {show(at(d, 'selectivity_statement.phase1'))}.</p>
@@ -644,6 +742,46 @@ function H1FuelSensitivity({ s }: { s: unknown }) {
   )
 }
 
+const PRICE_LABEL: Record<string, string> = { ...ROUTE_LABEL, halim_green_FOB: "Paper's green price (FOB)", halim_blue_FOB: "Paper's blue price (FOB)" }
+/** The 40 % figure of Halim et al. (2025) on the paper's own basis (turbine_threshold.json key
+ *  forty_percent_figure/fuel_cost_gap_on_paper_basis, addendum of 24 November 2026); every number read from the file. */
+export function FortyPercentOnPaperBasis({ fc, halim }: { fc: unknown; halim?: unknown }) {
+  const cases = (Array.isArray(at(fc, 'cases')) ? at(fc, 'cases') : []) as O[]
+  if (!cases.length) return null
+  const byPrice = [...new Set(cases.map((c) => String(c.price_case)))]
+  const gaps = cases.map((c) => num(c.gap_pct_1_minus_direct_over_cracked)).filter((x): x is number => x !== null)
+  const grey = cases.find((c) => c.price_case === 'grey' && c.heat_integration === 'on')
+  const rec = (at(fc, 'reconciliation') ?? {}) as Record<string, O>
+  const steps = (k: string) => (Array.isArray(at(rec, [k, 'steps'])) ? at(rec, [k, 'steps']) : []) as O[]
+  const nSteps = Math.max(steps('green').length, steps('blue').length)
+  const pv = (at(fc, 'paper_values') ?? {}) as Record<string, O>
+  return (
+    <div className="p2-forty" data-testid="forty-percent-paper-basis" style={{ marginTop: 20 }}>
+      <h3>The 40 % figure, on the paper's own basis</h3>
+      <p className="prose-p">The essay's "direct ammonia about 40 % cheaper than cracking-based power" mis-describes Halim et al. (2025), read in full on 24 November 2026. The paper's {f(at(pv, 'green.gap_pct_printed'), 0)} % (green) and {f(at(pv, 'blue.gap_pct_printed'), 0)} % (blue) is a <strong>fuel-cost comparison at the turbine inlet</strong>, per kg of hydrogen-equivalent energy for the hydrogen share of the fuel, with the power plant excluded: it is not a cost of electricity. On that basis AmCraX gives <span data-testid="forty-range">{gaps.length ? `${fmt(Math.min(...gaps), 1)} to ${fmt(Math.max(...gaps), 1)} %` : 'n/a'}</span> ({f(grey?.gap_pct_1_minus_direct_over_cracked, 1)} % for grey ammonia at {f(grey?.NH3_USD_per_t, 0)} USD/t with heat integration): the same direction, a smaller gap. The paper applies one vendor turbine efficiency to every fuel, so it cannot test the equal-efficiency assumption.</p>
+      <DTable caption="Fuel-cost gap, 1 - direct NH3 fuel cost / cracked-hydrogen cost, per kg of hydrogen-equivalent energy (not a cost of electricity)" rows={byPrice} keyOf={(k) => k}
+        cols={[
+          { h: 'NH3 price case', cell: (k) => PRICE_LABEL[k] ?? label(k), th: true },
+          { h: 'NH3 (USD/t)', cell: (k) => f(cases.find((c) => c.price_case === k)?.NH3_USD_per_t, 1), right: true },
+          { h: 'Gap, heat integration on (%)', cell: (k) => f(cases.find((c) => c.price_case === k && c.heat_integration === 'on')?.gap_pct_1_minus_direct_over_cracked, 1), right: true },
+          { h: 'Gap, heat integration off (%)', cell: (k) => f(cases.find((c) => c.price_case === k && c.heat_integration === 'off')?.gap_pct_1_minus_direct_over_cracked, 1), right: true },
+        ]} />
+      {nSteps ? (
+        <div data-testid="forty-reconciliation">
+          <DTable caption="Reconciliation with the paper: its quantities substituted one after another (heat integration on; each step keeps the previous ones)" rows={Array.from({ length: nSteps }, (_, i) => i)} keyOf={(i) => String(i)}
+            cols={[
+              { h: 'Step', cell: (i) => <span className="small">{show(at(steps('green')[i], 'step'))}</span>, th: true, wide: true },
+              { h: 'Green gap (%)', cell: (i) => f(at(steps('green')[i], 'gap_pct'), 1), right: true },
+              { h: 'Blue gap (%)', cell: (i) => f(at(steps('blue')[i], 'gap_pct'), 1), right: true },
+            ]} />
+          <p className="muted small">Paper (printed): {f(at(rec, 'green.paper_gap_pct_printed'), 0)} % green, {f(at(rec, 'blue.paper_gap_pct_printed'), 0)} % blue; residual after the last step {f(at(rec, 'green.residual_pp_vs_printed'), 2)} and {f(at(rec, 'blue.residual_pp_vs_printed'), 2)} points. Energy retained as hydrogen: paper {pct(at(rec, 'green.paper_energy_retained_as_h2_derived'), 1)}, AmCraX {pct(at(rec, 'green.amcrax_energy_retained_as_h2'), 1)}. {show(at(fc, 'reconciliation_note'))}</p>
+        </div>
+      ) : null}
+      {show(halim) ? <p className="muted small" data-testid="halim-status">{show(halim)}</p> : null}
+    </div>
+  )
+}
+
 const PATHS: [string, string][] = [['full_fired', 'Fired cracking, H2/N2 fuel'], ['full_purified', 'Cracking plus PSA, purified H2'], ['full_exhaust', 'Exhaust-heated cracking']]
 export function EndUsePhase2() {
   const tt = useRJson<O & Prov>('enduse', 'turbine_threshold.json')
@@ -667,7 +805,7 @@ export function EndUsePhase2() {
         const rows = tc.phase === 'ready' ? tc.data.rows : []
         return (
           <>
-            <p className="prose-p p2-required" data-testid="h1-wording">Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately {fired !== null ? fmt(fired, 0) : 'n/a'} to {pur !== null ? fmt(pur, 0) : 'n/a'} % ({f(old.fired_pct, 0)} to {f(old.purified_pct, 0)} % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance.</p>
+            <p className="prose-p p2-required" data-testid="h1-wording"><strong>Yes, under the modelled conditions:</strong> direct ammonia combustion gives cheaper electricity than the standalone cracking pathways (about {fired !== null ? fmt(fired, 0) : 'n/a'} to {pur !== null ? fmt(pur, 0) : 'n/a'} %; {f(old.fired_pct, 0)} to {f(old.purified_pct, 0)} % on the earlier cost basis). The gas turbine is not modelled: both fuels are assumed to run at the same 49.64 % efficiency, and the actual advantage depends on fuel-specific turbine performance.</p>
             <DTable caption="Turbine-efficiency gain each cracking pathway needs to match direct ammonia, against the sourced ranges" rows={PATHS} keyOf={([k]) => k}
               cols={[
                 { h: 'Pathway', cell: ([, l]) => l, th: true },
@@ -680,6 +818,7 @@ export function EndUsePhase2() {
             <H1FuelSensitivity s={d.cracker_heat_fuel_efficiency_sensitivity} />
             {exh !== null && exh < 0 ? <Callout kind="warn" title="Against the essay."><span data-testid="exhaust-finding">On the reference basis exhaust-heated full cracking ({f(at(nu, 'full_exhaust.LCOE'), 1)} USD/MWh) is {fmt(-exh, 1)} % cheaper than direct ammonia. The outcome flips with the CAPEX, price and operating-hours bases (see the range above and the row evidence).</span></Callout> : null}
             <p className="prose-p">{show(at(d, 'statement_of_result.text'))}</p>
+            <FortyPercentOnPaperBasis fc={at(d, 'forty_percent_figure.fuel_cost_gap_on_paper_basis')} halim={at(d, 'forty_percent_figure.halim_status')} />
             <div className="grid-2s">
               <Fig file="enduse_turbine_threshold.png" alt="Turbine-efficiency threshold of each cracking pathway" />
               <Fig file="enduse_sensitivity_efficiency.png" alt="LCOE sensitivity to turbine efficiency" />

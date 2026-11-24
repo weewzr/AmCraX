@@ -1,4 +1,4 @@
-<!-- cites: cho2026nickel, xu2025review, cechetto2023membrane, maccarrone2025comprehensive, kum2026heatintegrated, nist_janaf, smith_grimech30, goodwin2018cantera, su2023review, ganley2004apriori, takahashi2016kinetic, purcel2024stability, sayas2020high -->
+<!-- cites: cho2026nickel, xu2025review, cechetto2023membrane, maccarrone2025comprehensive, kum2026heatintegrated, nist_janaf, smith_grimech30, goodwin2018cantera, su2023review, ganley2004apriori, takahashi2016kinetic, purcel2024stability, sayas2020rukcao -->
 
 # 3 Ammonia-cracking fundamentals
 
@@ -58,11 +58,11 @@ Table: **Table 3.1.** Published catalyst operating windows and findings relevant
 | Temperature | Typical catalysts need about 600 °C for complete conversion; research target 400-500 °C | Xu et al. (2025, p. 4) |
 | Kinetic data range | Microkinetic models fitted and tested at 1 atm over 350-650 °C (Ni/MgO) and 300-550 °C (Ru/MgO) | Takahashi and Fujitani (2016) |
 | Cost-optimal conditions | Ni/Al~2~O~3~ at 735.52 °C and 24.34 bar; Ru-K/CaO at 566.69 °C and 10 bar | Cho et al. (2026, p. 13) |
-| Pressure | Ru-10%K/CaO at 500 °C: conversion 98 % (1 bar), 80 % (10 bar), 65 % (20 bar), 60 % (40 bar) | Sayas et al. (2020, as cited in Maccarrone et al., 2025, p. 13) |
+| Pressure | Ru-10%K/CaO at 500 °C: conversion 98 % (1 bar), 80 % (10 bar), 65 % (20 bar), 60 % (40 bar) | Sayas et al. (2020, as cited in Maccarrone et al., 2025, p. 13); checked against Sayas et al. (2020, Fig. 4A): about 100, 80.5, 68 and 62 % (figure reading, ±2 points) |
 | Ni stability | Industrial Ni at 534 °C and 1 atm: 91.9 % conversion at 250 h, 90.4 % at 800 h; sintering is the main deactivation route | Purcel et al. (2025, pp. 2-3); Su et al. (2023, pp. 8118-8119) |
 | Membrane reactors | Pd-based membranes should not exceed 500 °C | Cechetto et al. (2023, p. 10784) |
 
 <!-- data: research/notes/xu2025review.md p. 4, p. 15; takahashi2016kinetic.md (operating ranges); cho2026nickel.md Table 7 p. 13; maccarrone2025comprehensive.md p. 13; purcel2024stability.md pp. 2-4; su2023review.md pp. 20-21 (= 8118-8119); cechetto2023membrane.md p. 10 (= 10784) -->
 
-The Sayas data show why this matters: at 500 °C and 20 bar the measured conversion (65 %) is far below the equilibrium value for pure NH~3~ (0.9522), so at elevated pressure the catalyst, not thermodynamics, can limit conversion. The equilibrium cracker of the AmCraX flowsheet therefore gives an upper bound; whether a realistic Ni or Ru bed approaches it at 20 bar is addressed in Section 14.
+The Sayas data show why this matters: at 500 °C and 20 bar the measured conversion (65 to 68 %) is far below the equilibrium value for pure NH~3~ (0.9522), so at elevated pressure the catalyst, not thermodynamics, can limit conversion. The equilibrium cracker of the AmCraX flowsheet therefore gives an upper bound; whether a realistic Ni or Ru bed approaches it at 20 bar is addressed in Section 14.
 <!-- data: results/validation/equilibrium_python_grid.csv eos=ideal, 500 degC, 20 bar: 0.9522 -->

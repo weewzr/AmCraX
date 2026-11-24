@@ -1,0 +1,15 @@
+[
+ {
+  "citekey": "sayas2020rukcao",
+  "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
+  "doi": "10.1039/d0cy00686f",
+  "url": "https://doi.org/10.1039/d0cy00686f",
+  "access_date": "2026-11-24",
+  "doi_verified": true,
+  "url_verified": false,
+  "in_local_library": false,
+  "access": "full text of the main article read from a copy supplied by the user (not stored in the repository); electronic supplementary information NOT available",
+  "verification": "full text read on 24 November 2026. Confirmed against the page images: title, authors, journal, volume 10, pages 5027-5035, DOI 10.1039/d0cy00686f and CC BY 3.0 licence (p. 5027). Confirmed content: optimum 3%Ru10%K/CaO (ICP 2.8 wt% Ru, 9.6 wt% K; Table 1); test conditions (200 mg, 300-500 um, 1 g SiC, pure NH3, 30 N mL/min, WHSV 9000 mL gcat-1 h-1 at 10-40 bar; pp. 5028-5029); conversions at 1/10/20/40 bar, 250-550 degC (Fig. 4A, figure reading); power law with approach-to-equilibrium term (eqns (1)-(2)); Table 4: Ea 75 kJ/mol, NH3 order 0.5, H2 order -1.2 for 3%Ru10%K/CaO and 96 / 0.8 / -1.9 for 3%Ru/CaO at 350 degC and Patm. Not confirmed (ESI only or absent): rate constant k and its units, Keq definition, fitted range of the integral fit, parameter uncertainties. The abstract's K/Ru atomic ratio 0.9 is inconsistent with the stated loadings (about 8.6 mol/mol).",
+  "taken_from": "research/data/sayas2020_extract.json (all entries) and research/notes/sayas2020_full_text.md; nothing implemented and no parameter fitted or estimated; Ru-K/CaO remains without a complete rate law"
+ }
+]

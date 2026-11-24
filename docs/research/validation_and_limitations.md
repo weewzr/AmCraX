@@ -4,7 +4,7 @@
 >
 > - Economics use one reference scenario (4.015 USD/kg, 5.174 SGD/kg). The stored LCOH of 3.918842 USD/kg in section 3.4 is the legacy correlation of the core model and is superseded for research outputs. The Phase 1 equipment-method value of 3.61 USD/kg is also superseded.
 > - Verdicts follow the rule of [verdict_methodology_v2.md](verdict_methodology_v2.md): H1 INCONCLUSIVE, H2 MIXED, H3 PARTIALLY SUPPORTED (resting only on H3-T; H3-H and H3-K INCONCLUSIVE), H4 INCONCLUSIVE, each shown with the version 1 verdict (all INCONCLUSIVE, rule v1). An independent adversarial review moved rows H2-b, H3-d and H4-e to INCONCLUSIVE. The evidence matrix has the rows.
-> - Validation is described by four evidence kinds: numerical verification, Python against Aspen comparison, comparison with published literature, and independent experimental validation, of which AmCraX has none. Every Phase 2 validation item carries its kind. No single percentage summarises them. Counts below are counts of items in files, not measures of accuracy. The table in section 1 gives the Phase 1 counts. The current counts (24 November 2026, `results/research/validation/summary.json`) are 696 items: 607 pass, 12 fail, 76 informational, 1 not available; by kind, numerical verification 464 (440 pass, 5 fail, 19 informational), Python against Aspen comparison 183 (156, 5, 22), comparison with published literature 48 (11, 2, 35), and independent experimental validation none (one placeholder item, not available).
+> - Validation is described by four evidence kinds: numerical verification, Python against Aspen comparison, comparison with published literature, and independent experimental validation, of which AmCraX has none. Every Phase 2 validation item carries its kind. No single percentage summarises them. Counts below are counts of items in files, not measures of accuracy. The table in section 1 gives the Phase 1 counts. The current counts (24 November 2026, `results/research/validation/summary.json`) are 705 items: 609 pass, 12 fail, 83 informational, 1 not available; by kind, numerical verification 466 (442 pass, 5 fail, 19 informational), Python against Aspen comparison 183 (156, 5, 22), comparison with published literature 55 (11, 2, 42), and independent experimental validation none (one placeholder item, not available).
 > - Changed findings: the five feed-effluent exchanger failures are traced to the vaporiser dew-point state (8.8 kW) and the ammonia residual enthalpy (12.1 kW) and still fail with the tolerance unchanged; the above-equilibrium Aspen failures are quantified and the 20 bar cases now pass in the partial-pressure form (40 bar still fails); the Phase 1 "17 % lower fired duty" is withdrawn (at most 25 kW at equal conversion, 4.9 % of the fired duty and 1.1 % of total external heating); catalyst prices are derived from metal content.
 > - Section 3.4 keeps the Phase 1 economics (REC 0.573 USD/kg, FX 1.290, scale effect 3.90 to 3.46 USD/kg); the unified values are REC 0.975 USD/kg and FX 1.288444.
 > - Limitations by area and the ranked next steps: [limitations_and_future_work.md](limitations_and_future_work.md).
@@ -52,7 +52,7 @@ Failed:
 
 Not modelled and not verifiable here (stated plainly because these were the priority catalysts):
 - **Ni/CeO2 and Ru/CeO2 (Lucentini et al., 2019)**: the paper reports conversions only (Ru/CeO2 98 % and Ni/CeO2 63 % at 450 degC are confirmed in the text, `KINR-LIT-LUC2019`) and gives no rate law, activation energy, orders or pre-exponential factor. No rate law is available, so these catalysts are NOT modelled. No parameter was derived from the conversion points.
-- **Ru-K/CaO (Sayas et al., 2020)**: the full text could not be retrieved (publisher returned 403; repository copy blocked). The essay values (Ea 96 to 75 kJ/mol, H2 order -1.9 against -1.2, about 80 % at 40 bar) are NOT verified and no law is implemented (`KINR-LIT-SAYAS2020`, informational).
+- **Ru-K/CaO (Sayas et al., 2020)**: the main text was read in full on 24 November 2026. The essay values (Ea 96 to 75 kJ/mol, H2 order -1.9 against -1.2, about 80 % at 40 bar) are confirmed at 350 degC and 1 atm (Table 4); the 111 kJ/mol carried from a review is not in the main text, and the claimed 40-fold productivity at pressure comes from multiplying rates by pressure. The rate constant and equilibrium term are in the supplementary information, not obtained, so no law is implemented or fitted (`KINR-LIT-SAYAS2020`, informational). The 15 measured conversions at 10 to 40 bar are stored as unused comparison points (`K1P2-SAYAS-POINTS`); at 20 bar and 500 degC the catalyst reaches about 68 % where the Ru/Al2O3 law gives about 95 % at equal Ru per mol NH3, a cross-catalyst context, not a test (`K1P2-SAYAS-RUAL2O3-CONTEXT`).
 - Ni/Al2O3 (Collins 1993, used by Cho et al.) sits in an unavailable supplement; Co-based catalysts were not searched.
 - The combined consequence is that the catalyst set actually modelled is: Ru/Al2O3 (Kum), 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 (Lucentini 2021), and Ni/MgO and Ru/MgO (Takahashi approximation).
 
@@ -60,7 +60,7 @@ Extrapolation: Takahashi and Lucentini laws were fitted at 1 atm and Kum below 1
 
 Effectiveness factor is taken as 1 and pressure drop is neglected in the study files, so catalyst masses are lower bounds.
 
-Recommended action: obtain the Sayas 2020 full text and the Cho 2026 supplement; measure or find rate data at 10 to 20 bar; supply W/F for Takahashi from the original data.
+Recommended action: obtain the Sayas 2020 supplementary information and the Cho 2026 supplement; measure or find rate data at 10 to 20 bar; supply W/F for Takahashi from the original data.
 
 ### 3.2 Aspen RPlug (`results/research/aspen_kinetic`, validation `aspen_kinetic.json`)
 
@@ -102,7 +102,7 @@ Preliminary: the equipment-level CAPEX is a screening estimate scaled from one p
 
 Assumed or secondary: electricity (0.140 USD/kWh) is derived, not an official industrial price; the blue ammonia price and several hydrogen benchmarks come from search-result text because the source pages returned HTTP 403 or no text (`source_type secondary_web`); the exchange rate is 1.288444 SGD per USD, the cross rate of the ECB reference rates of 20 November 2026, read at the source, and the Phase 1 value 1.290 (ADB) is kept only as a cross-check; no Singapore gas price, WACC, labour rate or location factor was found; N2O is a covered gas under the carbon tax but not quantified. Cost base is mixed 2024 to 2026 nominal USD with no escalation. Landed cost is not computed (no sourced transport cost). Product compression and storage and NOx treatment are excluded. Heat-exchanger capital does not respond to heat integration, so heat integration acts only through fuel and cooling.
 
-Halim, Zain and Khoo (2025): only the abstract was retrievable; the 60.1 MW, 15.1 and 10.1 USD/kg values are unverified.
+Halim, Zain and Khoo (2025): read in full on 24 November 2026; the 60.1 MW, 15.1 and 10.1 USD/kg values are in the paper (pp. 3, 9, 11) and are not used as inputs.
 
 Impact: feed ammonia dominates the LCOH in this model (`scenario_results.json`, breakdown), so conclusions about the price of ammonia are robust to the CAPEX uncertainty, while conclusions that depend on CAPEX (catalyst, purification equipment, scale) are not.
 
@@ -129,7 +129,7 @@ Validated: the Ahmad bypass table is matched by stoichiometry; atom balances and
 
 Preliminary and assumed: turbine efficiencies are literature calibrated from Ahmad (direct 49.6 %, exhaust-heated full cracking 54.6 %); the efficiency of intermediate blends is a linear interpolation between those end points; the fired-variant efficiency applies the direct-NH3 turbine efficiency to H2-rich fuel; the natural gas CCGT comparator efficiency (0.55) is an assumption. No combustion was simulated and the 30 to 60 vol% blend range is labelled unverified. NOx abatement cost is not included. Partial-cracking heat is the stored Aspen duty scaled linearly with cracked share at 600 degC and 20 bar. The new package is not wired into the API or frontend.
 
-Informational: the Halim 40 % claim (not reproduced in magnitude; the Halim inputs were not accessed), Halim plant numbers, ISO purity, Ahmad full-crack TCI (212 against 230 MUSD).
+Informational: the Halim 40 % claim (not reproduced in the cost of electricity; the paper's own 39 to 44 % is a fuel-cost comparison, on which AmCraX gives 20 to 33 %, item `EU-P2-halim-fuel-basis`; the reconciliation passes, `EU-P2-halim-reconcile`), Halim plant numbers, ISO purity, Ahmad full-crack TCI (212 against 230 MUSD).
 
 ### 3.7 Life-cycle assessment (`results/research/lca`, validation `lca.json`)
 
@@ -139,7 +139,7 @@ Weak or secondary sources (flagged low confidence in `assumptions.json`): coal a
 
 ## 4. Cross-cutting limitations
 
-- **Inaccessible sources**: Sayas et al. (2020) full text; Halim, Zain and Khoo (2025) full text; Deka et al. (2025) primary paper; Cho et al. (2026) supplementary information (Collins and Sayas kinetics); several S&P Global and EMA pages. Values in the essay that depend on them are marked unverified in the workstream files and the evidence matrix, not confirmed.
+- **Inaccessible sources**: Sayas et al. (2020) supplementary information (the main text and Halim, Zain and Khoo (2025) and Abdoos et al. (2025) were read in full on 24 November 2026); Deka et al. (2025) primary paper; Cho et al. (2026) supplementary information (Collins and Sayas kinetics); several S&P Global and EMA pages. Values in the essay that depend on them are marked unverified in the workstream files and the evidence matrix, not confirmed.
 - **Extrapolation from 1 atm to 20 bar**: all three kinetic families are used outside their fitted pressure. Conversions at 20 bar for catalysts other than Kum are therefore less certain than the agreement between Aspen and Python (which share the same rate law) suggests. Aspen agreeing with Python verifies the implementation, not the rate law.
 - **CAPEX insensitivity**: the CAPEX module does not respond to temperature, pressure, reactor volume or heat-exchanger area. Any conclusion that depends on those capital effects is untested by this model.
 - **Proxies**: catalyst prices (Cho Ni and Ru used for all catalysts), Takahashi approximation for Ni/MgO and Ru/MgO, the 5000 km shipping distance, the 0.85 furnace efficiency and the Cho-based catalyst lifetime.
@@ -156,7 +156,7 @@ Two captions describe the reaction stoichiometry as 2 NH3 -> N2 + 3 H2 for LHHW 
 
 ## 6. Corrective actions in priority order
 
-1. Obtain the Sayas 2020 full text and the Cho 2026 supplement so that Ru-K/CaO and Ni/Al2O3 can be modelled; until then those catalysts stay out.
+1. Obtain the Sayas 2020 supplementary information and the Cho 2026 supplement so that Ru-K/CaO and Ni/Al2O3 can be modelled; until then those catalysts stay out.
 2. Obtain high-pressure (10 to 20 bar) rate data for the modelled catalysts, or flag all 20 bar conversions as extrapolations in any publication.
 3. Make CAPEX respond to temperature, reactor volume and exchanger area, then repeat the catalyst comparison.
 4. Add PSA purity-recovery data or an adsorption-cycle model for the purification trade-off.

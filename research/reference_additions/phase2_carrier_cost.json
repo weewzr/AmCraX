@@ -1,0 +1,22 @@
+[
+  {
+    "citekey": "muraki2019ammoniakey",
+    "apa7": "Muraki, S. (2019, August 22). Ammonia, key green energy for decarbonization [Plenary presentation]. Ammonia = Hydrogen 2.0 Conference, Melbourne, Australia. The Green Ammonia Consortium. https://www.ammoniaenergy.org/wp-content/uploads/2021/06/plenary-speaker_Muraki_0816r3.pdf",
+    "doi": null,
+    "url": "https://www.ammoniaenergy.org/wp-content/uploads/2021/06/plenary-speaker_Muraki_0816r3.pdf",
+    "access_date": "2026-11-24",
+    "url_verified": true,
+    "verification": "HTTP 200, PDF of 2.3 MB, 16 pages, text layer decoded locally (fonts mapped to Unicode). The cost-comparison slide (printed 11) was read as text only; the bar graphic was not rendered, so no bar values were read. Presentation by the SIP Energy Carriers programme director; not an agency publication.",
+    "taken_from": "Slide 2 carrier hydrogen densities; slide 4 programme facts (2014-2018, 16.7 bn yen); slide 5 turbine demonstrations; slide 10 'Estimated Import Price $330-340/ton ($2/kg-H2)'; slide 11 chart title, axis ticks and annotations $500/ton and $335/ton. Does not state target year, cost basis, distance, scale, feedstock hydrogen cost or scope of dehydrogenation."
+  },
+  {
+    "citekey": "jst2016sipenergycarriers",
+    "apa7": "Japan Science and Technology Agency & Cabinet Office, Government of Japan. (2016). Energy Carriers: Cross-ministerial Strategic Innovation Promotion Program (SIP) [Programme brochure, in Japanese]. https://www.jst.go.jp/sip/pdf/SIP_energycarriers2016.pdf",
+    "doi": null,
+    "url": "https://www.jst.go.jp/sip/pdf/SIP_energycarriers2016.pdf",
+    "access_date": "2026-11-24",
+    "url_verified": true,
+    "verification": "HTTP 200, PDF 2.8 MB; Japanese text layer decoded locally and searched for cost, yen and dollar values; none found. Title as given on the brochure cover text 'Energy Carriers, Strategic Innovation Promotion Program (SIP)'; imprint date 2016.9 appears at the end. The 2015 edition at https://www.jst.go.jp/sip/pdf/SIP_energycarriers2015.pdf also resolves (HTTP 200).",
+    "taken_from": "Programme scope only (three carriers, direct-use routes, project teams). No cost numbers; cited as the official programme description, not as a cost source."
+  }
+]

@@ -1,4 +1,4 @@
-<!-- cites: cho2026nickel, kum2026heatintegrated, farokhi2025costoptimization, ahmad2025gtcc, chopra2026decentralized -->
+<!-- cites: cho2026nickel, kum2026heatintegrated, farokhi2025costoptimization, ahmad2025gtcc, chopra2026decentralized, abdoos2025psa -->
 
 # 19 Techno-economic assessment
 
@@ -69,7 +69,7 @@ Published values at comparable ammonia prices are 5.1–6.4 USD/kg. At 450 USD/t
 * the CAPEX is a single plant-level correlation, without installed-cost, contingency or owner's-cost factors built up from sized equipment;
 * NO~x~ after-treatment of the tail-gas burner, NH~3~ polishing of the product, H~2~ compression and storage, land, taxes and working capital are excluded;
 * the imported heat is delivered at 100 % of the NH~3~ LHV, with no fired-heater loss;
-* the PSA recovery of 0.85 is above the 0.71–0.81 literature range (Section 11), so the feed per kg H~2~ is optimistic.
+* the PSA recovery of 0.85 is above the 0.71–0.81 literature range (Section 11) and above the only published purity-recovery front for cracked-ammonia composition (a simulation by Abdoos et al., 2025: 0.8192 at 99.95 % and 0.7744 at 99.99 % purity, at 8 to 12 bar), so the feed per kg H~2~ is optimistic; Section 32.4 gives the unified baseline at those recoveries.
 
 <!-- data: results/simulations/economics_baseline.json literature_benchmarks, notes[4]; results/sensitivity/lcoh_vs_ammonia_price_baseline.csv rows 475 (4.102596), 500 and 525 (linear interpolation to 520: 4.4334); 5.439 - 1.995 = 3.444 -->
 

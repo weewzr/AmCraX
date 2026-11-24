@@ -5,15 +5,17 @@ import { AsyncView } from '../../features/common/Notice'
 import { useJson } from '../data'
 import { splitShared } from '../siteHelpers'
 import { Callout, ExtLink } from '../ui'
+import { downloadByKey, downloadUrl } from '../downloads'
 import { DTable, SrcTag } from './parts'
 import { VerdictChip, WhatChanged } from './phase2'
+import { Headline } from './PlainAnswers'
 import { baseName, list, normVerdict, qualifierOf, safeRepoPath, show, thresholdSummary } from './shape'
 
 type Obj = Record<string, unknown>
 interface Finding { quantity?: unknown; value?: unknown; unit?: unknown; source_type?: unknown; source_file?: unknown; key?: unknown }
 interface MatrixRow extends Obj { row_id?: string; role?: string; component?: string; verdict?: string; verdict_v1?: string; verdict_by_mode?: Obj; numerical_findings?: Finding[]; links?: { data?: unknown[]; figures?: unknown[]; screenshots?: unknown[] }; literature?: unknown[]; case_ids?: unknown[] }
 interface Component extends Obj { id?: string; title?: string; verdict?: string; primary_rows?: unknown[]; secondary_rows?: unknown[]; envelope?: unknown; note?: unknown }
-interface Hypothesis extends Obj { id?: string; statement?: string; verdict?: string; verdict_v1?: string; primary_hypothesis?: unknown; components?: Component[]; strongest_defensible_statement?: unknown; findings_against_essay?: unknown; cross_claim?: unknown; verdict_conditions?: unknown; summary?: unknown; rows?: MatrixRow[] }
+interface Hypothesis extends Obj { id?: string; statement?: string; verdict?: string; headline_answer?: unknown; headline_limitations?: unknown[]; formal_classification_note?: unknown; verdict_v1?: string; primary_hypothesis?: unknown; components?: Component[]; strongest_defensible_statement?: unknown; findings_against_essay?: unknown; cross_claim?: unknown; verdict_conditions?: unknown; summary?: unknown; rows?: MatrixRow[] }
 export interface Matrix { provenance?: Obj; hypotheses?: Hypothesis[]; methodology_version?: number; methodology?: string }
 
 export function useMatrix2() { return useJson<Matrix>('/api/research/evidence-matrix') }
@@ -167,17 +169,41 @@ function MovedRows({ h }: { h: Hypothesis }) {
   )
 }
 
+/** Addendum note of 24 November 2026 (matrix provenance key addendum), with the findings-changed download. */
+export function AddendumNote({ p }: { p: Obj | undefined }) {
+  const t = show(p?.addendum)
+  if (!t) return null
+  const dl = downloadByKey('findings_that_changed')
+  return (
+    <Callout kind="note" title="Addendum: three papers read in full on 24 November 2026; no verdict moved.">
+      <span data-testid="addendum-note">{t.replace(/ Recorded in .*$/, '')} {dl ? <>The full list of corrections and new values: <a href={downloadUrl(dl.file)}>{dl.title}</a> (<code>{dl.file}</code>).</> : null}</span>
+    </Callout>
+  )
+}
+
 /** Matrix provenance disclosures (what was fixed before the analyses, what was not, the review that moved three rows), as stored. */
 function Disclosures({ p }: { p: Obj | undefined }) {
   const ds = list(p?.disclosures)
   if (!ds.length && !show(p?.fix_pass)) return null
   return (
-    <Callout kind="warn" title="How the verdicts were set (matrix provenance).">
+    <Callout kind="warn" title="How the formal classification was set (matrix provenance).">
       <div data-testid="matrix-disclosures">
         <ul className="hyp-list">{ds.map((x, i) => <li key={i}>{x}</li>)}</ul>
         {show(p?.fix_pass) ? <p className="small">Fix pass: {show(p?.fix_pass)}</p> : null}
       </div>
     </Callout>
+  )
+}
+
+/** The formal classification of a hypothesis under the pre-set rule: always labelled, never a headline. */
+function FormalClassification({ h, v1 }: { h: Hypothesis; v1?: unknown }) {
+  return (
+    <div className="hyp-formal" data-testid={`formal-${show(h.id)}`}>
+      <p className="small"><span className="formal-label">Formal classification (rule fixed before the analysis):</span> <VerdictChip v={h.verdict} small />{v1 !== undefined ? <span className="muted small"> v1: {show(v1) || 'not stored'}</span> : null}</p>
+      <ComponentChips h={h} />
+      {show(h.formal_classification_note) ? <p className="small muted" data-testid={`formal-note-${show(h.id)}`}>{show(h.formal_classification_note)}</p> : null}
+      <Qualifier h={h} />
+    </div>
   )
 }
 
@@ -228,23 +254,18 @@ export function EvidenceMatrix() {
           <p className="prose-p" data-testid="matrix-version">
             {v2 ? <>Verdicts follow methodology version 2 (<ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>). What of it was fixed before the analyses and what was not is stated below. The version 1 verdict is shown beside each one.</>
               : <>This matrix file was written under methodology version 1 (every hypothesis verdict from all of its rows). The version 2 rule is in <ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>; the version 2 matrix replaces this file when it is generated.</>}
-            {' '}Verdict words: SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED, INCONCLUSIVE. Each chip prints its word; colour is not the only carrier.
+            {' '}Words of the formal classification: SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED, INCONCLUSIVE. Each chip prints its word; colour is not the only carrier.
           </p>
+          <p className="prose-p small" data-testid="matrix-two-layers">This detailed view holds the formal classification of every hypothesis, component and row under the rule fixed before the analysis. Each hypothesis card starts with its headline answer and limitations (the plain-answer reading aid); the formal classification follows it, labelled.</p>
           <Disclosures p={d.provenance} />
-          <div className="table-scroll hyp-summary" tabIndex={0} role="region" aria-label="Verdict per hypothesis">
-            <table className="data simple">
-              <caption>Verdict per hypothesis, with its component verdicts{v2 ? ' and the version 1 verdict beside it' : ''}</caption>
-              <thead><tr><th scope="col">Hypothesis</th><th scope="col">Verdict{v2 ? ', version 1 verdict' : ''} and components</th><th scope="col">Statement and qualifier</th></tr></thead>
-              <tbody>
-                {hs.map((h) => (
-                  <tr key={h.id} data-testid={`verdict-${h.id}`}>
-                    <th scope="row"><a href={`#/hypotheses#${h.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(String(h.id))?.scrollIntoView({ block: 'start' }) }}>{h.id}</a></th>
-                    <td className="hyp-vcell" data-label={`Verdict${v2 ? ', version 1 verdict' : ''} and components`}><VerdictChip v={h.verdict} />{v2 ? <p className="hyp-v1">Version 1 verdict: {show(v1Of(h, d.methodology_version)) || 'not stored'}</p> : null}<ComponentChips h={h} /></td>
-                    <td className="wide" data-label="Statement and qualifier"><p className="hyp-stmt">{show(h.primary_hypothesis ?? h.statement)}</p><Qualifier h={h} /></td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <AddendumNote p={d.provenance} />
+          <div className="grid-2s hyp-verdicts" role="list" aria-label="Headline answer per hypothesis">
+            {hs.map((h) => (
+              <a key={h.id} href={`#/hypotheses#${h.id}`} className="card tile hyp-verdict" role="listitem" data-testid={`verdict-${h.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(String(h.id))?.scrollIntoView({ block: 'start' }) }}>
+                <h3>{h.id}: {show(h.primary_hypothesis ?? h.statement)}</h3>
+                <Headline h={h} compact />
+              </a>
+            ))}
           </div>
           {rule ? (
             <div className="callout hyp-rule" id="aggregation-rule">
@@ -255,11 +276,10 @@ export function EvidenceMatrix() {
             <article key={h.id} id={String(h.id)} className="card hyp-card">
               <header>
                 <h3>{h.id}: {show(h.statement)}</h3>
-                <span><VerdictChip v={h.verdict} />{v2 ? <span className="muted small"> v1: {show(v1Of(h, d.methodology_version)) || 'not stored'}</span> : null}</span>
               </header>
-              <ComponentChips h={h} />
-              <Qualifier h={h} />
-              {show(h.primary_hypothesis) && show(h.primary_hypothesis) !== show(h.statement) ? <p><strong>Primary hypothesis.</strong> {show(h.primary_hypothesis)}</p> : null}
+              <Headline h={h} />
+              <FormalClassification h={h} v1={v2 ? v1Of(h, d.methodology_version) : undefined} />
+              {show(h.primary_hypothesis) ? <p><strong>Primary hypothesis.</strong> {show(h.primary_hypothesis)}</p> : null}
               <Components h={h} />
               <MovedRows h={h} />
               {show(h.strongest_defensible_statement) ? <p className="p2-strongest"><strong>Strongest defensible statement.</strong> {show(h.strongest_defensible_statement)}</p> : null}

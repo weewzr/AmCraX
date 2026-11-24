@@ -4,6 +4,7 @@ GET /api/research/index                 whitelist of served files per area (name
 GET /api/research/evidence-matrix       results/research/evidence_matrix.json (404 until the file exists)
 GET /api/research/validation-summary    pass / fail / informational counts per area, failures named (from results/research/validation/*.json)
 GET /api/research/aspen-evidence        docs/images/aspen_evidence/manifest.json (captures whose PNG exists)
+GET /api/research/addendum              results/research/addendum_2026-11-24.json (record of the addendum of 24 November 2026)
 GET /api/research/validation/by_kind    counts of the research validation items by evidence kind and status, failures with causes
 GET /api/research/{area}/{name}         one whitelisted file: CSV -> {name, area, columns, rows, count, source_note}; JSON as stored
                                         (a few large JSON files are served as a subset of named top-level keys, stated in `served_keys`;
@@ -29,6 +30,7 @@ router = APIRouter(prefix="/api/research")
 
 RESEARCH_DIR = paths.RESULTS_DIR / "research"
 EVIDENCE_MATRIX = RESEARCH_DIR / "evidence_matrix.json"
+ADDENDUM = RESEARCH_DIR / "addendum_2026-11-24.json"
 ASPEN_EVIDENCE_DIR = paths.DOCS_DIR / "images" / "aspen_evidence"
 RESEARCH_FIGURES = paths.RESULTS_FIGURES / "research"
 
@@ -284,6 +286,13 @@ def aspen_evidence() -> dict:
     caps = [c for c in body.get("captures", []) if isinstance(c, dict) and c.get("file") and (ASPEN_EVIDENCE_DIR / Path(c["file"]).name).is_file()]
     return jsonable({"aspen_version": body.get("aspen_version"), "note": body.get("note"), "generated_by": body.get("generated_by"),
                      "n_in_manifest": len(body.get("captures", [])), "captures": caps})
+
+
+@router.get("/addendum")
+def addendum_endpoint():
+    if not ADDENDUM.is_file():
+        raise ApiError(404, "research_not_found", "The addendum record (results/research/addendum_2026-11-24.json) has not been generated yet")
+    return jsonable(_load_json(ADDENDUM))
 
 
 @router.get("/aspen-evidence")

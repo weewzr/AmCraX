@@ -38,11 +38,14 @@ function WhenNear({ children }: { children: ReactNode }) {
 }
 
 interface FuelCase { fuel_efficiency?: number; lcoh_USD_per_kg?: number; lcoh_SGD_per_kg?: number }
-/** The stored fuel-efficiency envelope of the frozen baseline (reference_scenario/baseline.json, key fuel_efficiency_sensitivity):
- *  the reference cost counts the supplementary ammonia fuel at 100 % of its LHV (optimistic). Nothing is computed here. */
+interface PsaCase { psa_recovery?: number; lcoh_USD_per_kg?: number; lcoh_SGD_per_kg?: number }
+/** The stored fuel-efficiency envelope of the frozen baseline (reference_scenario/baseline.json, key fuel_efficiency_sensitivity)
+ *  and its PSA-recovery sensitivity (key psa_recovery_sensitivity): the reference cost counts the supplementary ammonia fuel
+ *  at 100 % of its LHV (optimistic) and assumes a PSA recovery of 0.85. Nothing is computed here. */
 function FuelEnvelopeNote() {
-  const b = useJson<{ fuel_efficiency_sensitivity?: { cases?: FuelCase[] } }>('/api/research/reference_scenario/baseline.json')
+  const b = useJson<{ fuel_efficiency_sensitivity?: { cases?: FuelCase[] }; psa_recovery_sensitivity?: { cases?: PsaCase[] } }>('/api/research/reference_scenario/baseline.json')
   const cases = b.phase === 'ready' ? (b.data.fuel_efficiency_sensitivity?.cases ?? []).filter((c) => typeof c.fuel_efficiency === 'number' && typeof c.lcoh_USD_per_kg === 'number') : []
+  const psa = b.phase === 'ready' ? (b.data.psa_recovery_sensitivity?.cases ?? []).filter((c) => typeof c.psa_recovery === 'number' && typeof c.lcoh_USD_per_kg === 'number') : []
   if (!cases.length) return null
   const pc = (x: number) => `${Number((x * 100).toFixed(2))} %`
   return (
@@ -55,6 +58,18 @@ function FuelEnvelopeNote() {
             <td className="sim-num">{c.lcoh_USD_per_kg!.toFixed(3)}</td><td className="sim-num">{typeof c.lcoh_SGD_per_kg === 'number' ? c.lcoh_SGD_per_kg.toFixed(3) : 'n/a'}</td></tr>
         ))}</tbody>
       </table>
+      {psa.length ? (
+        <div data-testid="sim-psa-sensitivity">
+          <p className="sim-basis">PSA-recovery sensitivity of the same baseline: reference 0.85; 0.82 and 0.77 from the only published front for this gas composition, simulated at 8 to 12 bar.</p>
+          <table className="sim-cmp sim-fuel-t" aria-label="PSA-recovery sensitivity of the baseline hydrogen cost">
+            <thead><tr><th scope="col">PSA H2 recovery</th><th scope="col">USD/kg H2</th><th scope="col">SGD/kg H2</th></tr></thead>
+            <tbody>{psa.map((c) => (
+              <tr key={c.psa_recovery}><th scope="row">{c.psa_recovery!.toFixed(4)}{c.psa_recovery === 0.85 ? ' (reference assumption)' : ' (simulated front)'}</th>
+                <td className="sim-num">{c.lcoh_USD_per_kg!.toFixed(3)}</td><td className="sim-num">{typeof c.lcoh_SGD_per_kg === 'number' ? c.lcoh_SGD_per_kg.toFixed(3) : 'n/a'}</td></tr>
+            ))}</tbody>
+          </table>
+        </div>
+      ) : null}
     </div>
   )
 }

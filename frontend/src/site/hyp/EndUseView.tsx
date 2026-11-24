@@ -67,7 +67,7 @@ function Claim({ eu }: { eu: EndUse }) {
   const rows = eu.halim_claim_check.computed
   return (
     <>
-      <p className="prose-p">Statement tested: {eu.halim_claim_check.halim_statement}</p>
+      <p className="prose-p" style={{ overflowWrap: 'anywhere' }}>Statement tested: {eu.halim_claim_check.halim_statement}</p>
       <DTable caption="Direct ammonia combustion against cracking-based power: cost per MWh" rows={rows} keyOf={(r, i) => `${r.basis}${r.cracking_pathway}${i}`}
         cols={[
           { h: 'Basis', cell: (r) => String(r.basis), th: true },
