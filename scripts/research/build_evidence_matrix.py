@@ -13,9 +13,15 @@ Rules followed here:
   in ``conclusion_conditions``. A row is SUPPORTED only within stated conditions and only when the
   evidence is computed rather than an assumption built into the model; evidence that is
   model-form limited, extrapolated, or inside the uncertainty band gives INCONCLUSIVE.
-- Hypothesis verdict rule (HYPOTHESIS_RULE below): SUPPORTED if every row is SUPPORTED;
-  CONTRADICTED if no row is SUPPORTED and at least half of the rows are CONTRADICTED;
-  otherwise INCONCLUSIVE, with the mixed outcome spelled out in ``verdict_conditions``.
+- Verdicts follow methodology version 2 (docs/research/verdict_methodology_v2.md): each row has a role
+  (primary rows vote, secondary rows do not) and belongs to a component. Row verdicts are SUPPORTED,
+  CONTRADICTED or INCONCLUSIVE and are derived by the coded rules v2_h1a to v2_h4e. Component verdicts
+  (component_verdict, COMPONENT_RULE) and hypothesis verdicts (hypothesis_verdict_v2, HYPOTHESIS_RULE_V2)
+  add MIXED and PARTIALLY SUPPORTED. The version 1 rule (HYPOTHESIS_RULE: SUPPORTED only if every row is
+  SUPPORTED) and the version 1 verdicts are kept beside them for comparison only.
+- Disclosure (DISCLOSURES, printed in the matrix): only the roles, components, aggregation and generic row
+  standard were fixed before the analyses; the row-specific rules were written after the results and were
+  tightened in the fix pass of 24 November 2026 after an independent adversarial review.
 
 Key syntax (``key`` field): a JSON-pointer-like path separated by "/" ("~1" encodes a literal "/",
 "~0" a literal "~"). A segment ``[a=b;c=d]`` selects the single list element whose fields match
@@ -519,10 +525,10 @@ def h2_rows() -> list[dict]:
         "H2-a", "Ammonia feed cost dominates the cost of cracked hydrogen, so affordable ammonia is essential to economic competitiveness.",
         verdict, rowobj=r, singapore_scenario=sg,
         aspen_model="Stored Aspen Plus V15 baseline (results/simulations/baseline.json): NH3 feed and fuel per kg H2.",
-        python_model="amcrax.economics.singapore.evaluate (equipment-level CAPEX screening estimate), tornado sensitivity.",
+        python_model="amcrax.economics.singapore.evaluate (unified reference scenario, CAPEX cho2026_itemised_v1), tornado sensitivity.",
         case_ids=["baseline (stored Aspen)", "grey|heat_integration_on"],
         input_assumptions=[f"NH3 price scenarios and the {f(lo_in,0)}-{f(hi_in,0)} USD/t tornado range are inputs (Cho Table 8 and secondary web prices); the feed share is computed but scales with these assumed prices.",
-                           "Equipment-level CAPEX is a feed-scaled screening estimate and probably optimistic, which raises the feed share."],
+                           "Reference CAPEX (cho2026_itemised_v1) is the highest of the comparable estimates, which lowers the feed share (conservative for this row)."],
         literature=sg_lit_econ, validation_areas=["economics"],
         validation_method="Stored LCOH reproduced exactly; cost-share closure; NH3 feed per kg H2 above the stoichiometric floor (economics.json).",
         uncertainty_range=f"Feed share {pct(share,0)} at {f(val(F_SCEN, SC.format('grey', 'nh3_price_USD_per_t')),0)} USD/t and {pct(share_lo,0)} at the low end of the tornado range ({f(lo_in,0)} USD/t); NH3 price swing {f(sw)} USD/kg against {f(nxt)} USD/kg for the next parameter.",
@@ -1053,15 +1059,26 @@ def h4_rows() -> list[dict]:
     marea = r.num("membrane area", F_PUR, C.format("MEM_1bar_polish", "area_m2"), "m2", "python")
     dmb2 = r.num("cost usable H2, Grade D, PSA_D_MB", F_PUR, C.format("PSA_D_MB", "costs/fuel_cell_grade_D/usd_per_kg_usable_h2"), "USD/kg H2", "python")
     nh3raw = r.num("NH3 in membrane permeate without polishing", F_PUR, C.format("MEM_1bar_raw", "product_ppm/NH3"), "ppm", "literature")
-    mcost = r.num("membrane cost (applied as USD at parity)", PA, "[name=Membrane cost]/value", "EUR/m2", "assumption")
+    mcost = r.num("membrane cost, Phase 1 point (EUR/m2, converted at the reference USD/EUR)", PA, "[name=Membrane cost]/value", "EUR/m2", "assumption")
     cond = resolve(F_PUR, C.format("MEM_1bar_polish", "costs/fuel_cell_grade_D/conditional_on"))
+    # Phase 2 sourced membrane inputs (review B M9: the Phase 1 'infinite selectivity' and 'parity' text is superseded)
+    PCI = "inputs/"
+    mc_lo = val(F_PC, PCI + "membrane_cost_USD_per_m2/low/value")
+    mc_c = val(F_PC, PCI + "membrane_cost_USD_per_m2/central/value")
+    mc_hi = val(F_PC, PCI + "membrane_cost_USD_per_m2/high/value")
+    usd_eur = val(F_BASE, "inputs/" + esc("currency.usd_per_eur") + "/value")
+    sel_lo = val(F_PC, "row_evidence/H4-d/numbers/sourced_selectivity/0")
+    sel_hi = val(F_PC, "row_evidence/H4-d/numbers/sourced_selectivity/2")
+    sel_req = val(F_PC, "row_evidence/H4-d/numbers/required_selectivity")
+    mlife = val(F_PC, PCI + "membrane_life_yr/central/value")
     verdict = "INCONCLUSIVE" if cond else ("SUPPORTED" if mem < dmb2 else "CONTRADICTED")
     rows.append(make_row(
         "H4-d", "A Pd-Ag membrane balances purity, recovery and cost better than PSA for fuel-cell hydrogen.",
         verdict, rowobj=r, singapore_scenario=sg, aspen_model="No Aspen membrane model: Python/literature only.",
         python_model=py_p, case_ids=["MEM_1bar_polish", "MEM_1bar_raw", "PSA_D_MB"],
-        input_assumptions=["Infinite H2/N2 selectivity in the base case (no numeric selectivity in the library).",
-                           f"Membrane cost {f(mcost,0)} EUR/m2 applied as USD at parity; housing, skid and compression CAPEX not modelled.",
+        input_assumptions=[f"Ideal H2/N2 selectivity {f(sel_lo,0)} to {f(sel_hi,0)} (Cechetto et al. 2021, single gas, new membrane) against a requirement of {f(sel_req,0)}.",
+                           f"Membrane cost {f(mc_lo,0)} USD/m2 ({f(mc_lo / usd_eur,0)} EUR at {f(usd_eur,3)} USD/EUR), {f(mc_c,0)} and {f(mc_hi,0)} USD/m2, "
+                           f"annualised with the capital recovery factor at the membrane life (central {f(mlife,0)} years); housing, skid and compression CAPEX not modelled.",
                            f"Membrane recovery {f(mrec,2)} is a design choice."],
         literature=p_lit, validation_areas=["purification"],
         validation_method="Sieverts hand calculation and pinch limit checks (purification.json).",
@@ -1119,6 +1136,9 @@ F_HX = "results/research/heat_exchanger/heat_exchanger_study.json"
 F_PC = "results/research/purification/phase2_comparison.json"
 F_KV = "results/research/kinetics/validity_classification.json"
 F_SUP = "results/research/reference_scenario/supersession.json"
+F_FD = "results/research/carbon_pricing/feed_dominance.json"
+F_FIX = "results/research/fix_pass_2026-11-24.json"
+F_CAPA = "results/research/reference_scenario/capex_audit.json"
 OUT_FC_JSON = "results/research/phase2_findings_changed.json"
 OUT_FC_MD = "docs/research/phase2_findings_changed.md"
 
@@ -1262,6 +1282,10 @@ def v2_h1a(r: Row, v1row: dict) -> dict:
         halves[half] = vals
     thr_f_ref = r.num("threshold, fired cracking (reference basis)", F_TT, "thresholds/full_fired/threshold_delta_pp_reference", "pp", "python")
     thr_p_ref = r.num("threshold, cracking + PSA (reference basis)", F_TT, "thresholds/full_purified/threshold_delta_pp_reference", "pp", "python")
+    FE = "cracker_heat_fuel_efficiency_sensitivity/cases/"
+    n_fe = len(load(F_TT)["cracker_heat_fuel_efficiency_sensitivity"]["cases"])
+    fe_t = [r.num(f"fired-cracking threshold with cracker heat delivered at {val(F_TT, FE + f'{i}/heat_fuel_efficiency'):g} of the fuel LHV",
+                  F_TT, FE + f"{i}/full_fired/threshold_delta_fuel_pp_vs_direct_turbine", "pp", "python") for i in range(n_fe)]
     fired_src = resolve(F_TT, "sourced_values/fired_H2N2_fuel_delta_pp/sourced")
     p_src = [fnd("NETL pure-H2 minus NH3 combined-cycle efficiency, as a ratio on the AmCraX turbine", F_TT,
                  "sourced_values/purified_H2_fuel_delta_pp/netl_relative_on_AmCraX_turbine", "pp", "literature"),
@@ -1291,6 +1315,8 @@ def v2_h1a(r: Row, v1row: dict) -> dict:
                           "comparison": {"fired": side_f, "purified": side_p}},
                conclusions=[f"Direct NH3 {f(d,1)} USD/MWh against fired cracking {f(ff,1)} ({f(gf,1)} % cheaper) and cracking + PSA {f(fp,1)} ({f(gp,1)} % cheaper), at the equal-efficiency assumption {pct(eta,2)}.",
                             f"Fired cracking needs +{f(thr_f_ref,2)} pp (range {f(min(tf),2)} to {f(max(tf),2)} over {len(tf)} bases); no turbine efficiency on fired-cracker H2/N2 fuel is sourced.",
+                            "With the cracker heat delivered at less than 100 % of the fuel LHV the fired threshold rises: "
+                            + ", ".join(f"+{f(fe_t[i],2)} pp at {val(F_TT, FE + f'{i}/heat_fuel_efficiency'):g}" for i in range(n_fe)) + " (reference basis, computed).",
                             f"Cracking + PSA needs +{f(thr_p_ref,2)} pp (range {f(min(tp),2)} to {f(max(tp),2)}), above the only sourced gain ({f(lo,2)} to {f(hi,2)} pp, NETL pure H2, an upper bound) on every basis."],
                assumptions=[f"H2-rich-fuel turbine at the direct-NH3 efficiency {pct(eta,2)} (fired and purified rows only).",
                             text(F_TT, "row_evidence/H1-a/assumptions")],
@@ -1298,7 +1324,11 @@ def v2_h1a(r: Row, v1row: dict) -> dict:
                kinds=["numerical_verification", "literature_comparison"],
                conclusion=(f"Under the modelled operating conditions direct NH3 combustion is cheaper than both standalone cracking pathways "
                            f"({f(gf,1)} % and {f(gp,1)} %), at an assumed equal turbine efficiency of {pct(eta,2)}. The cracking + PSA half survives the "
-                           "threshold test on every basis; the fired half cannot be tested because no efficiency is sourced, so the row is not SUPPORTED."),
+                           "threshold test on every basis against a single sourced gain (NETL 2023/2024, H-class cycle simulation with "
+                           f"steam-diluted H2, not like-for-like with the {pct(eta,2)} AmCraX turbine; an upper bound); the fired half "
+                           "cannot be tested because no efficiency is sourced, so the row is not SUPPORTED. Cracker heat is counted at "
+                           f"100 % of the fuel LHV (optimistic, favourable to cracking): at 0.85 the fired threshold rises from "
+                           f"+{f(fe_t[0],2)} to +{f(fe_t[-1],2)} pp (computed)."),
                areas=["enduse"])
 
 
@@ -1370,6 +1400,11 @@ def v2_h1d(r: Row, v1row: dict) -> dict:
     lcs = r.num("LCOH grey NH3 450 USD/t", F_TT, RE + "LCOH_grey_SGD", "SGD/kg H2", "python")
     r.findings[-1]["usd_counterpart"] = {"source_file": F_TT, "key": RE + "LCOH_grey_USD"}
     bm = r.num("NE Asia SMR production-cost marker", F_TT, RE + "benchmarks/ne_asia_smr_production_cost", "USD/kg H2", "literature")
+    bm6 = r.num("delivered low-carbon H2 benchmark, East Asia", F_TT, RE + "benchmarks/blue_delivered_east_asia", "USD/kg H2", "literature")
+    FS = "fuel_efficiency_sensitivity/cases/"
+    eff_e = [val(F_BASE, FS + f"{i}/fuel_efficiency") for i in range(3)]
+    lc_e = [r.num(f"baseline LCOH with supplementary NH3 fuel at {eff_e[i]:g} of its LHV", F_BASE, FS + f"{i}/lcoh_USD_per_kg", "USD/kg H2", "python")
+            for i in range(3)]
     kd = r.num("electricity per kg NH3, direct", F_TT, RE + "kWh_per_kg_NH3/direct", "kWh/kg NH3", "python")
     kc = r.num("electricity per kg NH3, cracking + PSA at the efficiency copy", F_TT, RE + "kWh_per_kg_NH3/cracked_purified_at_eta_copy", "kWh/kg NH3", "python")
     src = [fnd("electricity per kg NH3, cracking + PSA at NETL gain as a ratio", F_TT, RE + "kWh_per_kg_NH3/cracked_purified_at_NETL_ratio_1p1225", "kWh/kg NH3", "python"),
@@ -1388,11 +1423,15 @@ def v2_h1d(r: Row, v1row: dict) -> dict:
                           "sourced_values": src, "comparison": s},
                conclusions=[f"H2 as product keeps {pct(eh)} of the NH3 LHV (Aspen).",
                             f"Electricity per kg NH3: direct {f(kd,3)}; cracking + PSA {f(kc,3)} at the efficiency copy, {f(lo,3)} to {f(hi,3)} at the NETL gains (straddles direct).",
-                            f"Cracked H2 costs {f(lc,3)} USD/kg ({f(lcs,3)} SGD/kg), above the {f(bm,2)} USD/kg NE Asia SMR marker."],
+                            f"Cracked H2 costs {f(lc,3)} USD/kg ({f(lcs,3)} SGD/kg), above the {f(bm,2)} USD/kg NE Asia SMR marker and below the "
+                            f"{f(bm6,1)} USD/kg delivered low-carbon benchmark (fuel counted at 100 % of its lower heating value, optimistic; "
+                            f"{f(lc_e[1],3)} to {f(lc_e[2],3)} USD/kg at fuel efficiencies {f(eff_e[1],4)} and {f(eff_e[2],2)})."],
                assumptions=[text(F_TT, "row_evidence/H1-d/assumptions")],
                uncertainty=text(F_TT, "row_evidence/H1-d/uncertainty"),
                kinds=["python_vs_aspen", "numerical_verification", "literature_comparison"],
-               conclusion="The conversion loss for power depends on the H2 turbine efficiency: at sourced gains cracking + PSA gives about the same electricity as direct combustion, so the energy half is unresolved; cracked H2 is also dearer than the benchmark it was compared with.",
+               conclusion=(f"The conversion loss for power depends on the H2 turbine efficiency: at sourced gains cracking + PSA gives about the same "
+                           f"electricity as direct combustion, so the energy half is unresolved; cracked H2 is dearer than the {f(bm,2)} USD/kg NE Asia "
+                           f"SMR marker and cheaper than the {f(bm6,1)} USD/kg delivered low-carbon benchmark, so the cost comparison depends on the benchmark."),
                areas=["enduse"])
 
 
@@ -1405,9 +1444,12 @@ def v2_h2a(r: Row, v1row: dict) -> dict:
     t50a = r.num("same, adverse non-feed inputs", F_UQR, RE + "numbers/nh3_price_threshold_feed_share_50pct_USD_per_t/" + esc("adverse_capex1.5_psa0.756_cat_life1_price2x_hours7000"), "USD/t", "python")
     t50h = r.num("same, heat integration off", F_UQR, RE + "numbers/nh3_price_threshold_feed_share_50pct_USD_per_t/heat_integration_off_base", "USD/t", "python")
     pmin = r.num("lowest sourced NH3 price", F_UQR, RE + "numbers/lowest_sourced_nh3_price_USD_per_t", "USD/t", "literature")
-    cx300 = r.num("CAPEX multiple at which capital + fixed opex equal feed, 300 USD/t", F_CPR, RE + "threshold/capex_multiple_capital_plus_fixed_equals_feed_at_300", "-", "python")
-    cx450 = r.num("same, 450 USD/t", F_CPR, RE + "threshold/capex_multiple_capital_plus_fixed_equals_feed_at_450", "-", "python")
-    cxmax = r.num("largest sourced CAPEX multiplier", F_CPR, RE + "threshold/sourced_capex_multiplier_max", "-", "literature")
+    # one comparator throughout (fix pass 24 Nov 2026, review C M4): feed above 50 % of LCOH
+    cx300 = r.num("CAPEX multiple at which the feed share falls to 50 % of LCOH, 300 USD/t", F_FD, "thresholds/capex_multiple/[nh3_price_USD_per_t=300]/feed_share_falls_to_50pct", "-", "python")
+    cx450 = r.num("CAPEX multiple at which the feed share falls to 50 % of LCOH, 450 USD/t", F_FD, "thresholds/capex_multiple/[nh3_price_USD_per_t=450]/feed_share_falls_to_50pct", "-", "python")
+    cxmax = r.num("largest CAPEX multiplier in the Cho Table 8 sensitivity (a sensitivity bound, not a sourced plant cost)", F_CPR, RE + "threshold/sourced_capex_multiplier_max", "-", "literature")
+    ind_lo = val(F_CAPA, "independent_range_USD/0") / val(F_CAPA, "methods_on_amcrax_baseline/reference_cho2026_itemised_v1/capex_total_USD")
+    ind_hi = val(F_CAPA, "independent_range_USD/1") / val(F_CAPA, "methods_on_amcrax_baseline/reference_cho2026_itemised_v1/capex_total_USD")
     st = r.num("Sobol total-effect index of NH3 price on LCOH (grey)", F_UQR, RE + "numbers/sobol_nh3_price_lcoh_HIon/grey/ST", "-", "python")
     stlo = r.num("lower 95 % bound of that index", F_UQR, RE + "numbers/sobol_nh3_price_lcoh_HIon/grey/ST_ci/0", "-", "python")
     sthi = r.num("upper 95 % bound of that index", F_UQR, RE + "numbers/sobol_nh3_price_lcoh_HIon/grey/ST_ci/1", "-", "python")
@@ -1416,23 +1458,26 @@ def v2_h2a(r: Row, v1row: dict) -> dict:
     v = "SUPPORTED" if (ok_price and ok_capex) else "INCONCLUSIVE"
     rule = ("Threshold rule (methodology v2): the feed share follows from assumed prices, so the NH3 price at which feed falls to "
             "half of LCOH (base, adverse non-feed inputs, heat integration off) is compared with the lowest sourced NH3 price, and "
-            "the CAPEX multiple at which capital plus fixed opex equal feed (at the lowest sourced price) with the largest sourced "
-            "CAPEX multiplier. SUPPORTED if every sourced value lies on the feed-dominant side of both thresholds; otherwise "
+            "the CAPEX multiple at which the feed share falls to half of LCOH (at the lowest sourced price; same comparator) with "
+            "the largest CAPEX multiplier considered (the Cho Table 8 sensitivity bound; the independent published estimates are "
+            "lower). SUPPORTED if every value lies on the feed-dominant side of both thresholds; otherwise "
             f"INCONCLUSIVE. Here: price test {'passed' if ok_price else 'failed'}, CAPEX test {'passed' if ok_capex else 'failed'}. "
             "The Sobol index is reported as supporting evidence, not as the basis.")
     return _v2(v, rule,
-               envelope=text(F_UQR, RE + "envelope"),
-               threshold={"parameter": "NH3 price for a 50 % feed share; CAPEX multiple at which capital + fixed opex equal feed",
+               envelope=(f"Feed above 50 % of LCOH for NH3 above {f(t50,0)} USD/t (CAPEX x1) and for CAPEX below x{f(cx450,2)} at "
+                         f"450 USD/t (x{f(cx300,2)} at 300 USD/t). The CAPEX multipliers considered reach x{f(cxmax,2)} (Cho Table 8 "
+                         f"sensitivity bound); the independent published estimates correspond to x{f(ind_lo,2)} to x{f(ind_hi,2)}."),
+               threshold={"parameter": "NH3 price for a 50 % feed share; CAPEX multiple at which the feed share falls to 50 %",
                           "values": [fnd("NH3 price threshold, base", F_UQR, RE + "numbers/nh3_price_threshold_feed_share_50pct_USD_per_t/base", "USD/t", "python"),
                                      fnd("NH3 price threshold, adverse", F_UQR, RE + "numbers/nh3_price_threshold_feed_share_50pct_USD_per_t/" + esc("adverse_capex1.5_psa0.756_cat_life1_price2x_hours7000"), "USD/t", "python"),
-                                     fnd("CAPEX multiple threshold at 300 USD/t", F_CPR, RE + "threshold/capex_multiple_capital_plus_fixed_equals_feed_at_300", "-", "python")],
+                                     fnd("CAPEX multiple threshold (50 % feed share) at 300 USD/t", F_FD, "thresholds/capex_multiple/[nh3_price_USD_per_t=300]/feed_share_falls_to_50pct", "-", "python")],
                           "sourced_values": [fnd("lowest sourced NH3 price", F_UQR, RE + "numbers/lowest_sourced_nh3_price_USD_per_t", "USD/t", "literature"),
-                                             fnd("largest sourced CAPEX multiplier", F_CPR, RE + "threshold/sourced_capex_multiplier_max", "-", "literature")],
+                                             fnd("largest CAPEX multiplier in the Cho Table 8 sensitivity", F_CPR, RE + "threshold/sourced_capex_multiplier_max", "-", "literature")],
                           "comparison": {"price": "sourced above threshold" if ok_price else "straddle or below",
-                                         "capex": "sourced below threshold" if ok_capex else "straddle or above"}},
+                                         "capex": "multipliers below threshold" if ok_capex else "straddle or above"}},
                conclusions=[f"Feed is {pct(share)} of LCOH {f(lc,3)} USD/kg.",
                             f"Feed stays above half of LCOH down to {f(t50,0)} USD/t ({f(t50a,0)} with adverse non-feed inputs, {f(t50h,0)} without heat integration); the lowest sourced price is {f(pmin,0)} USD/t.",
-                            f"Capital + fixed opex reach the feed cost only at CAPEX x{f(cx450,2)} (x{f(cx300,2)} at 300 USD/t); sourced multipliers reach x{f(cxmax,2)}.",
+                            f"Feed stays above half of LCOH up to CAPEX x{f(cx450,2)} (x{f(cx300,2)} at 300 USD/t); the largest multiplier considered is x{f(cxmax,2)} (Cho Table 8 sensitivity bound), and the independent published estimates correspond to x{f(ind_lo,2)} to x{f(ind_hi,2)}.",
                             f"Sobol total-effect index of the NH3 price {f(st,3)} [{f(stlo,3)}, {f(sthi,3)}]."],
                assumptions=resolve(F_CPR, RE + "assumptions") + resolve(F_UQR, RE + "assumptions"),
                uncertainty=text(F_UQR, RE + "uncertainty") + " " + text(F_CPR, RE + "uncertainty"),
@@ -1449,27 +1494,65 @@ def v2_h2b(r: Row, v1row: dict) -> dict:
     prices = [fnd(f"central sourced NH3 price, {k}", F_CPR, RE + f"scenario_prices_USD_per_t/{k}/value", "USD/t", "literature")
               for k in resolve(F_CPR, RE + "scenario_prices_USD_per_t")]
     lows = [val(F_CPR, RE + f"scenario_prices_USD_per_t/{k}/low") for k in resolve(F_CPR, RE + "scenario_prices_USD_per_t")]
-    p = r.num("Monte Carlo P(LCOH < 3.06), grey", F_CPR, RE + "mc_P_lcoh_below_3p06_grey", "probability", "python")
+    p = r.num("Monte Carlo P(LCOH < 3.06), grey, under the assumed input distributions", F_CPR, RE + "mc_P_lcoh_below_3p06_grey", "probability", "python")
+    bfav = r.num("break-even NH3 price against the 3.06 USD/kg marker, favourable non-feed inputs", F_UQR,
+                 "row_evidence/H2-b/numbers/breakeven_nh3_price_favourable_nonfeed_inputs_USD_per_t", "USD/t", "python")
+    b6 = r.num("break-even NH3 price against the 6.0 USD/kg delivered low-carbon benchmark", F_FD,
+               "breakeven_nh3_USD_per_t/blue_delivered_east_asia", "USD/t", "python")
+    bm6 = r.num("delivered low-carbon H2 benchmark, East Asia", F_FD, "breakeven_benchmarks_USD_per_kg/blue_delivered_east_asia", "USD/kg H2", "literature")
+    bm3 = r.num("NE Asia SMR production-cost marker", F_FD, "breakeven_benchmarks_USD_per_kg/ne_asia_smr_production_cost", "USD/kg H2", "literature")
+    skeys = list(resolve(F_CPR, RE + "scenario_prices_USD_per_t"))
+    full = ([fnd(f"sourced NH3 price, {k}, low", F_CPR, RE + f"scenario_prices_USD_per_t/{k}/low", "USD/t", "literature") for k in skeys]
+            + [fnd(f"sourced NH3 price, {k}, high", F_CPR, RE + f"scenario_prices_USD_per_t/{k}/high", "USD/t", "literature") for k in skeys])
+    src_lo, src_hi = min(x["value"] for x in full), max(x["value"] for x in full)
     bmax = max(x["value"] for x in bes)
     bmin = min(x["value"] for x in bes)
     pc_min = min(x["value"] for x in prices)
-    v = "SUPPORTED" if (bmin > 0 and bmax < pc_min) else "INCONCLUSIVE"
-    rule = ("Necessity rule (methodology v2 threshold form, row read as 'only affordable ammonia keeps it competitive'): the "
-            "break-even NH3 price against the benchmark is computed over the sourced CAPEX range. SUPPORTED if it exists on every "
-            "basis and lies below every central sourced NH3 price, so that competitiveness requires ammonia cheaper than any central "
-            "scenario; otherwise INCONCLUSIVE. Under the other reading ('is competitiveness achieved at sourced prices', proposed by "
-            "the UQ workstream) the full sourced ranges straddle the threshold and the row would be INCONCLUSIVE; the adversarial "
-            "review must test this choice of reading.")
+    # Coded threshold rule (fix pass 24 Nov 2026, review A B2): the break-even range against EACH named benchmark is compared
+    # with the FULL sourced price ranges (low to high of every scenario). The row ('affordable ammonia is essential') is
+    # SUPPORTED if every sourced price lies above the highest break-even for every benchmark (competitiveness needs ammonia
+    # cheaper than any sourced price); CONTRADICTED if every sourced price lies below the lowest break-even for every benchmark
+    # (competitive at any sourced price, so affordability is not binding); otherwise INCONCLUSIVE and the threshold is the finding.
+    thr3 = [x["value"] for x in bes] + [be, bfav]
+    s3 = side(thr3, src_lo, src_hi)
+    s6 = side([b6], src_lo, src_hi)
+    sides = {f"{f(bm3,2)} USD/kg marker": s3, f"{f(bm6,1)} USD/kg delivered benchmark": s6}
+    if all(s == "above" for s in sides.values()):
+        v = "SUPPORTED"
+    elif all(s == "below" for s in sides.values()):
+        v = "CONTRADICTED"
+    else:
+        v = "INCONCLUSIVE"
+    rule = ("Threshold rule (methodology v2): the break-even NH3 price is computed against each named benchmark (the "
+            f"{f(bm3,2)} USD/kg NE Asia SMR marker over the CAPEX range and with favourable non-feed inputs; the {f(bm6,1)} USD/kg "
+            "delivered low-carbon benchmark) and compared with the FULL sourced NH3 price ranges (low to high of every scenario). "
+            "SUPPORTED if every sourced price lies above every break-even for every benchmark; CONTRADICTED if every sourced price "
+            "lies below every break-even for every benchmark; otherwise INCONCLUSIVE and the threshold is the finding. Here: "
+            + "; ".join(f"{k} '{s_}'" for k, s_ in sides.items()) + ". This rule replaces the earlier necessity reading against "
+            "the central prices only, which had no way to fail (fix pass 24 Nov 2026).")
     return _v2(v, rule,
-               envelope=text(F_CPR, "row_evidence/H2-b/envelope") + " One benchmark only.",
-               threshold={"parameter": "NH3 price at which LCOH equals the 3.06 USD/kg benchmark", "values": bes,
-                          "sourced_values": prices, "comparison": "all central prices above every break-even" if bmax < pc_min else "straddle"},
-               conclusions=[f"Break-even NH3 price {f(be,0)} USD/t ({f(bmin,0)} to {f(bmax,0)} over the CAPEX range); every central sourced price is {f(pc_min,0)} USD/t or more.",
-                            f"Adverse finding: grey NH3 at the central price is not cheap enough; P(LCOH < 3.06) = {f(p,3)}. Only the low ends of the sourced ranges ({f(min(lows),0)} USD/t) reach the break-even."],
+               envelope=(f"Plant gate, no compression or delivery. Benchmarks: the {f(bm3,2)} USD/kg NE Asia SMR marker gives a break-even of "
+                         f"{f(bmin,0)} to {f(max(bmax, bfav),0)} USD/t (CAPEX x0.41 to x1.5 and favourable non-feed inputs); the "
+                         f"{f(bm6,1)} USD/kg delivered low-carbon benchmark gives {f(b6,0)} USD/t. The Singapore willingness-to-pay "
+                         f"figure gives {f(val(F_FD, 'breakeven_nh3_USD_per_t/sg_low_carbon_willingness_to_pay'),0)} USD/t and the "
+                         f"low-carbon offer FOB Malaysia {f(val(F_FD, 'breakeven_nh3_USD_per_t/low_carbon_offer_fob_malaysia'),0)} USD/t."),
+               threshold={"parameter": "NH3 price at which LCOH equals each named benchmark",
+                          "values": bes + [fnd("break-even against the 3.06 marker, favourable non-feed inputs", F_UQR,
+                                               "row_evidence/H2-b/numbers/breakeven_nh3_price_favourable_nonfeed_inputs_USD_per_t", "USD/t", "python"),
+                                           fnd("break-even against the 6.0 delivered benchmark", F_FD, "breakeven_nh3_USD_per_t/blue_delivered_east_asia", "USD/t", "python")],
+                          "sourced_values": full, "comparison": sides},
+               conclusions=[f"Against the {f(bm3,2)} USD/kg NE Asia SMR marker the break-even NH3 price is {f(be,0)} USD/t ({f(bmin,0)} to {f(bmax,0)} over the CAPEX range; {f(bfav,0)} with favourable non-feed inputs).",
+                            f"Against the {f(bm6,1)} USD/kg delivered low-carbon benchmark it is {f(b6,0)} USD/t.",
+                            f"Sourced NH3 prices span {f(src_lo,0)} to {f(src_hi,0)} USD/t (central {f(pc_min,0)} or more): they lie on both sides of both break-evens.",
+                            f"P(LCOH < 3.06) = {f(p,3)} for grey ammonia, conditional on the assumed triangular input distributions (the lower bound of the assumed NH3 price lies {f(be - min(lows),0)} USD/t below the break-even)."],
                assumptions=resolve(F_CPR, "row_evidence/H2-b/assumptions"),
-               uncertainty=text(F_CPR, "row_evidence/H2-b/uncertainty"),
+               uncertainty=text(F_CPR, "row_evidence/H2-b/uncertainty") + " (P conditional on the assumed input distributions.)",
                kinds=["numerical_verification", "literature_comparison"],
-               conclusion=f"Competitiveness with the SMR marker requires NH3 at or below about {f(be,0)} USD/t; this holds across the sourced CAPEX range. It is a necessity statement: at central sourced prices, grey ammonia included, cracked hydrogen is not competitive.",
+               conclusion=(f"The threshold is the finding: competitiveness with the single NE Asia SMR marker ({f(bm3,2)} USD/kg) needs ammonia at or "
+                           f"below about {f(be,0)} USD/t ({f(bmin,0)} to {f(max(bmax, bfav),0)} over CAPEX and non-feed inputs), which only the low "
+                           f"ends of the sourced price ranges reach; against the {f(bm6,1)} USD/kg delivered low-carbon benchmark the break-even "
+                           f"is {f(b6,0)} USD/t. Sourced prices straddle both, so the row is INCONCLUSIVE."
+                           if v == "INCONCLUSIVE" else f"Break-even against the named benchmarks: {f(be,0)} and {f(b6,0)} USD/t."),
                areas=["carbon_pricing", "uq", "economics"])
 
 
@@ -1509,10 +1592,14 @@ def v2_h2d(r: Row, v1row: dict) -> dict:
     gci = r.num("cracked H2 carbon intensity, grey, low end", F_CPR, RE + "numbers/ci_kgCO2e_per_kgH2/grey/low", "kg CO2e/kg H2", "python")
     gr = r.num("cracked H2 carbon intensity, green, central", F_CPR, RE + "numbers/ci_kgCO2e_per_kgH2/green/central", "kg CO2e/kg H2", "python")
     bmin = min(x["value"] for x in bvals)
+    ccs = [val(F_CPR, RE + f"numbers/breakeven_vs_smr_ccs/{k}") for k in resolve(F_CPR, RE + "numbers/breakeven_vs_smr_ccs")]
     v = "SUPPORTED" if (gmin > bmax and grn < bmin) else "INCONCLUSIVE"
+    ccs_green = "passes in every case" if grn < min(ccs) else (f"passes only below {f(min(ccs),2)}-{f(max(ccs),2)} (its high value {f(grn,2)} fails "
+                                                               "the lowest-CCS case)")
     rule = ("Necessity rule (methodology v2 threshold form): SUPPORTED if the lowest sourced grey gate factor lies above the highest "
             "break-even against unabated SMR and a low-carbon route lies below the lowest break-even over its whole sourced range; "
-            "otherwise INCONCLUSIVE. Against SMR with CCS only green passes (reported, not voted).")
+            f"otherwise INCONCLUSIVE. Against SMR + CCS (break-even {f(min(ccs),2)}-{f(max(ccs),2)}, reported, not voted) grey fails; "
+            f"green {ccs_green}.")
     return _v2(v, rule, envelope=text(F_CPR, RE + "envelope"),
                threshold={"parameter": "gate factor at which cracked H2 equals unabated SMR", "values": bvals,
                           "sourced_values": [fnd("grey low", F_CPR, RE + "threshold/grey_gate_ef_min", "kg CO2e/kg NH3", "literature"),
@@ -1587,20 +1674,27 @@ def v2_h3a(r: Row, v1row: dict) -> dict:
             "Ni/MgO is compared with the largest Aspen minus Python fired-duty offset at the same T and X "
             f"({f(res,1)} kW). SUPPORTED if no catalyst shows a reversal beyond that offset and at least one saving exceeds it with "
             "and without heat integration; the envelope is limited to the resolved catalysts. Otherwise INCONCLUSIVE.")
+    ext = val(F_HX, "row_evidence/H3-d/numbers/energy_total_external_heating_kW_hi_vs_nohi/0")
+    spr = val(F_CE, "resolution/spread_of_fired_duty_offset_between_catalysts_kW")
     return _v2(v, rule,
-               envelope=(f"20 bar, conversion 0.95, PSA 0.85. Resolved for {', '.join(resolved) or 'no catalyst'} "
-                         f"(operating temperature {', '.join(f(tt[c],0) for c in resolved)} degC against {f(tt['Ni/MgO'],0)} degC for Ni/MgO), "
-                         f"that is only for temperature differences of {f(min((tt['Ni/MgO'] - tt[c] for c in resolved), default=0.0),0)} K or more; "
-                         f"unresolved for {', '.join(c for c in LOWT if c not in resolved) or 'none'}. "
-                         + text(F_CE, "row_evidence/H3-a/envelope")),
+               # one temperature value only (the smallest resolved difference), both resolution readings, size on two metrics and
+               # the cost-optimal reversal: computed in catalyst_economics.py (fix pass 24 Nov 2026, reviews A M3/m5, C M2)
+               envelope=("PSA recovery 0.85. " + text(F_CE, "row_evidence/H3-a/envelope")
+                         + f" Resolved catalysts on the absolute-offset reading: {', '.join(resolved) or 'none'} (temperature "
+                         f"difference from Ni/MgO {', '.join(f(tt['Ni/MgO'] - tt[c],0) for c in resolved)} K)."),
                threshold=None,
-               conclusions=[f"Saving with heat integration: " + ", ".join(f"{c} {f(hi[c],1)} kW" for c in LOWT) + f"; resolution {f(res,1)} kW.",
+               conclusions=[f"Saving with heat integration: " + ", ".join(f"{c} {f(hi[c],1)} kW" for c in LOWT)
+                            + f"; resolution {f(res,1)} kW (absolute Python-Aspen offset, used for the verdict); on the spread of that offset ({f(spr,1)} kW) the NiRu savings would also be resolved.",
+                            f"The largest saving, {f(max(hi.values()),1)} kW, is {pct(max(hi.values()) / ext, 1)} of the {f(ext,0)} kW total external heating with heat integration (Python only, equal conversion).",
                             f"Saving without heat integration: " + ", ".join(f"{c} {f(no[c],1)} kW" for c in LOWT) + ".",
                             "The Phase 1 figure of 17 % fired duty came from unequal conversion and is withdrawn."],
                assumptions=resolve(F_CE, "row_evidence/H3-a/assumptions"),
                uncertainty=text(F_CE, "row_evidence/H3-a/uncertainty"),
                kinds=["numerical_verification", "python_vs_aspen"],
-               conclusion="At equal conversion lower-temperature operation reduces fired duty, by a few per cent with heat integration and more without; the result is resolved only for the two Ru catalysts with the largest temperature difference.",
+               conclusion=("At equal conversion (Python) lower-temperature operation reduces fired duty, by at most "
+                           f"{f(max(hi.values()),0)} kW with heat integration (about {pct(max(hi.values()) / ext, 0)} of total external heating) and more "
+                           "without; the result is resolved only for the two Ru catalysts with the largest temperature difference. "
+                           "Cost-optimised Ru designs run hotter and use more energy (see envelope)."),
                areas=["catalyst_economics", "aspen_kinetic", "catalyst_comparison"])
 
 
@@ -1633,7 +1727,7 @@ def v2_h3b(r: Row, v1row: dict) -> dict:
 def v2_h3c(r: Row, v1row: dict) -> dict:
     RE = "row_evidence/H3-c/numbers/"
     res = r.num("Python against Aspen LCOH resolution", F_CE, "resolution/max_abs_python_minus_aspen_lcoh_USD_per_kg", "USD/kg H2", "python")
-    net = {c: r.num(f"net LCOH change choosing {c} over Ni/MgO, equal conversion, derived central price", F_CE, RE + "fixed_inventory_aspen_HI_exchanger/" + esc(c) + "/net_lcoh_delta_USD_per_kg", "USD/kg H2", "python") for c in LOWT}
+    net = {c: r.num(f"net LCOH change choosing {c} over Ni/MgO, equal conversion, derived central price (Python values; the key name 'fixed_inventory_aspen' is a mis-name kept for readers)", F_CE, RE + "fixed_inventory_aspen_HI_exchanger/" + esc(c) + "/net_lcoh_delta_USD_per_kg", "USD/kg H2", "python") for c in LOWT}
     bep = {c: r.num(f"break-even catalyst price, {c}", F_CE, RE + "fixed_inventory_aspen_HI_exchanger/" + esc(c) + "/breakeven_price_USD_per_kg", "USD/kg", "python") for c in LOWT}
     cen = {c: r.num(f"derived central catalyst price, {c}", F_CE, RE + "fixed_inventory_aspen_HI_exchanger/" + esc(c) + "/central_price_USD_per_kg", "USD/kg", "literature") for c in LOWT}
     n = len(load(F_CE)["row_evidence"]["H3-c"]["numbers"]["ni_temperature_threshold"])
@@ -1643,6 +1737,12 @@ def v2_h3c(r: Row, v1row: dict) -> dict:
            fnd("sourced Ni design temperature, Mehr et al. 2026 (outlet)", F_CE, RE + "ni_temperature_threshold/0/sourced_Ni_design_T_C/mehr2026highcapacity_outlet", "degC", "literature")]
     nimod = r.num("AmCraX Ni/MgO cost-optimal temperature (extrapolated law)", F_CE, RE + "ni_temperature_threshold/0/AmCraX_Ni_costopt_T_C_extrapolated", "degC", "python")
     tv = [x["value"] for x in thr]
+    net_no = {c: r.num(f"net LCOH change choosing {c} over Ni/MgO, equal conversion, without heat integration", F_CE,
+                       "findings/energy_and_cost/fixed_inventory_aspen_noHI_exchanger/" + esc(c) + "/net_lcoh_delta_USD_per_kg", "USD/kg H2", "python") for c in LOWT}
+    t_ni = r.num("Ni/MgO reference temperature at equal conversion (extrapolated law)", F_CE, "row_evidence/H3-b/numbers/aspen_T_op_100kg_C/" + esc("Ni/MgO"), "degC", "aspen")
+    dearer = [c for c in LOWT if net[c] > res]
+    within = [c for c in LOWT if abs(net[c]) <= res]
+    cheaper_no = [c for c in LOWT if net_no[c] < 0]
     any_cheaper = any(net[c] < -res for c in LOWT)
     all_dearer = all(net[c] > res for c in LOWT)
     src_low_t_wins = all(x is True for x in above)
@@ -1663,13 +1763,25 @@ def v2_h3c(r: Row, v1row: dict) -> dict:
                envelope=text(F_CE, "row_evidence/H3-c/envelope"),
                threshold={"parameter": "Ni design temperature above which a low-temperature catalyst design is cheaper", "values": thr,
                           "sourced_values": src, "comparison": "sourced above, AmCraX Ni optimum below" if (src_low_t_wins and not model_low_t_wins) else "see rule"},
-               conclusions=["At equal conversion and derived prices every low-temperature catalyst is dearer than Ni/MgO: " + ", ".join(f"{c} +{f(net[c],3)}" for c in LOWT) + f" USD/kg H2 (resolution {f(res,3)}).",
-                            "Break-even catalyst prices " + ", ".join(f"{c} {f(bep[c],0)}" for c in LOWT) + " USD/kg against derived central prices " + ", ".join(f"{f(cen[c],0)}" for c in LOWT) + " USD/kg.",
-                            f"Ni temperature threshold {f(min(tv),0)} to {f(max(tv),0)} degC: sourced Ni designs ({', '.join(f(x['value'],0) for x in src)} degC) are above it, the AmCraX Ni optimum ({f(nimod,0)} degC, extrapolated law) is below it."],
+               conclusions=[(f"With heat integration, at equal conversion, derived central prices and with the Ni reference at its AmCraX-modelled "
+                             f"{f(t_ni,0)} degC (extrapolated law), {len(dearer)} of the {len(LOWT)} low-temperature catalysts are dearer than Ni/MgO "
+                             f"beyond the {f(res,3)} USD/kg H2 resolution (" + ", ".join(f"{c} +{f(net[c],3)}" for c in dearer) + " USD/kg H2)"
+                             + ("; " + ", ".join(f"{c} ({'+' if net[c] >= 0 else ''}{f(net[c],3)})" for c in within) + " is within resolution" if within else "")
+                             + "."),
+                            ("Without heat integration " + (" and ".join(f"{c} ({f(net_no[c],4)} USD/kg H2)" for c in cheaper_no) + " are slightly cheaper than Ni/MgO."
+                                                            if cheaper_no else "no low-temperature catalyst is cheaper than Ni/MgO.")),
+                            ("Break-even catalyst prices (each design fixed at its equal-conversion temperature, exchanger mode, central inputs) "
+                             + ", ".join(f"{c} {f(bep[c],0)}" for c in LOWT) + " USD/kg against derived central prices " + ", ".join(f"{f(cen[c],0)}" for c in LOWT) + " USD/kg."),
+                            f"Ni temperature threshold {f(min(tv),0)} to {f(max(tv),0)} degC: against the sourced Ni design temperatures ({', '.join(f(x['value'],0) for x in src)} degC), every low-temperature design is cheaper; the AmCraX Ni optimum ({f(nimod,0)} degC, extrapolated law) is below the threshold."],
                assumptions=resolve(F_CE, "row_evidence/H3-c/assumptions"),
                uncertainty=text(F_CE, "row_evidence/H3-c/uncertainty"),
                kinds=["numerical_verification", "python_vs_aspen", "literature_comparison"],
-               conclusion="At ruthenium prices derived from metal content, the low-temperature catalysts do not pay at equal conversion (against the essay). Against sourced Ni design temperatures the low-temperature designs win; against the AmCraX Ni optimum they do not.",
+               conclusion=(f"With heat integration, at equal conversion, derived central prices and with the Ni reference at its modelled {f(t_ni,0)} degC "
+                           f"(extrapolated law), {len(dearer)} of the {len(LOWT)} low-temperature catalysts are dearer beyond the model resolution"
+                           + (f"; {', '.join(within)} is within resolution" if within else "")
+                           + ("; without heat integration " + " and ".join(cheaper_no) + " are slightly cheaper" if cheaper_no else "")
+                           + f"; against sourced Ni design temperatures ({', '.join(f(x['value'],0) for x in src)} degC) every "
+                           "low-temperature design is cheaper. The sourced and modelled Ni references straddle the threshold."),
                areas=["catalyst_economics", "catalyst_comparison", "kinetics"], literature=lit(("cho2026nickel", "Ni design temperature and published TEA prices")))
 
 
@@ -1686,23 +1798,58 @@ def v2_h3d(r: Row, v1row: dict) -> dict:
           fnd("break-even U, high", F_HX, "row_evidence/H3-d/threshold/breakeven_U_W_m2K_range_over_cases/1", "W/(m2 K)", "python")]
     cat_max = max(val(F_CE, "row_evidence/H3-a/numbers/python_Top_X095_fired_duty_saving_kW_HI/" + esc(c)) for c in LOWT)
     saving = d_off - d_on
-    v = "SUPPORTED" if (saving > res and saving > cat_max) else "INCONCLUSIVE"
-    rule = ("Energy rule (methodology v2): SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the "
+    U_SRC = "row_evidence/H3-d/threshold/sourced_typical_U_W_m2K/" + esc("gas ~1 bar both sides")
+    usrc = [fnd("sourced typical U, gas ~1 bar both sides, low (VDI Heat Atlas; no value at 20 bar)", F_HX, U_SRC + "/0", "W/(m2 K)", "literature"),
+            fnd("sourced typical U, gas ~1 bar both sides, high", F_HX, U_SRC + "/1", "W/(m2 K)", "literature")]
+    crf = {u: r.num(f"break-even capital recovery factor (solved), U {u}", F_HX, f"row_evidence/H3-d/breakeven_crf_solved/{u}", "1/yr", "python")
+           for u in ("low", "central", "high")}
+    worst = r.num("worst net saving over the sensitivities", F_HX, RE + "worst_sensitivity_net_USD_per_kg", "USD/kg H2", "python")
+    negs = resolve(F_HX, RE + "net_benefit_negative_in")
+    # Two halves, both needed (fix pass 24 Nov 2026, review A M1; same treatment as H1-a).
+    if saving > res and saving > cat_max:
+        energy = "SUPPORTED"
+    elif saving < -res:
+        energy = "CONTRADICTED"
+    else:
+        energy = "INCONCLUSIVE"
+    # cost half: threshold rule with the sourced coefficient range; net saving positive above the break-even U
+    s_u = side([x["value"] for x in ub], usrc[0]["value"], usrc[1]["value"])
+    cost = {"above": "SUPPORTED", "below": "CONTRADICTED"}.get(s_u, "INCONCLUSIVE")
+    if energy == "SUPPORTED" and cost == "SUPPORTED":
+        v = "SUPPORTED"
+    elif "CONTRADICTED" in (energy, cost) and "SUPPORTED" not in (energy, cost):
+        v = "CONTRADICTED"
+    else:
+        v = "INCONCLUSIVE"
+    rule = ("Two-half rule (methodology v2; the sub-claim says 'reduces energy use (and cost)', and a row with two halves needs "
+            "both, as for H1-a). Energy half: SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the "
             f"Python against Aspen fired-duty offset ({f(res,1)} kW) and by more than the largest equal-conversion catalyst-temperature "
-            "saving; otherwise INCONCLUSIVE. The cost side depends on the overall heat-transfer coefficient, for which no value at "
-            "20 bar is sourced: it is reported in the envelope and threshold and does not vote.")
+            "saving. Cost half, threshold rule: the overall heat-transfer coefficient at which the exchanger cost equals the fuel "
+            "saving is compared with the sourced coefficient range; SUPPORTED if the sourced values lie above every break-even U, "
+            "CONTRADICTED if below, otherwise INCONCLUSIVE. The row is SUPPORTED only if both halves are SUPPORTED. Here: energy "
+            f"half {energy}, cost half {cost} (sourced {f(usrc[0]['value'],0)}-{f(usrc[1]['value'],0)} W/(m2 K) at about 1 bar, "
+            f"no value at 20 bar, '{s_u}' the break-even).")
     return _v2(v, rule,
-               envelope=(text(F_HX, "row_evidence/H3-d/envelope") + " Cost: the net saving is negative only below the break-even U, "
-                         "for NH3 near the low end of the price range or a high capital recovery factor."),
+               envelope=(text(F_HX, "row_evidence/H3-d/envelope") + f". Energy: the Aspen first-law deficit falls by {pct(red,0)} on the "
+                         "baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) "
+                         f"and in {len(negs)} adverse corners (for example " + "; ".join(negs[:3]) + f"); worst case {f(worst,3)} USD/kg. "
+                         f"Break-even capital recovery factor (solved) {f(crf['low'],3)} / {f(crf['central'],3)} / {f(crf['high'],3)} at U "
+                         "low / central / high."),
                threshold={"parameter": "overall heat-transfer coefficient at which the exchanger cost equals the fuel saving", "values": ub,
-                          "sourced_values": [], "comparison": "no sourced U at 20 bar; typical ranges at 1 bar straddle the threshold"},
-               conclusions=[f"Aspen first-law heat deficit {f(d_off,0)} kW without and {f(d_on,0)} kW with heat integration ({pct(-red,0)}).",
+                          "sourced_values": usrc, "comparison": {"energy_half": energy, "cost_half": cost, "sourced_U_vs_breakeven": s_u}},
+               conclusions=[f"Energy half ({energy}): Aspen first-law heat deficit {f(d_off,0)} kW without and {f(d_on,0)} kW with heat integration ({pct(-red,0)}).",
                             f"That reduction ({f(saving,0)} kW) is larger than the largest equal-conversion catalyst-temperature saving ({f(cat_max,1)} kW).",
-                            f"Gross fuel saving {f(gs,3)} USD/kg; net {f(nlo,3)} to {f(nhi,3)} USD/kg after the exchanger cost."],
+                            f"Cost half ({cost}): gross fuel saving {f(gs,3)} USD/kg; net {f(nlo,3)} to {f(nhi,3)} USD/kg after the exchanger cost on the "
+                            f"reference basis; break-even U {f(ub[0]['value'],1)} to {f(ub[1]['value'],1)} W/(m2 K) lies inside the only sourced range "
+                            f"({f(usrc[0]['value'],0)} to {f(usrc[1]['value'],0)}, about 1 bar); worst sensitivity {f(worst,3)} USD/kg.",
+                            f"Break-even capital recovery factor (solved): {f(crf['low'],3)} / {f(crf['central'],3)} / {f(crf['high'],3)} at U low / central / high."],
                assumptions=resolve(F_HX, "row_evidence/H3-d/assumptions"),
                uncertainty=text(F_HX, "row_evidence/H3-d/uncertainty"),
                kinds=["python_vs_aspen", "numerical_verification", "literature_comparison"],
-               conclusion="Heat integration reduces energy use, by far more than the catalyst temperature does; the net cost benefit is positive on the reference basis but depends on an unsourced heat-transfer coefficient.",
+               conclusion=(f"Energy finding: heat integration reduces energy use (first-law heat deficit {f(d_off,0)} to {f(d_on,0)} kW, "
+                           f"{pct(-red,0)}), by far more than the catalyst temperature does. The cost half depends on an overall heat-transfer "
+                           "coefficient with no source at 20 bar and the sourced 1-bar range straddles the break-even, so the row as "
+                           "worded (energy and cost) is " + v + "."),
                areas=["heat_exchanger", "aspen_kinetic", "economics"], literature=lit(("linnhoff1983pinch", "heat integration method")))
 
 
@@ -1839,15 +1986,34 @@ def v2_h4e(r: Row, v1row: dict) -> dict:
     dem = r.num("furnace demand", F_PC, RE + "furnace_demand_kW", "kW", "python")
     thr = r.num("recovery at which tail-gas heat equals the furnace demand", F_PC, RE + "recovery_where_tail_heat_equals_demand", "fraction", "python")
     d85 = r.num("net deficit at PSA recovery 0.85", F_PC, RE + esc("psa_0.85_net_deficit_kW"), "kW", "python")
-    v = "SUPPORTED" if (0 < thr < 1 and d85 > 0) else "INCONCLUSIVE"
-    return _v2(v, "Energy-balance rule: SUPPORTED if the computed recovery at which tail-gas heat equals the furnace demand lies between 0 and 1 and a recovery above it (0.85) leaves a positive deficit, consistent with the trade; otherwise INCONCLUSIVE.",
+    # Threshold rule against sourced recoveries (fix pass 24 Nov 2026, review A B1). The direction (lost H2 is burned in the
+    # cracker furnace) restates the flowsheet routing and cannot support the row by itself.
+    inp = load(F_PC)["inputs"]["psa_recovery"]
+    rec = [fnd(f"PSA recovery, {s}, {c} ({inp[s][c]['source_type']})", F_PC, f"inputs/psa_recovery/{esc(s)}/{c}/value", "fraction",
+               "literature" if str(inp[s][c]["source_type"]).startswith("literature") else "assumption")
+           for s in inp for c in ("low", "central", "high") if c in inp[s]]
+    rlo, rhi = min(x["value"] for x in rec), max(x["value"] for x in rec)
+    s_r = side([thr], rlo, rhi)
+    v = {"above": "SUPPORTED", "below": "CONTRADICTED"}.get(s_r, "INCONCLUSIVE")
+    rule = ("Threshold rule (methodology v2): that unrecovered hydrogen is burned in the cracker furnace restates the flowsheet's "
+            "tail-gas routing (an assumption built into the model), so it cannot support the row by itself. The computed recovery at "
+            "which the tail-gas heat equals the furnace demand is compared with the sourced and assumed PSA recoveries. SUPPORTED if "
+            "every one lies above the threshold (all unrecovered hydrogen does useful work as furnace fuel); CONTRADICTED if every one "
+            "lies below it (part of it is surplus with no use); otherwise INCONCLUSIVE and the threshold is the finding. Here the "
+            f"recoveries {f(rlo,3)}-{f(rhi,3)} against the threshold {f(thr,3)} give '{s_r}'.")
+    return _v2(v, rule,
                envelope=text(F_PC, "row_evidence/H4-e/envelope"),
                threshold={"parameter": "recovery where tail-gas heat equals furnace demand", "values": [fnd("threshold recovery", F_PC, RE + "recovery_where_tail_heat_equals_demand", "fraction", "python")],
-                          "sourced_values": [], "comparison": "computed"},
-               conclusions=[f"Furnace demand {f(dem,0)} kW; the tail gas covers it at recovery {f(thr,3)}; at 0.85 the deficit is {f(d85,0)} kW."],
+                          "sourced_values": rec, "comparison": s_r},
+               conclusions=[f"Furnace demand {f(dem,0)} kW; the tail gas covers it at PSA recovery {f(thr,3)}; at 0.85 the deficit is {f(d85,0)} kW.",
+                            f"Sourced and assumed PSA recoveries {f(rlo,3)} to {f(rhi,3)} lie on both sides of {f(thr,3)}." if s_r == "straddle"
+                            else f"Sourced and assumed PSA recoveries {f(rlo,3)} to {f(rhi,3)} lie {s_r} {f(thr,3)}."],
                assumptions=[text(F_PC, "row_evidence/H4-e/assumptions")], uncertainty=text(F_PC, "row_evidence/H4-e/uncertainty"),
                kinds=["numerical_verification"],
-               conclusion="Hydrogen not recovered returns as furnace fuel up to the furnace demand (computed energy balance).",
+               conclusion=(f"In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA "
+                           f"recovery of {f(thr,3)}, and sourced recoveries lie on both sides of that value. The threshold is the finding."
+                           if s_r == "straddle" else
+                           f"In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; the threshold recovery is {f(thr,3)}."),
                areas=["purification", "economics"])
 
 
@@ -1856,13 +2022,34 @@ V2_ROWS = {"H1-a": v2_h1a, "H1-b": v2_h1b, "H1-c": v2_h1c, "H1-d": v2_h1d,
            "H3-a": v2_h3a, "H3-b": v2_h3b, "H3-c": v2_h3c, "H3-d": v2_h3d, "H3-e": v2_h3e, "H3-f": v2_h3f,
            "H4-a": v2_h4a, "H4-b": v2_h4b, "H4-c": v2_h4c, "H4-d": v2_h4d, "H4-e": v2_h4e}
 
-# Verdicts listed in docs/internal/phase2_decisions.md section 2. They are NOT used to set any verdict; they are only
-# compared with the coded result so that a difference is printed and reported instead of forced.
+# Verdicts listed in docs/internal/phase2_fix_plan.md section 1 (binding after the three independent reviews; it
+# supersedes docs/internal/phase2_decisions.md, which now agrees with it). They are NOT used to set any verdict; they are
+# only compared with the coded result so that a difference is printed and reported instead of forced. Disclosure: the
+# row-specific rules v2_h1a to v2_h4e were written after the Phase 2 results were known (see DISCLOSURES), so agreement
+# with this table is not an independent check; the rules for H2-b, H3-d and H4-e were rewritten in the fix pass of
+# 24 November 2026 so that each can fail.
 EXPECTED_ROW_V2 = {"H1-a": "INCONCLUSIVE", "H1-b": "CONTRADICTED", "H1-c": "INCONCLUSIVE", "H1-d": "INCONCLUSIVE",
-                   "H2-a": "SUPPORTED", "H2-b": "SUPPORTED", "H2-c": "SUPPORTED", "H2-d": "SUPPORTED", "H2-e": "CONTRADICTED",
-                   "H3-a": "SUPPORTED", "H3-b": "INCONCLUSIVE", "H3-c": "INCONCLUSIVE", "H3-d": "SUPPORTED",
+                   "H2-a": "SUPPORTED", "H2-b": "INCONCLUSIVE", "H2-c": "SUPPORTED", "H2-d": "SUPPORTED", "H2-e": "CONTRADICTED",
+                   "H3-a": "SUPPORTED", "H3-b": "INCONCLUSIVE", "H3-c": "INCONCLUSIVE", "H3-d": "INCONCLUSIVE",
                    "H3-e": "INCONCLUSIVE", "H3-f": "INCONCLUSIVE", "H4-a": "INCONCLUSIVE", "H4-b": "INCONCLUSIVE",
-                   "H4-c": "CONTRADICTED", "H4-d": "INCONCLUSIVE", "H4-e": "SUPPORTED"}
+                   "H4-c": "CONTRADICTED", "H4-d": "INCONCLUSIVE", "H4-e": "INCONCLUSIVE"}
+
+# Disclosures required by docs/internal/phase2_fix_plan.md section 2 (printed in the matrix provenance and markdown).
+DISCLOSURES = [
+    "Only the row roles, the components, the aggregation rule and the general row standard were fixed in commit f233509 "
+    "before the analyses. The row-by-row coded rules (v2_h1a to v2_h4e in this script) were written after the results were "
+    "known and were then tested by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from "
+    "SUPPORTED to INCONCLUSIVE. Their agreement with the orchestrator's row decisions is by construction, not an independent "
+    "check. The row standard was applied more strictly in that change, not relaxed.",
+    "The CAPEX selection criteria were recorded together with the choice (commit 7447308); that they preceded the comparison "
+    "cannot be shown. The chosen estimate is the highest of the candidates: it works against cracking (it raises LCOH, lowers "
+    "the break-even ammonia price and widens the direct-use advantage in H1). No verdict changes across the independent CAPEX "
+    "range.",
+    "By the written aggregation rule a MIXED component counts for nothing at hypothesis level (for example [MIXED] gives "
+    "INCONCLUSIVE and [MIXED, SUPPORTED] gives PARTIALLY SUPPORTED).",
+    "Probabilities from the Monte Carlo and Sobol analyses (for example P(LCOH < 3.06 USD/kg)) are conditional on the assumed "
+    "triangular and uniform input distributions.",
+]
 
 
 def release_verdicts() -> tuple[dict, dict]:
@@ -1953,27 +2140,42 @@ def hypothesis_texts(hid: str, rows: list[dict], comps: list[dict]) -> dict:
         fe = _num(rows, "H1-c", "LCOE exhaust-heated full cracking")
         d = _num(rows, "H1-c", "LCOE direct NH3")
         claim = _num(rows, "H1-b", "essay figure")
+        fe0 = _num(rows, "H1-a", "fired-cracking threshold with cracker heat delivered at 1 ")
+        fe1 = _num(rows, "H1-a", "fired-cracking threshold with cracker heat delivered at 0.85")
         gmax = _num(rows, "H1-b", "largest computed gap")
         s = (f"Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the "
              f"standalone cracking pathways, with a calculated cost advantage of approximately {f(gf,0)} to {f(gp,0)} % "
              f"({f(oldf,0)} to {f(oldp,0)} % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine "
              f"operates at the same {pct(eta,2)} efficiency as the direct-ammonia turbine. The actual economic advantage depends on "
-             "fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis; the "
-             "advantage over fired cracking cannot be tested because no turbine efficiency for its fuel is sourced.")
+             "fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis against "
+             "a single sourced gain (NETL 2023/2024, H-class cycle simulation with steam-diluted H2, not like-for-like with the "
+             f"{pct(eta,2)} AmCraX turbine; an upper bound); the advantage over fired cracking cannot be tested because no turbine "
+             "efficiency for its fuel is sourced. The cracker heat is counted at 100 % of the fuel's lower heating value "
+             f"(optimistic, favourable to cracking); at 0.85 the fired-cracking threshold rises from +{f(fe0,2)} to +{f(fe1,2)} pp (computed).")
         against = [f"Exhaust-heated full cracking ({f(fe,1)} USD/MWh) is {f(100*(1-fe/d),1)} % cheaper than direct use ({f(d,1)}) on the reference basis.",
                    f"The essay's {f(claim,0)} % cost advantage of direct use is not reproduced (at most {f(gmax,1)} %)."]
         return {"statement": s, "against": against}
     if hid == "H2":
         share = _num(rows, "H2-a", "feed share")
-        be = _num(rows, "H2-b", "break-even NH3 price")
+        be = _num(rows, "H2-b", "break-even NH3 price against NE Asia SMR")
+        bfav = _num(rows, "H2-b", "break-even NH3 price against the 3.06 USD/kg marker, favourable")
+        b6 = _num(rows, "H2-b", "break-even NH3 price against the 6.0 USD/kg")
+        bm3 = _num(rows, "H2-b", "NE Asia SMR production-cost marker")
+        bm6 = _num(rows, "H2-b", "delivered low-carbon H2 benchmark")
         p = _num(rows, "H2-b", "Monte Carlo")
         bc = _num(rows, "H2-e", "hypothetical life-cycle price at which blue")
+        h2b = next(r for r in rows if r["row_id"] == "H2-b")
+        bes = [x["value"] for x in h2b["threshold"]["values"] if x["quantity"].startswith("break-even NH3 price, capex")]
         s = (f"Ammonia price dominates the cost of cracked hydrogen (feed {pct(share,0)} of LCOH on the reference basis, on every "
-             f"sourced price and CAPEX basis), and competitiveness with the SMR marker needs ammonia at or below about {f(be,0)} USD/t. "
-             "Low-carbon ammonia is necessary for lower emissions than fossil alternatives. Under the actual Singapore carbon tax, "
-             f"low carbon intensity is not rewarded (cross-claim H2-X {cv['H2-X']}); under a hypothetical life-cycle price, not "
-             f"Singapore law, blue overtakes grey near {f(bc,0)} SGD/t with a wide range.")
-        against = [f"Grey ammonia at the central price is not cheap enough: P(LCOH < 3.06 USD/kg) = {f(p,3)}.",
+             f"sourced price and CAPEX basis). Competitiveness with the single NE Asia SMR marker ({f(bm3,2)} USD/kg) needs ammonia at "
+             f"or below about {f(be,0)} USD/t ({f(min(bes),0)} to {f(max(max(bes), bfav),0)} over CAPEX and non-feed inputs), which only "
+             f"the low ends of the sourced price ranges reach; against a {f(bm6,1)} USD/kg delivered low-carbon benchmark the "
+             f"break-even is {f(b6,0)} USD/t (component H2-E {cv['H2-E']}). "
+             f"Low-carbon ammonia is necessary for lower emissions than fossil alternatives (H2-C {cv['H2-C']}). Under the actual "
+             f"Singapore carbon tax, low carbon intensity is not rewarded (cross-claim H2-X {cv['H2-X']}); under a hypothetical "
+             f"life-cycle price, not Singapore law, blue overtakes grey near {f(bc,0)} SGD/t with a wide range.")
+        against = [f"Grey ammonia at the central price is not cheap enough against the {f(bm3,2)} USD/kg marker: P(LCOH < {f(bm3,2)} USD/kg) = "
+                   f"{f(p,3)}, conditional on the assumed triangular input distributions.",
                    "Under the actual Singapore carbon tax the tax is zero for every ammonia route, so low-carbon ammonia earns no cost advantage."]
         return {"statement": s, "against": against}
     if hid == "H3":
@@ -1981,20 +2183,41 @@ def hypothesis_texts(hid: str, rows: list[dict], comps: list[dict]) -> dict:
         gs = _num(rows, "H3-d", "gross fuel saving")
         nlo = _num(rows, "H3-d", "net saving after exchanger cost, low U")
         nhi = _num(rows, "H3-d", "net saving after exchanger cost, high U")
-        s = (f"Heat integration reduces energy use substantially (Aspen) and saves {f(gs,3)} USD/kg gross, {f(nlo,3)} to {f(nhi,3)} "
-             f"net of the exchanger cost on the reference basis. Lower-temperature operation reduces fired duty at equal conversion "
-             f"only modestly (at most {f(hi,0)} kW with heat integration) and only resolved for the Ru catalysts. Whether the savings "
-             "outweigh a higher catalyst cost is unresolved; at derived ruthenium prices they do not at equal conversion.")
-        against = ["At ruthenium prices derived from metal content, the low-temperature catalysts do not pay at equal conversion.",
+        d_off = _num(rows, "H3-d", "first-law heat deficit, heat integration off")
+        d_on = _num(rows, "H3-d", "first-law heat deficit, heat integration on")
+        h3c = next(r for r in rows if r["row_id"] == "H3-c")
+        ext = val(F_HX, "row_evidence/H3-d/numbers/energy_total_external_heating_kW_hi_vs_nohi/0")
+        comp_txt = ", ".join(f"{c['id']} {c['verdict']}" for c in comps)
+        s = (f"{cv_h3_label(comps, rows)} Components: {comp_txt}. Heat integration reduces energy use substantially (Aspen first-law heat "
+             f"deficit {f(d_off,0)} to {f(d_on,0)} kW); it saves {f(gs,3)} USD/kg gross and {f(nlo,3)} to {f(nhi,3)} net of the exchanger "
+             "cost on the reference basis, but the cost half rests on an unsourced heat-transfer coefficient at 20 bar, so H3-H is "
+             f"{cv['H3-H']}. Lower-temperature operation reduces fired duty at equal conversion only modestly (at most {f(hi,0)} kW with "
+             f"heat integration, {pct(hi / ext, 1)} of total external heating; Python only) and only resolved for the Ru catalysts. "
+             f"Whether the savings outweigh a higher catalyst cost (H3-K) is {cv['H3-K']} and the derived-price evidence leans against "
+             f"it: {h3c['conclusion']}")
+        against = [h3c["numerical_conclusions"][0] + " " + h3c["numerical_conclusions"][-1],
                    "The Phase 1 figure of a 17 % fired-duty reduction came from unequal conversion and is withdrawn."]
         return {"statement": s, "against": against}
     thr = _num(rows, "H4-e", "recovery at which tail-gas heat")
     par = _num(rows, "H4-d", "PSA recovery at parity, central")
-    s = (f"Recovery losses trade against energy: unrecovered hydrogen covers the furnace up to recovery {f(thr,3)} (computed). "
+    s = (f"In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA "
+         f"recovery of {f(thr,3)}, and sourced recoveries lie on both sides of that value. "
          "Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. "
-         f"PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery {f(par,2)} for Grade D hydrogen; the industrial-grade value is in row H4-d).")
+         f"PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery {f(par,3)} for Grade D hydrogen; the industrial-grade value is in row H4-d).")
     against = ["The Phase 1 finding that a raw membrane is cheaper than PSA does not hold robustly on sourced ranges."]
     return {"statement": s, "against": against}
+
+
+def cv_h3_label(comps: list[dict], rows: list[dict]) -> str:
+    """H3 verdict is never printed bare (fix plan section 1): name the components and rows it rests on."""
+    v = hypothesis_verdict_v2([c["verdict"] for c in comps])
+    if v == "INCONCLUSIVE":
+        return f"{v}."
+    by = {r["row_id"]: r["verdict"] for r in rows}
+    sup = [c for c in comps if c["verdict"] in ("SUPPORTED", "PARTIALLY SUPPORTED")]
+    rws = [x for c in sup for x in c["primary_rows"] if by[x] == "SUPPORTED"]
+    return (f"{v}, resting only on {', '.join(c['id'] for c in sup)} (supported row{'s' if len(rws) != 1 else ''} "
+            f"{', '.join(rws)}, narrow envelope).")
 
 
 def findings_changed(matrix_hyps: list[dict]) -> dict:
@@ -2037,20 +2260,26 @@ def findings_changed(matrix_hyps: list[dict]) -> dict:
                  "old": val(RELEASE_MATRIX, RM.format("H3", "H3-a", 6)),
                  "new": val(F_CE, "row_evidence/H3-a/numbers/python_Top_X095_fired_duty_saving_kW_HI/" + esc("Ru/Al2O3")),
                  "unit": "fraction of fired duty (old, unequal conversion) -> kW (new, equal conversion 0.95)",
-                 "reason": "the Phase 1 figure compared unequal conversions and is withdrawn; at equal conversion the saving is about 5 % of fired duty",
+                 "reason": ("the Phase 1 figure compared unequal conversions and is withdrawn; at equal conversion (Python) the saving is "
+                            f"{pct(val(F_CE, 'row_evidence/H3-a/numbers/python_Top_X095_fired_duty_saving_kW_HI/' + esc('Ru/Al2O3')) / val(F_HX, 'row_evidence/H3-d/numbers/energy_total_external_heating_kW_hi_vs_nohi/0'), 1)} "
+                            "of the total external heating (see the H3-a envelope for the share of fired duty)"),
                  "file": F_CE, "source": {"source_file": F_CE, "key": "row_evidence/H3-a/numbers/python_Top_X095_fired_duty_saving_kW_HI/Ru~1Al2O3"}})
     for h in matrix_hyps:
         head.append({"finding": f"{h['id']} verdict", "old": h["verdict_v1"], "new": h["verdict"], "unit": "verdict",
-                     "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+                     "reason": ("methodology v2 (roles, components and aggregation fixed before the Phase 2 analyses; row rules coded "
+                                "after the results and tightened in the fix pass of 24 November 2026) on the Phase 2 rows; v1 verdict "
+                                "from the 23 November release. Components: " + ", ".join(f"{c['id']} {c['verdict']}" for c in h["components"])),
                      "file": OUT_JSON, "source": {"source_file": RELEASE_MATRIX, "key": f"hypotheses/[id={h['id']}]/verdict"}})
         for r in h["rows"]:
             if r["verdict"] != r["verdict_v1"]:
                 head.append({"finding": f"{r['row_id']} row verdict", "old": r["verdict_v1"], "new": r["verdict"], "unit": "verdict",
                              "reason": r["verdict_rule"], "file": OUT_JSON,
                              "source": {"source_file": RELEASE_MATRIX, "key": f"hypotheses/[id={h['id']}]/rows/[row_id={r['row_id']}]/verdict"}})
-    return {"provenance": {"script": SCRIPT, "inputs": [F_SUP, F_CE, RELEASE_MATRIX, OUT_JSON],
+    fp = load(F_FIX) if (ROOT / F_FIX).exists() else None
+    return {"provenance": {"script": SCRIPT, "inputs": [F_SUP, F_CE, RELEASE_MATRIX, OUT_JSON] + ([F_FIX] if fp else []),
                            "note": "Phase 1 values from the 23 November release, Phase 2 values from the current result files."},
             "headline": head,
+            "fix_pass_2026_11_24": fp,
             "all_supersession_rows": [{"quantity": x["quantity"], "file": x["file"], "key": x["key"], "old": x.get("old_value"),
                                        "new": x.get("new_value"), "unit": x.get("unit"), "reason": x.get("reason")} for x in rows]}
 
@@ -2069,6 +2298,21 @@ def findings_changed_md(fc: dict) -> str:
          "## Headline findings", "", "| Finding | Phase 1 | Phase 2 | Unit | Reason | File |", "|---|---|---|---|---|---|"]
     for x in fc["headline"]:
         L.append(f"| {_md_escape(x['finding'])} | {_fv(x['old'])} | {_fv(x['new'])} | {_md_escape(x['unit'])} | {_md_escape(x['reason'])} | `{x['file']}` |")
+    fp = fc.get("fix_pass_2026_11_24")
+    if fp:
+        L += ["", "## Fix pass of 24 November 2026 (after the three independent reviews)", "",
+              f"Applied from `docs/internal/phase2_fix_plan.md`. Old values: {fp['provenance']['old_values']} (Phase 2 before the fix pass); "
+              f"new values: current files. Recorded by `{fp['provenance']['script']}` in `{F_FIX}`. The row standard was applied more "
+              "strictly, not relaxed: three rows moved from SUPPORTED to INCONCLUSIVE under coded rules that can fail.", "",
+              "### Verdicts", "", "| Verdict | Before the fix pass | After | File |", "|---|---|---|---|"]
+        for x in fp["verdict_changes"]:
+            L.append(f"| {_md_escape(x['quantity'])} | {x['old']} | {x['new']} | `{x['file']}` |")
+        L += ["", "### Numbers", "", "| Quantity | Before | After | Reason | File and key |", "|---|---|---|---|---|"]
+        for x in fp["number_changes"]:
+            L.append(f"| {_md_escape(x['quantity'])} | {_fv(x['old']) if x['old'] is not None else 'none'} | "
+                     f"{_fv(x['new']) if x['new'] is not None else 'none (no parity in range)'} | {_md_escape(x['reason'])} | "
+                     f"`{x['file']}` `{_md_escape(x['key'])}` |")
+        L += ["", "### New computed blocks", ""] + [f"- `{x['file']}` `{x['key']}`: {x['what']}." for x in fp["new_computed_blocks"]]
     L += ["", "## Every superseded number", "", f"All {len(fc['all_supersession_rows'])} rows of `{F_SUP}`.", "",
           "| Quantity | Phase 1 | Phase 2 | Unit | Reason | File and key |", "|---|---|---|---|---|---|"]
     for x in fc["all_supersession_rows"]:
@@ -2087,9 +2331,9 @@ STATEMENTS = {
 }
 SUMMARY_LEAD = {
     "H1": "Direct use is cheaper than standalone and purified cracking for power, but that ranking follows from the assumption that the turbine reaches the same efficiency on H2-rich fuel as on NH3, so it is not independent support; the essay's cost margin for direct use is not reproduced, and exhaust-heated cracking in front of a turbine is marginally cheaper than direct use on a single literature efficiency gain.",
-    "H2": "Ammonia price dominates hydrogen cost and only green (or very well-captured blue) ammonia cuts emissions against Singapore alternatives; but under current Singapore carbon pricing low carbon intensity earns no cost advantage, so affordable and low-carbon pull apart.",
-    "H3": "Lower temperature and heat integration both cut energy, heat integration by far the more; the catalyst cost question is unresolved because the differences are inside the uncertainty band, and Cho's fuel and REC findings are not reproduced on AmCraX boundaries.",
-    "H4": "Recovery losses partly return as furnace fuel (computed energy balance), and the published Cho PSA point fails ISO 14687 grades B and D; the cost increase with purity, the PSA purity-recovery slope and the membrane advantage rest on assumed recoveries and an unsourced selectivity.",
+    "H2": "Ammonia price dominates hydrogen cost and only green (or very well-captured blue) ammonia cuts emissions against Singapore alternatives; the break-even ammonia price against the named benchmarks is straddled by the sourced price ranges, so it is reported as a threshold; under current Singapore carbon pricing low carbon intensity earns no cost advantage, so affordable and low-carbon pull apart.",
+    "H3": "Lower temperature and heat integration both cut energy, heat integration by far the more; the cost half of heat integration rests on an unsourced heat-transfer coefficient, the catalyst cost question is unresolved and leans against the low-temperature catalysts at derived ruthenium prices, and Cho's fuel and REC findings are not reproduced on AmCraX boundaries.",
+    "H4": "Unrecovered hydrogen is burned in the cracker furnace by the flowsheet's routing, and sourced PSA recoveries lie on both sides of the recovery at which it covers the furnace demand; the published Cho PSA point fails ISO 14687 grades B and D; the cost increase with purity, the PSA purity-recovery slope and the membrane advantage rest on assumed recoveries.",
 }
 
 
@@ -2097,9 +2341,9 @@ SUMMARY_LEAD = {
 # after a result file is regenerated), the summary falls back to an automatic one so it cannot go stale.
 SUMMARY_FOR = {
     "H1": {"H1-a": "INCONCLUSIVE", "H1-b": "CONTRADICTED", "H1-c": "INCONCLUSIVE", "H1-d": "INCONCLUSIVE"},
-    "H2": {"H2-a": "SUPPORTED", "H2-b": "SUPPORTED", "H2-c": "SUPPORTED", "H2-d": "SUPPORTED", "H2-e": "CONTRADICTED"},
-    "H3": {"H3-a": "SUPPORTED", "H3-b": "INCONCLUSIVE", "H3-c": "INCONCLUSIVE", "H3-d": "SUPPORTED", "H3-e": "INCONCLUSIVE", "H3-f": "INCONCLUSIVE"},
-    "H4": {"H4-a": "INCONCLUSIVE", "H4-b": "INCONCLUSIVE", "H4-c": "CONTRADICTED", "H4-d": "INCONCLUSIVE", "H4-e": "SUPPORTED"},
+    "H2": {"H2-a": "SUPPORTED", "H2-b": "INCONCLUSIVE", "H2-c": "SUPPORTED", "H2-d": "SUPPORTED", "H2-e": "CONTRADICTED"},
+    "H3": {"H3-a": "SUPPORTED", "H3-b": "INCONCLUSIVE", "H3-c": "INCONCLUSIVE", "H3-d": "INCONCLUSIVE", "H3-e": "INCONCLUSIVE", "H3-f": "INCONCLUSIVE"},
+    "H4": {"H4-a": "INCONCLUSIVE", "H4-b": "INCONCLUSIVE", "H4-c": "CONTRADICTED", "H4-d": "INCONCLUSIVE", "H4-e": "INCONCLUSIVE"},
 }
 
 
@@ -2177,6 +2421,10 @@ def build() -> dict:
                                  "verdict_rule (also in conclusion_conditions), verdict_by_mode (H2-e) and verdict_phase2_logic_v1_function "
                                  "(the version 1 row function applied to the current files, kept for comparison)."),
             "input_sha256": hashes,
+            "disclosures": DISCLOSURES,
+            "fix_pass": ("24 November 2026: the accepted findings of three independent reviews were applied "
+                         "(docs/internal/phase2_fix_plan.md): rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under "
+                         "rewritten coded rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d."),
         },
         "methodology_version": METHODOLOGY_VERSION,
         "methodology": METHODOLOGY,
@@ -2214,6 +2462,7 @@ def to_markdown(m: dict) -> str:
          f"Evidence kinds are kept apart: numerical verification, Python against Aspen comparison, comparison with published "
          f"literature, and independent experimental validation. {m['provenance']['experimental_validation']}", "",
          f"Currency: calculations in {cur['calculation_currency']}; SGD values use {cur['fx_SGD_per_USD']} SGD/USD ({cur['fx_date']}).", "",
+         "## Disclosures", ""] + [f"- {x}" for x in m["provenance"]["disclosures"]] + ["", f"Fix pass: {m['provenance']['fix_pass']}", "",
          "## Verdict table", "",
          "| Hypothesis | Component or row | Role | Verdict (v2) | Verdict (v1) | Statement |", "|---|---|---|---|---|---|"]
     for h in m["hypotheses"]:
@@ -2226,7 +2475,7 @@ def to_markdown(m: dict) -> str:
                 L.append(f"| | {rid} | {r['role']} | {r['verdict']} | {r['verdict_v1']} | {_md_escape(r['sub_claim'])} |")
     L.append("")
     for h in m["hypotheses"]:
-        L += [f"## {h['id']}: {h['verdict']}", "",
+        L += [f"## {h['id']}: {h['verdict']} (" + ", ".join(f"{c['id']} {c['verdict']}" for c in h["components"]) + ")", "",
               f"**Primary hypothesis.** {h['primary_hypothesis']}", "",
               f"**Verdict.** {h['verdict']} (methodology v2). Version 1 verdict of the 23 November release: {h['verdict_v1']}. "
               f"Version 1 rule applied to the current rows: {h['verdict_v1_rule_on_current_rows']}.", "",

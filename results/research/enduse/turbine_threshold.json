@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T11:24:58Z",
+    "generated_utc": "2026-11-24T06:08:36Z",
     "script": "scripts/research/enduse_threshold.py",
     "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
     "inputs_summary": "stored Aspen baseline cracker; Ahmad 2025 turbine end points; reference scenario costs; literature ranges from research/data",
@@ -2326,6 +2326,67 @@
         8.229342046890267
       ]
     }
+  },
+  "cracker_heat_fuel_efficiency_sensitivity": {
+    "description": "Computed. Reference-basis turbine-efficiency thresholds (grey 450 USD/t, 8000 h, reference cracker CAPEX) with the extra NH3 for cracker heat delivered at 100 % of its LHV (reference, optimistic), at the stored flowsheet's tail-gas ratio and at the 0.85 H3 furnace efficiency. Direct NH3 is unaffected (no cracker heat). The reference outputs above are at 1.0 and are not changed.",
+    "cases": [
+      {
+        "heat_fuel_efficiency": 1.0,
+        "full_fired": {
+          "LCOE_USD_per_MWh": 280.0850665923625,
+          "system_efficiency": 0.48180254113272913,
+          "threshold_eta_h2_fuel": 0.5480785342535772,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 5.164806051620352
+        },
+        "full_purified": {
+          "LCOE_USD_per_MWh": 310.179325155085,
+          "system_efficiency": 0.43555384954518384,
+          "threshold_eta_h2_fuel": 0.6219411251569432,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 12.551065141956952
+        }
+      },
+      {
+        "heat_fuel_efficiency": 0.9225,
+        "full_fired": {
+          "LCOE_USD_per_MWh": 282.755895380353,
+          "system_efficiency": 0.4757941975632313,
+          "threshold_eta_h2_fuel": 0.5546323342974292,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 5.82018605600555
+        },
+        "full_purified": {
+          "LCOE_USD_per_MWh": 311.76465495458393,
+          "system_efficiency": 0.4326141822450737,
+          "threshold_eta_h2_fuel": 0.625864124055925,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 12.943365031855125
+        }
+      },
+      {
+        "heat_fuel_efficiency": 0.85,
+        "full_fired": {
+          "LCOE_USD_per_MWh": 285.6915334923365,
+          "system_efficiency": 0.46935247285437853,
+          "threshold_eta_h2_fuel": 0.5618441743873026,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 6.541370064992891
+        },
+        "full_purified": {
+          "LCOE_USD_per_MWh": 313.5082095091284,
+          "system_efficiency": 0.4294244044875135,
+          "threshold_eta_h2_fuel": 0.6301811714038716,
+          "threshold_delta_fuel_pp_vs_direct_turbine": 13.375069766649794
+        }
+      }
+    ],
+    "fired_threshold_shift_pp": {
+      "1.0": 0.0,
+      "0.9225": 0.6553800043851981,
+      "0.85": 1.3765640133725388
+    },
+    "purified_threshold_shift_pp": {
+      "1.0": 0.0,
+      "0.9225": 0.39229988989817244,
+      "0.85": 0.8240046246928419
+    },
+    "source_type": "python"
   },
   "threshold_bases": {
     "reference": {

@@ -399,25 +399,30 @@ row_evidence = {
                     "mc_feed_share_p5": mc_feed["feed_share_p5_p50_p95"][0], "mc_P_feed_largest_item": mc_feed["P_feed_largest_item"]},
         "assumptions": ["NH3 price scenarios are inputs (Cho Table 8 300-610 USD/t; others data/singapore.yaml)", "reference CAPEX cho2026_itemised_v1 (at or above the independent published range)", "stored Aspen activity 6.756 kg NH3 feed + 0.595 kg NH3 fuel per kg H2"],
         "uncertainty": f"MC (n={N}) feed share p5-p95 {mc_feed['feed_share_p5_p50_p95'][0]:.3f}-{mc_feed['feed_share_p5_p50_p95'][2]:.3f}; feed is the largest item in {mc_feed['P_feed_largest_item']:.4f} of draws",
-        "envelope": f"NH3 >= {p_share50:.0f} USD/t keeps feed above half of LCOH (CAPEX x1); CAPEX multiplier below {m450['capex_charge_equals_feed']:.2f} (capital charge vs feed, 450 USD/t) or {m450['capital_plus_fixed_opex_equals_feed']:.2f} (capital + fixed opex vs feed); at 300 USD/t these are {m300['capex_charge_equals_feed']:.2f} and {m300['capital_plus_fixed_opex_equals_feed']:.2f}; plant capacity above x{scale_star:.3f} of the stored feed",
+        # one comparator (feed above 50 % of LCOH) throughout: fix pass 24 Nov 2026, review C finding M4
+        "envelope": f"feed above 50 % of LCOH for NH3 >= {p_share50:.0f} USD/t (CAPEX x1) and for CAPEX multiplier below {m450['feed_share_falls_to_50pct']:.2f} at 450 USD/t ({m300['feed_share_falls_to_50pct']:.2f} at 300 USD/t); other comparators: capital + fixed opex equal feed at x{m450['capital_plus_fixed_opex_equals_feed']:.2f} (x{m300['capital_plus_fixed_opex_equals_feed']:.2f} at 300 USD/t); plant capacity above x{scale_star:.3f} of the stored feed",
         "threshold": {"nh3_price_feed_share_50pct_USD_per_t": p_share50, "capex_multiple_capital_plus_fixed_equals_feed_at_450": m450["capital_plus_fixed_opex_equals_feed"],
                       "capex_multiple_capital_plus_fixed_equals_feed_at_300": m300["capital_plus_fixed_opex_equals_feed"],
                       "sourced_nh3_price_min_USD_per_t": feed["sourced_comparison"]["lowest_sourced_nh3_price_USD_per_t"],
                       "sourced_capex_multiplier_max": 1.5, "capacity_scale": scale_star},
-        "reason": "The share follows from assumed prices, so a threshold analysis is used: feed stays the largest item unless NH3 falls below the threshold price or CAPEX rises several-fold; every sourced NH3 price (lowest 300 USD/t) and every sourced CAPEX multiplier (0.41-1.5) lies clearly on the dominant side.",
+        "reason": "The share follows from assumed prices, so a threshold analysis is used: feed stays the largest item unless NH3 falls below the threshold price or CAPEX rises several-fold; every sourced NH3 price (lowest 300 USD/t) and every CAPEX multiplier considered (independent published estimates x0.41-x0.85; x1.5 is the Cho Table 8 sensitivity bound, not a sourced plant cost) lies clearly on the dominant side.",
+        "sourced_capex_multiplier_max_note": "1.5 is the largest CAPEX multiplier in the Cho Table 8 sensitivity, not a sourced plant cost; the independent published range is x0.41-x0.85 (reference_scenario/capex_audit.json).",
     },
     "H2-b": {
-        "proposed_verdict": "SUPPORTED",
+        # fix pass 24 Nov 2026 (review A B2): the sourced price ranges straddle the break-even; the threshold is the finding
+        "proposed_verdict": "INCONCLUSIVE",
         "numbers": {"breakeven_vs_ne_asia_smr_USD_per_t": be_hi["ne_asia_smr_production_cost"]["breakeven_nh3_USD_per_t"],
                     "breakeven_vs_sg_wtp_USD_per_t": be_hi["sg_low_carbon_willingness_to_pay"]["breakeven_nh3_USD_per_t"],
                     "breakeven_by_capex_multiplier": be_env, "scenario_prices_USD_per_t": scen_prices,
                     "mc_P_lcoh_below_3p06_grey": mc_feed["P_lcoh_below_ne_asia_smr_3p06"]},
         "assumptions": ["benchmark 3.06 USD/kg NE Asia SMR incl. capex (Argus, production-cost marker, not a Singapore price)", "plant-gate LCOH, no compression or delivery", "reference CAPEX"],
         "uncertainty": f"break-even {min(v for v in be_env.values() if v):.0f}-{max(v for v in be_env.values() if v):.0f} USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = {mc_feed['P_lcoh_below_ne_asia_smr_3p06']:.4f}",
-        "envelope": "against the NE Asia SMR marker and the Singapore willingness-to-pay figure; plant gate; CAPEX multiplier 0.41-1.5",
+        "envelope": (f"against the NE Asia SMR marker (3.06 USD/kg; the SG willingness-to-pay figure 3.0 gives {be_hi['sg_low_carbon_willingness_to_pay']['breakeven_nh3_USD_per_t']:.0f} USD/t); "
+                     f"other benchmarks (6.0, 10.0 USD/kg) give {be_hi['blue_delivered_east_asia']['breakeven_nh3_USD_per_t']:.0f} and "
+                     f"{be_hi['low_carbon_offer_fob_malaysia']['breakeven_nh3_USD_per_t']:.0f} USD/t; plant gate; CAPEX multiplier 0.41-1.5"),
         "threshold": {"breakeven_nh3_USD_per_t": be_hi["ne_asia_smr_production_cost"]["breakeven_nh3_USD_per_t"],
                       "sourced_central_prices_all_above": all(v["value"] > max(x for x in be_env.values() if x) for v in scen_prices.values())},
-        "reason": "Competitiveness with the SMR marker needs NH3 at or below about 320 USD/t (about 371 at the lowest sourced CAPEX, x0.41); every central sourced price (450-1000) is above, only the low ends of grey (300) and green 2050 (315) reach it. Affordability is necessary. Note: even central grey ammonia is not affordable enough, a finding against a reading that grey ammonia is competitive.",
+        "reason": "Competitiveness with the SMR marker needs NH3 at or below about 320 USD/t (about 371 at the lowest sourced CAPEX, x0.41); every central sourced price (450-1000) is above, only the low ends of grey (300) and green 2050 (315) reach it, so the sourced ranges straddle the break-even and the threshold is the finding (fix pass 24 Nov 2026; the earlier 'necessity' reading against central prices could not fail). Note: even central grey ammonia is not affordable enough against this marker.",
     },
     "H2-c": {
         "proposed_verdict": "SUPPORTED",
@@ -438,7 +443,7 @@ row_evidence = {
         "uncertainty": f"grey H2 CI {ci_rows['grey']['ci_kgCO2e_per_kgH2']['low']:.1f}-{ci_rows['grey']['ci_kgCO2e_per_kgH2']['high']:.1f} kg/kg, always above unabated SMR 10-12",
         "envelope": "cracked H2 at the PSA outlet vs fossil H2 comparators, GWP100, sourced EF ranges",
         "threshold": {"breakeven_gate_ef_vs_smr_unabated_max": max(be_smr.values()), "grey_gate_ef_min": ci_rows["grey"]["gate_ef_kgCO2e_per_kgNH3"]["low"]},
-        "reason": "Break-even gate EF vs unabated SMR is {:.2f}-{:.2f}; the lowest sourced grey value 2.0 is above, so low-carbon NH3 is necessary. Blue v1 central (1.16) is only just below and its range (0.77-1.92) straddles; against SMR+CCS (break-even {:.2f}-{:.2f}) only green passes.".format(min(be_smr.values()), max(be_smr.values()), min(be_ccs.values()), max(be_ccs.values())),
+        "reason": "Break-even gate EF vs unabated SMR is {:.2f}-{:.2f}; the lowest sourced grey value 2.0 is above, so low-carbon NH3 is necessary. Blue v1 central (1.16) is only just below and its range (0.77-1.92) straddles; against SMR+CCS (break-even {:.2f}-{:.2f}) grey fails; green passes only below {:.2f}-{:.2f} (its high value fails the lowest-CCS case).".format(min(be_smr.values()), max(be_smr.values()), min(be_ccs.values()), max(be_ccs.values()), min(be_ccs.values()), max(be_ccs.values())),
     },
     "H2-e_mode_A_actual_policy": {
         "proposed_verdict": "CONTRADICTED",

@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T11:34:19Z",
+    "generated_utc": "2026-11-24T06:24:19Z",
     "script": "scripts/research/carbon_pricing_run.py",
     "source_type": "python",
     "inputs_summary": "inputs and outputs of the Python functions for a TypeScript port check (frontend/src/sim/carbon.ts)",

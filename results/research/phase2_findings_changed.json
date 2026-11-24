@@ -5,7 +5,8 @@
       "results/research/reference_scenario/supersession.json",
       "results/research/catalyst_economics/catalyst_economics.json",
       "results/research_releases/2026-11-23/evidence_matrix.json",
-      "results/research/evidence_matrix.json"
+      "results/research/evidence_matrix.json",
+      "results/research/fix_pass_2026-11-24.json"
     ],
     "note": "Phase 1 values from the 23 November release, Phase 2 values from the current result files."
   },
@@ -147,7 +148,7 @@
       "old": 0.17000029595595978,
       "new": 25.11853373527873,
       "unit": "fraction of fired duty (old, unequal conversion) -> kW (new, equal conversion 0.95)",
-      "reason": "the Phase 1 figure compared unequal conversions and is withdrawn; at equal conversion the saving is about 5 % of fired duty",
+      "reason": "the Phase 1 figure compared unequal conversions and is withdrawn; at equal conversion (Python) the saving is 1.1 % of the total external heating (see the H3-a envelope for the share of fired duty)",
       "file": "results/research/catalyst_economics/catalyst_economics.json",
       "source": {
         "source_file": "results/research/catalyst_economics/catalyst_economics.json",
@@ -159,7 +160,7 @@
       "old": "INCONCLUSIVE",
       "new": "INCONCLUSIVE",
       "unit": "verdict",
-      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "reason": "methodology v2 (roles, components and aggregation fixed before the Phase 2 analyses; row rules coded after the results and tightened in the fix pass of 24 November 2026) on the Phase 2 rows; v1 verdict from the 23 November release. Components: H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE",
       "file": "results/research/evidence_matrix.json",
       "source": {
         "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
@@ -171,7 +172,7 @@
       "old": "INCONCLUSIVE",
       "new": "MIXED",
       "unit": "verdict",
-      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "reason": "methodology v2 (roles, components and aggregation fixed before the Phase 2 analyses; row rules coded after the results and tightened in the fix pass of 24 November 2026) on the Phase 2 rows; v1 verdict from the 23 November release. Components: H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED",
       "file": "results/research/evidence_matrix.json",
       "source": {
         "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
@@ -179,11 +180,23 @@
       }
     },
     {
+      "finding": "H2-b row verdict",
+      "old": "SUPPORTED",
+      "new": "INCONCLUSIVE",
+      "unit": "verdict",
+      "reason": "Threshold rule (methodology v2): the break-even NH3 price is computed against each named benchmark (the 3.06 USD/kg NE Asia SMR marker over the CAPEX range and with favourable non-feed inputs; the 6.0 USD/kg delivered low-carbon benchmark) and compared with the FULL sourced NH3 price ranges (low to high of every scenario). SUPPORTED if every sourced price lies above every break-even for every benchmark; CONTRADICTED if every sourced price lies below every break-even for every benchmark; otherwise INCONCLUSIVE and the threshold is the finding. Here: 3.06 USD/kg marker 'straddle'; 6.0 USD/kg delivered benchmark 'straddle'. This rule replaces the earlier necessity reading against the central prices only, which had no way to fail (fix pass 24 Nov 2026).",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H2]/rows/[row_id=H2-b]/verdict"
+      }
+    },
+    {
       "finding": "H3 verdict",
       "old": "INCONCLUSIVE",
       "new": "PARTIALLY SUPPORTED",
       "unit": "verdict",
-      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "reason": "methodology v2 (roles, components and aggregation fixed before the Phase 2 analyses; row rules coded after the results and tightened in the fix pass of 24 November 2026) on the Phase 2 rows; v1 verdict from the 23 November release. Components: H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE",
       "file": "results/research/evidence_matrix.json",
       "source": {
         "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
@@ -191,18 +204,687 @@
       }
     },
     {
+      "finding": "H3-d row verdict",
+      "old": "SUPPORTED",
+      "new": "INCONCLUSIVE",
+      "unit": "verdict",
+      "reason": "Two-half rule (methodology v2; the sub-claim says 'reduces energy use (and cost)', and a row with two halves needs both, as for H1-a). Energy half: SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving. Cost half, threshold rule: the overall heat-transfer coefficient at which the exchanger cost equals the fuel saving is compared with the sourced coefficient range; SUPPORTED if the sourced values lie above every break-even U, CONTRADICTED if below, otherwise INCONCLUSIVE. The row is SUPPORTED only if both halves are SUPPORTED. Here: energy half SUPPORTED, cost half INCONCLUSIVE (sourced 5-35 W/(m2 K) at about 1 bar, no value at 20 bar, 'straddle' the break-even).",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H3]/rows/[row_id=H3-d]/verdict"
+      }
+    },
+    {
       "finding": "H4 verdict",
       "old": "INCONCLUSIVE",
-      "new": "PARTIALLY SUPPORTED",
+      "new": "INCONCLUSIVE",
       "unit": "verdict",
-      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "reason": "methodology v2 (roles, components and aggregation fixed before the Phase 2 analyses; row rules coded after the results and tightened in the fix pass of 24 November 2026) on the Phase 2 rows; v1 verdict from the 23 November release. Components: H4-B INCONCLUSIVE",
       "file": "results/research/evidence_matrix.json",
       "source": {
         "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
         "key": "hypotheses/[id=H4]/verdict"
       }
+    },
+    {
+      "finding": "H4-e row verdict",
+      "old": "SUPPORTED",
+      "new": "INCONCLUSIVE",
+      "unit": "verdict",
+      "reason": "Threshold rule (methodology v2): that unrecovered hydrogen is burned in the cracker furnace restates the flowsheet's tail-gas routing (an assumption built into the model), so it cannot support the row by itself. The computed recovery at which the tail-gas heat equals the furnace demand is compared with the sourced and assumed PSA recoveries. SUPPORTED if every one lies above the threshold (all unrecovered hydrogen does useful work as furnace fuel); CONTRADICTED if every one lies below it (part of it is surplus with no use); otherwise INCONCLUSIVE and the threshold is the finding. Here the recoveries 0.555-0.850 against the threshold 0.765 give 'straddle'.",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H4]/rows/[row_id=H4-e]/verdict"
+      }
     }
   ],
+  "fix_pass_2026_11_24": {
+    "provenance": {
+      "script": "scripts/research/record_fix_pass.py",
+      "old_values": "git commit 70993a5",
+      "new_values": "working tree after the fix-pass re-runs",
+      "plan": "docs/internal/phase2_fix_plan.md"
+    },
+    "description": "Every selected stored number and every verdict that changed in the Phase 2 fix pass of 24 November 2026.",
+    "verdict_changes": [
+      {
+        "quantity": "component H2-E",
+        "file": "results/research/evidence_matrix.json",
+        "old": "SUPPORTED",
+        "new": "PARTIALLY SUPPORTED"
+      },
+      {
+        "quantity": "row H2-b",
+        "file": "results/research/evidence_matrix.json",
+        "old": "SUPPORTED",
+        "new": "INCONCLUSIVE"
+      },
+      {
+        "quantity": "component H3-H",
+        "file": "results/research/evidence_matrix.json",
+        "old": "SUPPORTED",
+        "new": "INCONCLUSIVE"
+      },
+      {
+        "quantity": "row H3-d",
+        "file": "results/research/evidence_matrix.json",
+        "old": "SUPPORTED",
+        "new": "INCONCLUSIVE"
+      },
+      {
+        "quantity": "hypothesis H4",
+        "file": "results/research/evidence_matrix.json",
+        "old": "PARTIALLY SUPPORTED",
+        "new": "INCONCLUSIVE"
+      },
+      {
+        "quantity": "component H4-B",
+        "file": "results/research/evidence_matrix.json",
+        "old": "PARTIALLY SUPPORTED",
+        "new": "INCONCLUSIVE"
+      },
+      {
+        "quantity": "row H4-e",
+        "file": "results/research/evidence_matrix.json",
+        "old": "SUPPORTED",
+        "new": "INCONCLUSIVE"
+      }
+    ],
+    "number_changes": [
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/configurations/MEM_central/lcoh_usd_per_kg_usable",
+        "old": 4.343102725913119,
+        "new": 4.353128340066239,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/configurations/MEM_cost_high/lcoh_usd_per_kg_usable",
+        "old": 4.477875312725639,
+        "new": 4.497654165366732,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/configurations/MEM_cost_low/lcoh_usd_per_kg_usable",
+        "old": 4.316300975350887,
+        "new": 4.323250419475671,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/factorial_summary/central/membrane_minus_psa",
+        "old": -0.12035757634989963,
+        "new": -0.11033196219677954,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/factorial_summary/membrane_range/0",
+        "old": 4.122920391721971,
+        "new": 4.1299110958662695,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/factorial_summary/membrane_range/1",
+        "old": 4.74963341014071,
+        "new": 4.7694122627818025,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/factorial_summary/share_membrane_cheaper",
+        "old": 0.5987654320987654,
+        "new": 0.5751028806584362,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/central/membrane_cost_USD_per_m2_at_parity",
+        "old": 34771.66267033402,
+        "new": 28823.99284718348,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/central/membrane_life_yr_at_parity",
+        "old": 0.8627715126661196,
+        "new": 0.9466772872879904,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/high/membrane_cost_USD_per_m2_at_parity",
+        "old": 2070.2834773448208,
+        "new": 1716.162862512206,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/high/membrane_life_yr_at_parity",
+        "old": 14.49076917644182,
+        "new": null,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/low/membrane_cost_USD_per_m2_at_parity",
+        "old": 343422.24078348675,
+        "new": 284680.09441355406,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/low/membrane_life_yr_at_parity",
+        "old": 0.08735601960885692,
+        "new": 0.09205712362174934,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/psa_recovery_at_parity_with_central_membrane",
+        "old": 0.7883735148068309,
+        "new": 0.7829339880444707,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/fuel_cell_grade_D/thresholds/psa_recovery_at_parity_with_high_cost_membrane/value",
+        "old": 0.7487307992805515,
+        "new": 0.7452664016132048,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/configurations/MEM_central/lcoh_usd_per_kg_usable",
+        "old": 4.12843337791263,
+        "new": 4.1384589920657495,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/configurations/MEM_cost_high/lcoh_usd_per_kg_usable",
+        "old": 4.262380171623478,
+        "new": 4.282159024264572,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/configurations/MEM_cost_low/lcoh_usd_per_kg_usable",
+        "old": 4.10163200957727,
+        "new": 4.108581453702054,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/factorial_summary/central/membrane_minus_psa",
+        "old": -0.1408186193634995,
+        "new": -0.1307930052103803,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/factorial_summary/membrane_range/0",
+        "old": 3.987451231423987,
+        "new": 3.994441935568286,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/factorial_summary/membrane_range/1",
+        "old": 4.4192743126262055,
+        "new": 4.439053165267299,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/factorial_summary/share_membrane_cheaper",
+        "old": 0.588477366255144,
+        "new": 0.5689300411522634,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/central/membrane_cost_USD_per_m2_at_parity",
+        "old": 38982.89781470513,
+        "new": 32314.899014944687,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/central/membrane_life_yr_at_parity",
+        "old": 0.769568238425907,
+        "new": 0.8401963742916477,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/high/membrane_cost_USD_per_m2_at_parity",
+        "old": -6915.277498083129,
+        "new": -5732.423871438813,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/low/membrane_cost_USD_per_m2_at_parity",
+        "old": 313931.14880136785,
+        "new": 260233.4341428822,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/low/membrane_life_yr_at_parity",
+        "old": 0.09556235535894976,
+        "new": 0.1007467342148578,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/psa_recovery_at_parity_with_central_membrane",
+        "old": 0.8008247288466054,
+        "new": 0.7952126379803761,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 PSA against Pd-Ag membrane (sourced ranges)",
+        "file": "results/research/purification/phase2_comparison.json",
+        "key": "specs/industrial_99.9/thresholds/psa_recovery_at_parity_with_high_cost_membrane/value",
+        "old": 0.7528467344686476,
+        "new": 0.7493442321113698,
+        "reason": "membrane annualised with CRF(10 %, membrane life) instead of 1/life (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.340370750162926,
+        "new": 4.3522964285487715,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.143119045999827,
+        "new": 4.155044724385673,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.143119045999827,
+        "new": 4.155044724385673,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.125869884292033,
+        "new": 4.13779556267788,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.125869884292033,
+        "new": 4.13779556267788,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_vac0.1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.501726588908153,
+        "new": 4.509212375531445,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_vac0.1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.304477807070449,
+        "new": 4.31196359369374,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_vac0.1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.304477807070449,
+        "new": 4.31196359369374,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_vac0.1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.287229146101055,
+        "new": 4.294714932724346,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/10bar/configs/[MEM_vac0.1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.287229146101055,
+        "new": 4.294714932724346,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.326549688729102,
+        "new": 4.3331606092497905,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.129297984566003,
+        "new": 4.135908905086691,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.129297984566003,
+        "new": 4.135908905086691,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.1118822518809,
+        "new": 4.118493172401586,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.1118822518809,
+        "new": 4.118493172401586,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_vac0.1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.501602935822765,
+        "new": 4.506600348237083,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_vac0.1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.304354153985061,
+        "new": 4.309351566399378,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_vac0.1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.304354153985061,
+        "new": 4.309351566399378,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_vac0.1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.286938922038355,
+        "new": 4.291936334452673,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/20bar_baseline/configs/[MEM_vac0.1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.286938922038355,
+        "new": 4.291936334452673,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.32868091407794,
+        "new": 4.333643917708792,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.131429209914841,
+        "new": 4.136392213545694,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.131429209914841,
+        "new": 4.136392213545694,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.113848081602081,
+        "new": 4.118811085232934,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.113848081602081,
+        "new": 4.118811085232934,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_vac0.1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2",
+        "old": 4.506878447225418,
+        "new": 4.510876748603263,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_vac0.1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.309629665387714,
+        "new": 4.313627966765559,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_vac0.1bar_polish]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.309629665387714,
+        "new": 4.313627966765559,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_vac0.1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2",
+        "old": 4.292049037813351,
+        "new": 4.296047339191196,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "H4 membrane configuration cost per kg usable H2 (Phase 1 configurations)",
+        "file": "results/research/purification/purification_study.json",
+        "key": "cases/30bar/configs/[MEM_vac0.1bar_raw]/costs/turbine_blend/usd_per_kg_usable_h2",
+        "old": 4.292049037813351,
+        "new": 4.296047339191196,
+        "reason": "membrane annualised with CRF(10 %, membrane life) (review C m2)"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/blue/S1",
+        "old": 0.7255368069662953,
+        "new": 0.7255555933830725,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/blue/S1_ci/0",
+        "old": 0.36579812198463657,
+        "new": 0.7016425522152039,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/blue/S1_ci/1",
+        "old": 1.0832296577563485,
+        "new": 0.7482309612153437,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_2030/S1",
+        "old": 0.9436482982133941,
+        "new": 0.9436607013321917,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_2030/S1_ci/0",
+        "old": 0.7052101407741553,
+        "new": 0.916879706119787,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_2030/S1_ci/1",
+        "old": 1.184614556104035,
+        "new": 0.9714980751133251,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_current/S1",
+        "old": 0.6360434109680797,
+        "new": 0.6360531544806854,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_current/S1_ci/0",
+        "old": 0.037171944875340604,
+        "new": 0.6127395299469576,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/green_current/S1_ci/1",
+        "old": 1.2186292784825747,
+        "new": 0.6576361082381762,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/grey/S1",
+        "old": 0.8956070807486975,
+        "new": 0.8956199323095484,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/grey/S1_ci/0",
+        "old": 0.6616528584227,
+        "new": 0.8695811254866415,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      },
+      {
+        "quantity": "Sobol index of the NH3 price on LCOH (heat integration on)",
+        "file": "results/research/uq/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/sobol_nh3_price_lcoh_HIon/grey/S1_ci/1",
+        "old": 1.1336646127809948,
+        "new": 0.9209292790934641,
+        "reason": "first-order estimator on centred outputs (review C m1); total-effect unchanged"
+      }
+    ],
+    "new_computed_blocks": [
+      {
+        "file": "results/research/reference_scenario/baseline.json",
+        "key": "fuel_efficiency_sensitivity",
+        "what": "LCOH, NPV, break-even NH3 price and heat-integration saving with supplementary NH3 fuel at 1.0, 0.9225 and 0.85 of its LHV; baseline unchanged"
+      },
+      {
+        "file": "results/research/enduse/turbine_threshold.json",
+        "key": "cracker_heat_fuel_efficiency_sensitivity",
+        "what": "fired-cracking and cracking + PSA turbine-efficiency thresholds with the cracker heat at 1.0, 0.9225 and 0.85 of the fuel LHV"
+      },
+      {
+        "file": "results/research/heat_exchanger/heat_exchanger_study.json",
+        "key": "row_evidence/H3-d/breakeven_crf_solved",
+        "what": "break-even capital recovery factor solved at U low / central / high"
+      },
+      {
+        "file": "results/research/catalyst_economics/catalyst_economics.json",
+        "key": "resolution",
+        "what": "fired-duty offset and its spread across catalysts (both resolution readings)"
+      }
+    ]
+  },
   "all_supersession_rows": [
     {
       "quantity": "baseline LCOH, legacy correlation (version 1 basis, core stored results)",
@@ -1235,7 +1917,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old": 3.786322116341959,
-      "new": 4.1118822518809,
+      "new": 4.118493172401586,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1244,7 +1926,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
       "old": 3.786322116341959,
-      "new": 4.1118822518809,
+      "new": 4.118493172401586,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1253,7 +1935,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old": 3.820110571285622,
-      "new": 4.129297984566003,
+      "new": 4.135908905086691,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1262,7 +1944,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
       "old": 3.938259053528208,
-      "new": 4.326549688729102,
+      "new": 4.3331606092497905,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1271,7 +1953,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
       "old": 3.820110571285622,
-      "new": 4.129297984566003,
+      "new": 4.135908905086691,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1280,7 +1962,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old": 3.888744937535283,
-      "new": 4.286938922038355,
+      "new": 4.291936334452673,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1289,7 +1971,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
       "old": 3.888744937535283,
-      "new": 4.286938922038355,
+      "new": 4.291936334452673,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1298,7 +1980,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old": 3.9225330925500703,
-      "new": 4.304354153985061,
+      "new": 4.309351566399378,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1307,7 +1989,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
       "old": 4.040679824398096,
-      "new": 4.501602935822765,
+      "new": 4.506600348237083,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1316,7 +1998,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
       "old": 3.9225330925500703,
-      "new": 4.304354153985061,
+      "new": 4.309351566399378,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1325,7 +2007,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].lcoh_USD_per_kg",
       "old": 3.675705235895234,
-      "new": 4.09143366417306,
+      "new": 4.200435948191801,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1334,7 +2016,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].rec_USD_per_kg",
       "old": 0.5359962949880455,
-      "new": 0.9517247232658717,
+      "new": 1.0607270072846129,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1343,7 +2025,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.669627226369424,
-      "new": 4.0853994389325115,
+      "new": 4.194413202218558,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1352,7 +2034,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].python_same_T_X.rec_USD_per_kg",
       "old": 0.5295876358935998,
-      "new": 0.9453598484566874,
+      "new": 1.0543736117427343,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1361,7 +2043,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].lcoh_USD_per_kg",
       "old": 3.8781566268026544,
-      "new": 4.29388505508048,
+      "new": 4.402887339099222,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1370,7 +2052,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].rec_USD_per_kg",
       "old": 0.738447685895466,
-      "new": 1.1541761141732918,
+      "new": 1.263178398192034,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1379,7 +2061,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.875247655798644,
-      "new": 4.291019868361732,
+      "new": 4.400033631647778,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1388,7 +2070,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].python_same_T_X.rec_USD_per_kg",
       "old": 0.7352080653228201,
-      "new": 1.1509802778859082,
+      "new": 1.2599940411719541,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1397,7 +2079,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].lcoh_USD_per_kg",
       "old": 3.682859132763826,
-      "new": 4.0976689532786965,
+      "new": 4.099864144657123,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1406,7 +2088,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].rec_USD_per_kg",
       "old": 0.5500878001854308,
-      "new": 0.9648976207003015,
+      "new": 0.9670928120787279,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1415,7 +2097,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.6772255551982083,
-      "new": 4.092078966989902,
+      "new": 4.094274389039283,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1424,7 +2106,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].python_same_T_X.rec_USD_per_kg",
       "old": 0.5441250306598384,
-      "new": 0.9589784424515324,
+      "new": 0.9611738645009131,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1433,7 +2115,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].lcoh_USD_per_kg",
       "old": 3.9292586054023335,
-      "new": 4.344068425917204,
+      "new": 4.34626361729563,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1442,7 +2124,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].rec_USD_per_kg",
       "old": 0.7964872728239385,
-      "new": 1.2112970933388088,
+      "new": 1.2134922847172351,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1451,7 +2133,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.92679288441612,
-      "new": 4.341646296207815,
+      "new": 4.343841718257195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1460,7 +2142,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].python_same_T_X.rec_USD_per_kg",
       "old": 0.7936923598777503,
-      "new": 1.2085457716694448,
+      "new": 1.2107411937188255,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1469,7 +2151,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].lcoh_USD_per_kg",
       "old": 3.6836661867482654,
-      "new": 4.0989798772750605,
+      "new": 4.093545593569501,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1478,7 +2160,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].rec_USD_per_kg",
       "old": 0.547089472882742,
-      "new": 0.9624031634095371,
+      "new": 0.9569688797039775,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1487,7 +2169,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.678055835335696,
-      "new": 4.0934132224117485,
+      "new": 4.08797836698643,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1496,7 +2178,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].python_same_T_X.rec_USD_per_kg",
       "old": 0.541149134488065,
-      "new": 0.9565065215641178,
+      "new": 0.9510716661387995,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1505,7 +2187,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].lcoh_USD_per_kg",
       "old": 3.9328481459023945,
-      "new": 4.34816183642919,
+      "new": 4.34272755272363,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1514,7 +2196,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].rec_USD_per_kg",
       "old": 0.7962714320368711,
-      "new": 1.2115851225636667,
+      "new": 1.206150838858107,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1523,7 +2205,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.930409704414262,
-      "new": 4.345767091490315,
+      "new": 4.340332236064997,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1532,7 +2214,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].python_same_T_X.rec_USD_per_kg",
       "old": 0.7935030035666313,
-      "new": 1.2088603906426845,
+      "new": 1.2034255352173662,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1541,7 +2223,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].lcoh_USD_per_kg",
       "old": 3.6695381662970963,
-      "new": 4.081228201101312,
+      "new": 4.08131433206035,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1550,7 +2232,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].rec_USD_per_kg",
       "old": 0.5603284148451966,
-      "new": 0.9720184496494122,
+      "new": 0.9721045806084501,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1559,7 +2241,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.6640845540086255,
-      "new": 4.075817526741711,
+      "new": 4.075903666683302,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1568,7 +2250,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].python_same_T_X.rec_USD_per_kg",
       "old": 0.5545505447101653,
-      "new": 0.9662835174432511,
+      "new": 0.9663696573848415,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1577,7 +2259,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].lcoh_USD_per_kg",
       "old": 3.9276809047660146,
-      "new": 4.33937093957023,
+      "new": 4.339457070529268,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1586,7 +2268,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].rec_USD_per_kg",
       "old": 0.8184711533141149,
-      "new": 1.2301611881183305,
+      "new": 1.2302473190773684,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1595,7 +2277,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.9253719736837143,
-      "new": 4.3371049464168,
+      "new": 4.3371910863583905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1604,7 +2286,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].python_same_T_X.rec_USD_per_kg",
       "old": 0.815837964385254,
-      "new": 1.2275709371183399,
+      "new": 1.2276570770599302,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1613,7 +2295,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].lcoh_USD_per_kg",
       "old": 3.676972380128965,
-      "new": 4.091033060649758,
+      "new": 4.154000872276572,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1622,7 +2304,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].rec_USD_per_kg",
       "old": 0.5498587831717319,
-      "new": 0.9639194636925246,
+      "new": 1.0268872753193388,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1631,7 +2313,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.671035736911945,
-      "new": 4.085139850182573,
+      "new": 4.148114266338261,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1640,7 +2322,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].python_same_T_X.rec_USD_per_kg",
       "old": 0.5435941451981825,
-      "new": 0.9576982584688105,
+      "new": 1.0206726746244987,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1649,7 +2331,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].lcoh_USD_per_kg",
       "old": 3.8923988759547625,
-      "new": 4.306459556475556,
+      "new": 4.36942736810237,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1658,7 +2340,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].rec_USD_per_kg",
       "old": 0.7652852789975295,
-      "new": 1.1793459595183227,
+      "new": 1.2423137711451369,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1667,7 +2349,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].python_same_T_X.lcoh_USD_per_kg",
       "old": 3.889619766602983,
-      "new": 4.303723879873611,
+      "new": 4.366698296029299,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1676,7 +2358,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].python_same_T_X.rec_USD_per_kg",
       "old": 0.7621781748892205,
-      "new": 1.1762822881598485,
+      "new": 1.2392567043155367,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1685,7 +2367,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[10].lcoh_USD_per_kg",
       "old": 3.664843357097227,
-      "new": 4.080430193578271,
+      "new": 4.092222352321941,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1694,7 +2376,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[10].rec_USD_per_kg",
       "old": 0.5262037837922402,
-      "new": 0.9417906202732844,
+      "new": 0.953582779016954,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1703,7 +2385,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[11].lcoh_USD_per_kg",
       "old": 3.6683550334071873,
-      "new": 4.083941869888231,
+      "new": 4.094687054735195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1712,7 +2394,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[11].rec_USD_per_kg",
       "old": 0.5297154601022003,
-      "new": 0.945302296583244,
+      "new": 0.9560474814302076,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1721,7 +2403,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[12].lcoh_USD_per_kg",
       "old": 3.6738070691923643,
-      "new": 4.0893939056734085,
+      "new": 4.090117352476266,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1730,7 +2412,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[12].rec_USD_per_kg",
       "old": 0.5351674958873773,
-      "new": 0.9507543323684216,
+      "new": 0.9514777791712792,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1739,7 +2421,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[13].lcoh_USD_per_kg",
       "old": 3.6749746162861268,
-      "new": 4.090561452767171,
+      "new": 4.087773836126219,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1748,7 +2430,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[13].rec_USD_per_kg",
       "old": 0.5363350429811398,
-      "new": 0.9519218794621844,
+      "new": 0.9491342628212323,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1757,7 +2439,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[14].lcoh_USD_per_kg",
       "old": 3.6644255907972543,
-      "new": 4.080012427278299,
+      "new": 4.080332149671913,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1766,7 +2448,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[14].rec_USD_per_kg",
       "old": 0.5257860174922673,
-      "new": 0.9413728539733119,
+      "new": 0.9416925763669264,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1775,7 +2457,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[15].lcoh_USD_per_kg",
       "old": 3.8744774753968665,
-      "new": 4.29006431187791,
+      "new": 4.3453564959941575,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1784,7 +2466,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[15].rec_USD_per_kg",
       "old": 0.7358379020918795,
-      "new": 1.1514247385729233,
+      "new": 1.2067169226891705,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1793,7 +2475,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[16].lcoh_USD_per_kg",
       "old": 3.888693232043152,
-      "new": 4.304280068524196,
+      "new": 4.352415693527873,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1802,7 +2484,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[16].rec_USD_per_kg",
       "old": 0.7500536587381652,
-      "new": 1.1656404952192094,
+      "new": 1.213776120222886,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1811,7 +2493,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[17].lcoh_USD_per_kg",
       "old": 3.9200718237315577,
-      "new": 4.3356586602126015,
+      "new": 4.339950364609557,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1820,7 +2502,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[17].rec_USD_per_kg",
       "old": 0.7814322504265707,
-      "new": 1.1970190869076145,
+      "new": 1.2013107913045697,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1829,7 +2511,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[18].lcoh_USD_per_kg",
       "old": 3.91947270622261,
-      "new": 4.335059542703655,
+      "new": 4.319808807724905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1838,7 +2520,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[18].rec_USD_per_kg",
       "old": 0.780833132917623,
-      "new": 1.1964199693986677,
+      "new": 1.1811692344199178,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1847,7 +2529,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[19].lcoh_USD_per_kg",
       "old": 3.883741356907296,
-      "new": 4.29932819338834,
+      "new": 4.300711368458601,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1856,7 +2538,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[19].rec_USD_per_kg",
       "old": 0.7451017836023088,
-      "new": 1.160688620083353,
+      "new": 1.1620717951536141,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1865,7 +2547,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[20].lcoh_USD_per_kg",
       "old": 3.6760696920413887,
-      "new": 4.091656528522433,
+      "new": 4.091668667808343,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1874,7 +2556,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[20].rec_USD_per_kg",
       "old": 0.5374301187364017,
-      "new": 0.9530169552174463,
+      "new": 0.9530290945033562,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1883,7 +2565,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[21].lcoh_USD_per_kg",
       "old": 3.6790774038534466,
-      "new": 4.094664240334491,
+      "new": 4.094671905489254,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1892,7 +2574,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[21].rec_USD_per_kg",
       "old": 0.5404378305484596,
-      "new": 0.9560246670295038,
+      "new": 0.9560323321842672,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1901,7 +2583,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.HI.lcoh_USD_per_kg",
       "old": 3.664843357097227,
-      "new": 4.080430193578271,
+      "new": 4.092222352321941,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1910,7 +2592,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.HI.rec_USD_per_kg",
       "old": 0.5262037837922402,
-      "new": 0.9417906202732844,
+      "new": 0.953582779016954,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1919,7 +2601,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.lcoh_USD_per_kg",
       "old": 3.8744774753968665,
-      "new": 4.29006431187791,
+      "new": 4.3453564959941575,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1928,7 +2610,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.rec_USD_per_kg",
       "old": 0.7358379020918795,
-      "new": 1.1514247385729233,
+      "new": 1.2067169226891705,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1937,7 +2619,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.HI.lcoh_USD_per_kg",
       "old": 3.6683550334071873,
-      "new": 4.083941869888231,
+      "new": 4.094687054735195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1946,7 +2628,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.HI.rec_USD_per_kg",
       "old": 0.5297154601022003,
-      "new": 0.945302296583244,
+      "new": 0.9560474814302076,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1955,7 +2637,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.noHI.lcoh_USD_per_kg",
       "old": 3.888693232043152,
-      "new": 4.304280068524196,
+      "new": 4.352415693527873,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1964,7 +2646,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.noHI.rec_USD_per_kg",
       "old": 0.7500536587381652,
-      "new": 1.1656404952192094,
+      "new": 1.213776120222886,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1973,7 +2655,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.lcoh_USD_per_kg",
       "old": 3.6738070691923643,
-      "new": 4.0893939056734085,
+      "new": 4.090117352476266,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1982,7 +2664,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.rec_USD_per_kg",
       "old": 0.5351674958873773,
-      "new": 0.9507543323684216,
+      "new": 0.9514777791712792,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1991,7 +2673,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.lcoh_USD_per_kg",
       "old": 3.9200718237315577,
-      "new": 4.3356586602126015,
+      "new": 4.339950364609557,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2000,7 +2682,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.rec_USD_per_kg",
       "old": 0.7814322504265707,
-      "new": 1.1970190869076145,
+      "new": 1.2013107913045697,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2009,7 +2691,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.lcoh_USD_per_kg",
       "old": 3.6749746162861268,
-      "new": 4.090561452767171,
+      "new": 4.087773836126219,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2018,7 +2700,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.rec_USD_per_kg",
       "old": 0.5363350429811398,
-      "new": 0.9519218794621844,
+      "new": 0.9491342628212323,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2027,7 +2709,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.lcoh_USD_per_kg",
       "old": 3.91947270622261,
-      "new": 4.335059542703655,
+      "new": 4.319808807724905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2036,7 +2718,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.rec_USD_per_kg",
       "old": 0.780833132917623,
-      "new": 1.1964199693986677,
+      "new": 1.1811692344199178,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2045,7 +2727,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.HI.lcoh_USD_per_kg",
       "old": 3.6644255907972543,
-      "new": 4.080012427278299,
+      "new": 4.080332149671913,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2054,7 +2736,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.HI.rec_USD_per_kg",
       "old": 0.5257860174922673,
-      "new": 0.9413728539733119,
+      "new": 0.9416925763669264,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2063,7 +2745,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.noHI.lcoh_USD_per_kg",
       "old": 3.883741356907296,
-      "new": 4.29932819338834,
+      "new": 4.300711368458601,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -2072,7 +2754,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.noHI.rec_USD_per_kg",
       "old": 0.7451017836023088,
-      "new": 1.160688620083353,
+      "new": 1.1620717951536141,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     }

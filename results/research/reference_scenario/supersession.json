@@ -1,12 +1,12 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-23T08:56:43+00:00",
+    "generated_utc": "2026-11-24T06:32:08+00:00",
     "script": "scripts/research/economics_reference_scenario.py",
     "source_type": "python",
     "inputs_summary": "Phase 1 release copies (results/research_releases/2026-11-23) against the regenerated results/research files",
     "reference_scenario": {
       "file": "backend/amcrax/data/reference_scenario.yaml",
-      "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+      "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
       "version": "1.0.0",
       "id": "amcrax_reference_2026_11_23",
       "fx_SGD_per_USD": 1.288444,
@@ -1056,7 +1056,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old_value": 3.786322116341959,
-      "new_value": 4.1118822518809,
+      "new_value": 4.118493172401586,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1065,7 +1065,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
       "old_value": 3.786322116341959,
-      "new_value": 4.1118822518809,
+      "new_value": 4.118493172401586,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1074,7 +1074,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old_value": 3.820110571285622,
-      "new_value": 4.129297984566003,
+      "new_value": 4.135908905086691,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1083,7 +1083,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
       "old_value": 3.938259053528208,
-      "new_value": 4.326549688729102,
+      "new_value": 4.3331606092497905,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1092,7 +1092,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
       "old_value": 3.820110571285622,
-      "new_value": 4.129297984566003,
+      "new_value": 4.135908905086691,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1101,7 +1101,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old_value": 3.888744937535283,
-      "new_value": 4.286938922038355,
+      "new_value": 4.291936334452673,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1110,7 +1110,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
       "old_value": 3.888744937535283,
-      "new_value": 4.286938922038355,
+      "new_value": 4.291936334452673,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1119,7 +1119,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
       "old_value": 3.9225330925500703,
-      "new_value": 4.304354153985061,
+      "new_value": 4.309351566399378,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1128,7 +1128,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
       "old_value": 4.040679824398096,
-      "new_value": 4.501602935822765,
+      "new_value": 4.506600348237083,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1137,7 +1137,7 @@
       "file": "results/research/purification/purification_study.json",
       "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
       "old_value": 3.9225330925500703,
-      "new_value": 4.304354153985061,
+      "new_value": 4.309351566399378,
       "unit": "USD/kg H2",
       "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
     },
@@ -1146,7 +1146,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].lcoh_USD_per_kg",
       "old_value": 3.675705235895234,
-      "new_value": 4.09143366417306,
+      "new_value": 4.200435948191801,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1155,7 +1155,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].rec_USD_per_kg",
       "old_value": 0.5359962949880455,
-      "new_value": 0.9517247232658717,
+      "new_value": 1.0607270072846129,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1164,7 +1164,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.669627226369424,
-      "new_value": 4.0853994389325115,
+      "new_value": 4.194413202218558,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1173,7 +1173,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[0].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.5295876358935998,
-      "new_value": 0.9453598484566874,
+      "new_value": 1.0543736117427343,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1182,7 +1182,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].lcoh_USD_per_kg",
       "old_value": 3.8781566268026544,
-      "new_value": 4.29388505508048,
+      "new_value": 4.402887339099222,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1191,7 +1191,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].rec_USD_per_kg",
       "old_value": 0.738447685895466,
-      "new_value": 1.1541761141732918,
+      "new_value": 1.263178398192034,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1200,7 +1200,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.875247655798644,
-      "new_value": 4.291019868361732,
+      "new_value": 4.400033631647778,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1209,7 +1209,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[1].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.7352080653228201,
-      "new_value": 1.1509802778859082,
+      "new_value": 1.2599940411719541,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1218,7 +1218,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].lcoh_USD_per_kg",
       "old_value": 3.682859132763826,
-      "new_value": 4.0976689532786965,
+      "new_value": 4.099864144657123,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1227,7 +1227,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].rec_USD_per_kg",
       "old_value": 0.5500878001854308,
-      "new_value": 0.9648976207003015,
+      "new_value": 0.9670928120787279,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1236,7 +1236,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.6772255551982083,
-      "new_value": 4.092078966989902,
+      "new_value": 4.094274389039283,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1245,7 +1245,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[2].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.5441250306598384,
-      "new_value": 0.9589784424515324,
+      "new_value": 0.9611738645009131,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1254,7 +1254,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].lcoh_USD_per_kg",
       "old_value": 3.9292586054023335,
-      "new_value": 4.344068425917204,
+      "new_value": 4.34626361729563,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1263,7 +1263,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].rec_USD_per_kg",
       "old_value": 0.7964872728239385,
-      "new_value": 1.2112970933388088,
+      "new_value": 1.2134922847172351,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1272,7 +1272,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.92679288441612,
-      "new_value": 4.341646296207815,
+      "new_value": 4.343841718257195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1281,7 +1281,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[3].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.7936923598777503,
-      "new_value": 1.2085457716694448,
+      "new_value": 1.2107411937188255,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1290,7 +1290,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].lcoh_USD_per_kg",
       "old_value": 3.6836661867482654,
-      "new_value": 4.0989798772750605,
+      "new_value": 4.093545593569501,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1299,7 +1299,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].rec_USD_per_kg",
       "old_value": 0.547089472882742,
-      "new_value": 0.9624031634095371,
+      "new_value": 0.9569688797039775,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1308,7 +1308,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.678055835335696,
-      "new_value": 4.0934132224117485,
+      "new_value": 4.08797836698643,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1317,7 +1317,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[4].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.541149134488065,
-      "new_value": 0.9565065215641178,
+      "new_value": 0.9510716661387995,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1326,7 +1326,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].lcoh_USD_per_kg",
       "old_value": 3.9328481459023945,
-      "new_value": 4.34816183642919,
+      "new_value": 4.34272755272363,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1335,7 +1335,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].rec_USD_per_kg",
       "old_value": 0.7962714320368711,
-      "new_value": 1.2115851225636667,
+      "new_value": 1.206150838858107,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1344,7 +1344,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.930409704414262,
-      "new_value": 4.345767091490315,
+      "new_value": 4.340332236064997,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1353,7 +1353,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[5].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.7935030035666313,
-      "new_value": 1.2088603906426845,
+      "new_value": 1.2034255352173662,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1362,7 +1362,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].lcoh_USD_per_kg",
       "old_value": 3.6695381662970963,
-      "new_value": 4.081228201101312,
+      "new_value": 4.08131433206035,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1371,7 +1371,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].rec_USD_per_kg",
       "old_value": 0.5603284148451966,
-      "new_value": 0.9720184496494122,
+      "new_value": 0.9721045806084501,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1380,7 +1380,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.6640845540086255,
-      "new_value": 4.075817526741711,
+      "new_value": 4.075903666683302,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1389,7 +1389,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[6].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.5545505447101653,
-      "new_value": 0.9662835174432511,
+      "new_value": 0.9663696573848415,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1398,7 +1398,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].lcoh_USD_per_kg",
       "old_value": 3.9276809047660146,
-      "new_value": 4.33937093957023,
+      "new_value": 4.339457070529268,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1407,7 +1407,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].rec_USD_per_kg",
       "old_value": 0.8184711533141149,
-      "new_value": 1.2301611881183305,
+      "new_value": 1.2302473190773684,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1416,7 +1416,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.9253719736837143,
-      "new_value": 4.3371049464168,
+      "new_value": 4.3371910863583905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1425,7 +1425,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[7].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.815837964385254,
-      "new_value": 1.2275709371183399,
+      "new_value": 1.2276570770599302,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1434,7 +1434,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].lcoh_USD_per_kg",
       "old_value": 3.676972380128965,
-      "new_value": 4.091033060649758,
+      "new_value": 4.154000872276572,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1443,7 +1443,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].rec_USD_per_kg",
       "old_value": 0.5498587831717319,
-      "new_value": 0.9639194636925246,
+      "new_value": 1.0268872753193388,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1452,7 +1452,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.671035736911945,
-      "new_value": 4.085139850182573,
+      "new_value": 4.148114266338261,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1461,7 +1461,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[8].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.5435941451981825,
-      "new_value": 0.9576982584688105,
+      "new_value": 1.0206726746244987,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1470,7 +1470,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].lcoh_USD_per_kg",
       "old_value": 3.8923988759547625,
-      "new_value": 4.306459556475556,
+      "new_value": 4.36942736810237,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1479,7 +1479,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].rec_USD_per_kg",
       "old_value": 0.7652852789975295,
-      "new_value": 1.1793459595183227,
+      "new_value": 1.2423137711451369,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1488,7 +1488,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].python_same_T_X.lcoh_USD_per_kg",
       "old_value": 3.889619766602983,
-      "new_value": 4.303723879873611,
+      "new_value": 4.366698296029299,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1497,7 +1497,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[9].python_same_T_X.rec_USD_per_kg",
       "old_value": 0.7621781748892205,
-      "new_value": 1.1762822881598485,
+      "new_value": 1.2392567043155367,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1506,7 +1506,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[10].lcoh_USD_per_kg",
       "old_value": 3.664843357097227,
-      "new_value": 4.080430193578271,
+      "new_value": 4.092222352321941,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1515,7 +1515,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[10].rec_USD_per_kg",
       "old_value": 0.5262037837922402,
-      "new_value": 0.9417906202732844,
+      "new_value": 0.953582779016954,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1524,7 +1524,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[11].lcoh_USD_per_kg",
       "old_value": 3.6683550334071873,
-      "new_value": 4.083941869888231,
+      "new_value": 4.094687054735195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1533,7 +1533,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[11].rec_USD_per_kg",
       "old_value": 0.5297154601022003,
-      "new_value": 0.945302296583244,
+      "new_value": 0.9560474814302076,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1542,7 +1542,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[12].lcoh_USD_per_kg",
       "old_value": 3.6738070691923643,
-      "new_value": 4.0893939056734085,
+      "new_value": 4.090117352476266,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1551,7 +1551,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[12].rec_USD_per_kg",
       "old_value": 0.5351674958873773,
-      "new_value": 0.9507543323684216,
+      "new_value": 0.9514777791712792,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1560,7 +1560,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[13].lcoh_USD_per_kg",
       "old_value": 3.6749746162861268,
-      "new_value": 4.090561452767171,
+      "new_value": 4.087773836126219,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1569,7 +1569,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[13].rec_USD_per_kg",
       "old_value": 0.5363350429811398,
-      "new_value": 0.9519218794621844,
+      "new_value": 0.9491342628212323,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1578,7 +1578,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[14].lcoh_USD_per_kg",
       "old_value": 3.6644255907972543,
-      "new_value": 4.080012427278299,
+      "new_value": 4.080332149671913,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1587,7 +1587,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[14].rec_USD_per_kg",
       "old_value": 0.5257860174922673,
-      "new_value": 0.9413728539733119,
+      "new_value": 0.9416925763669264,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1596,7 +1596,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[15].lcoh_USD_per_kg",
       "old_value": 3.8744774753968665,
-      "new_value": 4.29006431187791,
+      "new_value": 4.3453564959941575,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1605,7 +1605,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[15].rec_USD_per_kg",
       "old_value": 0.7358379020918795,
-      "new_value": 1.1514247385729233,
+      "new_value": 1.2067169226891705,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1614,7 +1614,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[16].lcoh_USD_per_kg",
       "old_value": 3.888693232043152,
-      "new_value": 4.304280068524196,
+      "new_value": 4.352415693527873,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1623,7 +1623,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[16].rec_USD_per_kg",
       "old_value": 0.7500536587381652,
-      "new_value": 1.1656404952192094,
+      "new_value": 1.213776120222886,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1632,7 +1632,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[17].lcoh_USD_per_kg",
       "old_value": 3.9200718237315577,
-      "new_value": 4.3356586602126015,
+      "new_value": 4.339950364609557,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1641,7 +1641,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[17].rec_USD_per_kg",
       "old_value": 0.7814322504265707,
-      "new_value": 1.1970190869076145,
+      "new_value": 1.2013107913045697,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1650,7 +1650,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[18].lcoh_USD_per_kg",
       "old_value": 3.91947270622261,
-      "new_value": 4.335059542703655,
+      "new_value": 4.319808807724905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1659,7 +1659,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[18].rec_USD_per_kg",
       "old_value": 0.780833132917623,
-      "new_value": 1.1964199693986677,
+      "new_value": 1.1811692344199178,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1668,7 +1668,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[19].lcoh_USD_per_kg",
       "old_value": 3.883741356907296,
-      "new_value": 4.29932819338834,
+      "new_value": 4.300711368458601,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1677,7 +1677,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[19].rec_USD_per_kg",
       "old_value": 0.7451017836023088,
-      "new_value": 1.160688620083353,
+      "new_value": 1.1620717951536141,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1686,7 +1686,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[20].lcoh_USD_per_kg",
       "old_value": 3.6760696920413887,
-      "new_value": 4.091656528522433,
+      "new_value": 4.091668667808343,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1695,7 +1695,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[20].rec_USD_per_kg",
       "old_value": 0.5374301187364017,
-      "new_value": 0.9530169552174463,
+      "new_value": 0.9530290945033562,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1704,7 +1704,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[21].lcoh_USD_per_kg",
       "old_value": 3.6790774038534466,
-      "new_value": 4.094664240334491,
+      "new_value": 4.094671905489254,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1713,7 +1713,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "rows[21].rec_USD_per_kg",
       "old_value": 0.5404378305484596,
-      "new_value": 0.9560246670295038,
+      "new_value": 0.9560323321842672,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1722,7 +1722,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.HI.lcoh_USD_per_kg",
       "old_value": 3.664843357097227,
-      "new_value": 4.080430193578271,
+      "new_value": 4.092222352321941,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1731,7 +1731,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.HI.rec_USD_per_kg",
       "old_value": 0.5262037837922402,
-      "new_value": 0.9417906202732844,
+      "new_value": 0.953582779016954,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1740,7 +1740,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.lcoh_USD_per_kg",
       "old_value": 3.8744774753968665,
-      "new_value": 4.29006431187791,
+      "new_value": 4.3453564959941575,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1749,7 +1749,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.rec_USD_per_kg",
       "old_value": 0.7358379020918795,
-      "new_value": 1.1514247385729233,
+      "new_value": 1.2067169226891705,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1758,7 +1758,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.HI.lcoh_USD_per_kg",
       "old_value": 3.6683550334071873,
-      "new_value": 4.083941869888231,
+      "new_value": 4.094687054735195,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1767,7 +1767,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.HI.rec_USD_per_kg",
       "old_value": 0.5297154601022003,
-      "new_value": 0.945302296583244,
+      "new_value": 0.9560474814302076,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1776,7 +1776,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.noHI.lcoh_USD_per_kg",
       "old_value": 3.888693232043152,
-      "new_value": 4.304280068524196,
+      "new_value": 4.352415693527873,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1785,7 +1785,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ru/MgO.noHI.rec_USD_per_kg",
       "old_value": 0.7500536587381652,
-      "new_value": 1.1656404952192094,
+      "new_value": 1.213776120222886,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1794,7 +1794,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.lcoh_USD_per_kg",
       "old_value": 3.6738070691923643,
-      "new_value": 4.0893939056734085,
+      "new_value": 4.090117352476266,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1803,7 +1803,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.rec_USD_per_kg",
       "old_value": 0.5351674958873773,
-      "new_value": 0.9507543323684216,
+      "new_value": 0.9514777791712792,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1812,7 +1812,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.lcoh_USD_per_kg",
       "old_value": 3.9200718237315577,
-      "new_value": 4.3356586602126015,
+      "new_value": 4.339950364609557,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1821,7 +1821,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.rec_USD_per_kg",
       "old_value": 0.7814322504265707,
-      "new_value": 1.1970190869076145,
+      "new_value": 1.2013107913045697,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1830,7 +1830,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.lcoh_USD_per_kg",
       "old_value": 3.6749746162861268,
-      "new_value": 4.090561452767171,
+      "new_value": 4.087773836126219,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1839,7 +1839,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.rec_USD_per_kg",
       "old_value": 0.5363350429811398,
-      "new_value": 0.9519218794621844,
+      "new_value": 0.9491342628212323,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1848,7 +1848,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.lcoh_USD_per_kg",
       "old_value": 3.91947270622261,
-      "new_value": 4.335059542703655,
+      "new_value": 4.319808807724905,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1857,7 +1857,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.rec_USD_per_kg",
       "old_value": 0.780833132917623,
-      "new_value": 1.1964199693986677,
+      "new_value": 1.1811692344199178,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1866,7 +1866,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.HI.lcoh_USD_per_kg",
       "old_value": 3.6644255907972543,
-      "new_value": 4.080012427278299,
+      "new_value": 4.080332149671913,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1875,7 +1875,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.HI.rec_USD_per_kg",
       "old_value": 0.5257860174922673,
-      "new_value": 0.9413728539733119,
+      "new_value": 0.9416925763669264,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1884,7 +1884,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.noHI.lcoh_USD_per_kg",
       "old_value": 3.883741356907296,
-      "new_value": 4.29932819338834,
+      "new_value": 4.300711368458601,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     },
@@ -1893,7 +1893,7 @@
       "file": "results/research/catalyst_comparison/catalyst_comparison.json",
       "key": "findings.cost_optimal_python.Ni/MgO.noHI.rec_USD_per_kg",
       "old_value": 0.7451017836023088,
-      "new_value": 1.160688620083353,
+      "new_value": 1.1620717951536141,
       "unit": "USD/kg H2",
       "reason": "reference CAPEX method and FX"
     }

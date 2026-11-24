@@ -257,10 +257,12 @@ def thresholds(spec):
         a1 = lcoh_mem(spec, 10000.0, cv["life"], cv["elec"])
         slope = (a1 - a0) / 10000.0
         c_star = (target - a0) / slope
-        # membrane life at which equal, central cost: LCOH = A + B / life
-        b = (lcoh_mem(spec, cv["mcost"], 1.0, cv["elec"]) - lcoh_mem(spec, cv["mcost"], 2.0, cv["elec"])) * 2.0
-        A = lcoh_mem(spec, cv["mcost"], 1.0, cv["elec"]) - b
-        life_star = b / (target - A) if target > A else None
+        # membrane life at which equal, central cost. The membrane is annualised with CRF(i, life) (fix pass
+        # 24 Nov 2026), so LCOH is no longer A + B / life: solve directly. LCOH falls monotonically with life.
+        try:
+            life_star = brentq(lambda L: lcoh_mem(spec, cv["mcost"], L, cv["elec"]) - target, 0.05, 200.0, xtol=1e-10)
+        except ValueError:
+            life_star = None
         out[lvl] = {"psa_recovery": Rp, "psa_lcoh_usd": target,
                     "membrane_cost_USD_per_m2_at_parity": c_star,
                     "membrane_cost_EUR_per_m2_at_parity": c_star / USD_PER_EUR,
@@ -532,14 +534,23 @@ def row_evidence(comp):
                  "envelope": "membrane cheaper only if PSA Grade D recovery is below about %.3f (central membrane) or %.3f "
                              "(high-cost membrane)" % (tD["psa_recovery_at_parity_with_central_membrane"],
                                                        tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
-                 "threshold": "PSA recovery at parity about 0.75-0.79 (Grade D) and 0.75-0.80 (industrial); sourced PSA values "
-                              "straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above). Membrane "
-                              "cost (parity about 34,800 USD/m2) and life (parity about 0.9 yr) are outside the sourced ranges, "
-                              "so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values",
+                 "threshold": ("PSA recovery at parity %.3f-%.3f (Grade D; high-cost to central membrane) and %.3f-%.3f "
+                               "(industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low "
+                               "confidence, above). Membrane cost (parity %s USD/m2 against the central PSA) and life (parity "
+                               "%s yr) are outside the sourced ranges, so they do not decide the ranking; selectivity "
+                               "requirement %s is below all sourced ideal values. Membrane annualised with CRF(i, life)"
+                               % (min(tD["psa_recovery_at_parity_with_central_membrane"], tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
+                                  max(tD["psa_recovery_at_parity_with_central_membrane"], tD["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
+                                  min(tB["psa_recovery_at_parity_with_central_membrane"], tB["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
+                                  max(tB["psa_recovery_at_parity_with_central_membrane"], tB["psa_recovery_at_parity_with_high_cost_membrane"]["value"]),
+                                  f"{tD['central']['membrane_cost_USD_per_m2_at_parity']:,.0f}",
+                                  "none" if tD["central"]["membrane_life_yr_at_parity"] is None else f"{tD['central']['membrane_life_yr_at_parity']:.2f}",
+                                  f"{tD['selectivity']['required_alpha_H2_N2']:,.0f}")),
                  "reason": "the ranking is decided by an unsourced PSA recovery; readiness also differs: Pd-Ag downstream "
                            "separator TRL 4 to 5 against PSA unit 9 / integrated chain 6 to 7; Ammogen did not meet its "
                            "recovery KPI. Secondary row, does not vote"},
-        "H4-e": {"proposed_verdict": "SUPPORTED",
+        "H4-e": {"proposed_verdict": "INCONCLUSIVE (fix pass 24 Nov 2026: the direction restates the flowsheet's tail-gas "
+                                     "routing; the threshold recovery is the finding and sourced recoveries 0.555-0.85 straddle it)",
                  "numbers": {"furnace_demand_kW": to["furnace_demand_kW"],
                              "recovery_where_tail_heat_equals_demand": to["psa_recovery_where_tail_heat_equals_furnace_demand"],
                              "psa_0.85_net_deficit_kW": B["configurations"]["PSA_high_recovery"]["energy"]["net_heat_deficit_kW"],

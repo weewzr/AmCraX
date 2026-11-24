@@ -267,8 +267,15 @@ def main() -> None:
         sens["capital_recovery"].append({"discount_rate": d, "life_yr": n, "crf": crf,
                                          **{f"net_{u}_USD_per_kg": saving - hx.annualised_cost(bres["sizing_turton"][u]["tci_equivalent_USD"], crf) / e_hi["annual_h2_kg"] for u in U_KEYS},
                                          "breakeven_tci_USD": hx.capital_for_annual(saving * e_hi["annual_h2_kg"], crf)})
+    # break-even CRF, solved (the annual charge is linear in the CRF); review C finding M3
+    sens["breakeven_crf"] = {u: hx.breakeven_crf(saving * e_hi["annual_h2_kg"], bres["sizing_turton"][u]["tci_equivalent_USD"])
+                             for u in U_KEYS}
+    for u in U_KEYS:
+        chk = saving - hx.annualised_cost(bres["sizing_turton"][u]["tci_equivalent_USD"], sens["breakeven_crf"][u]) / e_hi["annual_h2_kg"]
+        add(f"HX-BREAKEVEN-CRF-{u}", f"Net benefit is zero at the solved break-even CRF (U {u})", "numerical_verification",
+            chk, 0.0, 1e-12, "USD/kg", "pass" if abs(chk) < 1e-12 else "fail", ["backend/amcrax/heat_integration/exchanger.py"])
     sens["cepci_material_correlation"] = []
-    for lab, kw in (("CEPCI 720.2 (Kum)", {"cepci_target": 720.2}), ("CEPCI 800.3 (Ahmad)", {"cepci_target": 800.3}),
+    for lab, kw in (("CEPCI 720.2 (printed by Kum 2026 as 2024; not a 2024 index; sensitivity only)", {"cepci_target": 720.2}), ("CEPCI 800.3 (Ahmad)", {"cepci_target": 800.3}),
                     ("CS/SS", {"material": "CS/SS"}), ("CS/CS", {"material": "CS/CS"}), ("Towler U-tube", {"correlation": "towler"}),
                     ("counter-current F=1", {"counter_current": True})):
         r = hx.size_and_cost(st["duty_kW"], st["T_hot_in"], st["T_hot_out"], st["T_cold_in"], st["T_cold_out"], "low", ua_kW_K=st["ua_seg_kW_K"], **kw)
@@ -341,7 +348,10 @@ def row_evidence(b, cases, sens) -> dict:
                  + [f"CRF {r['crf']:.3f}, U {u}" for r in sens["capital_recovery"] for u in U_KEYS if r[f"net_{u}_USD_per_kg"] <= 0]
                  + [f"approach {r['approach_K']} K, U {u}" for r in sens["approach_python"] for u in U_KEYS if r.get(f"net_{u}_USD_per_kg", 1) <= 0])
     return {"H3-d": {
-        "proposed_verdict": "SUPPORTED" if min(savings) > 0 else "INCONCLUSIVE",
+        # fix pass 24 Nov 2026: the sub-claim has two halves (energy and cost); both are needed, as for H1-a
+        "proposed_verdict": ("INCONCLUSIVE (energy half SUPPORTED; cost half threshold-dependent: sourced U straddles the break-even U)"
+                             if min(savings) > 0 else "INCONCLUSIVE"),
+        "energy_half_supported": min(savings) > 0,
         "numbers": {"energy_first_law_deficit_kW_hi_vs_nohi": [base.net_fuel_heat_deficit_kW, nohi.net_fuel_heat_deficit_kW],
                     "energy_total_external_heating_kW_hi_vs_nohi": [base.total_external_heating_kW, nohi.total_external_heating_kW],
                     "energy_reduction_first_law": 1 - base.net_fuel_heat_deficit_kW / nohi.net_fuel_heat_deficit_kW,
@@ -365,13 +375,18 @@ def row_evidence(b, cases, sens) -> dict:
                       "note": ("break-even U (conservative multi-shell 1-2 design, SS/SS, TCI factor 1.4336) is 7.7-11.3 W/(m2 K); it lies "
                                "inside the 1-bar typical range and far below the high-pressure range. No sourced value at 20 bar: a 20 bar "
                                "gas is expected above the 1-bar range, but that is an engineering expectation, not a sourced number.")},
-        "reason": ("Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating "
-                   "by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE "
+        "reason": ("Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 %% and total external heating "
+                   "by 21 %% in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE "
                    "approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, "
                    "varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U "
                    "case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative "
-                   "in adverse corners listed in net_benefit_negative_in. The cost result therefore is SUPPORTED only inside the "
-                   "envelope U >= ~12 W/(m2 K) with NH3 >= ~310 USD/t and CRF <= ~0.15; outside that it is threshold-dependent."),
+                   "in adverse corners listed in net_benefit_negative_in. The cost half depends on an overall heat-transfer "
+                   "coefficient with no source at 20 bar: the break-even U (%.1f-%.1f W/(m2 K)) lies inside the only sourced "
+                   "(1 bar) typical range 5-35, so the cost half is threshold-dependent (INCONCLUSIVE). Break-even CRF (solved): "
+                   "%.3f / %.3f / %.3f at U low / central / high (reference CRF %.3f)."
+                   % (min(ube), max(ube), sens["breakeven_crf"]["low"], sens["breakeven_crf"]["central"],
+                      sens["breakeven_crf"]["high"], hx.load_reference_scenario().crf())),
+        "breakeven_crf_solved": sens["breakeven_crf"],
     }}
 
 

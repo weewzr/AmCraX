@@ -339,6 +339,45 @@
   "note": "ratio 1.099; the segmented value is used for area"
  },
  {
+  "id": "HX-BREAKEVEN-CRF-low",
+  "description": "Net benefit is zero at the solved break-even CRF (U low)",
+  "evidence_kind": "numerical_verification",
+  "observed": 0.0,
+  "expected": 0.0,
+  "tolerance": 1e-12,
+  "unit": "USD/kg",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/heat_integration/exchanger.py"
+  ]
+ },
+ {
+  "id": "HX-BREAKEVEN-CRF-central",
+  "description": "Net benefit is zero at the solved break-even CRF (U central)",
+  "evidence_kind": "numerical_verification",
+  "observed": 0.0,
+  "expected": 0.0,
+  "tolerance": 1e-12,
+  "unit": "USD/kg",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/heat_integration/exchanger.py"
+  ]
+ },
+ {
+  "id": "HX-BREAKEVEN-CRF-high",
+  "description": "Net benefit is zero at the solved break-even CRF (U high)",
+  "evidence_kind": "numerical_verification",
+  "observed": 0.0,
+  "expected": 0.0,
+  "tolerance": 1e-12,
+  "unit": "USD/kg",
+  "status": "pass",
+  "source_files": [
+   "backend/amcrax/heat_integration/exchanger.py"
+  ]
+ },
+ {
   "id": "HX-NET-baseline_aspen_600C",
   "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U",
   "evidence_kind": "numerical_verification",

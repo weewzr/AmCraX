@@ -20,8 +20,8 @@ Method
 3. Cost (CORRELATIONS): Turton et al. (2018) module costing (purchased cost Cp0 at CEPCI 397, pressure factor,
    material factor, bare-module factor) as the central correlation; Towler and Sinnott (2013) U-tube
    correlation (CEPCI 532.9, Jan 2010) with the Hand installation factor 3.5 as a cross-check. Escalated to the
-   2024 cost year of the reference CAPEX by CEPCI (CEPCI_2024 below; the library values conflict, so the range is
-   carried). An area above the correlation range is split into equal parallel units; below the range the cost
+   2024 cost year of the reference CAPEX by CEPCI. The central target 797.9 is the 2023 annual value used as a proxy
+   for 2024; 720.2 (printed by Kum 2026 as a 2024 index) cannot be a 2024 annual index and is a sensitivity only. An area above the correlation range is split into equal parallel units; below the range the cost
    is evaluated at the lower bound (flagged).
 4. TCI-equivalent = installed (bare-module) cost x the reference-scenario indirect factor
    (1 + OSBL)(1 + engineering + contingency), i.e. the same factor as every item of
@@ -66,9 +66,14 @@ U_CASES = {
 CEPCI = {
     "turton_base_2001": {"value": 397.0, "source": "turton2018analysis Appendix A (CEPCI 397, 2001); also chopra2026decentralized Eq. 4"},
     "towler_base_2010": {"value": 532.9, "source": "towler2013chemical Table 6.6 basis (US Gulf Coast, Jan 2010, CEPCI 532.9); also kum2026heatintegrated Sec. 3.4.1"},
-    "target_2024_central": {"value": 797.9, "source": "chemengonline.com: 2023 annual average 797.9 and 2024 monthly values 'relatively stable at just below 800' (search-result text, 2026-11-23); used as the 2024 value"},
-    "target_2024_low": {"value": 720.2, "source": "kum2026heatintegrated Sec. 3.4.1 (CEPCI 2024 = 720.2; conflicts with the other library values)"},
-    "target_2024_high": {"value": 800.3, "source": "ahmad2025gtcc Eq. 8 text (CEPCI 2024 = 800.3)"},
+    # Keys are kept for readers of the stored results; the labels say what each value is (fix pass 24 Nov 2026,
+    # review C finding m5).
+    "target_2024_central": {"value": 797.9, "label": "2023 annual CEPCI, used as a proxy for the 2024 cost year",
+                            "source": "chemengonline.com: 2023 annual average 797.9 and 2024 monthly values 'relatively stable at just below 800' (search-result text, 2026-11-23). This is the 2023 annual value used as a proxy for 2024, not a published 2024 annual index"},
+    "target_2024_low": {"value": 720.2, "label": "value printed by Kum 2026 as 'CEPCI 2024'; not a 2024 index (probable source error); sensitivity only",
+                        "source": "kum2026heatintegrated Sec. 3.4.1 prints CEPCI 2024 = 720.2. Annual CEPCI was about 708 (2021), 816 (2022) and 798 (2023), so 720.2 cannot be a 2024 annual index; kept only as a low-side cost sensitivity"},
+    "target_2024_high": {"value": 800.3, "label": "value printed by Ahmad 2025 as 'CEPCI 2024'",
+                         "source": "ahmad2025gtcc Eq. 8 text (CEPCI 2024 = 800.3)"},
 }
 
 #: Turton et al. (2018) Appendix A, shell-and-tube heat exchangers (Tables A.1-A.4, Fig. A.18).
@@ -219,6 +224,14 @@ def annual_charge_factor(crf: Optional[float] = None) -> float:
 
 def annualised_cost(capital_USD: float, crf: Optional[float] = None) -> float:
     return capital_USD * annual_charge_factor(crf)
+
+
+def breakeven_crf(annual_saving_USD_per_yr: float, capital_USD: float) -> float:
+    """Capital recovery factor at which the annualised exchanger cost equals the annual saving (solved, not read
+    from a grid; fix pass 24 Nov 2026, review C finding M3). The annual charge is linear in the CRF."""
+    if capital_USD <= 0:
+        raise ValueError("capital must be positive")
+    return annual_saving_USD_per_yr / capital_USD - (annual_charge_factor(0.0))
 
 
 def size_and_cost(duty_kW: float, T_hot_in: float, T_hot_out: float, T_cold_in: float, T_cold_out: float,

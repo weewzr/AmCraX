@@ -60,6 +60,14 @@ MEM_EUR_PER_M2 = 6000.0  # literature: richard2024technoeconomic p. 9 Table 5 (P
 MEM_LIFE_Y = 3.0
 
 
+def mem_crf(life_yr: float) -> float:
+    """Capital recovery factor at the membrane life and the reference discount rate (fix pass 24 Nov 2026, review C
+    finding m2). Until then the membrane was annualised as area x cost / life (undiscounted), while the PSA used
+    CRF(i, 25 y); CRF(10 %, 3 y) = 0.4021 against 1/3."""
+    from amcrax.economics.lcoh import crf
+    return crf(_REF.discount_rate, life_yr)
+
+
 def prov(source_type: str, inputs: str) -> dict:
     return {"generated_utc": NOW, "script": SCRIPT, "source_type": source_type, "inputs_summary": inputs,
             "reference_scenario": provenance_stamp(),
@@ -248,7 +256,7 @@ def purification_cost(cfg, case, P_del, *, elec=PRICE_ELEC, psa_capex_mult=1.0, 
     elif cfg["kind"] == "membrane" and cfg.get("nh3_polishing_adsorber"):
         capex = ADS_CAPEX * psa_capex_mult  # proxy: adsorber share of the existing split (assumption)
     capex_yr = capex * (CRF + MAINT_INS)
-    mem_yr = cfg["area_m2"] * MEM_EUR_PER_M2 * EURUSD_PARITY * mem_cost_mult / mem_life
+    mem_yr = cfg["area_m2"] * MEM_EUR_PER_M2 * EURUSD_PARITY * mem_cost_mult * mem_crf(mem_life)
     heat_yr = cfg["net_heat_deficit_kW"] * HEAT_USD_PER_KW_YR * heat_price_mult
     ann_feed = AC["ammonia_feed"] * nh3_price / NH3_PRICE
     upstream = UPSTREAM_ANNUAL_BASE - AC["ammonia_feed"] + ann_feed
@@ -407,7 +415,7 @@ def main():
             ckwh = gas_compression_kWh_per_kg_h2({"H2": 1.0}, T_PSA_K, Pp, 30.0, 1.0)
             # cost of lost hydrogen: upstream cost per kg of H2 in cracked gas
             up = (UPSTREAM_ANNUAL_BASE) / (feed20["H2"] * MOLAR_MASS["H2"] * HOURS)
-            mem_cost = Aa * MEM_EUR_PER_M2 * EURUSD_PARITY / MEM_LIFE_Y / (kg * HOURS)
+            mem_cost = Aa * MEM_EUR_PER_M2 * EURUSD_PARITY * mem_crf(MEM_LIFE_Y) / (kg * HOURS)
             mem_rows.append({"permeate_bar": Pp, "recovery": float(R), "area_m2": Aa, "pinch_limit": rmax,
                              "membrane_usd_per_kg_h2": mem_cost, "compression_to_30bar_kWh_per_kg": ckwh,
                              "compression_usd_per_kg": ckwh * PRICE_ELEC,

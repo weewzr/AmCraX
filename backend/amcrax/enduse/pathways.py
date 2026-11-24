@@ -219,7 +219,7 @@ def _n2o_per_MWh(nh3_energy_share: float) -> float:
 
 
 def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline", gain_scale: float = 1.0,
-                   eta_h2_fuel: float | None = None) -> Activity:
+                   eta_h2_fuel: float | None = None, heat_fuel_efficiency: float = 1.0) -> Activity:
     """kind: direct | partial_exhaust | partial_fired | full_exhaust | full_fired | full_purified | blend_purified.
 
     gain_scale scales the exhaust-integration efficiency gain (1 = Ahmad end points, 0 = no gain). The exhaust-heated
@@ -227,11 +227,17 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
     ETA_GT_GAS, so Ahmad's gain is counted once.
     eta_h2_fuel (Phase 2, optional): combined-cycle efficiency on the LHV of the H2-rich fuel actually fired, for the
     fired, purified and blend kinds. None keeps the Phase 1 assumption ETA_GT_GAS (copy of the direct-NH3 value).
+    heat_fuel_efficiency (Phase 2 fix pass, optional): fraction of the LHV of the extra NH3 burnt for cracker heat that
+    reaches the process (fired, purified and blend kinds). The default 1.0 is the AmCraX reference assumption
+    (optimistic, favourable to cracking); 0.9225 is the stored flowsheet's own tail-gas ratio and 0.85 the H3 furnace
+    efficiency. Exhaust-heated kinds burn no extra NH3 and are unaffected.
     """
     eta_gas = P.ETA_GT_GAS if eta_h2_fuel is None else eta_h2_fuel
+    if not 0.0 < heat_fuel_efficiency <= 1.0:
+        raise ValueError("heat_fuel_efficiency must lie in (0, 1]")
     c = load_cracker(case)
     X = c.conversion
-    heat_nh3_per_kg_cracked = c.crack_heat_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
+    heat_nh3_per_kg_cracked = c.crack_heat_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG / heat_fuel_efficiency
     if kind == "direct":
         f = 0.0
     elif kind in ("full_exhaust", "full_fired"):
@@ -266,7 +272,7 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
     elif kind == "full_purified":
         h2p = c.h2_product_per_kg_nh3
         elec = eta_gas * h2p * P.LHV_H2_MJ_KG
-        total_nh3 = 1.0 + c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
+        total_nh3 = 1.0 + c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG / heat_fuel_efficiency
         h2f, nh3_energy_share, cracked = 1.0, 0.0, 1.0
         heat_mode = "tail gas + extra NH3 (stored Aspen heat deficit)"
         cap, pure = "purified", f"PSA product {c.purity_mole_frac * 100:.3f} mol% H2 (recovery {c.recovery})"
@@ -280,7 +286,7 @@ def power_activity(kind: str, y_h2: float | None = None, case: str = "baseline",
 
         g = brentq(yfun, 1e-9, 1.0)
         elec = eta_gas * ((1 - g) * P.LHV_NH3_MJ_KG + g * h2p * P.LHV_H2_MJ_KG)
-        total_nh3 = 1.0 + g * c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG
+        total_nh3 = 1.0 + g * c.deficit_MJ_per_kg_nh3 / P.LHV_NH3_MJ_KG / heat_fuel_efficiency
         n_h2 = g * h2p / MOLAR_MASS["H2"]
         n_nh3 = (1 - g) / MOLAR_MASS["NH3"]
         h2f = n_h2 / (n_h2 + n_nh3)

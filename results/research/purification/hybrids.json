@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T05:28:46Z",
+  "generated_utc": "2026-11-24T06:10:27Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "hybrid screening on the 20 bar baseline",
