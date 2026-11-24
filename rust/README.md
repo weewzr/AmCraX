@@ -232,7 +232,7 @@ scale to NASA-7 itself). Two back ends:
   within 1e-7 (relative) of a recorded state, and an error otherwise. It reproduces the stored
   cases only; new states need the `coolprop` back end.
 
-Gates (CI run 45477629197, all jobs green; `verification/stage4_report.json`):
+Gates (CI run 45479664142 on ff8929c, all seven jobs green; `verification/stage4_report.json`):
 
 | Quantity | Cases | Max. deviation | Gate | Why |
 |---|---|---|---|---|

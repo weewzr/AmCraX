@@ -1,8 +1,8 @@
 {
  "all_passed": true,
  "description": "Stage 4 Python (reference) versus Rust (port): fluid properties (CoolProp 8.0.0 C++ back end against Python CoolProp on a dense grid), process flowsheet, heat integration, separation and compression; for each quantity the number of cases, the maximum deviation, the gate and pass or fail",
- "github_run_id": "45477629197",
- "github_sha": "b580cc6216e0c656d6bc8fa9545fff6c8a75113a",
+ "github_run_id": "45479664142",
+ "github_sha": "ff8929cc84d615919c20f5ecc96483d1a561c0ca",
  "jobs": {
   "CoolProp 8.0.0 back end (C++ built from the pinned sources, Linux)": "verify props --props coolprop; verify stage4 --props coolprop",
   "fmt, clippy, test (Linux)": "verify stage4 (tables back end: tabulated CoolProp values, exact only at stored states)"
@@ -281,7 +281,8 @@
     "variation/dry_feed/pr: Python raises ValueError ('mole fractions must be finite and >= 0: {'NH3': 1.0000000000'); the Rust port raises the same (outside model domain: mole fractions must be finite and >= 0: [(\"NH3\", 1.0000000000000009), (\"H2\", -6.394884621840904e-16), (\"N2\", -2.1316282072803015e-16)]). Python defect recorded in rust/README.md (equilibrium state at the upper bracket end).",
     "variation/very_wet_feed/pr: Python raises ValueError ('mole fractions must be finite and >= 0: {'NH3': 0.8500000000'); the Rust port raises the same (outside model domain: mole fractions must be finite and >= 0: [(\"NH3\", 0.8500000000000003), (\"H2\", -2.131628207280301e-16), (\"N2\", -7.105427357601003e-17), (\"H2O\", 0.15000000000000002)]). Python defect recorded in rust/README.md (equilibrium state at the upper bracket end).",
     "variation/feed_10/pr: Python raises ValueError ('mole fractions must be finite and >= 0: {'NH3': 0.9980000000'); the Rust port raises the same (outside model domain: mole fractions must be finite and >= 0: [(\"NH3\", 0.9980000000000004), (\"H2\", -2.664535259100376e-16), (\"N2\", -8.881784197001254e-17), (\"H2O\", 0.0020000000000000005)]). Python defect recorded in rust/README.md (equilibrium state at the upper bracket end).",
-    "variation/feed_1000/pr: Python raises ValueError ('mole fractions must be finite and >= 0: {'NH3': 0.9980000000'); the Rust port raises the same (outside model domain: mole fractions must be finite and >= 0: [(\"NH3\", 0.9980000000000004), (\"H2\", -3.4106051316484815e-16), (\"N2\", -1.1368683772161606e-16), (\"H2O\", 0.0020000000000000005)]). Python defect recorded in rust/README.md (equilibrium state at the upper bracket end)."
+    "variation/feed_1000/pr: Python raises ValueError ('mole fractions must be finite and >= 0: {'NH3': 0.9980000000'); the Rust port raises the same (outside model domain: mole fractions must be finite and >= 0: [(\"NH3\", 0.9980000000000004), (\"H2\", -3.4106051316484815e-16), (\"N2\", -1.1368683772161606e-16), (\"H2O\", 0.0020000000000000005)]). Python defect recorded in rust/README.md (equilibrium state at the upper bracket end).",
+    "tables back end after the flowsheet cases: 28327 exact lookups, 5 first-order Taylor lookups (within 1e-7 relative of a recorded state), 0 misses"
    ],
    "property_backend": "tables",
    "target": "flowsheet (properties: tables)"
@@ -671,7 +672,8 @@
    ],
    "failures": [],
    "findings": [
-    "aspen/opt_par_3: FEHE approach_violation decided on a tie (minimum internal approach 2e1 K, threshold 20 K, Rust value 1.9999999999999886e1 K): Python false, Rust true; the decision is ill-conditioned at the threshold"
+    "aspen/opt_par_3: FEHE approach_violation decided on a tie (minimum internal approach 2e1 K, threshold 20 K, Rust value 1.9999999999999886e1 K): Python false, Rust true; the decision is ill-conditioned at the threshold",
+    "tables back end (cumulative on this back end): 5242 exact lookups, 0 first-order Taylor lookups (within 1e-7 relative of a recorded state), 0 misses"
    ],
    "property_backend": "tables",
    "target": "heat integration (properties: tables)"
