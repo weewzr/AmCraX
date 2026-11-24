@@ -1,0 +1,113 @@
+name: Rust
+
+# Builds and tests the Rust workspace in rust/. All Rust compilation for this project happens here
+# (see rust/README.md, "Build policy").
+
+on:
+  push:
+    paths:
+      - "rust/**"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "rust/**"
+      - ".github/workflows/rust.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rust-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUSTFLAGS: "-D warnings"
+  RUSTDOCFLAGS: "-D warnings"
+  # pinned toolchain; keep equal to rust-version in rust/Cargo.toml
+  RUST_TOOLCHAIN: "1.100.0"
+
+defaults:
+  run:
+    working-directory: rust
+    shell: bash
+
+jobs:
+  check:
+    name: fmt, clippy, test (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo fmt --check
+        run: cargo fmt --all -- --check
+      - name: cargo clippy
+        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+      - name: cargo test (optimised, debug assertions on)
+        run: cargo test --workspace --all-features --profile ci --locked -- --nocapture
+      - name: cargo doc
+        run: cargo doc --workspace --no-deps --locked
+      - name: amcrax --version and verify numerics
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- --version
+          cargo run --profile ci --locked -p amcrax-cli -- verify numerics --golden golden/numerics
+
+  windows:
+    name: test (Windows, MSVC)
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo test
+        run: cargo test --workspace --all-features --profile ci --locked
+
+  wasm:
+    name: wasm32-unknown-unknown build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: wasm
+      - name: cargo build amcrax-wasm
+        run: cargo build -p amcrax-wasm --target wasm32-unknown-unknown --profile wasm --locked
+      - name: size budget (400 KB raw)
+        run: |
+          f=target/wasm32-unknown-unknown/wasm/amcrax_wasm.wasm
+          size=$(stat -c %s "$f")
+          echo "amcrax_wasm.wasm: $size bytes"
+          echo "### amcrax_wasm.wasm: $size bytes (budget 409600)" >> "$GITHUB_STEP_SUMMARY"
+          test "$size" -le 409600
+
+  audit:
+    name: RustSec advisories
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+      - name: cargo audit
+        run: cargo audit --deny warnings
