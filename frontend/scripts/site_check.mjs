@@ -385,7 +385,10 @@ for (const vp of VIEWPORTS) {
     const dlPath = await dl.path().catch(() => null)
     const csv = dlPath ? (await import('node:fs')).readFileSync(dlPath, 'utf-8') : ''
     record(vp.label, 'simulator: Export CSV downloads inputs and outputs of cases A and B with source labels', /\.csv$/.test(dl.suggestedFilename()) && /^case,section,key,label,value,unit,source,note/.test(csv) && /\nA,output,/.test(csv) && /\nB,output,/.test(csv), `${dl.suggestedFilename()} ${csv.length} bytes`)
-    const [dj] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), page.locator('button:has-text("Export JSON")').click()])
+    // the second download starts only after the first one has been saved and its button is in view (phone layout)
+    const expJson = page.locator('button:has-text("Export JSON")')
+    await expJson.scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
+    const [dj] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), expJson.click()])
     record(vp.label, 'simulator: Export JSON downloads a file', /\.json$/.test(dj.suggestedFilename()))
     await page.locator('button:has-text("Stop comparing")').click()
     await page.locator('button:has-text("Reset to baseline")').click(); await page.waitForTimeout(400)

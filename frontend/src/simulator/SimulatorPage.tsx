@@ -170,6 +170,15 @@ function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | 
           <p className="sim-lead">Ammonia cracking to hydrogen, solved in your browser from stored Aspen Plus V15 and Python results. Change a control: every number and graph follows.</p>
         </div>
         <div className="sim-toolbar" role="toolbar" aria-label="Simulator actions">
+          {/* the scenario selector comes first (own full-width row on a phone); the buttons follow in .sim-actions */}
+          <label className="sim-preset">
+            <span className="sr-only">Preset scenario</span>
+            <select value={s.preset ?? ''} onChange={(e) => { if (e.target.value) dispatch({ type: 'preset', data: d, id: e.target.value }) }} aria-label="Preset scenario (stored Aspen case)">
+              <option value="">{s.preset ? 'Preset scenarios' : 'Custom case (edited)'}</option>
+              {presets.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
+            </select>
+          </label>
+          <div className="sim-actions">
           <button type="button" className={`btn sim-play ${playing ? 'is-on' : ''}`} aria-pressed={playing} onClick={() => setPlaying((p) => !p)}>
             <svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14">{playing ? <path d="M4 3v10M12 3v10" stroke="currentColor" strokeWidth="2.6" /> : <path d="M4 2.5v11L13 8z" fill="currentColor" />}</svg>
             {playing ? 'Pause animation' : 'Play animation'}
@@ -181,13 +190,6 @@ function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | 
             <input type="checkbox" role="switch" checked={showValues} aria-checked={showValues} onChange={(e) => setShowValues(e.target.checked)} />
             <span>Show values</span>
           </label>
-          <label className="sim-preset">
-            <span className="sr-only">Preset scenario</span>
-            <select value={s.preset ?? ''} onChange={(e) => { if (e.target.value) dispatch({ type: 'preset', data: d, id: e.target.value }) }} aria-label="Preset scenario (stored Aspen case)">
-              <option value="">{s.preset ? 'Preset scenarios' : 'Custom case (edited)'}</option>
-              {presets.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
-            </select>
-          </label>
           <button type="button" className="btn" onClick={() => dispatch({ type: 'reset', data: d })}>Reset to baseline</button>
           {pinned
             ? <button type="button" className="btn sim-pin is-on" onClick={() => setPinned(null)}>Stop comparing</button>
@@ -195,6 +197,7 @@ function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | 
           <button type="button" className="btn" onClick={() => doExport('csv')} title="CSV: inputs and outputs, one row each, with the source of every output" aria-describedby="sim-exp-help">Export CSV</button>
           <button type="button" className="btn" onClick={() => doExport('json')} title="JSON: inputs, outputs with sources, fixed values, basis and warnings" aria-describedby="sim-exp-help">Export JSON</button>
           <span id="sim-exp-help" className="sr-only">CSV: inputs and outputs with the source of every output. JSON: the same plus fixed values, cost basis and warnings. Case A and case B when comparing.</span>
+          </div>
         </div>
       </div>
 
