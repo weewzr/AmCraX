@@ -1,0 +1,31 @@
+{
+ "files": {
+  "kinetics.json": {
+   "bytes": 11827830,
+   "sha256": "5d7f630a7c68f389d237415963e136b8664ff04c9201b7b4175e6cf93b30033d"
+  },
+  "pfr.json": {
+   "bytes": 617828,
+   "sha256": "916abefaaf132f9142d8850e8def870b698530907b619a1fdeb9ad9ae5ff4fcf"
+  },
+  "searches.json": {
+   "bytes": 26900,
+   "sha256": "940688d7b978727b59285058fd55ec0cbef633a25f374da3dd58ceaa1e72564b"
+  },
+  "viscosity.json": {
+   "bytes": 246410,
+   "sha256": "f4407be99bd6abdca3d75e17471f544cc50727770c0eebad4a249cf46464440b"
+  }
+ },
+ "meta": {
+  "amcrax_source": "backend/amcrax (this repository)",
+  "cantera": "3.2.0",
+  "generator": "rust/golden/generate_stage2_golden.py",
+  "git_head_at_generation": "46d83caf55c995983c2618e434fae9c48d1bee69",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "python": "3.12.10",
+  "pyyaml": "6.0.4",
+  "scipy": "1.18.1"
+ }
+}

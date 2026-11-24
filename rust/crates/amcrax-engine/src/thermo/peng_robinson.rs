@@ -468,6 +468,21 @@ pub fn enthalpy_departure_j_mol(
     alpha: Alpha,
     phase: Phase,
 ) -> Result<f64, EngineError> {
+    let (a, b) = enthalpy_departure_terms_j_mol(y, t_k, p_bar, kij, alpha, phase)?;
+    Ok(a + b)
+}
+
+/// The two terms of [`enthalpy_departure_j_mol`], `RT (Z - 1)` and
+/// `(T da/dT - a) / (2 sqrt2 b) ln[...]` (they cancel almost completely in a near-ideal gas, so
+/// their magnitudes are the scale of the rounding error of the sum).
+pub fn enthalpy_departure_terms_j_mol(
+    y: &[(Species, f64)],
+    t_k: f64,
+    p_bar: f64,
+    kij: &Kij,
+    alpha: Alpha,
+    phase: Phase,
+) -> Result<(f64, f64), EngineError> {
     let (_, prep) = prepare(y, t_k, alpha, kij)?;
     let pp = prep.ok_or_else(|| EngineError::Domain("all mole fractions are zero".into()))?;
     let sub: Vec<Species> = pp.nz.iter().map(|&i| pp.sp[i]).collect();
@@ -486,8 +501,11 @@ pub fn enthalpy_departure_j_mol(
     let bb = bm * p / rt;
     let z = z_root(aa, bb, phase)?;
     let lg = ((z + (1.0 + SQRT_2) * bb) / (z + (1.0 - SQRT_2) * bb)).ln();
-    Ok(rt * (z - 1.0) + (t_k * dadt - am) / (2.0 * SQRT_2 * bm) * lg)
+    Ok((rt * (z - 1.0), (t_k * dadt - am) / (2.0 * SQRT_2 * bm) * lg))
 }
+
+/// Result of [`dew_liquid`]: incipient liquid `x`, `S`, iterations.
+pub type DewLiquid = (Vec<(Species, f64)>, f64, usize);
 
 /// Wilson K-value estimate of the incipient liquid `x_i ~ y_i / K_i`.
 pub fn wilson_liquid(y: &[(Species, f64)], t_k: f64, p_bar: f64) -> Vec<(Species, f64)> {
@@ -518,7 +536,7 @@ pub fn dew_liquid(
     kij: &Kij,
     alpha: Alpha,
     max_iter: usize,
-) -> Result<(Vec<(Species, f64)>, f64, usize), EngineError> {
+) -> Result<DewLiquid, EngineError> {
     let (sp, yv) = ordered(y)?;
     let y: Vec<(Species, f64)> = sp.iter().copied().zip(yv.iter().copied()).collect();
     let phi_v = fugacity_coefficients(&y, t_k, p_bar, kij, alpha, Phase::Vapour)?;

@@ -562,10 +562,15 @@ fn pr_checks(golden: &Golden, rep: &mut Report) -> Result<(), EngineError> {
     );
     let mut keys = Acc::exact("pr.species_sets", "species of the fugacity result");
     let mut z = Acc::rel("pr.Z", "compressibility (vapour and liquid root)", GATE_PR);
+    let mut band: Vec<String> = Vec::new();
     let mut hd = Acc::rel(
         "pr.H_dep",
         "enthalpy departure (vapour and liquid root)",
         GATE_PR,
+    )
+    .note(
+        "relative to max(|H_dep|, |RT(Z-1)| + |a-term|): the two terms cancel in a near-ideal gas, and \
+         da/dT is a central difference of mixing sums that NumPy/BLAS add in another order",
     );
     let mut roots = Acc::exact(
         "pr.root_count",
@@ -612,10 +617,15 @@ fn pr_checks(golden: &Golden, rep: &mut Report) -> Result<(), EngineError> {
             format!("python single root {py_one}, rust single root {rs_one}")
         });
         for key in ["H_dep_vapour_J_mol", "H_dep_liquid_J_mol"] {
-            let r = pr::enthalpy_departure_j_mol(&y, tk, p, &kij, alpha, phase_of(key));
+            let r = pr::enthalpy_departure_terms_j_mol(&y, tk, p, &kij, alpha, phase_of(key));
             match (py_error(&c[key]), r) {
                 (Some(e), r) => add_error_case(&mut errs, &format!("{case} {key}"), e, &r),
-                (None, Ok(v)) => hd.add(&format!("{case} {key}"), v, num(&c[key])),
+                (None, Ok((t1, t2))) => hd.add_scaled(
+                    &format!("{case} {key}"),
+                    t1 + t2,
+                    num(&c[key]),
+                    t1.abs() + t2.abs(),
+                ),
                 (None, Err(e)) => errs.add_bool(&case, false, || format!("{key}: rust error {e}")),
             }
         }
@@ -684,6 +694,9 @@ fn pr_checks(golden: &Golden, rep: &mut Report) -> Result<(), EngineError> {
         if off.abs() >= 1e-12 {
             count_out.add_bool(&case, ok, detail);
         } else {
+            if !ok {
+                band.push(format!("{case}: {}", detail()));
+            }
             count_in.add_bool(&case, ok, detail);
         }
         for key in ["Z_vapour", "Z_liquid"] {
@@ -696,6 +709,15 @@ fn pr_checks(golden: &Golden, rep: &mut Report) -> Result<(), EngineError> {
     }
     for a in [phi, keys, z, hd, roots, errs, count_out, count_in, zc] {
         rep.push(a);
+    }
+    if !band.is_empty() {
+        rep.findings.push(format!(
+            "Peng-Robinson cubic: {} of the cases within a relative offset of 1e-12 from a double-root \
+             boundary classify the roots differently (numpy eigenvalues versus analytic cubic; both are \
+             within rounding of a double root there): {}",
+            band.len(),
+            band.join("; ")
+        ));
     }
     Ok(())
 }
