@@ -29,12 +29,12 @@
    "sha256": "890e85849b74063fa131ef66eb6967a890660b413563f319f11ca8d044273f5c"
   },
   "data/singapore.yaml.canonical.json": {
-   "bytes": 13525,
-   "sha256": "a1b0810433b2e32b3e82f6531b036511db5c7930367611f37edce3cd15cbe2f4"
+   "bytes": 13736,
+   "sha256": "bf00b3b0300ad13b904be75eadc26d2d6d42c656befbfe27e9cd61209f9c64ac"
   },
   "data_files.json": {
    "bytes": 4141,
-   "sha256": "83dc29917c1e16de3a9b1cba22fb457253a7c38dabd2b28822bc9488b2663518"
+   "sha256": "1633a091690a80befecf76c36f0ab082f31dc653ce59752aedf15b4ce9c66ad4"
   },
   "dew_point.json": {
    "bytes": 330936,
@@ -60,7 +60,7 @@
  "meta": {
   "amcrax_source": "backend/amcrax (this repository)",
   "generator": "rust/golden/generate_stage1_golden.py",
-  "git_head_at_generation": "c755cf3609ebb66bb1fb9e792a76a2a25c65a08b",
+  "git_head_at_generation": "f06e329f899da2f0e2824aae3cad9e95128a4def",
   "numpy": "2.5.5",
   "platform": "Windows AMD64",
   "python": "3.12.10",

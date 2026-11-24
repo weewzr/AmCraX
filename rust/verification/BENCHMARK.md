@@ -34,3 +34,6 @@ result (strings, provenance stamp, notes); the typed path computes the same numb
 kinetic propagation study (16,000 draws) runs in its own job ("kinetic"), whose timing is in its
 report; it is not part of this comparison, which uses a fixed slice so both implementations run
 on the same machine within the job time.
+
+Full Rust kinetic propagation study (16,000 draws, 2,085,296 PFR solves of which 141,592 used the Radau fallback; job "kinetic", 4 threads, not on the benchmark runner, so not a comparison): 820.4 s on an Intel Xeon 6975P-C runner (run 45413488525) and 1332.2 s on an AMD EPYC 7763 runner (run 45405266952). The stored Python study reports about 43 minutes with a multiprocessing pool on the generator machine; that figure is not a measurement of this benchmark.
+

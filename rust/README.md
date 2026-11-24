@@ -198,10 +198,17 @@ stratification properties, tested in the unit tests).
 
 ## Stages
 
-0. Workspace, CI, numerics (this stage).
-1. Data loading, thermodynamics (NASA-7), ideal-gas and Peng-Robinson equilibrium.
-2. Kinetics and the plug-flow reactor.
-3. Process balance, separation, heat integration, UQ estimators.
-4. Economics, carbon, LCA, end use.
-5. Optimisation objectives, MCMC.
-6. (optional) Python extension module.
+0. Workspace, CI, numerics. Done.
+1. Data loading, thermodynamics (NASA-7), ideal-gas and Peng-Robinson equilibrium. Done.
+2. Kinetics and the plug-flow reactor. Done.
+3. Economics (reference CAPEX, `evaluate`, legacy LCOH), LCA gate factors and carbon pricing, Sobol'
+   estimators, the global sensitivity study, the economics Monte Carlo, the stiff (Radau IIA)
+   fallback of the reactor and the kinetic parameter propagation study; benchmark
+   (`verification/BENCHMARK.md`) and comparison report (`verification/stage3_report.json`). Done.
+4. Process flowsheet with CoolProp properties, heat integration, separation, catalyst studies.
+5. End use, optimisation objectives, MCMC.
+6. WebAssembly replaces the TypeScript numerics; the API calls Rust.
+
+New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,
+`amcrax eval economics --input case.json`, `amcrax study gsa|mc-singapore|kinetic-propagation`,
+`amcrax bench`.

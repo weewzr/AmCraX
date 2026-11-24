@@ -269,10 +269,10 @@
    "value": "Keppel-led consortium appointed 3 Oct 2025 for FEED of a 55-65 MW direct-combustion ammonia power plant and at least 0.1 Mt/yr bunkering (EMA and MPA)"
   },
   "halim_2025": {
-   "access_date": "2026-11-23",
+   "access_date": "2026-11-24",
    "source_type": "literature",
    "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
-   "value": "Halim, Zain & Khoo (2025) Appl. Energy 386, 125581: direct ammonia use preferred economically over cracking for power; green ammonia near-zero emissions; blue from SMR a transitional option. Numeric LCOH values (brief: 15.1 green, 10.1 blue USD/kg H2; 60.1 MW) NOT verified: PDF not in research/papers, abstract only."
+   "value": "Halim, Zain & Khoo (2025) Appl. Energy 386, 125581: direct ammonia use preferred economically over cracking for power; green ammonia near-zero emissions; blue from SMR a transitional option. Full text read on 24 November 2026 (research/notes/halim2025_full_text.md): LCOH 15.1 (green) and 10.1 (blue) USD/kg H2 and the 60.1 MW plant are located (p. 3, p. 9, Fig. 5, Table 5); the paper's 'about 40 %' is a fuel cost at the turbine inlet (1 - LCOA/LCOH), not a cost of electricity. Context only; no AmCraX input is taken from it."
   },
   "national_hydrogen_strategy": {
    "access_date": "2026-11-23",
