@@ -222,11 +222,3 @@ A module is a new physical or economic model.
 * Tables use `DataTable` (CSV export with a `filename`). Charts sit in a titled frame that names their sources.
 * Add the route in `src/App.tsx` and an entry in `SECTIONS` in `src/components/Shell.tsx`, and add a screenshot entry in `frontend/scripts/capture_dashboard.mjs`.
 * The development server proxies `/api` and `/figures` to `http://localhost:8000` (`frontend/vite.config.ts`).
-
-### Public site conventions
-
-* Structure: `NAV_GROUPS` in `frontend/src/site/routes.ts` is the only list of public pages. The five navigation groups, the footer, the command palette (Ctrl or Cmd + K) and the "Section 3.2" line above each title are derived from it. Do not type section numbers in pages. A renamed path gets an entry in `REDIRECTS`.
-* Every page is a lazy chunk (`frontend/src/App.tsx`). The simulator graphs (Recharts) load only when they come near the viewport.
-* Headline numbers: `HeadlineBasis.tsx` shows the unified reference cost (USD first, SGD in brackets) and the carbon intensity of its route, both read from the snapshot. Legacy values appear only under the legacy label.
-* Design tokens: shared spacing, radii, durations, focus and the colour-blind-safe chart palette live in `frontend/src/tokens.core.css`, a copy of the shared core. Site colours live in `frontend/src/index.css`. Provenance chips carry a glyph as well as a colour.
-* Fonts are self-hosted through Fontsource (OFL). `scripts/site_check.mjs` reports any request to another host.
