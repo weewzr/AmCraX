@@ -7,6 +7,9 @@ import * as sweeps from './sweeps'
 import { data, model, vectors } from './testdata'
 
 const tol = vectors.tolerances as Record<string, number>
+/** Economics parity (fix plan C-m13): the vectors are Python-generated and the browser is an exact port, so agreement is
+ *  asserted to 1e-9 relative (tighter than the file's cost_rel, which is the general port tolerance). */
+const ECON_REL = 1e-9
 const rel = (a: number, b: number) => Math.abs(a - b) / Math.max(Math.abs(b), 1e-12)
 
 // computed in the browser (exact port) vs interpolated from the Python grid (asserted on grid nodes only)
@@ -50,16 +53,17 @@ describe('economics against amcrax.economics.singapore.evaluate', () => {
       const r = evaluateEconomics(model, { h2_kg_h: s.h2_kg_h, nh3_feed_kmol_h: s.nh3_feed_kmol_h, heat_deficit_kW: s.heat_deficit_kW,
         cooling_kW: s.cooling_kW, pump_kW: s.pump_kW }, v.inputs.scenario, v.inputs.overrides)
       const p = v.python
-      expect(rel(r.lcoh_USD_per_kg, p.lcoh_USD_per_kg)).toBeLessThan(tol.cost_rel)
-      expect(rel(r.rec_USD_per_kg, p.rec_USD_per_kg)).toBeLessThan(tol.cost_rel)
+      expect(ECON_REL).toBeLessThanOrEqual(tol.cost_rel)
+      expect(rel(r.lcoh_USD_per_kg, p.lcoh_USD_per_kg)).toBeLessThan(ECON_REL)
+      expect(rel(r.rec_USD_per_kg, p.rec_USD_per_kg)).toBeLessThan(ECON_REL)
       for (const k of Object.keys(p.breakdown_USD_per_kg) as CostKey[]) {
         const b = p.breakdown_USD_per_kg[k]
         if (b === 0) expect(r.breakdown_USD_per_kg[k]).toBe(0)
-        else expect(rel(r.breakdown_USD_per_kg[k], b)).toBeLessThan(tol.cost_rel)
+        else expect(rel(r.breakdown_USD_per_kg[k], b), k).toBeLessThan(ECON_REL)
       }
-      expect(rel(r.catalyst_mass_kg, p.catalyst_mass_kg)).toBeLessThan(tol.cost_rel)
-      expect(rel(r.capex_total_USD, p.capex_total_USD)).toBeLessThan(tol.cost_rel)
-      expect(Math.abs(r.npv_USD - p.npv_USD)).toBeLessThan(tol.cost_rel * Math.max(Math.abs(p.npv_USD), r.capex_total_USD))
+      expect(rel(r.catalyst_mass_kg, p.catalyst_mass_kg)).toBeLessThan(ECON_REL)
+      expect(rel(r.capex_total_USD, p.capex_total_USD)).toBeLessThan(ECON_REL)
+      expect(Math.abs(r.npv_USD - p.npv_USD)).toBeLessThan(ECON_REL * Math.max(Math.abs(p.npv_USD), r.capex_total_USD))
       expect(r.carbon_tax_liable).toBe(p.carbon_tax_liable)
       expect(rel(r.lcoh_SGD_per_kg, p.lcoh_USD_per_kg * model.fx.SGD_per_USD)).toBeLessThan(1e-12)
     })

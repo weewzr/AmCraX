@@ -12,7 +12,7 @@ The public website presents AmCraX to readers who have neither Aspen Plus nor th
 The static build shows only published results. It never runs Aspen Plus and never contacts an API or Aspen: the dashboard pages open in SNAPSHOT mode with the exported results, and actions that need a server stay disabled. A banner on every page says "Published results - static site. Live Aspen Plus runs need the local platform." Live runs require the local platform of Section 22.
 <!-- data: frontend/src/components/Shell.tsx STATIC_SITE_NOTICE -->
 
-Table: **Table 23.1.** The two builds of the AmCraX front end. *Source: frontend/README.md, frontend/package.json, docs/internal/fact_sheet.md F19.*
+Table: **Table 23.1.** The two builds of the AmCraX front end. *Source: frontend/README.md, frontend/package.json.*
 
 | Property | Local platform (`npm run dev` / `npm run build`) | Public site (`npm run build:pages`) |
 |---|---|---|

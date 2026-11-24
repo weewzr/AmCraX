@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:30:10+00:00",
+  "generated_utc": "2026-11-24T06:13:19+00:00",
   "script": "scripts/research/heat_exchanger_study.py",
   "what": "FEHE duty diagnosis",
   "source_type": "python (on stored Aspen results)",

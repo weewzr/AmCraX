@@ -12,7 +12,7 @@
    "capex_method": "cho2026_itemised_v1"
   }
  },
- "note": "Proposed row evidence only; the orchestrator decides the verdicts.",
+ "note": "Proposed row evidence only; the evidence matrix sets the verdicts by its coded rules.",
  "row_evidence": {
   "H2-a": {
    "proposed_verdict": "SUPPORTED",

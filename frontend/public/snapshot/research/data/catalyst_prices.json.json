@@ -22,7 +22,8 @@
   "usd_per_eur": 1.1198,
   "usd_per_eur_source": "Federal Reserve G.5, series EXUSEU, 2026-10 monthly average",
   "usd_per_eur_url": "https://fred.stlouisfed.org/series/EXUSEU",
-  "other": "KRW not converted"
+  "other": "KRW not converted",
+  "status": "Superseded for conversion; kept as the value used when the prices were gathered. The rates 1.2801 SGD/USD and 1.1198 USD/EUR above (and in every sgd_per_kg and fx_used field below) are NOT used by any AmCraX calculation: the code converts every price at the reference-scenario rates (1.288444 SGD/USD and 1.099 USD/EUR, ECB 20 Nov 2026, backend/amcrax/data/reference_scenario.yaml). Label added in the fix pass of 24 Nov 2026 (review C finding m9)."
  },
  "inputs": {
   "P_Ni_usd_per_kg": {

@@ -105,6 +105,8 @@ locator. Values are not repeated here; this table records the assumptions *aroun
 
 Every default carries a citekey/page/locator or `source: assumption` in the file. Key entries (YAML path `economics.yaml: defaults.<name>`):
 
+These are the legacy core defaults; research outputs use the reference scenario (electricity 0.1402 USD/kWh, section 10).
+
 | Assumption | Value | Unit | Where | Source / rationale | Expected impact |
 |---|---|---|---|---|---|
 | Ammonia feed basis | the feed is priced on its contained NH3 (`feed NH3 kmol/h x molar mass`); the feed water (0.2 mol% by default) is not priced | kg NH3/h | `amcrax.economics.lcoh.compute_lcoh` | definition; same basis as the environmental module and the stoichiometric floor | An earlier version priced the whole feed stream as ammonia. Every LCOH result carries a note that states the basis |
@@ -154,31 +156,33 @@ The register for this layer is kept next to the results as `assumptions.json` in
 | Effectiveness factor and pressure drop | 1 and none | `results/research/kinetics/assumptions.json` | Intrinsic-kinetics comparison | Catalyst masses are lower bounds |
 | Comparison basis for catalysts | 100 kmol/h NH3, 20 bar, 95 % conversion, PSA recovery 0.85 | `results/research/catalyst_comparison/assumptions.json` | 99 % is equilibrium-limited at about 685 degC for every catalyst at 20 bar | Sets the temperature at which catalysts are compared |
 | Furnace efficiency and thermal loss | 0.85 and 2 % | `results/research/catalyst_comparison/assumptions.json` | assumption | Fired duty and fuel |
-| Catalyst prices and life | Ni 33.4 and Ru 542 USD/kg, 2 years, used as proxies for all catalysts | `results/research/catalyst_comparison/assumptions.json` | Cho et al. (2026); proxy | Catalyst cost share; break-even price reported instead |
+| Catalyst prices and life (Phase 1; superseded by derived prices, section 10) | Ni 33.4 and Ru 542 USD/kg, 2 years, used as proxies for all catalysts | `results/research/catalyst_comparison/assumptions.json` | Cho et al. (2026); proxy | Catalyst cost share; break-even price reported instead |
 | CAPEX | scaled from one purchased-equipment-cost point with a TCI/PEC factor; not a function of T, P, volume or area | `backend/amcrax/economics/singapore.py` | Farokhi PEC point, Chopra shares | Capital effects of temperature not represented |
 | Singapore prices and tax | NH3 450, 487, 709, 1000 USD/t; carbon tax SGD 45 (2026); 25,000 t threshold; electricity 0.140 USD/kWh (derived) | `backend/amcrax/data/singapore.yaml` | Source, URL and access date 2026-11-23 per entry; some `secondary_web` | Feed ammonia dominates LCOH |
-| PSA and membrane parameters | recovery 0.85 baseline; Sieverts from Richard (2024); infinite H2/N2 selectivity in the base case; delivery pressures 30 and 350 bar | `results/research/purification/assumptions.json` | see file | Purification costs are lower bounds for membranes |
+| PSA and membrane parameters (Phase 1) | recovery 0.85 baseline; Sieverts from Richard (2024); infinite H2/N2 selectivity in the Phase 1 base case (Phase 2 values in section 10); delivery pressures 30 and 350 bar | `results/research/purification/assumptions.json` | see file | Purification costs are lower bounds for membranes |
 | Turbine efficiencies and CCGT comparator | direct NH3 49.6 %, exhaust-heated full cracking 54.6 %, linear interpolation for blends; NG CCGT 0.55 | `results/research/enduse/assumptions.json` | Ahmad calibration; comparator is an assumption | Cost and carbon of power pathways |
 | LCA factors | GWP100 AR6; 5000 km shipping; grid 0.402 kg CO2e/kWh; low-confidence coal, SMR with CCS and methane leakage values | `results/research/lca/assumptions.json` | see file | Break-even emission intensities |
 
-## 10. Phase 2: reference scenario and added models (23 November 2026)
+## 10. Phase 2: reference scenario and added models (23 November 2026; fix pass 24 November 2026)
 
 All research cost paths read one file, `backend/amcrax/data/reference_scenario.yaml` (version 1.0.0). Every entry in it carries value, unit, source type, source and note. The values below are the ones that decide the research results. The file wins if it differs from this table.
 
 | Assumption | Value | Source type | Where | Note |
 |---|---|---|---|---|
-| CAPEX method | `cho2026_itemised_v1`, 2024 USD, 7.667 MUSD at baseline | literature (Cho et al., 2026 itemised table), extrapolated | `reference_scenario.yaml`; `docs/research/unified_baseline.md` | Chosen by criteria fixed before the outcomes were compared. Extrapolated more than 30-fold for the power-plant cracker. |
+| CAPEX method | `cho2026_itemised_v1`, 2024 USD, 7.667 MUSD at baseline | literature (Cho et al., 2026 itemised table), extrapolated | `reference_scenario.yaml`; `docs/research/unified_baseline.md` | Selection criteria recorded with the choice (commit 7447308); that they preceded the comparison cannot be shown. The highest of the comparable estimates: it works against cracking (raises LCOH, lowers the break-even ammonia price, widens the direct-use advantage in H1); no verdict changes across the independent range. Extrapolated more than 30-fold for the power-plant cracker. |
 | Operating hours | 8000 h/yr (capacity factor 0.913, derived) | literature | `operation` block | 7000 h in another source; sensitivity only |
 | Discount rate, life | 10 %, 25 yr | literature | `finance` block | No Singapore WACC sourced |
 | Ammonia price, grey | 450 USD/t | scenario | `reference_scenario.yaml` and `singapore.yaml` | Sourced prices span 300 to 1052 USD/t |
 | Electricity | 0.1402 USD/kWh | derived | `reference_scenario.yaml` | Replaces 0.084 USD/kWh of the legacy core model (section 6) in research outputs |
 | Exchange rate | 1.288444 SGD per USD (ECB reference rates of 20 November 2026; cross rate) | derived from official rates | `currency` block | The only conversion used in Phase 2 outputs |
 | Catalyst price | derived from metal content plus a non-metal part, central values 37 (Ni/MgO) to 4791 (Ru/Al2O3) USD/kg | derived (no supplier quotation exists) | `research/data/catalyst_prices.json` | Published TEA prices for Ru catalysts are below the Ru metal value and are shown only as a labelled historical case |
-| Exchanger coefficient U | range with a central value; no sourced value at 20 bar | assumption | `backend/amcrax/heat_integration/exchanger.py` | Break-even U is 7.7 to 11.3 W/(m2 K) |
+| Supplementary fuel efficiency | ammonia burned for process heat counted at 100 % of its lower heating value (`ammonia_fuel_heat_efficiency` 1.0) | assumption (optimistic) | `economics.yaml: defaults.ammonia_fuel_heat_efficiency` (section 6); envelope in `results/research/reference_scenario/baseline.json` key `fuel_efficiency_sensitivity` | LCOH 4.015 (1.0), 4.038 (0.9225, the flowsheet's own tail-gas ratio), 4.063 USD/kg (0.85); fired-cracking threshold of H1 +5.16, +5.82, +6.54 points (`enduse/turbine_threshold.json`) |
+| Exchanger coefficient U | range with a central value; no sourced value at 20 bar | assumption | `backend/amcrax/heat_integration/exchanger.py` | Break-even U is 7.7 to 11.3 W/(m2 K), inside the only sourced range (5 to 35 at about 1 bar); break-even capital recovery factor 0.186 / 0.223 / 0.244 (solved) |
 | Turbine efficiency | 49.64 % for every end-use pathway | assumption | `backend/amcrax/enduse/params.py` | Thresholds computed for the change that reverses each conclusion |
 | Carbon tax, actual boundary (Mode A) | SGD 45/tCO2e for 2026 and any later year; 25,000 t/yr facility threshold; upstream emissions outside the Act | official (statute) | `research/data/carbon_policy_sg.json` | N2O global warming potential 265 for the tax |
 | Carbon price, hypothetical (Mode B) | applied to life-cycle emissions; swept, not a point value | assumption | `results/research/carbon_pricing/` | Not Singapore law. Always labelled hypothetical |
-| Membrane H2/N2 selectivity | 40,541 to 500,000, ideal single gas, new membrane | literature (Cechetto et al., 2021) | `research/data/purification_literature.json` | The paper is internally inconsistent; both values are carried |
+| Membrane H2/N2 selectivity | 40,541 to 500,000, ideal single gas, new membrane | literature (Cechetto et al., 2021) | `research/data/purification_literature.json` | The paper is internally inconsistent; both values are carried. Required for Grade D: 12,919 |
+| Membrane cost and annualisation | 7,473 USD/m2 (6,800 EUR at 1.099 USD/EUR), 10,000 and 15,000 USD/m2; annualised with the capital recovery factor at the membrane life | literature and assumption | `results/research/purification/phase2_comparison.json` | Parity PSA recovery 0.783 (Grade D) and 0.795 (industrial) against the central membrane |
 | Uncertainty ranges for sensitivity analysis | ammonia price, CAPEX multiple (0.41 to 1.5), PSA recovery, electricity, catalyst inputs | sourced where available | `docs/research/uncertainty_quantification.md` | Indices hold inside the sampled ranges only |
 
 The legacy values (LCOH 3.92 USD/kg, electricity 0.084 USD/kWh, CAPEX correlation of section 6) are kept for the core stored results and are superseded for research outputs. Kinetic validity classes (validated against literature, extrapolated, not modelled) are in `results/research/kinetics/validity_classification.json`. No rate law is validated at 20 bar.

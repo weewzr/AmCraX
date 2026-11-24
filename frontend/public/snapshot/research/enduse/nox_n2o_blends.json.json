@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:24:58Z",
+  "generated_utc": "2026-11-24T06:08:36Z",
   "script": "scripts/research/enduse_threshold.py",
   "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
   "inputs_summary": "Ahmad 2025 Chemkin ppmv via amcrax.environmental.lca.n2o_noX_per_MWh; Carbon Pricing Act First Schedule GWP",

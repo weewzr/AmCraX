@@ -190,7 +190,7 @@ def main():
                  f"{adv['full_purified']['direct_cheaper_pct_of_cracking_1_minus_d_over_c']:.1f} % cheaper than cracking + PSA ({base['full_purified']:.1f}), as 1 - direct/cracking, "
                  f"ON THE ASSUMPTION that the turbine reaches the direct-NH3 efficiency ({ETA0*100:.2f} %) on the H2-rich fuel. "
                  f"Against an exhaust-heated cracker (Ahmad's +{DSYS_AHMAD*100:.2f} pp system gain) direct use is {-adv['full_exhaust']['direct_cheaper_pct_of_cracking_1_minus_d_over_c']:.1f} % dearer ({base['full_exhaust']:.1f})."),
-        "old_pre_unification": {"fired_pct": 5.0, "purified_pct": 15.0, "exhaust_pct": -4.0, "source": "docs/internal/research_reports/enduse-lca.md (Phase 1: LCOE 259 / 273 / 304 / 248 USD/MWh); the user's 'about 5 to 15 %'"},
+        "old_pre_unification": {"fired_pct": 5.0, "purified_pct": 15.0, "exhaust_pct": -4.0, "source": "Phase 1 end-use results of the 23 November 2026 release (LCOE 259 / 273 / 304 / 248 USD/MWh), quoted as about 5 to 15 %"},
         "new_unified": adv,
     }
 

@@ -3,31 +3,9 @@
   "generated_utc": "2026-11-23",
   "script": "hand-authored table (methodology workstream)",
   "source_type": "literature",
-  "inputs_summary": "abstracts and bibliographic records of publications by K. Shirvan and C. W. Forsberg (MIT NSE), DOIs checked via doi.org handle API and Crossref on 2026-11-23; repository data inventory of research/notes and results/research",
+  "inputs_summary": "abstracts and bibliographic records of publications in the nuclear-engineering literature (uncertainty quantification, design for cost, high-temperature heat and integrated energy systems), DOIs checked via doi.org handle API and Crossref on 2026-11-23; repository data inventory of research/notes and results/research",
   "model_versions": {}
  },
- "researchers": [
-  {
-   "name": "Koroush Shirvan",
-   "position": "Associate Professor of Nuclear Science and Engineering, MIT",
-   "official_page": "https://nse.mit.edu/people/faculty/shirvan.html",
-   "personal_research_page": "https://web.mit.edu/kshirvan/www/",
-   "lab_site_linked_from_official_page": "https://spacenuclear.mit.edu/ (Aerospace Nuclear @ MIT, one thrust led by K. Shirvan)",
-   "listed_research_areas": "reactor design incl. design for cost, AI/ML and uncertainty quantification; nuclear fuels and materials; space nuclear power and propulsion; safety; boiling heat transfer",
-   "access_date": "2026-11-23",
-   "verified": true
-  },
-  {
-   "name": "Charles W. Forsberg",
-   "position": "Principal Research Scientist, MIT Department of Nuclear Science and Engineering",
-   "official_page": "https://nse.mit.edu/people/research/forsberg.html",
-   "orcid": "https://orcid.org/0000-0002-2778-3135",
-   "group_page": "none linked from the official page",
-   "listed_research_areas": "heat storage coupled to reactors (firebrick, CRUSH), salt-cooled reactors, nuclear-assisted liquid biofuels, zero-carbon integrated energy systems, waste management, fuel cycles",
-   "access_date": "2026-11-23",
-   "verified": true
-  }
- ],
  "matrix_columns": [
   "publication",
   "methodology",
@@ -52,7 +30,7 @@
    "scientific_value": "High in principle (replaces one-at-a-time confidence-interval bars with a joint parameter distribution). Limited in practice: 3 points per catalyst cannot identify 4 Lucentini parameters, and the Takahashi points cannot fix absolute activity without the catalyst mass.",
    "implementation_feasibility": "medium (Takahashi shape parameters, as a model-form diagnostic); low (Lucentini calibration: under-determined and double counting); effort about 2-3 days",
    "validation_requirements": "Synthetic-data recovery test; split of data into calibration and held-out validation sets; posterior predictive check; R-hat and effective sample size; result labelled as calibration to published 1 atm laboratory data, not experimental validation of the plant model.",
-   "decision": "implement (partly): see T2 in docs/internal/phase2_uq_spec.md",
+   "decision": "implement (partly): see T2 in Section 37 of the technical report (uncertainty quantification)",
    "source_type": "literature",
    "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
    "evidence_grade": "abstract-level",
@@ -105,7 +83,7 @@
    "publication": "Che, Y. (2022). Application of data-driven methods in nuclear fuel performance analysis [Doctoral dissertation, Massachusetts Institute of Technology]. DSpace@MIT. https://dspace.mit.edu/handle/1721.1/143359",
    "source_link": "https://dspace.mit.edu/handle/1721.1/143359",
    "doi": null,
-   "what_was_read": "DSpace record and abstract (thesis supervised by K. Shirvan); full text not read",
+   "what_was_read": "repository record and abstract; full text not read",
    "methodology": "Validation and verification of BISON; sensitivity analysis over the complete set of uncertain inputs to rank importance and reduce the number carried into UQ; Bayesian calibration of the code; ML surrogates of full-core fuel response; multi-fidelity ML.",
    "potential_amcrax_application": "Screen first, then quantify: a variance-based global sensitivity analysis of the unified techno-economic model replaces the one-at-a-time tornado, and a sensitivity screen of the kinetic parameters precedes the calibration (only parameters that move the output are calibrated).",
    "required_data": "Held: the input ranges already used by results/research/singapore/monte_carlo.json and tornado.json (all sourced in backend/amcrax/data/singapore.yaml and economics.yaml).",
@@ -185,7 +163,7 @@
    "publication": "Radaideh, M. I., Wolverton, I., Joseph, J., Tusar, J. J., Otgonbaatar, U., Roy, N., Forget, B., & Shirvan, K. (2021). Physics-informed reinforcement learning optimization of nuclear assembly design. Nuclear Engineering and Design, 372, 110966. https://doi.org/10.1016/j.nucengdes.2020.110966",
    "source_link": "https://doi.org/10.1016/j.nucengdes.2020.110966 (open copy: https://hdl.handle.net/1721.1/130571)",
    "doi": "10.1016/j.nucengdes.2020.110966",
-   "what_was_read": "DSpace@MIT abstract",
+   "what_was_read": "repository abstract",
    "methodology": "Deep Q-learning and proximal policy optimisation, with designer rules encoded, for combinatorial fuel-assembly layout; compared with genetic algorithms and simulated annealing on spaces of about 2e6 and 1e31 layouts.",
    "potential_amcrax_application": "None. The AmCraX design space is low-dimensional and continuous (temperature, pressure, catalyst mass, recovery); the existing optimisation module already covers it.",
    "required_data": "Not applicable.",
@@ -310,7 +288,7 @@
     "S7"
    ],
    "feasibility": "high",
-   "spec": "docs/internal/phase2_uq_spec.md#t1"
+   "spec": "technical report Section 37 (T1, global sensitivity analysis)"
   },
   {
    "rank": 2,
@@ -320,7 +298,7 @@
     "S1"
    ],
    "feasibility": "high",
-   "spec": "docs/internal/phase2_uq_spec.md#t2a"
+   "spec": "technical report Section 37 (T2a, propagation of kinetic parameter intervals)"
   },
   {
    "rank": 3,
@@ -331,7 +309,7 @@
     "S2"
    ],
    "feasibility": "medium",
-   "spec": "docs/internal/phase2_uq_spec.md#t2b"
+   "spec": "technical report Section 37 (T2b, diagnostic calibration)"
   }
  ],
  "rejected": [

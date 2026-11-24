@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T05:28:50Z",
+  "generated_utc": "2026-11-24T07:33:40Z",
   "script": "scripts/research/purification_phase2.py",
   "source_type": "python",
   "inputs_summary": "Phase 2 D2: PSA against Pd-Ag membrane on the unified reference basis; low/central/high from sourced inputs (purification_literature.json)",
@@ -396,11 +396,11 @@
      "capital_USD": 0.0,
      "membrane_area_m2": 31.06303959254718,
      "membrane_module_cost_USD": 232140.3074830236,
-     "replacement_USD_per_yr": 46428.061496604714,
-     "purification_only_usd_per_kg": 0.2912156458395638,
-     "lcoh_usd_per_kg_usable": 4.10163200957727,
-     "lcoh_sgd_per_kg_usable": 5.284723152947776,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.10163200957727,
+     "replacement_USD_per_yr": 61238.02830493917,
+     "purification_only_usd_per_kg": 0.29816508996434776,
+     "lcoh_usd_per_kg_usable": 4.108581453702054,
+     "lcoh_sgd_per_kg_usable": 5.293677122533689,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.108581453702054,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -434,11 +434,11 @@
      "capital_USD": 0.0,
      "membrane_area_m2": 31.06301088507374,
      "membrane_module_cost_USD": 310630.1088507374,
-     "replacement_USD_per_yr": 103543.36961691246,
-     "purification_only_usd_per_kg": 0.31801701415520245,
-     "lcoh_usd_per_kg_usable": 4.12843337791263,
-     "lcoh_sgd_per_kg_usable": 5.31925521517126,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.12843337791263,
+     "replacement_USD_per_yr": 124908.96522064385,
+     "purification_only_usd_per_kg": 0.32804262830832154,
+     "lcoh_usd_per_kg_usable": 4.1384589920657495,
+     "lcoh_sgd_per_kg_usable": 5.332172657573162,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.1384589920657495,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -472,11 +472,11 @@
      "capital_USD": 0.0,
      "membrane_area_m2": 35.242694677172025,
      "membrane_module_cost_USD": 528640.4201575804,
-     "replacement_USD_per_yr": 264320.21007879014,
-     "purification_only_usd_per_kg": 0.3992497764984978,
-     "lcoh_usd_per_kg_usable": 4.262380171623478,
-     "lcoh_sgd_per_kg_usable": 5.491838157847241,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.262380171623478,
+     "replacement_USD_per_yr": 304597.5754241294,
+     "purification_only_usd_per_kg": 0.4190286291395907,
+     "lcoh_usd_per_kg_usable": 4.282159024264572,
+     "lcoh_sgd_per_kg_usable": 5.517322101859541,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.282159024264572,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -487,8 +487,8 @@
    "factorial_summary": {
     "central": {
      "psa": 4.26925199727613,
-     "membrane": 4.12843337791263,
-     "membrane_minus_psa": -0.1408186193634995,
+     "membrane": 4.1384589920657495,
+     "membrane_minus_psa": -0.1307930052103803,
      "cheaper": "membrane"
     },
     "psa_range": [
@@ -496,30 +496,30 @@
      5.623063270103693
     ],
     "membrane_range": [
-     3.987451231423987,
-     4.4192743126262055
+     3.994441935568286,
+     4.439053165267299
     ],
     "psa_range_sgd": [
      5.1167264929546565,
      7.2450021319854825
     ],
     "membrane_range_sgd": [
-     5.137607614420848,
-     5.6939874724573585
+     5.146614745231345,
+     5.719471416469659
     ],
     "membrane_infeasible_combinations": 0,
     "pairs": 2916,
-    "pairs_membrane_cheaper": 1716,
-    "share_membrane_cheaper": 0.588477366255144,
+    "pairs_membrane_cheaper": 1659,
+    "share_membrane_cheaper": 0.5689300411522634,
     "psa_minus_membrane_range_usd": [
-     -0.4177578334091896,
-     1.6053403267592565
+     -0.43753668605028295,
+     1.5983496226149576
     ],
     "ranking_robust": false,
-    "ranking_reading": "NOT robust: membrane cheaper in 1716 of 2916 input pairs (shared electricity price)"
+    "ranking_reading": "NOT robust: membrane cheaper in 1659 of 2916 input pairs (shared electricity price)"
    },
    "one_at_a_time": {
-    "central_membrane": 4.12843337791263,
+    "central_membrane": 4.1384589920657495,
     "central_psa": 4.26925199727613,
     "rows": [
      {
@@ -527,83 +527,83 @@
       "input": "membrane cost",
       "level": "low",
       "value": 7473.2,
-      "lcoh": 4.116156465863236,
-      "delta_vs_central": -0.012276912049394184
+      "lcoh": 4.123648807832146,
+      "delta_vs_central": -0.014810184233603252
      },
      {
       "tech": "membrane",
       "input": "membrane cost",
       "level": "high",
       "value": 15000.0,
-      "lcoh": 4.152726776775606,
-      "delta_vs_central": 0.024293398862975657
+      "lcoh": 4.1677651980052834,
+      "delta_vs_central": 0.029306205939533925
      },
      {
       "tech": "membrane",
       "input": "membrane life",
       "level": "low_cost",
       "value": 5.0,
-      "lcoh": 4.10899865882225,
-      "delta_vs_central": -0.019434719090380526
+      "lcoh": 4.118297804706649,
+      "delta_vs_central": -0.020161187359100552
      },
      {
       "tech": "membrane",
       "input": "membrane life",
       "level": "high_cost",
       "value": 2.0,
-      "lcoh": 4.152726776775606,
-      "delta_vs_central": 0.024293398862975657
+      "lcoh": 4.1638323305415375,
+      "delta_vs_central": 0.025373338475787932
      },
      {
       "tech": "membrane",
       "input": "selectivity",
       "level": "low",
       "value": 40540.54054054054,
-      "lcoh": 4.128454533557489,
+      "lcoh": 4.138479736979933,
       "n2_ppm": 95.62717564202218,
       "meets": true,
-      "delta_vs_central": 2.115564485904997e-05
+      "delta_vs_central": 2.07449141838012e-05
      },
      {
       "tech": "membrane",
       "input": "selectivity",
       "level": "high",
       "value": 500000.0,
-      "lcoh": 4.128432900665817,
+      "lcoh": 4.138458524084299,
       "n2_ppm": 7.755060438717856,
       "meets": true,
-      "delta_vs_central": -4.772468136238217e-07
+      "delta_vs_central": -4.6798145092452614e-07
      },
      {
       "tech": "membrane",
       "input": "flux multiplier",
       "level": "low",
       "value": 0.8108108108108107,
-      "lcoh": 4.139770297382261,
-      "delta_vs_central": 0.011336919469631113
+      "lcoh": 4.152135221504439,
+      "delta_vs_central": 0.013676229438689624
      },
      {
       "tech": "membrane",
       "input": "membrane recovery",
       "level": "low",
       "value": 0.86,
-      "lcoh": 4.179336199298208,
-      "delta_vs_central": 0.050902821385578
+      "lcoh": 4.18898812878991,
+      "delta_vs_central": 0.05052913672416004
      },
      {
       "tech": "membrane",
       "input": "membrane recovery",
       "level": "high",
       "value": 0.905,
-      "lcoh": 4.122460269430242,
-      "delta_vs_central": -0.005973108482388412
+      "lcoh": 4.132545407007611,
+      "delta_vs_central": -0.0059135850581384375
      },
      {
       "tech": "membrane",
       "input": "electricity",
       "level": "low",
       "value": 0.084,
-      "lcoh": 4.020384637382246,
+      "lcoh": 4.030410251535365,
       "delta_vs_central": -0.10804874053038471
      },
      {
@@ -619,7 +619,7 @@
       "input": "electricity",
       "level": "high",
       "value": 0.221898,
-      "lcoh": 4.285315384566793,
+      "lcoh": 4.2953409987199125,
       "delta_vs_central": 0.15688200665416296
      },
      {
@@ -660,30 +660,30 @@
     "low": {
      "psa_recovery": 0.5715000000000013,
      "psa_lcoh_usd": 5.605137502855437,
-     "membrane_cost_USD_per_m2_at_parity": 313931.14880136785,
-     "membrane_cost_EUR_per_m2_at_parity": 285651.6367619362,
-     "membrane_life_yr_at_parity": 0.09556235535894976,
+     "membrane_cost_USD_per_m2_at_parity": 260233.4341428822,
+     "membrane_cost_EUR_per_m2_at_parity": 236791.11386977453,
+     "membrane_life_yr_at_parity": 0.1007467342148578,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
     "central": {
      "psa_recovery": 0.751626143976041,
      "psa_lcoh_usd": 4.26925199727613,
-     "membrane_cost_USD_per_m2_at_parity": 38982.89781470513,
-     "membrane_cost_EUR_per_m2_at_parity": 35471.244599367725,
-     "membrane_life_yr_at_parity": 0.769568238425907,
+     "membrane_cost_USD_per_m2_at_parity": 32314.899014944687,
+     "membrane_cost_EUR_per_m2_at_parity": 29403.911751542026,
+     "membrane_life_yr_at_parity": 0.8401963742916477,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
     "high": {
      "psa_recovery": 0.85,
      "psa_lcoh_usd": 4.04624746128486,
-     "membrane_cost_USD_per_m2_at_parity": -6915.277498083129,
-     "membrane_cost_EUR_per_m2_at_parity": -6292.336212996478,
+     "membrane_cost_USD_per_m2_at_parity": -5732.423871438813,
+     "membrane_cost_EUR_per_m2_at_parity": -5216.036279744143,
      "membrane_life_yr_at_parity": null,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
-    "psa_recovery_at_parity_with_central_membrane": 0.8008247288466054,
+    "psa_recovery_at_parity_with_central_membrane": 0.7952126379803761,
     "psa_recovery_at_parity_with_high_cost_membrane": {
-     "value": 0.7528467344686476,
+     "value": 0.7493442321113698,
      "membrane_case": "15,000 USD/m2, 2 yr, R 0.86, alpha 40,500, flux x0.81"
     },
     "selectivity": {
@@ -855,11 +855,11 @@
      "capital_USD": 239338.83028955024,
      "membrane_area_m2": 31.06303959254718,
      "membrane_module_cost_USD": 232140.3074830236,
-     "replacement_USD_per_yr": 46428.061496604714,
-     "purification_only_usd_per_kg": 0.5058946944007234,
-     "lcoh_usd_per_kg_usable": 4.316300975350887,
-     "lcoh_sgd_per_kg_usable": 5.5613120938849985,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.316300975350887,
+     "replacement_USD_per_yr": 61238.02830493917,
+     "purification_only_usd_per_kg": 0.5128441385255075,
+     "lcoh_usd_per_kg_usable": 4.323250419475671,
+     "lcoh_sgd_per_kg_usable": 5.570266063470911,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.323250419475671,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -894,11 +894,11 @@
      "capital_USD": 239338.83028955024,
      "membrane_area_m2": 31.06301088507374,
      "membrane_module_cost_USD": 310630.1088507374,
-     "replacement_USD_per_yr": 103543.36961691246,
-     "purification_only_usd_per_kg": 0.5326964449627821,
-     "lcoh_usd_per_kg_usable": 4.343102725913119,
-     "lcoh_sgd_per_kg_usable": 5.595844648586402,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.343102725913119,
+     "replacement_USD_per_yr": 124908.96522064385,
+     "purification_only_usd_per_kg": 0.5427220591159011,
+     "lcoh_usd_per_kg_usable": 4.353128340066239,
+     "lcoh_sgd_per_kg_usable": 5.608762090988305,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.353128340066239,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -933,11 +933,11 @@
      "capital_USD": 239338.83028955024,
      "membrane_area_m2": 35.242694677172025,
      "membrane_module_cost_USD": 528640.4201575804,
-     "replacement_USD_per_yr": 264320.21007879014,
-     "purification_only_usd_per_kg": 0.6147550011879621,
-     "lcoh_usd_per_kg_usable": 4.477875312725639,
-     "lcoh_sgd_per_kg_usable": 5.769491579429473,
-     "lcoh_usd_per_kg_product_ignoring_spec": 4.477875312725639,
+     "replacement_USD_per_yr": 304597.5754241294,
+     "purification_only_usd_per_kg": 0.634533853829055,
+     "lcoh_usd_per_kg_usable": 4.497654165366732,
+     "lcoh_sgd_per_kg_usable": 5.794975523441773,
+     "lcoh_usd_per_kg_product_ignoring_spec": 4.497654165366732,
      "readiness": {
       "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
       "trl": "4 to 5",
@@ -949,8 +949,8 @@
    "factorial_summary": {
     "central": {
      "psa": 4.463460302263019,
-     "membrane": 4.343102725913119,
-     "membrane_minus_psa": -0.12035757634989963,
+     "membrane": 4.353128340066239,
+     "membrane_minus_psa": -0.11033196219677954,
      "cheaper": "membrane"
     },
     "psa_range": [
@@ -958,30 +958,30 @@
      6.092952611299228
     ],
     "membrane_range": [
-     4.122920391721971,
-     4.74963341014071
+     4.1299110958662695,
+     4.7694122627818025
     ],
     "psa_range_sgd": [
      5.343334206953705,
      7.8504282343128216
     ],
     "membrane_range_sgd": [
-     5.312152041191823,
-     6.119636669495336
+     5.32115917200232,
+     6.145120613507636
     ],
     "membrane_infeasible_combinations": 0,
     "pairs": 2916,
-    "pairs_membrane_cheaper": 1746,
-    "share_membrane_cheaper": 0.5987654320987654,
+    "pairs_membrane_cheaper": 1677,
+    "share_membrane_cheaper": 0.5751028806584362,
     "psa_minus_membrane_range_usd": [
-     -0.3832170243201283,
-     1.7507376387817333
+     -0.40299587696122074,
+     1.7437469346374348
     ],
     "ranking_robust": false,
-    "ranking_reading": "NOT robust: membrane cheaper in 1746 of 2916 input pairs (shared electricity price)"
+    "ranking_reading": "NOT robust: membrane cheaper in 1677 of 2916 input pairs (shared electricity price)"
    },
    "one_at_a_time": {
-    "central_membrane": 4.343102725913119,
+    "central_membrane": 4.353128340066239,
     "central_psa": 4.463460302263019,
     "rows": [
      {
@@ -989,84 +989,84 @@
       "input": "membrane cost",
       "level": "low",
       "value": 7473.2,
-      "lcoh": 4.330825813863726,
-      "delta_vs_central": -0.012276912049393296
+      "lcoh": 4.338318155832635,
+      "delta_vs_central": -0.01481018423360414
      },
      {
       "tech": "membrane",
       "input": "membrane cost",
       "level": "high",
       "value": 15000.0,
-      "lcoh": 4.3673961247760955,
-      "delta_vs_central": 0.024293398862976545
+      "lcoh": 4.382434546005773,
+      "delta_vs_central": 0.029306205939533925
      },
      {
       "tech": "membrane",
       "input": "membrane life",
       "level": "low_cost",
       "value": 5.0,
-      "lcoh": 4.323668006822738,
-      "delta_vs_central": -0.019434719090380526
+      "lcoh": 4.332967152707138,
+      "delta_vs_central": -0.02016118735910144
      },
      {
       "tech": "membrane",
       "input": "membrane life",
       "level": "high_cost",
       "value": 2.0,
-      "lcoh": 4.3673961247760955,
-      "delta_vs_central": 0.024293398862976545
+      "lcoh": 4.378501678542027,
+      "delta_vs_central": 0.025373338475787932
      },
      {
       "tech": "membrane",
       "input": "selectivity",
       "level": "low",
       "value": 40540.54054054054,
-      "lcoh": 4.343140825148218,
+      "lcoh": 4.353166028570661,
       "n2_ppm": 95.62745057014527,
       "meets": true,
-      "delta_vs_central": 3.809923509923152e-05
+      "delta_vs_central": 3.768850442220639e-05
      },
      {
       "tech": "membrane",
       "input": "selectivity",
       "level": "high",
       "value": 500000.0,
-      "lcoh": 4.343101866439434,
+      "lcoh": 4.353127489857916,
       "n2_ppm": 7.755082734516059,
       "meets": true,
-      "delta_vs_central": -8.594736851108564e-07
+      "delta_vs_central": -8.502083232997393e-07
      },
      {
       "tech": "membrane",
       "input": "flux multiplier",
       "level": "low",
       "value": 0.8108108108108107,
-      "lcoh": 4.3544396453827545,
-      "delta_vs_central": 0.011336919469635554
+      "lcoh": 4.366804569504932,
+      "delta_vs_central": 0.013676229438693177
      },
      {
       "tech": "membrane",
       "input": "membrane recovery",
       "level": "low",
       "value": 0.86,
-      "lcoh": 4.394815913571976,
-      "delta_vs_central": 0.051713187658856796
+      "lcoh": 4.404467843063676,
+      "delta_vs_central": 0.05133950299743706
      },
      {
       "tech": "membrane",
       "input": "membrane recovery",
       "level": "high",
       "value": 0.905,
-      "lcoh": 4.337033364854275,
-      "delta_vs_central": -0.006069361058844258
+      "lcoh": 4.347118502431644,
+      "delta_vs_central": -0.006009837634595172
      },
      {
       "tech": "membrane",
       "input": "electricity",
       "level": "low",
       "value": 0.084,
-      "lcoh": 4.15595029311243,
-      "delta_vs_central": -0.18715243280068883
+      "lcoh": 4.165975907265549,
+      "delta_vs_central": -0.18715243280068972
      },
      {
       "tech": "psa",
@@ -1081,7 +1081,7 @@
       "input": "electricity",
       "level": "high",
       "value": 0.221898,
-      "lcoh": 4.614839805529738,
+      "lcoh": 4.624865419682858,
       "delta_vs_central": 0.27173707961661897
      },
      {
@@ -1122,30 +1122,30 @@
     "low": {
      "psa_recovery": 0.555,
      "psa_lcoh_usd": 5.96309462294116,
-     "membrane_cost_USD_per_m2_at_parity": 343422.24078348675,
-     "membrane_cost_EUR_per_m2_at_parity": 312486.1153625903,
-     "membrane_life_yr_at_parity": 0.08735601960885692,
+     "membrane_cost_USD_per_m2_at_parity": 284680.09441355406,
+     "membrane_cost_EUR_per_m2_at_parity": 259035.57271478986,
+     "membrane_life_yr_at_parity": 0.09205712362174934,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
     "central": {
      "psa_recovery": 0.7512760443382585,
      "psa_lcoh_usd": 4.463460302263019,
-     "membrane_cost_USD_per_m2_at_parity": 34771.66267033402,
-     "membrane_cost_EUR_per_m2_at_parity": 31639.36548711012,
-     "membrane_life_yr_at_parity": 0.8627715126661196,
+     "membrane_cost_USD_per_m2_at_parity": 28823.99284718348,
+     "membrane_cost_EUR_per_m2_at_parity": 26227.473018365316,
+     "membrane_life_yr_at_parity": 0.9466772872879904,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
     "high": {
      "psa_recovery": 0.81,
      "psa_lcoh_usd": 4.3045747726420815,
-     "membrane_cost_USD_per_m2_at_parity": 2070.2834773448208,
-     "membrane_cost_EUR_per_m2_at_parity": 1883.7884234256787,
-     "membrane_life_yr_at_parity": 14.49076917644182,
+     "membrane_cost_USD_per_m2_at_parity": 1716.162862512206,
+     "membrane_cost_EUR_per_m2_at_parity": 1561.5676637963659,
+     "membrane_life_yr_at_parity": null,
      "note": "membrane cheaper below the parity cost / above the parity life (other inputs central)"
     },
-    "psa_recovery_at_parity_with_central_membrane": 0.7883735148068309,
+    "psa_recovery_at_parity_with_central_membrane": 0.7829339880444707,
     "psa_recovery_at_parity_with_high_cost_membrane": {
-     "value": 0.7487307992805515,
+     "value": 0.7452664016132048,
      "membrane_case": "15,000 USD/m2, 2 yr, R 0.86, alpha 40,500, flux x0.81"
     },
     "selectivity": {
@@ -1265,13 +1265,18 @@
   "phase2": "Required ideal H2/N2 selectivity for Grade D (N2 300 ppm, R 0.90, 1 bar permeate, 400 degC): 12919. Sourced: Cechetto et al. 2021 state above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance gives about 40,541. The requirement is met by every sourced value, but only as ideal (single-gas) values of NEW membranes from one group, at 450 degC, with trace NH3 only; mixed-gas and aged selectivity were not found (a review excerpt reporting decay 6000 -> 4300 and 4300 -> 1000 in about 1000 h could not be opened and is not used).",
   "nus_researchers": "Zhang Sui and Zhao Dan are membrane scientists at NUS Chemical and Biomolecular Engineering. Their verified published gas-separation work is on non-metallic membranes at low temperature and does not address cracked-ammonia purification. No number from their work is used in AmCraX and no specific work is attributed to them here (research/notes/nus_membrane_researchers.md)"
  },
+ "csv_column_notes": {
+  "capital_USD": "Fixed purification capital other than membrane modules, charged with the capital recovery factor plus maintenance and insurance: the PSA + TSA units for PSA; for the membrane only the NH3 polishing bed (Grade D only, an adsorber-share proxy). Zero for the industrial-grade membrane, which needs no polishing bed.",
+  "membrane_module_cost_USD": "Purchase cost of the Pd-Ag membrane modules (area x cost per m2). Not part of capital_USD: it is annualised over the membrane life with the capital recovery factor at that life.",
+  "replacement_USD_per_yr": "Annualised membrane module cost (area x cost per m2 x capital recovery factor at the membrane life); it covers the module replacement."
+ },
  "h4b_purity_cost_check": {
   "by_electricity": [
    {
     "electricity": 0.084,
     "raw_turbine_blend": 3.767638780001679,
     "cheapest_industrial": 3.971244767296566,
-    "cheapest_grade_D": 4.122920391721971,
+    "cheapest_grade_D": 4.1299110958662695,
     "order_raw_lt_industrial_lt_gradeD": true
    },
    {
@@ -1302,8 +1307,8 @@
     "increment": 0.001955142550585265
    },
    "membrane_central": {
-    "industrial": 4.12843337791263,
-    "grade_D_at_30bar": 4.145849110492834,
+    "industrial": 4.1384589920657495,
+    "grade_D_at_30bar": 4.155874724645953,
     "increment": 0.017415732580203347,
     "cause": "NH3 polishing bed (measured permeate NH3 2.9 ppm > 0.1 ppm limit); bed cost is a proxy"
    }
@@ -1326,14 +1331,14 @@
    "reason": "the direction is shown by one literature source for a different feed (literature_comparison), not computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"
   },
   "H4-b": {
-   "proposed_verdict": "SUPPORTED (direction), narrow envelope; orchestrator to decide",
+   "proposed_verdict": "SUPPORTED (direction), narrow envelope; the evidence matrix rule decides",
    "numbers": {
     "by_electricity": [
      {
       "electricity": 0.084,
       "raw_turbine_blend": 3.767638780001679,
       "cheapest_industrial": 3.971244767296566,
-      "cheapest_grade_D": 4.122920391721971,
+      "cheapest_grade_D": 4.1299110958662695,
       "order_raw_lt_industrial_lt_gradeD": true
      },
      {
@@ -1363,8 +1368,8 @@
       "increment": 0.001955142550585265
      },
      "membrane_central": {
-      "industrial": 4.12843337791263,
-      "grade_D_at_30bar": 4.145849110492834,
+      "industrial": 4.1384589920657495,
+      "grade_D_at_30bar": 4.155874724645953,
       "increment": 0.017415732580203347,
       "cause": "NH3 polishing bed (measured permeate NH3 2.9 ppm > 0.1 ppm limit); bed cost is a proxy"
      }
@@ -1374,7 +1379,7 @@
    "uncertainty": "factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, selectivity, flux, recovery)",
    "envelope": "20 bar baseline cracked gas, grey NH3 450 USD/t, electricity 0.084-0.222 USD/kWh, unified basis",
    "threshold": "none needed for the sign: the Grade D increment of the cheapest route is positive in every input combination; its purity-only part at equal delivery is small (membrane: polishing bed; PSA: about zero under the flat relation, positive under Yanez)",
-   "reason": "ordering raw < cheapest industrial < cheapest Grade D holds at every electricity price and every sourced input combination (order_holds_everywhere = True). Caveat: raw < industrial is structural (raw skips purification) and most of the Grade D increment is 350 bar delivery, not purity; the orchestrator may judge the purity-only part too small or too proxy-dependent and keep INCONCLUSIVE"
+   "reason": "ordering raw < cheapest industrial < cheapest Grade D holds at every electricity price and every sourced input combination (order_holds_everywhere = True). Caveat: raw < industrial is structural (raw skips purification) and most of the Grade D increment is 350 bar delivery, not purity; the evidence matrix rule may judge the purity-only part too small or too proxy-dependent and keep INCONCLUSIVE"
   },
   "H4-c": {
    "proposed_verdict": "CONTRADICTED (unchanged)",
@@ -1392,39 +1397,39 @@
   "H4-d": {
    "proposed_verdict": "INCONCLUSIVE",
    "numbers": {
-    "central_membrane_usd": 4.343102725913119,
+    "central_membrane_usd": 4.353128340066239,
     "central_psa_usd": 4.463460302263019,
     "membrane_range_usd": [
-     4.122920391721971,
-     4.74963341014071
+     4.1299110958662695,
+     4.7694122627818025
     ],
     "psa_range_usd": [
      4.147121805025058,
      6.092952611299228
     ],
-    "share_pairs_membrane_cheaper": 0.5987654320987654,
-    "psa_recovery_at_parity_central_membrane": 0.7883735148068309,
-    "psa_recovery_at_parity_high_cost_membrane": 0.7487307992805515,
-    "membrane_cost_at_parity_vs_central_psa_USD_m2": 34771.66267033402,
-    "membrane_life_at_parity_vs_central_psa_yr": 0.8627715126661196,
-    "membrane_cost_at_parity_vs_psa_0.81_USD_m2": 2070.2834773448208,
+    "share_pairs_membrane_cheaper": 0.5751028806584362,
+    "psa_recovery_at_parity_central_membrane": 0.7829339880444707,
+    "psa_recovery_at_parity_high_cost_membrane": 0.7452664016132048,
+    "membrane_cost_at_parity_vs_central_psa_USD_m2": 28823.99284718348,
+    "membrane_life_at_parity_vs_central_psa_yr": 0.9466772872879904,
+    "membrane_cost_at_parity_vs_psa_0.81_USD_m2": 1716.162862512206,
     "required_selectivity": 12919.012144694208,
     "sourced_selectivity": [
      40540.54054054054,
      400000.0,
      500000.0
     ],
-    "industrial_share_pairs_membrane_cheaper": 0.588477366255144,
-    "industrial_psa_recovery_at_parity": 0.8008247288466054
+    "industrial_share_pairs_membrane_cheaper": 0.5689300411522634,
+    "industrial_psa_recovery_at_parity": 0.7952126379803761
    },
    "assumptions": "membrane housing, skid and heating CAPEX not modelled (favours the membrane); PSA own power and TSA heat not modelled (favours PSA); permeate at 1 bar",
    "uncertainty": "factorial over sourced inputs; ranking reverses inside it",
-   "envelope": "membrane cheaper only if PSA Grade D recovery is below about 0.788 (central membrane) or 0.749 (high-cost membrane)",
-   "threshold": "PSA recovery at parity about 0.75-0.79 (Grade D) and 0.75-0.80 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above). Membrane cost (parity about 34,800 USD/m2) and life (parity about 0.9 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values",
+   "envelope": "membrane cheaper only if PSA Grade D recovery is below about 0.783 (central membrane) or 0.745 (high-cost membrane)",
+   "threshold": "PSA recovery at parity 0.745-0.783 (Grade D; high-cost to central membrane) and 0.749-0.795 (industrial); sourced PSA values straddle it (0.555 Yanez, different feed, below; 0.81 Mehr, low confidence, above). Membrane cost (parity 28,824 USD/m2 against the central PSA) and life (parity 0.95 yr) are outside the sourced ranges, so they do not decide the ranking; selectivity requirement 12,919 is below all sourced ideal values. Membrane annualised with CRF(i, life)",
    "reason": "the ranking is decided by an unsourced PSA recovery; readiness also differs: Pd-Ag downstream separator TRL 4 to 5 against PSA unit 9 / integrated chain 6 to 7; Ammogen did not meet its recovery KPI. Secondary row, does not vote"
   },
   "H4-e": {
-   "proposed_verdict": "SUPPORTED",
+   "proposed_verdict": "INCONCLUSIVE (fix pass 24 Nov 2026: the direction restates the flowsheet's tail-gas routing; the threshold recovery is the finding and sourced recoveries 0.555-0.85 straddle it)",
    "numbers": {
     "furnace_demand_kW": 2293.1167774,
     "recovery_where_tail_heat_equals_demand": 0.7650557556718534,

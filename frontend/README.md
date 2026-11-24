@@ -7,7 +7,7 @@ One app, two areas (see `src/App.tsx`):
 
 | Area | Routes | What |
 |---|---|---|
-| Public website | `#/`, `#/why`, `#/pfd`, `#/methodology`, `#/results`, `#/architecture`, `#/research`, `#/docs`, `#/about` | Nine sections with top navigation, footer, interactive PFD, charts rendered from the snapshot, equilibrium calculator, downloads. Code in `src/site/`. |
+| Public website | `#/` (interactive process simulator), `#/hypotheses` and `#/hypotheses/{catalyst,economics,purification,end-use,validation,aspen-evidence}`, `#/overview`, `#/why`, `#/pfd`, `#/methodology`, `#/results`, `#/architecture`, `#/research`, `#/docs`, `#/about` | Eleven sections with top navigation, footer, the simulator as first page, the hypothesis pages, interactive PFD, charts rendered from the snapshot, equilibrium calculator, downloads. Code in `src/site/` (hypothesis pages in `src/site/hyp/`), the simulator page in `src/simulator/` and its browser model in `src/sim/`. |
 | Engineering platform | `#/platform` and `#/platform/{pfd,simulation,reactor,heat,sensitivity,optimisation,economics,environment,validation,reports}` | The eleven-page dashboard (`src/pages/`, shell in `src/components/Shell.tsx`, routes in `src/platform/PlatformApp.tsx`, lazy-loaded). Build every dashboard link with `platformPath()` from `src/site/routes.ts`. |
 
 The site's primary call to action goes to `#/platform/pfd`. Anchors inside a page are `#/results#economics` (the router reads the second hash).
@@ -54,7 +54,7 @@ is labelled "calculated in your browser (ideal gas)" and stored Aspen results "A
 
 ## Downloads and the snapshot
 
-- `scripts/prepare_site.mjs` copies the technical report (PDF, DOCX), pitch deck (PDF, PPTX), speaker script and the two validation documents from `docs/` into `public/downloads/` (skips missing files; portable; run by `predev` and `prebuild:pages`). The list is mirrored in `src/site/downloads.ts`.
+- `scripts/prepare_site.mjs` copies into `public/downloads/` (skips missing files; portable; run by `predev` and `prebuild:pages`): the technical report (PDF, DOCX) and the preserved 23 November 2026 release PDF, the pitch deck (PDF, PPTX) and speaker script, the two validation documents, the Phase 2 research documents (`verdict_methodology_v2.md`, `unified_baseline.md`, `uncertainty_quantification.md`, `methodology_transfer_matrix.md`, `phase2_findings_changed.md`, `limitations_and_future_work.md`) and every PDF in `docs/paper/build/` (the research paper and the executive summary, built by `python docs/paper/build_paper.py`). The fixed list is mirrored in `src/site/downloads.ts`.
 - `public/snapshot/` is the committed static mirror. `public/img/pfd_baseline.png` and `public/og-image.png` are made from real screenshots by `scripts/make_site_images.mjs`.
 - Deployment: `.github/workflows/deploy-pages.yml` (npm ci, npm test, build:pages, 404.html, upload, deploy; no Python, no Aspen).
 
@@ -62,6 +62,7 @@ is labelled "calculated in your browser (ideal gas)" and stored Aspen results "A
 
 - `src/api/` typed fetchers, snapshot fetch wrapper, `url.ts` (base-path helper); `src/data/` mode resolver, dataset context, formatting, metric labels, `nasa7.json`.
 - `src/site/` public site: `SiteLayout`, `pages/`, `EquilibriumCalculator`, `ArchitectureDiagram` (original SVG), `results.ts` (chart data shaping), `cite.ts` (citations from `references.json`), `routes.ts`, `downloads.ts`.
+- `src/sim/` browser process model of the simulator (a port of the Python models, tested against the Python test vectors written by `scripts/research/export_simulator_data.py`; record in `results/research/simulator/parity_report.json`); `src/simulator/` the simulator page (controls, outputs, graphs).
 - `src/calc/` browser equilibrium model. `src/pfd/` flowsheet -> React Flow mapping, symbols, panels (`PfdExplorer` is shared by the platform and the site).
 - `src/components/` shell, `ui.tsx`, `DataTable.tsx`, `charts.tsx`. `src/features/` per-page building blocks; `src/pages/` the eleven platform pages.
 
@@ -76,5 +77,5 @@ node scripts/e2e_sim_run.mjs                     # LIVE Simulation page run (Pyt
 node scripts/make_site_images.mjs [--base URL]   # hero picture and 1200x630 social preview
 ```
 
-`site_check.mjs` writes full-page `docs/screenshots/site_<page>_desktop.png` for the nine site routes; phone, tablet, full-HD, platform and calculator captures go to `docs/screenshots/qa/` (git-ignored). `capture_site.mjs` then overwrites four of the desktop files and `site_home_mobile.png` with viewport-sized hero crops. Typical release check:
+`site_check.mjs` writes full-page `docs/screenshots/site_<page>_desktop.png` for the site routes; phone, tablet, full-HD, platform and calculator captures go to `docs/screenshots/qa/` (git-ignored). `capture_site.mjs` then overwrites four of the desktop files and `site_home_mobile.png` with viewport-sized hero crops. Typical release check:
 `npm run build:pages; node scripts/serve_pages.mjs --port 4180` (second shell) `; node scripts/site_check.mjs`.

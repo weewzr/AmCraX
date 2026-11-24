@@ -135,7 +135,7 @@ def main():
     }
     (UQ / "row_evidence.json").write_text(json.dumps({"provenance": {"generated_utc": datetime.now(timezone.utc).isoformat(timespec="seconds"),
                                                                      "script": SCRIPT, "reference_scenario": provenance_stamp()},
-                                                      "note": "Proposed row evidence only; the orchestrator decides the verdicts.",
+                                                      "note": "Proposed row evidence only; the evidence matrix sets the verdicts by its coded rules.",
                                                       "row_evidence": rows}, indent=1, default=float), encoding="utf-8")
     print(json.dumps(counts), json.dumps({"thr": thr, "be": be, "be_best": be_best, "share": share}, default=float))
     print([i["id"] for i in items if i["status"] == "fail"])

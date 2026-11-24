@@ -75,7 +75,9 @@ export interface SimOutputs {
   equilibrium: { browser: Labelled; aspen: Labelled | null }
   process: (Record<keyof Omit<ProcessResult, 'grid_extrapolated' | 'grid_on_node'>, Labelled> & { available: boolean }) | null
   economics: (EconResult & { label: SourceLabel; lcoh_USD: Labelled; lcoh_SGD: Labelled }) | null
-  carbon: { intensity: CIResult; label: SourceLabel; cost: CarbonCost } | null
+  /** intensity: default boundary (green includes embedded asset emissions); intensity_zero_boundary: green only, renewable
+   *  electricity counted as zero (Lee boundary), null for grey and blue */
+  carbon: { intensity: CIResult; intensity_zero_boundary: CIResult | null; label: SourceLabel; cost: CarbonCost } | null
 }
 
 const L = (value: number, source: SourceLabel, unit?: string, note?: string): Labelled => ({ value, source, unit, note })
@@ -177,7 +179,12 @@ export function simulate(x: SimInputs, d: SimData): SimOutputs {
       heat_deficit_kW: summ.heat_deficit_kW, pump_kW: summ.pump_kW }, x.nh3_route, x.heating ?? 'self_firing',
       // gate factor of the Python carbon-pricing model (amcrax.environmental.lca.route_spec), as carbon_pricing.carbon_intensity_h2 uses it
       { nh3_ef_kg_per_kg: m.carbon.lca_routes?.[x.nh3_route]?.ef_kg_per_kg_nh3 })
-    carbon = { intensity: ci, label: el, cost: carbonCost(m, e, ci, x.carbon_mode ?? 'actual', x.carbon_price_SGD_per_t ?? 0) }
+    // green ammonia has a second boundary (Lee et al.: renewable electricity counted as zero, model.carbon.lca_routes.green_lee);
+    // it is reported beside the default (embedded asset emissions included) and never used for the carbon cost
+    const lee = x.nh3_route === 'green' ? m.carbon.lca_routes?.green_lee?.ef_kg_per_kg_nh3 : undefined
+    const ciZero = typeof lee === 'number' ? carbonIntensity(m, { h2_kg_h: summ.h2_kg_h, nh3_feed_kg_h: pr.nh3_feed_kmol_h * m.thermo.molar_mass_g_mol.NH3,
+      heat_deficit_kW: summ.heat_deficit_kW, pump_kW: summ.pump_kW }, x.nh3_route, x.heating ?? 'self_firing', { nh3_ef_kg_per_kg: lee }) : null
+    carbon = { intensity: ci, intensity_zero_boundary: ciZero, label: el, cost: carbonCost(m, e, ci, x.carbon_mode ?? 'actual', x.carbon_price_SGD_per_t ?? 0) }
   }
   return { inputs: x, warnings, reactor, equilibrium, process, economics: econ, carbon }
 }

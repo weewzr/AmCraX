@@ -270,7 +270,7 @@ def main():
         {"name": "nh3_price_reference", "value": PRICE, "unit": "USD/t", "source_type": "literature", "source": "data/economics.yaml default (Cho et al. range 300-610)", "applicability_note": "same for all routes; swept 250-1100"},
         {"name": "cracker_heat_scaling", "value": "linear in cracked share", "unit": "-", "source_type": "aspen", "source": "stored baseline.json reactor + pre-heater duty per kg NH3 cracked (600 C, 20 bar)", "applicability_note": "temperature sensitivity from stored scn_low/high_temperature runs not propagated"},
         {"name": "fuel_flexibility", "value": "30-60 vol% H2", "unit": "vol%", "source_type": "literature", "source": "task brief (Halim 2025, unverified); Ahmad 2025 p. 2 for the 30 vol% NG-combustor limit", "applicability_note": "label only; no combustion simulation"},
-        {"name": "ISO_14687_grade_D", "value": P.ISO14687_GRADE_D, "unit": "mixed", "source_type": "literature", "source": "values quoted in docs/internal/fact_sheet.md (99.97 %, 300 ppm) and brief (NH3 0.1 ppm)", "applicability_note": "baseline product never called fuel-cell grade"},
+        {"name": "ISO_14687_grade_D", "value": P.ISO14687_GRADE_D, "unit": "mixed", "source_type": "literature", "source": "ISO 14687:2019 grade D limits (99.97 % H2, 300 ppm N2, 0.1 ppm NH3)", "applicability_note": "baseline product never called fuel-cell grade"},
     ]
     dump(OUT / "assumptions.json", reg)
 

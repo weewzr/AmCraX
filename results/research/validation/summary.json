@@ -6,7 +6,7 @@
     "input_sha256": {
       "aspen_kinetic.json": "40a0cdfb916f06f10d2a6d07912501ecc0b2039d44be1b0bfbd7d82cb7ed4db2",
       "carbon_pricing.json": "9f97532aa3dcbedbb2b62663eb667afa92dffc95e1b8ed2ed5ee6317f3f7c272",
-      "catalyst_comparison.json": "8996c509a7eab738d5c83591554833761012a412f62dedbd062fc882ee11aec7",
+      "catalyst_comparison.json": "0d15655b1db1b6b7bbdfa81ed77c5dd59c27cc975658a5f0ac3f15de4d4f796e",
       "catalyst_economics.json": "b791efb4f021d012e17cb191e1bd1d04c48c5125127d3467490c14c29b4b41fc",
       "economics.json": "1d8b27ab9d3a594be8ac245ae2cce4085d5468331adad49055681b10e02025d7",
       "enduse.json": "1dbd7613d9b5cc5b3b84f437a7d9ddb994b1b10e552f4cbffea2a13a36e6a622",

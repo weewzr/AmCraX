@@ -371,3 +371,22 @@
 @media (max-width:640px){.site table.simple th,.site table.simple td{min-width:8.5rem}.site table.simple td.wide{min-width:20rem}}
 /* a verdict word inside a table cell breaks only between words, never inside one (the cell widens instead) */
 .site table.simple .verdict-chip{overflow-wrap:normal;word-break:normal}
+/* plain answers (hyp/PlainAnswers.tsx): a reading aid beside the formal verdicts; the chip prints its word */
+.answer-chip{font-weight:600;white-space:nowrap;border:1px solid currentColor}
+.answer-yes{color:var(--ok)}.answer-no{color:var(--error)}.answer-ne,.answer-other{color:var(--muted);border-style:dashed}
+.plain-block{margin:var(--s5) 0}
+.plain-h{font-size:18px;margin:0 0 var(--s2)}
+.plain-formal{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 var(--s3)}
+.plain-figs{margin-top:var(--s3)}
+.plain-table{overflow-x:auto}
+/* phone: each answer becomes a labelled card (no sideways scrolling for the limitation) */
+@media (max-width:640px){
+  .plain-h{font-size:16px}
+  .site .plain-table table.simple,.site .plain-table tbody,.site .plain-table tr,.site .plain-table th,.site .plain-table td{display:block;width:100%;min-width:0}
+  .site .plain-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .site .plain-table caption{display:block;text-align:left}
+  .site .plain-table tr{border-top:1px solid var(--border,rgba(127,127,127,.3));padding:8px 0}
+  .site .plain-table th,.site .plain-table td{border:0;padding:3px 0}
+  .site .plain-table td::before{content:attr(data-label) ": ";font-weight:600;font-size:12px;color:var(--muted)}
+  .site .plain-table td.wide{min-width:0}
+}

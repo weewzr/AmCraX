@@ -33,7 +33,7 @@ ROOT = HERE.parents[1]
 GEN = HERE / "generated"
 REFERENCE_DOCX = HERE / "reference.docx"
 
-REPORT_DATE = "23 November 2026"
+REPORT_DATE = "24 November 2026"
 REPORT_VERSION = "Version 2.0 (Phase 2)"
 RELEASE_NOTE = ("Supersedes version 1.0, the release of 23 November 2026 (178 pages), which is preserved unchanged in "
                 "docs/technical_report/releases/2026-11-23/ and in the repository tag amcrax-research-expansion-2026-11-23. "
@@ -518,8 +518,10 @@ def evidence_summary_table_md() -> str:
                  "; ".join(f"{c.get('id')} {c.get('verdict')}" for c in (h.get("components") or [])) or "-",
                  _short_txt(h.get("strongest_defensible_statement") or h.get("summary"), 400)]
                 for h in d.get("hypotheses", [])]
-        return (evidence_table_caption("Verdicts of the four hypotheses under the verdict methodology v2 (fixed before the Phase 2 "
-                                       "analysis), with the verdict of the preserved release (rule v1), the component verdicts and the "
+        return (evidence_table_caption("Verdicts of the four hypotheses under the verdict methodology v2 (roles, components, "
+                                       "aggregation and the general row standard fixed before the Phase 2 analysis; the row-by-row "
+                                       "coded rules written afterwards and tested by an independent adversarial review), "
+                                       "with the verdict of the preserved release (rule v1), the component verdicts and the "
                                        "strongest defensible statement, read from the evidence matrix at build time. "
                                        f"*Source: results/research/evidence_matrix.json (generated {gen}); rule: "
                                        f"{d.get('methodology', 'docs/research/verdict_methodology_v2.md')}.*") + "\n\n"
@@ -580,14 +582,257 @@ def evidence_rows_md(hid: str) -> str:
     return "\n".join(out) + "\n"
 
 
+def _join_parts(parts) -> str:
+    """Join text fragments: a fragment that already ends a sentence is followed by a space, any other by '; '
+    (avoids ".;" when list items are full sentences)."""
+    out = ""
+    for p in parts:
+        p = p.strip()
+        if not p:
+            continue
+        if out:
+            out += (" " if out.rstrip()[-1:] in ".!?:" else "; ")
+        out += p
+    return out
+
+
 def _txt_list(v, n=100000) -> str:
     if v is None:
         return ""
     if isinstance(v, (list, tuple)):
-        return "; ".join(_short_txt(x if not isinstance(x, dict) else (x.get("text") or x.get("statement") or json.dumps(x, ensure_ascii=False)), n) for x in v)
+        return _join_parts(_short_txt(x if not isinstance(x, dict) else (x.get("text") or x.get("statement") or json.dumps(x, ensure_ascii=False)), n) for x in v)
     if isinstance(v, dict):
-        return "; ".join(f"{k}: {_short_txt(x, n)}" for k, x in v.items() if x not in (None, ""))
+        return _join_parts(f"{k}: {_short_txt(x, n)}" for k, x in v.items() if x not in (None, ""))
     return _short_txt(v, n)
+
+
+# ----------------------------------------------------------------------------------------------
+# numbers read from result files at build time: {{VAL:<path under results/research>#<key/path>|<format>}}
+# key path: '/'-separated dict keys and list indices; '[k=v]' selects the first list element whose k equals v.
+# format: a Python format spec (".3f", ",.0f", ".1%"), "pct1"/"pct0" (x100 with 1/0 decimals), or empty (as stored).
+# ----------------------------------------------------------------------------------------------
+RESULTS_RESEARCH = ROOT / "results" / "research"
+_JSON_CACHE: dict = {}
+
+
+def _result_value(path_txt: str, key: str):
+    p = (RESULTS_RESEARCH / path_txt).resolve()
+    if p not in _JSON_CACHE:
+        _JSON_CACHE[p] = read_json(p)
+    v = _JSON_CACHE[p]
+    for part in [k for k in key.split("/") if k != ""]:
+        m = re.fullmatch(r"\[(\w+)=(.+)\]", part)
+        m_id = re.fullmatch(r"\[([^=\]]+)\]", part)
+        if m and isinstance(v, list):
+            v = next(x for x in v if isinstance(x, dict) and str(x.get(m.group(1))) == m.group(2))
+        elif m_id and isinstance(v, list):
+            v = next(x for x in v if isinstance(x, dict) and str(x.get("id")) == m_id.group(1))
+        elif isinstance(v, list):
+            v = v[int(part)]
+        else:
+            v = v[part]
+    return v
+
+
+def _fmt_result(v, fmt: str) -> str:
+    if fmt in ("", None):
+        return _fmt_val(v)
+    if fmt.startswith("pct"):
+        return f"{float(v) * 100:.{int(fmt[3:] or 1)}f}"
+    s = format(v, fmt)
+    return s
+
+
+def val_token(m, summary: dict) -> str:
+    body = m.group(1)
+    fmt = ""
+    if "|" in body:
+        body, fmt = body.rsplit("|", 1)
+    path_txt, _, key = body.partition("#")
+    try:
+        return _fmt_result(_result_value(path_txt.strip(), key.strip()), fmt.strip())
+    except Exception as e:  # noqa: BLE001
+        log(f"WARNING value token not resolved: {m.group(0)} ({e!r})")
+        summary.setdefault("unresolved_tokens", []).append(m.group(0))
+        return "[value not available at build time]"
+
+
+def validation_by_kind_table_md(summary: dict) -> str:
+    """Table 38.1 from results/research/validation/summary.json by_evidence_kind (never typed)."""
+    sp = RESULTS_RESEARCH / "validation" / "summary.json"
+    try:
+        s = read_json(sp)
+    except Exception as e:  # noqa: BLE001
+        summary.setdefault("unresolved_tokens", []).append("{{VALIDATION_BY_KIND_TABLE}}")
+        log(f"WARNING validation summary unreadable: {e!r}")
+        return "*results/research/validation/summary.json was not available at build time.*\n"
+    names = [("numerical_verification", "(1) Numerical verification"), ("python_vs_aspen", "(2) Python against Aspen comparison"),
+             ("literature_comparison", "(3) Comparison with published literature"),
+             ("experimental_validation", "(4) Independent experimental validation")]
+    bk = s.get("by_evidence_kind") or {}
+    rows = []
+    for k, label in names:
+        c = bk.get(k) or {}
+        na = c.get("not_available", 0)
+        rows.append([label, c.get("total", 0), c.get("pass", 0), c.get("fail", 0), c.get("informational", 0),
+                     (f"{na} (none exists)" if k == "experimental_validation" and na else (na if na else "-"))])
+    t = s.get("totals") or {}
+    rows.append(["All research items", t.get("total"), t.get("pass"), t.get("fail"), t.get("informational"), t.get("not_available")])
+    nfiles = len((s.get("provenance") or {}).get("input_sha256") or {})
+    cap = ("Table: **Table 38.1.** Research validation items by evidence kind and status, read from the validation summary at build "
+           f"time. *Source: results/research/validation/summary.json by_evidence_kind and totals ({nfiles} files).*")
+    return cap + "\n\n" + pipe_table(["Evidence kind", "Items", "Pass", "Fail", "Informational", "Not available"], rows,
+                                     ["l", "r", "r", "r", "r", "r"])
+
+
+FIX_PASS_JSON = RESULTS_RESEARCH / "fix_pass_2026-11-24.json"
+
+
+def fix_pass_tables_md(summary: dict) -> str:
+    """Verdict and number changes of the 24 November 2026 fix pass, read from results/research/fix_pass_2026-11-24.json."""
+    try:
+        fp = read_json(FIX_PASS_JSON)
+    except Exception as e:  # noqa: BLE001
+        summary.setdefault("unresolved_tokens", []).append("{{FIX_PASS_TABLES}}")
+        log(f"WARNING fix-pass record unreadable: {e!r}")
+        return "*results/research/fix_pass_2026-11-24.json was not available at build time.*\n"
+    out = []
+    order = {"hypothesis": 0, "component": 1, "row": 2}
+    vc = sorted(fp.get("verdict_changes") or [], key=lambda x: (order.get(str(x.get("quantity")).split(" ")[0], 9), str(x.get("quantity"))))
+    rows = [[str(x.get("quantity"))[:1].upper() + str(x.get("quantity"))[1:], x.get("old"), x.get("new")] for x in vc]
+    out.append("Table: **Table 31.2.** Verdicts changed by the corrections after independent review. *Source: "
+               "results/research/fix_pass_2026-11-24.json verdict_changes (old values: the matrix of the version deployed on "
+               "24 November 2026; new values: results/research/evidence_matrix.json).*\n\n"
+               + pipe_table(["Verdict", "Before the review", "After the review"], rows))
+
+    def _fv(v):
+        if v is None:
+            return "none (no parity)"
+        if isinstance(v, float) and abs(v) >= 1000:
+            return f"{v:,.0f}"
+        if isinstance(v, float):
+            return f"{v:.4g}" if abs(v) < 0.1 else f"{v:.3f}"
+        return _fmt_val(v)
+
+    groups: dict = {}
+    for x in fp.get("number_changes") or []:
+        groups.setdefault((x.get("quantity"), x.get("file"), x.get("reason")), []).append(x)
+    prefer = ["psa_recovery_at_parity_with_central_membrane", "MEM_central/lcoh", "share_membrane_cheaper",
+              "central/membrane_cost_USD_per_m2_at_parity", "20bar_baseline/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D",
+              "grey/S1_ci", "grey/S1"]
+    rows = []
+    for (q, f, reason), xs in groups.items():
+        picked = []
+        for pkey in prefer:
+            for x in xs:
+                if pkey in str(x.get("key")) and x not in picked:
+                    picked.append(x)
+        def _k(key):
+            parts = str(key).split("/")
+            if parts and parts[0] in ("specs", "cases", "row_evidence"):
+                parts = parts[1:]
+            parts = [p for p in parts if p not in ("thresholds", "configurations", "factorial_summary", "numbers", "costs", "configs")]
+            return "/".join(parts)
+        ex = "; ".join(f"{_k(x.get('key'))}: {_fv(x.get('old'))} -> {_fv(x.get('new'))}" for x in picked[:4])
+        rows.append([q, str(f).replace("results/research/", ""), len(xs), _short_txt(reason, 200), ex or "-"])
+    out.append("Table: **Table 31.3.** Stored numbers changed by the corrections after independent review, grouped by quantity, "
+               "with selected values (old -> new). Every changed value is listed in the source file. *Source: "
+               "results/research/fix_pass_2026-11-24.json number_changes.*\n\n"
+               + pipe_table(["Quantity", "File", "Values changed", "Reason", "Selected values (old -> new)"], rows))
+    nb = fp.get("new_computed_blocks") or []
+    if nb:
+        out.append("New computed blocks (no stored value was replaced): "
+                   + "; ".join(f"`{str(b.get('file')).replace('results/research/', '')}` key `{b.get('key')}` ({_short_txt(b.get('what'), 200)})"
+                               for b in nb) + ".\n")
+    return "\n\n".join(out) + "\n"
+
+
+def _verdict_with_basis(h: dict) -> str:
+    """A PARTIALLY SUPPORTED or MIXED hypothesis verdict is never printed without its components."""
+    v = str(h.get("verdict"))
+    comps = h.get("components") or []
+    if v == "PARTIALLY SUPPORTED" and comps:
+        basis = [c.get("id") for c in comps if c.get("verdict") in ("SUPPORTED", "PARTIALLY SUPPORTED")]
+        rest = ", ".join(f"{c.get('id')} {c.get('verdict')}" for c in comps)
+        return f"**{v}**, resting only on {', '.join(basis)} (components: {rest})"
+    if v == "MIXED" and comps:
+        return f"**{v}** (components: " + ", ".join(f"{c.get('id')} {c.get('verdict')}" for c in comps) + ")"
+    return f"**{v}**"
+
+
+MATRIX_TEXT_DEFECTS: list[str] = []
+
+
+def _render_matrix_fstrings(r: dict, text: str) -> str:
+    """The matrix builder left un-rendered f-string fragments such as {f(ub[0]['value'],1)} in some envelope texts
+    (ub = the row's threshold values). Render them from the row's own threshold values and record the defect."""
+    pat = re.compile(r"\{f\(ub\[(\d+)\]\['value'\],\s*(\d+)\)\}")
+    if not pat.search(text):
+        return text
+    vals = ((r.get("threshold") or {}).get("values") or []) if isinstance(r.get("threshold"), dict) else []
+
+    def rep(m):
+        i, nd = int(m.group(1)), int(m.group(2))
+        try:
+            return f"{float(vals[i]['value']):.{nd}f}"
+        except Exception:  # noqa: BLE001
+            return "[value not available]"
+    MATRIX_TEXT_DEFECTS.append(f"{r.get('row_id')}: un-rendered f-string in envelope")
+    log(f"WARNING evidence matrix row {r.get('row_id')}: un-rendered f-string in envelope text, rendered from its threshold values")
+    return pat.sub(rep, text)
+
+
+_PA_HALF = {"cracking_psa": "cracking + PSA half", "fired_cracking": "fired-cracking half", "energy": "energy half", "cost": "cost half"}
+_PA_MODE = {"actual_sg": "actual Singapore boundary", "hypothetical_lca": "hypothetical price, not Singapore law"}
+PLAIN_LEAD = ("The plain answers are a reading aid derived in code from the formal rows of the evidence matrix; they are not "
+              "verdicts and change none. An answer that rests on half of a row is a finding: that row's formal verdict stays "
+              "INCONCLUSIVE because the row needs both halves. The formal verdict and its components are printed beside the answers.")
+
+
+def _pa_basis(a: dict) -> str:
+    b = a.get("basis") or {}
+    t = ", ".join(str(x) for x in (b.get("rows") or []))
+    if b.get("half"):
+        t += f" ({_PA_HALF.get(b['half'], b['half'])})"
+    if b.get("mode"):
+        t += f" ({_PA_MODE.get(b['mode'], b['mode'])})"
+    return t
+
+
+def plain_answers_table_md(hids: list[str], caption: str, summary: dict | None = None, compact: bool = False) -> str:
+    """Plain answers (reading aid) of the given hypotheses, read from the evidence matrix at build time, with the formal
+    hypothesis verdict and its components beside them. Never typed; a missing field is reported, not filled."""
+    rows = []
+    for hid in hids:
+        h = _hyp(hid)
+        if h is None or not h.get("plain_answers"):
+            if summary is not None:
+                summary.setdefault("unresolved_tokens", []).append(f"{{{{PLAIN_ANSWERS:{hid}}}}}")
+            continue
+        formal = f"{h.get('verdict')} (" + ", ".join(f"{c.get('id')} {c.get('verdict')}" for c in (h.get("components") or [])) + ")"
+        for i, a in enumerate(h["plain_answers"]):
+            lim = _short_txt(a.get("limitation"), 100000) + ((" " + _short_txt(a.get("note"), 400)) if a.get("note") else "")
+            first = (f"{hid} {formal}" if i == 0 else "")
+            row = [first, _short_txt(a.get("claim"), 200), a.get("answer"), a.get("qualifier") or "-", lim,
+                   _pa_basis(a) + ": " + _short_txt(a.get("formal_verdict"), 300)]
+            if compact:
+                row = row[:5] + [_pa_basis(a)]
+            rows.append(row)
+    if not rows:
+        return "*The plain answers were not available in the evidence matrix at build time.*\n"
+    heads = ["Hypothesis and formal verdict", "Claim", "Answer", "Qualifier", "Limitation",
+             "Basis" if compact else "Basis and formal verdict it rests on"]
+    return caption + "\n\n" + pipe_table(heads, rows)
+
+
+def plain_figures_md(hid: str) -> str:
+    h = _hyp(hid) or {}
+    figs = h.get("published_figures_checked") or []
+    if not figs:
+        return ""
+    return ("**Published figures checked** (secondary rows; they do not vote): "
+            + "; ".join(f"{esc(_short_txt(x.get('figure'), 300))}: {esc(x.get('result'))} ({esc(_short_txt(x.get('finding'), 300))} "
+                        f"Row {esc(x.get('row'))} {esc(x.get('row_verdict'))}.)" for x in figs) + "\n")
 
 
 def evidence_rows_v2_md(hid: str, h: dict) -> str:
@@ -599,6 +844,14 @@ def evidence_rows_v2_md(hid: str, h: dict) -> str:
                f"Rule v1 applied to the current rows: {h.get('verdict_v1_rule_on_current_rows') or '-'}.\n")
     if h.get("primary_hypothesis"):
         out.append(f"**Primary hypothesis.** {esc(_short_txt(h.get('primary_hypothesis'), 100000))}\n")
+    if h.get("plain_answers"):
+        out.append(plain_answers_table_md([hid], evidence_table_caption(
+            f"Plain answers for {hid} (reading aid, not verdicts), with the formal verdict and its components beside them and "
+            "the limitation after each answer. Yes only where the test is SUPPORTED, No only where it is CONTRADICTED, otherwise "
+            "Not established. *Source: results/research/evidence_matrix.json plain_answers.*")))
+        figs = plain_figures_md(hid)
+        if figs:
+            out.append(figs)
     comps = h.get("components") or []
     if comps:
         crow = [[c.get("id"), _short_txt(c.get("title"), 160), c.get("verdict"), _txt_list(c.get("primary_rows")) or "-",
@@ -627,10 +880,11 @@ def evidence_rows_v2_md(hid: str, h: dict) -> str:
             thr_t = _short_txt(thr.get("parameter"), 160) + ": " + "; ".join(vals) + (f"; {more} further value(s) in the matrix" if more > 0 else "")
         else:
             thr_t = _short_txt(_txt_list(thr), 260) if thr else "none"
+        env_t = _render_matrix_fstrings(r, _txt_list(r.get("envelope")))
         head = (f"{r.get('row_id')} ({r.get('role') or '-'}, {r.get('component') or '-'}): {verdict}. "
                 f"Rule v1: {r.get('verdict_v1') or '-'}.")
         rows.append([head, _short_txt(r.get("sub_claim"), 200), _short_txt(nums, 500) or "-", thr_t,
-                     _short_txt(_txt_list(r.get("envelope")), 260) or "-"])
+                     _short_txt(env_t, 260) or "-"])
     if rows:
         out.append(evidence_table_caption(f"Evidence rows for {hid}: row with its role and component, v2 verdict (with the verdict by "
                                           "carbon-pricing mode where it applies) and v1 verdict; sub-claim; numerical conclusions; threshold; "
@@ -673,7 +927,7 @@ def substitute_tokens(text: str, summary: dict) -> str:
         if h is None:
             summary.setdefault("unresolved_tokens", []).append(m.group(0))
             return "not available at build time"
-        return f"**{h.get('verdict')}**"
+        return _verdict_with_basis(h)
 
     def cond(m):
         h = _hyp(m.group(1))
@@ -697,10 +951,37 @@ def substitute_tokens(text: str, summary: dict) -> str:
         return f"row {m.group(1)}: {r.get('verdict')}"
 
     text = re.sub(r"\{\{ROW_VERDICT:(H\d-[a-z])\}\}", row_verdict, text)
+
+    def comp_verdict(m):
+        h = _hyp(m.group(1).split("-")[0])
+        c = next((x for x in (h or {}).get("components", []) or [] if str(x.get("id")) == m.group(1)), None)
+        if c is None:
+            summary.setdefault("unresolved_tokens", []).append(m.group(0))
+            return f"component {m.group(1)}: not available at build time"
+        return f"component {m.group(1)}: {c.get('verdict')}"
+
+    text = re.sub(r"\{\{COMP_VERDICT:(H\d-[A-Z])\}\}", comp_verdict, text)
+    text = re.sub(r"\{\{VAL:([^}]*)\}\}", lambda m: val_token(m, summary), text)
+    if "{{VALIDATION_BY_KIND_TABLE}}" in text:
+        text = text.replace("{{VALIDATION_BY_KIND_TABLE}}", validation_by_kind_table_md(summary))
+    if "{{FIX_PASS_TABLES}}" in text:
+        text = text.replace("{{FIX_PASS_TABLES}}", fix_pass_tables_md(summary))
     text = re.sub(r"\{\{ROW_OUTCOMES:(H\d)\}\}", lambda m: esc(_row_outcomes(_hyp(m.group(1)) or {})) or "not available", text)
     if "{{EVIDENCE_SUMMARY_TABLE}}" in text:
         text = text.replace("{{EVIDENCE_SUMMARY_TABLE}}", evidence_summary_table_md())
     text = re.sub(r"\{\{EVIDENCE_ROWS:(H\d)\}\}", lambda m: evidence_rows_md(m.group(1)), text)
+
+    # {{PLAIN_ANSWERS:<H1,H2|ALL>|<table number>}}: the plain-answers table read from the matrix at build time
+    def plain(m):
+        ids = ["H1", "H2", "H3", "H4"] if m.group(1) == "ALL" else m.group(1).split(",")
+        cap = (f"Table: **Table {m.group(2)}.** Plain answers to the claims inside the hypotheses (reading aid, not verdicts), "
+               "with the formal verdict and its components beside them and the main limitation after each answer. Yes only "
+               "where the underlying test is SUPPORTED, No only where it is CONTRADICTED, otherwise Not established; an answer "
+               "on half of a row is a finding and the row verdict stays as stated. *Source: results/research/evidence_matrix.json "
+               "plain_answers (read at build time).*")
+        return esc(PLAIN_LEAD) + "\n\n" + plain_answers_table_md(ids, cap, summary, compact=True)
+
+    text = re.sub(r"\{\{PLAIN_ANSWERS:(ALL|H\d(?:,H\d)*)\|([0-9.]+)\}\}", plain, text)
     if "{{" in text:
         for t in sorted(set(re.findall(r"\{\{[^}]*\}\}", text))):
             log(f"WARNING unknown template token left in text: {t}")
@@ -1022,6 +1303,8 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
     if RESEARCH_VALIDATION.exists():
         frows, fails = [], []
         for p in sorted(RESEARCH_VALIDATION.glob("*.json")):
+            if p.name == "summary.json":
+                continue
             try:
                 items = read_json(p)
             except Exception:  # noqa: BLE001
@@ -1037,12 +1320,14 @@ def appendix_md(summary: dict, cites: set[str]) -> str:
                 if s == "fail":
                     fails.append([p.stem, it.get("id"), _short_txt(it.get("description"), 120), _fmt_val(it.get("observed")) if not isinstance(it.get("observed"), str) else _short_txt(it.get("observed"), 50),
                                   _fmt_val(it.get("tolerance")) if not isinstance(it.get("tolerance"), str) else _short_txt(it.get("tolerance"), 30)])
-            frows.append([p.stem, len(items), cnt.get("pass", 0), cnt.get("fail", 0), cnt.get("informational", 0)])
+            frows.append([p.stem, len(items), cnt.get("pass", 0), cnt.get("fail", 0), cnt.get("informational", 0),
+                          cnt.get("not_available", 0)])
         out += ["Each research workstream wrote its validation items to `results/research/validation/<area>.json` with honest "
                 "pass, fail or informational statuses. The counts and every failing item are listed here as they stand at build time.", "",
                 "Table: **Table H.1.** Research-expansion validation items by workstream and status. "
                 "*Source: results/research/validation/\\*.json.*", "",
-                pipe_table(["Workstream file", "Items", "Pass", "Fail", "Informational"], frows, ["l", "r", "r", "r", "r"])]
+                pipe_table(["Workstream file", "Items", "Pass", "Fail", "Informational", "Not available"], frows,
+                           ["l", "r", "r", "r", "r", "r"])]
         if fails:
             out += ["Table: **Table H.2.** Every failing research-expansion validation item. "
                     "*Source: results/research/validation/\\*.json.*", "",
@@ -1586,6 +1871,11 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     log(f"Placeholders in docs/reproducing.md: {len(summary.get('reproducing_placeholders') or [])}")
     log(f"Screenshots not captured: {summary.get('screenshots_not_captured')}")
     log(f"TODO/TBD/lorem found : {hits}")
+    unres = sorted(set(summary.get("unresolved_tokens") or []))
+    log(f"Unresolved tokens    : {unres}")
+    if unres and fail_on_todo:
+        log("BUILD FAILED: unresolved template or value tokens")
+        return 2
     if hits and fail_on_todo:
         log("BUILD FAILED: placeholder strings present")
         return 2
