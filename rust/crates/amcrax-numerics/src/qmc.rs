@@ -206,14 +206,12 @@ impl Sobol {
 
     /// `_draw`: `n` points continuing the Gray-code recurrence from counter `num_gen`.
     fn draw(&mut self, n: usize, num_gen: u64, out: &mut Vec<Vec<f64>>) {
-        let mut g = num_gen;
-        for _ in 0..n {
+        for g in num_gen..num_gen + n as u64 {
             let l = g.trailing_ones() as usize; // low_0_bit(g) - 1
             for j in 0..self.d {
                 self.quasi[j] ^= self.sv[j][l];
             }
             out.push(self.point());
-            g += 1;
         }
     }
 
