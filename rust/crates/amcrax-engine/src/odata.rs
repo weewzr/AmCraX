@@ -289,14 +289,15 @@ mod tests {
     #[test]
     fn keeps_document_order_and_integer_kind() {
         let v =
-            OValue::from_yaml("inline", "b: 1\na: 2.5\nc: {z: 1, y: [1, 2]}\nn: null\n").unwrap();
+            OValue::from_yaml("inline", "b: 1\na: 2.5\nc: {z: 1, w: [1, 2]}\nm: null\n").unwrap();
         let keys: Vec<&str> = v.entries().iter().map(|e| e.0.as_str()).collect();
-        assert_eq!(keys, ["b", "a", "c", "n"]);
+        // (keys `y`, `n` would be YAML 1.1 booleans for the non-strict parser)
+        assert_eq!(keys, ["b", "a", "c", "m"], "{v:?}");
         assert_eq!(v.get("b"), &OValue::Int(1));
         assert_eq!(v.get("a").as_f64(), Some(2.5));
         assert_eq!(v.at(&["c", "z"]).as_f64(), Some(1.0));
-        assert_eq!(v.at(&["c", "y"]).items().len(), 2);
-        assert!(v.get("n").is_null());
+        assert_eq!(v.at(&["c", "w"]).items().len(), 2);
+        assert!(v.get("m").is_null());
         assert!(v.get("missing").is_null());
         assert_eq!(v.to_json()["c"]["z"], serde_json::json!(1));
     }
