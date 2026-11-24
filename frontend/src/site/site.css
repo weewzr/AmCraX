@@ -415,11 +415,6 @@
 .otp-list{margin:0;padding-left:2.2em;columns:2 280px;column-gap:calc(var(--s6) + 2.2em);font-size:15px}
 .otp-list li{margin:0 0 6px;break-inside:avoid}
 .otp-list li::marker{color:var(--muted);font:500 13px var(--font-mono)}
-.hyp-summary{margin:var(--s4) 0 var(--s5)}
-.hyp-summary th[scope=row] a{font:600 16px var(--font-head)}
-.hyp-v1{color:var(--text-2);font-size:14px;margin:6px 0 0}
-.hyp-vcell{min-width:15rem}.hyp-vcell .hyp-comp-chips{margin:6px 0 0;line-height:1.7}
-.hyp-summary td.wide .hyp-stmt{margin:0}.hyp-summary td.wide [data-testid^=qualifier-]{margin:8px 0 0;color:var(--text-2)}
 .hyp-rule{max-width:90ch;margin-bottom:var(--s5)}
 .site .hyp-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-bottom:1px solid var(--border)}
 .site .hyp-thumb img{border-bottom:0}
@@ -467,16 +462,6 @@
   .site .plain-table th,.site .plain-table td{border:0;padding:3px 0}
   .site .plain-table td::before{content:attr(data-label) ": ";font-weight:600;font-size:12px;color:var(--muted)}
   .site .plain-table td.wide{min-width:0}
-}
-/* phone: the verdict table becomes one labelled card per hypothesis (no sideways scrolling) */
-@media (max-width:640px){
-  .site .hyp-summary table.simple,.site .hyp-summary tbody,.site .hyp-summary tr,.site .hyp-summary th,.site .hyp-summary td{display:block;width:100%;min-width:0}
-  .site .hyp-summary thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
-  .site .hyp-summary caption{display:block;text-align:left}
-  .site .hyp-summary tr{border-top:1px solid var(--border);padding:10px 14px}
-  .site .hyp-summary th,.site .hyp-summary td{border:0;padding:3px 0}
-  .site .hyp-summary td::before{content:attr(data-label) ": ";display:block;font-weight:600;font-size:12px;color:var(--muted)}
-  .site .hyp-summary td.wide{min-width:0}
 }
 /* light theme: inline code tint kept light enough for muted text (>= 4.5:1); chart legend labels in text colour (the swatch keeps the series colour) */
 :root[data-theme=light] .site code{background:color-mix(in srgb,var(--text) 5%,transparent)}

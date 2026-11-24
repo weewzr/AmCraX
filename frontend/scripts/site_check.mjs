@@ -262,7 +262,10 @@ for (const vp of VIEWPORTS) {
       const shared = (em?.hypotheses ?? []).every((h) => String(h.verdict_conditions ?? '').includes(firstSentence))
       const times = firstSentence ? body.split(firstSentence).length - 1 : -1
       const own = await page.$$eval('[data-testid^="conditions-"]', (ps) => ps.length)
-      record(vp.label, `${id}: "on this page" list, verdict table first, aggregation rule stated once with each hypothesis's own conditions`, otp.length >= 5 && otp.some((h) => /#H1$/.test(h ?? '')) && (await page.$('.hyp-summary table')) !== null && (shared ? times === 1 && own === 4 : times === 4), `${otp.length} entries; rule printed ${times}x; own conditions ${own}`)
+      // main's headline-answer list (one item per hypothesis in the matrix) replaced the refresh's verdict table in the merge of the Phase 2 addendum
+      const tiles = await page.$$eval('[role=list][aria-label="Headline answer per hypothesis"] > [role=listitem]', (xs) => xs.length)
+      const nh = (em?.hypotheses ?? []).length
+      record(vp.label, `${id}: "on this page" list, headline answer per hypothesis first, aggregation rule stated once with each hypothesis's own conditions`, otp.length >= 5 && otp.some((h) => /#H1$/.test(h ?? '')) && nh > 0 && tiles === nh && (shared ? times === 1 && own === 4 : times === 4), `${otp.length} entries; ${tiles}/${nh} headline answers; rule printed ${times}x; own conditions ${own}`)
     }
     if (route === 'hypotheses/aspen-evidence') {
       const thumb = page.locator('.hyp-thumb').first()
