@@ -1,4 +1,4 @@
-<!-- cites: kum2026heatintegrated, dicarlo2014ammonia, lucentini2021nirukinetic, lucentini2019ceo2, takahashi2016kinetic, sayas2020high, cho2026nickel -->
+<!-- cites: kum2026heatintegrated, dicarlo2014ammonia, lucentini2021nirukinetic, lucentini2019ceo2, takahashi2016kinetic, sayas2020rukcao, cho2026nickel -->
 
 # 25 Kinetic reactor modelling in Aspen Plus
 
@@ -21,9 +21,9 @@ Table: **Table 25.1.** Catalysts considered and the status of their rate laws. *
 | Ni/MgO | microkinetic, Takahashi and Fujitani (2016, Tables 1-2) | 350-450 °C fit, 1 atm | fitted LHHW approximation (20 bar only) |
 | Ru/MgO | microkinetic, Takahashi and Fujitani (2016, Tables 1-2) | 300-400 °C fit, 1 atm | fitted LHHW approximation (20 bar only) |
 | Ni/CeO~2~, Ru/CeO~2~ | none: Lucentini et al. (2019) report conversions only, with no rate law, activation energy or orders | - | not modelled |
-| Ru-K/CaO | Sayas et al. (2020): full text could not be retrieved, so no parameters | - | not modelled |
+| Ru-K/CaO | Sayas et al. (2020): main text read in full on 24 November 2026; it gives the form (power law with an approach-to-equilibrium term), the orders and an apparent activation energy, but no rate constant and no equilibrium term of the fit (both in the supplementary information, not obtained) | kinetic fit at 1 atm; conversions measured at 1-40 bar | not modelled |
 
-The essay's conversion comparison of Ru/CeO~2~ (98 %) and Ni/CeO~2~ (63 %) at 450 °C was confirmed in the text of Lucentini et al. (2019), but without a rate law no pre-exponential factor can be derived from it honestly, so these catalysts are not modelled. The Ru-K/CaO values quoted in the essay (activation energy falling from 96 to 75 kJ/mol with potassium, H~2~ order -1.9 against -1.2) remain unverified. Cho et al. (2026) use a Ni/Al~2~O~3~ law and the Ru-K/CaO law of Sayas et al. (2020) from supplementary material that was not available, so their two catalysts are represented in Section 26 by the proxies Ni/MgO and Ru/Al~2~O~3~.
+The essay's conversion comparison of Ru/CeO~2~ (98 %) and Ni/CeO~2~ (63 %) at 450 °C was confirmed in the text of Lucentini et al. (2019), but without a rate law no pre-exponential factor can be derived from it honestly, so these catalysts are not modelled. The Ru-K/CaO values quoted in the essay are now confirmed in the main text of Sayas et al. (2020, Table 4, at 350 °C and 1 atm): the apparent activation energy falls from 96 to 75 kJ/mol with potassium and the H~2~ order from -1.9 to -1.2 (NH~3~ order 0.8 to 0.5). The 111 kJ/mol carried for this catalyst from a review is not in the main text. Without the rate constant the law is still incomplete; nothing was fitted or estimated, and Ru-K/CaO stays unmodelled. The paper's 15 measured conversions at 10 to 40 bar are stored as literature comparison points that no model uses (Section 35.2). Cho et al. (2026) use a Ni/Al~2~O~3~ law and the Ru-K/CaO law of Sayas et al. (2020) from supplementary material that was not available, so their two catalysts are represented in Section 26 by the proxies Ni/MgO and Ru/Al~2~O~3~.
 <!-- data: results/research/kinetics/aspen_kinetics_spec.json not_included; docs/internal/research_reports/kinetics.md (literature findings) -->
 
 ## 25.2 Rate laws

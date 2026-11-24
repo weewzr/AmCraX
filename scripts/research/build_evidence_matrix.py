@@ -2350,17 +2350,53 @@ def cv_h3_label(comps: list[dict], rows: list[dict]) -> str:
 # --------------------------------------------------------------------------------------------
 # Plain answers: a reading aid derived in code from the formal outcomes. Never a verdict.
 # --------------------------------------------------------------------------------------------
-PLAIN_ANSWERS = ("Yes", "No", "Not established")
+CONDITIONAL_YES = "Yes, under the stated assumption"
+PLAIN_ANSWERS = ("Yes", CONDITIONAL_YES, "No", "Not established")
 FIGURE_RESULTS = ("reproduced", "not reproduced", "not established")
 PLAIN_RULE = (
     "Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is "
-    "exactly one of 'Yes', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, "
+    "exactly one of 'Yes', 'Yes, under the stated assumption', 'No' or 'Not established'. 'Yes' only where the underlying "
+    "test is SUPPORTED: a row verdict, "
     "or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the "
-    "fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. Everything else is "
+    "fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. "
+    "'Yes, under the stated assumption' only where ALL of these hold, checked in code from stored values: (i) the model "
+    "result is computed and has the claimed direction on every basis of the analysis; (ii) the formal test behind it is "
+    "INCONCLUSIVE solely because one named quantity is assumed by the model, not computed, and no sourced value of that "
+    "quantity exists (not because sourced values straddle a threshold); (iii) the limitation printed with it names the "
+    "assumption and gives the break-even value of the assumed quantity. It is a conditional statement of the computed "
+    "result and never a verdict. Everything else is "
     "'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the "
     "row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict "
     "with its components is printed beside the plain answers. The qualifier and the limitation are computed from the "
     "same stored values as the row.")
+CONDITIONAL_NOTE = ("Conditional statement of the computed result, not a verdict: it holds only under the assumption named in "
+                    "the limitation; the formal test stays INCONCLUSIVE.")
+
+
+def conditional_yes_conditions(outcome: str, direction_values: list, comparison: str | None, sourced_values: list,
+                               limitation: str, assumption_terms: list[str], breakeven_terms: list[str]) -> dict:
+    """The three conditions of 'Yes, under the stated assumption' (PLAIN_RULE), each checked from stored values.
+    direction_values: the computed quantity on every basis, positive in the claimed direction; comparison: the stored
+    comparison of the decisive quantity with its sources ('no_source' only when none exists); sourced_values: the sourced
+    values of that quantity (must be empty)."""
+    return {
+        "i_computed_direction_on_every_basis": bool(direction_values) and all(
+            isinstance(v, (int, float)) and v > 0 for v in direction_values),
+        "ii_inconclusive_only_for_unsourced_assumed_quantity": (
+            outcome == "INCONCLUSIVE" and comparison == "no_source" and not [x for x in sourced_values if x is not None]),
+        "iii_limitation_names_assumption_and_breakeven": (
+            bool(assumption_terms) and bool(breakeven_terms)
+            and all(t in limitation for t in assumption_terms) and all(t in limitation for t in breakeven_terms)),
+    }
+
+
+def plain_answer_with_conditions(outcome: str, conditions: dict | None) -> str:
+    """plain_answer(), extended by the conditional value: only for an INCONCLUSIVE outcome and only when every condition
+    holds. 'Yes' and 'No' are untouched; the outcome (a verdict) is never changed."""
+    base = plain_answer(outcome)
+    if conditions is not None and outcome == "INCONCLUSIVE" and conditions and all(conditions.values()):
+        return CONDITIONAL_YES
+    return base
 FIGURE_RULE = (
     "Published figures checked (secondary reproduction rows; they do not vote): 'reproduced' only where the reproduction "
     "row is SUPPORTED, 'not reproduced' only where it is CONTRADICTED, otherwise 'not established'.")
@@ -2402,9 +2438,14 @@ MODE_LABEL = {"actual_sg": "actual Singapore carbon-tax boundary", "hypothetical
 
 
 def _pa(rows: list[dict], comps: list[dict], claim: str, rid: str, limitation: str, *, half: str | None = None,
-        mode: str | None = None, qualifier: str = "") -> dict:
+        mode: str | None = None, qualifier: str = "", conditional: dict | None = None) -> dict:
     r = next(x for x in rows if x["row_id"] == rid)
     out = basis_outcome(r, half, mode)
+    conds = None
+    if conditional is not None:
+        conds = conditional_yes_conditions(out, conditional["direction_values"], conditional["comparison"],
+                                           conditional["sourced_values"], limitation, conditional["assumption_terms"],
+                                           conditional["breakeven_terms"])
     c = next(x for x in comps if x["id"] == r["component"])
     fv = f"{rid} {r['verdict']}"
     if half:
@@ -2420,10 +2461,17 @@ def _pa(rows: list[dict], comps: list[dict], claim: str, rid: str, limitation: s
         note = "Hypothetical scenario, not Singapore law; reported separately and does not vote."
     elif r["role"] == "secondary":
         note = "Secondary row: reported, does not vote."
-    return {"claim": claim, "answer": plain_answer(out), "qualifier": qualifier, "limitation": limitation,
-            "basis": {"rows": [rid], "half": half, "mode": mode}, "basis_outcome": out,
-            "formal_verdict": fv, "row_verdict": r["verdict"], "component": c["id"], "component_verdict": c["verdict"],
-            "note": note}
+    answer = plain_answer_with_conditions(out, conds)
+    if answer == CONDITIONAL_YES:
+        note = (note + " " if note else "") + CONDITIONAL_NOTE
+    d = {"claim": claim, "answer": answer, "qualifier": qualifier, "limitation": limitation,
+         "basis": {"rows": [rid], "half": half, "mode": mode}, "basis_outcome": out,
+         "formal_verdict": fv, "row_verdict": r["verdict"], "component": c["id"], "component_verdict": c["verdict"],
+         "note": note}
+    if conds is not None:
+        d["conditional_yes_conditions"] = conds
+        d["assumption"] = conditional.get("assumption", "")
+    return d
 
 
 def _fig(rows: list[dict], figure: str, rid: str, finding: str) -> dict:
@@ -2459,16 +2507,35 @@ def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[li
         claim = _num(rows, "H1-b", "essay figure")
         gmax = _num(rows, "H1-b", "largest computed gap")
         cheaper = 100 * (1 - fe / dc)
+        # fired-cracking half: conditional plain answer (PLAIN_RULE), every condition checked from stored values
+        fem = _num(rows, "H1-a", "fired-cracking threshold with cracker heat delivered at 0.9225")
+        ffb = load(F_TT)["thresholds"]["full_fired"]["bases"]
+        fired_dirs = [b["delta_fuel_pp_vs_direct_turbine"] for b in ffb.values()]  # (i) positive on every basis
+        fired_lo, fired_hi = min(fired_dirs), max(fired_dirs)
+        eta_txt = pct(eta, 2)
+        be_txt = f"{f(fe0,2)} percentage points"
+        fired_lim = (f"The gas turbine is not modelled in AmCraX: both fuels are assigned the same {eta_txt} efficiency. Under that "
+                     f"assumption direct ammonia is {f(gf,1)} % cheaper than fired cracking ({f(d,0)} against {f(ff,0)} USD/MWh) and "
+                     f"{f(gp,1)} % cheaper than cracking + PSA. Fired cracking would break even if the hydrogen-rich turbine were "
+                     f"{be_txt} more efficient ({f(fired_lo,2)} to {f(fired_hi,2)} over the {len(fired_dirs)} bases; {f(fem,2)} and "
+                     f"{f(fe1,2)} if the cracker fuel delivers 92 % and 85 % of its heating value). No published efficiency exists "
+                     "for this fuel on a fired cracker.")
+        fired_cond = {
+            "direction_values": fired_dirs + [gf],
+            "comparison": R["H1-a"]["threshold"].get("comparison", {}).get("fired"),
+            "sourced_values": [resolve(F_TT, "sourced_values/fired_H2N2_fuel_delta_pp/sourced")],
+            "assumption_terms": ["not modelled", f"same {eta_txt} efficiency"],
+            "breakeven_terms": [be_txt],
+            "assumption": f"gas turbine not modelled; both fuels at the same {eta_txt} efficiency",
+        }
         pa = [
             _pa(rows, comps, "Direct ammonia is cheaper than cracking plus PSA for power", "H1-a",
                 f"Direct use is {f(gp,0)} % cheaper ({f(d,0)} against {f(fp,0)} USD/MWh) at an assumed equal turbine efficiency of "
                 f"{pct(eta,2)}. Cracking + PSA would need a turbine {f(tp,1)} percentage points more efficient, above the only "
                 f"sourced gain ({f(min(ps),1)} to {f(max(ps),1)} points, one upper-bound source that is not like for like) on every cost basis.",
                 half="cracking_psa"),
-            _pa(rows, comps, "Direct ammonia is cheaper than fired cracking for power", "H1-a",
-                f"Direct use is {f(gf,0)} % cheaper ({f(d,0)} against {f(ff,0)} USD/MWh) only at the assumed equal turbine efficiency; "
-                f"fired cracking would need +{f(fe0,1)} points (+{f(fe1,1)} with cracker heat at 0.85 of the fuel LHV), and no turbine "
-                "efficiency on its H2/N2 fuel is sourced.", half="fired_cracking"),
+            _pa(rows, comps, "Direct ammonia is cheaper than fired cracking for power", "H1-a", fired_lim,
+                half="fired_cracking", conditional=fired_cond),
             _pa(rows, comps, "Cracking in front of a turbine does not pay", "H1-c",
                 (f"Against the essay, exhaust-heated full cracking is {f(cheaper,1)} % cheaper than direct use on the reference basis "
                  f"({f(fe,1)} against {f(dc,1)} USD/MWh); this is not robust: the sign changes across cost, price and hour bases "
@@ -2648,9 +2715,92 @@ def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[li
     return pa, figs
 
 
+HEADLINE_RULE = (
+    "Headline answers are part of the plain-answer reading aid and are never verdicts. Each hypothesis gets a headline "
+    "answer and headline limitations, generated in code from its plain answers: the headline states the 'Yes' answers "
+    "first (including 'Yes, under the stated assumption', which makes the headline conditional); where no claim is 'Yes' "
+    "the headline is 'Not established.' The limitations follow immediately and always: first the assumption behind a "
+    "conditional 'Yes' and the size limit of a qualified 'Yes', then every 'No' claim and every 'Not established' claim, "
+    "each named explicitly with its computed limitation, so nothing unfavourable is left out. The formal classification "
+    "under the rule fixed before the analysis (verdict and components) is unchanged and is published beside it in the "
+    "detailed evidence matrix. Plain answers state what the model computes and under which assumptions; the formal "
+    "classification applies a stricter rule fixed before the analysis, under which a result that rests on an untested "
+    "assumption is not counted as supported; both are published.")
+
+
+FORMAL_DIFF_NOTE = {
+    "H1": ("It differs from the plain answer because the turbine efficiency is assumed, not computed, so the rule cannot "
+           "count the result as supported."),
+    "H2": ("It differs from the plain answer because the rule combines components: the feed-cost and emissions claims hold, "
+           "while the carbon-price claim is contradicted and the break-even row is inconclusive, which the rule records as "
+           "MIXED."),
+    "H3": ("It differs from the plain answer because the rule counts only the energy component; the heat-integration cost "
+           "and catalyst-economics components are inconclusive."),
+    "H4": "",
+}
+
+
+def _lc(s: str) -> str:
+    return s[:1].lower() + s[1:]
+
+
+def headline_for(hid: str, rows: list[dict], pans: list[dict]) -> tuple[str, list[str]]:
+    """Headline answer and headline limitations of one hypothesis (HEADLINE_RULE); numbers from the stored rows."""
+    yes = [a for a in pans if a["answer"] in ("Yes", CONDITIONAL_YES)]
+    cond = [a for a in pans if a["answer"] == CONDITIONAL_YES]
+    if not yes:
+        head = "Not established."
+    elif hid == "H1":
+        gf = _num(rows, "H1-a", "direct cheaper than fired cracking, 1 - d/c")
+        gp = _num(rows, "H1-a", "direct cheaper than cracking + PSA, 1 - d/c")
+        head = ("Yes, under the modelled conditions: " if cond else "Yes: ") + (
+            "direct ammonia combustion gives cheaper electricity than the standalone cracking pathways "
+            f"(about {f(min(gf, gp),0)} to {f(max(gf, gp),0)} %).")
+    elif hid == "H2":
+        share = _num(rows, "H2-a", "feed share")
+        parts = []
+        if any(a["basis"]["rows"] == ["H2-a"] for a in yes):
+            parts.append(f"ammonia price is the dominant cost of cracked hydrogen (feed {pct(share,0)} of the LCOH)")
+        em = [a for a in yes if a["basis"]["rows"][0] in ("H2-c", "H2-d")]
+        if em:
+            parts.append("low-carbon ammonia is needed for an emissions advantage"
+                         + (" in power and in hydrogen supply" if len(em) == 2 else ""))
+        head = ("Yes, under the stated assumption: " if cond else "Yes: ") + ", and ".join(parts) + "."
+    elif hid == "H3":
+        q = next((a["qualifier"] for a in yes if a["basis"]["rows"] == ["H3-a"]), "")
+        both = {a["basis"]["rows"][0] for a in yes} >= {"H3-a", "H3-d"}
+        head = ("Yes for energy: lower temperature" + (f" ({q})" if q else "")
+                + (" and heat integration both reduce energy use." if both else " reduces energy use."))
+    else:
+        head = "Yes: " + "; ".join(_lc(a["claim"]) for a in yes) + "."
+    lims = []
+    for a in cond:
+        lims.append("Assumption: " + a["limitation"])
+    for a in yes:
+        if a["answer"] == "Yes" and a["qualifier"]:
+            lims.append(f"{a['claim']} only {a['qualifier']}: {a['limitation']}")
+    for a in pans:
+        if a["answer"] == "No":
+            lims.append(f"No: {_lc(a['claim'])}. {a['limitation']}")
+    for a in pans:
+        if a["answer"] == "Not established":
+            q = f", {a['qualifier']}" if a["qualifier"].startswith("leaning") else ""
+            lims.append(f"Not established{q}: {_lc(a['claim'])}. {a['limitation']}")
+    # nothing unfavourable is hidden: every No and Not established claim is named
+    for a in pans:
+        if a["answer"] in ("No", "Not established") and not any(_lc(a["claim"]) in x for x in lims):
+            raise EvidenceError(f"{hid}: headline limitations omit the claim {a['claim']!r}")
+    return head, lims
+
+
 def plain_answers_md(h: dict) -> list[str]:
     """Markdown lines of the plain-answers table of one hypothesis (verdict and components beside it)."""
-    L = [f"**Plain answers (reading aid; formal verdict {h['verdict']}, components "
+    L = [f"**Headline answer (reading aid, not a verdict):** {_md_escape(h['headline_answer'])}", "",
+         "**Limitations:**", ""] + [f"* {_md_escape(x)}" for x in h["headline_limitations"]] + [""]
+    L += [f"**Formal classification (rule fixed before the analysis):** {h['verdict']} ("
+          + ", ".join(f"{c['id']} {c['verdict']}" for c in h["components"]) + ")."
+          + (f" {_md_escape(h['formal_classification_note'])}" if h.get("formal_classification_note") else ""), ""]
+    L += [f"**Plain answers (reading aid; formal verdict {h['verdict']}, components "
          + ", ".join(f"{c['id']} {c['verdict']}" for c in h["components"]) + ").**", "",
          "| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |", "|---|---|---|---|---|---|"]
     for a in h["plain_answers"]:
@@ -2858,6 +3008,9 @@ def build() -> dict:
             "findings_against_essay": txt["against"],
             "summary": txt["statement"],
             "plain_answers": pans,
+            "headline_answer": headline_for(hid, rows, pans)[0],
+            "headline_limitations": headline_for(hid, rows, pans)[1],
+            "formal_classification_note": FORMAL_DIFF_NOTE.get(hid, ""),
             "plain_answers_note": ("Reading aid derived in code from the formal outcomes; not a verdict. The formal verdict of "
                                    f"{hid} is {v} (" + ", ".join(f"{c['id']} {c['verdict']}" for c in comps) + "). Answers that rest "
                                    "on half of a row are findings; the row verdict stays as stated."),
@@ -2918,6 +3071,7 @@ def build() -> dict:
                          "reference value changed. Recorded in results/research/addendum_2026-11-24.json and "
                          "docs/research/phase2_findings_changed.md."),
             "plain_answers_rule": PLAIN_RULE,
+            "headline_rule": HEADLINE_RULE,
             "published_figures_rule": FIGURE_RULE,
         },
         "methodology_version": METHODOLOGY_VERSION,
@@ -2958,7 +3112,7 @@ def to_markdown(m: dict) -> str:
          f"Currency: calculations in {cur['calculation_currency']}; SGD values use {cur['fx_SGD_per_USD']} SGD/USD ({cur['fx_date']}).", "",
          "## Disclosures", ""] + [f"- {x}" for x in m["provenance"]["disclosures"]] + ["", f"Fix pass: {m['provenance']['fix_pass']}", "",
          f"Addendum: {m['provenance']['addendum']}", "",
-         "## Plain answers (reading aid, not verdicts)", "", m["provenance"]["plain_answers_rule"], "",
+         "## Plain answers (reading aid, not verdicts)", "", m["provenance"]["plain_answers_rule"], "", m["provenance"]["headline_rule"], "",
          m["provenance"]["published_figures_rule"], ""]
     for h in m["hypotheses"]:
         L += [f"### {h['id']}: {h['primary_hypothesis']}", ""] + plain_answers_md(h)

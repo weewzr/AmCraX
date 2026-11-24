@@ -295,11 +295,11 @@
    ]
   },
   "enduse": {
-   "n_items": 75,
+   "n_items": 77,
    "by_status": {
-    "pass": 69,
+    "pass": 70,
     "fail": 0,
-    "informational": 6
+    "informational": 7
    },
    "file": "results/research/validation/enduse.json",
    "failures": [],
@@ -327,6 +327,10 @@
     {
      "id": "EU-P2-threshold-vs-literature",
      "description": "Full exhaust-heated threshold system gain against the like-for-like literature gain (Ahmad 2025, 4.4-5.4 pp on LHV 18.8)"
+    },
+    {
+     "id": "EU-P2-halim-fuel-basis",
+     "description": "Halim et al. 2025 'about 40 %' on the paper's own basis (1 - direct NH3 fuel cost / cracked H2 cost per kg of hydrogen-equivalent energy; not a cost of electricity): AmCraX unified model at the paper's green and blue NH3 prices, heat integration on, against the paper's 39 % and 44 %"
     }
    ]
   },
@@ -395,11 +399,11 @@
    ]
   },
   "kinetics": {
-   "n_items": 19,
+   "n_items": 21,
    "by_status": {
     "pass": 10,
     "fail": 2,
-    "informational": 7
+    "informational": 9
    },
    "file": "results/research/validation/kinetics.json",
    "failures": [
@@ -452,6 +456,14 @@
     {
      "id": "K1P2-SEARCH-MISSING-KINETICS",
      "description": "Phase 2 search for complete published rate laws: Ni/CeO2, Ru/CeO2, Ru-K/CaO (Sayas 2020 and follow-ups), any law fitted at 5-40 bar"
+    },
+    {
+     "id": "K1P2-SAYAS-POINTS",
+     "description": "Sayas et al. 2020: 15 measured conversions of 3%Ru10%K/CaO at 10, 20 and 40 bar, 350-550 degC, stored as literature comparison points; NOT used by any model, fit or rule"
+    },
+    {
+     "id": "K1P2-SAYAS-RUAL2O3-CONTEXT",
+     "description": "caution, cross-catalyst context comparison (not a test of the law): the AmCraX Ru/Al2O3 law (fitted at 1-10 bar) at the Sayas conditions with equal ruthenium per mol NH3, against the measured Ru-K/CaO conversion at 20 bar and 500 degC"
     }
    ]
   },
@@ -484,11 +496,11 @@
    ]
   },
   "purification": {
-   "n_items": 17,
+   "n_items": 22,
    "by_status": {
-    "pass": 10,
+    "pass": 11,
     "fail": 0,
-    "informational": 7
+    "informational": 11
    },
    "file": "results/research/validation/purification.json",
    "failures": [],
@@ -520,6 +532,22 @@
     {
      "id": "P2-PSA-1",
      "description": "PSA recovery at Grade D against Yanez 2020 (55.5 % at 99.97 %)"
+    },
+    {
+     "id": "P2-PSA-ABDOOS-1",
+     "description": "AmCraX PSA recovery assumption 0.85 at 99.96 % against the published front for a cracked-ammonia composition (Abdoos 2025 Table 8: 0.8192 at 99.95 %, 0.7744 at 99.99 %)"
+    },
+    {
+     "id": "P2-PSA-ABDOOS-2",
+     "description": "AmCraX mass-balance central recoveries (0.7516 at 99.91 %, 0.7513 at 99.975 %) against the Abdoos 2025 front"
+    },
+    {
+     "id": "P2-PSA-ABDOOS-4",
+     "description": "Purity-only Grade D increment at equal (30 bar) delivery on the Abdoos 2025 relation against the model resolution (Python against Aspen LCOH offset)"
+    },
+    {
+     "id": "P2-PSA-ABDOOS-BASELINE",
+     "description": "Reference baseline LCOH (PSA 0.85 at 99.96 %) beside the same economics code path at the Abdoos 2025 recoveries 0.8192 (99.95 %) and 0.7744 (99.99 %)"
     }
    ]
   },
@@ -572,10 +600,10 @@
   }
  },
  "totals": {
-  "pass": 607,
+  "pass": 609,
   "fail": 12,
-  "informational": 76,
+  "informational": 83,
   "not_available": 1
  },
- "n_items": 696
+ "n_items": 705
 }

@@ -1,4 +1,4 @@
-<!-- cites: cho2026nickel, chopra2026decentralized, farokhi2025costoptimization, argus_h2_markers -->
+<!-- cites: cho2026nickel, chopra2026decentralized, farokhi2025costoptimization, argus_h2_markers, abdoos2025psa -->
 
 # 32 Unified techno-economic baseline and CAPEX audit
 
@@ -52,6 +52,20 @@ Table: **Table 32.2.** Baseline results with the supplementary NH~3~ fuel heat d
 
 A lower fuel efficiency raises the LCOH by up to 0.047 USD/kg, lowers the break-even price by up to 4.5 USD/t and makes heat integration more valuable. The same assumption favours cracking in H1; its effect on the turbine-efficiency thresholds is computed in Section 33.
 
-## 32.4 Limits of the basis
+## 32.4 PSA-recovery sensitivity of the baseline
+
+The reference plant assumes a PSA H~2~ recovery of 0.85 at 99.96 % purity. The only published purity-recovery front for this gas composition, a simulation by Abdoos et al. (2025) on a dry, ammonia-free feed at 8 to 12 bar (Section 36.4), gives 0.8192 at 99.95 % and 0.7744 at 99.99 %, so the reference assumption lies above it. Table 32.3 gives the baseline at these recoveries, computed on the same code path as every recovery change in the economics: the H~2~ product scales with the recovery, the extra hydrogen sent to the tail gas reduces the supplementary fuel, and feed, capital and fixed costs are held. The baseline stays frozen at 4.015 USD/kg with recovery 0.85; these cases are its PSA-recovery sensitivity, as Table 32.2 is its fuel envelope. No verdict depends on them.
+
+Table: **Table 32.3.** Baseline results at the reference PSA recovery and at the two points of the published front that meet industrial purity, grey NH~3~ at 450 USD/t, heat integration on, fuel at 100 % of its lower heating value. *Source: independent Python calculation, results/research/reference_scenario/baseline.json psa_recovery_sensitivity; recoveries from Abdoos et al. (2025, Table 8).*
+
+| PSA H~2~ recovery | LCOH (USD/kg) | LCOH (SGD/kg) | NPV at 3.06 USD/kg (USD) | Break-even NH~3~ price against 3.06 USD/kg (USD/t) |
+|---|---|---|---|---|
+| 0.85 at 99.96 % (reference assumption) | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/reference_lcoh_USD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/0/lcoh_SGD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/reference_npv_USD|,.0f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/reference_breakeven_nh3_USD_per_t_vs_marker|.1f}} |
+| {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/psa_recovery|.4f}} at 99.95 % (simulated front, 11.3 bar) | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/lcoh_USD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/lcoh_SGD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/npv_USD|,.0f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/breakeven_nh3_USD_per_t_vs_marker|.1f}} |
+| {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/psa_recovery|.4f}} at 99.99 % (simulated front, 11.6 bar) | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/lcoh_USD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/lcoh_SGD_per_kg|.3f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/npv_USD|,.0f}} | {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/breakeven_nh3_USD_per_t_vs_marker|.1f}} |
+
+The lower recoveries raise the LCOH by {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/1/delta_vs_reference_USD_per_kg|.3f}} and {{VAL:reference_scenario/baseline.json#psa_recovery_sensitivity/cases/2/delta_vs_reference_USD_per_kg|.3f}} USD/kg. The front is a simulation, not a measurement; it lies at a lower pressure than the 19.5 bar AmCraX PSA feed, and the paper's own trend (higher pressure: higher purity, lower recovery) makes that difference not neutral.
+
+## 32.5 Limits of the basis
 
 The reference CAPEX comes from one paper's itemised table. Cho et al. (2026) do not say clearly whether their ISBL items are purchase or installed costs; if they are purchase costs, installation is missing and the CAPEX is low. For the power-plant cracker of Section 33 the same table is extrapolated more than 30-fold. By default no workstream passes exchanger area or catalyst mass to the method; Section 35 does so explicitly where it matters. The electricity term covers pump power only (about 0.001 USD/kg); PSA and compression power lie outside this boundary, which is why electricity has almost no sensitivity index in Section 37.

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T06:08:36Z",
+  "generated_utc": "2026-11-24T12:48:14Z",
   "script": "scripts/research/enduse_threshold.py",
   "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
   "inputs_summary": "stored Aspen baseline cracker; Ahmad 2025 turbine end points; reference scenario costs; literature ranges from research/data",
@@ -187,7 +187,292 @@
   "largest_in_sensitivities_pct": 27.295990386561176,
   "cracker_capex_factor_for_40pct_fired": 11.137072768344265,
   "cracker_capex_factor_for_40pct_purified": 6.281351765235253,
-  "halim_status": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them."
+  "halim_status": "Full text read on 24 November 2026 (research/notes/halim2025_full_text.md; research/data/halim2025_extract.json). All four quoted numbers are located: 60.1 MW (p. 3, p. 11; vendor rating of the Mitsubishi H-25); LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5); 'about 40 %' (Highlights; 39 % green and 44 % blue on p. 9), which is 1 - LCOA/LCOH, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent energy for the 40 % hydrogen share, with equal turbine efficiency and the power plant excluded, NOT a cost of electricity (the paper computes no LCOE); and 30-60 vol% H2 for the H-25 (p. 3, relayed from trade press). The same quantity on AmCraX boundaries is in fuel_cost_gap_on_paper_basis; the LCOE gaps above test the essay's sentence about power.",
+  "halim_status_superseded_2026_11_23": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them.",
+  "fuel_cost_gap_on_paper_basis": {
+   "description": "H1-b on the paper's own basis (addendum of 24 November 2026). Halim et al. (2025) report 'about 40 %' as  1 - LCOA/LCOH (39 % green, 44 % blue, p. 9): the cost of fuel delivered to the turbine per kg of hydrogen-equivalent  fuel energy, power plant excluded. The same quantity on AmCraX boundaries: direct = NH3 bought at the scenario price  for the same LHV as 1 kg H2 (no storage, vaporisation or compression item exists in AmCraX), cracked = the unified  LCOH (singapore.evaluate on the stored Aspen baseline), heat integration on and off. The LCOE comparison of the  essay's sentence about power (largest gap 16.6 %) is not changed.",
+   "quantity": "1 - direct NH3 fuel cost / cracked-hydrogen cost, both per kg of hydrogen-equivalent fuel energy (not a cost of electricity)",
+   "lhv_MJ_per_kg": {
+    "NH3": 18.601920084554184,
+    "H2": 119.96051352263031,
+    "basis": "amcrax.schemas LHV_KJ_PER_MOL / MOLAR_MASS (the paper's implied NH3 LHV is 18.737)"
+   },
+   "kg_NH3_per_kg_H2_equivalent": 6.448824259934202,
+   "direct_side_boundary": "NH3 purchase only at the scenario price; AmCraX has no ammonia storage, vaporisation or compression item (the paper's LCOA includes them)",
+   "cracked_side_boundary": "unified reference LCOH: plant gate, H2 at 19.5 bar, PSA recovery 0.85, supplementary NH3 fuel at 100 % of its LHV, no storage",
+   "cases": [
+    {
+     "price_case": "grey",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 450.0,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 4.015461254695034,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.901970916970391,
+     "gap_pct_1_minus_direct_over_cracked": 27.730073012725665
+    },
+    {
+     "price_case": "grey",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 450.0,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 4.229241647903042,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.901970916970391,
+     "gap_pct_1_minus_direct_over_cracked": 31.3831850112122
+    },
+    {
+     "price_case": "blue",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 487.0,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 4.287417378542392,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 3.1405774145879564,
+     "gap_pct_1_minus_direct_over_cracked": 26.74896943073759
+    },
+    {
+     "price_case": "blue",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 487.0,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 4.518622210296651,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 3.1405774145879564,
+     "gap_pct_1_minus_direct_over_cracked": 30.4970128409612
+    },
+    {
+     "price_case": "green_2050",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 463.0,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 4.111013406317079,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.985805632349536,
+     "gap_pct_1_minus_direct_over_cracked": 27.370569316035866
+    },
+    {
+     "price_case": "green_2050",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 463.0,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 4.330915899554851,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.985805632349536,
+     "gap_pct_1_minus_direct_over_cracked": 31.058332657615708
+    },
+    {
+     "price_case": "green_2030",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 709.0,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 5.91915412162654,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 4.572216400293349,
+     "gap_pct_1_minus_direct_over_cracked": 22.75557780142854
+    },
+    {
+     "price_case": "green_2030",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 709.0,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 6.254905584658308,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 4.572216400293349,
+     "gap_pct_1_minus_direct_over_cracked": 26.90191181290039
+    },
+    {
+     "price_case": "green_current",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 1000.0,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 8.058052284858464,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 6.448824259934202,
+     "gap_pct_1_minus_direct_over_cracked": 19.97043414508606
+    },
+    {
+     "price_case": "green_current",
+     "price_source": "reference scenario (backend/amcrax/data/reference_scenario.yaml)",
+     "NH3_USD_per_t": 1000.0,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 8.530844602402643,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 6.448824259934202,
+     "gap_pct_1_minus_direct_over_cracked": 24.405793793056052
+    },
+    {
+     "price_case": "halim_green_FOB",
+     "price_source": "Halim et al. 2025 Table 4 (Platts, July 2024)",
+     "NH3_USD_per_t": 944.2,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 7.64791304943461,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 6.088979866229874,
+     "gap_pct_1_minus_direct_over_cracked": 20.38377231969163
+    },
+    {
+     "price_case": "halim_green_FOB",
+     "price_source": "Halim et al. 2025 Table 4 (Platts, July 2024)",
+     "NH3_USD_per_t": 944.2,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 8.094427429927956,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 6.088979866229874,
+     "gap_pct_1_minus_direct_over_cracked": 24.77565684613139
+    },
+    {
+     "price_case": "halim_blue_FOB",
+     "price_source": "Halim et al. 2025 Table 4 (Platts, July 2024)",
+     "NH3_USD_per_t": 397.96,
+     "heat_integration": "on",
+     "cracked_LCOH_USD_per_kg": 3.6329586415864794,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.566374102483415,
+     "gap_pct_1_minus_direct_over_cracked": 29.358565409852755
+    },
+    {
+     "price_case": "halim_blue_FOB",
+     "price_source": "Halim et al. 2025 Table 4 (Platts, July 2024)",
+     "NH3_USD_per_t": 397.96,
+     "heat_integration": "off",
+     "cracked_LCOH_USD_per_kg": 3.8222317974445703,
+     "direct_fuel_cost_USD_per_kg_H2_equivalent": 2.566374102483415,
+     "gap_pct_1_minus_direct_over_cracked": 32.856659708623226
+    }
+   ],
+   "paper_values": {
+    "green": {
+     "NH3_USD_per_t": 944.2,
+     "LCOH_USD_per_kg": 15.1,
+     "LCOA_USD_per_kg": 9.2,
+     "gap_pct_printed": 39
+    },
+    "blue": {
+     "NH3_USD_per_t": 397.96,
+     "LCOH_USD_per_kg": 10.1,
+     "LCOA_USD_per_kg": 5.7,
+     "gap_pct_printed": 44
+    }
+   },
+   "reconciliation": {
+    "green": {
+     "NH3_USD_per_t": 944.2,
+     "paper_gap_pct_printed": 39,
+     "paper_gap_pct_from_printed_LCOA_LCOH": 39.0728476821192,
+     "amcrax_nh3_kg_per_kg_h2_feed_plus_fuel": 7.350165509388052,
+     "amcrax_energy_retained_as_h2": 0.8773712988772014,
+     "paper_energy_retained_as_h2_derived": 0.6948862900090708,
+     "amcrax_non_nh3_cost_USD_per_kg": 0.7078867754704099,
+     "amcrax_non_nh3_cost_at_paper_hours_and_life_USD_per_kg": 0.7024695655173998,
+     "paper_non_feed_cost_cracked_USD_per_kg": 6.4,
+     "paper_non_feed_cost_direct_USD_per_kg": 3.1499999999999995,
+     "steps": [
+      {
+       "step": "0 AmCraX unified model at the paper's price, heat integration on",
+       "direct_USD_per_kg": 6.088979866229874,
+       "cracked_USD_per_kg": 7.64791304943461,
+       "gap_pct": 20.38377231969163
+      },
+      {
+       "step": "1 cracked side: NH3 per kg H2 at the paper's energy retention 0.6949 (AmCraX 0.8774)",
+       "direct_USD_per_kg": 6.088979866229874,
+       "cracked_USD_per_kg": 9.470442540026351,
+       "gap_pct": 35.70543466691123,
+       "change_pp": 15.3216623472196
+      },
+      {
+       "step": "2 also the paper's capacity factor 0.9 (7884 h) and life 30 yr on AmCraX non-NH3 costs",
+       "direct_USD_per_kg": 6.088979866229874,
+       "cracked_USD_per_kg": 9.465025330073342,
+       "gap_pct": 35.66863633335156,
+       "change_pp": -0.036798333559673324
+      },
+      {
+       "step": "3 also the paper's cracked-side non-feed cost 6.40 USD/kg instead of AmCraX 0.702 (storage tank, fired furnace, compressors, PSA, O&M; Fig. 5)",
+       "direct_USD_per_kg": 6.088979866229874,
+       "cracked_USD_per_kg": 15.162555764555941,
+       "gap_pct": 59.84199523629452,
+       "change_pp": 24.173358902942965
+      },
+      {
+       "step": "4 also the paper's direct-use non-feed cost 3.15 USD/kg (mostly the same storage tank, plus vaporisation and compression; Fig. 5)",
+       "direct_USD_per_kg": 9.238979866229872,
+       "cracked_USD_per_kg": 15.162555764555941,
+       "gap_pct": 39.067133472135666,
+       "change_pp": -20.774861764158857
+      }
+     ],
+     "one_at_a_time_change_pp_from_step_0": {
+      "energy_retention_only": 15.3216623472196,
+      "hours_and_life_only": -0.05643415843065469,
+      "cracked_non_feed_cost_only": 33.97179084652365,
+      "direct_non_feed_cost_only": -41.18770675920366
+     },
+     "residual_pp_vs_printed": 0.06713347213566578
+    },
+    "blue": {
+     "NH3_USD_per_t": 397.96,
+     "paper_gap_pct_printed": 44,
+     "paper_gap_pct_from_printed_LCOA_LCOH": 43.56435643564356,
+     "amcrax_nh3_kg_per_kg_h2_feed_plus_fuel": 7.350165509388052,
+     "amcrax_energy_retained_as_h2": 0.8773712988772014,
+     "paper_energy_retained_as_h2_derived": 0.6948862900090708,
+     "amcrax_non_nh3_cost_USD_per_kg": 0.7078867754704099,
+     "amcrax_non_nh3_cost_at_paper_hours_and_life_USD_per_kg": 0.7024695655174003,
+     "paper_non_feed_cost_cracked_USD_per_kg": 6.43,
+     "paper_non_feed_cost_direct_USD_per_kg": 3.1500000000000004,
+     "steps": [
+      {
+       "step": "0 AmCraX unified model at the paper's price, heat integration on",
+       "direct_USD_per_kg": 2.566374102483415,
+       "cracked_USD_per_kg": 3.6329586415864794,
+       "gap_pct": 29.358565409852755
+      },
+      {
+       "step": "1 cracked side: NH3 per kg H2 at the paper's energy retention 0.6949 (AmCraX 0.8774)",
+       "direct_USD_per_kg": 2.566374102483415,
+       "cracked_USD_per_kg": 4.401115638065921,
+       "gap_pct": 41.688101074044646,
+       "change_pp": 12.32953566419189
+      },
+      {
+       "step": "2 also the paper's capacity factor 0.9 (7884 h) and life 30 yr on AmCraX non-NH3 costs",
+       "direct_USD_per_kg": 2.566374102483415,
+       "cracked_USD_per_kg": 4.395698428112912,
+       "gap_pct": 41.61623813703781,
+       "change_pp": -0.07186293700683422
+      },
+      {
+       "step": "3 also the paper's cracked-side non-feed cost 6.43 USD/kg instead of AmCraX 0.702 (storage tank, fired furnace, compressors, PSA, O&M; Fig. 5)",
+       "direct_USD_per_kg": 2.566374102483415,
+       "cracked_USD_per_kg": 10.12322886259551,
+       "gap_pct": 74.64866064654575,
+       "change_pp": 33.03242250950794
+      },
+      {
+       "step": "4 also the paper's direct-use non-feed cost 3.15 USD/kg (mostly the same storage tank, plus vaporisation and compression; Fig. 5)",
+       "direct_USD_per_kg": 5.716374102483416,
+       "cracked_USD_per_kg": 10.12322886259551,
+       "gap_pct": 43.53210640525038,
+       "change_pp": -31.11655424129537
+      }
+     ],
+     "one_at_a_time_change_pp_from_step_0": {
+      "energy_retention_only": 12.32953566419189,
+      "hours_and_life_only": -0.1054927944363584,
+      "cracked_non_feed_cost_only": 43.20846412009897,
+      "direct_non_feed_cost_only": -86.70618938354953
+     },
+     "residual_pp_vs_printed": -0.46789359474961856
+    }
+   },
+   "reconciliation_note": "Sequential substitution of the paper's quantities into the AmCraX calculation, heat integration on; each step keeps the previous ones, so the change per step depends on the order (one-at-a-time changes from step 0 are given beside the steps). After step 4 the gap is rebuilt from the paper's own numbers on the AmCraX LHV basis. Reading: the paper's larger gap comes from its lower energy retention (0.695 against 0.877) and above all from its much larger non-feed cost of cracking (6.40 against 0.70 USD/kg); its ammonia storage, vaporisation and compression cost on the direct side (3.15 USD/kg) pulls the gap back down; hours and plant life change it by less than 0.1 point.",
+   "capital_intensity": {
+    "paper_TCI_USD_per_kg_h_H2": 210850.276160621,
+    "paper_TCI_excluding_storage_tank_share_USD_per_kg_h_H2": 106175.78826000473,
+    "paper_storage_tank_share_of_PEIC": 0.49643988998561994,
+    "paper_furnace_share_of_PEIC": 0.3956538735393078,
+    "amcrax_capex_USD_per_kg_h_H2": 30472.642221478643,
+    "note": "derived; the storage-tank exclusion assumes every capital-proportional item scales with PEIC (the paper's factors are percentages of PEC); AmCraX has no ammonia storage item"
+   },
+   "cannot_be_reconciled": [
+    "how the paper's non-feed costs split between the storage tank, the fired furnace, the compressors and the PSA beyond the PEIC shares (the stream table and supplementary Tables A1-A2 were not available)",
+    "the price year of the paper's capital costs (not stated; CEPCI 800) against the AmCraX 2024 USD basis",
+    "the paper's NH3 LHV (18.737 MJ/kg implied) against AmCraX 18.60: about 0.7 % on every NH3 quantity",
+    "AmCraX has no ammonia storage, vaporisation or compression cost on either side, so steps 3 and 4 import the paper's numbers rather than compute them",
+    "the paper's plant buys grid electricity at 0.16 USD/kWh inside 'other variable' costs; AmCraX uses its own electricity price"
+   ],
+   "lcoe_comparison_unchanged": "forty_percent_figure/largest_computed_pct (cost of electricity on AmCraX boundaries) is unchanged; it tests the essay's sentence about power, which is not the paper's quantity",
+   "source_type": "python (unified economics) + literature (Halim et al. 2025, research/data/halim2025_extract.json)"
+  }
  },
  "row_evidence": {
   "H1-a": {
@@ -222,10 +507,10 @@
     "cracker_capex_factor_needed_for_40pct_fired": 11.137072768344265
    },
    "assumptions": "as H1-a; three price/hour bases",
-   "uncertainty": "Halim's inputs unknown (full text not accessible)",
+   "uncertainty": "The paper (full text read 24 Nov 2026) computes no cost of electricity: its 'about 40 %' is a fuel cost at the turbine inlet (1 - LCOA/LCOH, 39 % green, 44 % blue). On that basis AmCraX gives 20.4 % (halim_green_FOB, HI on), 24.8 % (halim_green_FOB, HI off), 29.4 % (halim_blue_FOB, HI on), 32.9 % (halim_blue_FOB, HI off) (fuel_cost_gap_on_paper_basis)",
    "envelope": "AmCraX boundaries; does not show Halim's own calculation is wrong",
    "threshold": "existing rule: CONTRADICTED if the largest computed gap is below half the claim (20 %)",
-   "reason": "Largest computed gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The figure could not be located in any accessible Halim text."
+   "reason": "Largest computed LCOE gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The row tests the essay's sentence about power; the paper's own 40 % is a different quantity (fuel cost per kg of hydrogen-equivalent energy, located on p. 9), compared like for like in forty_percent_figure/fuel_cost_gap_on_paper_basis."
   },
   "H1-c": {
    "proposed_verdict": "INCONCLUSIVE",

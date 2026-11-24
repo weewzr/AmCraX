@@ -1,6 +1,6 @@
 # Research evidence matrix (H1-H4), methodology version 2
 
-Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T13:06:28Z). Do not edit by hand; re-run the script.
+Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T14:28:39Z). Do not edit by hand; re-run the script.
 
 Verdict rule: `docs/research/verdict_methodology_v2.md` (version 2, fixed before the Phase 2 analyses). Row verdicts: SUPPORTED, CONTRADICTED, INCONCLUSIVE. Component and hypothesis verdicts add MIXED and PARTIALLY SUPPORTED. Every row verdict is derived in code from the result files by the rule printed with the row. The version 1 verdict of the 23 November 2026 release is shown beside every verdict.
 
@@ -25,18 +25,30 @@ Addendum: 24 November 2026: three papers earlier seen only as abstracts or searc
 
 ## Plain answers (reading aid, not verdicts)
 
-Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is exactly one of 'Yes', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. Everything else is 'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict with its components is printed beside the plain answers. The qualifier and the limitation are computed from the same stored values as the row.
+Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is exactly one of 'Yes', 'Yes, under the stated assumption', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. 'Yes, under the stated assumption' only where ALL of these hold, checked in code from stored values: (i) the model result is computed and has the claimed direction on every basis of the analysis; (ii) the formal test behind it is INCONCLUSIVE solely because one named quantity is assumed by the model, not computed, and no sourced value of that quantity exists (not because sourced values straddle a threshold); (iii) the limitation printed with it names the assumption and gives the break-even value of the assumed quantity. It is a conditional statement of the computed result and never a verdict. Everything else is 'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict with its components is printed beside the plain answers. The qualifier and the limitation are computed from the same stored values as the row.
+
+Headline answers are part of the plain-answer reading aid and are never verdicts. Each hypothesis gets a headline answer and headline limitations, generated in code from its plain answers: the headline states the 'Yes' answers first (including 'Yes, under the stated assumption', which makes the headline conditional); where no claim is 'Yes' the headline is 'Not established.' The limitations follow immediately and always: first the assumption behind a conditional 'Yes' and the size limit of a qualified 'Yes', then every 'No' claim and every 'Not established' claim, each named explicitly with its computed limitation, so nothing unfavourable is left out. The formal classification under the rule fixed before the analysis (verdict and components) is unchanged and is published beside it in the detailed evidence matrix. Plain answers state what the model computes and under which assumptions; the formal classification applies a stricter rule fixed before the analysis, under which a result that rests on an untested assumption is not counted as supported; both are published.
 
 Published figures checked (secondary reproduction rows; they do not vote): 'reproduced' only where the reproduction row is SUPPORTED, 'not reproduced' only where it is CONTRADICTED, otherwise 'not established'.
 
 ### H1: End-use suitability: cracking is most justified when the end use needs molecular hydrogen, not where ammonia can be used directly.
+
+**Headline answer (reading aid, not a verdict):** Yes, under the modelled conditions: direct ammonia combustion gives cheaper electricity than the standalone cracking pathways (about 8 to 17 %).
+
+**Limitations:**
+
+* Assumption: The gas turbine is not modelled in AmCraX: both fuels are assigned the same 49.64 % efficiency. Under that assumption direct ammonia is 7.6 % cheaper than fired cracking (259 against 280 USD/MWh) and 16.5 % cheaper than cracking + PSA. Fired cracking would break even if the hydrogen-rich turbine were 5.16 percentage points more efficient (3.29 to 8.79 over the 11 bases; 5.82 and 6.54 if the cracker fuel delivers 92 % and 85 % of its heating value). No published efficiency exists for this fuel on a fired cracker.
+* Not established: cracking in front of a turbine does not pay. Against the essay, exhaust-heated full cracking is 1.3 % cheaper than direct use on the reference basis (255.6 against 258.9 USD/MWh); this is not robust: the sign changes across cost, price and hour bases (a cracker CAPEX x1.22 removes it).
+* Not established: cracking is justified where hydrogen is the product. Cracked hydrogen costs 4.015 USD/kg with fuel counted at 100 % of its LHV (4.038 to 4.063 at lower fuel efficiencies): above the 3.06 USD/kg NE Asia SMR marker, below the 6.0 USD/kg delivered low-carbon benchmark. For power, cracking + PSA gives 2.53 to 2.58 kWh/kg NH3 at sourced turbine gains against 2.57 for direct combustion, so the energy comparison is also unresolved.
+
+**Formal classification (rule fixed before the analysis):** INCONCLUSIVE (H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE). It differs from the plain answer because the turbine efficiency is assumed, not computed, so the rule cannot count the result as supported.
 
 **Plain answers (reading aid; formal verdict INCONCLUSIVE, components H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE).**
 
 | Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
 |---|---|---|---|---|---|
 | Direct ammonia is cheaper than cracking plus PSA for power | **Yes** | - | Direct use is 17 % cheaper (259 against 310 USD/MWh) at an assumed equal turbine efficiency of 49.64 %. Cracking + PSA would need a turbine 12.6 percentage points more efficient, above the only sourced gain (6.1 to 7.3 points, one upper-bound source that is not like for like) on every cost basis. Finding on the cracking + PSA half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (cracking + PSA half) | H1-a INCONCLUSIVE (cracking + PSA half SUPPORTED; the row needs both halves); component H1-P INCONCLUSIVE |
-| Direct ammonia is cheaper than fired cracking for power | **Not established** | - | Direct use is 8 % cheaper (259 against 280 USD/MWh) only at the assumed equal turbine efficiency; fired cracking would need +5.2 points (+6.5 with cracker heat at 0.85 of the fuel LHV), and no turbine efficiency on its H2/N2 fuel is sourced. Finding on the fired-cracking half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (fired-cracking half) | H1-a INCONCLUSIVE (fired-cracking half INCONCLUSIVE; the row needs both halves); component H1-P INCONCLUSIVE |
+| Direct ammonia is cheaper than fired cracking for power | **Yes, under the stated assumption** | - | The gas turbine is not modelled in AmCraX: both fuels are assigned the same 49.64 % efficiency. Under that assumption direct ammonia is 7.6 % cheaper than fired cracking (259 against 280 USD/MWh) and 16.5 % cheaper than cracking + PSA. Fired cracking would break even if the hydrogen-rich turbine were 5.16 percentage points more efficient (3.29 to 8.79 over the 11 bases; 5.82 and 6.54 if the cracker fuel delivers 92 % and 85 % of its heating value). No published efficiency exists for this fuel on a fired cracker. Finding on the fired-cracking half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. Conditional statement of the computed result, not a verdict: it holds only under the assumption named in the limitation; the formal test stays INCONCLUSIVE. | H1-a (fired-cracking half) | H1-a INCONCLUSIVE (fired-cracking half INCONCLUSIVE; the row needs both halves); component H1-P INCONCLUSIVE |
 | Cracking in front of a turbine does not pay | **Not established** | - | Against the essay, exhaust-heated full cracking is 1.3 % cheaper than direct use on the reference basis (255.6 against 258.9 USD/MWh); this is not robust: the sign changes across cost, price and hour bases (a cracker CAPEX x1.22 removes it). | H1-c | H1-c INCONCLUSIVE; component H1-P INCONCLUSIVE |
 | Cracking is justified where hydrogen is the product | **Not established** | - | Cracked hydrogen costs 4.015 USD/kg with fuel counted at 100 % of its LHV (4.038 to 4.063 at lower fuel efficiencies): above the 3.06 USD/kg NE Asia SMR marker, below the 6.0 USD/kg delivered low-carbon benchmark. For power, cracking + PSA gives 2.53 to 2.58 kWh/kg NH3 at sourced turbine gains against 2.57 for direct combustion, so the energy comparison is also unresolved. | H1-d | H1-d INCONCLUSIVE; component H1-Q INCONCLUSIVE |
 
@@ -47,6 +59,16 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 | Direct ammonia power about 40 % cheaper than cracking-based power (the essay's wording, citing Halim et al.) | not reproduced | At most 16.6 % in the cost of electricity on AmCraX boundaries. The paper's own 40 % (39 % and 44 %) is a fuel cost at the turbine inlet, not a cost of power; on that basis AmCraX gives 20.4 % and 29.4 % at the paper's prices (27.7 % for grey at 450 USD/t): same direction, smaller gap. | H1-b CONTRADICTED |
 
 ### H2: Feedstock: affordable, low-carbon ammonia is essential to economic and environmental competitiveness.
+
+**Headline answer (reading aid, not a verdict):** Yes: ammonia price is the dominant cost of cracked hydrogen (feed 76 % of the LCOH), and low-carbon ammonia is needed for an emissions advantage in power and in hydrogen supply.
+
+**Limitations:**
+
+* No: low carbon intensity is rewarded economically in Singapore. Under the actual Singapore carbon tax the charge is 0 USD/kg for every ammonia route, while blue (4.29 USD/kg) and green at today's price (8.06) cost more than grey (4.02).
+* Not established: cheap ammonia makes cracked hydrogen competitive. Competitive with the 3.06 USD/kg NE Asia SMR marker only with ammonia at or below about 320 USD/t (277 to 379); grey ammonia at 450 USD/t is not cheap enough. Sourced prices (300 to 1052 USD/t) lie on both sides. Against the 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t.
+* Not established: low carbon intensity would be rewarded under a life-cycle carbon price. Blue overtakes grey at 33 SGD/t CO2e (range 12 to 605) against the legislated 45 SGD/t; green at today's price needs 305 SGD/t. Hypothetical, not Singapore law.
+
+**Formal classification (rule fixed before the analysis):** MIXED (H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED). It differs from the plain answer because the rule combines components: the feed-cost and emissions claims hold, while the carbon-price claim is contradicted and the break-even row is inconclusive, which the rule records as MIXED.
 
 **Plain answers (reading aid; formal verdict MIXED, components H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED).**
 
@@ -60,6 +82,17 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 | Low carbon intensity would be rewarded under a life-cycle carbon price | **Not established** | hypothetical, not Singapore law | Blue overtakes grey at 33 SGD/t CO2e (range 12 to 605) against the legislated 45 SGD/t; green at today's price needs 305 SGD/t. Hypothetical, not Singapore law. Hypothetical scenario, not Singapore law; reported separately and does not vote. | H2-e (hypothetical life-cycle carbon price, not Singapore law) | H2-e CONTRADICTED (hypothetical life-cycle carbon price, not Singapore law: INCONCLUSIVE; reported separately, does not vote); component H2-X CONTRADICTED |
 
 ### H3: Catalyst and heat integration: low-temperature, high-activity catalysts with effective heat integration reduce energy use and can outweigh higher catalyst cost.
+
+**Headline answer (reading aid, not a verdict):** Yes for energy: lower temperature (modestly) and heat integration both reduce energy use.
+
+**Limitations:**
+
+* Lower temperature reduces energy use at equal conversion only modestly: At most 25 kW (Ru/Al2O3), 4.9 % of the fired duty and 1.1 % of the 2293 kW total external heating; Python only; resolved only for Ru/Al2O3 and Ru/MgO (72 K or more below Ni/MgO). Cost-optimal Ru designs run hotter and use 19 to 21 kW more.
+* Not established: active catalysts allow that lower temperature at 20 bar. The models order the catalysts (499 to 594 degC), but no rate law is validated at the relevant conditions (20 bar): 3 are checked only against their own fitting data and 2 are extrapolated.
+* Not established: heat integration reduces cost. Saves 0.214 USD/kg gross and 0.067 to 0.095 net of the exchanger on the reference basis, but the break-even heat-transfer coefficient (7.7 to 11.3 W/(m2 K)) lies inside the only sourced range (5 to 35, about 1 bar; none at 20 bar); worst case -0.012 USD/kg.
+* Not established, leaning no: the energy savings outweigh the higher catalyst cost. With heat integration and derived catalyst prices 3 of 4 low-temperature catalysts are dearer than Ni/MgO beyond the model resolution, with Ni at its modelled 594 degC (extrapolated law); against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper.
+
+**Formal classification (rule fixed before the analysis):** PARTIALLY SUPPORTED (H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE). It differs from the plain answer because the rule counts only the energy component; the heat-integration cost and catalyst-economics components are inconclusive.
 
 **Plain answers (reading aid; formal verdict PARTIALLY SUPPORTED, components H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE).**
 
@@ -79,6 +112,17 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 | Ru gives a 7 % lower reconversion cost than Ni (Cho et al. 2026) | not established | -16.2 to 1.6 % on AmCraX boundaries; the sign depends on the price and inventory basis. | H3-f INCONCLUSIVE |
 
 ### H4: Purification: must balance purity requirements against recovery losses, energy and equipment cost.
+
+**Headline answer (reading aid, not a verdict):** Not established.
+
+**Limitations:**
+
+* Not established: higher purity costs hydrogen recovery. AmCraX computes no PSA purity-recovery relation (recoveries are inputs). Two published sources give the direction: Yanez et al. 2020, measured on a different feed (0.753 at 99.25 % to 0.555 at 99.97 %), and Abdoos et al. 2025, simulated for a dry, NH3-free cracked-ammonia composition (0.819 at 99.95 % to 0.774 at 99.99 %).
+* Not established: stricter purity raises the cost of hydrogen. The order raw < industrial < Grade D holds in every case; the purity-only Grade D increment at equal delivery pressure is 0.002 to 0.166 USD/kg on the coded bases (0.080 on the Abdoos et al. 2025 relation), above the 0.006 USD/kg model resolution on both published relations at their printed recoveries, but below it on the assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front.
+* Not established: unrecovered hydrogen offsets furnace fuel. The tail gas covers the 2293 kW furnace demand only at PSA recoveries below 0.765 (where part of it is surplus with no use in the model); sourced and assumed recoveries (0.555 to 0.850) lie on both sides.
+* Not established: a Pd-Ag membrane beats PSA for fuel-cell hydrogen. The membrane is cheaper in 57.5 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial); membrane readiness TRL 4 to 5 against 9 for PSA.
+
+**Formal classification (rule fixed before the analysis):** INCONCLUSIVE (H4-B INCONCLUSIVE).
 
 **Plain answers (reading aid; formal verdict INCONCLUSIVE, components H4-B INCONCLUSIVE).**
 

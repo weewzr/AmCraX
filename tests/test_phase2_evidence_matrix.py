@@ -361,6 +361,36 @@ def test_plain_answer_rejects_non_row_outcomes(builder, bad):
         builder.figure_result(bad)
 
 
+def _cond(builder, outcome=I, dirs=(5.2, 3.3, 8.8), comparison="no_source", sourced=(None,),
+          lim="The turbine is not modelled; both fuels at the same 49.64 % efficiency; break-even 5.16 points.",
+          terms=("not modelled", "same 49.64 % efficiency"), be=("5.16 points",)):
+    c = builder.conditional_yes_conditions(outcome, list(dirs), comparison, list(sourced), lim, list(terms), list(be))
+    return builder.plain_answer_with_conditions(outcome, c), c
+
+
+def test_conditional_yes_only_when_all_conditions_hold(builder):
+    ans, c = _cond(builder)
+    assert ans == builder.CONDITIONAL_YES and all(c.values())
+    # (i) fails: direction not positive on every basis
+    assert _cond(builder, dirs=(5.2, -0.1))[0] == "Not established"
+    assert _cond(builder, dirs=())[0] == "Not established"
+    # (ii) fails: sourced values straddle the threshold, or a sourced value exists
+    assert _cond(builder, comparison="straddle")[0] == "Not established"
+    assert _cond(builder, sourced=(7.3,))[0] == "Not established"
+    # (iii) fails: the limitation does not name the assumption or the break-even
+    assert _cond(builder, lim="Direct use is cheaper.")[0] == "Not established"
+    assert _cond(builder, be=("6.00 points",))[0] == "Not established"
+
+
+@pytest.mark.parametrize("outcome, answer", [(S, "Yes"), (C, "No")])
+def test_conditional_yes_never_overrides_a_formal_outcome(builder, outcome, answer):
+    ans, c = _cond(builder, outcome=outcome)
+    assert ans == answer
+    assert not c["ii_inconclusive_only_for_unsourced_assumed_quantity"]
+    assert builder.plain_answer_with_conditions(I, None) == "Not established"
+    assert builder.plain_answer(I) == "Not established"  # the outcome itself is never changed
+
+
 def test_basis_outcome_synthetic(builder):
     row = {"row_id": "X-a", "verdict": I, "half_verdicts": {"one": S, "two": I}, "verdict_by_mode": {"actual_sg": C}}
     assert builder.basis_outcome(row) == I
@@ -389,7 +419,13 @@ def test_plain_answers_equal_mapping_of_stored_outcomes(matrix, builder):
             r = rows[b["rows"][0]]
             stored = builder.basis_outcome(r, b.get("half"), b.get("mode"))
             assert a["basis_outcome"] == stored
-            assert a["answer"] == builder.plain_answer(stored)
+            conds = a.get("conditional_yes_conditions")
+            assert a["answer"] == builder.plain_answer_with_conditions(stored, conds)
+            if a["answer"] == builder.CONDITIONAL_YES:
+                assert stored == I and conds and all(conds.values()), a["claim"]
+                assert builder.CONDITIONAL_NOTE in a["note"] and a.get("assumption")
+            else:
+                assert a["answer"] == builder.plain_answer(stored)
             if a["answer"] == "Yes":
                 assert stored == S, a["claim"]
             if a["answer"] == "No":
@@ -419,7 +455,34 @@ def test_plain_answer_halves_and_qualifiers(matrix):
     pa = {(h["id"], a["claim"]): a for h in matrix["hypotheses"] for a in h["plain_answers"]}
     by = {k[1]: v for k, v in pa.items()}
     assert by["Direct ammonia is cheaper than cracking plus PSA for power"]["answer"] == "Yes"
-    assert by["Direct ammonia is cheaper than fired cracking for power"]["answer"] == "Not established"
+    fired = by["Direct ammonia is cheaper than fired cracking for power"]
+    assert fired["answer"] == "Yes, under the stated assumption"
+    assert fired["row_verdict"] == "INCONCLUSIVE" and fired["basis_outcome"] == "INCONCLUSIVE"
+    assert "not modelled" in fired["limitation"] and "49.64 %" in fired["limitation"]
+    assert "5.16 percentage points" in fired["limitation"] and "No published efficiency" in fired["limitation"]
+    assert all(fired["conditional_yes_conditions"].values())
+    # only this claim carries the conditional value in this pass
+    assert [k for k, v in by.items() if v["answer"] == "Yes, under the stated assumption"] == [
+        "Direct ammonia is cheaper than fired cracking for power"]
+    heads = {h["id"]: h for h in matrix["hypotheses"]}
+    assert heads["H1"]["headline_answer"] == ("Yes, under the modelled conditions: direct ammonia combustion gives cheaper "
+                                              "electricity than the standalone cracking pathways (about 8 to 17 %).")
+    assert heads["H1"]["headline_limitations"][0].startswith("Assumption: The gas turbine is not modelled")
+    assert heads["H2"]["headline_answer"].startswith("Yes: ammonia price is the dominant cost of cracked hydrogen")
+    assert heads["H3"]["headline_answer"] == "Yes for energy: lower temperature (modestly) and heat integration both reduce energy use."
+    assert heads["H4"]["headline_answer"] == "Not established."
+    assert "turbine efficiency is assumed" in heads["H1"]["formal_classification_note"]
+    for h in matrix["hypotheses"]:
+        lims = " ".join(h["headline_limitations"])
+        assert h["verdict"] not in h["headline_answer"]
+        for a in h["plain_answers"]:
+            if a["answer"] in ("No", "Not established"):
+                assert a["claim"][:1].lower() + a["claim"][1:] in lims, (h["id"], a["claim"])
+        if not any(a["answer"].startswith("Yes") for a in h["plain_answers"]):
+            assert h["headline_answer"] == "Not established."
+    assert "headline" in matrix["provenance"]["headline_rule"] and "both are published" in matrix["provenance"]["headline_rule"]
+    assert by["Cracking in front of a turbine does not pay"]["answer"] == "Not established"
+    assert by["Cracking is justified where hydrogen is the product"]["answer"] == "Not established"
     assert by["Heat integration reduces energy use"]["answer"] == "Yes"
     assert by["Heat integration reduces cost"]["answer"] == "Not established"
     assert by["Lower temperature reduces energy use at equal conversion"]["qualifier"] == "modestly"

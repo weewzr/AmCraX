@@ -106,6 +106,31 @@ def test_turbine_threshold_subset_includes_the_fuel_sensitivity():
     b = client.get("/api/research/enduse/turbine_threshold.json").json()
     assert "cracker_heat_fuel_efficiency_sensitivity" in b["served_keys"]
     assert "twoway_map" not in b
+    # addendum of 24 November 2026: the paper-basis fuel-cost comparison and its reconciliation are served
+    fc = b["forty_percent_figure"]["fuel_cost_gap_on_paper_basis"]
+    assert fc["cases"] and set(fc["reconciliation"]) == {"green", "blue"}
+
+
+@pytest.mark.skipif(not (_have("reference_scenario", "baseline.json") and _have("purification", "phase2_comparison.json")
+                         and _have("kinetics", "validity_classification.json")), reason="results not generated")
+def test_addendum_blocks_are_served():
+    b = client.get("/api/research/reference_scenario/baseline.json").json()
+    assert [c["psa_recovery"] for c in b["psa_recovery_sensitivity"]["cases"]] == [0.85, 0.8192, 0.7744]
+    p = client.get("/api/research/purification/phase2_comparison.json").json()
+    assert {"abdoos2025_table8", "psa_yanez_different_feed", "psa_mass_balance_assumption"} <= set(
+        p["abdoos2025_sourced_case"]["equal_delivery_increment"])
+    k = client.get("/api/research/kinetics/validity_classification.json").json()
+    assert k["literature_comparison_points_sayas2020"]["n_points"] == 15
+    assert k["cross_catalyst_context_sayas2020"]["cases"]
+
+
+def test_addendum_record_is_served_or_404(monkeypatch, tmp_path):
+    if research.ADDENDUM.is_file():
+        r = client.get("/api/research/addendum")
+        assert r.status_code == 200 and r.json()["verdict_changes"] == []
+    monkeypatch.setattr(research, "ADDENDUM", tmp_path / "nope.json")
+    r = client.get("/api/research/addendum")
+    assert r.status_code == 404 and r.json()["code"] == "research_not_found"
 
 
 @pytest.mark.skipif(not _have("uq", "gsa_sobol.json"), reason="results not generated")

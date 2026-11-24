@@ -1,5 +1,5 @@
 {
-  "exported_utc": "2026-11-24T08:05:23+00:00",
+  "exported_utc": "2026-11-24T14:32:14+00:00",
   "files": [
     {
       "path": "flowsheet.json",
@@ -592,7 +592,7 @@
     {
       "path": "references.json",
       "source": "research/references.json",
-      "bytes": 48724,
+      "bytes": 50872,
       "how": "verbatim copy"
     },
     {
@@ -970,7 +970,7 @@
     {
       "path": "api/references.json",
       "source": "api: references",
-      "bytes": 47584,
+      "bytes": 49728,
       "how": "GET /api/references"
     },
     {
@@ -1252,7 +1252,7 @@
     {
       "path": "research/kinetics/validity_classification.json.json",
       "source": "results/research/kinetics/validity_classification.json",
-      "bytes": 16611,
+      "bytes": 29138,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1432,7 +1432,7 @@
     {
       "path": "research/purification/phase2_comparison.json.json",
       "source": "results/research/purification/phase2_comparison.json",
-      "bytes": 56508,
+      "bytes": 73304,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1474,7 +1474,7 @@
     {
       "path": "research/enduse/enduse_results.json.json",
       "source": "results/research/enduse/enduse_results.json",
-      "bytes": 6802,
+      "bytes": 7496,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1486,7 +1486,7 @@
     {
       "path": "research/enduse/turbine_threshold.json.json",
       "source": "results/research/enduse/turbine_threshold.json",
-      "bytes": 17715,
+      "bytes": 33464,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1516,7 +1516,7 @@
     {
       "path": "research/enduse/nox_n2o_blends.json.json",
       "source": "results/research/enduse/nox_n2o_blends.json",
-      "bytes": 3475,
+      "bytes": 3654,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1546,7 +1546,7 @@
     {
       "path": "research/reference_scenario/baseline.json.json",
       "source": "results/research/reference_scenario/baseline.json",
-      "bytes": 24870,
+      "bytes": 29455,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1678,7 +1678,7 @@
     {
       "path": "research/data/enduse_cost_literature.json.json",
       "source": "results/research/data/enduse_cost_literature.json",
-      "bytes": 8584,
+      "bytes": 9651,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1696,25 +1696,25 @@
     {
       "path": "research/data/purification_literature.json.json",
       "source": "results/research/data/purification_literature.json",
-      "bytes": 33344,
+      "bytes": 35186,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/data/turbine_efficiency_literature.json.json",
       "source": "results/research/data/turbine_efficiency_literature.json",
-      "bytes": 23556,
+      "bytes": 24935,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/validation_summary.json",
       "source": "results/research/validation/*.json",
-      "bytes": 23412,
+      "bytes": 25189,
       "how": "GET /api/research/validation-summary"
     },
     {
       "path": "research/evidence_matrix.json",
       "source": "results/research/evidence_matrix.json",
-      "bytes": 376799,
+      "bytes": 406994,
       "how": "GET /api/research/evidence-matrix"
     },
     {
@@ -2072,9 +2072,15 @@
       "how": "verbatim copy"
     },
     {
+      "path": "research/addendum.json",
+      "source": "results/research/addendum_2026-11-24.json",
+      "bytes": 68027,
+      "how": "GET /api/research/addendum"
+    },
+    {
       "path": "research/validation/by_kind.json",
       "source": "results/research/validation/*.json",
-      "bytes": 13647,
+      "bytes": 13649,
       "how": "GET /api/research/validation/by_kind (counted by evidence_kind)"
     },
     {
@@ -2200,7 +2206,7 @@
     {
       "path": "research-figures/purification_phase2_psa_recovery.png",
       "source": "results/figures/research/purification_phase2_psa_recovery.png",
-      "bytes": 154164,
+      "bytes": 166694,
       "how": "verbatim copy"
     },
     {
@@ -2248,7 +2254,7 @@
     {
       "path": "simulator/model.json",
       "source": "results/research/simulator/model.json",
-      "bytes": 180221,
+      "bytes": 180672,
       "how": "verbatim copy"
     },
     {
