@@ -30,6 +30,9 @@ pub const EMBEDDED_YAML: &str = include_str!("../../../../backend/amcrax/data/se
 pub const ODE_RTOL: f64 = 1e-12;
 pub const ODE_ATOL: f64 = 1e-16;
 
+/// Component flows in Python dict order.
+pub type Flows = Vec<(String, f64)>;
+
 /// A float as JSON, non-finite values as the strings `nan`, `inf`, `-inf` (as the golden tables).
 pub fn jnf(x: f64) -> Value {
     if x.is_nan() {
@@ -78,9 +81,24 @@ impl SepParams {
     #[cfg(feature = "yaml")]
     pub fn embedded() -> &'static SepParams {
         static P: std::sync::OnceLock<SepParams> = std::sync::OnceLock::new();
-        P.get_or_init(|| SepParams {
-            raw: OValue::from_yaml(DATA_FILE, EMBEDDED_YAML).unwrap_or_default(),
+        P.get_or_init(|| {
+            SepParams::from_ovalue(OValue::from_yaml(DATA_FILE, EMBEDDED_YAML).unwrap_or_default())
         })
+    }
+
+    /// From the parsed YAML. The plain mapping key `n` of `membrane.flux_law` is read by
+    /// serde-saphyr as the boolean `false` (key "False"), by PyYAML as the string "n"; the key is
+    /// restored to "n" (the Python reading) so that the model finds the flux exponent.
+    pub fn from_ovalue(mut raw: OValue) -> SepParams {
+        if let OValue::Map(top) = &mut raw
+            && let Some((_, OValue::Map(mem))) = top.iter_mut().find(|e| e.0 == "membrane")
+            && let Some((_, OValue::Map(fl))) = mem.iter_mut().find(|e| e.0 == "flux_law")
+            && !fl.iter().any(|e| e.0 == "n")
+            && let Some(e) = fl.iter_mut().find(|e| e.0 == "False")
+        {
+            e.0 = "n".to_string();
+        }
+        SepParams { raw }
     }
 
     fn num(&self, path: &[&str]) -> Result<f64, EngineError> {
@@ -939,7 +957,7 @@ pub fn psa_split(
     feed: &[(String, f64)],
     recovery: f64,
     purity: f64,
-) -> Result<(Vec<(String, f64)>, Vec<(String, f64)>), EngineError> {
+) -> Result<(Flows, Flows), EngineError> {
     let h2p = recovery * h2_of(feed)?;
     let n2p = py_min(h2p * (1.0 - purity) / purity, get_or(feed, "N2", 0.0));
     let prod = vec![("H2".to_string(), h2p), ("N2".to_string(), n2p)];
@@ -1295,7 +1313,7 @@ pub const PSA_BASES: [&str; 4] = [
 /// `cracked_gas(result)`: (stream id, flows, P, T degC) of the PSA feed.
 pub fn cracked_gas(
     res: &SimulationResult,
-) -> Result<(String, Vec<(String, f64)>, f64, Option<f64>), EngineError> {
+) -> Result<(String, Flows, f64, Option<f64>), EngineError> {
     for (sid, s) in &res.streams {
         if s.dest_block.as_deref() == Some("PSA") {
             return Ok((

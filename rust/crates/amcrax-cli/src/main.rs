@@ -51,6 +51,7 @@ VERIFY TARGETS:
                 costing and break-even solves
     separation  stage 4: compression, PSA, Pd membrane (ODE, area search), purification helpers,
                 compare_purification on the stored baseline results
+    stage4      flowsheet, heat and separation in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
@@ -508,11 +509,11 @@ fn run_engine_target(
         r.findings.push(coolprop_notice());
         out.push(r);
     }
-    if matches!(target, "flowsheet" | "all") {
+    if matches!(target, "flowsheet" | "all" | "stage4") {
         let b = make_backend(props, root)?;
         out.push(ev::stage4::flowsheet(&stage("stage4")?, b.as_ref(), root).map_err(s)?);
     }
-    if matches!(target, "separation" | "all") {
+    if matches!(target, "separation" | "all" | "stage4") {
         out.push(
             ev::stage4::separation(
                 &stage("stage4")?,
@@ -522,7 +523,7 @@ fn run_engine_target(
             .map_err(s)?,
         );
     }
-    if matches!(target, "heat" | "all") {
+    if matches!(target, "heat" | "all" | "stage4") {
         let b = make_backend(props, root)?;
         out.push(
             ev::stage4::heat(
