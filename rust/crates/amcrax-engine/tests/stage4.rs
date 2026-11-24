@@ -34,6 +34,19 @@ fn heat_integration_golden_tables_backend() {
     );
 }
 
+#[cfg(feature = "yaml")]
+#[test]
+fn separation_golden() {
+    check(
+        stage4::separation(
+            &golden(),
+            amcrax_engine::separation::SepParams::embedded(),
+            &root(),
+        )
+        .expect("separation check runs"),
+    );
+}
+
 #[test]
 fn flowsheet_golden_tables_backend() {
     let g = golden();

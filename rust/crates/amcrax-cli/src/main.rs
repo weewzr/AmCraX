@@ -49,6 +49,8 @@ VERIFY TARGETS:
     flowsheet   stage 4: run_python_case on every golden and stored case (rust/golden/stage4)
     heat        stage 4: pinch analysis on the Python and stored Aspen results, exchanger sizing,
                 costing and break-even solves
+    separation  stage 4: compression, PSA, Pd membrane (ODE, area search), purification helpers,
+                compare_purification on the stored baseline results
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
@@ -509,6 +511,16 @@ fn run_engine_target(
     if matches!(target, "flowsheet" | "all") {
         let b = make_backend(props, root)?;
         out.push(ev::stage4::flowsheet(&stage("stage4")?, b.as_ref(), root).map_err(s)?);
+    }
+    if matches!(target, "separation" | "all") {
+        out.push(
+            ev::stage4::separation(
+                &stage("stage4")?,
+                amcrax_engine::separation::SepParams::embedded(),
+                root,
+            )
+            .map_err(s)?,
+        );
     }
     if matches!(target, "heat" | "all") {
         let b = make_backend(props, root)?;

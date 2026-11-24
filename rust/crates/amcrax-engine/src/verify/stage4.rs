@@ -465,7 +465,11 @@ impl TreeAcc {
 /// max(|x|, 273.15 K) (i.e. relative in kelvin), energies, powers, areas and money relative to
 /// max(|x|, 1 unit), other quantities relative to max(|x|, 1e-6).
 pub fn key_scale(key: &str) -> f64 {
-    if key.ends_with("_C") || key.contains("_C_") || key.contains("T_C") {
+    if matches!(key, "rel_deviation" | "reduction_vs_no_recovery") {
+        // fractions of order 1 formed as differences of model and simulated duties: their
+        // rounding noise is absolute (about 1e-16), so they are compared relative to max(|x|, 1)
+        1.0
+    } else if key.ends_with("_C") || key.contains("_C_") || key.contains("T_C") {
         273.15
     } else if ["kW", "m2", "USD", "SGD", "kWh"]
         .iter()
@@ -477,8 +481,85 @@ pub fn key_scale(key: &str) -> f64 {
     }
 }
 
-/// Compare two JSON trees.
+/// Remove the sign of numbers that print as zero (`-0`, `-0.0`, `-0.00` ...): a text that
+/// formats a rounding residue (for example "unused flue heat -0.0 kW" for -1e-14 kW) differs
+/// between Python and Rust only in the sign of that residue.
+pub fn unsign_zeros(s: &str) -> String {
+    let b = s.as_bytes();
+    let mut out = String::with_capacity(s.len());
+    let mut i = 0;
+    while i < b.len() {
+        if b[i] == b'-'
+            && i + 1 < b.len()
+            && b[i + 1] == b'0'
+            && (i == 0 || !b[i - 1].is_ascii_digit())
+        {
+            let mut j = i + 2;
+            if j < b.len() && b[j] == b'.' {
+                j += 1;
+                while j < b.len() && b[j] == b'0' {
+                    j += 1;
+                }
+            }
+            if j >= b.len() || !b[j].is_ascii_digit() {
+                i += 1;
+                continue;
+            }
+        }
+        out.push(b[i] as char);
+        i += 1;
+    }
+    out
+}
+
+/// Python and Rust FEHE flags that differ only because the minimum internal approach equals
+/// the threshold within rounding (1e-9 K): the Rust flag (and the warning it produces) is taken
+/// from Python and the tie is reported as a finding.
+fn reconcile_fehe_ties(py: &Value, r: &mut Value, dt: f64, case: &str, findings: &mut Vec<String>) {
+    let pmin = num(&py["fehe"]["min_internal_approach_K"]);
+    let mut tied = false;
+    for (flag, thr) in [("approach_violation", dt), ("temperature_cross", 0.0)] {
+        if py["fehe"][flag] != r["fehe"][flag] && (pmin - thr).abs() <= 1e-9 {
+            findings.push(format!(
+                "{case}: FEHE {flag} decided on a tie (minimum internal approach {pmin:e} K, threshold {thr} K, \
+                 Rust value {:e} K): Python {}, Rust {}; the decision is ill-conditioned at the threshold",
+                num(&r["fehe"]["min_internal_approach_K"]),
+                py["fehe"][flag],
+                r["fehe"][flag]
+            ));
+            r["fehe"][flag] = py["fehe"][flag].clone();
+            tied = true;
+        }
+    }
+    if tied {
+        let strip = |v: &Value| -> Vec<Value> {
+            v.as_array()
+                .into_iter()
+                .flatten()
+                .filter(|w| !w.as_str().is_some_and(|s| s.starts_with("FEHE ")))
+                .cloned()
+                .collect()
+        };
+        if strip(&py["warnings"]) == strip(&r["warnings"]) {
+            r["warnings"] = py["warnings"].clone();
+        }
+    }
+}
+
+/// Compare two JSON trees (scales from [`key_scale`]).
 pub fn tree(acc: &mut TreeAcc, path: &str, key: &str, p: &Value, r: &Value) {
+    tree_with(acc, path, key, p, r, &|_, k| key_scale(k));
+}
+
+/// Compare two JSON trees with a scale function of (path, key).
+pub fn tree_with(
+    acc: &mut TreeAcc,
+    path: &str,
+    key: &str,
+    p: &Value,
+    r: &Value,
+    scale: &dyn Fn(&str, &str) -> f64,
+) {
     match p {
         Value::Object(pm) => {
             let Some(rm) = r.as_object() else {
@@ -496,7 +577,7 @@ pub fn tree(acc: &mut TreeAcc, path: &str, key: &str, p: &Value, r: &Value) {
             });
             for (k, pv) in pm {
                 let rv = rm.get(k).unwrap_or(&Value::Null);
-                tree(acc, &format!("{path}/{k}"), k, pv, rv);
+                tree_with(acc, &format!("{path}/{k}"), k, pv, rv, scale);
             }
         }
         Value::Array(pa) => {
@@ -511,7 +592,7 @@ pub fn tree(acc: &mut TreeAcc, path: &str, key: &str, p: &Value, r: &Value) {
                 return;
             };
             for (i, (pv, rv)) in pa.iter().zip(ra.iter()).enumerate() {
-                tree(acc, &format!("{path}[{i}]"), key, pv, rv);
+                tree_with(acc, &format!("{path}[{i}]"), key, pv, rv, scale);
             }
         }
         Value::Bool(_) => acc
@@ -521,8 +602,11 @@ pub fn tree(acc: &mut TreeAcc, path: &str, key: &str, p: &Value, r: &Value) {
             .keys
             .add_bool(path, r.is_null(), || format!("python null rust {r}")),
         Value::String(s) if !matches!(s.as_str(), "nan" | "inf" | "-inf") => {
+            let same = p == r
+                || r.as_str()
+                    .is_some_and(|rs| unsign_zeros(rs) == unsign_zeros(s));
             acc.text
-                .add_bool(path, p == r, || format!("python {p} rust {r}"))
+                .add_bool(path, same, || format!("python {p} rust {r}"))
         }
         Value::Number(n) if n.is_i64() || n.is_u64() => {
             acc.dec.add_bool(path, is_num(r) && num(r) == num(p), || {
@@ -532,7 +616,7 @@ pub fn tree(acc: &mut TreeAcc, path: &str, key: &str, p: &Value, r: &Value) {
         _ => {
             if is_num(r) || r.is_null() {
                 let rv = if r.is_null() { f64::NAN } else { num(r) };
-                acc.num.add_scaled(path, rv, num(p), key_scale(key));
+                acc.num.add_scaled(path, rv, num(p), scale(path, key));
             } else {
                 acc.keys
                     .add_bool(path, false, || format!("python {p} rust {r}"));
@@ -575,7 +659,7 @@ fn exchanger_call(d: &EconomicsData, f: &str, a: &Value) -> Result<Value, Engine
     };
     Ok(match f {
         "lmtd" => jf(hx::lmtd(arg(a, "dT1"), arg(a, "dT2"))?),
-        "f_12" => jopt(hx::f_12(arg(a, "P"), arg(a, "R"))),
+        "f_12" => jopt(hx::f_12(arg(a, "P"), arg(a, "R"))?),
         "f_correction" => {
             let (p, q, r, s) = th(a);
             jopt(hx::f_correction(p, q, r, s, arg(a, "n_shells") as u32)?)
@@ -697,8 +781,9 @@ pub fn heat(
             (None, Err(e)) => {
                 outcome.add_bool(id, false, || format!("python succeeded, rust failed: {e}"))
             }
-            (None, Ok(r)) => {
+            (None, Ok(mut r)) => {
                 outcome.add_bool(id, true, String::new);
+                reconcile_fehe_ties(py, &mut r, num(&c["dT_min_K"]), id, &mut rep.findings);
                 tree(&mut hi, id, "", py, &r);
             }
         }
@@ -757,5 +842,354 @@ pub fn heat(
     }
     hx.push(&mut rep);
     rep.push(hx_out);
+    Ok(rep)
+}
+
+// ===================================================================================== separation
+/// A golden mapping (keys sorted by serde_json) back in the Python order: species in
+/// `COMPONENTS` order, other keys after them in key order.
+fn ordered_map(v: &Value) -> Vec<(String, f64)> {
+    let mut out: Vec<(String, f64)> = v
+        .as_object()
+        .map(|m| m.iter().map(|(k, x)| (k.clone(), num(x))).collect())
+        .unwrap_or_default();
+    out.sort_by_key(|(k, _)| {
+        crate::species::Species::from_name(k)
+            .map(|s| s.index())
+            .unwrap_or(99)
+    });
+    out
+}
+
+fn opt_i(a: &Value, k: &str) -> Option<i64> {
+    a.get(k).and_then(Value::as_i64)
+}
+
+fn opt_s(a: &Value, k: &str) -> Option<String> {
+    a.get(k).and_then(Value::as_str).map(str::to_string)
+}
+
+fn jflow(m: &[(String, f64)]) -> Value {
+    Value::Object(
+        m.iter()
+            .map(|(k, v)| (k.clone(), crate::separation::jnf(*v)))
+            .collect(),
+    )
+}
+
+/// One separation call of the golden table.
+fn separation_call(
+    p: &crate::separation::SepParams,
+    f: &str,
+    a: &Value,
+    root: &Path,
+) -> Result<Value, EngineError> {
+    use crate::separation as s;
+    let jn = s::jnf;
+    let species = |v: &Value| -> Result<Vec<(crate::species::Species, f64)>, EngineError> {
+        ordered_map(v)
+            .into_iter()
+            .map(|(k, x)| {
+                crate::species::Species::from_name(&k)
+                    .map(|sp| (sp, x))
+                    .ok_or_else(|| EngineError::Domain(format!("unknown species {k}")))
+            })
+            .collect()
+    };
+    let leak = |a: &Value| s::LeakArgs {
+        alpha_h2_n2: opt_arg(a, "alpha_H2_N2").unwrap_or(f64::INFINITY),
+        ..s::LeakArgs::default()
+    };
+    Ok(match f {
+        "compression_power_kW" => s::compression_power_kw(
+            p,
+            arg(a, "n_kmol_h"),
+            &species(&a["composition"])?,
+            arg(a, "T_in_K"),
+            arg(a, "P_in_bar"),
+            arg(a, "P_out_bar"),
+            opt_i(a, "stages"),
+            opt_arg(a, "eta"),
+            opt_arg(a, "cp_J_molK"),
+        )?
+        .to_json(),
+        "default_stages" => Value::from(s::default_stages(
+            p,
+            arg(a, "P_in_bar"),
+            arg(a, "P_out_bar"),
+        )?),
+        "psa_performance" => {
+            let args = s::PsaArgs {
+                tailgas_pressure_bar: opt_arg(a, "tailgas_pressure_bar"),
+                target_purity: opt_arg(a, "target_purity"),
+                basis: opt_s(a, "basis").unwrap_or_else(|| "cho2026_5A".into()),
+                h2_recovery: opt_arg(a, "h2_recovery"),
+                required_feed_pressure_bar: opt_arg(a, "required_feed_pressure_bar"),
+                feed_temperature_k: opt_arg(a, "feed_temperature_K").unwrap_or(313.15),
+                compressor_eta: opt_arg(a, "compressor_eta"),
+                compressor_stages: opt_i(a, "compressor_stages"),
+            };
+            s::psa_performance(
+                p,
+                &ordered_map(&a["feed_kmol_h"]),
+                arg(a, "feed_pressure_bar"),
+                &args,
+            )?
+        }
+        "membrane_separator" => {
+            let ma = s::MembraneArgs {
+                permeate_pressure_bar: opt_arg(a, "permeate_pressure_bar"),
+                t_k: opt_arg(a, "T_K"),
+                permeability: opt_s(a, "permeability"),
+                thickness_m: opt_arg(a, "thickness_m"),
+                n_exponent: opt_arg(a, "n_exponent"),
+                flux_multiplier: opt_arg(a, "flux_multiplier").unwrap_or(1.0),
+                n_profile: opt_i(a, "n_profile").unwrap_or(41) as usize,
+            };
+            s::membrane_separator(
+                p,
+                &ordered_map(&a["feed_kmol_h"]),
+                arg(a, "area_m2"),
+                arg(a, "feed_pressure_bar"),
+                &ma,
+            )?
+        }
+        "area_for_recovery" => {
+            let ma = s::MembraneArgs {
+                permeate_pressure_bar: opt_arg(a, "permeate_pressure_bar"),
+                t_k: opt_arg(a, "T_K"),
+                ..s::MembraneArgs::default()
+            };
+            jopt(s::area_for_recovery(
+                p,
+                &ordered_map(&a["feed_kmol_h"]),
+                arg(a, "target_recovery"),
+                arg(a, "feed_pressure_bar"),
+                &ma,
+            )?)
+        }
+        "evaluate_product" => s::evaluate_product(
+            &ordered_map(&a["y_ppm"]),
+            a["grade"].as_str().unwrap_or(""),
+            opt_arg(a, "h2_frac"),
+            "computed",
+        )?,
+        "psa_tail_h2_fraction_from_point" => jn(s::psa_tail_h2_fraction_from_point(
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "recovery"),
+            arg(a, "purity"),
+        )?),
+        "psa_split" => {
+            let (pr, tl) = s::psa_split(
+                &ordered_map(&a["feed_kmol_h"]),
+                arg(a, "recovery"),
+                arg(a, "purity"),
+            )?;
+            serde_json::json!([jflow(&pr), jflow(&tl)])
+        }
+        "psa_recovery_at_purity" => jn(s::psa_recovery_at_purity(
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "purity"),
+            arg(a, "y_tail_h2"),
+        )?),
+        "pinch_recovery" => jn(s::pinch_recovery(
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "P_feed_bar"),
+            arg(a, "P_perm_bar"),
+        )?),
+        "membrane_with_leakage" => s::membrane_with_leakage(
+            p,
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "area_m2"),
+            arg(a, "P_feed_bar"),
+            arg(a, "P_perm_bar"),
+            arg(a, "T_K"),
+            &leak(a),
+        )?,
+        "membrane_area_for_recovery" => jopt(s::membrane_area_for_recovery(
+            p,
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "R"),
+            arg(a, "P_feed_bar"),
+            arg(a, "P_perm_bar"),
+            arg(a, "T_K"),
+            &leak(a),
+        )?),
+        "required_selectivity" => jopt(s::required_selectivity(
+            p,
+            &ordered_map(&a["feed_kmol_h"]),
+            arg(a, "area"),
+            arg(a, "P_feed_bar"),
+            arg(a, "P_perm_bar"),
+            arg(a, "T_K"),
+            arg(a, "n2_limit_ppm"),
+            &s::LeakArgs::default(),
+        )?),
+        "lhv_kW" => jn(s::lhv_kw(&ordered_map(&a["flows_kmol_h"]))),
+        "mass_kg_h" => jn(s::mass_kg_h(&ordered_map(&a["flows_kmol_h"]))?),
+        "closure" => {
+            let outs: Vec<Vec<(String, f64)>> = a["outs"]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .map(ordered_map)
+                .collect();
+            s::closure(&ordered_map(&a["feed"]), &outs)?
+        }
+        "gas_compression_kWh_per_kg_h2" => jn(s::gas_compression_kwh_per_kg_h2(
+            p,
+            &ordered_map(&a["flows"]),
+            arg(a, "T_K"),
+            arg(a, "P_in_bar"),
+            arg(a, "P_out_bar"),
+            arg(a, "h2_kg_h"),
+            None,
+        )?),
+        "h2_compression_kWh_per_kg" => jn(s::h2_compression_kwh_per_kg(
+            p,
+            arg(a, "P_in_bar"),
+            arg(a, "P_out_bar"),
+            313.15,
+            None,
+        )?),
+        "ammonia_slip" => s::ammonia_slip(p, &ordered_map(&a["cracked_gas_kmol_h"]), None)?,
+        "compare_purification" => {
+            let file = a["file"].as_str().unwrap_or("");
+            let text = std::fs::read_to_string(root.join(file))
+                .map_err(|e| EngineError::data(file, e.to_string()))?;
+            s::compare_purification(p, &SimulationResult::from_json_text(&text)?)?
+        }
+        other => {
+            return Err(EngineError::data(
+                "separation.json",
+                format!("unknown function {other}"),
+            ));
+        }
+    })
+}
+
+/// Separation and compression against the golden calls and the stored comparison files.
+///
+/// Gates: algebraic functions 1e-10 relative; the membrane ODE outputs at a given area 1e-7
+/// relative (Python LSODA at rtol 1e-10 against DOPRI5 at rtol 1e-12: the global error of the
+/// Python integration is about 10 x its local tolerance; permeated and retained N2 of the
+/// finite-selectivity model are compared relative to the feed N2 because the permeate is the
+/// small difference of two integrated flows); searches (membrane areas by brentq with
+/// xtol 1e-6 m2 or 1e-9 m2, selectivity by 80 bisections of log alpha, and every quantity
+/// evaluated at the found area) 1e-5 relative.
+pub fn separation(
+    g: &Golden,
+    p: &crate::separation::SepParams,
+    root: &Path,
+) -> Result<Report, EngineError> {
+    let t = g.load("separation.json")?;
+    let mut rep = Report::new("separation and compression");
+    let note = "relative; scales as HI-NUM";
+    let mut alg = TreeAcc::new(
+        "SEP",
+        "algebraic separation and compression functions",
+        1e-10,
+        note,
+    );
+    let mut ode = TreeAcc::new(
+        "SEP-ODE",
+        "membrane ODE (fixed area)",
+        1e-7,
+        "relative; flows of the leakage model relative to the feed flow of the species",
+    );
+    let mut srch = TreeAcc::new(
+        "SEP-SEARCH",
+        "area and selectivity searches, values at the found area",
+        1e-5,
+        note,
+    );
+    let mut outcome = Acc::exact(
+        "SEP-OUTCOME",
+        "separation calls: success, or the same exception class",
+    );
+    let mut results: BTreeMap<String, Value> = BTreeMap::new();
+    for (i, c) in t["calls"].as_array().into_iter().flatten().enumerate() {
+        let f = c["fn"].as_str().unwrap_or("?");
+        let case = format!("{f}#{i}");
+        let py = &c["out"];
+        let r = separation_call(p, f, &c["args"], root);
+        match (py_error(py), r) {
+            (Some(cls), Err(e)) => outcome.add_bool(&case, error_class_matches(cls, &e), || {
+                format!("python {cls}, rust {e}")
+            }),
+            (Some(cls), Ok(_)) => outcome.add_bool(&case, false, || {
+                format!("python raised {cls}, rust succeeded")
+            }),
+            (None, Err(e)) => outcome.add_bool(&case, false, || {
+                format!("python succeeded, rust failed: {e}")
+            }),
+            (None, Ok(rv)) => {
+                outcome.add_bool(&case, true, String::new);
+                match f {
+                    "membrane_separator" => tree(&mut ode, &case, f, py, &rv),
+                    "membrane_with_leakage" => {
+                        let feed = ordered_map(&c["args"]["feed_kmol_h"]);
+                        let fh2 = crate::process::result::get_or(&feed, "H2", 0.0);
+                        let fn2 = crate::process::result::get_or(&feed, "N2", 0.0);
+                        let perm =
+                            num(&py["permeate_kmol_h"]["H2"]) + num(&py["permeate_kmol_h"]["N2"]);
+                        let sc = move |path: &str, key: &str| -> f64 {
+                            if path.ends_with("_kmol_h/N2") {
+                                fn2
+                            } else if path.ends_with("_kmol_h/H2") {
+                                fh2
+                            } else if key == "n2_in_permeate_ppm" {
+                                if perm > 0.0 { 1e6 * fn2 / perm } else { 1.0 }
+                            } else {
+                                key_scale(key)
+                            }
+                        };
+                        tree_with(&mut ode, &case, f, py, &rv, &sc);
+                    }
+                    "area_for_recovery"
+                    | "membrane_area_for_recovery"
+                    | "required_selectivity"
+                    | "compare_purification" => {
+                        tree(&mut srch, &case, f, py, &rv);
+                        if f == "compare_purification" {
+                            results
+                                .insert(c["args"]["file"].as_str().unwrap_or("").to_string(), rv);
+                        }
+                    }
+                    _ => tree(&mut alg, &case, f, py, &rv),
+                }
+            }
+        }
+    }
+    alg.push(&mut rep);
+    ode.push(&mut rep);
+    srch.push(&mut rep);
+    rep.push(outcome);
+    let mut st = TreeAcc::new(
+        "SEP-STORED",
+        "compare_purification vs stored results/simulations/separation_*.json",
+        1e-5,
+        note,
+    );
+    for s in t["stored"].as_array().into_iter().flatten() {
+        let file = s["file"].as_str().unwrap_or("");
+        let input = s["input_file"].as_str().unwrap_or("");
+        let stored: Value = std::fs::read_to_string(root.join(file))
+            .map_err(|e| EngineError::data(file, e.to_string()))
+            .and_then(|txt| {
+                serde_json::from_str(&txt).map_err(|e| EngineError::data(file, e.to_string()))
+            })?;
+        let mut sv = stored;
+        if let Some(o) = sv.as_object_mut() {
+            o.remove("metadata");
+        }
+        match results.get(input) {
+            Some(rv) => tree(&mut st, file, "", &sv, rv),
+            None => st
+                .keys
+                .add_bool(file, false, || format!("{input} was not recomputed")),
+        }
+    }
+    st.push(&mut rep);
     Ok(rep)
 }

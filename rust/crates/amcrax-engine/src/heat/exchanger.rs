@@ -112,40 +112,51 @@ pub fn lmtd(dt1: f64, dt2: f64) -> Result<f64, EngineError> {
     })
 }
 
+/// Python float division (`ZeroDivisionError` for a zero divisor).
+fn pdiv(a: f64, b: f64) -> Result<f64, EngineError> {
+    if b == 0.0 {
+        Err(EngineError::Domain(
+            "ZeroDivisionError: float division by zero".into(),
+        ))
+    } else {
+        Ok(a / b)
+    }
+}
+
 /// `_f_12(P, R)`: F of one 1-2 shell (None if infeasible).
-pub fn f_12(p: f64, r: f64) -> Option<f64> {
+pub fn f_12(p: f64, r: f64) -> Result<Option<f64>, EngineError> {
     if p <= 0.0 {
-        return Some(1.0);
+        return Ok(Some(1.0));
     }
     let sq2 = 2.0_f64.sqrt();
     if (r - 1.0).abs() < 1e-9 {
         if p >= 1.0 {
-            return None;
+            return Ok(None);
         }
-        let den_arg = (2.0 - p * (2.0 - sq2)) / (2.0 - p * (2.0 + sq2));
+        let den_arg = pdiv(2.0 - p * (2.0 - sq2), 2.0 - p * (2.0 + sq2))?;
         if den_arg <= 0.0 || 2.0 - p * (2.0 + sq2) <= 0.0 {
-            return None;
+            return Ok(None);
         }
-        return Some((p * sq2 / (1.0 - p)) / den_arg.ln());
+        return Ok(Some(pdiv(pdiv(p * sq2, 1.0 - p)?, den_arg.ln())?));
     }
     let s = (r * r + 1.0).sqrt();
-    let a = (1.0 - p) / (1.0 - p * r);
+    let a = pdiv(1.0 - p, 1.0 - p * r)?;
     let d1 = 2.0 - p * (r + 1.0 - s);
     let d2 = 2.0 - p * (r + 1.0 + s);
     if a <= 0.0 || d1 <= 0.0 || d2 <= 0.0 {
-        return None;
+        return Ok(None);
     }
     let num = s * a.ln();
     let den = (r - 1.0) * (d1 / d2).ln();
     if den == 0.0 {
-        return None;
+        return Ok(None);
     }
     let f = num / den;
-    if 0.0 < f && f <= 1.0 + 1e-9 {
+    Ok(if 0.0 < f && f <= 1.0 + 1e-9 {
         Some(f)
     } else {
         None
-    }
+    })
 }
 
 /// `f_correction(T_hot_in, T_hot_out, T_cold_in, T_cold_out, n_shells)`.
@@ -156,30 +167,23 @@ pub fn f_correction(
     tco: f64,
     n_shells: u32,
 ) -> Result<Option<f64>, EngineError> {
-    let d_p = thi - tci;
-    let d_r = tco - tci;
-    if d_p == 0.0 || d_r == 0.0 {
-        return Err(EngineError::Domain(
-            "ZeroDivisionError: float division by zero".into(),
-        ));
-    }
-    let p = (tco - tci) / d_p;
-    let r = (thi - tho) / d_r;
+    let p = pdiv(tco - tci, thi - tci)?;
+    let r = pdiv(thi - tho, tco - tci)?;
     if n_shells == 1 {
-        return Ok(f_12(p, r));
+        return f_12(p, r);
     }
     let n = n_shells as f64;
     let p1 = if (r - 1.0).abs() < 1e-9 {
-        p / (n - (n - 1.0) * p)
+        pdiv(p, n - (n - 1.0) * p)?
     } else {
-        let base = (1.0 - p * r) / (1.0 - p);
+        let base = pdiv(1.0 - p * r, 1.0 - p)?;
         if base <= 0.0 {
             return Ok(None);
         }
         let s = base.powf(1.0 / n);
-        (s - 1.0) / (s - r)
+        pdiv(s - 1.0, s - r)?
     };
-    Ok(f_12(p1, r))
+    f_12(p1, r)
 }
 
 /// `shells_needed(...)`: smallest N with F >= F_MIN.
