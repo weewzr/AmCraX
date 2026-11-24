@@ -266,6 +266,10 @@ pub trait FluidProps: Send + Sync {
     fn backend(&self) -> &'static str;
     /// The value of one call (SI units), or the error CoolProp raised.
     fn value(&self, q: &Query) -> Result<f64, EngineError>;
+    /// Lookup statistics (exact hits, Taylor hits, misses) of a tabulated back end.
+    fn lookup_stats(&self) -> Option<(usize, usize, usize)> {
+        None
+    }
 }
 
 /// Relative window of the first-order Taylor lookup of [`TablesBackend`].
@@ -365,6 +369,10 @@ impl TablesBackend {
 impl FluidProps for TablesBackend {
     fn backend(&self) -> &'static str {
         "tables"
+    }
+
+    fn lookup_stats(&self) -> Option<(usize, usize, usize)> {
+        Some(self.stats())
     }
 
     fn value(&self, q: &Query) -> Result<f64, EngineError> {

@@ -416,6 +416,12 @@ pub fn flowsheet(g: &Golden, b: &dyn FluidProps, root: &Path) -> Result<Report, 
     }
     st.push(&mut rep);
     rep.push(found);
+    if let Some((e, t, m)) = b.lookup_stats() {
+        rep.findings.push(format!(
+            "tables back end after the flowsheet cases: {e} exact lookups, {t} first-order Taylor lookups (within \
+             1e-7 relative of a recorded state), {m} misses"
+        ));
+    }
     Ok(rep)
 }
 
@@ -842,6 +848,12 @@ pub fn heat(
     }
     hx.push(&mut rep);
     rep.push(hx_out);
+    if let Some((e, tl, m)) = b.lookup_stats() {
+        rep.findings.push(format!(
+            "tables back end (cumulative on this back end): {e} exact lookups, {tl} first-order Taylor lookups \
+             (within 1e-7 relative of a recorded state), {m} misses"
+        ));
+    }
     Ok(rep)
 }
 

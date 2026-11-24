@@ -25,6 +25,8 @@ rust/
     amcrax-engine/           AmCraX science (stage 0: module layout, data types, units, errors)
     amcrax-cli/              binary `amcrax` (stage 0: --version, verify)
     amcrax-wasm/             wasm-bindgen facade for the browser (wasm32-unknown-unknown)
+    amcrax-coolprop/         CoolProp 8.0.0 FFI back end (not a workspace member; feature
+                             `coolprop` of amcrax-cli; the C++ library is built in CI only)
   golden/
     generate_numerics_golden.py   writes the golden tables (NumPy/SciPy only)
     numerics/*.json               golden tables, MANIFEST.json with SHA-256 and case counts
@@ -196,6 +198,85 @@ ported), shuffles and bounded integers (NumPy does not freeze these streams), an
 scrambled Sobol' and LHS designs. For those, the promise is statistical equivalence (balance and
 stratification properties, tested in the unit tests).
 
+### Engine golden tables (stage 4)
+
+`golden/stage4/` is written by `golden/generate_stage4_golden.py` (Python 3.12, CoolProp 8.0.0 at
+git revision `ae81610e7d23efc57f9d051c8e70a4d66e87537f`, NumPy, SciPy, pydantic, PyYAML; it imports
+this repository's `amcrax`). Tables: `coolprop_grid` (4,335 CoolProp calls on a dense grid, made the
+way the Python code makes them), `coolprop_states` (8,556 CoolProp calls recorded while the
+flowsheet and heat-integration cases ran, each with the derivative of the output with respect to
+the input that root searches vary), `flowsheet` (96 `run_python_case` cases: the four stored
+`results/simulations/python_baseline*.json`, the inputs of the 20 stored Aspen cases in both eos
+modes, the FEHE approach sweep of `heat_exchanger_study.py`, branch-covering variations and
+infeasible specifications), `heat` (116 `analyse` cases on the Python results and the stored Aspen
+results, 2,139 `exchanger.py` calls including the argument sets of `heat_exchanger_study.py`) and
+`separation` (549 calls of compression, PSA, membrane, purification and slip functions, and
+`compare_purification` on the two stored baselines). The generator checked that the current
+Python reproduces every stored file it recomputes bit for bit (`stored` entries).
+
+**Fluid properties.** `amcrax_engine::props::FluidProps` covers exactly the CoolProp calls of
+`process_model/properties.py` and `heat_integration/streams.py` (listed in `props.rs`), always on
+CoolProp's default reference state (the Python code never changes it; the model anchors the NH3
+scale to NASA-7 itself). Two back ends:
+
+* `coolprop`: crate `crates/amcrax-coolprop` (not a workspace member; only
+  `amcrax-cli --features coolprop` builds it, so it is outside the default build, rust-analyzer's
+  local analysis and the wasm build). CI job `coolprop` fetches CoolProp at the pinned commit
+  (checked equal to the commit of tag `v8.0.0`), builds the static library with C linkage of
+  `CoolPropLib.h`, links it through a thin FFI (`PropsSI`, `Props1SI`, `AbstractState_*`;
+  `unsafe` only in that crate's private `ffi` module, every other crate forbids it) and embeds
+  CoolProp's MIT licence text (`amcrax_coolprop::licence()`). Imposed-phase states are one reused
+  `AbstractState("HEOS")` per fluid and phase, as in Python.
+* `tables` (default; tests and the main CI job): **tabulated CoolProp values, exact only at stored
+  states**. A query returns the recorded value for identical inputs, the first-order Taylor value
+  within 1e-7 (relative) of a recorded state, and an error otherwise. It reproduces the stored
+  cases only; new states need the `coolprop` back end.
+
+Gates (CI run 45477629197, all jobs green; `verification/stage4_report.json`):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| CoolProp back end vs Python CoolProp, dense grid (14 output/fluid/phase groups) | 4,335 | 6.2e-12 | 1e-10 relative (enthalpies to max(\|h\|, 1 J/mol)); identical success or failure | same C++ sources; compilers and libm differ by ulps, iterative flashes converge to the same root |
+| flowsheet: stream flows, compositions, extents | 19,490 | 1.4e-15 | 1e-10 relative | equilibrium brentq on ln n (xtol 1e-13) as stage 1 |
+| flowsheet: temperatures and approaches | 2,532 | 6.8e-13 K | 1e-6 K | brentq xtol 1e-10 K |
+| flowsheet: stream enthalpies / block duties and basis offsets | 1,106 / 1,364 | 1.5e-13 / 3.5e-14 | 1e-9 relative (duties to max(\|Q\|, largest \|H\| of the block's streams)) | a duty is a difference of stream enthalpies |
+| flowsheet: KPIs | 1,548 | 1.4e-14 | 1e-9 relative | |
+| flowsheet: pressures; closure residuals | 1,874; 172 | 0; 2.5e-16 | 1e-12 relative; 1e-12 absolute | arithmetic on inputs; residuals are rounding noise |
+| flowsheet: texts, flags, error classes, stored python_baseline*.json | 10,390 texts, 96 outcomes, 4 files | identical; stored: within the gates above | exact | |
+| heat integration (analysis): every number | 311,742 | 4.5e-12 | 1e-10 relative (degC to max(\|x\|, 273.15 K), kW, m2, USD to max(\|x\|, 1), fractions to max(\|x\|, 1)) | NASA-7 + PR + CoolProp curves, numpy.interp, problem table |
+| heat integration: decisions, texts, stored heat_integration_*.json | 575 flags, 6,228 texts, 2 files | identical (1 tie, below) | exact | |
+| exchanger sizing, cost, break-even U and CRF | 2,139 calls, 26,785 numbers, 5,235 decisions (shells, units, ranges) | 2.2e-15 | 1e-10 relative; identical shell counts and feasibility | closed forms; the break-even U bisection stops at hi/lo < 1 + 1e-10 |
+| separation, algebraic (compression, PSA, ISO evaluation, recovery-purity, splits, slip) | 2,389 | 0 | 1e-10 relative | same operation order |
+| membrane ODE at a fixed area (Sieverts; finite N2 selectivity) | 24,225 | 3.6e-8 | 1e-7 relative (leakage model flows relative to the feed flow of the species) | Python LSODA at rtol 1e-10 against DOPRI5 at rtol 1e-12; the worst case is the recovery 1 - n/n_in at the first profile point, a cancelling difference |
+| membrane area and selectivity searches, values at the found area, stored separation_*.json | 1,335 | 5.4e-9 | 1e-5 relative | brentq xtol 1e-6 m2 / 1e-9 m2 and 80 bisections of log alpha on top of the ODE error |
+
+The same flowsheet, heat and separation gates pass on the `coolprop` back end (job `coolprop`,
+same run); the known Python-versus-Aspen FEHE duty offset (vaporiser outlet state and the
+reference-EOS residual on the cold side, `results/research/heat_exchanger/fehe_duty_diagnosis.json`)
+is reproduced exactly as Python has it, because the property bases are ported unchanged.
+
+Findings (reported, not gated; no Python code changed):
+
+* `thermodynamics/equilibrium.py` (upper bracket end, already recorded in stage 1): with
+  `eos="pr"` the state at `z = ln n_max` can have `exp(ln n) > n` and mole fractions of -1e-16,
+  which `peng_robinson` rejects; `run_python_case(eos="pr")` therefore raises `ValueError` for a
+  dry feed, 15 mol% water, 10 and 1000 kmol/h (4 of 96 cases). Rust raises the same. No stored
+  result is affected (all stored cases run).
+* `heat_integration/exchanger.py` `_f_12` (line 119): at `P R = 1` exactly, `(1 - P R)` is a zero
+  divisor and Python raises `ZeroDivisionError` instead of reporting the arrangement infeasible.
+  Rust raises the same. Only the synthetic F grid reaches it; no stored result is affected.
+* `heat_integration/analysis.py` `approach_violation = min dT < dT_min` is decided on a tie for
+  the stored Aspen case `opt_par_3` (approach 20 K = dT_min): the minimum internal approach is
+  20 K within 1e-13 K and the flag (and its warning) depends on the last bit (Python false, Rust
+  true). The verifier takes Python's flag at such ties (within 1e-9 K) and reports them.
+* `backend/amcrax/data/separation.yaml` `membrane.flux_law.n`: serde-saphyr reads the plain key
+  `n` as the boolean false, PyYAML as the string "n"; `SepParams` restores the Python key.
+
+New CLI commands: `amcrax verify props --props coolprop`, `amcrax verify flowsheet|heat|separation|stage4`
+(`--props tables|coolprop`), `amcrax eval flowsheet --input case.json [--eos ideal|pr]
+[--props tables|coolprop]` (a CaseInputs object or `{"inputs": {...}, "eos": ...}` in, the
+SimulationResult JSON out).
+
 ## Stages
 
 0. Workspace, CI, numerics. Done.
@@ -205,8 +286,11 @@ stratification properties, tested in the unit tests).
    estimators, the global sensitivity study, the economics Monte Carlo, the stiff (Radau IIA)
    fallback of the reactor and the kinetic parameter propagation study; benchmark
    (`verification/BENCHMARK.md`) and comparison report (`verification/stage3_report.json`). Done.
-4. Process flowsheet with CoolProp properties, heat integration, separation, catalyst studies.
-5. End use, optimisation objectives, MCMC.
+4. Fluid properties (CoolProp 8.0.0 FFI back end and tabulated back end), process flowsheet
+   (`run_python_case`, KPIs), heat integration (pinch analysis, exchanger sizing, costing and
+   break-even solves), separation and compression; comparison report
+   (`verification/stage4_report.json`). Done.
+5. Catalyst studies, end use, optimisation objectives, MCMC.
 6. WebAssembly replaces the TypeScript numerics; the API calls Rust.
 
 New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,
