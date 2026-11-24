@@ -393,7 +393,7 @@ function carbonReading(rows: CiRow[], refs: { label: string; value_kgCO2e_per_kg
 export default function Results() {
   return (
     <>
-      <PageHero eyebrow="Section 5 - Engineering results" title="What the simulations say"
+      <PageHero title="What the simulations say"
         lead="Every chart is drawn in your browser from the stored results of the Aspen Plus V15 runs or of the independent Python models, and carries a label for the model behind it. Nothing here is recomputed except the labelled ideal-gas curves.">
         <nav className="chip-nav" aria-label="On this page">
           {SUBNAV.map(([id, label]) => <Link key={id} to={{ pathname: '/results', hash: `#${id}` }} className="chip-link">{label}</Link>)}

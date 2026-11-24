@@ -14,7 +14,6 @@ export default function Why() {
   return (
     <>
       <PageHero
-        eyebrow="Section 2 - Background"
         title="Why ammonia cracking"
         lead={<>Hydrogen is a carbon-free energy vector that is hard to store and move. Ammonia carries it chemically. At the destination the hydrogen has to be released again: that step is ammonia cracking, and its heat demand, yield and purification decide whether the carrier is competitive.</>}
       />

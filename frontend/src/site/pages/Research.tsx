@@ -208,7 +208,7 @@ function References() {
 export default function Research() {
   return (
     <>
-      <PageHero eyebrow="Section 7 - Research and validation" title="What has been checked, and what has not"
+      <PageHero title="What has been checked, and what has not"
         lead="A validation matrix compares Aspen Plus with independent Python models, with literature values and with internal consistency checks. Failures are reported as they are, with their causes." />
       <Section id="matrix" title="Validation matrix" intro="Counts are read from the matrix produced by the validation build script: by status, by family and by cause of failure.">
         <ValidationSummary />

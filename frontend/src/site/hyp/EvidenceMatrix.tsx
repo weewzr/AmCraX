@@ -3,6 +3,7 @@ import { GITHUB_URL } from '../../api/url'
 import { staticAssetUrl } from '../../api/client'
 import { AsyncView } from '../../features/common/Notice'
 import { useJson } from '../data'
+import { splitShared } from '../siteHelpers'
 import { ExtLink } from '../ui'
 import { DTable, SrcTag } from './parts'
 import { VerdictChip, WhatChanged } from './phase2'
@@ -149,7 +150,12 @@ function RowGroups({ rows }: { rows: MatrixRow[] }) {
     <>
       <h4>Primary rows (they vote)</h4>
       {prim.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}
-      {sec.length ? <><h4>Secondary rows (reported, they do not vote)</h4>{sec.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}</> : null}
+      {sec.length ? (
+        <details className="hyp-details hyp-secondary">
+          <summary><strong>Secondary rows ({sec.length})</strong>: reported, they do not vote</summary>
+          <div className="hyp-row-body">{sec.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}</div>
+        </details>
+      ) : null}
     </>
   )
 }
@@ -162,6 +168,9 @@ export function EvidenceMatrix() {
       if (!hs.length) return <p className="prose-p">The evidence matrix file is present but lists no hypotheses.</p>
       const v2 = d.methodology_version === 2
       const meth = safeRepoPath(d.methodology) ?? 'docs/research/verdict_methodology_v2.md'
+      // the aggregation rule is stored with every hypothesis; when it is the same text for all, it is stated once here
+      const cond = splitShared(hs.map((h) => show(h.verdict_conditions)))
+      const rule = cond.shared.length ? cond.shared.join(' ') : null
       return (
         <>
           <p className="prose-p" data-testid="matrix-version">
@@ -169,29 +178,45 @@ export function EvidenceMatrix() {
               : <>This matrix file was written under methodology version 1 (every hypothesis verdict from all of its rows). The version 2 rule is in <ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>; the version 2 matrix replaces this file when it is generated.</>}
             {' '}Verdict words: SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED, INCONCLUSIVE. Each chip prints its word; colour is not the only carrier.
           </p>
-          <div className="grid-2s hyp-verdicts" role="list" aria-label="Verdict per hypothesis">
-            {hs.map((h) => (
-              <a key={h.id} href={`#/hypotheses#${h.id}`} className="card tile hyp-verdict" role="listitem" data-testid={`verdict-${h.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(String(h.id))?.scrollIntoView({ block: 'start' }) }}>
-                <h3>{h.id} <VerdictChip v={h.verdict} /></h3>
-                {v2 ? <p className="small muted">Version 1 verdict: {show(v1Of(h, d.methodology_version)) || 'not stored'}</p> : null}
-                <p>{show(h.primary_hypothesis ?? h.statement)}</p>
-              </a>
-            ))}
+          <div className="table-scroll hyp-summary" tabIndex={0} role="region" aria-label="Verdict per hypothesis">
+            <table className="data simple">
+              <caption>Verdict per hypothesis{v2 ? ', with the version 1 verdict beside it' : ''}</caption>
+              <thead><tr><th scope="col">Hypothesis</th><th scope="col">Verdict</th>{v2 ? <th scope="col">Version 1 verdict</th> : null}<th scope="col">Statement</th></tr></thead>
+              <tbody>
+                {hs.map((h) => (
+                  <tr key={h.id} data-testid={`verdict-${h.id}`}>
+                    <th scope="row"><a href={`#/hypotheses#${h.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(String(h.id))?.scrollIntoView({ block: 'start' }) }}>{h.id}</a></th>
+                    <td><VerdictChip v={h.verdict} /></td>
+                    {v2 ? <td className="hyp-v1">{show(v1Of(h, d.methodology_version)) || 'not stored'}</td> : null}
+                    <td className="wide">{show(h.primary_hypothesis ?? h.statement)}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
-          {hs.map((h) => (
+          {rule ? (
+            <div className="callout hyp-rule" id="aggregation-rule">
+              <strong>How a hypothesis verdict is derived (the same rule for all {hs.length} hypotheses).</strong> {rule}
+            </div>
+          ) : null}
+          {hs.map((h, hi) => (
             <article key={h.id} id={String(h.id)} className="card hyp-card">
               <header>
                 <h3>{h.id}: {show(h.statement)}</h3>
                 <span><VerdictChip v={h.verdict} />{v2 ? <span className="muted small"> v1: {show(v1Of(h, d.methodology_version)) || 'not stored'}</span> : null}</span>
               </header>
-              {show(h.primary_hypothesis) ? <p><strong>Primary hypothesis.</strong> {show(h.primary_hypothesis)}</p> : null}
+              {show(h.primary_hypothesis) && show(h.primary_hypothesis) !== show(h.statement) ? <p><strong>Primary hypothesis.</strong> {show(h.primary_hypothesis)}</p> : null}
               <Components h={h} />
               {show(h.strongest_defensible_statement) ? <p className="p2-strongest"><strong>Strongest defensible statement.</strong> {show(h.strongest_defensible_statement)}</p> : null}
               {list(h.findings_against_essay).length ? <div className="p2-against"><strong>Findings against the essay.</strong><ul className="hyp-list">{list(h.findings_against_essay).map((x, i) => <li key={i}>{x}</li>)}</ul></div> : null}
               {show(h.cross_claim) ? <p><strong>Cross-claim.</strong> {show(h.cross_claim)}</p> : null}
               {show(h.verdict_v1_rule_on_current_rows) ? <p className="muted small">Version 1 rule applied to the current rows: {show(h.verdict_v1_rule_on_current_rows)}</p> : null}
-              {show(h.verdict_conditions) ? <p><strong>Conditions of the verdict.</strong> {show(h.verdict_conditions)}</p> : null}
-              {show(h.summary) ? <p>{show(h.summary)}</p> : null}
+              {show(h.verdict_conditions) && !rule ? <p><strong>Conditions of the verdict.</strong> {show(h.verdict_conditions)}</p> : null}
+              {rule && show(h.verdict_conditions) ? (
+                <p data-testid={`conditions-${h.id}`}><strong>Conditions of the verdict.</strong> {cond.own[hi].join(' ')}{' '}
+                  <span className="muted small">(Aggregation rule: <a href="#/hypotheses#aggregation-rule" onClick={(e) => { e.preventDefault(); document.getElementById('aggregation-rule')?.scrollIntoView({ block: 'start' }) }}>stated once above the hypotheses</a>.)</span></p>
+              ) : null}
+              {show(h.summary) && show(h.summary) !== show(h.strongest_defensible_statement) ? <p>{show(h.summary)}</p> : null}
               <RowGroups rows={h.rows ?? []} />
             </article>
           ))}

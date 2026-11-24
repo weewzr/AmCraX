@@ -9,7 +9,6 @@ export default function Architecture() {
   return (
     <>
       <PageHero
-        eyebrow="Section 6 - Software architecture"
         title="How the pieces fit together"
         lead="Aspen Plus does the rigorous flowsheet calculation. Python drives it, cross-checks it and stores the results. A web app reads the stored results, locally through an API or, on this site, from a static copy."
       />

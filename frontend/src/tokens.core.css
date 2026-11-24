@@ -1,0 +1,46 @@
+/*
+ * tokens.core.css  version 0.1.0 (2026-11-24)
+ * Shared core tokens of the weewzr project sites, copied into each repository (never imported across repositories).
+ * Source of truth: https://github.com/weewzr/weewzr/blob/main/docs/DESIGN_SYSTEM.md ("Shared core").
+ * This copy was made before that section was published; when it lands, replace this file with the published copy and
+ * keep the version line. Only spacing, radii, durations, focus, minimum sizes and the colour-blind-safe chart palette
+ * live here; colours, faces and components stay in each site's own token file (AmCraX: src/index.css).
+ */
+:root {
+  /* spacing, 4 px base */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --space-9: 96px;
+  /* radii */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-pill: 999px;
+  /* motion: colour and opacity only, except explanatory figures */
+  --dur-fast: 120ms;
+  --dur-base: 150ms;
+  --dur-explain: 250ms;
+  /* focus and minimum sizes (WCAG 2.2 AA) */
+  --focus-width: 2px;
+  --focus-offset: 2px;
+  --target-min: 44px;
+  --text-min: 13px;
+  --tick-min: 12px;
+  /* categorical chart palette: Okabe-Ito (colour-vision-deficiency safe) */
+  --cvd-1: #e69f00; /* orange */
+  --cvd-2: #56b4e9; /* sky blue */
+  --cvd-3: #009e73; /* bluish green */
+  --cvd-4: #f0e442; /* yellow */
+  --cvd-5: #0072b2; /* blue */
+  --cvd-6: #d55e00; /* vermillion */
+  --cvd-7: #cc79a7; /* reddish purple */
+}
+@media (prefers-reduced-motion: reduce) {
+  :root { --dur-fast: 0ms; --dur-base: 0ms; --dur-explain: 0ms; }
+}

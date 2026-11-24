@@ -99,7 +99,6 @@ export default function Methodology() {
   return (
     <>
       <PageHero
-        eyebrow="Section 4 - Simulation methodology"
         title="How the simulation is built"
         lead="Three models of the same plant: a rigorous Aspen Plus V15 flowsheet driven from Python, an independent equilibrium model that checks it, and literature kinetics for the question the equilibrium model cannot answer."
       />

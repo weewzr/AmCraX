@@ -29,7 +29,7 @@ export default function About() {
   const nAll = vs.phase === 'ready' ? (vs.data.file_summary?.n_items ?? vs.data.count) : null
   return (
     <>
-      <PageHero eyebrow="Section 9 - About" title="About AmCraX"
+      <PageHero title="About AmCraX"
         lead="An independent project that turns a literature question, what does it cost to get hydrogen back out of ammonia, into a simulation platform whose every number can be traced." />
       <Section id="motivation" title="Motivation">
         <div className="prose">

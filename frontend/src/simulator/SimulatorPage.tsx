@@ -1,9 +1,9 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react'
+import { Link, useSearchParams } from 'react-router-dom'
 import { withBase } from '../api/url'
 import { inputRanges, loadSimulatorData, type SimData } from '../sim'
 import { Controls } from './Controls'
-import { baselineState, exportCSV, exportJSON, exportName, INPUT_UNITS, PRESETS, presetMatches, reducer, runCase, SOURCE_TEXT, type SimState } from './model'
+import { baselineState, exportCSV, exportJSON, exportName, INPUT_UNITS, PRESETS, presetMatches, presetState, reducer, runCase, SOURCE_TEXT, type SimState } from './model'
 import { FactList, KpiStrip, OutputList, SimBadge } from './Outputs'
 import { Pfd } from './Pfd'
 import { itemStatus, SPECIES_COLOR, STREAM_NAMES, streamViews, UNIT_LIMITS, UNITS, unitViews } from './pfdData'
@@ -13,8 +13,28 @@ import { TOUR_STEPS } from './tourSteps'
 import './simulator.css'
 import './print.css'
 
-// Recharts and the sweeps load as a separate chunk, so the diagram and the controls appear first.
+// Recharts and the sweeps load as a separate chunk, and only when the graphs come near the viewport (or on request),
+// so the landing page does not download the chart library before the visitor scrolls to it.
 const Graphs = lazy(() => import('./Graphs'))
+
+function WhenNear({ children }: { children: ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null)
+  const [near, setNear] = useState(() => typeof IntersectionObserver === 'undefined')
+  useEffect(() => {
+    const el = ref.current
+    if (near || !el) return
+    const io = new IntersectionObserver((es) => { if (es.some((e) => e.isIntersecting)) setNear(true) }, { rootMargin: '400px 0px' })
+    io.observe(el)
+    return () => io.disconnect()
+  }, [near])
+  if (near) return <>{children}</>
+  return (
+    <section ref={ref} className="sim-graphs-wait" aria-label="Graphs">
+      <p>Eight graphs follow the controls: conversion and duties against temperature, reactor profiles, the catalyst comparison and the cost breakdown. They load when you scroll here, so that the page opens without the chart library.</p>
+      <button type="button" className="btn" onClick={() => setNear(true)}>Load the graphs now</button>
+    </section>
+  )
+}
 
 function useReducedMotion(): boolean {
   const q = '(prefers-reduced-motion: reduce)'
@@ -49,11 +69,19 @@ export default function SimulatorPage() {
   useEffect(() => { loadSimulatorData().then(setData, (e: unknown) => setErr(String(e instanceof Error ? e.message : e))) }, [])
   if (err) return <div className="wrap sim-page"><h1 className="sim-h1">AmCraX process simulator</h1><p role="alert">The simulator data could not be loaded ({err}).</p></div>
   if (!data) return <div className="wrap sim-page"><h1 className="sim-h1">AmCraX process simulator</h1><p role="status">Loading the simulator data ...</p></div>
-  return <Simulator d={data} />
+  return <SimulatorFromUrl d={data} />
 }
 
-function Simulator({ d }: { d: SimData }) {
-  const [s, dispatch] = useReducer(reducer, d, baselineState)
+/** "#/?preset=<id>" (used by the command palette) opens a stored scenario; an unknown or non-matching id opens the baseline. */
+function SimulatorFromUrl({ d }: { d: SimData }) {
+  const [params] = useSearchParams()
+  const want = params.get('preset')
+  const preset = want && presetMatches(d, want) ? want : null
+  return <Simulator key={preset ?? 'baseline'} d={d} preset={preset} />
+}
+
+function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | null }) {
+  const [s, dispatch] = useReducer(reducer, d, (dd: SimData) => (initialPreset ? presetState(dd, initialPreset) : baselineState(dd)))
   const [pinned, setPinned] = useState<SimState | null>(null)
   const reduced = useReducedMotion()
   const [playing, setPlaying] = useState(() => !reduced)
@@ -164,7 +192,7 @@ function Simulator({ d }: { d: SimData }) {
             <caption>Inputs of this case (steady state, computed in the browser)</caption>
             <tbody>{(Object.keys(s) as (keyof SimState)[]).filter((k) => k !== 'preset').map((k) => <tr key={k}><th>{k}</th><td>{String(s[k])}{INPUT_UNITS[k] ? ` ${INPUT_UNITS[k]}` : ''}</td></tr>)}</tbody>
           </table>
-          <KpiStrip c={B} />
+          <KpiStrip c={B} route={s.nh3_route} />
           <p className="sim-scroll-hint">Scroll sideways; tap an item for its values.</p>
           <ul className="sim-legend-html" aria-label="Diagram legend">
             {(['NH3', 'H2', 'N2', 'H2O', 'O2'] as const).map((k) => <li key={k}><i style={{ background: SPECIES_COLOR[k] }} aria-hidden="true" />{k}</li>)}
@@ -232,9 +260,11 @@ function Simulator({ d }: { d: SimData }) {
       </div>
 
       <div className="wrap">
-        <Suspense fallback={<p className="sim-graphs-loading" role="status">Preparing the graphs</p>}>
-          <Graphs d={d} b={B} a={A} />
-        </Suspense>
+        <WhenNear>
+          <Suspense fallback={<p className="sim-graphs-loading" role="status">Preparing the graphs</p>}>
+            <Graphs d={d} b={B} a={A} />
+          </Suspense>
+        </WhenNear>
         <HowProduced d={d} />
       </div>
     </div>

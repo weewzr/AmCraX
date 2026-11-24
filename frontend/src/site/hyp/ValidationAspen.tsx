@@ -4,6 +4,7 @@ import { StatusPill } from '../../components/ui'
 import { fmt } from '../../data/format'
 import { AsyncView } from '../../features/common/Notice'
 import { useJson } from '../data'
+import { Lightbox } from '../Lightbox'
 import { Callout, Section } from '../ui'
 import { DTable } from './parts'
 import { baseName } from './shape'
@@ -70,6 +71,7 @@ interface Gallery { aspen_version?: string; note?: string; n_in_manifest: number
 export function AspenGallery() {
   const g = useJson<Gallery>('/api/research/aspen-evidence')
   const [cid, setCid] = useState('all')
+  const [openAt, setOpenAt] = useState<number | null>(null)
   return (
     <Section id="gallery" title="Aspen Plus V15 evidence gallery" alt
       intro="Screenshots of the Aspen Plus V15 window taken during the research runs. Each image is a genuine Aspen Plus V15 capture; user and host names are masked. The public site shows them as stored files and does not run Aspen Plus.">
@@ -86,12 +88,15 @@ export function AspenGallery() {
                 {cases.map((c) => <option key={c} value={c}>{c} ({d.captures.filter((x) => x.case_id === c).length})</option>)}
               </select>
             </div>
+            <p className="muted small">Select a capture to open it at full size with its caption; the left and right arrow keys step through the captures shown.</p>
             <ul className="hyp-gallery">
-              {shown.map((c) => {
+              {shown.map((c, i) => {
                 const url = staticAssetUrl(`/aspen-evidence/${baseName(c.file)}`)
                 return (
                   <li key={c.file} className="card">
-                    <a href={url} target="_blank" rel="noopener noreferrer"><img src={url} alt={`${c.title}: ${c.what_is_shown}`} loading="lazy" /></a>
+                    <button type="button" className="hyp-thumb" onClick={() => setOpenAt(i)} aria-label={`Open full size: ${c.title}`}>
+                      <img src={url} alt={`${c.title}: ${c.what_is_shown}`} loading="lazy" />
+                    </button>
                     <div className="hyp-cap">
                       <strong>{c.title}</strong>
                       <p>{c.what_is_shown}</p>
@@ -102,6 +107,15 @@ export function AspenGallery() {
                 )
               })}
             </ul>
+            <Lightbox index={openAt} onIndex={setOpenAt} onClose={() => setOpenAt(null)}
+              items={shown.map((c) => ({
+                src: staticAssetUrl(`/aspen-evidence/${baseName(c.file)}`), alt: `${c.title}: ${c.what_is_shown}`, title: c.title,
+                caption: <>
+                  <p>{c.what_is_shown}</p>
+                  <p className="muted small">Case <code>{c.case_id}</code>{c.navigation_path ? `; ${c.navigation_path}` : ''}. File <code>{baseName(c.file)}</code>.</p>
+                  <p className="small"><span className="badge badge-aspen_plus_v15">genuine Aspen Plus V15 capture</span> {c.visually_verified ? <StatusPill kind="ok">inspected</StatusPill> : <span className="muted">not yet marked as inspected</span>}</p>
+                </>,
+              }))} />
             {d.note ? <Callout>{d.note}</Callout> : null}
           </>
         )

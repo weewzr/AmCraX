@@ -7,6 +7,7 @@ import { StoredNote, SubNav } from '../hyp/parts'
 import { CarbonIntensityTable, CatalystPhase2, EconomicsPhase2, EndUsePhase2, PurificationPhase2, ValidationByKind } from '../hyp/phase2'
 import { PurificationView } from '../hyp/PurificationView'
 import { AspenGallery, ValidationView } from '../hyp/ValidationAspen'
+import { OnThisPage } from '../OnThisPage'
 import { HYPOTHESIS_PAGES } from '../routes'
 import { PageHero, Section } from '../ui'
 
@@ -27,10 +28,13 @@ export default function Hypotheses() {
   if (!p) return <Navigate to="/hypotheses" replace />
   return (
     <>
-      <PageHero eyebrow="Section 10: hypothesis testing" title={p.slug ? p.title : 'Hypothesis testing'} lead={LEAD[p.slug]}>
+      <PageHero title={p.slug ? p.title : 'Hypothesis testing'} lead={LEAD[p.slug]}>
         <SubNav current={p.slug} />
       </PageHero>
-      <div className="wrap" style={{ paddingTop: 'var(--s5, 24px)' }}><StoredNote extrapolated={p.slug === 'catalyst' || p.slug === ''} /></div>
+      <div className="wrap hyp-intro">
+        <StoredNote extrapolated={p.slug === 'catalyst' || p.slug === ''} />
+        <OnThisPage />
+      </div>
       {p.slug === '' ? <Section id="matrix" title="Evidence matrix"><EvidenceMatrix /></Section> : null}
       {p.slug === 'catalyst' ? <><CatalystPhase2 /><CatalystView /></> : null}
       {p.slug === 'economics' ? <><EconomicsPhase2 /><EconomicsView /></> : null}
