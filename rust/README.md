@@ -157,6 +157,40 @@ masses to `data/transport_gri30.json` (embedded by the engine). Checked by
 keyword arguments of Python `simulate_pfr` (unknown keys are an error) and writes the result
 (Python `PFRResult` fields plus solver statistics; NaN as null).
 
+### Engine golden tables (stage 3)
+
+`golden/stage3/` is written by `golden/generate_stage3_golden.py` (tables `economics`, `carbon`, `uq`,
+`stiff`; the generator imports this repository's `amcrax` at the tagged Phase 2 baseline
+`amcrax-phase2-reviewed-2026-11-24` and records `science_diff_vs_tag` in the metadata). Besides the
+tables, the verifier reads the stored results in `results/` (read only) and recomputes them: every
+number of `results/research/reference_scenario/{baseline,capex_audit}.json`,
+`results/research/singapore/{scenario_results,tornado,breakeven_ammonia_price,monte_carlo}.json`,
+`results/simulations/economics_baseline*.json`, the carbon-pricing `scenarios.json`,
+`thresholds.json`, `carbon_intensity.json` and both `test_vectors.json` files, the global
+sensitivity study `results/research/uq/gsa_sobol.json` and the kinetic propagation samples and
+summaries. Checked by `crates/amcrax-engine/tests/stage3.rs`, `amcrax verify economics|carbon|uq|stiff|all`
+and `amcrax study gsa|mc-singapore|kinetic-propagation --report`.
+
+| Quantity | Gate | Why |
+|---|---|---|
+| `singapore.evaluate`, every output key (all capex modes, overrides, errors) | 1e-12 relative; keys, notes, booleans, None identical | same operation order (Python `sum` as Neumaier), only libm `pow` could differ |
+| reference CAPEX, equipment CAPEX, CRF, IRR, break-even, legacy `compute_lcoh` | 1e-12 relative | idem |
+| stored research results (recipes) | 1e-12 relative | the generator proves the tagged Python reproduces each stored value |
+| LCA factors, carbon intensity, carbon cost, Mode A threshold test, route cases, crossover | 1e-12 relative | same closed forms |
+| Sobol' indices, bootstrap intervals on fixed output matrices | 1e-12 relative; bootstrap index stream identical | NumPy pairwise sums and `integers` stream ported |
+| Sobol' base samples of the studies | SHA-256 of the float64 bytes identical | SciPy scrambling; the legacy `seed=` keyword seeds `default_rng(seed)` without spawn |
+| `ndtri`, `triang.ppf`, `lognorm.ppf`, `norm.ppf` | 1e-12 relative | Cephes ndtri port, checked bitwise on 250,006 arguments before the port |
+| global sensitivity study (16 cases + dummy, N = 8192, 1000 bootstraps) | 1e-10 relative | sample and bootstrap stream reproduced exactly |
+| Monte Carlo of the Singapore economics (5000 draws) | 1e-12 relative, sample for sample | NumPy uniform/triangular/random streams reproduced exactly (not a statistical comparison) |
+| stiff PFR cases (750-900 degC) | stage 2 gates (X 1e-7, T 1e-4 K, P 1e-6 bar) | LSODA rtol 1e-8 against DOPRI5 or the Radau fallback at rtol 1e-10 |
+| kinetic propagation, draw for draw | draws 1e-12 rel; X_lab 1e-7; T_required 0.05 K; mass 1e-5 rel; decisions identical | stage 2 reactor and search gates |
+
+`amcrax study kinetic-propagation [--threads N] [--limit M]` runs the 16,000-draw study on
+`std::thread` with fixed contiguous chunks (no new dependency; each draw writes its own slot, so
+the result does not depend on the thread count, which the tests check). `amcrax bench` and
+`bench/bench_python.py` time the Rust release build and the Python reference in one CI job
+(`verification/BENCHMARK.md`).
+
 Not promised bit-identical across library versions: normal and other non-uniform variates (not
 ported), shuffles and bounded integers (NumPy does not freeze these streams), and therefore the
 scrambled Sobol' and LHS designs. For those, the promise is statistical equivalence (balance and

@@ -10,7 +10,7 @@
 //! | [`interp`] | [`interp::Pchip`] | `scipy.interpolate.PchipInterpolator` | bit for bit |
 //! | [`interp`] | [`interp::interp_linear`] | `numpy.interp` | bit for bit |
 //! | [`interp`] | [`interp::Bilinear`] | browser model (`frontend/src/sim`) | bit for bit |
-//! | [`rosenbrock`] | [`rosenbrock::ros2`] | stiff fallback (no SciPy counterpart) | within the integration tolerance |
+//! | [`radau`] | [`radau::radau5`] | `solve_ivp(method="Radau")` (port; stiff fallback) | within the integration tolerance |
 //! | [`poly`] | [`poly::cubic_real_roots`] | `numpy.roots` | 1e-10 relative |
 //! | [`stats`] | sum, mean, var, std, median, quantile | NumPy (`method="linear"`) | bit for bit |
 //! | [`random`] | [`random::SeedSequence`], [`random::Pcg64`] | `numpy.random.default_rng` | bit for bit for `random()`, `uniform()`, raw output |
@@ -28,9 +28,9 @@ pub mod interp;
 pub mod ode;
 pub mod poly;
 pub mod qmc;
+pub mod radau;
 pub mod random;
 pub mod roots;
-pub mod rosenbrock;
 mod sobol_directions;
 pub mod special;
 pub mod stats;

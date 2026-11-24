@@ -164,7 +164,7 @@ impl<'a> KpSetup<'a> {
     fn solve(&self, inp: &PfrInput, c: &mut Counter) -> Result<f64, EngineError> {
         c.n += 1;
         let r = simulate_pfr(self.reg, inp, &self.sopt)?;
-        if r.solver.method.starts_with("ROS2") {
+        if r.solver.method.starts_with("Radau") {
             c.stiff += 1;
         }
         Ok(r.outlet.conversion)

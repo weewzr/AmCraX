@@ -32,8 +32,8 @@ use crate::thermo::nasa7::{R_J_MOL_K, species_cp_j_mol_k};
 use crate::thermo::{Alpha, Eos, Kij, reaction_enthalpy_kj_mol};
 use crate::transport::{NV, Transport};
 use amcrax_numerics::ode::{Event, OdeError, OdeOptions, OdeStatus, dopri5};
+use amcrax_numerics::radau::radau5;
 use amcrax_numerics::roots::{BrentError, BrentOptions, brentq_try};
-use amcrax_numerics::rosenbrock::ros2;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::collections::BTreeMap;
@@ -190,11 +190,11 @@ pub struct SolverOptions {
     pub max_attempts: usize,
     /// Accepted steps above which the case is reported as stiff for DOPRI5.
     pub stiff_steps: usize,
-    /// DOPRI5 step attempts after which the integration restarts with the L-stable ROS2 method
-    /// (`amcrax_numerics::rosenbrock`); stage 2 found at most 659 steps in the golden cases and
+    /// DOPRI5 step attempts after which the integration restarts with the Radau IIA method
+    /// (`amcrax_numerics::radau`, port of SciPy's Radau); stage 2 found at most 659 steps in the golden cases and
     /// about 583,000 for Kum at 900 degC, 1 atm, 1000 kg.
     pub stiff_switch_attempts: usize,
-    /// Relative tolerance of the ROS2 fallback.
+    /// Relative tolerance of the Radau fallback.
     pub stiff_rtol: f64,
 }
 
@@ -648,14 +648,14 @@ pub fn simulate_pfr(
         && rhs_error.borrow().is_none()
         && sopt.stiff_switch_attempts < sopt.max_attempts
     {
-        // stiff for the explicit method: restart with the L-stable Rosenbrock method
-        method = "ROS2 (amcrax-numerics, stiff fallback after DOPRI5)";
+        // stiff for the explicit method: restart with the Radau IIA method (port of SciPy Radau)
+        method = "Radau IIA (amcrax-numerics, stiff fallback after DOPRI5)";
         let ropts = OdeOptions {
             rtol: sopt.stiff_rtol,
             max_attempts: sopt.max_attempts,
             ..opts.clone()
         };
-        sol = ros2(
+        sol = radau5(
             &mut rhs,
             (0.0, inp.w_kg),
             [x0, t_in, inp.p_in_bar, 0.0],
@@ -787,7 +787,7 @@ pub fn simulate_pfr(
         source: "rust_model".into(),
         solver: SolverStats {
             method,
-            rtol: if method.starts_with("ROS2") {
+            rtol: if method.starts_with("Radau") {
                 sopt.stiff_rtol
             } else {
                 sopt.rtol

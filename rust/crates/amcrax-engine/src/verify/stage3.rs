@@ -1445,7 +1445,7 @@ pub fn stiff(
         "PFR outlet conversion at 750-900 degC, 1 and 20 bar, 100-1000 kg (five rate laws)",
         1e-7,
     )
-    .note("stage 2 gate: Python LSODA rtol 1e-8 against DOPRI5 rtol 1e-10 or, when DOPRI5 exceeds 2,000 step attempts, ROS2 rtol 1e-10");
+    .note("stage 2 gate: Python LSODA rtol 1e-8 against DOPRI5 rtol 1e-10 or, when DOPRI5 exceeds 2,000 step attempts, Radau IIA rtol 1e-10");
     let mut to = Acc::abs("stiff.outlet_T", "outlet temperature, K", 1e-4);
     let mut po = Acc::abs("stiff.outlet_P", "outlet pressure, bar", 1e-6);
     let mut xp = Acc::abs(
@@ -1474,7 +1474,7 @@ pub fn stiff(
             (Some(pe), r) => add_err_case(&mut ex, &case, pe, &r),
             (None, Err(e)) => ex.add_bool(&case, false, || format!("rust error {e}")),
             (None, Ok(r)) => {
-                if r.solver.method.starts_with("ROS2") {
+                if r.solver.method.starts_with("Radau") {
                     n_ros2 += 1;
                 }
                 max_steps = max_steps.max(r.solver.n_steps);
@@ -1493,7 +1493,7 @@ pub fn stiff(
         }
     }
     rep.findings.push(format!(
-        "stiff cases: {n_ros2} of {} solved by the ROS2 fallback (DOPRI5 over 2,000 step attempts); largest step count {max_steps}",
+        "stiff cases: {n_ros2} of {} solved by the Radau fallback (DOPRI5 over 2,000 step attempts); largest step count {max_steps}",
         arr(&t["cases"]).len()
     ));
     rep.push(xo);
@@ -1556,7 +1556,7 @@ pub fn kinetic(
         "laboratory conversions at 400, 450, 500 degC (W = 0.1 g, 1 atm, NH3/Ar), draw for draw",
         1e-7,
     )
-    .note("stage 2 reactor gate (Python LSODA rtol 1e-8 against DOPRI5/ROS2 rtol 1e-10)");
+    .note("stage 2 reactor gate (Python LSODA rtol 1e-8 against DOPRI5/Radau rtol 1e-10)");
     let mut tr = Acc::abs(
         "kinetic.T_required",
         "inlet temperature for X = 0.95 / 0.99 at 1 and 20 bar, W = 100 / 1000 kg per 100 kmol/h, draw for draw",
