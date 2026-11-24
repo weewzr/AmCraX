@@ -103,7 +103,11 @@ fn verr(msg: String) -> EngineError {
 impl EconAssumptions {
     /// The defaults (`EconomicAssumptions()`).
     pub fn defaults(d: &EconomicsData) -> Result<Self, EngineError> {
-        let e = &d.economics;
+        Ok(d.cache.econ_defaults.clone())
+    }
+
+    /// The defaults from the parsed `economics.yaml`.
+    pub fn from_economics_yaml(e: &OValue) -> Result<Self, EngineError> {
         let mut table = Vec::new();
         for (k, v) in e.at(&["defaults", "catalyst_price_USD_per_kg"]).entries() {
             if let Some(x) = v.get("value").as_f64() {

@@ -8,7 +8,7 @@
 //! golden tables is key by key and the CLI output can replace the Python output.
 
 use super::lcoh::{EconAssumptions, crf, estimate_capex};
-use super::reference::{EconomicsData, RefCapexArgs, SINGAPORE_YAML};
+use super::reference::{EconomicsData, RefCapex, RefCapexArgs, SINGAPORE_YAML};
 use super::{jf, jo, json_bool, json_f64, json_opt_f64, json_string, py_round, pydiv, pypow};
 use crate::error::EngineError;
 use crate::pyops::{fmt_g, py_sum};
@@ -329,45 +329,6 @@ pub fn default_electricity_usd_per_kwh(d: &EconomicsData) -> Result<f64, EngineE
     Ok(sgd / d.reference.fx_sgd_per_usd)
 }
 
-/// Python `equipment_capex(nh3_feed_kmol_h, a, location_factor, exponent)` (Phase 1 basis).
-pub fn equipment_capex(
-    d: &EconomicsData,
-    nh3_feed_kmol_h: f64,
-    a: &EconAssumptions,
-    location_factor: Option<f64>,
-    exponent: Option<f64>,
-) -> Result<Value, EngineError> {
-    let sg = &d.singapore;
-    let f = SINGAPORE_YAML;
-    let shares = sg.num_map(f, &["capex_equipment", "equipment_shares_pct", "value"])?;
-    let s = py_sum(shares.iter().map(|e| e.1));
-    let pec_ref = sg.num_v(f, &["capex_equipment", "pec_reference_kUSD"])? * 1e3;
-    let ratio = nh3_feed_kmol_h / sg.num_v(f, &["capex_equipment", "reference_feed_kmol_h"])?;
-    let n = match exponent {
-        Some(x) => x,
-        None => sg.num_v(f, &["capex_equipment", "scaling_exponent"])?,
-    };
-    let lf = match location_factor {
-        Some(x) => x,
-        None => sg.num_v(f, &["capex_equipment", "singapore_location_factor"])?,
-    };
-    let pec: Vec<(String, f64)> = shares
-        .iter()
-        .map(|(k, v)| (k.clone(), pec_ref * v / s * pypow(ratio, n) * lf))
-        .collect();
-    let pec_tot = py_sum(pec.iter().map(|e| e.1));
-    let fac = sg.num_v(f, &["capex_equipment", "tci_over_pec"])?;
-    let tci = pec_tot * fac * a.capex_multiplier;
-    Ok(json!({
-        "pec_USD": Value::Object(pec.iter().map(|(k, v)| (k.clone(), jf(*v))).collect()),
-        "pec_total_USD": jf(pec_tot), "tci_over_pec": jf(fac), "scaling_exponent": jf(n),
-        "location_factor": jf(lf), "capex_multiplier": jf(a.capex_multiplier), "total_capex_USD": jf(tci),
-        "tci_by_equipment_USD": Value::Object(pec.iter()
-            .map(|(k, v)| (k.clone(), jf(v * fac * a.capex_multiplier))).collect()),
-        "basis": "Farokhi 2025 PEC point (500 kmol/h) split by Chopra 2026 shares, scaled by feed^0.8, x TCI/PEC 5.93",
-    }))
-}
-
 /// Python `_irr(capex, net, n)`: 200 bisection steps on [0, 10] (`None` when no positive IRR).
 pub fn irr(capex: f64, net: f64, n: i64) -> Option<f64> {
     if net <= 0.0 || net * n as f64 <= capex {
@@ -392,27 +353,28 @@ pub fn irr(capex: f64, net: f64, n: i64) -> Option<f64> {
     Some(0.5 * (lo + hi))
 }
 
-fn get_f(v: &Value, k: &str) -> Result<f64, EngineError> {
-    v[k].as_f64()
-        .ok_or_else(|| EngineError::Numerical(format!("internal: {k} missing")))
+/// Validated inputs of one evaluation (Python `a = EconomicAssumptions(**eo)`, `p = SGParams(...)`).
+#[derive(Debug, Clone, PartialEq)]
+pub struct Prepared {
+    pub a: EconAssumptions,
+    pub p: SgParams,
 }
 
-/// Python `evaluate(result_or_summary, scenario, overrides)`.
-pub fn evaluate(
+/// Python `evaluate` up to the construction of `a` and `p`: split the overrides, apply the
+/// reference-scenario fields (except in legacy mode), validate, resolve the ammonia price.
+pub fn prepare(
     d: &EconomicsData,
-    s: &Summary,
     scenario: &Scenario,
     overrides: &Overrides,
-) -> Result<Value, EngineError> {
+) -> Result<Prepared, EngineError> {
     let (eo, so) = split_overrides(overrides)?;
     let r = &d.reference;
-    let mode_raw = so
+    let legacy = so
         .iter()
         .find(|e| e.0 == "capex_mode")
-        .map(|e| e.1.clone())
-        .unwrap_or_else(|| Value::String("reference".into()));
-    let eo: Vec<(String, Value)> = if mode_raw != Value::String("legacy".into()) {
-        let mut v: Vec<(String, Value)> = r
+        .is_some_and(|e| e.1 == Value::String("legacy".into()));
+    let eo: KwList = if !legacy {
+        let mut v: KwList = r
             .economic_overrides()
             .into_iter()
             .filter(|e| e.0 != "electricity_price_USD_per_kWh")
@@ -437,6 +399,154 @@ pub fn evaluate(
         None => scenario.price(d)?,
         Some(v) => json_f64("nh3_price_USD_per_t", v)?,
     };
+    Ok(Prepared { a, p })
+}
+
+/// Python `equipment_capex` as numbers (see [`equipment_capex`]).
+#[derive(Debug, Clone, PartialEq)]
+pub struct EquipCapex {
+    pub pec: Vec<(String, f64)>,
+    pub pec_tot: f64,
+    pub fac: f64,
+    pub n: f64,
+    pub lf: f64,
+    pub capex_multiplier: f64,
+    pub total: f64,
+}
+
+impl EquipCapex {
+    /// TCI of an item.
+    pub fn tci_of(&self, item: &str) -> Option<f64> {
+        self.pec
+            .iter()
+            .find(|e| e.0 == item)
+            .map(|e| e.1 * self.fac * self.capex_multiplier)
+    }
+
+    /// As the Python dict.
+    pub fn to_json(&self) -> Value {
+        let (fac, m) = (self.fac, self.capex_multiplier);
+        json!({
+            "pec_USD": Value::Object(self.pec.iter().map(|(k, v)| (k.clone(), jf(*v))).collect()),
+            "pec_total_USD": jf(self.pec_tot), "tci_over_pec": jf(fac), "scaling_exponent": jf(self.n),
+            "location_factor": jf(self.lf), "capex_multiplier": jf(m), "total_capex_USD": jf(self.total),
+            "tci_by_equipment_USD": Value::Object(self.pec.iter()
+                .map(|(k, v)| (k.clone(), jf(v * fac * m))).collect()),
+            "basis": "Farokhi 2025 PEC point (500 kmol/h) split by Chopra 2026 shares, scaled by feed^0.8, x TCI/PEC 5.93",
+        })
+    }
+}
+
+/// Typed core of [`equipment_capex`].
+pub fn equipment_capex_core(
+    d: &EconomicsData,
+    nh3_feed_kmol_h: f64,
+    a: &EconAssumptions,
+    location_factor: Option<f64>,
+    exponent: Option<f64>,
+) -> Result<EquipCapex, EngineError> {
+    let sg = &d.singapore;
+    let f = SINGAPORE_YAML;
+    let shares = sg.num_map(f, &["capex_equipment", "equipment_shares_pct", "value"])?;
+    let s = py_sum(shares.iter().map(|e| e.1));
+    let pec_ref = sg.num_v(f, &["capex_equipment", "pec_reference_kUSD"])? * 1e3;
+    let ratio = nh3_feed_kmol_h / sg.num_v(f, &["capex_equipment", "reference_feed_kmol_h"])?;
+    let n = match exponent {
+        Some(x) => x,
+        None => sg.num_v(f, &["capex_equipment", "scaling_exponent"])?,
+    };
+    let lf = match location_factor {
+        Some(x) => x,
+        None => sg.num_v(f, &["capex_equipment", "singapore_location_factor"])?,
+    };
+    let pec: Vec<(String, f64)> = shares
+        .iter()
+        .map(|(k, v)| (k.clone(), pec_ref * v / s * pypow(ratio, n) * lf))
+        .collect();
+    let pec_tot = py_sum(pec.iter().map(|e| e.1));
+    let fac = sg.num_v(f, &["capex_equipment", "tci_over_pec"])?;
+    Ok(EquipCapex {
+        total: pec_tot * fac * a.capex_multiplier,
+        pec,
+        pec_tot,
+        fac,
+        n,
+        lf,
+        capex_multiplier: a.capex_multiplier,
+    })
+}
+
+/// Python `equipment_capex(nh3_feed_kmol_h, a, location_factor, exponent)` (Phase 1 basis).
+pub fn equipment_capex(
+    d: &EconomicsData,
+    nh3_feed_kmol_h: f64,
+    a: &EconAssumptions,
+    location_factor: Option<f64>,
+    exponent: Option<f64>,
+) -> Result<Value, EngineError> {
+    Ok(equipment_capex_core(d, nh3_feed_kmol_h, a, location_factor, exponent)?.to_json())
+}
+
+/// The capital estimate of one evaluation.
+#[derive(Debug, Clone, PartialEq)]
+pub enum Capital {
+    Legacy(f64),
+    Reference(RefCapex),
+    Equipment(EquipCapex),
+}
+
+/// Keys of the breakdown and annual-cost dicts, in the Python order.
+pub const COST_KEYS: [&str; 8] = [
+    "capex",
+    "fixed_opex",
+    "ammonia_feed",
+    "heat_fuel",
+    "electricity",
+    "cooling_water",
+    "catalyst",
+    "carbon_tax",
+];
+
+/// The numbers of one `evaluate` call.
+#[derive(Debug, Clone, PartialEq)]
+pub struct EvalResult {
+    pub lcoh_usd_per_kg: f64,
+    pub rec_usd_per_kg: f64,
+    pub breakdown: [f64; 8],
+    pub annual: [f64; 8],
+    pub maint: f64,
+    pub ins: f64,
+    pub lab: f64,
+    pub overhead: f64,
+    pub g_and_a: f64,
+    pub npv_usd: f64,
+    pub irr: Option<f64>,
+    pub payback_yr: Option<f64>,
+    pub purification: Option<f64>,
+    pub landed: Option<f64>,
+    pub capex_usd: f64,
+    pub crf: f64,
+    pub h2_kg_h: f64,
+    pub annual_h2: f64,
+    pub feed_kg_h: f64,
+    pub fuel_nh3_kg_h: f64,
+    pub m_cat: f64,
+    pub direct_t: f64,
+    pub liable: bool,
+    pub capital: Capital,
+    pub notes: Vec<String>,
+}
+
+/// Python `evaluate` after the inputs are prepared (the arithmetic, in the Python order).
+/// `with_notes = false` skips the formatting of the notes (same numbers).
+pub fn evaluate_prepared(
+    d: &EconomicsData,
+    s: &Summary,
+    a: &EconAssumptions,
+    p: &SgParams,
+    with_notes: bool,
+) -> Result<EvalResult, EngineError> {
+    let r = &d.reference;
     let mut notes: Vec<String> = Vec::new();
     let sc = p.capacity_scale;
     let hours = a.operating_hours_h_per_yr;
@@ -461,12 +571,14 @@ pub fn evaluate(
         let d_lost = h2c * (rec_v - new_rec) * 1000.0 / 3600.0 * LHV_H2_KJ_MOL;
         h2_kg_h = h2c * new_rec * MM_H2;
         deficit -= eff * d_lost;
-        notes.push(format!(
-            "PSA recovery {} -> {}: H2 and tail-gas heat rescaled linearly from the stored \
-             result (not re-simulated; cooler/exchanger duties and PSA power held).",
-            fmt_g(rec_v, 6),
-            fmt_g(new_rec, 6)
-        ));
+        if with_notes {
+            notes.push(format!(
+                "PSA recovery {} -> {}: H2 and tail-gas heat rescaled linearly from the stored \
+                 result (not re-simulated; cooler/exchanger duties and PSA power held).",
+                fmt_g(rec_v, 6),
+                fmt_g(new_rec, 6)
+            ));
+        }
     }
     h2_kg_h *= sc;
     nh3_kmol_h *= sc;
@@ -474,7 +586,9 @@ pub fn evaluate(
     cooling *= sc;
     pump *= sc;
     if deficit < 0.0 {
-        notes.push(format!("Heat surplus {:.1} kW not credited.", -deficit));
+        if with_notes {
+            notes.push(format!("Heat surplus {:.1} kW not credited.", -deficit));
+        }
         deficit = 0.0;
     }
     let annual_h2 = h2_kg_h * hours;
@@ -516,18 +630,19 @@ pub fn evaluate(
     } else {
         0.0
     };
-    if direct_t == 0.0 {
-        notes.push(
-            "Direct CO2e = 0 (ammonia-fuelled heat, no carbon in the feed); N2O not quantified; carbon tax 0."
-                .into(),
-        );
-    } else if !liable {
-        notes.push(format!(
-            "Direct emissions {direct_t:.0} tCO2e/yr below the {thr:?} t threshold: no tax liability."
-        ));
+    if with_notes {
+        if direct_t == 0.0 {
+            notes.push(
+                "Direct CO2e = 0 (ammonia-fuelled heat, no carbon in the feed); N2O not quantified; carbon tax 0."
+                    .into(),
+            );
+        } else if !liable {
+            notes.push(format!(
+                "Direct emissions {direct_t:.0} tCO2e/yr below the {thr:?} t threshold: no tax liability."
+            ));
+        }
     }
-    let elec_kw = pump;
-    let elec_usd_yr = elec_kw * p.electricity_price_usd_per_kwh * hours;
+    let elec_usd_yr = pump * p.electricity_price_usd_per_kwh * hours;
     let cool_usd_yr = cooling * 3600.0 * a.cooling_water_price_usd_per_kj * hours;
     let mut m_cat = nh3_kmol_h * 1000.0 * a.normal_molar_volume_l_per_mol * 1000.0
         / a.catalyst_space_velocity_ml_nh3_per_gcat_h
@@ -538,38 +653,38 @@ pub fn evaluate(
     let cat_usd_yr = m_cat * a.resolved_catalyst_price_usd_per_kg()? / a.catalyst_lifetime_yr;
 
     // capital
-    let (cap, capex_usd, tci_eq): (Value, f64, Option<Value>) = match p.capex_mode.as_str() {
-        "legacy" => {
-            let c = estimate_capex(d, h2_kg_h, &a)?.total_capex_usd;
-            (
-                json!({"total_capex_USD": jf(c), "basis": "legacy plant-level correlation (lcoh.py)"}),
-                c,
-                None,
-            )
-        }
+    let capital = match p.capex_mode.as_str() {
+        "legacy" => Capital::Legacy(estimate_capex(d, h2_kg_h, a)?.total_capex_usd),
         "reference" => {
-            let mut args = RefCapexArgs::new(nh3_kmol_h);
-            args.catalyst_mass_kg = Some(m_cat);
-            args.reactor_size_driver = p.reactor_size_driver.clone();
-            args.item_size_ratio = p.item_size_ratio.clone();
-            args.exponent = p.capex_scaling_exponent;
-            args.capex_multiplier = a.capex_multiplier;
-            let c = d.reference_capex(&args)?;
-            let t = get_f(&c, "total_capex_USD")?;
-            let e = c["tci_by_equipment_USD"].clone();
-            (c, t, Some(e))
+            let args = RefCapexArgs {
+                nh3_feed_kmol_h: nh3_kmol_h,
+                catalyst_mass_kg: Some(m_cat),
+                reactor_size_driver: p.reactor_size_driver.clone(),
+                item_size_ratio: p.item_size_ratio.clone(),
+                exclude: Vec::new(),
+                exponent: p.capex_scaling_exponent,
+                capex_multiplier: a.capex_multiplier,
+                location_factor: None,
+            };
+            Capital::Reference(d.reference_capex_core(&args)?)
         }
-        "equipment" => {
-            let c = equipment_capex(d, nh3_kmol_h, &a, None, p.capex_scaling_exponent)?;
-            let t = get_f(&c, "total_capex_USD")?;
-            let e = c["tci_by_equipment_USD"].clone();
-            (c, t, Some(e))
-        }
+        "equipment" => Capital::Equipment(equipment_capex_core(
+            d,
+            nh3_kmol_h,
+            a,
+            None,
+            p.capex_scaling_exponent,
+        )?),
         _ => {
             return Err(EngineError::Domain(
                 "ValueError: capex_mode must be 'reference', 'equipment' or 'legacy'".into(),
             ));
         }
+    };
+    let (capex_usd, tci_pur) = match &capital {
+        Capital::Legacy(c) => (*c, None),
+        Capital::Reference(c) => (c.total, Some((c.tci_of("psa"), c.tci_of("adsorber")))),
+        Capital::Equipment(c) => (c.total, Some((c.tci_of("psa"), c.tci_of("adsorber")))),
     };
     let f = crf(a.discount_rate, a.plant_life_yr)?;
     let maint = a.maintenance_frac_capex_per_yr * capex_usd;
@@ -583,17 +698,6 @@ pub fn evaluate(
     let overhead = a.plant_overhead_frac_labour_maint * (lab + maint);
     let fixed_base = maint + ins + lab + overhead;
     let fixed_usd_yr = fixed_base * (1.0 + a.g_and_a_frac_fixed_opex);
-
-    const KEYS: [&str; 8] = [
-        "capex",
-        "fixed_opex",
-        "ammonia_feed",
-        "heat_fuel",
-        "electricity",
-        "cooling_water",
-        "catalyst",
-        "carbon_tax",
-    ];
     let annual = [
         capex_usd * f,
         fixed_usd_yr,
@@ -610,10 +714,12 @@ pub fn evaluate(
     }
     let lcoh = py_sum(breakdown.iter().copied());
     let rec_cost = lcoh - breakdown[2];
-
-    let purification = match &tci_eq {
-        Some(t) => {
-            let pur_tci = get_f(t, "psa")? + get_f(t, "adsorber")?;
+    let purification = match tci_pur {
+        Some((psa, ads)) => {
+            let key = |x: Option<f64>, k: &str| {
+                x.ok_or_else(|| EngineError::Domain(format!("KeyError: '{k}'")))
+            };
+            let pur_tci = key(psa, "psa")? + key(ads, "adsorber")?;
             let pur_yr = pur_tci
                 * (f + (a.maintenance_frac_capex_per_yr + a.insurance_frac_capex_per_yr)
                     * (1.0 + a.g_and_a_frac_fixed_opex));
@@ -636,62 +742,130 @@ pub fn evaluate(
     } else {
         None
     };
-    if p.capex_mode == "reference" {
+    if with_notes {
+        if p.capex_mode == "reference" {
+            notes.push(
+                "Reference CAPEX (cho2026_itemised_v1, 2024 USD) excludes product compression/storage, NOx \
+                 after-treatment, land and taxes; no Singapore location factor (none sourced)."
+                    .into(),
+            );
+        } else if tci_pur.is_some() {
+            notes.push(
+                "Equipment-level CAPEX excludes NOx after-treatment, product compression/storage, land and taxes; \
+                 no Singapore location factor (none sourced)."
+                    .into(),
+            );
+        }
         notes.push(
-            "Reference CAPEX (cho2026_itemised_v1, 2024 USD) excludes product compression/storage, NOx \
-             after-treatment, land and taxes; no Singapore location factor (none sourced)."
-                .into(),
-        );
-    } else if tci_eq.is_some() {
-        notes.push(
-            "Equipment-level CAPEX excludes NOx after-treatment, product compression/storage, land and taxes; \
-             no Singapore location factor (none sourced)."
+            "Ammonia price is a scenario (delivered, international basis), not a Singapore transaction price."
                 .into(),
         );
     }
-    notes.push(
-        "Ammonia price is a scenario (delivered, international basis), not a Singapore transaction price."
-            .into(),
-    );
-    let obj = |v: &[f64; 8], m: f64| -> Value {
-        Value::Object(
-            KEYS.iter()
-                .zip(v)
-                .map(|(k, x)| (k.to_string(), jf(x * m)))
-                .collect(),
-        )
-    };
-    let cost_basis = if p.capex_mode == "reference" {
-        r.price_year_label()
-    } else {
-        d.singapore
-            .get("base_year_label")
-            .as_str()
-            .unwrap_or_default()
-            .to_string()
-    };
-    Ok(json!({
-        "case_id": s.case_id, "input_source": s.source,
-        "scenario": match scenario { Scenario::Named(n) => n.clone(), Scenario::Price(_) => "custom".into() },
-        "source_type": "python", "currency": "USD",
-        "cost_basis": cost_basis,
-        "capex_mode": p.capex_mode, "fx_SGD_per_USD": jf(fx), "reference_scenario": r.provenance_stamp(),
-        "lcoh_SGD_per_kg": jf(lcoh * fx), "rec_SGD_per_kg": jf(rec_cost * fx),
-        "breakdown_SGD_per_kg": obj(&breakdown, fx),
-        "npv_SGD": jf(npv * fx), "capex_total_SGD": jf(capex_usd * fx),
-        "fixed_opex_detail_USD_per_yr": {"maintenance": jf(maint), "insurance": jf(ins), "labour": jf(lab),
-                                         "plant_overhead": jf(overhead),
-                                         "g_and_a": jf(fixed_base * a.g_and_a_frac_fixed_opex)},
-        "nh3_price_USD_per_t": jf(p.nh3_price_usd_per_t), "h2_product_kg_h": jf(h2_kg_h), "annual_h2_kg": jf(annual_h2),
-        "lcoh_USD_per_kg": jf(lcoh), "rec_USD_per_kg": jf(rec_cost), "breakdown_USD_per_kg": obj(&breakdown, 1.0),
-        "purification_memo_USD_per_kg": jo(purification), "landed_cost_USD_per_kg": jo(landed),
-        "npv_USD": jf(npv), "irr": jo(irr_v), "payback_yr": jo(payback), "h2_price_USD_per_kg": jf(p.h2_price_usd_per_kg),
-        "kg_nh3_feed_per_kg_h2": jf(pydiv(feed_kg_h, h2_kg_h, "H2 product")?),
-        "kg_nh3_fuel_per_kg_h2": jf(pydiv(fuel_nh3_kg_h, h2_kg_h, "H2 product")?),
-        "catalyst_mass_kg": jf(m_cat), "direct_emissions_tCO2e_per_yr": jf(direct_t), "carbon_tax_liable": liable,
-        "crf": jf(f), "capex": cap, "annual_USD_per_yr": obj(&annual, 1.0), "notes": notes,
-        "assumptions": {"economic": a.to_json(), "singapore": p.to_json()},
-    }))
+    Ok(EvalResult {
+        lcoh_usd_per_kg: lcoh,
+        rec_usd_per_kg: rec_cost,
+        breakdown,
+        annual,
+        maint,
+        ins,
+        lab,
+        overhead,
+        g_and_a: fixed_base * a.g_and_a_frac_fixed_opex,
+        npv_usd: npv,
+        irr: irr_v,
+        payback_yr: payback,
+        purification,
+        landed,
+        capex_usd,
+        crf: f,
+        h2_kg_h,
+        annual_h2,
+        feed_kg_h,
+        fuel_nh3_kg_h,
+        m_cat,
+        direct_t,
+        liable,
+        capital,
+        notes,
+    })
+}
+
+impl EvalResult {
+    /// The Python result dict.
+    pub fn to_json(
+        &self,
+        d: &EconomicsData,
+        s: &Summary,
+        scenario: &Scenario,
+        a: &EconAssumptions,
+        p: &SgParams,
+    ) -> Value {
+        let r = &d.reference;
+        let fx = r.fx_sgd_per_usd;
+        let obj = |v: &[f64; 8], m: f64| -> Value {
+            Value::Object(
+                COST_KEYS
+                    .iter()
+                    .zip(v)
+                    .map(|(k, x)| (k.to_string(), jf(x * m)))
+                    .collect(),
+            )
+        };
+        let cost_basis = if p.capex_mode == "reference" {
+            r.price_year_label()
+        } else {
+            d.singapore
+                .get("base_year_label")
+                .as_str()
+                .unwrap_or_default()
+                .to_string()
+        };
+        let cap = match &self.capital {
+            Capital::Legacy(c) => {
+                json!({"total_capex_USD": jf(*c), "basis": "legacy plant-level correlation (lcoh.py)"})
+            }
+            Capital::Reference(c) => c.to_json(d),
+            Capital::Equipment(c) => c.to_json(),
+        };
+        let (h2, lcoh, rec) = (self.h2_kg_h, self.lcoh_usd_per_kg, self.rec_usd_per_kg);
+        json!({
+            "case_id": s.case_id, "input_source": s.source,
+            "scenario": match scenario { Scenario::Named(n) => n.clone(), Scenario::Price(_) => "custom".to_string() },
+            "source_type": "python", "currency": "USD",
+            "cost_basis": cost_basis,
+            "capex_mode": p.capex_mode, "fx_SGD_per_USD": jf(fx), "reference_scenario": r.provenance_stamp(),
+            "lcoh_SGD_per_kg": jf(lcoh * fx), "rec_SGD_per_kg": jf(rec * fx),
+            "breakdown_SGD_per_kg": obj(&self.breakdown, fx),
+            "npv_SGD": jf(self.npv_usd * fx), "capex_total_SGD": jf(self.capex_usd * fx),
+            "fixed_opex_detail_USD_per_yr": {"maintenance": jf(self.maint), "insurance": jf(self.ins),
+                                             "labour": jf(self.lab), "plant_overhead": jf(self.overhead),
+                                             "g_and_a": jf(self.g_and_a)},
+            "nh3_price_USD_per_t": jf(p.nh3_price_usd_per_t), "h2_product_kg_h": jf(h2),
+            "annual_h2_kg": jf(self.annual_h2),
+            "lcoh_USD_per_kg": jf(lcoh), "rec_USD_per_kg": jf(rec), "breakdown_USD_per_kg": obj(&self.breakdown, 1.0),
+            "purification_memo_USD_per_kg": jo(self.purification), "landed_cost_USD_per_kg": jo(self.landed),
+            "npv_USD": jf(self.npv_usd), "irr": jo(self.irr), "payback_yr": jo(self.payback_yr),
+            "h2_price_USD_per_kg": jf(p.h2_price_usd_per_kg),
+            "kg_nh3_feed_per_kg_h2": jf(self.feed_kg_h / h2),
+            "kg_nh3_fuel_per_kg_h2": jf(self.fuel_nh3_kg_h / h2),
+            "catalyst_mass_kg": jf(self.m_cat), "direct_emissions_tCO2e_per_yr": jf(self.direct_t),
+            "carbon_tax_liable": self.liable,
+            "crf": jf(self.crf), "capex": cap, "annual_USD_per_yr": obj(&self.annual, 1.0), "notes": self.notes,
+            "assumptions": {"economic": a.to_json(), "singapore": p.to_json()},
+        })
+    }
+}
+
+/// Python `evaluate(result_or_summary, scenario, overrides)`.
+pub fn evaluate(
+    d: &EconomicsData,
+    s: &Summary,
+    scenario: &Scenario,
+    overrides: &Overrides,
+) -> Result<Value, EngineError> {
+    let pr = prepare(d, scenario, overrides)?;
+    let r = evaluate_prepared(d, s, &pr.a, &pr.p, true)?;
+    Ok(r.to_json(d, s, scenario, &pr.a, &pr.p))
 }
 
 /// Python `breakeven_nh3_price(result, target, overrides, metric)`: the NH3 price (USD/t) at

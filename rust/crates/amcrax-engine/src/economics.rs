@@ -1,7 +1,7 @@
 //! Techno-economics (Python `backend/amcrax/economics/`; data `economics.yaml`, `singapore.yaml`,
 //! `reference_scenario.yaml`). Stage 3.
 //!
-//! * [`reference`]: the unified reference scenario and the CAPEX method `cho2026_itemised_v1`
+//! * [`mod@reference`]: the unified reference scenario and the CAPEX method `cho2026_itemised_v1`
 //!   (Python `reference.py`).
 //! * [`lcoh`]: `EconomicAssumptions` and the legacy plant-level correlation (Python `models.py`,
 //!   `lcoh.py`), kept because it is the version 1 basis of the core stored results.

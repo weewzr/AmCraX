@@ -213,6 +213,18 @@ pub struct EconomicsData {
     pub singapore: OValue,
     /// `reference_scenario.yaml`.
     pub reference: ReferenceScenario,
+    /// Values derived once from the files (Python recomputes them on every call; same numbers).
+    pub cache: DerivedData,
+}
+
+/// Quantities derived from the data files, computed once.
+#[derive(Debug, Clone, PartialEq)]
+pub struct DerivedData {
+    pub item_costs: ItemCosts,
+    pub reference_catalyst_mass_kg: f64,
+    pub size_driver: Vec<(String, String)>,
+    pub location_factor: f64,
+    pub econ_defaults: super::lcoh::EconAssumptions,
 }
 
 /// The YAML files, embedded at compile time.
@@ -232,11 +244,37 @@ impl EconomicsData {
         reference: OValue,
         reference_sha256: String,
     ) -> Result<Self, EngineError> {
-        Ok(EconomicsData {
+        let econ_defaults = super::lcoh::EconAssumptions::from_economics_yaml(&economics)?;
+        let mut d = EconomicsData {
             economics,
             singapore,
             reference: ReferenceScenario::from_value(reference, reference_sha256)?,
-        })
+            cache: DerivedData {
+                item_costs: ItemCosts {
+                    installed_usd: Vec::new(),
+                    unit_usd_per_kg_h2: Vec::new(),
+                    indirect_factor: f64::NAN,
+                    reference_crf: f64::NAN,
+                    reference_h2_kg_h: f64::NAN,
+                    reference_nh3_feed_kmol_h: f64::NAN,
+                },
+                reference_catalyst_mass_kg: f64::NAN,
+                size_driver: Vec::new(),
+                location_factor: f64::NAN,
+                econ_defaults,
+            },
+        };
+        d.cache.item_costs = d.reference_item_costs()?;
+        d.cache.reference_catalyst_mass_kg = d.reference_catalyst_mass_kg()?;
+        d.cache.location_factor = d.cv("location_factor_singapore")?;
+        d.cache.size_driver = d
+            .capex()
+            .at(&["size_driver", "value"])
+            .entries()
+            .iter()
+            .map(|(k, v)| (k.clone(), v.as_str().unwrap_or_default().to_string()))
+            .collect();
+        Ok(d)
     }
 
     /// Parse the YAML texts.
@@ -330,30 +368,14 @@ impl EconomicsData {
         Ok(n * 1000.0 * 22.414 * 1000.0 / 9000.0 / 1000.0)
     }
 
-    /// Python `reference_capex(...)`.
-    pub fn reference_capex(&self, a: &RefCapexArgs) -> Result<Value, EngineError> {
-        let c = self.capex();
-        let base = self.reference_item_costs()?;
+    /// Python `reference_capex(...)` without the dict (the typed core).
+    pub fn reference_capex_core(&self, a: &RefCapexArgs) -> Result<RefCapex, EngineError> {
+        let base = &self.cache.item_costs;
         let n = a.exponent.unwrap_or(self.reference.capex_scaling_exponent);
-        let lf = match a.location_factor {
-            Some(x) => x,
-            None => self.cv("location_factor_singapore")?,
-        };
-        let mut driver: Vec<(String, String)> = c
-            .at(&["size_driver", "value"])
-            .entries()
-            .iter()
-            .map(|(k, v)| (k.clone(), v.as_str().unwrap_or_default().to_string()))
-            .collect();
-        if let Some(rd) = a.reactor_size_driver.as_deref().filter(|s| !s.is_empty()) {
-            let pos = driver.iter().position(|e| e.0 == "reactor");
-            match pos {
-                Some(k) => driver[k].1 = rd.to_string(),
-                None => driver.push(("reactor".into(), rd.to_string())),
-            }
-        }
+        let lf = a.location_factor.unwrap_or(self.cache.location_factor);
+        let reactor_override = a.reactor_size_driver.as_deref().filter(|s| !s.is_empty());
         let feed_ratio = a.nh3_feed_kmol_h / base.reference_nh3_feed_kmol_h;
-        let mut ratios: Vec<(&str, f64)> = Vec::new();
+        let mut ratios: Vec<(&'static str, f64)> = Vec::with_capacity(6);
         for i in ISBL_ITEMS {
             let given = a
                 .item_size_ratio
@@ -362,11 +384,18 @@ impl EconomicsData {
             let r = if let Some(r) = given {
                 r
             } else {
-                let d = driver
-                    .iter()
-                    .find(|e| e.0 == i)
-                    .map(|e| e.1.as_str())
-                    .ok_or_else(|| EngineError::Domain(format!("KeyError: size driver of {i}")))?;
+                let d = match (i, reactor_override) {
+                    ("reactor", Some(rd)) => rd,
+                    _ => self
+                        .cache
+                        .size_driver
+                        .iter()
+                        .find(|e| e.0 == i)
+                        .map(|e| e.1.as_str())
+                        .ok_or_else(|| {
+                            EngineError::Domain(format!("KeyError: size driver of {i}"))
+                        })?,
+                };
                 if d == "catalyst_mass" {
                     let m = a.catalyst_mass_kg.ok_or_else(|| {
                         EngineError::Domain(
@@ -374,26 +403,88 @@ impl EconomicsData {
                                 .into(),
                         )
                     })?;
-                    pydiv(m, self.reference_catalyst_mass_kg()?, "catalyst mass ratio")?
+                    pydiv(
+                        m,
+                        self.cache.reference_catalyst_mass_kg,
+                        "catalyst mass ratio",
+                    )?
                 } else {
                     feed_ratio
                 }
             };
             ratios.push((i, r));
         }
-        let installed = |i: &str| base.installed_usd.iter().find(|e| e.0 == i).map(|e| e.1);
-        let mut isbl: Vec<(&str, f64)> = Vec::new();
-        for (i, r) in &ratios {
+        let mut isbl: Vec<(&'static str, f64)> = Vec::with_capacity(6);
+        for (k, (i, r)) in ratios.iter().enumerate() {
             if a.exclude.iter().any(|x| x == i) {
                 continue;
             }
-            let b = installed(i).ok_or_else(|| EngineError::data(REL_PATH, format!("item {i}")))?;
+            // installed_usd holds the seven unit items; the ISBL items skip the compressor
+            let b = base
+                .installed_usd
+                .iter()
+                .find(|e| e.0 == *i)
+                .map(|e| e.1)
+                .ok_or_else(|| EngineError::data(REL_PATH, format!("item {i} ({k})")))?;
             isbl.push((i, b * pypow(*r, n) * lf * a.capex_multiplier));
         }
         let fac = base.indirect_factor;
-        let tci: Vec<(&str, f64)> = isbl.iter().map(|(i, v)| (*i, v * fac)).collect();
+        let tci: Vec<(&'static str, f64)> = isbl.iter().map(|(i, v)| (*i, v * fac)).collect();
         let total = py_sum(tci.iter().map(|e| e.1));
         let isbl_sum = py_sum(isbl.iter().map(|e| e.1));
+        Ok(RefCapex {
+            ratios,
+            isbl,
+            tci,
+            total,
+            isbl_sum,
+            fac,
+            n,
+            lf,
+            capex_multiplier: a.capex_multiplier,
+            exclude: a.exclude.clone(),
+        })
+    }
+
+    /// Python `reference_capex(...)`.
+    pub fn reference_capex(&self, a: &RefCapexArgs) -> Result<Value, EngineError> {
+        Ok(self.reference_capex_core(a)?.to_json(self))
+    }
+}
+
+/// The typed result of [`EconomicsData::reference_capex_core`].
+#[derive(Debug, Clone, PartialEq)]
+pub struct RefCapex {
+    pub ratios: Vec<(&'static str, f64)>,
+    pub isbl: Vec<(&'static str, f64)>,
+    pub tci: Vec<(&'static str, f64)>,
+    pub total: f64,
+    pub isbl_sum: f64,
+    pub fac: f64,
+    pub n: f64,
+    pub lf: f64,
+    pub capex_multiplier: f64,
+    pub exclude: Vec<String>,
+}
+
+impl RefCapex {
+    /// TCI of an item (`tci_by_equipment_USD` under its Phase 1 key).
+    pub fn tci_of(&self, item: &str) -> Option<f64> {
+        self.tci.iter().find(|e| e.0 == item).map(|e| e.1)
+    }
+
+    /// As the Python dict.
+    pub fn to_json(&self, d: &EconomicsData) -> Value {
+        let (isbl, tci, ratios, fac, n, lf) = (
+            &self.isbl,
+            &self.tci,
+            &self.ratios,
+            self.fac,
+            self.n,
+            self.lf,
+        );
+        let (total, isbl_sum) = (self.total, self.isbl_sum);
+        let c = d.capex();
         let obj = |v: &[(&str, f64)], legacy: bool| -> Value {
             let mut m = Map::new();
             for (k, x) in v {
@@ -402,32 +493,32 @@ impl EconomicsData {
             Value::Object(m)
         };
         let mut excluded = vec![Value::String("compressor".into())];
-        excluded.extend(a.exclude.iter().map(|x| Value::String(x.clone())));
+        excluded.extend(self.exclude.iter().map(|x| Value::String(x.clone())));
         let cost_year = c.val(&["cost_year"]).to_json();
-        Ok(json!({
-            "method": self.reference.capex_method,
+        json!({
+            "method": d.reference.capex_method,
             "total_capex_USD": jf(total),
-            "isbl_USD": obj(&isbl, false),
+            "isbl_USD": obj(isbl, false),
             "isbl_total_USD": jf(isbl_sum),
             "indirect_factor": jf(fac),
             "indirects_USD": jf(total - isbl_sum),
-            "tci_by_item_USD": obj(&tci, false),
-            "size_ratio": obj(&ratios, false),
+            "tci_by_item_USD": obj(tci, false),
+            "size_ratio": obj(ratios, false),
             "scaling_exponent": jf(n),
             "location_factor": jf(lf),
-            "capex_multiplier": jf(a.capex_multiplier),
+            "capex_multiplier": jf(self.capex_multiplier),
             "excluded": excluded,
             "cost_year": cost_year,
-            "pec_USD": obj(&isbl, true),
+            "pec_USD": obj(isbl, true),
             "pec_total_USD": jf(isbl_sum),
             "tci_over_pec": jf(fac),
-            "tci_by_equipment_USD": obj(&tci, true),
+            "tci_by_equipment_USD": obj(tci, true),
             "basis": format!(
                 "cho2026_itemised_v1: Cho 2026 Ni-24.34 bar itemised installed cost (2024 USD), product compressor \
                  removed, items scaled by size ratio^{}, x (1+OSBL 0.12)(1+eng 0.10+cont 0.18)",
                 fmt_g(n, 6)
             ),
-        }))
+        })
     }
 }
 
