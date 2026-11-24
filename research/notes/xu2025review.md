@@ -108,7 +108,7 @@ In Fig. 6, P is the partial pressure of a component. **The review gives no fitte
   - Wang et al. [304]: autothermal reforming (ATR) on Ru with diesel exhaust; about 40 % / 56 % conversion at 500 / 600 °C.
   - Jiang et al. 2024 [307]: Fe-Co-Ni on porous ceramic; cracking rises from 23.6 % to 58.0 % as T goes from 450 to 500 °C.
 - Pressure (p. 27): most reported cracking runs at atmospheric or <10 bar.
-  - Sayas et al. [299]: K-Ru-CaO at 1-40 bar. Hydrogen yield and TOF at high pressure are "40 times higher" than at atmospheric pressure. **This contradicts equilibrium intuition; probably per-volume or differential-rate, so check the original.**
+  - Sayas et al. [299]: K-Ru-CaO at 1-40 bar. Hydrogen yield and TOF at high pressure are "40 times higher" than at atmospheric pressure. **This contradicts equilibrium intuition; probably per-volume or differential-rate, so check the original.** (Checked on 24 November 2026 against the original, `research/notes/sayas2020_full_text.md`: the plotted rates are conversion x feed per gram x pressure; at the same molar feed the NH3 converted per gram falls with pressure. The "40 times" is an artefact of that multiplication, not a larger measured output.)
 
 ## Other property data quoted (Table 1, p. 4, data from [6,53,54])
 - NH3 / H2 / CH3OH / CH4:

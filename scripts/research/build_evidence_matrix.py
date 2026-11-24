@@ -349,7 +349,7 @@ def h1_rows() -> list[dict]:
                    "results/figures/research/enduse_power_cost_vs_price.png",
                    "results/figures/research/enduse_power_efficiency.png"]
     common_lit = lit(("ahmad2025gtcc", "Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis"),
-                     ("halim2025ammoniapower", "Halim et al. 2025 (abstract only): direct use preferred to cracking for power"))
+                     ("halim2025ammonia", "Halim et al. 2025 (full text read 24 Nov 2026): fuel-cost comparison of direct use and cracking at the turbine inlet; turbine not modelled, no cost of electricity"))
 
     # H1-a direct vs standalone fired / purified cracking for power
     r = Row()
@@ -413,10 +413,10 @@ def h1_rows() -> list[dict]:
         input_assumptions=["Same as H1-a; three price and operating-hour bases (AmCraX, Ahmad, renewable NH3 today)."],
         literature=common_lit,
         validation_areas=["enduse"],
-        validation_method="Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational because Halim's inputs were not accessed).",
+        validation_method="Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational: the essay's wording is about power, while the paper's 40 % is a fuel cost at the turbine inlet; the paper-basis comparison is item EU-P2-halim-fuel-basis).",
         uncertainty_range=f"Largest computed gap {f(gmax,1)} % across {len(gaps)} basis/pathway combinations; smallest {f(min(gaps),1)} % (negative: cracking cheaper).",
-        key_uncertainty="Halim's own inputs (full text not accessed): a purified-H2 turbine with a standalone fired cracker, a much higher cracker capital or a lower capacity factor could produce a larger gap.",
-        limitations=["Halim et al. (2025) full text not accessible; the claimed figure is from the essay and the abstract-level record."],
+        key_uncertainty="Halim et al. (full text read 24 November 2026) compute no cost of electricity: their 40 % is 1 - LCOA/LCOH per kg of hydrogen-equivalent fuel energy with the power plant excluded, so the essay's power-cost wording has no counterpart in the paper; a much higher cracker capital or a lower energy retention (the paper's 69.5 %) gives a larger fuel-cost gap.",
+        limitations=["Halim et al. (2025), full text read on 24 November 2026: the quoted 40 % is located (p. 9: 39 % green, 44 % blue) but it is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet, not a cost of electricity; the paper applies one vendor turbine efficiency to every fuel and excludes the power plant."],
         conclusion=f"Not reproduced: the computed cost advantage of direct use is at most {f(gmax,1)} % against the essay's {f(claim,0)} %; against an exhaust-heated cracker direct use is dearer.",
         conclusion_conditions="Rule: CONTRADICTED if the largest computed gap on any basis is below half the claimed value; otherwise INCONCLUSIVE. Holds on AmCraX boundaries; does not show that Halim's own calculation is wrong.",
         data=["results/research/enduse/claim_check_direct_vs_cracking.csv"],
@@ -763,7 +763,7 @@ def h3_rows() -> list[dict]:
         input_assumptions=["Effectiveness factor 1, no pressure drop (assumptions); catalyst masses are lower bounds.",
                            approx_note],
         literature=kin_lit + lit(("lucentini2019ceo2", "Lucentini et al. 2019: Ru/CeO2 vs Ni/CeO2 conversion at atmospheric pressure (no rate law)"),
-                                 ("sayas2020high", "Sayas et al. 2020: Ru-K/CaO (full text not obtained; values unverified)")),
+                                 ("sayas2020rukcao", "Sayas et al. 2020: Ru-K/CaO (main text read 24 Nov 2026; orders and apparent Ea verified; no rate constant in the main text, so not implemented; 10-40 bar conversions stored as comparison points)")),
         validation_areas=["kinetics", "aspen_kinetic"],
         validation_method="Lucentini Table 1 points reproduced (consistency, not independent); Takahashi predictions carried over as failures; Aspen native laws vs spec points (kinetics.json, aspen_kinetic.json).",
         uncertainty_range=f"At 20 bar and 95 %: {', '.join(f'{lab} {f(t95[c],0)}' for c, lab in CATS)} degC. At 99 % every catalyst needs at least {f(t99,1)} degC (equilibrium). The Lucentini Ek confidence interval alone moves the predicted conversion over most of its range (kinetics validation JSON).",
@@ -1138,6 +1138,7 @@ F_KV = "results/research/kinetics/validity_classification.json"
 F_SUP = "results/research/reference_scenario/supersession.json"
 F_FD = "results/research/carbon_pricing/feed_dominance.json"
 F_FIX = "results/research/fix_pass_2026-11-24.json"
+F_ADD = "results/research/addendum_2026-11-24.json"
 F_CAPA = "results/research/reference_scenario/capex_audit.json"
 OUT_FC_JSON = "results/research/phase2_findings_changed.json"
 OUT_FC_MD = "docs/research/phase2_findings_changed.md"
@@ -1347,16 +1348,44 @@ def v2_h1b(r: Row, v1row: dict) -> dict:
     xp = r.num("cracker CAPEX factor needed for the essay figure, cracking + PSA", F_TT, "forty_percent_figure/cracker_capex_factor_for_40pct_purified", "-", "python")
     xf = r.num("cracker CAPEX factor needed for the essay figure, fired cracking", F_TT, "forty_percent_figure/cracker_capex_factor_for_40pct_fired", "-", "python")
     v = "CONTRADICTED" if gmax < claim / 2 else "INCONCLUSIVE"
-    return _v2(v, "Reproduction rule (unchanged from version 1): CONTRADICTED if the largest computed gap on any stored basis is below half the quoted figure; otherwise INCONCLUSIVE. Secondary row: does not vote.",
+    # Paper-basis comparison (addendum of 24 November 2026): reported beside the rule, NOT read by it.
+    FB = "forty_percent_figure/fuel_cost_gap_on_paper_basis/"
+    fcases = load(F_TT)["forty_percent_figure"]["fuel_cost_gap_on_paper_basis"]["cases"]
+    ci = {(c["price_case"], c["heat_integration"]): i for i, c in enumerate(fcases)}
+    pg = {(k, h): r.num(f"paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, {k}, heat integration {h}", F_TT,
+                   FB + f"cases/{ci[(k, h)]}/gap_pct_1_minus_direct_over_cracked", "%", "python")
+          for k, h in (("grey", "on"), ("grey", "off"), ("halim_green_FOB", "on"), ("halim_blue_FOB", "on"))}
+    allg = [val(F_TT, FB + f"cases/{i}/gap_pct_1_minus_direct_over_cracked") for i in range(len(fcases))]
+    pp_g = r.num("paper's own figure, green (1 - LCOA/LCOH, Halim et al. p. 9)", F_TT, FB + "paper_values/green/gap_pct_printed", "%", "literature")
+    pp_b = r.num("paper's own figure, blue (1 - LCOA/LCOH, Halim et al. p. 9)", F_TT, FB + "paper_values/blue/gap_pct_printed", "%", "literature")
+    ret_a = r.num("NH3 LHV retained as H2, AmCraX (feed plus fuel)", F_TT, FB + "reconciliation/green/amcrax_energy_retained_as_h2", "fraction", "python")
+    ret_h = r.num("NH3 LHV retained as H2, Halim et al. (derived from Table 4 and p. 9)", F_TT, FB + "reconciliation/green/paper_energy_retained_as_h2_derived", "fraction", "literature")
+    nn_a = r.num("non-NH3 cost of cracked H2, AmCraX", F_TT, FB + "reconciliation/green/amcrax_non_nh3_cost_USD_per_kg", "USD/kg H2", "python")
+    nn_h = r.num("non-feed cost of cracked H2, Halim et al. Fig. 5 (green)", F_TT, FB + "reconciliation/green/paper_non_feed_cost_cracked_USD_per_kg", "USD/kg H2", "literature")
+    nd_h = r.num("non-feed cost of direct use, Halim et al. Fig. 5 (green)", F_TT, FB + "reconciliation/green/paper_non_feed_cost_direct_USD_per_kg", "USD/kg H2", "literature")
+    return _v2(v, "Reproduction rule (unchanged from version 1): CONTRADICTED if the largest computed gap on any stored basis is below half the quoted figure; otherwise INCONCLUSIVE. Secondary row: does not vote. The rule tests the essay's sentence about power (cost of electricity); the paper-basis fuel-cost comparison is reported beside it and is not read by the rule.",
                envelope="AmCraX boundaries and the three stored price and hour bases; does not show that Halim et al.'s own calculation is wrong.",
                threshold={"parameter": "half the quoted figure", "values": [fnd("quoted figure", F_TT, "row_evidence/H1-b/numbers/claim_pct", "%", "literature")],
                           "sourced_values": [], "comparison": "largest computed gap below half" if gmax < claim / 2 else "not below half"},
-               conclusions=[f"Largest computed gap {f(gmax,1)} % (smallest {f(gmin,1)} %) against the quoted {f(claim,0)} %; {f(gsens,1)} % at most in any sensitivity.",
-                            f"The quoted figure would need a cracker CAPEX x{f(xp,1)} (cracking + PSA) or x{f(xf,1)} (fired)."],
-               assumptions=["As H1-a; three stored price and operating-hour bases."],
+               conclusions=[f"Largest computed gap in the cost of electricity {f(gmax,1)} % (smallest {f(gmin,1)} %) against the quoted {f(claim,0)} %; {f(gsens,1)} % at most in any sensitivity.",
+                            f"The quoted figure would need a cracker CAPEX x{f(xp,1)} (cracking + PSA) or x{f(xf,1)} (fired).",
+                            f"On the paper's own basis (fuel cost per kg of hydrogen-equivalent energy at the turbine inlet, not a cost of electricity) "
+                            f"AmCraX gives {f(pg[('grey','on')],1)} % for grey NH3 at 450 USD/t ({f(pg[('grey','off')],1)} % without heat integration; "
+                            f"{f(min(allg),1)} to {f(max(allg),1)} % over the stored and the paper's prices) and {f(pg[('halim_green_FOB','on')],1)} % and "
+                            f"{f(pg[('halim_blue_FOB','on')],1)} % at the paper's green and blue prices, against the paper's {f(pp_g,0)} % and {f(pp_b,0)} %: "
+                            "same direction, smaller gap.",
+                            f"The difference comes from the paper's lower energy retention ({pct(ret_h,1)} against {pct(ret_a,1)}) and above all its larger "
+                            f"non-feed cost of cracking ({f(nn_h,2)} against {f(nn_a,2)} USD/kg: a 25,000 t storage tank, a furnace fired by its own product "
+                            f"gas, TCI 5.8 times equipment cost), offset in part by {f(nd_h,2)} USD/kg of storage, vaporisation and compression on the direct "
+                            "side; capacity factor and plant life change it by less than 0.1 point (computed reconciliation)."],
+               assumptions=["As H1-a; three stored price and operating-hour bases.",
+                            "Paper-basis comparison: direct side is the NH3 purchase only (AmCraX has no ammonia storage item); cracked side is the unified LCOH."],
                uncertainty=text(F_TT, "row_evidence/H1-b/uncertainty"),
                kinds=["numerical_verification", "literature_comparison"],
-               conclusion=f"The {f(claim,0)} % figure is not reproduced on AmCraX boundaries (at most {f(gmax,1)} %). Halim et al. full text was not accessible.",
+               conclusion=(f"The essay's sentence (power about {f(claim,0)} % cheaper) is not reproduced on AmCraX boundaries (at most {f(gmax,1)} % in the "
+                           f"cost of electricity). Halim et al. (full text read 24 November 2026) compute no cost of electricity: their {f(claim,0)} % is a "
+                           f"fuel cost at the turbine inlet, on which AmCraX gives {f(pg[('halim_green_FOB','on')],1)} to {f(pg[('halim_blue_FOB','on')],1)} % at the "
+                           "paper's prices, the same direction with a smaller gap."),
                areas=["enduse"])
 
 
@@ -1412,6 +1441,13 @@ def v2_h1d(r: Row, v1row: dict) -> dict:
     eff_e = [val(F_BASE, FS + f"{i}/fuel_efficiency") for i in range(3)]
     lc_e = [r.num(f"baseline LCOH with supplementary NH3 fuel at {eff_e[i]:g} of its LHV", F_BASE, FS + f"{i}/lcoh_USD_per_kg", "USD/kg H2", "python")
             for i in range(3)]
+    PR = "psa_recovery_sensitivity/cases/"
+    pr_n = len(load(F_BASE)["psa_recovery_sensitivity"]["cases"])
+    pr_r = [val(F_BASE, PR + f"{i}/psa_recovery") for i in range(1, pr_n)]
+    pr_l = [r.num(f"PSA-recovery sensitivity: baseline LCOH at PSA recovery {pr_r[i - 1]:g} (Abdoos et al. 2025 front)", F_BASE,
+                  PR + f"{i}/lcoh_USD_per_kg", "USD/kg H2", "python") for i in range(1, pr_n)]
+    eh_h = r.num("Halim et al. 2025: NH3 LHV retained as H2 in a self-fired cracker + PSA (derived)", F_TT,
+                 "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/paper_energy_retained_as_h2_derived", "fraction", "literature")
     kd = r.num("electricity per kg NH3, direct", F_TT, RE + "kWh_per_kg_NH3/direct", "kWh/kg NH3", "python")
     kc = r.num("electricity per kg NH3, cracking + PSA at the efficiency copy", F_TT, RE + "kWh_per_kg_NH3/cracked_purified_at_eta_copy", "kWh/kg NH3", "python")
     src = [fnd("electricity per kg NH3, cracking + PSA at NETL gain as a ratio", F_TT, RE + "kWh_per_kg_NH3/cracked_purified_at_NETL_ratio_1p1225", "kWh/kg NH3", "python"),
@@ -1428,7 +1464,11 @@ def v2_h1d(r: Row, v1row: dict) -> dict:
                threshold={"parameter": "electricity per kg NH3 of cracking + PSA at sourced turbine gains, against direct combustion",
                           "values": [fnd("electricity per kg NH3, direct", F_TT, RE + "kWh_per_kg_NH3/direct", "kWh/kg NH3", "python")],
                           "sourced_values": src, "comparison": s},
-               conclusions=[f"H2 as product keeps {pct(eh)} of the NH3 LHV (Aspen).",
+               conclusions=[f"H2 as product keeps {pct(eh)} of the NH3 LHV (Aspen); the self-fired cracker of Halim et al. 2025 keeps {pct(eh_h,1)} "
+                            "(derived from the paper; a different flowsheet that burns 18 % of its product gas, literature comparison only).",
+                            "At the PSA recoveries of the only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed) "
+                            "the frozen baseline would cost " + " and ".join(f"{f(pr_l[i],3)} USD/kg at {f(pr_r[i],4)}" for i in range(len(pr_l)))
+                            + f" (reference {f(lc,3)} at the assumed 0.85; sensitivity, reference unchanged).",
                             f"Electricity per kg NH3: direct {f(kd,3)}; cracking + PSA {f(kc,3)} at the efficiency copy, {f(lo,3)} to {f(hi,3)} at the NETL gains (straddles direct).",
                             f"Cracked H2 costs {f(lc,3)} USD/kg ({f(lcs,3)} SGD/kg), above the {f(bm,2)} USD/kg NE Asia SMR marker and below the "
                             f"{f(bm6,1)} USD/kg delivered low-carbon benchmark (fuel counted at 100 % of its lower heating value, optimistic; "
@@ -1512,6 +1552,11 @@ def v2_h2b(r: Row, v1row: dict) -> dict:
     full = ([fnd(f"sourced NH3 price, {k}, low", F_CPR, RE + f"scenario_prices_USD_per_t/{k}/low", "USD/t", "literature") for k in skeys]
             + [fnd(f"sourced NH3 price, {k}, high", F_CPR, RE + f"scenario_prices_USD_per_t/{k}/high", "USD/t", "literature") for k in skeys])
     src_lo, src_hi = min(x["value"] for x in full), max(x["value"] for x in full)
+    PR = "psa_recovery_sensitivity/cases/"
+    pr_n = len(load(F_BASE)["psa_recovery_sensitivity"]["cases"])
+    pr_r = [val(F_BASE, PR + f"{i}/psa_recovery") for i in range(1, pr_n)]
+    pr_b = [r.num(f"PSA-recovery sensitivity: break-even NH3 price against the 3.06 marker at PSA recovery {pr_r[i - 1]:g} (Abdoos et al. 2025 front)",
+                  F_BASE, PR + f"{i}/breakeven_nh3_USD_per_t_vs_marker", "USD/t", "python") for i in range(1, pr_n)]
     bmax = max(x["value"] for x in bes)
     bmin = min(x["value"] for x in bes)
     pc_min = min(x["value"] for x in prices)
@@ -1551,6 +1596,10 @@ def v2_h2b(r: Row, v1row: dict) -> dict:
                conclusions=[f"Against the {f(bm3,2)} USD/kg NE Asia SMR marker the break-even NH3 price is {f(be,0)} USD/t ({f(bmin,0)} to {f(bmax,0)} over the CAPEX range; {f(bfav,0)} with favourable non-feed inputs).",
                             f"Against the {f(bm6,1)} USD/kg delivered low-carbon benchmark it is {f(b6,0)} USD/t.",
                             f"Sourced NH3 prices span {f(src_lo,0)} to {f(src_hi,0)} USD/t (central {f(pc_min,0)} or more): they lie on both sides of both break-evens.",
+                            "With the PSA recoveries of the only published front for this composition (Abdoos et al. 2025, simulated) instead of the "
+                            "assumed 0.85, the break-even against the 3.06 USD/kg marker falls to "
+                            + " and ".join(f"{f(pr_b[i],0)} USD/t at {f(pr_r[i],4)}" for i in range(len(pr_b)))
+                            + " (sensitivity beside the frozen reference; the comparison with the sourced prices is unchanged: they still straddle it).",
                             f"P(LCOH < 3.06) = {f(p,3)} for grey ammonia, conditional on the assumed triangular input distributions (the lower bound of the assumed NH3 price lies {f(be - min(lows),0)} USD/t below the break-even)."],
                assumptions=resolve(F_CPR, "row_evidence/H2-b/assumptions"),
                uncertainty=text(F_CPR, "row_evidence/H2-b/uncertainty") + " (P conditional on the assumed input distributions.)",
@@ -1713,6 +1762,13 @@ def v2_h3b(r: Row, v1row: dict) -> dict:
     nl = r.num("rate laws validated against literature (own fitting data)", F_KV, "counts/validated_against_literature", "count", "literature")
     ne = r.num("rate laws extrapolated", F_KV, "counts/extrapolated", "count", "literature")
     nu = r.num("catalysts without a rate law", F_KV, "counts/unmodelled", "count", "literature")
+    # addendum of 24 Nov 2026: Sayas et al. 2020 measured points (not used by any model) and the cross-catalyst caution
+    CX = "cross_catalyst_context_sayas2020/headline_20bar_500C/"
+    sx = r.num("Sayas et al. 2020: measured conversion of 3%Ru10%K/CaO at 20 bar and 500 degC (figure reading, not used by any model)", F_KV,
+               CX + "X_measured_RuK_CaO", "fraction", "literature")
+    kx = r.num("cross-catalyst context: Ru/Al2O3 law (fitted 1-10 bar) at the same conditions and equal Ru per mol NH3, 0 degC flow basis", F_KV,
+               CX + "X_RuAl2O3_law_equal_Ru/0", "fraction", "python")
+    sn = val(F_KV, "literature_comparison_points_sayas2020/n_points")
     all_valid = all(cls[c] == "validated_at_relevant_conditions" for c in cats)
     ordered = all(tt[c] < tt["Ni/MgO"] for c in LOWT)
     v = "SUPPORTED" if (all_valid and ordered) else ("CONTRADICTED" if (all_valid and not ordered) else "INCONCLUSIVE")
@@ -1723,7 +1779,12 @@ def v2_h3b(r: Row, v1row: dict) -> dict:
                envelope=text(F_CE, "row_evidence/H3-b/envelope"),
                threshold=None,
                conclusions=["Operating temperature at 100 kg: " + ", ".join(f"{c} {f(tt[c],0)}" for c in cats) + " degC.",
-                            f"Kinetic validity: {f(nv,0)} laws validated at relevant conditions, {f(nl,0)} validated against literature (their own fitting data), {f(ne,0)} extrapolated, {f(nu,0)} catalysts unmodelled; no rate law is validated at 20 bar."],
+                            f"Kinetic validity: {f(nv,0)} laws validated at relevant conditions, {f(nl,0)} validated against literature (their own fitting data), {f(ne,0)} extrapolated, {f(nu,0)} catalysts unmodelled; no rate law is validated at 20 bar.",
+                            f"Ru-K/CaO stays unmodelled: the main text of Sayas et al. 2020 (read 24 November 2026) gives no rate constant; its {f(sn,0)} measured "
+                            "conversions at 10-40 bar are stored as literature comparison points that no model uses.",
+                            f"Caution (cross-catalyst context, not a test of the law): at 20 bar and 500 degC Sayas et al. measured {pct(sx,0)} on Ru-K/CaO, while "
+                            f"the AmCraX Ru/Al2O3 law, fitted at 1-10 bar, gives {pct(kx,0)} with the same ruthenium per mol of NH3; the 20 bar Ru/Al2O3 "
+                            "results stay labelled as pressure extrapolation."],
                assumptions=resolve(F_CE, "row_evidence/H3-b/assumptions"),
                uncertainty=text(F_CE, "row_evidence/H3-b/uncertainty"),
                kinds=["python_vs_aspen", "literature_comparison"],
@@ -1918,15 +1979,25 @@ def v2_h4a(r: Row, v1row: dict) -> dict:
     inp = load(F_PC)["inputs"]["psa_recovery"]
     computed = all(str(inp[s][c]["source_type"]).split()[0] in ("python", "aspen") for s in inp for c in inp[s])
     v = "INCONCLUSIVE" if not computed else ("SUPPORTED" if m2 < m1 else "CONTRADICTED")
+    # addendum of 24 Nov 2026: Abdoos et al. 2025 Table 8 (simulated, cracked-ammonia composition); reported, not read by the rule
+    AB = RE + "abdoos2025_table8_simulated/"
+    a1 = r.num("Abdoos et al. 2025 recovery at 99.03 % (simulated, dry NH3-free cracked-ammonia composition, 7.87 bar)", F_PC, AB + esc("abdoos2025_recovery_99.03"), "fraction", "literature")
+    a2 = r.num("Abdoos et al. 2025 recovery at 99.95 % (simulated, 11.29 bar)", F_PC, AB + esc("abdoos2025_recovery_99.95"), "fraction", "literature")
+    a3 = r.num("Abdoos et al. 2025 recovery at 99.99 % (simulated, 11.60 bar)", F_PC, AB + esc("abdoos2025_recovery_99.99"), "fraction", "literature")
     rule = ("Computation rule (methodology v2): the trade-off can be SUPPORTED or CONTRADICTED only by a computed purity-recovery "
             "relation. In AmCraX every PSA recovery is an input (source_type of each entry in phase2_comparison.json inputs/psa_recovery "
-            f"is literature or assumption: computed = {computed}), so the row is INCONCLUSIVE.")
+            f"is literature or assumption: computed = {computed}), so the row is INCONCLUSIVE. Published relations (Yanez 2020; "
+            "Abdoos 2025) are literature comparisons and are not read by the rule.")
     return _v2(v, rule, envelope=text(F_PC, "row_evidence/H4-a/envelope"), threshold=None,
-               conclusions=[f"Only sourced slope: Yanez et al. 2020, recovery {f(y1,3)} at 99.25 % to {f(y2,3)} at 99.97 %, for ammonia-plant purge gas, not cracked ammonia.",
+               conclusions=[f"Sourced slope for a different feed: Yanez et al. 2020 (measured, ammonia-plant purge gas), recovery {f(y1,3)} at 99.25 % to {f(y2,3)} at 99.97 %.",
+                            f"Sourced front for a cracked-ammonia composition (simulated, dry and NH3-free, 7.9 to 11.6 bar, surrogate scatter about 1 to 3 points): "
+                            f"Abdoos et al. 2025, recovery {f(a1,4)} at 99.03 %, {f(a2,4)} at 99.95 % and {f(a3,4)} at 99.99 %. Its model and breakthrough check "
+                            "cite Yanez et al. 2020, so the two sources are not fully independent; both give the direction of the row.",
                             f"The AmCraX mass-balance relation is flat by construction ({f(m1,4)} and {f(m2,4)})."],
                assumptions=[text(F_PC, "row_evidence/H4-a/assumptions")], uncertainty=text(F_PC, "row_evidence/H4-a/uncertainty"),
                kinds=["literature_comparison"],
-               conclusion="No purity-recovery relation is computed for cracked ammonia; the direction rests on one source for a different feed.",
+               conclusion=("No purity-recovery relation is computed by AmCraX; the direction rests on two published sources, one measured on a "
+                           "different feed (Yanez 2020) and one simulated for a dry, NH3-free cracked-ammonia composition (Abdoos 2025)."),
                areas=["purification"])
 
 
@@ -1940,6 +2011,19 @@ def v2_h4b(r: Row, v1row: dict) -> dict:
     ordered = all(x is True for x in order)
     resolved = all(x > res for x in incs.values())
     v = "SUPPORTED" if (ordered and resolved) else ("CONTRADICTED" if not any(order) else "INCONCLUSIVE")
+    # addendum of 24 Nov 2026: increment on the Abdoos et al. 2025 relation, stored OUTSIDE equal_delivery_increment and not read by the rule
+    AB = RE + "equal_delivery_increment_abdoos2025/"
+    ia = r.num("Abdoos et al. 2025 relation: Grade D increment at equal delivery (industrial at 0.8192, Grade D at 0.7744; simulated, applied outside its 6-12 bar range)",
+               F_PC, AB + "abdoos2025_table8/increment", "USD/kg H2", "python")
+    ii = r.num("Abdoos et al. 2025 relation interpolated linearly at the modelled purities 99.91 % and 99.975 %: Grade D increment at equal delivery",
+               F_PC, AB + "abdoos2025_interpolated_at_modelled_purities/increment", "USD/kg H2", "python")
+    SC = "abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/"
+    sc_rows = load(F_PC)["abdoos2025_sourced_case"]["equal_delivery_increment_surrogate_scatter"]
+    i_adv = {x["scatter_points"]: i for i, x in enumerate(sc_rows) if x["direction"].startswith("adverse")}
+    s1 = r.num("Abdoos et al. 2025 relation with 1 point adverse surrogate scatter: Grade D increment at equal delivery", F_PC,
+               SC + f"{i_adv[0.01]}/increment", "USD/kg H2", "python")
+    s3 = r.num("Abdoos et al. 2025 relation with 3 points adverse surrogate scatter: Grade D increment at equal delivery", F_PC,
+               SC + f"{i_adv[0.03]}/increment", "USD/kg H2", "python")
     rule = ("Resolution rule (methodology v2): raw < industrial is structural and most of the Grade D increment is 350 bar delivery, "
             "so the purity effect is tested at equal delivery pressure. SUPPORTED if the order raw < industrial < Grade D holds in every "
             "case and the purity-only increment exceeds the Python against Aspen LCOH resolution on every recovery basis; CONTRADICTED "
@@ -1947,10 +2031,18 @@ def v2_h4b(r: Row, v1row: dict) -> dict:
             f"{ordered}, increment resolved on every basis {resolved}.")
     return _v2(v, rule, envelope=text(F_PC, "row_evidence/H4-b/envelope"), threshold=None,
                conclusions=[f"The order raw < industrial < Grade D holds in all {n} electricity cases.",
-                            "Purity-only Grade D increment at equal delivery: " + ", ".join(f"{k} {f(x,4)}" for k, x in incs.items()) + f" USD/kg (resolution {f(res,4)})."],
+                            "Purity-only Grade D increment at equal delivery: " + ", ".join(f"{k} {f(x,4)}" for k, x in incs.items()) + f" USD/kg (resolution {f(res,4)}).",
+                            f"On the relation simulated for a cracked-ammonia composition (Abdoos et al. 2025; dry NH3-free feed at 7.9 to 11.6 bar, applied "
+                            f"at 19.5 bar) the increment is {f(ia,4)} USD/kg ({f(ii,4)} with recoveries interpolated at the modelled purities), above the "
+                            f"resolution; reported beside the rule, which reads the bases above unchanged. Within the paper's 1 to 3 point "
+                            f"surrogate recovery scatter it is not robust: {f(s1,4)} USD/kg with 1 point and {f(s3,4)} USD/kg with 3 points "
+                            "of adverse scatter (industrial recovery lower, Grade D higher)."],
                assumptions=[text(F_PC, "row_evidence/H4-b/assumptions")], uncertainty=text(F_PC, "row_evidence/H4-b/uncertainty"),
                kinds=["numerical_verification", "literature_comparison"],
-               conclusion="Stricter purity costs more, but the purity-only part is small, partly below the model resolution, and rests on a cost proxy.",
+               conclusion=("Stricter purity costs more. The purity-only part is above the model resolution on both published relations at their "
+                           "printed recoveries (Yanez 2020, different feed; Abdoos 2025, simulated for this composition), but below it on the "
+                           "assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front, and it rests "
+                           "on a cost proxy; under the coded rule the row stays INCONCLUSIVE."),
                areas=["purification"])
 
 
@@ -1977,13 +2069,23 @@ def v2_h4d(r: Row, v1row: dict) -> dict:
     s0 = r.num("ideal H2/N2 selectivity from the printed permeances (Cechetto et al. 2021)", F_PC, RE + "sourced_selectivity/0", "-", "literature")
     s2 = r.num("ideal H2/N2 selectivity as stated (Cechetto et al. 2021)", F_PC, RE + "sourced_selectivity/2", "-", "literature")
     v = "SUPPORTED" if share == 1 else ("CONTRADICTED" if share == 0 else "INCONCLUSIVE")
+    AP = RE + "abdoos2025_position/"
+    adr = r.num("Abdoos et al. 2025 Grade D-compatible recovery (99.99 %, simulated)", F_PC, AP + "grade_D/abdoos_recovery", "fraction", "literature")
+    ahc = val(F_PC, AP + "grade_D/parity_recovery_high_cost_membrane")
+    air = r.num("Abdoos et al. 2025 industrial-grade recovery (99.95 %, simulated)", F_PC, AP + "industrial/abdoos_recovery", "fraction", "literature")
+    aint = r.num("Abdoos et al. 2025 recovery interpolated at the Grade D purity 99.975 % (points from different Pareto regions)", F_PC,
+                 AP + "grade_D/interpolated_recovery_at_99.975", "fraction", "literature")
     return _v2(v, "Robustness rule: SUPPORTED if the membrane is cheaper in every sourced input combination; CONTRADICTED if in none; otherwise INCONCLUSIVE. Secondary row: does not vote.",
                envelope=text(F_PC, "row_evidence/H4-d/envelope"),
                threshold={"parameter": "PSA recovery at cost parity", "values": [fnd("parity, Grade D central membrane", F_PC, RE + "psa_recovery_at_parity_central_membrane", "fraction", "python"),
                                                                                  fnd("parity, industrial", F_PC, RE + "industrial_psa_recovery_at_parity", "fraction", "python")],
                           "sourced_values": [], "comparison": "sourced PSA recoveries straddle parity"},
                conclusions=[f"Membrane cheaper in {pct(share,0)} of sourced input pairs; parity at PSA recovery {f(par,3)} (Grade D) and {f(pari,3)} (industrial).",
-                            f"Pd-Ag ideal H2/N2 selectivity {f(s0,0)} (printed permeances) to {f(s2,0)} (stated), single gas, new membrane, against a requirement of {f(req,0)}; the paper is internally inconsistent."],
+                            f"Pd-Ag ideal H2/N2 selectivity {f(s0,0)} (printed permeances) to {f(s2,0)} (stated), single gas, new membrane, against a requirement of {f(req,0)}; the paper is internally inconsistent.",
+                            f"The only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed at 7.9 to 11.6 bar) gives "
+                            f"{f(adr,4)} at the Grade D-compatible 99.99 %, between the Grade D parities {f(ahc,3)} (high-cost membrane) and {f(par,3)} (central "
+                            f"membrane), and about {f(aint,2)} interpolated at 99.975 %; at industrial grade {f(air,4)} lies above both industrial parities "
+                            "(PSA cheaper). It sits on the parity band within its 1 to 3 point surrogate scatter and does not decide the row."],
                assumptions=[text(F_PC, "row_evidence/H4-d/assumptions")], uncertainty=text(F_PC, "row_evidence/H4-d/uncertainty"),
                kinds=["numerical_verification", "literature_comparison"],
                conclusion="PSA against Pd-Ag membrane is not robust either way; it turns on PSA recovery. Membrane TRL 4 to 5 against PSA 9.",
@@ -2003,6 +2105,10 @@ def v2_h4e(r: Row, v1row: dict) -> dict:
            for s in inp for c in ("low", "central", "high") if c in inp[s]]
     rlo, rhi = min(x["value"] for x in rec), max(x["value"] for x in rec)
     s_r = side([thr], rlo, rhi)
+    # addendum of 24 Nov 2026: Abdoos et al. 2025 recoveries against the threshold; reported, not added to the rule's inputs
+    FBk = RE + "abdoos2025_furnace_balance/"
+    am = r.num("Abdoos et al. 2025: margin of the Grade D-compatible recovery 0.7744 above the threshold", F_PC, FBk + "grade_D_point_margin", "fraction", "python")
+    alow = r.num("Abdoos et al. 2025: lowest recovery on the 99.99 % front (figure reading)", F_PC, FBk + "front_at_99.99_reaches_down_to_about", "fraction", "literature")
     v = {"above": "SUPPORTED", "below": "CONTRADICTED"}.get(s_r, "INCONCLUSIVE")
     rule = ("Threshold rule (methodology v2): that unrecovered hydrogen is burned in the cracker furnace restates the flowsheet's "
             "tail-gas routing (an assumption built into the model), so it cannot support the row by itself. The computed recovery at "
@@ -2016,7 +2122,10 @@ def v2_h4e(r: Row, v1row: dict) -> dict:
                           "sourced_values": rec, "comparison": s_r},
                conclusions=[f"Furnace demand {f(dem,0)} kW; the tail gas covers it at PSA recovery {f(thr,3)}; at 0.85 the deficit is {f(d85,0)} kW.",
                             f"Sourced and assumed PSA recoveries {f(rlo,3)} to {f(rhi,3)} lie on both sides of {f(thr,3)}." if s_r == "straddle"
-                            else f"Sourced and assumed PSA recoveries {f(rlo,3)} to {f(rhi,3)} lie {s_r} {f(thr,3)}."],
+                            else f"Sourced and assumed PSA recoveries {f(rlo,3)} to {f(rhi,3)} lie {s_r} {f(thr,3)}.",
+                            f"The three Table 8 optima of Abdoos et al. 2025 (simulated for this composition) all lie above {f(thr,3)}; the Grade D-compatible "
+                            f"point only {f(am,3)} above it, inside the 1 to 3 point surrogate scatter, and the 99.99 % front reaches about {f(alow,2)} "
+                            "(figure reading), below it. Reported beside the rule; the rule's inputs are unchanged."],
                assumptions=[text(F_PC, "row_evidence/H4-e/assumptions")], uncertainty=text(F_PC, "row_evidence/H4-e/uncertainty"),
                kinds=["numerical_verification"],
                conclusion=(f"In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA "
@@ -2218,7 +2327,9 @@ def hypothesis_texts(hid: str, rows: list[dict], comps: list[dict]) -> dict:
     par = _num(rows, "H4-d", "PSA recovery at parity, central")
     s = (f"In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA "
          f"recovery of {f(thr,3)}, and sourced recoveries lie on both sides of that value. "
-         "Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. "
+         "Stricter purity raises cost; the purity-only part is above the model resolution on the two published purity-recovery "
+         "relations (one measured on a different feed, one simulated for this composition) and below it on the assumed one, and "
+         "AmCraX computes no PSA purity-recovery relation of its own. "
          f"PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery {f(par,3)} for Grade D hydrogen; the industrial-grade value is in row H4-d).")
     against = ["The Phase 1 finding that a raw membrane is cheaper than PSA does not hold robustly on sourced ranges."]
     return {"statement": s, "against": against}
@@ -2370,8 +2481,13 @@ def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[li
                 f"For power, cracking + PSA gives {f(min(ks),2)} to {f(max(ks),2)} kWh/kg NH3 at sourced turbine gains against "
                 f"{f(kd,2)} for direct combustion, so the energy comparison is also unresolved."),
         ]
-        figs = [_fig(rows, f"Direct ammonia power about {f(claim,0)} % cheaper than cracking-based power (Halim et al., quoted in the essay)",
-                     "H1-b", f"At most {f(gmax,1)} % on AmCraX boundaries.")]
+        pgh = [_num(rows, "H1-b", f"paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, {k}, heat integration on")
+               for k in ("halim_green_FOB", "halim_blue_FOB")]
+        pgg = _num(rows, "H1-b", "paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, grey, heat integration on")
+        figs = [_fig(rows, f"Direct ammonia power about {f(claim,0)} % cheaper than cracking-based power (the essay's wording, citing Halim et al.)",
+                     "H1-b", f"At most {f(gmax,1)} % in the cost of electricity on AmCraX boundaries. The paper's own {f(claim,0)} % (39 % and 44 %) "
+                     f"is a fuel cost at the turbine inlet, not a cost of power; on that basis AmCraX gives {f(pgh[0],1)} % and {f(pgh[1],1)} % at "
+                     f"the paper's prices ({f(pgg,1)} % for grey at 450 USD/t): same direction, smaller gap.")]
         return pa, figs
     if hid == "H2":
         share = _num(rows, "H2-a", "feed share")
@@ -2495,6 +2611,9 @@ def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[li
         return pa, figs
     y1 = _num(rows, "H4-a", "Yanez 2020 recovery at 99.25")
     y2 = _num(rows, "H4-a", "Yanez 2020 recovery at 99.97")
+    ab2 = _num(rows, "H4-a", "Abdoos et al. 2025 recovery at 99.95")
+    ab3 = _num(rows, "H4-a", "Abdoos et al. 2025 recovery at 99.99")
+    iab = _num(rows, "H4-b", "Abdoos et al. 2025 relation: Grade D increment")
     incs = [x["value"] for x in R["H4-b"]["numerical_findings"] if x["quantity"].startswith("purity-only Grade D increment")]
     rb = _num(rows, "H4-b", "Python against Aspen LCOH resolution")
     dem = _num(rows, "H4-e", "furnace demand")
@@ -2508,12 +2627,14 @@ def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[li
     n2 = _num(rows, "H4-c", "N2 in product")
     pa = [
         _pa(rows, comps, "Higher purity costs hydrogen recovery", "H4-a",
-            f"No purity-recovery relation is computed for cracked ammonia (PSA recoveries are inputs). The only sourced slope "
-            f"(Yanez et al. 2020: {f(y1,3)} at 99.25 % to {f(y2,3)} at 99.97 %) is for a different feed."),
+            f"AmCraX computes no PSA purity-recovery relation (recoveries are inputs). Two published sources give the direction: "
+            f"Yanez et al. 2020, measured on a different feed ({f(y1,3)} at 99.25 % to {f(y2,3)} at 99.97 %), and Abdoos et al. 2025, "
+            f"simulated for a dry, NH3-free cracked-ammonia composition ({f(ab2,3)} at 99.95 % to {f(ab3,3)} at 99.99 %)."),
         _pa(rows, comps, "Stricter purity raises the cost of hydrogen", "H4-b",
-            f"The order raw < industrial < Grade D holds in every case, but the purity-only Grade D increment at equal delivery "
-            f"pressure is {f(min(incs),3)} to {f(max(incs),3)} USD/kg, partly below the {f(rb,3)} USD/kg model resolution and "
-            "resting on assumed recoveries."),
+            f"The order raw < industrial < Grade D holds in every case; the purity-only Grade D increment at equal delivery "
+            f"pressure is {f(min(incs),3)} to {f(max(incs),3)} USD/kg on the coded bases ({f(iab,3)} on the Abdoos et al. 2025 relation), "
+            f"above the {f(rb,3)} USD/kg model resolution on both published relations at their printed recoveries, but below it on the "
+            "assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front."),
         _pa(rows, comps, "Unrecovered hydrogen offsets furnace fuel", "H4-e",
             f"The tail gas covers the {f(dem,0)} kW furnace demand only at PSA recoveries below {f(thr,3)} (where part of it is surplus "
             f"with no use in the model); sourced and assumed recoveries ({f(min(rec),3)} to {f(max(rec),3)}) lie on both sides."),
@@ -2601,10 +2722,12 @@ def findings_changed(matrix_hyps: list[dict]) -> dict:
                              "reason": r["verdict_rule"], "file": OUT_JSON,
                              "source": {"source_file": RELEASE_MATRIX, "key": f"hypotheses/[id={h['id']}]/rows/[row_id={r['row_id']}]/verdict"}})
     fp = load(F_FIX) if (ROOT / F_FIX).exists() else None
-    return {"provenance": {"script": SCRIPT, "inputs": [F_SUP, F_CE, RELEASE_MATRIX, OUT_JSON] + ([F_FIX] if fp else []),
+    ad = load(F_ADD) if (ROOT / F_ADD).exists() else None
+    return {"provenance": {"script": SCRIPT, "inputs": [F_SUP, F_CE, RELEASE_MATRIX, OUT_JSON] + ([F_FIX] if fp else []) + ([F_ADD] if ad else []),
                            "note": "Phase 1 values from the 23 November release, Phase 2 values from the current result files."},
             "headline": head,
             "fix_pass_2026_11_24": fp,
+            "addendum_2026_11_24": ad,
             "all_supersession_rows": [{"quantity": x["quantity"], "file": x["file"], "key": x["key"], "old": x.get("old_value"),
                                        "new": x.get("new_value"), "unit": x.get("unit"), "reason": x.get("reason")} for x in rows]}
 
@@ -2639,6 +2762,32 @@ def findings_changed_md(fc: dict) -> str:
                      f"{_fv(x['new']) if x['new'] is not None else 'none (no parity in range)'} | {_md_escape(x['reason'])} | "
                      f"`{x['file']}` `{_md_escape(x['key'])}` |")
         L += ["", "### New computed blocks", ""] + [f"- `{x['file']}` `{x['key']}`: {x['what']}." for x in fp["new_computed_blocks"]]
+    ad = fc.get("addendum_2026_11_24")
+    if ad:
+        pv = ad["provenance"]
+        L += ["", "## Addendum after reading three papers in full (24 November 2026)", "",
+              "Three papers that earlier could only be seen as abstracts or search summaries were read in full: "
+              + "; ".join(pv["papers_read_in_full_on_2026_11_24"].values()) + ". The readings are in "
+              + ", ".join(f"`{x}`" for x in pv["notes"]) + " (data with page references in "
+              + ", ".join(f"`{x}`" for x in pv["extracts"]) + "). " + pv["rule"][0].upper() + pv["rule"][1:] + ". "
+              f"Old values: {pv['old_values']}; new values: current files. Recorded by `{pv['script']}` in `{F_ADD}`.", "",
+              f"Frozen baseline LCOH {ad['baseline_check']['lcoh_USD_per_kg']!r} USD/kg (difference from the frozen value "
+              f"{ad['baseline_check']['abs_difference']:.1e}). Verdicts checked: {ad['verdicts_checked']}; verdicts changed: "
+              f"{len(ad['verdict_changes'])}" + (" (none)." if not ad["verdict_changes"] else ":"), ""]
+        for x in ad["verdict_changes"]:
+            L.append(f"- {x['quantity']}: {x['old']} -> {x['new']}")
+        L += ["### New computed blocks", ""] + [f"- `{x['file']}` `{x['key']}`: {x['what']}." for x in ad["new_computed_blocks"]]
+        L += ["", "### New computed values", "", "| Quantity | Value | Unit | File and key |", "|---|---|---|---|"]
+        for x in ad["new_computed_values"]:
+            L.append(f"| {_md_escape(x['label'])} | {_fv(x['value']) if x['value'] is not None else 'none'} | {_md_escape(x['unit'])} | "
+                     f"`{x['file']}` `{_md_escape(x['key'])}` |")
+        L += ["", "### Corrections of record in stored data and result texts", "", "| What | File and key | Reason |", "|---|---|---|"]
+        for x in ad["text_corrections"]:
+            L.append(f"| {_md_escape(x['what'])} | `{x['file']}` `{_md_escape(x['key'])}` | {_md_escape(x['reason'])} |")
+        L += ["", "Old and new text of each correction: `" + F_ADD + "` (`text_corrections`).", "",
+              "### Reference entries removed (one record per paper)", ""]
+        L += [f"- `{x['file']}`: `{x['citekey']}` (abstract-only or unread entry; superseded by the full-text record)." for x in ad["reference_entries_removed"]]
+        L += ["", "### Notes, data and scripts corrected", ""] + [f"- `{x['file']}`: {x['what']}." for x in ad["text_files_corrected"]]
     L += ["", "## Every superseded number", "", f"All {len(fc['all_supersession_rows'])} rows of `{F_SUP}`.", "",
           "| Quantity | Phase 1 | Phase 2 | Unit | Reason | File and key |", "|---|---|---|---|---|---|"]
     for x in fc["all_supersession_rows"]:
@@ -2659,7 +2808,7 @@ SUMMARY_LEAD = {
     "H1": "Direct use is cheaper than standalone and purified cracking for power, but that ranking follows from the assumption that the turbine reaches the same efficiency on H2-rich fuel as on NH3, so it is not independent support; the essay's cost margin for direct use is not reproduced, and exhaust-heated cracking in front of a turbine is marginally cheaper than direct use on a single literature efficiency gain.",
     "H2": "Ammonia price dominates hydrogen cost and only green (or very well-captured blue) ammonia cuts emissions against Singapore alternatives; the break-even ammonia price against the named benchmarks is straddled by the sourced price ranges, so it is reported as a threshold; under current Singapore carbon pricing low carbon intensity earns no cost advantage, so affordable and low-carbon pull apart.",
     "H3": "Lower temperature and heat integration both cut energy, heat integration by far the more; the cost half of heat integration rests on an unsourced heat-transfer coefficient, the catalyst cost question is unresolved and leans against the low-temperature catalysts at derived ruthenium prices, and Cho's fuel and REC findings are not reproduced on AmCraX boundaries.",
-    "H4": "Unrecovered hydrogen is burned in the cracker furnace by the flowsheet's routing, and sourced PSA recoveries lie on both sides of the recovery at which it covers the furnace demand; the published Cho PSA point fails ISO 14687 grades B and D; the cost increase with purity, the PSA purity-recovery slope and the membrane advantage rest on assumed recoveries.",
+    "H4": "Unrecovered hydrogen is burned in the cracker furnace by the flowsheet's routing, and sourced PSA recoveries lie on both sides of the recovery at which it covers the furnace demand; the published Cho PSA point fails ISO 14687 grades B and D; the PSA purity-recovery slope is not computed by AmCraX (two published relations give its direction, one simulated for a dry, ammonia-free cracked-ammonia composition), the purity-only cost increase is resolved only on those published relations, and the membrane advantage turns on a PSA recovery that the published front places on the parity band.",
 }
 
 
@@ -2761,6 +2910,13 @@ def build() -> dict:
                          "to INCONCLUSIVE under rewritten row rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, "
                          "H3-c, H3-d, H4-d. Every changed value is recorded in results/research/fix_pass_2026-11-24.json and "
                          "docs/research/phase2_findings_changed.md."),
+            "addendum": ("24 November 2026: three papers earlier seen only as abstracts or search summaries were read in full "
+                         "(Halim et al. 2025; Abdoos et al. 2025; Sayas et al. 2020). Texts that had become false were corrected and "
+                         "the new evidence was added as computed literature comparisons and sensitivities beside the existing results "
+                         "(H1-b on the paper's own fuel-cost basis; PSA recovery from the published front for this composition, "
+                         "including a baseline sensitivity; Sayas conversions as comparison points). No row rule, verdict or "
+                         "reference value changed. Recorded in results/research/addendum_2026-11-24.json and "
+                         "docs/research/phase2_findings_changed.md."),
             "plain_answers_rule": PLAIN_RULE,
             "published_figures_rule": FIGURE_RULE,
         },
@@ -2801,6 +2957,7 @@ def to_markdown(m: dict) -> str:
          f"literature, and independent experimental validation. {m['provenance']['experimental_validation']}", "",
          f"Currency: calculations in {cur['calculation_currency']}; SGD values use {cur['fx_SGD_per_USD']} SGD/USD ({cur['fx_date']}).", "",
          "## Disclosures", ""] + [f"- {x}" for x in m["provenance"]["disclosures"]] + ["", f"Fix pass: {m['provenance']['fix_pass']}", "",
+         f"Addendum: {m['provenance']['addendum']}", "",
          "## Plain answers (reading aid, not verdicts)", "", m["provenance"]["plain_answers_rule"], "",
          m["provenance"]["published_figures_rule"], ""]
     for h in m["hypotheses"]:

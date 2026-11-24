@@ -150,6 +150,18 @@ kinetics:
     parameters: {E_app_kJ_mol: 111, alpha: 0.5, gamma: -1.2, K0_as_printed: 8584.8}
     source: {citekey: maccarrone2025comprehensive, page: 19-20, locator: "Table 4 (p. 19); Table 5 (p. 20)"}
     original_source: sayas2020high
+    primary_source_check_2026_11_24: >-
+      Main text of Sayas et al. 2020 (sayas2020rukcao, same paper as sayas2020high) read in full on 24 November 2026
+      (research/notes/sayas2020_full_text.md). E_app 111 kJ/mol and K0 8584.8: NOT in the main text; the main text
+      (Table 4, p. 5033) gives an apparent activation energy of 75 kJ/mol (orders 0.5 and -1.2) for 3%Ru10%K/CaO at
+      350 degC and 1 atm from differential experiments; the rate constant, its units and the equilibrium term of the
+      integral fit are in the supplementary information, which was NOT obtained. So 111 kJ/mol and 8584.8 remain
+      unverified secondary values (maccarrone2025comprehensive); the orders 0.5 and -1.2 are confirmed. Nothing is fitted
+      or implemented; usable stays false.
+    k_ru_ratio_note: >-
+      The abstract states a K/Ru atomic ratio of 0.9, which is inconsistent with the stated loadings: 10 wt% K and
+      3 wt% Ru give (10/39.10)/(3/101.07) = 8.6 mol/mol (reader arithmetic; ICP 9.6 and 2.8 wt% give 8.9). Any project
+      statement of "K/Ru = 0.9" carries this inconsistency of the paper.
   ni_ba_al_o_im_power_law:
     usable: false
     reason: "Power-law orders and E_app only; no pre-exponential factor."
@@ -287,7 +299,7 @@ process:
     - {label: "Small HRS six-zone fired cracker", T_in_C: 300, T_out_C: 470, X: 0.99, catalyst_kg: 42.88, citekey: chopra2026decentralized, page: "4-6", locator: "Fig. 4; Sec. 3.1"}
   pressure_guidance:
     - {statement: "NH3 pressure >= 20 bar recommended in industrial thermochemical-recuperation systems (heat deficit at 1-10 bar)", citekey: xu2025review, page: 29, locator: Sec. 4.2, original: "Pashchenko & Mustafin 2022"}
-    - {statement: "Ru-10%K/CaO at 500 degC: X = 98/80/65/60 % at 1/10/20/40 bar", citekey: maccarrone2025comprehensive, page: 13, locator: Table 2, original_source: sayas2020high}
+    - {statement: "Ru-10%K/CaO at 500 degC: X = 98/80/65/60 % at 1/10/20/40 bar", citekey: maccarrone2025comprehensive, page: 13, locator: Table 2, original_source: sayas2020high, primary_source_check_2026_11_24: "agrees within figure-reading error with Sayas et al. 2020 Fig. 4A (about 100/80.5/68/62 % at 500 degC); research/data/sayas2020_extract.json"}
     - {statement: "Commercial Ru/Al2O3 at 500 degC, 286 NmL/(gcat h): X = 99.7/98.5/97.2 % at 1/5/10 bar", citekey: maccarrone2025comprehensive, page: 12, locator: Table 2, original_source: dicarlo2014ammonia}
   equipment_efficiencies:
     compressor_isentropic: [{value: 0.75, citekey: cho2026nickel, page: 5, locator: Table 2}, {value: 0.85, citekey: ahmad2025gtcc, page: 5, locator: Table 2}, {value: 0.70, citekey: richard2024technoeconomic, page: 6, locator: Table 1}]

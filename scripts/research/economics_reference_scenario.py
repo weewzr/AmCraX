@@ -105,6 +105,7 @@ def baseline() -> None:
         "inputs": flat_inputs(REF.raw),
         "boundary_notes": e["notes"],
         "fuel_efficiency_sensitivity": fuel_efficiency_sensitivity(hi, nohi, s, e, e_nohi),
+        "psa_recovery_sensitivity": psa_recovery_sensitivity(hi, nohi, s, e, e_nohi),
     }
     dump("baseline.json", out)
     dump("capex_audit.json", capex_audit(s, e, legacy, p1))
@@ -146,6 +147,58 @@ def fuel_efficiency_sensitivity(hi: dict, nohi: dict, s: dict, e: dict, e_nohi: 
             "cases": cases,
             "envelope_lcoh_USD_per_kg": [min(c["lcoh_USD_per_kg"] for c in cases), max(c["lcoh_USD_per_kg"] for c in cases)],
             "source_type": "python"}
+
+
+ABDOOS_X = ROOT / "research" / "data" / "abdoos2025_extract.json"
+
+
+def psa_recovery_sensitivity(hi: dict, nohi: dict, s: dict, e: dict, e_nohi: dict) -> dict:
+    """PSA recovery beside the frozen baseline (addendum of 24 November 2026). The reference plant assumes 0.85 at
+    99.96 % purity; the only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed,
+    11.3-11.6 bar) gives 0.8192 at 99.95 % and 0.7744 at 99.99 %. Same code path as every recovery change in the
+    economics (singapore.evaluate override psa_recovery). The baseline itself is not changed."""
+    from amcrax.economics.singapore import breakeven_nh3_price
+    ax = {x["id"]: x for x in json.loads(ABDOOS_X.read_text(encoding="utf-8"))["entries"]}
+    marker = REF.h2_selling_price_USD_per_kg
+    pts = [("Abdoos et al. 2025 Table 8, 99.95 % purity (simulated; dry NH3-free feed, 11.29 bar)", ax["P03"]),
+           ("Abdoos et al. 2025 Table 8, 99.99 % purity (simulated; dry NH3-free feed, 11.60 bar)", ax["P02"])]
+    cases = []
+    for label, x in [("reference assumption, 0.85 at 99.96 % (code path check; the frozen reference is the stored result)", None)] + pts:
+        R = 0.85 if x is None else round(x["value"]["recovery_percent"] / 100.0, 6)
+        o = {"psa_recovery": R}
+        y, yn = evaluate(hi, REF.default_nh3_scenario, o), evaluate(nohi, REF.default_nh3_scenario, o)
+        cases.append({"label": label, "psa_recovery": R,
+                      "purity_of_source_point": None if x is None else x["value"]["purity_percent"] / 100.0,
+                      "source": "AmCraX assumption F4 (PSA_AMCRAX)" if x is None else f"abdoos2025psa {x['location']}",
+                      "lcoh_USD_per_kg": y["lcoh_USD_per_kg"], "lcoh_SGD_per_kg": y["lcoh_SGD_per_kg"],
+                      "delta_vs_reference_USD_per_kg": y["lcoh_USD_per_kg"] - e["lcoh_USD_per_kg"],
+                      "npv_USD": y["npv_USD"], "delta_npv_vs_reference_USD": y["npv_USD"] - e["npv_USD"],
+                      "breakeven_nh3_USD_per_t_vs_marker": breakeven_nh3_price(hi, marker, o),
+                      "h2_product_kg_h": y["h2_product_kg_h"], "heat_fuel_USD_per_kg": y["breakdown_USD_per_kg"]["heat_fuel"],
+                      "kg_nh3_fuel_per_kg_h2": y["kg_nh3_fuel_per_kg_h2"],
+                      "lcoh_heat_integration_off_USD_per_kg": yn["lcoh_USD_per_kg"]})
+    assert abs(cases[0]["lcoh_USD_per_kg"] - e["lcoh_USD_per_kg"]) < 1e-7, "0.85 override must reproduce the baseline"
+    return {"description": "Computed. " + psa_recovery_sensitivity.__doc__.replace("\n    ", " ").split("The baseline itself")[0].strip()
+                           + " The baseline stays frozen at the stored Aspen result (recovery 0.85); these cases are its "
+                             "PSA-recovery sensitivity, as the fuel-efficiency cases are its fuel envelope.",
+            "code_path": "amcrax.economics.singapore.evaluate(result, scenario, {'psa_recovery': R}) on results/simulations/baseline.json",
+            "what_is_rescaled": ["H2 product = H2 in cracked gas (Aspen) x R x M(H2): linear in R (not re-simulated)",
+                                 "heat deficit reduced by the extra H2 sent to the tail gas: h2_cracked x (0.85 - R) x LHV(H2) x the "
+                                 "flowsheet tail-gas heat ratio (tailgas_combustion_heat / tailgas_lhv); a surplus is not credited",
+                                 "per-kg costs divided by the smaller annual H2"],
+            "what_is_held": ["NH3 feed and its cost", "capital (reference CAPEX sized on NH3 feed), fixed opex, catalyst",
+                             "cooler and exchanger duties, pump and PSA power (not re-simulated)", "PSA purity (99.96 % stored)",
+                             "price scenario (grey), heat integration on unless stated"],
+            "boundary_of_the_source": "simulated front, dry NH3-free 75/25 feed, 7.9-11.6 bar (AmCraX PSA feed 19.5 bar), "
+                                      "surrogate recovery scatter about 1-3 points; a literature comparison, not a measurement",
+            "reference_lcoh_USD_per_kg": e["lcoh_USD_per_kg"], "reference_npv_USD": e["npv_USD"],
+            "reference_breakeven_nh3_USD_per_t_vs_marker": breakeven_nh3_price(hi, marker),
+            "override_reproduces_reference_to_USD_per_kg": abs(cases[0]["lcoh_USD_per_kg"] - e["lcoh_USD_per_kg"]),
+            "override_note": "the 0.85 override recomputes the H2 product from the cracked-gas H2 flow, which differs from the stored "
+                             "product in the last digits; the reference value is the stored result",
+            "h2_selling_price_USD_per_kg": marker, "cases": cases,
+            "envelope_lcoh_USD_per_kg": [e["lcoh_USD_per_kg"], max(c["lcoh_USD_per_kg"] for c in cases)],
+            "source_type": "python (literature recoveries applied in the unified economics)"}
 
 
 def capex_audit(s: dict, e: dict, legacy: dict, p1: dict) -> dict:

@@ -9,28 +9,28 @@
       "catalyst_comparison.json": "0d15655b1db1b6b7bbdfa81ed77c5dd59c27cc975658a5f0ac3f15de4d4f796e",
       "catalyst_economics.json": "b791efb4f021d012e17cb191e1bd1d04c48c5125127d3467490c14c29b4b41fc",
       "economics.json": "1d8b27ab9d3a594be8ac245ae2cce4085d5468331adad49055681b10e02025d7",
-      "enduse.json": "1dbd7613d9b5cc5b3b84f437a7d9ddb994b1b10e552f4cbffea2a13a36e6a622",
+      "enduse.json": "e780aae12c32c7fccdaa6a0c4bcdce81a25541519b8754867140e5747751edc6",
       "heat_exchanger.json": "3e2ec9f41487185c8d7655c760a3579eb6cbd5a19c6343a863155b3f985da06e",
-      "kinetics.json": "efe0fcca5f62bfd816b58572d7e7e4e66c0dbd4ddd2cc924cd1188a94cdd11b8",
+      "kinetics.json": "df465740f55f0d4de15dda10108014d9c852c14b6fa7f7f83d564652bc193e69",
       "lca.json": "f74d9ed71f5fbe560b5b9145e5ca4c793fd2d4b60cbd1161b71489783a14f161",
-      "purification.json": "af7c7bde5037b71c89792f9f9a3c2eac39d8d40b4ace300b342aa8ae68189a9d",
+      "purification.json": "7ecb8b36cf57a0666f8891d02d4fe04ea1c2dc190fff23b155be57d1d730709c",
       "uq.json": "ac4119e64e793690543019b92a1d7a7880ee61476d185558a6c7b3517de02d36"
     },
     "separate_from": "results/validation/validation_matrix.json (core matrix, unchanged)"
   },
   "totals": {
-    "pass": 607,
+    "pass": 609,
     "fail": 12,
-    "informational": 76,
+    "informational": 83,
     "not_available": 1,
-    "total": 696
+    "total": 705
   },
   "totals_excluding_items_mirrored_from_core_matrix": {
-    "pass": 606,
+    "pass": 608,
     "fail": 10,
-    "informational": 75,
+    "informational": 82,
     "not_available": 1,
-    "total": 692
+    "total": 701
   },
   "mirrored_core_items": {
     "pass": 1,
@@ -41,11 +41,11 @@
   },
   "by_evidence_kind": {
     "numerical_verification": {
-      "pass": 440,
+      "pass": 442,
       "fail": 5,
       "informational": 19,
       "not_available": 0,
-      "total": 464
+      "total": 466
     },
     "python_vs_aspen": {
       "pass": 156,
@@ -57,9 +57,9 @@
     "literature_comparison": {
       "pass": 11,
       "fail": 2,
-      "informational": 35,
+      "informational": 42,
       "not_available": 0,
-      "total": 48
+      "total": 55
     },
     "experimental_validation": {
       "pass": 0,
@@ -222,11 +222,11 @@
     },
     "enduse": {
       "numerical_verification": {
-        "pass": 66,
+        "pass": 67,
         "fail": 0,
         "informational": 0,
         "not_available": 0,
-        "total": 66
+        "total": 67
       },
       "python_vs_aspen": {
         "pass": 1,
@@ -238,9 +238,9 @@
       "literature_comparison": {
         "pass": 2,
         "fail": 0,
-        "informational": 6,
+        "informational": 7,
         "not_available": 0,
-        "total": 8
+        "total": 9
       },
       "experimental_validation": {
         "pass": 0,
@@ -298,9 +298,9 @@
       "literature_comparison": {
         "pass": 2,
         "fail": 2,
-        "informational": 7,
+        "informational": 9,
         "not_available": 0,
-        "total": 11
+        "total": 13
       },
       "experimental_validation": {
         "pass": 0,
@@ -342,11 +342,11 @@
     },
     "purification": {
       "numerical_verification": {
-        "pass": 8,
+        "pass": 9,
         "fail": 0,
         "informational": 1,
         "not_available": 0,
-        "total": 9
+        "total": 10
       },
       "python_vs_aspen": {
         "pass": 0,
@@ -358,9 +358,9 @@
       "literature_comparison": {
         "pass": 2,
         "fail": 0,
-        "informational": 6,
+        "informational": 10,
         "not_available": 0,
-        "total": 8
+        "total": 12
       },
       "experimental_validation": {
         "pass": 0,
@@ -743,19 +743,19 @@
     },
     "enduse": {
       "file": "results/research/validation/enduse.json",
-      "pass": 69,
+      "pass": 70,
       "fail": 0,
-      "informational": 6,
+      "informational": 7,
       "not_available": 0,
-      "total": 75,
+      "total": 77,
       "failures": [],
       "by_evidence_kind": {
         "numerical_verification": {
-          "pass": 66,
+          "pass": 67,
           "fail": 0,
           "informational": 0,
           "not_available": 0,
-          "total": 66
+          "total": 67
         },
         "python_vs_aspen": {
           "pass": 1,
@@ -767,9 +767,9 @@
         "literature_comparison": {
           "pass": 2,
           "fail": 0,
-          "informational": 6,
+          "informational": 7,
           "not_available": 0,
-          "total": 8
+          "total": 9
         },
         "experimental_validation": {
           "pass": 0,
@@ -825,9 +825,9 @@
       "file": "results/research/validation/kinetics.json",
       "pass": 10,
       "fail": 2,
-      "informational": 7,
+      "informational": 9,
       "not_available": 0,
-      "total": 19,
+      "total": 21,
       "failures": [
         {
           "id": "EXISTING-KIN-NI-PRED",
@@ -874,9 +874,9 @@
         "literature_comparison": {
           "pass": 2,
           "fail": 2,
-          "informational": 7,
+          "informational": 9,
           "not_available": 0,
-          "total": 11
+          "total": 13
         },
         "experimental_validation": {
           "pass": 0,
@@ -930,19 +930,19 @@
     },
     "purification": {
       "file": "results/research/validation/purification.json",
-      "pass": 10,
+      "pass": 11,
       "fail": 0,
-      "informational": 7,
+      "informational": 11,
       "not_available": 0,
-      "total": 17,
+      "total": 22,
       "failures": [],
       "by_evidence_kind": {
         "numerical_verification": {
-          "pass": 8,
+          "pass": 9,
           "fail": 0,
           "informational": 1,
           "not_available": 0,
-          "total": 9
+          "total": 10
         },
         "python_vs_aspen": {
           "pass": 0,
@@ -954,9 +954,9 @@
         "literature_comparison": {
           "pass": 2,
           "fail": 0,
-          "informational": 6,
+          "informational": 10,
           "not_available": 0,
-          "total": 8
+          "total": 12
         },
         "experimental_validation": {
           "pass": 0,

@@ -41,7 +41,7 @@ PLANT_SCALE_EXPONENT = _REF.power_value("scale_exponent")   # assumption: typica
 CRACKER_FIXED_OM_FRAC_TCI = _REF.power_value("cracker_fixed_om_frac_tci")   # Ahmad: maintenance 2.5 % + insurance 2 %
 
 # ---- Fuel flexibility (literature, as stated in the task brief and Ahmad 2025) ----------------------------
-HALIM_H2_BLEND_RANGE_VOL = (0.30, 0.60)   # task brief: H-25 turbine takes 30-60 vol% H2 in NH3-H2 blends (Halim not accessed)
+HALIM_H2_BLEND_RANGE_VOL = (0.30, 0.60)   # H-25 turbine takes 30-60 vol% H2 in NH3-H2 blends: Halim et al. 2025 p. 3 (full text read 24 Nov 2026), relayed from trade press (vendor-claim grade)
 NG_COMBUSTOR_H2_LIMIT_VOL = 0.30          # Ahmad (2025) p. 2: NG combustors limited to about 30 vol% H2 without modification
 
 # ---- Price set (one consistent set for every pathway; economics.yaml defaults unless stated) -------------

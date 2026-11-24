@@ -141,12 +141,76 @@ UNMODELLED = [
      "experimental": {"T_C": [350, 600], "P_bar": [1.01325, 1.01325], "feed": "Ar:NH3 1.3:1", "space_velocity": "GHSV 3067 h-1",
                       "conversion_range": None, "conversion_note": "98 % at 450 degC (text)"}},
     {"catalyst": "Ru-K/CaO", "catalyst_id": None, "citekey": "sayas2020rukcao",
-     "reason": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); "
-               "the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; "
-               "no parameter is estimated.",
-     "experimental": {"T_C": [250, 550], "P_bar": [1.0, 40.0], "feed": "not verified", "space_velocity": "WHSV 9000-30000 mL g-1 h-1 (abstract)",
-                      "conversion_range": None, "conversion_note": "about 80 % at 550 degC, 40 bar (abstract; conditions not verified)"}},
+     "reason": "main text read in full on 24 Nov 2026 (research/notes/sayas2020_full_text.md); it gives the rate-law form (power law "
+               "with an approach-to-equilibrium term, eqns (1)-(2)), the orders 0.5 (NH3) and -1.2 (H2) and an apparent Ea of 75 kJ/mol "
+               "at 350 degC and 1 atm (Table 4), but NO complete rate law: the rate constant (pre-exponential factor, units) and the "
+               "equilibrium term of the integral fit are in the supplementary information, which was not obtained. Nothing was "
+               "fitted or estimated. The 10-40 bar conversions are stored as literature comparison points that no model uses.",
+     "reason_superseded_2026_11_23": "full text and SI not obtainable by automated access (HTTP 403 / connection closed, 23 Nov 2026, Phase 1 and Phase 2); "
+                                     "the abstract gives conditions (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1) but no pre-exponential factor; "
+                                     "no parameter is estimated.",
+     "experimental": {"T_C": [250, 550], "P_bar": [1.0, 40.0], "feed": "pure NH3",
+                      "space_velocity": "WHSV 9000 mL gcat-1 h-1 at 10-40 bar (30 N mL/min over 200 mg; 'N mL' reference state not defined); 9000-30000 at 1 atm",
+                      "conversion_range": [0.0, 1.0],
+                      "conversion_note": "about 84 % at 550 degC and 40 bar (figure reading; the text says 'around 80 %'); 15 points at 10-40 bar, 350-550 degC"}},
 ]
+
+SAYAS_X = os.path.join(ROOT, "research", "data", "sayas2020_extract.json")
+
+
+def sayas_points() -> dict:
+    """The 15 measured conversions of 3%Ru10%K/CaO at 10, 20 and 40 bar (Fig. 4A, figure readings). Literature
+    comparison points only: NOT used by any model, fit or rule (addendum of 24 November 2026)."""
+    ex = {e["id"]: e for e in json.load(open(SAYAS_X, encoding="utf-8"))["entries"]}
+    pts = []
+    for P in (10, 20, 40):
+        for T, X in ex[f"SAY-HP-X-{P}"]["value"].items():
+            if float(X) > 0:
+                pts.append({"P_bar": float(P), "T_C": float(T), "X_measured": float(X) / 100.0,
+                            "in_amcrax_window": float(P) >= RELEVANT_P_MIN_BAR and AMCRAX["T_C_operating_points"][0] <= float(T) <= AMCRAX["T_C_operating_points"][1]})
+    return {"description": sayas_points.__doc__.replace("\n    ", " "),
+            "source": "sayas2020rukcao p. 5032 Fig. 4A (research/data/sayas2020_extract.json SAY-HP-X-10/20/40)",
+            "catalyst": "3%Ru10%K/CaO (ICP 2.8 wt% Ru, 9.6 wt% K), 200 mg, 300-500 um, diluted in 1 g SiC",
+            "conditions": "pure NH3, 30 N mL/min (WHSV 9000 mL gcat-1 h-1) at every pressure, isothermal set-point, fresh catalyst, 7 h",
+            "uncertainty": {"figure_reading_points": 0.02, "flow_reference_state": "'N mL' not defined: 0 or 25 degC, about 9 % in F",
+                            "bed": "reactor diameter, bed length and temperature profile not given"},
+            "status": "figure reading", "used_by_any_model": False, "n_points": len(pts), "points": pts}
+
+
+def cross_catalyst_context(pts: dict) -> dict:
+    """Context only, NOT a test of any law: the existing AmCraX Ru/Al2O3 law (Kum et al. 2026, fitted at 1-10 bar on an
+    8 wt% Ru commercial catalyst) evaluated at the Sayas test conditions with the SAME ruthenium per mol of NH3 fed. The
+    two catalysts differ (support, promoter, dispersion), so a difference says nothing about either law's validity."""
+    from amcrax.reactor.pfr import simulate_pfr
+    from amcrax.thermodynamics.equilibrium import solve_equilibrium
+    ru_wt_sayas, ru_wt_kum, m_g = 0.028, 0.08, 0.2
+    out = []
+    for vm, lab in ((22.414, "0 degC"), (24.465, "25 degC")):
+        F = 30e-3 * 60.0 / vm                       # mol NH3 / h
+        g_ru_h_per_mol = m_g * ru_wt_sayas / F
+        W = g_ru_h_per_mol / ru_wt_kum * 3600.0 / 1000.0   # kg Ru/Al2O3 per (mol/s) at equal Ru per NH3
+        rows = []
+        for p in pts["points"]:
+            X = simulate_pfr("ru_kum_temkin_pyzhev", W, T_in_C=p["T_C"], P_in_bar=p["P_bar"], feed_kmol_h={"NH3": 3.6},
+                             pressure_drop=False, n_points=2).outlet["conversion"]
+            Xe = solve_equilibrium(p["T_C"] + 273.15, p["P_bar"], {"NH3": 1.0}).conversion
+            rows.append({"P_bar": p["P_bar"], "T_C": p["T_C"], "X_measured_RuK_CaO": p["X_measured"],
+                         "X_RuAl2O3_law_equal_Ru": X, "X_equilibrium_ideal": Xe, "difference": X - p["X_measured"]})
+        out.append({"flow_reference_state": lab, "F_mol_NH3_per_h": F, "g_Ru_h_per_mol_NH3": g_ru_h_per_mol,
+                    "W_RuAl2O3_kg_s_per_mol": W, "rows": rows})
+    k20 = [r for o in out for r in o["rows"] if r["P_bar"] == 20.0 and r["T_C"] == 500.0]
+    return {"description": cross_catalyst_context.__doc__.replace("\n    ", " "),
+            "label": "cross-catalyst context comparison, not a test of the law",
+            "law": "ru_kum_temkin_pyzhev (kinetics.yaml), isothermal PFR, keq_basis amcrax_thermo, pure NH3, no pressure drop",
+            "law_fitted_range": "1-10 bar, 350-450 degC (Kum et al. fit to Di Carlo et al. 2014)",
+            "cases": out,
+            "headline_20bar_500C": {"X_measured_RuK_CaO": k20[0]["X_measured_RuK_CaO"],
+                                    "X_RuAl2O3_law_equal_Ru": [r["X_RuAl2O3_law_equal_Ru"] for r in k20],
+                                    "X_equilibrium_ideal": k20[0]["X_equilibrium_ideal"]},
+            "reading": "at equal Ru per mol NH3 the pressure-extrapolated Ru/Al2O3 law converts far more than the measured Ru-K/CaO "
+                       "at 20 bar and 500 degC; this is a reason to keep the Ru/Al2O3 20 bar results labelled as extrapolation, which "
+                       "the project already does, not evidence under the verdict rules",
+            "source_type": "python (existing law) against literature (figure readings)"}
 
 
 def classify(law: dict) -> tuple[str, str]:
@@ -205,6 +269,9 @@ def main() -> int:
                      "extrapolation; Takahashi laws are additionally unvalidated at 1 atm (failed figure predictions).",
         "laws": rows,
     }
+    sp = sayas_points()
+    out["literature_comparison_points_sayas2020"] = sp
+    out["cross_catalyst_context_sayas2020"] = cross_catalyst_context(sp)
     with open(os.path.join(OUT, "validity_classification.json"), "w", encoding="utf-8") as fh:
         json.dump(out, fh, indent=1)
     cols = ["catalyst", "catalyst_id", "citekey", "class", "fitted_T_C_min", "fitted_T_C_max", "fitted_P_bar_min",

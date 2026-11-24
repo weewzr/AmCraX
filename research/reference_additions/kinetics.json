@@ -20,16 +20,5 @@
     "access": "postprint, UPCommons handle 2117/132999, accessed 23 November 2026",
     "verification": "content read from the postprint; DOI as in the brief and repository record",
     "taken": "conversion statements (Ru/CeO2 98 % vs Ni/CeO2 63 % at 450 degC; Ru/CeO2 36 % at 350 degC), test conditions (0.1 g, 23 mL/min, Ar:NH3 1.3:1, GHSV 3067 1/h, 1 atm), TOFs at 400 degC. No rate law, Ea, orders or pre-exponential factor in the paper."
-  },
-  {
-    "citekey": "sayas2020rukcao",
-    "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
-    "doi": "10.1039/d0cy00686f",
-    "url": "https://doi.org/10.1039/d0cy00686f",
-    "doi_verified": true,
-    "in_local_library": false,
-    "access": "FULL TEXT NOT RETRIEVED (publisher 403, repository bot protection), 23 November 2026",
-    "verification": "DOI and title matched in Semantic Scholar and OpenAlex metadata (23 November 2026)",
-    "taken": "nothing used numerically; abstract-level facts only (3 wt% Ru, K/Ru 0.9, 1-40 bar, 250-550 degC, X about 0.8 at 550 degC/40 bar). Not implemented."
   }
 ]

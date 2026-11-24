@@ -195,17 +195,38 @@
   {
     "id": "KINR-LIT-SAYAS2020",
     "description": "essay lead: Ru-K/CaO Ea 96 -> 75 kJ/mol, H2 order -1.9 vs -1.2, about 80 % at 40 bar/550 degC",
-    "method": "attempted primary-source read",
-    "reference_source": "sayas2020rukcao (full text not retrievable)",
-    "observed": null,
-    "expected": null,
+    "method": "primary-source read (main text read in full on 24 Nov 2026; supplementary information not obtained)",
+    "reference_source": "sayas2020rukcao p. 5033 Table 4; p. 5030-5031 text; Fig. 4A",
+    "observed": {
+      "Ea_kJ_per_mol": [
+        96,
+        75
+      ],
+      "H2_order": [
+        -1.9,
+        -1.2
+      ],
+      "X_550C_40bar": "around 80 % (text); about 84 % (figure)"
+    },
+    "expected": {
+      "Ea_kJ_per_mol": [
+        96,
+        75
+      ],
+      "H2_order": [
+        -1.9,
+        -1.2
+      ],
+      "X_550C_40bar": "about 80 %"
+    },
     "tolerance": null,
     "unit": "-",
     "status": "informational",
     "source_files": [
-      "research/notes/sayas2020rukcao.md"
+      "research/notes/sayas2020_full_text.md",
+      "research/data/sayas2020_extract.json"
     ],
-    "note": "NOT VERIFIED: full text inaccessible; no Ru-K/CaO law implemented",
+    "note": "VERIFIED in the main text (Table 4, 350 degC and 1 atm, differential experiments). No complete rate law: the rate constant and equilibrium term are in the supplementary information (not obtained); no Ru-K/CaO law implemented and nothing fitted",
     "evidence_kind": "literature_comparison"
   },
   {
@@ -223,7 +244,7 @@
     ],
     "note": "no implementation error in units (mol/(g s) -> x1000), basis (mole fractions p_i/p_total at 1 atm) or reactor equations: the failure of EXISTING-KIN-NI-PRED is not an AmCraX coding error",
     "provenance": {
-      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "generated_utc": "2026-11-24T12:49:24+00:00",
       "script": "scripts/research/kinetics_phase2_validation.py",
       "source_type": "python",
       "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
@@ -271,7 +292,7 @@
     ],
     "note": "original failure value 0.1096 is unchanged (KIN-NI-PRED stays fail). Cause: a real limit of the published law as reproducible from the paper (catalyst mass not reported, W/F inferred from one anchor; dilution and H2 co-feed series under-predicted by up to 0.11 even with the paper's own Table 2 constants)",
     "provenance": {
-      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "generated_utc": "2026-11-24T12:49:24+00:00",
       "script": "scripts/research/kinetics_phase2_validation.py",
       "source_type": "python",
       "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
@@ -297,7 +318,7 @@
     ],
     "note": "no implementation error in units (mol/(g s) -> x1000), basis (mole fractions p_i/p_total at 1 atm) or reactor equations: the failure of EXISTING-KIN-RU-PRED is not an AmCraX coding error",
     "provenance": {
-      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "generated_utc": "2026-11-24T12:49:24+00:00",
       "script": "scripts/research/kinetics_phase2_validation.py",
       "source_type": "python",
       "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
@@ -340,7 +361,7 @@
     ],
     "note": "original failure value 0.1113 is unchanged (KIN-RU-PRED stays fail). Cause: a real limit of the published law as reproducible from the paper (catalyst mass not reported, W/F inferred from one anchor; dilution and H2 co-feed series under-predicted by up to 0.11 even with the paper's own Table 2 constants)",
     "provenance": {
-      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "generated_utc": "2026-11-24T12:49:24+00:00",
       "script": "scripts/research/kinetics_phase2_validation.py",
       "source_type": "python",
       "inputs_summary": "results/research/kinetics/takahashi_rederivation.json",
@@ -371,7 +392,7 @@
     ],
     "note": "No AmCraX kinetic law is validated at 20 bar. Every kinetic result at 20 bar is a pressure extrapolation; Takahashi laws are additionally unvalidated at 1 atm (failed figure predictions).",
     "provenance": {
-      "generated_utc": "2026-11-23T09:03:38+00:00",
+      "generated_utc": "2026-11-24T12:49:24+00:00",
       "script": "scripts/research/kinetics_phase2_validation.py",
       "source_type": "literature",
       "inputs_summary": "results/research/kinetics/validity_classification.json",
@@ -395,7 +416,63 @@
     "source_files": [
       "research/notes/phase2_kinetics_search.md"
     ],
-    "note": "Sayas 2020 publisher HTML/PDF HTTP 403, SI connection closed; no parameter was estimated",
+    "note": "Sayas 2020 publisher HTML/PDF HTTP 403, SI connection closed; no parameter was estimated. Update 24 Nov 2026: the Sayas main text was read from a copy supplied by the user; it has no rate constant (supplementary information only, not obtained), so still no usable complete law",
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-SAYAS-POINTS",
+    "description": "Sayas et al. 2020: 15 measured conversions of 3%Ru10%K/CaO at 10, 20 and 40 bar, 350-550 degC, stored as literature comparison points; NOT used by any model, fit or rule",
+    "method": "figure reading of Fig. 4A (+/-2 points); pure NH3, 30 N mL/min over 200 mg ('N mL' reference state not defined, about 9 % in F)",
+    "reference_source": "sayas2020rukcao p. 5032 Fig. 4A",
+    "observed": 15,
+    "expected": 15,
+    "tolerance": null,
+    "unit": "points",
+    "status": "informational",
+    "source_files": [
+      "results/research/kinetics/validity_classification.json",
+      "research/data/sayas2020_extract.json"
+    ],
+    "note": "Ru-K/CaO stays unmodelled; these points cannot test any AmCraX law (no Ru-K/CaO law exists)",
+    "provenance": {
+      "generated_utc": "2026-11-24T12:49:24+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "literature",
+      "inputs_summary": "results/research/kinetics/validity_classification.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
+    "evidence_kind": "literature_comparison"
+  },
+  {
+    "id": "K1P2-SAYAS-RUAL2O3-CONTEXT",
+    "description": "caution, cross-catalyst context comparison (not a test of the law): the AmCraX Ru/Al2O3 law (fitted at 1-10 bar) at the Sayas conditions with equal ruthenium per mol NH3, against the measured Ru-K/CaO conversion at 20 bar and 500 degC",
+    "method": "isothermal PFR with ru_kum_temkin_pyzhev at W(Ru/Al2O3) giving the Sayas g Ru h/mol NH3, both flow reference states (0 and 25 degC)",
+    "reference_source": "sayas2020rukcao Fig. 4A",
+    "observed": [
+      0.9478469849304964,
+      0.9506166566178327
+    ],
+    "expected": 0.68,
+    "tolerance": null,
+    "unit": "conversion (fraction)",
+    "status": "informational",
+    "source_files": [
+      "results/research/kinetics/validity_classification.json"
+    ],
+    "note": "different catalysts (support, K promoter, dispersion); the pressure-extrapolated Ru/Al2O3 law converts far more per gram of Ru than this measured Ru catalyst at 20 bar, a reason to keep the Ru/Al2O3 20 bar results labelled as extrapolation; not evidence under the verdict rules",
+    "provenance": {
+      "generated_utc": "2026-11-24T12:49:24+00:00",
+      "script": "scripts/research/kinetics_phase2_validation.py",
+      "source_type": "python",
+      "inputs_summary": "results/research/kinetics/validity_classification.json",
+      "model_versions": {
+        "aspen": "Aspen Plus V15 (PENG-ROB)",
+        "python": "amcrax.reactor.pfr / amcrax.thermodynamics"
+      }
+    },
     "evidence_kind": "literature_comparison"
   }
 ]

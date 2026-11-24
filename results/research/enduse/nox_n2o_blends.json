@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-24T06:08:36Z",
+    "generated_utc": "2026-11-24T12:48:14Z",
     "script": "scripts/research/enduse_threshold.py",
     "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
     "inputs_summary": "Ahmad 2025 Chemkin ppmv via amcrax.environmental.lca.n2o_noX_per_MWh; Carbon Pricing Act First Schedule GWP",
@@ -34,7 +34,7 @@
   "blends_and_cracked_gas": {
     "N2O": "No source gives N2O for NH3-H2 blends or for cracked gas. pathway_table_power.csv scales the direct-NH3 N2O by the NH3 energy share of the fuel: this is an AmCraX assumption, not a sourced value.",
     "NOx": "No turbine NOx measurement or simulation for NH3-H2 blends or H2/N2 cracked gas was found (NO_kg_per_MWh = 'not quantified'). GE Vernova (vendor): NOx up to +35 % at 50 vol% H2 in natural gas, possibly double near 100 % H2; NETL 2023: N2-diluted H2 has higher NOx potential than steam-diluted. Qualitative only; not used in costs.",
-    "blend_limits": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' was not found. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas; Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No sourced H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
+    "blend_limits": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' is printed in Halim et al. 2025 p. 3 (full text read 24 Nov 2026), relayed from a trade-press article: a vendor-claim grade statement, not tested in that paper. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas (a different fuel); Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No measured or simulated H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
     "partial_cracking_efficiency": "Only Ahmad's two end points are sourced (alpha = 1 and 0). Intermediate efficiencies are a linear interpolation (assumption). Ahmad reports LCOE non-monotonic in the cracked fraction (not reproduced, Supplementary Material not available)."
   },
   "SCR": {

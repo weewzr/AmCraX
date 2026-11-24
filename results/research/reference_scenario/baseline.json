@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-24T07:34:29+00:00",
+    "generated_utc": "2026-11-24T12:47:20+00:00",
     "script": "scripts/research/economics_reference_scenario.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline (results/simulations/baseline.json) costed on the unified reference scenario by amcrax.economics.singapore.evaluate",
@@ -656,5 +656,83 @@
       4.062672348970767
     ],
     "source_type": "python"
+  },
+  "psa_recovery_sensitivity": {
+    "description": "Computed. PSA recovery beside the frozen baseline (addendum of 24 November 2026). The reference plant assumes 0.85 at 99.96 % purity; the only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed, 11.3-11.6 bar) gives 0.8192 at 99.95 % and 0.7744 at 99.99 %. Same code path as every recovery change in the economics (singapore.evaluate override psa_recovery). The baseline stays frozen at the stored Aspen result (recovery 0.85); these cases are its PSA-recovery sensitivity, as the fuel-efficiency cases are its fuel envelope.",
+    "code_path": "amcrax.economics.singapore.evaluate(result, scenario, {'psa_recovery': R}) on results/simulations/baseline.json",
+    "what_is_rescaled": [
+      "H2 product = H2 in cracked gas (Aspen) x R x M(H2): linear in R (not re-simulated)",
+      "heat deficit reduced by the extra H2 sent to the tail gas: h2_cracked x (0.85 - R) x LHV(H2) x the flowsheet tail-gas heat ratio (tailgas_combustion_heat / tailgas_lhv); a surplus is not credited",
+      "per-kg costs divided by the smaller annual H2"
+    ],
+    "what_is_held": [
+      "NH3 feed and its cost",
+      "capital (reference CAPEX sized on NH3 feed), fixed opex, catalyst",
+      "cooler and exchanger duties, pump and PSA power (not re-simulated)",
+      "PSA purity (99.96 % stored)",
+      "price scenario (grey), heat integration on unless stated"
+    ],
+    "boundary_of_the_source": "simulated front, dry NH3-free 75/25 feed, 7.9-11.6 bar (AmCraX PSA feed 19.5 bar), surrogate recovery scatter about 1-3 points; a literature comparison, not a measurement",
+    "reference_lcoh_USD_per_kg": 4.015461254695034,
+    "reference_npv_USD": -17455719.99837225,
+    "reference_breakeven_nh3_USD_per_t_vs_marker": 320.0081986623751,
+    "override_reproduces_reference_to_USD_per_kg": 2.0913322629212416e-08,
+    "override_note": "the 0.85 override recomputes the H2 product from the cracked-gas H2 flow, which differs from the stored product in the last digits; the reference value is the stored result",
+    "h2_selling_price_USD_per_kg": 3.06,
+    "cases": [
+      {
+        "label": "reference assumption, 0.85 at 99.96 % (code path check; the frozen reference is the stored result)",
+        "psa_recovery": 0.85,
+        "purity_of_source_point": null,
+        "source": "AmCraX assumption F4 (PSA_AMCRAX)",
+        "lcoh_USD_per_kg": 4.015461275608357,
+        "lcoh_SGD_per_kg": 5.173696987789933,
+        "delta_vs_reference_USD_per_kg": 2.0913322629212416e-08,
+        "npv_USD": -17455720.289533574,
+        "delta_npv_vs_reference_USD": -0.29116132482886314,
+        "breakeven_nh3_USD_per_t_vs_marker": 320.0081964941125,
+        "h2_product_kg_h": 251.58830374387801,
+        "heat_fuel_USD_per_kg": 0.2675295356224966,
+        "kg_nh3_fuel_per_kg_h2": 0.5945100791611037,
+        "lcoh_heat_integration_off_USD_per_kg": 4.229241669929775
+      },
+      {
+        "label": "Abdoos et al. 2025 Table 8, 99.95 % purity (simulated; dry NH3-free feed, 11.29 bar)",
+        "psa_recovery": 0.8192,
+        "purity_of_source_point": 0.9995,
+        "source": "abdoos2025psa p. 13, Table 8 and text; p. 12 Fig. 12",
+        "lcoh_USD_per_kg": 4.065782232135955,
+        "lcoh_SGD_per_kg": 5.238532722302178,
+        "delta_vs_reference_USD_per_kg": 0.05032097744092123,
+        "npv_USD": -17709229.302815042,
+        "delta_npv_vs_reference_USD": -253509.30444279313,
+        "breakeven_nh3_USD_per_t_vs_marker": 314.1357294708592,
+        "h2_product_kg_h": 242.4719275611587,
+        "heat_fuel_USD_per_kg": 0.17693704294164445,
+        "kg_nh3_fuel_per_kg_h2": 0.3931934287592099,
+        "lcoh_heat_integration_off_USD_per_kg": 4.28760026823606
+      },
+      {
+        "label": "Abdoos et al. 2025 Table 8, 99.99 % purity (simulated; dry NH3-free feed, 11.60 bar)",
+        "psa_recovery": 0.7744,
+        "purity_of_source_point": 0.9998999999999999,
+        "source": "abdoos2025psa p. 13, Table 8 and text; p. 12 Fig. 12 callout",
+        "lcoh_USD_per_kg": 4.146121850934717,
+        "lcoh_SGD_per_kg": 5.342045822105731,
+        "delta_vs_reference_USD_per_kg": 0.13066059623968318,
+        "npv_USD": -18077969.685769923,
+        "delta_npv_vs_reference_USD": -622249.6873976737,
+        "breakeven_nh3_USD_per_t_vs_marker": 304.93137059800483,
+        "h2_product_kg_h": 229.21174402265783,
+        "heat_fuel_USD_per_kg": 0.032302146663048335,
+        "kg_nh3_fuel_per_kg_h2": 0.07178254814010741,
+        "lcoh_heat_integration_off_USD_per_kg": 4.38077233540425
+      }
+    ],
+    "envelope_lcoh_USD_per_kg": [
+      4.015461254695034,
+      4.146121850934717
+    ],
+    "source_type": "python (literature recoveries applied in the unified economics)"
   }
 }

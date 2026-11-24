@@ -1,16 +1,5 @@
 [
  {
-  "citekey": "sayas2020rukcao",
-  "apa7": "Sayas, S., Morlanes, N., Katikaneni, S. P., Harale, A., Solami, B., & Gascon, J. (2020). High pressure ammonia decomposition on Ru-K/CaO catalysts. Catalysis Science & Technology, 10(15), 5027-5035. https://doi.org/10.1039/d0cy00686f",
-  "doi": "10.1039/d0cy00686f",
-  "url": "https://doi.org/10.1039/d0cy00686f",
-  "access_date": "2026-11-23",
-  "doi_verified": true,
-  "url_verified": false,
-  "verification": "DOI registered (https://doi.org/api/handles/10.1039/d0cy00686f, responseCode 1, 23 November 2026). Full text and SI NOT readable by automated access (publisher HTTP 403; SI 404 / connection closed).",
-  "taken_from": "nothing numerical; abstract-level conditions only (1-40 bar, 250-550 degC, WHSV 9000-30000 mL g-1 h-1), recorded as unverified in research/notes/phase2_kinetics_search.md"
- },
- {
   "citekey": "kulkarni2023elucidating",
   "apa7": "Kulkarni, S. R., Realpe, N., Yerrayya, A., Velisoju, V. K., Sayas, S., Morlanes, N., Cerillo, J., Katikaneni, S. P., Paglieri, S. N., Solami, B., Gascon, J., & Castano, P. (2023). Elucidating the rate-determining step of ammonia decomposition on Ru-based catalysts using ab initio-grounded microkinetic modeling. Catalysis Science & Technology, 13(7), 2026-2037. https://doi.org/10.1039/d3cy00055a",
   "doi": "10.1039/d3cy00055a",
