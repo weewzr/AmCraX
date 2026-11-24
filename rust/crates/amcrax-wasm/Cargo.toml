@@ -1,0 +1,27 @@
+[package]
+name = "amcrax-wasm"
+description = "WebAssembly facade of the AmCraX engine for the browser simulator (wasm32-unknown-unknown, wasm-bindgen)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[lib]
+crate-type = ["cdylib", "rlib"]
+
+[dependencies]
+amcrax-engine.workspace = true
+amcrax-numerics.workspace = true
+wasm-bindgen.workspace = true
+
+# Same as [workspace.lints] except unsafe_code: "deny" instead of "forbid", so that the one module
+# holding the wasm-bindgen exports can allow the glue code the macro generates. No hand-written
+# unsafe code exists in this crate.
+[lints.rust]
+unsafe_code = "deny"
+unused_must_use = "deny"
+
+[lints.clippy]
+needless_range_loop = "allow"

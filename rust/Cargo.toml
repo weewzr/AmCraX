@@ -1,0 +1,58 @@
+[workspace]
+resolver = "3"
+members = [
+    "crates/amcrax-numerics",
+    "crates/amcrax-engine",
+    "crates/amcrax-cli",
+    "crates/amcrax-wasm",
+]
+
+[workspace.package]
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.100"
+license = "MIT"
+repository = "https://github.com/weewzr/AmCraX"
+publish = false
+
+[workspace.dependencies]
+amcrax-numerics = { path = "crates/amcrax-numerics", version = "0.1.0" }
+amcrax-engine = { path = "crates/amcrax-engine", version = "0.1.0", default-features = false }
+serde = { version = "1.0.229", features = ["derive"] }
+# float_roundtrip: parse every float exactly (correctly rounded), required for the bitwise golden tests
+serde_json = { version = "1.0.154", features = ["float_roundtrip"] }
+thiserror = "2.0.21"
+sha2 = "0.11.1"
+# YAML 1.2 deserialisation only (no serializer, no comment retention)
+serde-saphyr = { version = "2.2.0", default-features = false, features = ["deserialize"] }
+wasm-bindgen = "0.2.130"
+
+[workspace.lints.rust]
+unsafe_code = "forbid"
+unused_must_use = "deny"
+
+[workspace.lints.clippy]
+# Index loops are kept where the code is a line-by-line port of a reference implementation
+# (SciPy, NumPy), because that is what makes the port reviewable against the source.
+needless_range_loop = "allow"
+
+[profile.release]
+opt-level = 3
+lto = "thin"
+codegen-units = 1
+
+# Numerical tests run optimised in CI (`cargo test --profile ci`), with debug assertions and
+# overflow checks kept on.
+[profile.ci]
+inherits = "release"
+lto = false
+codegen-units = 16
+debug-assertions = true
+overflow-checks = true
+
+[profile.wasm]
+inherits = "release"
+opt-level = "z"
+lto = true
+panic = "abort"
+codegen-units = 1
