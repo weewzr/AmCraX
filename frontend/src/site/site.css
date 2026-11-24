@@ -10,6 +10,8 @@
 :where(.site) p{margin:0 0 var(--s4)}
 .site a{color:var(--primary);text-underline-offset:3px}
 .site a:hover{text-decoration-thickness:2px}
+/* The skip link sits on the primary colour, so its text must use the ink colour, not the generic link colour above. */
+.site a.skip{color:var(--primary-ink);font-weight:600;text-decoration:none}
 .site code{font:13.5px var(--font-mono);background:color-mix(in srgb,var(--text) 8%,transparent);padding:1px 6px;border-radius:5px;overflow-wrap:anywhere}
 .site .muted{color:var(--muted)}
 .site .small{font-size:13.5px}
