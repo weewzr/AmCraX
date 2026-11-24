@@ -123,6 +123,37 @@ def load_aspen(cid: str, hi: bool) -> SimulationResult:
     return SimulationResult.model_validate(json.loads(fn.read_text(encoding="utf-8"))["aspen"]["flowsheet_result"])
 
 
+def h3a_envelope(fx_hi: dict, fx_no: dict, co_ex: dict, resolution: dict) -> str:
+    """H3-a envelope text, computed (fix pass 24 Nov 2026: reviews A M3/m5 and C M2). One temperature value only
+    (the smallest resolved difference), both resolution readings, the size on two metrics, the cost-optimal reversal."""
+    kpis = json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8"))["kpis"]
+    ext = kpis["total_external_heating_kW"]
+    res_kw, spr_kw = resolution["max_abs_fired_duty_offset_kW"], resolution["spread_of_fired_duty_offset_between_catalysts_kW"]
+    res_usd, spr_usd = resolution["max_abs_python_minus_aspen_lcoh_USD_per_kg"], resolution["spread_of_offset_between_catalysts_USD_per_kg"]
+    best_k = max(fx_hi, key=lambda k: fx_hi[k]["energy_saving_fired_duty_kW"])
+    best = fx_hi[best_k]
+    s_max = best["energy_saving_fired_duty_kW"]
+    resolved = {k: v for k, v in fx_hi.items() if v["energy_saving_fired_duty_kW"] > res_kw}
+    unresolved = {k: v for k, v in fx_hi.items() if v["energy_saving_fired_duty_kW"] <= res_kw}
+    dT_min = min(v["ref_T_C"] - v["low_T_C"] for v in resolved.values()) if resolved else None
+    res_txt = ", ".join(f"{k} {v['energy_saving_fired_duty_kW']:.1f} kW at {v['low_T_C']:.0f} degC" for k, v in
+                        sorted(resolved.items(), key=lambda kv: kv[1]["energy_saving_fired_duty_kW"]))
+    unres = [v["energy_saving_fired_duty_kW"] for v in unresolved.values()]
+    co_ru = [v["energy_saving_fired_duty_kW"] for k, v in co_ex.items() if k.startswith("Ru")]
+    no = [v["energy_saving_fired_duty_kW"] for v in fx_no.values()]
+    return (f"20 bar, X 0.95 (equal conversion; Python only, the Aspen runs reach unequal conversion), "
+            f"{min(v['low_T_C'] for v in fx_hi.values()):.0f}-{best['ref_T_C']:.0f} degC, with and without FEHE. With FEHE the "
+            f"largest saving is {s_max:.1f} kW ({best_k}), which is {100 * s_max / best['ref_fired_process_duty_kW']:.1f} % of the "
+            f"supplementary fired duty and {100 * s_max / ext:.1f} % of the {ext:.0f} kW total external heating. On the "
+            f"absolute Python-Aspen offset ({res_kw:.1f} kW; {res_usd:.4f} USD/kg), the reading used for the verdicts, the saving "
+            f"is resolved only for temperature differences of {dT_min:.0f} K or more ({res_txt}); the NiRu/CeO2 savings "
+            f"({min(unres):.1f}-{max(unres):.1f} kW) are not. On the spread of that offset across catalysts ({spr_kw:.1f} kW; "
+            f"{spr_usd:.4f} USD/kg) the NiRu savings would also be resolved. Without FEHE {min(no):.0f}-{max(no):.0f} kW. When "
+            f"the designs are cost-optimised (exchanger mode, derived central prices) the Ru designs run hotter and use "
+            f"{-max(co_ru):.0f}-{-min(co_ru):.0f} kW MORE energy. The direction is kinetics-independent; WHICH catalyst reaches "
+            f"which T rests on extrapolated laws (Ru/MgO and the Ni reference).")
+
+
 def main() -> None:
     t0 = time.time()
     apply_style()
@@ -273,10 +304,16 @@ def main() -> None:
                          "python_minus_aspen_USD_per_kg": dp["lcoh_USD_per_kg"] - da["lcoh_USD_per_kg"],
                          "fired_aspen_kW": da["fired_process_duty_kW"], "fired_python_kW": dp["fired_process_duty_kW"]})
     offs = [r["python_minus_aspen_USD_per_kg"] for r in res_rows]
+    offs_kW = [r["fired_aspen_kW"] - r["fired_python_kW"] for r in res_rows]
     resolution = {"max_abs_python_minus_aspen_lcoh_USD_per_kg": max(abs(x) for x in offs),
-                  "spread_of_offset_between_catalysts_USD_per_kg": max(offs) - min(offs), "rows": res_rows,
+                  "spread_of_offset_between_catalysts_USD_per_kg": max(offs) - min(offs),
+                  "max_abs_fired_duty_offset_kW": max(abs(x) for x in offs_kW),
+                  "spread_of_fired_duty_offset_between_catalysts_kW": max(offs_kW) - min(offs_kW), "rows": res_rows,
                   "rule": "verdict_methodology_v2: a difference smaller than the demonstrated Python-Aspen offset cannot "
-                          "support or contradict a row. The absolute offset (conservative) is used as the resolution."}
+                          "support or contradict a row. The absolute offset (conservative) is used as the resolution for the "
+                          "verdicts. Both readings are reported (fix pass 24 Nov 2026, review C finding M2): the absolute offset, "
+                          "and the spread of that offset across catalysts, which is the demonstrated uncertainty of a difference "
+                          "between designs when the offset is common."}
     RES = resolution["max_abs_python_minus_aspen_lcoh_USD_per_kg"]
     add("CE-RESOLUTION", "Python vs Aspen LCOH at the same T, X, 100 kg (all five catalysts): demonstrated model offset",
         "python_vs_aspen", RES, None, None, "USD/kg H2", "informational",
@@ -625,8 +662,17 @@ def main() -> None:
                                                                "h2_product_rel_diff": v["h2_product_rel_diff"],
                                                                "feed_term_from_unequal_X_USD_per_kg": v["decomposition_USD_per_kg"]["ammonia_feed"],
                                                                "caution": v["caution"]} for k, v in fx_asp.items()},
+        "key_descriptions": {
+            "fixed_inventory_aspen_HI_exchanger": "MIS-NAMED KEY, kept for readers (fix pass 24 Nov 2026, review A m10): it holds "
+                                                  "the PYTHON equal-conversion values (python_Top_X095_HI_exchanger: each catalyst "
+                                                  "at the temperature where its law reaches X 0.95, with FEHE, exchanger mode), not "
+                                                  "Aspen fixed-inventory values. The Aspen fixed 100 kg cross-check is "
+                                                  "fixed_inventory_aspen_cross_check_HI_exchanger.",
+            "fixed_inventory_aspen_noHI_exchanger": "MIS-NAMED KEY, kept: Python equal-conversion values without FEHE "
+                                                    "(python_Top_X095_noHI_exchanger), not Aspen values."},
         "hi_saving_aspen_fixed_inventory": [v for v in hi_saving.values()],
         "resolution_USD_per_kg": RES,
+        "resolution_readings": {k: v for k, v in resolution.items() if k != "rows"},
         "sensitivity_counts": {"n_rows": len(sens), "n_low_cheaper_resolved": n_low_cheaper,
                                "n_rows_resolved": len(resolved), "n_low_design_at_lower_T_than_Ni": n_low_lowerT,
                                "cases_where_some_low_T_catalyst_cheaper_resolved": sorted({r["case"] for r in sens if r["low_cheaper"] and not r["below_resolution"]})},
@@ -661,10 +707,7 @@ def main() -> None:
                             "fired duty = temperature-feasible import after FEHE and tail-gas firing"],
             "uncertainty": "Python fired duty is 13.8-15.2 kW below Aspen at the same T and X for all five catalysts (spread 1.4 kW, so the "
                            "T-dependence is reproduced within 1.4 kW over 95 K); FEHE duty offset +20.8 kW (model form, task X1).",
-            "envelope": "20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K "
-                        "(25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only "
-                        "for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). "
-                        "Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+            "envelope": h3a_envelope(fx_hi, fx_no, co_ex, resolution),
             "threshold": None,
             "reason": "Computed (Python, cross-checked against Aspen at the same T and X); the reduction at equal conversion is not a "
                       "built-in assumption. CORRECTION to Phase 1: the Aspen fixed-inventory runs reach unequal conversion (Ni 0.9589 "

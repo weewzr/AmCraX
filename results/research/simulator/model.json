@@ -4015,61 +4015,61 @@
        "capital_USD": 239338.83028955024,
        "h2_purity_mole_frac": 0.9999902811881063,
        "h2_recovery": 0.8999999999999968,
-       "lcoh_sgd_per_kg_usable": 5.595844648586402,
-       "lcoh_usd_per_kg_usable": 4.343102725913119,
+       "lcoh_sgd_per_kg_usable": 5.608762090988305,
+       "lcoh_usd_per_kg_usable": 4.353128340066239,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 31.06301088507374,
        "membrane_module_cost_USD": 310630.1088507374,
        "n2_ppm": 9.693811894398252,
        "nh3_ppm": 0.024999999375000016,
-       "purification_only_usd_per_kg": 0.5326964449627821,
+       "purification_only_usd_per_kg": 0.5427220591159011,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 103543.36961691246
+       "replacement_USD_per_yr": 124908.96522064385
       },
       "MEM_cost_high": {
        "capital_USD": 239338.83028955024,
        "h2_purity_mole_frac": 0.9999129073589764,
        "h2_recovery": 0.860000000001159,
-       "lcoh_sgd_per_kg_usable": 5.769491579429473,
-       "lcoh_usd_per_kg_usable": 4.477875312725639,
+       "lcoh_sgd_per_kg_usable": 5.794975523441773,
+       "lcoh_usd_per_kg_usable": 4.497654165366732,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 35.242694677172025,
        "membrane_module_cost_USD": 528640.4201575804,
        "n2_ppm": 87.06764102426236,
        "nh3_ppm": 0.024999999375000016,
-       "purification_only_usd_per_kg": 0.6147550011879621,
+       "purification_only_usd_per_kg": 0.634533853829055,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 264320.21007879014
+       "replacement_USD_per_yr": 304597.5754241294
       },
       "MEM_cost_low": {
        "capital_USD": 239338.83028955024,
        "h2_purity_mole_frac": 0.9999922199172661,
        "h2_recovery": 0.9000000000000004,
-       "lcoh_sgd_per_kg_usable": 5.5613120938849985,
-       "lcoh_usd_per_kg_usable": 4.316300975350887,
+       "lcoh_sgd_per_kg_usable": 5.570266063470911,
+       "lcoh_usd_per_kg_usable": 4.323250419475671,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 31.06303959254718,
        "membrane_module_cost_USD": 232140.3074830236,
        "n2_ppm": 7.755082734516059,
        "nh3_ppm": 0.024999999375000016,
-       "purification_only_usd_per_kg": 0.5058946944007234,
+       "purification_only_usd_per_kg": 0.5128441385255075,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 46428.061496604714
+       "replacement_USD_per_yr": 61238.02830493917
       },
       "PSA_central_recovery": {
        "capital_USD": 1795041.2271716269,
@@ -4152,58 +4152,58 @@
        "capital_USD": 0.0,
        "h2_purity_mole_frac": 0.9999874062243853,
        "h2_recovery": 0.8999999999999968,
-       "lcoh_sgd_per_kg_usable": 5.31925521517126,
-       "lcoh_usd_per_kg_usable": 4.12843337791263,
+       "lcoh_sgd_per_kg_usable": 5.332172657573162,
+       "lcoh_usd_per_kg_usable": 4.1384589920657495,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 31.06301088507374,
        "membrane_module_cost_USD": 310630.1088507374,
        "n2_ppm": 9.693784024769876,
        "nh3_ppm": 2.8999915900243893,
-       "purification_only_usd_per_kg": 0.31801701415520245,
+       "purification_only_usd_per_kg": 0.32804262830832154,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 103543.36961691246
+       "replacement_USD_per_yr": 124908.96522064385
       },
       "MEM_cost_high": {
        "capital_USD": 0.0,
        "h2_purity_mole_frac": 0.9999100326177045,
        "h2_recovery": 0.860000000001159,
-       "lcoh_sgd_per_kg_usable": 5.491838157847241,
-       "lcoh_usd_per_kg_usable": 4.262380171623478,
+       "lcoh_sgd_per_kg_usable": 5.517322101859541,
+       "lcoh_usd_per_kg_usable": 4.282159024264572,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 35.242694677172025,
        "membrane_module_cost_USD": 528640.4201575804,
        "n2_ppm": 87.06739070552034,
        "nh3_ppm": 2.899991590024389,
-       "purification_only_usd_per_kg": 0.3992497764984978,
+       "purification_only_usd_per_kg": 0.4190286291395907,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 264320.21007879014
+       "replacement_USD_per_yr": 304597.5754241294
       },
       "MEM_cost_low": {
        "capital_USD": 0.0,
        "h2_purity_mole_frac": 0.9999893449479713,
        "h2_recovery": 0.9000000000000004,
-       "lcoh_sgd_per_kg_usable": 5.284723152947776,
-       "lcoh_usd_per_kg_usable": 4.10163200957727,
+       "lcoh_sgd_per_kg_usable": 5.293677122533689,
+       "lcoh_usd_per_kg_usable": 4.108581453702054,
        "meets_spec_within_model_scope": true,
        "membrane_area_m2": 31.06303959254718,
        "membrane_module_cost_USD": 232140.3074830236,
        "n2_ppm": 7.755060438717856,
        "nh3_ppm": 2.899991590024389,
-       "purification_only_usd_per_kg": 0.2912156458395638,
+       "purification_only_usd_per_kg": 0.29816508996434776,
        "readiness": {
         "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
         "source": "research/data/membrane_trl.json",
         "trl": "4 to 5"
        },
-       "replacement_USD_per_yr": 46428.061496604714
+       "replacement_USD_per_yr": 61238.02830493917
       },
       "PSA_central_recovery": {
        "capital_USD": 1795041.2271716269,

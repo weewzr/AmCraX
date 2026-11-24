@@ -266,3 +266,92 @@ def test_findings_changed_from_supersession(builder):
 
 def test_no_em_dash_in_matrix_markdown():
     assert "—" not in MD.read_text(encoding="utf-8")
+
+
+# ---- fix pass of 24 November 2026 (docs/internal/phase2_fix_plan.md sections 1 to 3) -----------------
+FIX_ROWS = {"H2-b": I, "H3-d": I, "H4-e": I}
+FIX_COMPONENTS = {"H1-P": I, "H1-Q": I, "H2-E": P, "H2-C": S, "H2-X": C, "H3-T": P, "H3-H": I, "H3-K": I, "H4-B": I}
+FIX_HYPOTHESES = {"H1": I, "H2": M, "H3": P, "H4": I}
+
+
+def test_fix_plan_verdicts_derived(matrix, builder):
+    """The derived verdicts equal the fix plan; the builder's EXPECTED table equals the derived rows."""
+    rows = {r["row_id"]: r["verdict"] for _, r in _rows(matrix)}
+    assert rows == builder.EXPECTED_ROW_V2
+    for rid, v in FIX_ROWS.items():
+        assert rows[rid] == v, rid
+    comps = {c["id"]: c["verdict"] for h in matrix["hypotheses"] for c in h["components"]}
+    assert comps == FIX_COMPONENTS
+    assert {h["id"]: h["verdict"] for h in matrix["hypotheses"]} == FIX_HYPOTHESES
+
+
+def _row(matrix, rid):
+    return next(r for _, r in _rows(matrix) if r["row_id"] == rid)
+
+
+@pytest.mark.parametrize("fn, forced, expected", [
+    ("v2_h2b", "above", S), ("v2_h2b", "below", C), ("v2_h2b", "straddle", I),
+    ("v2_h4e", "above", S), ("v2_h4e", "below", C), ("v2_h4e", "straddle", I),
+    ("v2_h3d", "above", S), ("v2_h3d", "straddle", I),
+])
+def test_fix_pass_rules_can_fail(builder, monkeypatch, fn, forced, expected):
+    """The rewritten coded rules have every branch: the outcome follows the comparison with the sourced values."""
+    monkeypatch.setattr(builder, "side", lambda thresholds, lo, hi: forced)
+    out = getattr(builder, fn)(builder.Row(), {})
+    assert out["verdict"] == expected
+
+
+def test_h2b_compares_full_sourced_ranges_and_names_both_benchmarks(matrix):
+    r = _row(matrix, "H2-b")
+    src = r["threshold"]["sourced_values"]
+    assert any(x["quantity"].endswith(", low") for x in src) and any(x["quantity"].endswith(", high") for x in src)
+    assert len(r["threshold"]["comparison"]) == 2  # one comparison per named benchmark
+    for txt in (r["verdict_rule"], r["envelope"], r["conclusion"]):
+        assert "3.06 USD/kg" in txt and "6.0 USD/kg" in txt
+    assert any("conditional on the assumed" in x for x in r["numerical_conclusions"])
+
+
+def test_h3d_needs_both_halves(matrix):
+    r = _row(matrix, "H3-d")
+    comp = r["threshold"]["comparison"]
+    assert comp["energy_half"] == S and comp["cost_half"] == I and r["verdict"] == I
+    assert r["threshold"]["sourced_values"], "the cost half compares with the sourced coefficient range"
+    assert "Break-even capital recovery factor (solved)" in r["envelope"]
+
+
+def test_h4e_threshold_against_sourced_recoveries(matrix):
+    r = _row(matrix, "H4-e")
+    vals = [x["value"] for x in r["threshold"]["sourced_values"]]
+    thr = r["threshold"]["values"][0]["value"]
+    assert min(vals) < thr < max(vals) and r["threshold"]["comparison"] == "straddle"
+    assert "restates the flowsheet" in r["verdict_rule"]
+
+
+def test_disclosures_and_text_corrections(matrix):
+    prov = matrix["provenance"]
+    assert len(prov["disclosures"]) >= 3 and "f233509" in prov["disclosures"][0] and "7447308" in prov["disclosures"][1]
+    md = MD.read_text(encoding="utf-8")
+    assert "## Disclosures" in md and all(d in md for d in prov["disclosures"])
+    blob = json.dumps(matrix) + md
+    for stale in ("about 60 K", "Infinite H2/N2 selectivity", "applied as USD at parity", "only green passes",
+                  "necessity statement", "x1.50.;"):
+        assert stale not in blob, stale
+    h1 = next(h for h in matrix["hypotheses"] if h["id"] == "H1")
+    assert "single sourced gain" in h1["strongest_defensible_statement"]
+    h3 = next(h for h in matrix["hypotheses"] if h["id"] == "H3")
+    assert h3["strongest_defensible_statement"].startswith(h3["verdict"] + ", resting only on")
+    for c in h3["components"]:
+        assert f"{c['id']} {c['verdict']}" in h3["strongest_defensible_statement"]
+    assert "72 K or more" in _row(matrix, "H3-a")["envelope"]
+
+
+def test_fix_pass_record_in_findings_changed(builder):
+    fc = json.loads(FC_JSON.read_text(encoding="utf-8"))
+    fp = fc["fix_pass_2026_11_24"]
+    rows = {x["quantity"]: (x["old"], x["new"]) for x in fp["verdict_changes"]}
+    for rid in FIX_ROWS:
+        assert rows[f"row {rid}"] == (S, I), rid
+    assert rows["hypothesis H4"] == (P, I)
+    keys = {x["key"] for x in fp["number_changes"]}
+    assert "specs/fuel_cell_grade_D/thresholds/psa_recovery_at_parity_with_central_membrane" in keys
+    assert "## Fix pass of 24 November 2026" in FC_MD.read_text(encoding="utf-8")

@@ -34,7 +34,10 @@ costs could not be compared across hypotheses. All research cost paths now read 
 
 Neither method is itemised. Neither responds to reactor size, exchanger area or PSA size. Both cost years are unknown.
 
-## Selection criteria (fixed before the outcomes were compared)
+## Selection criteria (recorded with the choice in commit 7447308; the repository record cannot show that they preceded the comparison)
+
+The chosen method gives the highest of the comparable CAPEX estimates; this makes cracked H2 dearer (conservative for
+H2-a) but favours direct use in H1 and lowers the H2-b break-even. No verdict changes across the independent CAPEX range.
 
 1. Traceability. Each cost item must trace to a stated source item with a page and table, and the cost year must be stated.
 2. Completeness of scope. Inside and outside battery limits, engineering and contingency must be included, with the
@@ -144,6 +147,23 @@ Further results for the same case:
 - NPV at 3.06 USD/kg is -17.5 MUSD. No IRR exists at that price.
 - With heat integration off, the LCOH is 4.229 USD/kg.
 - By NH3 scenario, the LCOH is: blue 4.287, green current 8.058, green 2030 5.919, green 2050 4.111 USD/kg.
+
+### Fuel-efficiency envelope (computed; fix pass of 24 November 2026)
+
+The reference LCOH counts the supplementary NH3 fuel at 100 % of its lower heating value (optimistic). The same stored
+Aspen baseline delivers 1520.2 of 1648.0 kW of tail-gas LHV (0.9225), and the H3 catalyst comparison uses a furnace
+efficiency of 0.85. The baseline stays frozen at 4.015 USD/kg; the envelope is in `baseline.json`
+`fuel_efficiency_sensitivity`:
+
+| Fuel delivered (fraction of LHV) | LCOH, USD/kg | Heat fuel, USD/kg | NPV at 3.06, MUSD | Break-even NH3 vs 3.06, USD/t | HI gross saving, USD/kg |
+|---|---|---|---|---|---|
+| 1.0 (reference) | 4.015 | 0.268 | -17.46 | 320.0 | 0.214 |
+| 0.9225 (flowsheet tail-gas ratio) | 4.038 | 0.290 | -17.87 | 317.8 | 0.232 |
+| 0.85 (H3 furnace efficiency) | 4.063 | 0.315 | -18.32 | 315.5 | 0.251 |
+
+The same assumption in the end-use pathways favours cracking in H1: with the cracker heat delivered at 0.9225 and 0.85
+of the fuel LHV, the turbine-efficiency gain that fired cracking needs to match direct NH3 rises from +5.16 to +5.82 and
++6.54 percentage points (computed, `enduse/turbine_threshold.json` `cracker_heat_fuel_efficiency_sensitivity`).
 
 ## What changed and what did not
 

@@ -5,32 +5,32 @@
     "inputs_summary": "results/research/validation/*.json (one file per workstream); core matrix not read",
     "input_sha256": {
       "aspen_kinetic.json": "40a0cdfb916f06f10d2a6d07912501ecc0b2039d44be1b0bfbd7d82cb7ed4db2",
-      "carbon_pricing.json": "de89f2db8709859ca85ea3f713707194a44e97fce2951478638a87eb587672b2",
+      "carbon_pricing.json": "9f97532aa3dcbedbb2b62663eb667afa92dffc95e1b8ed2ed5ee6317f3f7c272",
       "catalyst_comparison.json": "8996c509a7eab738d5c83591554833761012a412f62dedbd062fc882ee11aec7",
       "catalyst_economics.json": "b791efb4f021d012e17cb191e1bd1d04c48c5125127d3467490c14c29b4b41fc",
       "economics.json": "1d8b27ab9d3a594be8ac245ae2cce4085d5468331adad49055681b10e02025d7",
       "enduse.json": "1dbd7613d9b5cc5b3b84f437a7d9ddb994b1b10e552f4cbffea2a13a36e6a622",
-      "heat_exchanger.json": "b4d5caf53121278abbea593771f6247e12763fc9e50c2d3e5b92e5128a781ce3",
+      "heat_exchanger.json": "3e2ec9f41487185c8d7655c760a3579eb6cbd5a19c6343a863155b3f985da06e",
       "kinetics.json": "efe0fcca5f62bfd816b58572d7e7e4e66c0dbd4ddd2cc924cd1188a94cdd11b8",
       "lca.json": "f74d9ed71f5fbe560b5b9145e5ca4c793fd2d4b60cbd1161b71489783a14f161",
-      "purification.json": "3992d29369d541768b7ac6a2d1b4c27311328b053420e704530ba2e535d47c33",
-      "uq.json": "d3a33e5846e83b9b61b345696964e9530206de88347225e867de4150ac3c775d"
+      "purification.json": "af7c7bde5037b71c89792f9f9a3c2eac39d8d40b4ace300b342aa8ae68189a9d",
+      "uq.json": "ac4119e64e793690543019b92a1d7a7880ee61476d185558a6c7b3517de02d36"
     },
     "separate_from": "results/validation/validation_matrix.json (core matrix, unchanged)"
   },
   "totals": {
-    "pass": 604,
+    "pass": 607,
     "fail": 12,
     "informational": 76,
     "not_available": 1,
-    "total": 693
+    "total": 696
   },
   "totals_excluding_items_mirrored_from_core_matrix": {
-    "pass": 603,
+    "pass": 606,
     "fail": 10,
     "informational": 75,
     "not_available": 1,
-    "total": 689
+    "total": 692
   },
   "mirrored_core_items": {
     "pass": 1,
@@ -41,11 +41,11 @@
   },
   "by_evidence_kind": {
     "numerical_verification": {
-      "pass": 437,
+      "pass": 440,
       "fail": 5,
       "informational": 19,
       "not_available": 0,
-      "total": 461
+      "total": 464
     },
     "python_vs_aspen": {
       "pass": 156,
@@ -252,11 +252,11 @@
     },
     "heat_exchanger": {
       "numerical_verification": {
-        "pass": 11,
+        "pass": 14,
         "fail": 0,
         "informational": 12,
         "not_available": 0,
-        "total": 23
+        "total": 26
       },
       "python_vs_aspen": {
         "pass": 12,
@@ -783,19 +783,19 @@
     },
     "heat_exchanger": {
       "file": "results/research/validation/heat_exchanger.json",
-      "pass": 24,
+      "pass": 27,
       "fail": 0,
       "informational": 13,
       "not_available": 0,
-      "total": 37,
+      "total": 40,
       "failures": [],
       "by_evidence_kind": {
         "numerical_verification": {
-          "pass": 11,
+          "pass": 14,
           "fail": 0,
           "informational": 12,
           "not_available": 0,
-          "total": 23
+          "total": 26
         },
         "python_vs_aspen": {
           "pass": 12,

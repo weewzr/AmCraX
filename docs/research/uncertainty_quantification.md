@@ -5,7 +5,8 @@ given the stated input ranges. **None of them is experimental validation.** AmCr
 calibration data are few, all at 1 atm, and partly the same data the source papers used to fit their parameters.
 
 The methods follow published sources:
-- **Sobol indices:** first-order indices by Saltelli et al. (2010), total-effect indices by Jansen (1999).
+- **Sobol indices:** first-order indices by Saltelli et al. (2010) on centred outputs, total-effect indices by Jansen
+  (1999).
 - **Grouped cost drivers:** design-for-cost grouping after Stewart and Shirvan (2022).
 - **Right-skewed CAPEX case:** shape after Stewart and Shirvan (2023).
 - **Sensitivity before calibration:** Che (2022).
@@ -88,8 +89,12 @@ Only the low end of the grey range reaches this price.
 - Electricity and catalyst have near-zero indices because their cost items are small at the base point: 0.001 and
   0.002 USD/kg. The stored baseline charges electricity for pump power only. This is a property of the model boundary,
   not evidence that these inputs are unimportant in a real plant.
-- The first-order intervals are wide, while the total-effect intervals are narrow. This is a known property of the
-  Saltelli (2010) estimator.
+- The first-order estimator is applied to centred outputs (the mean of f(A) and f(B) is subtracted). Before the fix
+  pass of 24 November 2026 it used uncentred outputs, which has the same expectation but a larger variance: the 95 %
+  interval of the first-order index of the NH3 price (grey, heat integration on) was 0.662 to 1.134 and is now 0.870 to
+  0.921 (point estimate 0.8956 before and after). The total-effect indices use differences only and are unchanged.
+- The indices, and every probability quoted from the Monte Carlo sample, are conditional on the assumed input
+  distributions.
 
 ## T2a. Effect of the published kinetic-parameter intervals
 

@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-24T05:28:59Z",
+    "generated_utc": "2026-11-24T06:32:16Z",
     "script": "scripts/research/build_evidence_matrix.py",
     "source_type": "derived (aspen, python, literature, assumption values read from stored result files)",
     "inputs_summary": "Research result files of the kinetics, Aspen RPlug, catalyst comparison, Singapore economics, purification, end-use and LCA workstreams, their validation files, the Aspen evidence manifest and the reference library. No number is typed in the script.",
@@ -57,41 +57,50 @@
       "research/reference_additions/purification.json": "9a18a512876092a232cb090c85fa72c4687940645ad6754b8a34130bdb55f4d9",
       "research/references.json": "0e0afd93e0f9be7d9a1d39df595a0016822a0754700da0b65e6391a9cfd3614a",
       "results/research/aspen_kinetic/catalyst_comparison.json": "412fabb54376a586c7d4928e4469cc748cb6321c5262b2b22c7034ad4e658a7c",
-      "results/research/carbon_pricing/row_evidence.json": "a18acc3e7c990bac26371efe662d9420dedb41cc31f90250f82768bd1f40dd32",
+      "results/research/carbon_pricing/feed_dominance.json": "f3bc3a2897eec7e5ac40f5d1c3eb309de88a9f6df22df77b0748830afb1e0f03",
+      "results/research/carbon_pricing/row_evidence.json": "9de420ff6a1b13b121e352f65def8344bca1fe0c0a25b5ced06e851c875f10ed",
       "results/research/catalyst_comparison/assumptions.json": "807abcdccf4575e7a5b8344a896730de8fcc0f730900534fd38dd2029b99e7ae",
       "results/research/catalyst_comparison/catalyst_cho_comparison.json": "78e1000f82b0ff9afa176e7653efff679ad2c5d90258549c320111479a873462",
       "results/research/catalyst_comparison/catalyst_comparison.json": "0f8ed6a158ad7c0487ededa0efc9debf627e9ad2db9024d859f02452c7f96dad",
-      "results/research/catalyst_economics/catalyst_economics.json": "19877e1294ead38e92e8b4360dc5d8560c479bf689fff65997e8c9c24525c541",
+      "results/research/catalyst_economics/catalyst_economics.json": "ac14c4f769e0a095bde73a7339f3317c494aab7034c356bc35de0ac165070bc4",
       "results/research/enduse/assumptions.json": "ad76d0b9729f66b50b3d860831b90b79bfb1f2b288d8be6b76b3c7c2ec833c59",
       "results/research/enduse/enduse_results.json": "76ed1bc49926bc04853172fa411e7509a75be46e1213a34f6e95530c71169529",
-      "results/research/enduse/turbine_threshold.json": "871911027b709f34a026738cea92c5165fe3379de6617353009f7a9a05c9754c",
-      "results/research/heat_exchanger/heat_exchanger_study.json": "724db08c5657029f7511099cfc88e443d7bf59d0a4f500cd0dfa871997fb0ce6",
+      "results/research/enduse/turbine_threshold.json": "96218fc103168f1ceb6e460fd94bf1b0167a615123da6363a23116b0b4faf0fd",
+      "results/research/heat_exchanger/heat_exchanger_study.json": "dff59f850aed76fbfe86eab99f57427af9af3af429193ba3712f8596914e66bf",
       "results/research/kinetics/study_temperature_for_target_conversion.json": "e1c3f041bcefbc90d242e60a62ab317e91485b92dc4fff50e6eba94d3d9e5033",
       "results/research/kinetics/validity_classification.json": "f6efbd962ba6d7bcd25f34456775998e8454705a435c23dbe41eeb29c04b5e67",
       "results/research/lca/lca_results.json": "f23c3fbb51533f74750ff8398ebda870ad87524676799e7b7319f09ead66f6f1",
       "results/research/purification/assumptions.json": "9dd84feb6643d142d90d99ee5837bfa4d3751972ea7eeb5fc1f4bdce8ca3e786",
-      "results/research/purification/phase2_comparison.json": "7fff91489914b89a440911165bcbf20325404547cb2c24e661087dcee0df7c5b",
-      "results/research/purification/purification_study.json": "99b31ff1723e328b88867ce06611651b9c065f994d68ce0004d47355cfdb8d05",
-      "results/research/purification/singapore_price_scenario.json": "79a2aa8d32110d5943c9f433b46008767f67e07caae6d361f0953cdc76a49915",
-      "results/research/reference_scenario/baseline.json": "c827f61db6463376e2891af1a0ab2242bd9eef8ef222adaf679b9787ee7a06ff",
+      "results/research/purification/phase2_comparison.json": "bf3bd2632d8a84b0ff0085058ae3580b680c3b06fce576bbaa551e5d4e88940c",
+      "results/research/purification/purification_study.json": "c81e70de792ae3fa5e8eef7fcb2142789c8eaf98311d2727ab2fde7101e4c62b",
+      "results/research/purification/singapore_price_scenario.json": "bcf5ad13e3b581ba008f7664e9197002acada2d3df1a05d60cec24a38fc7c7e0",
+      "results/research/reference_scenario/baseline.json": "7c2ed9539bf1c8f065ce0496262064ebc67ed43ad71f39c7654857ba176abf2d",
+      "results/research/reference_scenario/capex_audit.json": "16ee36dd8876260c975db0016bc54c8b9db986c83becfdf4fd089d546004b203",
       "results/research/singapore/breakeven_ammonia_price.json": "2db78af6128b5a7907e0fd29f58d147aa7d161cb739c344d24cd4634c32e48c8",
       "results/research/singapore/monte_carlo.json": "5fa58a7c923e5951bf9567a92526506523407c9cc5a2e30cf00713d0d109c1a3",
       "results/research/singapore/scenario_results.json": "6ac0b25797859765132d776a9c2e697df810730e6f9550ed147077aba379cd9f",
       "results/research/singapore/tornado.json": "09ae6e3f44e5547d3e6c537085c1e9184da7067567d07ae2c0b61e57f68c47b7",
-      "results/research/uq/row_evidence.json": "b07a6a54b2248fda4c7da82aa9e899baf228c1eccc5a693228da9d353d5187bb",
+      "results/research/uq/row_evidence.json": "9b32e8b4bdb687d03f3b5a2032a98729c0e6a0cadf8f81a048a8581cf036808f",
       "results/research/validation/aspen_kinetic.json": "40a0cdfb916f06f10d2a6d07912501ecc0b2039d44be1b0bfbd7d82cb7ed4db2",
-      "results/research/validation/carbon_pricing.json": "de89f2db8709859ca85ea3f713707194a44e97fce2951478638a87eb587672b2",
+      "results/research/validation/carbon_pricing.json": "9f97532aa3dcbedbb2b62663eb667afa92dffc95e1b8ed2ed5ee6317f3f7c272",
       "results/research/validation/catalyst_comparison.json": "8996c509a7eab738d5c83591554833761012a412f62dedbd062fc882ee11aec7",
       "results/research/validation/catalyst_economics.json": "b791efb4f021d012e17cb191e1bd1d04c48c5125127d3467490c14c29b4b41fc",
       "results/research/validation/economics.json": "1d8b27ab9d3a594be8ac245ae2cce4085d5468331adad49055681b10e02025d7",
       "results/research/validation/enduse.json": "1dbd7613d9b5cc5b3b84f437a7d9ddb994b1b10e552f4cbffea2a13a36e6a622",
-      "results/research/validation/heat_exchanger.json": "b4d5caf53121278abbea593771f6247e12763fc9e50c2d3e5b92e5128a781ce3",
+      "results/research/validation/heat_exchanger.json": "3e2ec9f41487185c8d7655c760a3579eb6cbd5a19c6343a863155b3f985da06e",
       "results/research/validation/kinetics.json": "efe0fcca5f62bfd816b58572d7e7e4e66c0dbd4ddd2cc924cd1188a94cdd11b8",
       "results/research/validation/lca.json": "f74d9ed71f5fbe560b5b9145e5ca4c793fd2d4b60cbd1161b71489783a14f161",
-      "results/research/validation/purification.json": "3992d29369d541768b7ac6a2d1b4c27311328b053420e704530ba2e535d47c33",
-      "results/research/validation/uq.json": "d3a33e5846e83b9b61b345696964e9530206de88347225e867de4150ac3c775d",
+      "results/research/validation/purification.json": "af7c7bde5037b71c89792f9f9a3c2eac39d8d40b4ace300b342aa8ae68189a9d",
+      "results/research/validation/uq.json": "ac4119e64e793690543019b92a1d7a7880ee61476d185558a6c7b3517de02d36",
       "results/research_releases/2026-11-23/evidence_matrix.json": "3c72f509ef02ae8fd59a12963f3cc89c0662d98d4e1992924b6b1f8ce2fbaa60"
-    }
+    },
+    "disclosures": [
+      "Only the row roles, the components, the aggregation rule and the general row standard were fixed in commit f233509 before the analyses. The row-by-row coded rules (v2_h1a to v2_h4e in this script) were written after the results were known and were then tested by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from SUPPORTED to INCONCLUSIVE. Their agreement with the orchestrator's row decisions is by construction, not an independent check. The row standard was applied more strictly in that change, not relaxed.",
+      "The CAPEX selection criteria were recorded together with the choice (commit 7447308); that they preceded the comparison cannot be shown. The chosen estimate is the highest of the candidates: it works against cracking (it raises LCOH, lowers the break-even ammonia price and widens the direct-use advantage in H1). No verdict changes across the independent CAPEX range.",
+      "By the written aggregation rule a MIXED component counts for nothing at hypothesis level (for example [MIXED] gives INCONCLUSIVE and [MIXED, SUPPORTED] gives PARTIALLY SUPPORTED).",
+      "Probabilities from the Monte Carlo and Sobol analyses (for example P(LCOH < 3.06 USD/kg)) are conditional on the assumed triangular and uniform input distributions."
+    ],
+    "fix_pass": "24 November 2026: the accepted findings of three independent reviews were applied (docs/internal/phase2_fix_plan.md): rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under rewritten coded rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d."
   },
   "methodology_version": 2,
   "methodology": "docs/research/verdict_methodology_v2.md",
@@ -131,12 +140,12 @@
           "note": "Primary rows: H1-d INCONCLUSIVE."
         }
       ],
-      "strongest_defensible_statement": "Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis; the advantage over fired cracking cannot be tested because no turbine efficiency for its fuel is sourced.",
+      "strongest_defensible_statement": "Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis against a single sourced gain (NETL 2023/2024, H-class cycle simulation with steam-diluted H2, not like-for-like with the 49.64 % AmCraX turbine; an upper bound); the advantage over fired cracking cannot be tested because no turbine efficiency for its fuel is sourced. The cracker heat is counted at 100 % of the fuel's lower heating value (optimistic, favourable to cracking); at 0.85 the fired-cracking threshold rises from +5.16 to +6.54 pp (computed).",
       "findings_against_essay": [
         "Exhaust-heated full cracking (255.6 USD/MWh) is 1.3 % cheaper than direct use (258.9) on the reference basis.",
         "The essay's 40 % cost advantage of direct use is not reproduced (at most 16.6 %)."
       ],
-      "summary": "Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis; the advantage over fired cracking cannot be tested because no turbine efficiency for its fuel is sourced.",
+      "summary": "Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance. The advantage over cracking + PSA survives the threshold test on every basis against a single sourced gain (NETL 2023/2024, H-class cycle simulation with steam-diluted H2, not like-for-like with the 49.64 % AmCraX turbine; an upper bound); the advantage over fired cracking cannot be tested because no turbine efficiency for its fuel is sourced. The cracker heat is counted at 100 % of the fuel's lower heating value (optimistic, favourable to cracking); at 0.85 the fired-cracking threshold rises from +5.16 to +6.54 pp (computed).",
       "rows": [
         {
           "row_id": "H1-a",
@@ -322,6 +331,30 @@
               "source_type": "python",
               "source_file": "results/research/enduse/turbine_threshold.json",
               "key": "thresholds/full_purified/threshold_delta_pp_reference"
+            },
+            {
+              "quantity": "fired-cracking threshold with cracker heat delivered at 1 of the fuel LHV",
+              "value": 5.164806051620352,
+              "unit": "pp",
+              "source_type": "python",
+              "source_file": "results/research/enduse/turbine_threshold.json",
+              "key": "cracker_heat_fuel_efficiency_sensitivity/cases/0/full_fired/threshold_delta_fuel_pp_vs_direct_turbine"
+            },
+            {
+              "quantity": "fired-cracking threshold with cracker heat delivered at 0.9225 of the fuel LHV",
+              "value": 5.82018605600555,
+              "unit": "pp",
+              "source_type": "python",
+              "source_file": "results/research/enduse/turbine_threshold.json",
+              "key": "cracker_heat_fuel_efficiency_sensitivity/cases/1/full_fired/threshold_delta_fuel_pp_vs_direct_turbine"
+            },
+            {
+              "quantity": "fired-cracking threshold with cracker heat delivered at 0.85 of the fuel LHV",
+              "value": 6.541370064992891,
+              "unit": "pp",
+              "source_type": "python",
+              "source_file": "results/research/enduse/turbine_threshold.json",
+              "key": "cracker_heat_fuel_efficiency_sensitivity/cases/2/full_fired/threshold_delta_fuel_pp_vs_direct_turbine"
             }
           ],
           "uncertainty_range": "fired threshold over bases 3.29 to 8.79 pp; purified 9.68 to 18.10 pp",
@@ -333,7 +366,7 @@
             "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
             "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."
           ],
-          "conclusion": "Under the modelled operating conditions direct NH3 combustion is cheaper than both standalone cracking pathways (7.6 % and 16.5 %), at an assumed equal turbine efficiency of 49.64 %. The cracking + PSA half survives the threshold test on every basis; the fired half cannot be tested because no efficiency is sourced, so the row is not SUPPORTED.",
+          "conclusion": "Under the modelled operating conditions direct NH3 combustion is cheaper than both standalone cracking pathways (7.6 % and 16.5 %), at an assumed equal turbine efficiency of 49.64 %. The cracking + PSA half survives the threshold test on every basis against a single sourced gain (NETL 2023/2024, H-class cycle simulation with steam-diluted H2, not like-for-like with the 49.64 % AmCraX turbine; an upper bound); the fired half cannot be tested because no efficiency is sourced, so the row is not SUPPORTED. Cracker heat is counted at 100 % of the fuel LHV (optimistic, favourable to cracking): at 0.85 the fired threshold rises from +5.16 to +6.54 pp (computed).",
           "conclusion_conditions": "Threshold rule (methodology v2): the direction rests on the assumed H2-rich-fuel turbine efficiency, so for each half (fired cracking, cracking + PSA) the efficiency gain at which cracking equals direct use is computed on every cost basis and compared with sourced gains. SUPPORTED if sourced gains lie below the threshold on every basis for both halves; CONTRADICTED if above on every basis for both; otherwise INCONCLUSIVE. Here: fired half 'no_source', cracking + PSA half 'below'.",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/enduse/assumptions.json, results/research/enduse/enduse_results.json, results/research/enduse/turbine_threshold.json; version 2 verdict derived in the same script (function v2_h1a).",
           "links": {
@@ -562,6 +595,7 @@
           "numerical_conclusions": [
             "Direct NH3 258.9 USD/MWh against fired cracking 280.1 (7.6 % cheaper) and cracking + PSA 310.2 (16.5 % cheaper), at the equal-efficiency assumption 49.64 %.",
             "Fired cracking needs +5.16 pp (range 3.29 to 8.79 over 11 bases); no turbine efficiency on fired-cracker H2/N2 fuel is sourced.",
+            "With the cracker heat delivered at less than 100 % of the fuel LHV the fired threshold rises: +5.16 pp at 1, +5.82 pp at 0.9225, +6.54 pp at 0.85 (reference basis, computed).",
             "Cracking + PSA needs +12.55 pp (range 9.68 to 18.10), above the only sourced gain (6.08 to 7.30 pp, NETL pure H2, an upper bound) on every basis."
           ],
           "assumptions": [
@@ -1534,6 +1568,38 @@
               "key": "row_evidence/H1-d/numbers/benchmarks/ne_asia_smr_production_cost"
             },
             {
+              "quantity": "delivered low-carbon H2 benchmark, East Asia",
+              "value": 6.0,
+              "unit": "USD/kg H2",
+              "source_type": "literature",
+              "source_file": "results/research/enduse/turbine_threshold.json",
+              "key": "row_evidence/H1-d/numbers/benchmarks/blue_delivered_east_asia"
+            },
+            {
+              "quantity": "baseline LCOH with supplementary NH3 fuel at 1 of its LHV",
+              "value": 4.015461254695034,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/reference_scenario/baseline.json",
+              "key": "fuel_efficiency_sensitivity/cases/0/lcoh_USD_per_kg"
+            },
+            {
+              "quantity": "baseline LCOH with supplementary NH3 fuel at 0.9225 of its LHV",
+              "value": 4.037936635619435,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/reference_scenario/baseline.json",
+              "key": "fuel_efficiency_sensitivity/cases/1/lcoh_USD_per_kg"
+            },
+            {
+              "quantity": "baseline LCOH with supplementary NH3 fuel at 0.85 of its LHV",
+              "value": 4.062672348970767,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/reference_scenario/baseline.json",
+              "key": "fuel_efficiency_sensitivity/cases/2/lcoh_USD_per_kg"
+            },
+            {
               "quantity": "electricity per kg NH3, direct",
               "value": 2.5651555555555556,
               "unit": "kWh/kg NH3",
@@ -1555,15 +1621,16 @@
           "limitations": [
             "No route other than cracking is evaluated for producing H2 from NH3; the comparison is between end uses, not between H2 sources (see H2 for SMR comparators)."
           ],
-          "conclusion": "The conversion loss for power depends on the H2 turbine efficiency: at sourced gains cracking + PSA gives about the same electricity as direct combustion, so the energy half is unresolved; cracked H2 is also dearer than the benchmark it was compared with.",
+          "conclusion": "The conversion loss for power depends on the H2 turbine efficiency: at sourced gains cracking + PSA gives about the same electricity as direct combustion, so the energy half is unresolved; cracked H2 is dearer than the 3.06 USD/kg NE Asia SMR marker and cheaper than the 6.0 USD/kg delivered low-carbon benchmark, so the cost comparison depends on the benchmark.",
           "conclusion_conditions": "Energy rule (methodology v2): the 'larger loss when H2 is an intermediate fuel' half is tested at sourced H2-turbine efficiencies, not at the assumed copy. SUPPORTED if cracking + PSA gives less electricity per kg NH3 than direct combustion at every sourced efficiency; CONTRADICTED if more at every sourced efficiency; otherwise INCONCLUSIVE. Here the sourced range gives 'straddle' relative to direct.",
-          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/enduse/assumptions.json, results/research/enduse/enduse_results.json, results/research/enduse/turbine_threshold.json; version 2 verdict derived in the same script (function v2_h1d).",
+          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/enduse/assumptions.json, results/research/enduse/enduse_results.json, results/research/enduse/turbine_threshold.json, results/research/reference_scenario/baseline.json; version 2 verdict derived in the same script (function v2_h1d).",
           "links": {
             "data": [
               "results/research/enduse/assumptions.json",
               "results/research/enduse/enduse_results.json",
               "results/research/enduse/pathway_table_hydrogen.csv",
-              "results/research/enduse/turbine_threshold.json"
+              "results/research/enduse/turbine_threshold.json",
+              "results/research/reference_scenario/baseline.json"
             ],
             "figures": [
               "results/figures/research/enduse_hydrogen_cost_ci.png",
@@ -1611,7 +1678,7 @@
           "numerical_conclusions": [
             "H2 as product keeps 87.7 % of the NH3 LHV (Aspen).",
             "Electricity per kg NH3: direct 2.565; cracking + PSA 2.251 at the efficiency copy, 2.526 to 2.582 at the NETL gains (straddles direct).",
-            "Cracked H2 costs 4.015 USD/kg (5.174 SGD/kg), above the 3.06 USD/kg NE Asia SMR marker."
+            "Cracked H2 costs 4.015 USD/kg (5.174 SGD/kg), above the 3.06 USD/kg NE Asia SMR marker and below the 6.0 USD/kg delivered low-carbon benchmark (fuel counted at 100 % of its lower heating value, optimistic; 4.038 to 4.063 USD/kg at fuel efficiencies 0.9225 and 0.85)."
           ],
           "assumptions": [
             "stored Aspen PSA split; reference capex; benchmarks of mixed basis and grade"
@@ -1854,19 +1921,19 @@
       "verdict": "MIXED",
       "verdict_v1": "INCONCLUSIVE",
       "verdict_v1_rule_on_current_rows": "INCONCLUSIVE",
-      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H2-E SUPPORTED; H2-C SUPPORTED; H2-X CONTRADICTED. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: SUPPORTED: H2-a, H2-b, H2-c, H2-d; CONTRADICTED: H2-e.",
+      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H2-E PARTIALLY SUPPORTED; H2-C SUPPORTED; H2-X CONTRADICTED. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: SUPPORTED: H2-a, H2-c, H2-d; CONTRADICTED: H2-e; INCONCLUSIVE: H2-b.",
       "components": [
         {
           "id": "H2-E",
           "title": "Affordable ammonia is essential to economic competitiveness",
-          "verdict": "SUPPORTED",
+          "verdict": "PARTIALLY SUPPORTED",
           "primary_rows": [
             "H2-a",
             "H2-b"
           ],
           "secondary_rows": [],
-          "envelope": "H2-a: NH3 price above the 50 %-feed-share threshold (see numbers) at capacity scale 1, both heat-integration cases, reference CAPEX with multiplier up to 1.5 and PSA recovery down to 0.756 H2-b: against the NE Asia SMR marker and the Singapore willingness-to-pay figure; plant gate; CAPEX multiplier 0.41-1.5 One benchmark only.",
-          "note": "Primary rows: H2-a SUPPORTED, H2-b SUPPORTED."
+          "envelope": "H2-a: Feed above 50 % of LCOH for NH3 above 115 USD/t (CAPEX x1) and for CAPEX below x4.27 at 450 USD/t (x2.81 at 300 USD/t). The CAPEX multipliers considered reach x1.50 (Cho Table 8 sensitivity bound); the independent published estimates correspond to x0.41 to x0.85.",
+          "note": "Primary rows: H2-a SUPPORTED, H2-b INCONCLUSIVE."
         },
         {
           "id": "H2-C",
@@ -1892,12 +1959,12 @@
           "note": "Primary rows: H2-e CONTRADICTED."
         }
       ],
-      "strongest_defensible_statement": "Ammonia price dominates the cost of cracked hydrogen (feed 76 % of LCOH on the reference basis, on every sourced price and CAPEX basis), and competitiveness with the SMR marker needs ammonia at or below about 320 USD/t. Low-carbon ammonia is necessary for lower emissions than fossil alternatives. Under the actual Singapore carbon tax, low carbon intensity is not rewarded (cross-claim H2-X CONTRADICTED); under a hypothetical life-cycle price, not Singapore law, blue overtakes grey near 33 SGD/t with a wide range.",
+      "strongest_defensible_statement": "Ammonia price dominates the cost of cracked hydrogen (feed 76 % of LCOH on the reference basis, on every sourced price and CAPEX basis). Competitiveness with the single NE Asia SMR marker (3.06 USD/kg) needs ammonia at or below about 320 USD/t (277 to 379 over CAPEX and non-feed inputs), which only the low ends of the sourced price ranges reach; against a 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t (component H2-E PARTIALLY SUPPORTED). Low-carbon ammonia is necessary for lower emissions than fossil alternatives (H2-C SUPPORTED). Under the actual Singapore carbon tax, low carbon intensity is not rewarded (cross-claim H2-X CONTRADICTED); under a hypothetical life-cycle price, not Singapore law, blue overtakes grey near 33 SGD/t with a wide range.",
       "findings_against_essay": [
-        "Grey ammonia at the central price is not cheap enough: P(LCOH < 3.06 USD/kg) = 0.014.",
+        "Grey ammonia at the central price is not cheap enough against the 3.06 USD/kg marker: P(LCOH < 3.06 USD/kg) = 0.014, conditional on the assumed triangular input distributions.",
         "Under the actual Singapore carbon tax the tax is zero for every ammonia route, so low-carbon ammonia earns no cost advantage."
       ],
-      "summary": "Ammonia price dominates the cost of cracked hydrogen (feed 76 % of LCOH on the reference basis, on every sourced price and CAPEX basis), and competitiveness with the SMR marker needs ammonia at or below about 320 USD/t. Low-carbon ammonia is necessary for lower emissions than fossil alternatives. Under the actual Singapore carbon tax, low carbon intensity is not rewarded (cross-claim H2-X CONTRADICTED); under a hypothetical life-cycle price, not Singapore law, blue overtakes grey near 33 SGD/t with a wide range.",
+      "summary": "Ammonia price dominates the cost of cracked hydrogen (feed 76 % of LCOH on the reference basis, on every sourced price and CAPEX basis). Competitiveness with the single NE Asia SMR marker (3.06 USD/kg) needs ammonia at or below about 320 USD/t (277 to 379 over CAPEX and non-feed inputs), which only the low ends of the sourced price ranges reach; against a 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t (component H2-E PARTIALLY SUPPORTED). Low-carbon ammonia is necessary for lower emissions than fossil alternatives (H2-C SUPPORTED). Under the actual Singapore carbon tax, low carbon intensity is not rewarded (cross-claim H2-X CONTRADICTED); under a hypothetical life-cycle price, not Singapore law, blue overtakes grey near 33 SGD/t with a wide range.",
       "rows": [
         {
           "row_id": "H2-a",
@@ -1905,14 +1972,14 @@
           "verdict": "SUPPORTED",
           "singapore_scenario": "Jurong Island cracker (stored Aspen baseline capacity), imported NH3 at the Singapore price scenarios (grey, blue, green 2050, green 2030, green current), heat integration on.",
           "aspen_model": "Stored Aspen Plus V15 baseline (results/simulations/baseline.json): NH3 feed and fuel per kg H2.",
-          "python_model": "amcrax.economics.singapore.evaluate (equipment-level CAPEX screening estimate), tornado sensitivity.",
+          "python_model": "amcrax.economics.singapore.evaluate (unified reference scenario, CAPEX cho2026_itemised_v1), tornado sensitivity.",
           "case_ids": [
             "baseline (stored Aspen)",
             "grey|heat_integration_on"
           ],
           "input_assumptions": [
             "NH3 price scenarios and the 300-610 USD/t tornado range are inputs (Cho Table 8 and secondary web prices); the feed share is computed but scales with these assumed prices.",
-            "Equipment-level CAPEX is a feed-scaled screening estimate and probably optimistic, which raises the feed share."
+            "Reference CAPEX (cho2026_itemised_v1) is the highest of the comparable estimates, which lowers the feed share (conservative for this row)."
           ],
           "literature": [
             {
@@ -2053,23 +2120,23 @@
               "key": "row_evidence/H2-a/numbers/lowest_sourced_nh3_price_USD_per_t"
             },
             {
-              "quantity": "CAPEX multiple at which capital + fixed opex equal feed, 300 USD/t",
-              "value": 3.0943602409433537,
+              "quantity": "CAPEX multiple at which the feed share falls to 50 % of LCOH, 300 USD/t",
+              "value": 2.805622108621935,
               "unit": "-",
               "source_type": "python",
-              "source_file": "results/research/carbon_pricing/row_evidence.json",
-              "key": "row_evidence/H2-a/threshold/capex_multiple_capital_plus_fixed_equals_feed_at_300"
+              "source_file": "results/research/carbon_pricing/feed_dominance.json",
+              "key": "thresholds/capex_multiple/[nh3_price_USD_per_t=300]/feed_share_falls_to_50pct"
             },
             {
-              "quantity": "same, 450 USD/t",
-              "value": 4.6987384781776065,
+              "quantity": "CAPEX multiple at which the feed share falls to 50 % of LCOH, 450 USD/t",
+              "value": 4.268812116635679,
               "unit": "-",
               "source_type": "python",
-              "source_file": "results/research/carbon_pricing/row_evidence.json",
-              "key": "row_evidence/H2-a/threshold/capex_multiple_capital_plus_fixed_equals_feed_at_450"
+              "source_file": "results/research/carbon_pricing/feed_dominance.json",
+              "key": "thresholds/capex_multiple/[nh3_price_USD_per_t=450]/feed_share_falls_to_50pct"
             },
             {
-              "quantity": "largest sourced CAPEX multiplier",
+              "quantity": "largest CAPEX multiplier in the Cho Table 8 sensitivity (a sensitivity bound, not a sourced plant cost)",
               "value": 1.5,
               "unit": "-",
               "source_type": "literature",
@@ -2102,16 +2169,17 @@
             }
           ],
           "uncertainty_range": "Sobol ST of the NH3 price: grey 0.896 [0.875, 0.917], blue 0.726, green_current 0.636, green_2030 0.944 (95 % bootstrap CI in gsa_sobol.json); S1 CIs are wide (Saltelli 2010 estimator variance), ST CIs narrow; top-3 ranking unchanged under a right-skewed lognormal CAPEX MC (n=5000) feed share p5-p95 0.694-0.802; feed is the largest item in 1.0000 of draws",
-          "key_uncertainty": "Outside this envelope the verdict may change: NH3 price above the 50 %-feed-share threshold (see numbers) at capacity scale 1, both heat-integration cases, reference CAPEX with multiplier up to 1.5 and PSA recovery down to 0.756",
+          "key_uncertainty": "Outside this envelope the verdict may change: Feed above 50 % of LCOH for NH3 above 115 USD/t (CAPEX x1) and for CAPEX below x4.27 at 450 USD/t (x2.81 at 300 USD/t). The CAPEX multipliers considered reach x1.50 (Cho Table 8 sensitivity bound); the independent published estimates correspond to x0.41 to x0.85.",
           "limitations": [
             "Benchmark and price inputs partly from search-result text (secondary_web).",
             "No product compression, NOx treatment or storage in the plant boundary."
           ],
           "conclusion": "Ammonia price dominates the cost of cracked hydrogen on every sourced price and CAPEX basis. Caveat: the cost excluding feed (REC) is driven by CAPEX and PSA recovery, not by the NH3 price.",
-          "conclusion_conditions": "Threshold rule (methodology v2): the feed share follows from assumed prices, so the NH3 price at which feed falls to half of LCOH (base, adverse non-feed inputs, heat integration off) is compared with the lowest sourced NH3 price, and the CAPEX multiple at which capital plus fixed opex equal feed (at the lowest sourced price) with the largest sourced CAPEX multiplier. SUPPORTED if every sourced value lies on the feed-dominant side of both thresholds; otherwise INCONCLUSIVE. Here: price test passed, CAPEX test passed. The Sobol index is reported as supporting evidence, not as the basis.",
-          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/carbon_pricing/row_evidence.json, results/research/singapore/scenario_results.json, results/research/singapore/tornado.json, results/research/uq/row_evidence.json; version 2 verdict derived in the same script (function v2_h2a).",
+          "conclusion_conditions": "Threshold rule (methodology v2): the feed share follows from assumed prices, so the NH3 price at which feed falls to half of LCOH (base, adverse non-feed inputs, heat integration off) is compared with the lowest sourced NH3 price, and the CAPEX multiple at which the feed share falls to half of LCOH (at the lowest sourced price; same comparator) with the largest CAPEX multiplier considered (the Cho Table 8 sensitivity bound; the independent published estimates are lower). SUPPORTED if every value lies on the feed-dominant side of both thresholds; otherwise INCONCLUSIVE. Here: price test passed, CAPEX test passed. The Sobol index is reported as supporting evidence, not as the basis.",
+          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/carbon_pricing/feed_dominance.json, results/research/carbon_pricing/row_evidence.json, results/research/singapore/scenario_results.json, results/research/singapore/tornado.json, results/research/uq/row_evidence.json; version 2 verdict derived in the same script (function v2_h2a).",
           "links": {
             "data": [
+              "results/research/carbon_pricing/feed_dominance.json",
               "results/research/carbon_pricing/row_evidence.json",
               "results/research/singapore/scenario_breakdown.csv",
               "results/research/singapore/scenario_results.json",
@@ -2130,9 +2198,9 @@
           "verdict_v1": "SUPPORTED",
           "role": "primary",
           "component": "H2-E",
-          "envelope": "NH3 price above the 50 %-feed-share threshold (see numbers) at capacity scale 1, both heat-integration cases, reference CAPEX with multiplier up to 1.5 and PSA recovery down to 0.756",
+          "envelope": "Feed above 50 % of LCOH for NH3 above 115 USD/t (CAPEX x1) and for CAPEX below x4.27 at 450 USD/t (x2.81 at 300 USD/t). The CAPEX multipliers considered reach x1.50 (Cho Table 8 sensitivity bound); the independent published estimates correspond to x0.41 to x0.85.",
           "threshold": {
-            "parameter": "NH3 price for a 50 % feed share; CAPEX multiple at which capital + fixed opex equal feed",
+            "parameter": "NH3 price for a 50 % feed share; CAPEX multiple at which the feed share falls to 50 %",
             "values": [
               {
                 "quantity": "NH3 price threshold, base",
@@ -2151,12 +2219,12 @@
                 "key": "row_evidence/H2-a/numbers/nh3_price_threshold_feed_share_50pct_USD_per_t/adverse_capex1.5_psa0.756_cat_life1_price2x_hours7000"
               },
               {
-                "quantity": "CAPEX multiple threshold at 300 USD/t",
-                "value": 3.0943602409433537,
+                "quantity": "CAPEX multiple threshold (50 % feed share) at 300 USD/t",
+                "value": 2.805622108621935,
                 "unit": "-",
                 "source_type": "python",
-                "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-a/threshold/capex_multiple_capital_plus_fixed_equals_feed_at_300"
+                "source_file": "results/research/carbon_pricing/feed_dominance.json",
+                "key": "thresholds/capex_multiple/[nh3_price_USD_per_t=300]/feed_share_falls_to_50pct"
               }
             ],
             "sourced_values": [
@@ -2169,7 +2237,7 @@
                 "key": "row_evidence/H2-a/numbers/lowest_sourced_nh3_price_USD_per_t"
               },
               {
-                "quantity": "largest sourced CAPEX multiplier",
+                "quantity": "largest CAPEX multiplier in the Cho Table 8 sensitivity",
                 "value": 1.5,
                 "unit": "-",
                 "source_type": "literature",
@@ -2179,13 +2247,13 @@
             ],
             "comparison": {
               "price": "sourced above threshold",
-              "capex": "sourced below threshold"
+              "capex": "multipliers below threshold"
             }
           },
           "numerical_conclusions": [
             "Feed is 75.7 % of LCOH 4.015 USD/kg.",
             "Feed stays above half of LCOH down to 115 USD/t (174 with adverse non-feed inputs, 125 without heat integration); the lowest sourced price is 300 USD/t.",
-            "Capital + fixed opex reach the feed cost only at CAPEX x4.70 (x3.09 at 300 USD/t); sourced multipliers reach x1.50.",
+            "Feed stays above half of LCOH up to CAPEX x4.27 (x2.81 at 300 USD/t); the largest multiplier considered is x1.50 (Cho Table 8 sensitivity bound), and the independent published estimates correspond to x0.41 to x0.85.",
             "Sobol total-effect index of the NH3 price 0.896 [0.875, 0.917]."
           ],
           "assumptions": [
@@ -2201,12 +2269,12 @@
             "numerical_verification",
             "literature_comparison"
           ],
-          "verdict_rule": "Threshold rule (methodology v2): the feed share follows from assumed prices, so the NH3 price at which feed falls to half of LCOH (base, adverse non-feed inputs, heat integration off) is compared with the lowest sourced NH3 price, and the CAPEX multiple at which capital plus fixed opex equal feed (at the lowest sourced price) with the largest sourced CAPEX multiplier. SUPPORTED if every sourced value lies on the feed-dominant side of both thresholds; otherwise INCONCLUSIVE. Here: price test passed, CAPEX test passed. The Sobol index is reported as supporting evidence, not as the basis."
+          "verdict_rule": "Threshold rule (methodology v2): the feed share follows from assumed prices, so the NH3 price at which feed falls to half of LCOH (base, adverse non-feed inputs, heat integration off) is compared with the lowest sourced NH3 price, and the CAPEX multiple at which the feed share falls to half of LCOH (at the lowest sourced price; same comparator) with the largest CAPEX multiplier considered (the Cho Table 8 sensitivity bound; the independent published estimates are lower). SUPPORTED if every value lies on the feed-dominant side of both thresholds; otherwise INCONCLUSIVE. Here: price test passed, CAPEX test passed. The Sobol index is reported as supporting evidence, not as the basis."
         },
         {
           "row_id": "H2-b",
           "sub_claim": "Only affordable ammonia keeps cracked hydrogen competitive with the hydrogen benchmarks relevant to Singapore.",
-          "verdict": "SUPPORTED",
+          "verdict": "INCONCLUSIVE",
           "singapore_scenario": "Jurong Island cracker (stored Aspen baseline capacity), imported NH3 at the Singapore price scenarios (grey, blue, green 2050, green 2030, green current), heat integration on.",
           "aspen_model": "Stored Aspen Plus V15 baseline activities.",
           "python_model": "amcrax.economics.singapore.breakeven_nh3_price and Monte Carlo (n and seed in monte_carlo.json).",
@@ -2374,30 +2442,64 @@
               "key": "row_evidence/H2-b/numbers/breakeven_vs_ne_asia_smr_USD_per_t"
             },
             {
-              "quantity": "Monte Carlo P(LCOH < 3.06), grey",
+              "quantity": "Monte Carlo P(LCOH < 3.06), grey, under the assumed input distributions",
               "value": 0.014,
               "unit": "probability",
               "source_type": "python",
               "source_file": "results/research/carbon_pricing/row_evidence.json",
               "key": "row_evidence/H2-b/numbers/mc_P_lcoh_below_3p06_grey"
+            },
+            {
+              "quantity": "break-even NH3 price against the 3.06 USD/kg marker, favourable non-feed inputs",
+              "value": 379.26324211770896,
+              "unit": "USD/t",
+              "source_type": "python",
+              "source_file": "results/research/uq/row_evidence.json",
+              "key": "row_evidence/H2-b/numbers/breakeven_nh3_price_favourable_nonfeed_inputs_USD_per_t"
+            },
+            {
+              "quantity": "break-even NH3 price against the 6.0 USD/kg delivered low-carbon benchmark",
+              "value": 719.9991915515642,
+              "unit": "USD/t",
+              "source_type": "python",
+              "source_file": "results/research/carbon_pricing/feed_dominance.json",
+              "key": "breakeven_nh3_USD_per_t/blue_delivered_east_asia"
+            },
+            {
+              "quantity": "delivered low-carbon H2 benchmark, East Asia",
+              "value": 6.0,
+              "unit": "USD/kg H2",
+              "source_type": "literature",
+              "source_file": "results/research/carbon_pricing/feed_dominance.json",
+              "key": "breakeven_benchmarks_USD_per_kg/blue_delivered_east_asia"
+            },
+            {
+              "quantity": "NE Asia SMR production-cost marker",
+              "value": 3.06,
+              "unit": "USD/kg H2",
+              "source_type": "literature",
+              "source_file": "results/research/carbon_pricing/feed_dominance.json",
+              "key": "breakeven_benchmarks_USD_per_kg/ne_asia_smr_production_cost"
             }
           ],
-          "uncertainty_range": "break-even 277-371 USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = 0.0140",
-          "key_uncertainty": "Outside this envelope the verdict may change: against the NE Asia SMR marker and the Singapore willingness-to-pay figure; plant gate; CAPEX multiplier 0.41-1.5 One benchmark only.",
+          "uncertainty_range": "break-even 277-371 USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = 0.0140 (P conditional on the assumed input distributions.)",
+          "key_uncertainty": "Outside this envelope the verdict may change: Plant gate, no compression or delivery. Benchmarks: the 3.06 USD/kg NE Asia SMR marker gives a break-even of 277 to 379 USD/t (CAPEX x0.41 to x1.5 and favourable non-feed inputs); the 6.0 USD/kg delivered low-carbon benchmark gives 720 USD/t. The Singapore willingness-to-pay figure gives 312 USD/t and the low-carbon offer FOB Malaysia 1264 USD/t.",
           "limitations": [
             "Break-even is for the cracker gate; landed cost and product compression excluded.",
             "Constant prices, pre-tax NPV.",
             "Benchmarks are read from breakeven_ammonia_price.json as stored at build time; their sources are listed there."
           ],
-          "conclusion": "Competitiveness with the SMR marker requires NH3 at or below about 320 USD/t; this holds across the sourced CAPEX range. It is a necessity statement: at central sourced prices, grey ammonia included, cracked hydrogen is not competitive.",
-          "conclusion_conditions": "Necessity rule (methodology v2 threshold form, row read as 'only affordable ammonia keeps it competitive'): the break-even NH3 price against the benchmark is computed over the sourced CAPEX range. SUPPORTED if it exists on every basis and lies below every central sourced NH3 price, so that competitiveness requires ammonia cheaper than any central scenario; otherwise INCONCLUSIVE. Under the other reading ('is competitiveness achieved at sourced prices', proposed by the UQ workstream) the full sourced ranges straddle the threshold and the row would be INCONCLUSIVE; the adversarial review must test this choice of reading.",
-          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/carbon_pricing/row_evidence.json, results/research/singapore/breakeven_ammonia_price.json, results/research/singapore/monte_carlo.json, results/research/singapore/scenario_results.json; version 2 verdict derived in the same script (function v2_h2b).",
+          "conclusion": "The threshold is the finding: competitiveness with the single NE Asia SMR marker (3.06 USD/kg) needs ammonia at or below about 320 USD/t (277 to 379 over CAPEX and non-feed inputs), which only the low ends of the sourced price ranges reach; against the 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t. Sourced prices straddle both, so the row is INCONCLUSIVE.",
+          "conclusion_conditions": "Threshold rule (methodology v2): the break-even NH3 price is computed against each named benchmark (the 3.06 USD/kg NE Asia SMR marker over the CAPEX range and with favourable non-feed inputs; the 6.0 USD/kg delivered low-carbon benchmark) and compared with the FULL sourced NH3 price ranges (low to high of every scenario). SUPPORTED if every sourced price lies above every break-even for every benchmark; CONTRADICTED if every sourced price lies below every break-even for every benchmark; otherwise INCONCLUSIVE and the threshold is the finding. Here: 3.06 USD/kg marker 'straddle'; 6.0 USD/kg delivered benchmark 'straddle'. This rule replaces the earlier necessity reading against the central prices only, which had no way to fail (fix pass 24 Nov 2026).",
+          "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/carbon_pricing/feed_dominance.json, results/research/carbon_pricing/row_evidence.json, results/research/singapore/breakeven_ammonia_price.json, results/research/singapore/monte_carlo.json, results/research/singapore/scenario_results.json, results/research/uq/row_evidence.json; version 2 verdict derived in the same script (function v2_h2b).",
           "links": {
             "data": [
+              "results/research/carbon_pricing/feed_dominance.json",
               "results/research/carbon_pricing/row_evidence.json",
               "results/research/singapore/breakeven_ammonia_price.json",
               "results/research/singapore/monte_carlo.json",
-              "results/research/singapore/scenario_results.json"
+              "results/research/singapore/scenario_results.json",
+              "results/research/uq/row_evidence.json"
             ],
             "figures": [
               "results/figures/research/singapore_breakeven.png",
@@ -2409,9 +2511,9 @@
           "verdict_v1": "SUPPORTED",
           "role": "primary",
           "component": "H2-E",
-          "envelope": "against the NE Asia SMR marker and the Singapore willingness-to-pay figure; plant gate; CAPEX multiplier 0.41-1.5 One benchmark only.",
+          "envelope": "Plant gate, no compression or delivery. Benchmarks: the 3.06 USD/kg NE Asia SMR marker gives a break-even of 277 to 379 USD/t (CAPEX x0.41 to x1.5 and favourable non-feed inputs); the 6.0 USD/kg delivered low-carbon benchmark gives 720 USD/t. The Singapore willingness-to-pay figure gives 312 USD/t and the low-carbon offer FOB Malaysia 1264 USD/t.",
           "threshold": {
-            "parameter": "NH3 price at which LCOH equals the 3.06 USD/kg benchmark",
+            "parameter": "NH3 price at which LCOH equals each named benchmark",
             "values": [
               {
                 "quantity": "break-even NH3 price, capex_multiplier_0.500",
@@ -2452,67 +2554,128 @@
                 "source_type": "python",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
                 "key": "row_evidence/H2-b/numbers/breakeven_by_capex_multiplier/capex_multiplier_1.500"
+              },
+              {
+                "quantity": "break-even against the 3.06 marker, favourable non-feed inputs",
+                "value": 379.26324211770896,
+                "unit": "USD/t",
+                "source_type": "python",
+                "source_file": "results/research/uq/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/breakeven_nh3_price_favourable_nonfeed_inputs_USD_per_t"
+              },
+              {
+                "quantity": "break-even against the 6.0 delivered benchmark",
+                "value": 719.9991915515642,
+                "unit": "USD/t",
+                "source_type": "python",
+                "source_file": "results/research/carbon_pricing/feed_dominance.json",
+                "key": "breakeven_nh3_USD_per_t/blue_delivered_east_asia"
               }
             ],
             "sourced_values": [
               {
-                "quantity": "central sourced NH3 price, grey",
-                "value": 450,
+                "quantity": "sourced NH3 price, grey, low",
+                "value": 300,
                 "unit": "USD/t",
                 "source_type": "literature",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/grey/value"
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/grey/low"
               },
               {
-                "quantity": "central sourced NH3 price, blue",
-                "value": 487,
+                "quantity": "sourced NH3 price, blue, low",
+                "value": 400,
                 "unit": "USD/t",
                 "source_type": "literature",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/blue/value"
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/blue/low"
               },
               {
-                "quantity": "central sourced NH3 price, green_current",
-                "value": 1000,
+                "quantity": "sourced NH3 price, green_current, low",
+                "value": 887,
                 "unit": "USD/t",
                 "source_type": "literature",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_current/value"
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_current/low"
               },
               {
-                "quantity": "central sourced NH3 price, green_2030",
-                "value": 709,
+                "quantity": "sourced NH3 price, green_2030, low",
+                "value": 472,
                 "unit": "USD/t",
                 "source_type": "literature",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2030/value"
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2030/low"
               },
               {
-                "quantity": "central sourced NH3 price, green_2050",
-                "value": 463,
+                "quantity": "sourced NH3 price, green_2050, low",
+                "value": 315,
                 "unit": "USD/t",
                 "source_type": "literature",
                 "source_file": "results/research/carbon_pricing/row_evidence.json",
-                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2050/value"
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2050/low"
+              },
+              {
+                "quantity": "sourced NH3 price, grey, high",
+                "value": 610,
+                "unit": "USD/t",
+                "source_type": "literature",
+                "source_file": "results/research/carbon_pricing/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/grey/high"
+              },
+              {
+                "quantity": "sourced NH3 price, blue, high",
+                "value": 574,
+                "unit": "USD/t",
+                "source_type": "literature",
+                "source_file": "results/research/carbon_pricing/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/blue/high"
+              },
+              {
+                "quantity": "sourced NH3 price, green_current, high",
+                "value": 1052,
+                "unit": "USD/t",
+                "source_type": "literature",
+                "source_file": "results/research/carbon_pricing/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_current/high"
+              },
+              {
+                "quantity": "sourced NH3 price, green_2030, high",
+                "value": 946,
+                "unit": "USD/t",
+                "source_type": "literature",
+                "source_file": "results/research/carbon_pricing/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2030/high"
+              },
+              {
+                "quantity": "sourced NH3 price, green_2050, high",
+                "value": 611,
+                "unit": "USD/t",
+                "source_type": "literature",
+                "source_file": "results/research/carbon_pricing/row_evidence.json",
+                "key": "row_evidence/H2-b/numbers/scenario_prices_USD_per_t/green_2050/high"
               }
             ],
-            "comparison": "all central prices above every break-even"
+            "comparison": {
+              "3.06 USD/kg marker": "straddle",
+              "6.0 USD/kg delivered benchmark": "straddle"
+            }
           },
           "numerical_conclusions": [
-            "Break-even NH3 price 320 USD/t (277 to 371 over the CAPEX range); every central sourced price is 450 USD/t or more.",
-            "Adverse finding: grey NH3 at the central price is not cheap enough; P(LCOH < 3.06) = 0.014. Only the low ends of the sourced ranges (300 USD/t) reach the break-even."
+            "Against the 3.06 USD/kg NE Asia SMR marker the break-even NH3 price is 320 USD/t (277 to 371 over the CAPEX range; 379 with favourable non-feed inputs).",
+            "Against the 6.0 USD/kg delivered low-carbon benchmark it is 720 USD/t.",
+            "Sourced NH3 prices span 300 to 1052 USD/t (central 450 or more): they lie on both sides of both break-evens.",
+            "P(LCOH < 3.06) = 0.014 for grey ammonia, conditional on the assumed triangular input distributions (the lower bound of the assumed NH3 price lies 20 USD/t below the break-even)."
           ],
           "assumptions": [
             "benchmark 3.06 USD/kg NE Asia SMR incl. capex (Argus, production-cost marker, not a Singapore price)",
             "plant-gate LCOH, no compression or delivery",
             "reference CAPEX"
           ],
-          "uncertainty": "break-even 277-371 USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = 0.0140",
+          "uncertainty": "break-even 277-371 USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = 0.0140 (P conditional on the assumed input distributions.)",
           "evidence_kinds": [
             "numerical_verification",
             "literature_comparison"
           ],
-          "verdict_rule": "Necessity rule (methodology v2 threshold form, row read as 'only affordable ammonia keeps it competitive'): the break-even NH3 price against the benchmark is computed over the sourced CAPEX range. SUPPORTED if it exists on every basis and lies below every central sourced NH3 price, so that competitiveness requires ammonia cheaper than any central scenario; otherwise INCONCLUSIVE. Under the other reading ('is competitiveness achieved at sourced prices', proposed by the UQ workstream) the full sourced ranges straddle the threshold and the row would be INCONCLUSIVE; the adversarial review must test this choice of reading."
+          "verdict_rule": "Threshold rule (methodology v2): the break-even NH3 price is computed against each named benchmark (the 3.06 USD/kg NE Asia SMR marker over the CAPEX range and with favourable non-feed inputs; the 6.0 USD/kg delivered low-carbon benchmark) and compared with the FULL sourced NH3 price ranges (low to high of every scenario). SUPPORTED if every sourced price lies above every break-even for every benchmark; CONTRADICTED if every sourced price lies below every break-even for every benchmark; otherwise INCONCLUSIVE and the threshold is the finding. Here: 3.06 USD/kg marker 'straddle'; 6.0 USD/kg delivered benchmark 'straddle'. This rule replaces the earlier necessity reading against the central prices only, which had no way to fail (fix pass 24 Nov 2026)."
         },
         {
           "row_id": "H2-c",
@@ -2967,7 +3130,7 @@
             "NOx and N2O are simulated values from one paper."
           ],
           "conclusion": "Low-carbon ammonia is necessary for cracked hydrogen to be less carbon-intensive than unabated fossil hydrogen.",
-          "conclusion_conditions": "Necessity rule (methodology v2 threshold form): SUPPORTED if the lowest sourced grey gate factor lies above the highest break-even against unabated SMR and a low-carbon route lies below the lowest break-even over its whole sourced range; otherwise INCONCLUSIVE. Against SMR with CCS only green passes (reported, not voted).",
+          "conclusion_conditions": "Necessity rule (methodology v2 threshold form): SUPPORTED if the lowest sourced grey gate factor lies above the highest break-even against unabated SMR and a low-carbon route lies below the lowest break-even over its whole sourced range; otherwise INCONCLUSIVE. Against SMR + CCS (break-even 0.41-0.67, reported, not voted) grey fails; green passes only below 0.41-0.67 (its high value 0.48 fails the lowest-CCS case).",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/carbon_pricing/row_evidence.json, results/research/lca/lca_results.json; version 2 verdict derived in the same script (function v2_h2d).",
           "links": {
             "data": [
@@ -3047,7 +3210,7 @@
             "numerical_verification",
             "literature_comparison"
           ],
-          "verdict_rule": "Necessity rule (methodology v2 threshold form): SUPPORTED if the lowest sourced grey gate factor lies above the highest break-even against unabated SMR and a low-carbon route lies below the lowest break-even over its whole sourced range; otherwise INCONCLUSIVE. Against SMR with CCS only green passes (reported, not voted)."
+          "verdict_rule": "Necessity rule (methodology v2 threshold form): SUPPORTED if the lowest sourced grey gate factor lies above the highest break-even against unabated SMR and a low-carbon route lies below the lowest break-even over its whole sourced range; otherwise INCONCLUSIVE. Against SMR + CCS (break-even 0.41-0.67, reported, not voted) grey fails; green passes only below 0.41-0.67 (its high value 0.48 fails the lowest-CCS case)."
         },
         {
           "row_id": "H2-e",
@@ -3345,7 +3508,7 @@
       "verdict": "PARTIALLY SUPPORTED",
       "verdict_v1": "INCONCLUSIVE",
       "verdict_v1_rule_on_current_rows": "INCONCLUSIVE",
-      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H3-T PARTIALLY SUPPORTED; H3-H SUPPORTED; H3-K INCONCLUSIVE. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: SUPPORTED: H3-a, H3-d; INCONCLUSIVE: H3-b, H3-c, H3-e, H3-f.",
+      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H3-T PARTIALLY SUPPORTED; H3-H INCONCLUSIVE; H3-K INCONCLUSIVE. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: SUPPORTED: H3-a; INCONCLUSIVE: H3-b, H3-d, H3-c, H3-e, H3-f.",
       "components": [
         {
           "id": "H3-T",
@@ -3356,19 +3519,19 @@
             "H3-b"
           ],
           "secondary_rows": [],
-          "envelope": "H3-a: 20 bar, conversion 0.95, PSA 0.85. Resolved for Ru/Al2O3, Ru/MgO (operating temperature 499, 522 degC against 594 degC for Ni/MgO), that is only for temperature differences of 72 K or more; unresolved for 5Ni1Ru/CeO2, 2.5Ni0.5Ru/CeO2. 20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K (25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+          "envelope": "H3-a: PSA recovery 0.85. 20 bar, X 0.95 (equal conversion; Python only, the Aspen runs reach unequal conversion), 499-594 degC, with and without FEHE. With FEHE the largest saving is 25.1 kW (Ru/Al2O3), which is 4.9 % of the supplementary fired duty and 1.1 % of the 2293 kW total external heating. On the absolute Python-Aspen offset (15.2 kW; 0.0060 USD/kg), the reading used for the verdicts, the saving is resolved only for temperature differences of 72 K or more (Ru/MgO 18.6 kW at 522 degC, Ru/Al2O3 25.1 kW at 499 degC); the NiRu/CeO2 savings (4.4-5.4 kW) are not. On the spread of that offset across catalysts (1.4 kW; 0.0006 USD/kg) the NiRu savings would also be resolved. Without FEHE 31-163 kW. When the designs are cost-optimised (exchanger mode, derived central prices) the Ru designs run hotter and use 19-21 kW MORE energy. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws (Ru/MgO and the Ni reference). Resolved catalysts on the absolute-offset reading: Ru/Al2O3, Ru/MgO (temperature difference from Ni/MgO 95, 72 K).",
           "note": "Primary rows: H3-a SUPPORTED, H3-b INCONCLUSIVE."
         },
         {
           "id": "H3-H",
           "title": "Heat integration reduces energy use",
-          "verdict": "SUPPORTED",
+          "verdict": "INCONCLUSIVE",
           "primary_rows": [
             "H3-d"
           ],
           "secondary_rows": [],
-          "envelope": "H3-d: 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U Cost: the net saving is negative only below the break-even U, for NH3 near the low end of the price range or a high capital recovery factor.",
-          "note": "Primary rows: H3-d SUPPORTED."
+          "envelope": "none (no primary row is SUPPORTED)",
+          "note": "Primary rows: H3-d INCONCLUSIVE."
         },
         {
           "id": "H3-K",
@@ -3385,12 +3548,12 @@
           "note": "Primary rows: H3-c INCONCLUSIVE. Secondary rows (do not vote): H3-e INCONCLUSIVE, H3-f INCONCLUSIVE."
         }
       ],
-      "strongest_defensible_statement": "Heat integration reduces energy use substantially (Aspen) and saves 0.214 USD/kg gross, 0.067 to 0.095 net of the exchanger cost on the reference basis. Lower-temperature operation reduces fired duty at equal conversion only modestly (at most 25 kW with heat integration) and only resolved for the Ru catalysts. Whether the savings outweigh a higher catalyst cost is unresolved; at derived ruthenium prices they do not at equal conversion.",
+      "strongest_defensible_statement": "PARTIALLY SUPPORTED, resting only on H3-T (supported row H3-a, narrow envelope). Components: H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE. Heat integration reduces energy use substantially (Aspen first-law heat deficit 1385 to 773 kW); it saves 0.214 USD/kg gross and 0.067 to 0.095 net of the exchanger cost on the reference basis, but the cost half rests on an unsourced heat-transfer coefficient at 20 bar, so H3-H is INCONCLUSIVE. Lower-temperature operation reduces fired duty at equal conversion only modestly (at most 25 kW with heat integration, 1.1 % of total external heating; Python only) and only resolved for the Ru catalysts. Whether the savings outweigh a higher catalyst cost (H3-K) is INCONCLUSIVE and the derived-price evidence leans against it: With heat integration, at equal conversion, derived central prices and with the Ni reference at its modelled 594 degC (extrapolated law), 3 of the 4 low-temperature catalysts are dearer beyond the model resolution; 2.5Ni0.5Ru/CeO2 is within resolution; without heat integration 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 are slightly cheaper; against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper. The sourced and modelled Ni references straddle the threshold.",
       "findings_against_essay": [
-        "At ruthenium prices derived from metal content, the low-temperature catalysts do not pay at equal conversion.",
+        "With heat integration, at equal conversion, derived central prices and with the Ni reference at its AmCraX-modelled 594 degC (extrapolated law), 3 of the 4 low-temperature catalysts are dearer than Ni/MgO beyond the 0.006 USD/kg H2 resolution (Ru/Al2O3 +0.081, Ru/MgO +0.043, 5Ni1Ru/CeO2 +0.011 USD/kg H2); 2.5Ni0.5Ru/CeO2 (+0.005) is within resolution. Ni temperature threshold 540 to 676 degC: against the sourced Ni design temperatures (736, 760 degC), every low-temperature design is cheaper; the AmCraX Ni optimum (537 degC, extrapolated law) is below the threshold.",
         "The Phase 1 figure of a 17 % fired-duty reduction came from unequal conversion and is withdrawn."
       ],
-      "summary": "Heat integration reduces energy use substantially (Aspen) and saves 0.214 USD/kg gross, 0.067 to 0.095 net of the exchanger cost on the reference basis. Lower-temperature operation reduces fired duty at equal conversion only modestly (at most 25 kW with heat integration) and only resolved for the Ru catalysts. Whether the savings outweigh a higher catalyst cost is unresolved; at derived ruthenium prices they do not at equal conversion.",
+      "summary": "PARTIALLY SUPPORTED, resting only on H3-T (supported row H3-a, narrow envelope). Components: H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE. Heat integration reduces energy use substantially (Aspen first-law heat deficit 1385 to 773 kW); it saves 0.214 USD/kg gross and 0.067 to 0.095 net of the exchanger cost on the reference basis, but the cost half rests on an unsourced heat-transfer coefficient at 20 bar, so H3-H is INCONCLUSIVE. Lower-temperature operation reduces fired duty at equal conversion only modestly (at most 25 kW with heat integration, 1.1 % of total external heating; Python only) and only resolved for the Ru catalysts. Whether the savings outweigh a higher catalyst cost (H3-K) is INCONCLUSIVE and the derived-price evidence leans against it: With heat integration, at equal conversion, derived central prices and with the Ni reference at its modelled 594 degC (extrapolated law), 3 of the 4 low-temperature catalysts are dearer beyond the model resolution; 2.5Ni0.5Ru/CeO2 is within resolution; without heat integration 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 are slightly cheaper; against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper. The sourced and modelled Ni references straddle the threshold.",
       "rows": [
         {
           "row_id": "H3-a",
@@ -3640,13 +3803,13 @@
             }
           ],
           "uncertainty_range": "Python fired duty is 13.8-15.2 kW below Aspen at the same T and X for all five catalysts (spread 1.4 kW, so the T-dependence is reproduced within 1.4 kW over 95 K); FEHE duty offset +20.8 kW (model form, task X1).",
-          "key_uncertainty": "Outside this envelope the verdict may change: 20 bar, conversion 0.95, PSA 0.85. Resolved for Ru/Al2O3, Ru/MgO (operating temperature 499, 522 degC against 594 degC for Ni/MgO), that is only for temperature differences of 72 K or more; unresolved for 5Ni1Ru/CeO2, 2.5Ni0.5Ru/CeO2. 20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K (25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+          "key_uncertainty": "Outside this envelope the verdict may change: PSA recovery 0.85. 20 bar, X 0.95 (equal conversion; Python only, the Aspen runs reach unequal conversion), 499-594 degC, with and without FEHE. With FEHE the largest saving is 25.1 kW (Ru/Al2O3), which is 4.9 % of the supplementary fired duty and 1.1 % of the 2293 kW total external heating. On the absolute Python-Aspen offset (15.2 kW; 0.0060 USD/kg), the reading used for the verdicts, the saving is resolved only for temperature differences of 72 K or more (Ru/MgO 18.6 kW at 522 degC, Ru/Al2O3 25.1 kW at 499 degC); the NiRu/CeO2 savings (4.4-5.4 kW) are not. On the spread of that offset across catalysts (1.4 kW; 0.0006 USD/kg) the NiRu savings would also be resolved. Without FEHE 31-163 kW. When the designs are cost-optimised (exchanger mode, derived central prices) the Ru designs run hotter and use 19-21 kW MORE energy. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws (Ru/MgO and the Ni reference). Resolved catalysts on the absolute-offset reading: Ru/Al2O3, Ru/MgO (temperature difference from Ni/MgO 95, 72 K).",
           "limitations": [
             "The temperature difference between catalysts rests on extrapolated rate laws (see H3-b); the energy effect of temperature itself is thermodynamic and computed by Aspen.",
             "Python FEHE recovered duty is above Aspen beyond the validation tolerance (HCAT-ASPY-*-HI-heat failures).",
             "All rate laws are extrapolated to 20 bar from their fit pressure (1 atm; Kum: 10 bar); the Takahashi laws are evaluated on a mole-fraction basis and the Lucentini laws on concentrations; the Ni/MgO law fails its own validation (EXISTING-KIN-NI-PRED). No catalyst ranking at 20 bar is a property of the catalysts."
           ],
-          "conclusion": "At equal conversion lower-temperature operation reduces fired duty, by a few per cent with heat integration and more without; the result is resolved only for the two Ru catalysts with the largest temperature difference.",
+          "conclusion": "At equal conversion (Python) lower-temperature operation reduces fired duty, by at most 25 kW with heat integration (about 1 % of total external heating) and more without; the result is resolved only for the two Ru catalysts with the largest temperature difference. Cost-optimised Ru designs run hotter and use more energy (see envelope).",
           "conclusion_conditions": "Resolution rule (methodology v2): at equal conversion the fired-duty saving of each low-temperature catalyst against Ni/MgO is compared with the largest Aspen minus Python fired-duty offset at the same T and X (15.2 kW). SUPPORTED if no catalyst shows a reversal beyond that offset and at least one saving exceeds it with and without heat integration; the envelope is limited to the resolved catalysts. Otherwise INCONCLUSIVE.",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/aspen_kinetic/catalyst_comparison.json, results/research/catalyst_comparison/assumptions.json, results/research/catalyst_comparison/catalyst_comparison.json, results/research/catalyst_economics/catalyst_economics.json; version 2 verdict derived in the same script (function v2_h3a).",
           "links": {
@@ -3693,10 +3856,11 @@
           "verdict_v1": "SUPPORTED",
           "role": "primary",
           "component": "H3-T",
-          "envelope": "20 bar, conversion 0.95, PSA 0.85. Resolved for Ru/Al2O3, Ru/MgO (operating temperature 499, 522 degC against 594 degC for Ni/MgO), that is only for temperature differences of 72 K or more; unresolved for 5Ni1Ru/CeO2, 2.5Ni0.5Ru/CeO2. 20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K (25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+          "envelope": "PSA recovery 0.85. 20 bar, X 0.95 (equal conversion; Python only, the Aspen runs reach unequal conversion), 499-594 degC, with and without FEHE. With FEHE the largest saving is 25.1 kW (Ru/Al2O3), which is 4.9 % of the supplementary fired duty and 1.1 % of the 2293 kW total external heating. On the absolute Python-Aspen offset (15.2 kW; 0.0060 USD/kg), the reading used for the verdicts, the saving is resolved only for temperature differences of 72 K or more (Ru/MgO 18.6 kW at 522 degC, Ru/Al2O3 25.1 kW at 499 degC); the NiRu/CeO2 savings (4.4-5.4 kW) are not. On the spread of that offset across catalysts (1.4 kW; 0.0006 USD/kg) the NiRu savings would also be resolved. Without FEHE 31-163 kW. When the designs are cost-optimised (exchanger mode, derived central prices) the Ru designs run hotter and use 19-21 kW MORE energy. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws (Ru/MgO and the Ni reference). Resolved catalysts on the absolute-offset reading: Ru/Al2O3, Ru/MgO (temperature difference from Ni/MgO 95, 72 K).",
           "threshold": null,
           "numerical_conclusions": [
-            "Saving with heat integration: Ru/Al2O3 25.1 kW, Ru/MgO 18.6 kW, 5Ni1Ru/CeO2 5.4 kW, 2.5Ni0.5Ru/CeO2 4.4 kW; resolution 15.2 kW.",
+            "Saving with heat integration: Ru/Al2O3 25.1 kW, Ru/MgO 18.6 kW, 5Ni1Ru/CeO2 5.4 kW, 2.5Ni0.5Ru/CeO2 4.4 kW; resolution 15.2 kW (absolute Python-Aspen offset, used for the verdict); on the spread of that offset (1.4 kW) the NiRu savings would also be resolved.",
+            "The largest saving, 25.1 kW, is 1.1 % of the 2293 kW total external heating with heat integration (Python only, equal conversion).",
             "Saving without heat integration: Ru/Al2O3 162.6 kW, Ru/MgO 123.4 kW, 5Ni1Ru/CeO2 37.8 kW, 2.5Ni0.5Ru/CeO2 31.0 kW.",
             "The Phase 1 figure of 17 % fired duty came from unequal conversion and is withdrawn."
           ],
@@ -3971,7 +4135,7 @@
         {
           "row_id": "H3-d",
           "sub_claim": "Effective heat integration reduces energy use (and cost) of the cracker, and matters more than the catalyst's temperature.",
-          "verdict": "SUPPORTED",
+          "verdict": "INCONCLUSIVE",
           "singapore_scenario": "Jurong Island cracker; 100 kmol/h liquid NH3 (0.2 mol% H2O), 20 bar, 95 % NH3 conversion for every catalyst, PSA recovery 0.85; grey NH3 price scenario; amcrax.economics.singapore.evaluate, grey 450 USD/t, catalyst W*price/lifetime (2 yr); Phase 2: catalyst prices are the DERIVED central scenario prices of research/data/catalyst_prices.json (Cho TEA prices only in the Cho reconstruction and the labelled published-TEA sensitivity case); full catalyst economics in results/research/catalyst_economics/.",
           "aspen_model": "Aspen Plus V15 integrated flowsheets with and without FEHE (ci_* cases) and the stored RGibbs baseline (rgibbs_baseline_600C).",
           "python_model": "amcrax.heat_integration pinch analysis (catalyst_pinch_dTmin.csv); amcrax.economics.singapore tornado.",
@@ -3998,7 +4162,7 @@
               "label": "Linnhoff & Hindmarsh 1983: pinch method"
             }
           ],
-          "validation_method": "Pinch baseline reproduced (HCAT-PINCH-BASELINE); Python vs Aspen external heating within tolerance, FEHE recovered duty outside tolerance (HCAT-ASPY-*-HI-heat). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/heat_exchanger.json: 24 pass, 0 fail, 13 informational.",
+          "validation_method": "Pinch baseline reproduced (HCAT-PINCH-BASELINE); Python vs Aspen external heating within tolerance, FEHE recovered duty outside tolerance (HCAT-ASPY-*-HI-heat). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/heat_exchanger.json: 27 pass, 0 fail, 13 informational.",
           "validation_status": [
             {
               "file": "results/research/validation/aspen_kinetic.json",
@@ -4038,7 +4202,7 @@
             },
             {
               "file": "results/research/validation/heat_exchanger.json",
-              "pass": 24,
+              "pass": 27,
               "fail": 0,
               "informational": 13,
               "not_available": 0,
@@ -4133,16 +4297,48 @@
               "source_type": "python",
               "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
               "key": "row_evidence/H3-d/numbers/baseline_net_USD_per_kg/high"
+            },
+            {
+              "quantity": "break-even capital recovery factor (solved), U low",
+              "value": 0.1855991811925393,
+              "unit": "1/yr",
+              "source_type": "python",
+              "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+              "key": "row_evidence/H3-d/breakeven_crf_solved/low"
+            },
+            {
+              "quantity": "break-even capital recovery factor (solved), U central",
+              "value": 0.223380030892775,
+              "unit": "1/yr",
+              "source_type": "python",
+              "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+              "key": "row_evidence/H3-d/breakeven_crf_solved/central"
+            },
+            {
+              "quantity": "break-even capital recovery factor (solved), U high",
+              "value": 0.24371478240844072,
+              "unit": "1/yr",
+              "source_type": "python",
+              "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+              "key": "row_evidence/H3-d/breakeven_crf_solved/high"
+            },
+            {
+              "quantity": "worst net saving over the sensitivities",
+              "value": -0.012098355416846368,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+              "key": "row_evidence/H3-d/numbers/worst_sensitivity_net_USD_per_kg"
             }
           ],
           "uncertainty_range": "U 10-500 W/(m2 K), NH3 300-1000 USD/t, CRF 0.094-0.199, CEPCI 720-800, material CS/CS to SS/SS, Towler correlation, F=1 vs multi-shell",
-          "key_uncertainty": "Outside this envelope the verdict may change: 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U Cost: the net saving is negative only below the break-even U, for NH3 near the low end of the price range or a high capital recovery factor.",
+          "key_uncertainty": "Outside this envelope the verdict may change: 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.",
           "limitations": [
             "Python FEHE duty above Aspen beyond the validation tolerance (HCAT-ASPY-*-HI-heat failures).",
             "All rate laws are extrapolated to 20 bar from their fit pressure (1 atm; Kum: 10 bar); the Takahashi laws are evaluated on a mole-fraction basis and the Lucentini laws on concentrations; the Ni/MgO law fails its own validation (EXISTING-KIN-NI-PRED). No catalyst ranking at 20 bar is a property of the catalysts."
           ],
-          "conclusion": "Heat integration reduces energy use, by far more than the catalyst temperature does; the net cost benefit is positive on the reference basis but depends on an unsourced heat-transfer coefficient.",
-          "conclusion_conditions": "Energy rule (methodology v2): SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving; otherwise INCONCLUSIVE. The cost side depends on the overall heat-transfer coefficient, for which no value at 20 bar is sourced: it is reported in the envelope and threshold and does not vote.",
+          "conclusion": "Energy finding: heat integration reduces energy use (first-law heat deficit 1385 to 773 kW, -44 %), by far more than the catalyst temperature does. The cost half depends on an overall heat-transfer coefficient with no source at 20 bar and the sourced 1-bar range straddles the break-even, so the row as worded (energy and cost) is INCONCLUSIVE.",
+          "conclusion_conditions": "Two-half rule (methodology v2; the sub-claim says 'reduces energy use (and cost)', and a row with two halves needs both, as for H1-a). Energy half: SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving. Cost half, threshold rule: the overall heat-transfer coefficient at which the exchanger cost equals the fuel saving is compared with the sourced coefficient range; SUPPORTED if the sourced values lie above every break-even U, CONTRADICTED if below, otherwise INCONCLUSIVE. The row is SUPPORTED only if both halves are SUPPORTED. Here: energy half SUPPORTED, cost half INCONCLUSIVE (sourced 5-35 W/(m2 K) at about 1 bar, no value at 20 bar, 'straddle' the break-even).",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/aspen_kinetic/catalyst_comparison.json, results/research/heat_exchanger/heat_exchanger_study.json, results/research/singapore/tornado.json; version 2 verdict derived in the same script (function v2_h3d).",
           "links": {
             "data": [
@@ -4177,7 +4373,7 @@
           "verdict_v1": "SUPPORTED",
           "role": "primary",
           "component": "H3-H",
-          "envelope": "20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U Cost: the net saving is negative only below the break-even U, for NH3 near the low end of the price range or a high capital recovery factor.",
+          "envelope": "20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.",
           "threshold": {
             "parameter": "overall heat-transfer coefficient at which the exchanger cost equals the fuel saving",
             "values": [
@@ -4198,13 +4394,35 @@
                 "key": "row_evidence/H3-d/threshold/breakeven_U_W_m2K_range_over_cases/1"
               }
             ],
-            "sourced_values": [],
-            "comparison": "no sourced U at 20 bar; typical ranges at 1 bar straddle the threshold"
+            "sourced_values": [
+              {
+                "quantity": "sourced typical U, gas ~1 bar both sides, low (VDI Heat Atlas; no value at 20 bar)",
+                "value": 5,
+                "unit": "W/(m2 K)",
+                "source_type": "literature",
+                "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+                "key": "row_evidence/H3-d/threshold/sourced_typical_U_W_m2K/gas ~01 bar both sides/0"
+              },
+              {
+                "quantity": "sourced typical U, gas ~1 bar both sides, high",
+                "value": 35,
+                "unit": "W/(m2 K)",
+                "source_type": "literature",
+                "source_file": "results/research/heat_exchanger/heat_exchanger_study.json",
+                "key": "row_evidence/H3-d/threshold/sourced_typical_U_W_m2K/gas ~01 bar both sides/1"
+              }
+            ],
+            "comparison": {
+              "energy_half": "SUPPORTED",
+              "cost_half": "INCONCLUSIVE",
+              "sourced_U_vs_breakeven": "straddle"
+            }
           },
           "numerical_conclusions": [
-            "Aspen first-law heat deficit 1385 kW without and 773 kW with heat integration (-44 %).",
+            "Energy half (SUPPORTED): Aspen first-law heat deficit 1385 kW without and 773 kW with heat integration (-44 %).",
             "That reduction (612 kW) is larger than the largest equal-conversion catalyst-temperature saving (25.1 kW).",
-            "Gross fuel saving 0.214 USD/kg; net 0.067 to 0.095 USD/kg after the exchanger cost."
+            "Cost half (INCONCLUSIVE): gross fuel saving 0.214 USD/kg; net 0.067 to 0.095 USD/kg after the exchanger cost on the reference basis; break-even U 7.7 to 11.3 W/(m2 K) lies inside the only sourced range (5 to 35, about 1 bar); worst sensitivity -0.012 USD/kg.",
+            "Break-even capital recovery factor (solved): 0.186 / 0.223 / 0.244 at U low / central / high."
           ],
           "assumptions": [
             "U typical-range cases (VDI Heat Atlas C3; central derived)",
@@ -4219,7 +4437,7 @@
             "numerical_verification",
             "literature_comparison"
           ],
-          "verdict_rule": "Energy rule (methodology v2): SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving; otherwise INCONCLUSIVE. The cost side depends on the overall heat-transfer coefficient, for which no value at 20 bar is sourced: it is reported in the envelope and threshold and does not vote."
+          "verdict_rule": "Two-half rule (methodology v2; the sub-claim says 'reduces energy use (and cost)', and a row with two halves needs both, as for H1-a). Energy half: SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving. Cost half, threshold rule: the overall heat-transfer coefficient at which the exchanger cost equals the fuel saving is compared with the sourced coefficient range; SUPPORTED if the sourced values lie above every break-even U, CONTRADICTED if below, otherwise INCONCLUSIVE. The row is SUPPORTED only if both halves are SUPPORTED. Here: energy half SUPPORTED, cost half INCONCLUSIVE (sourced 5-35 W/(m2 K) at about 1 bar, no value at 20 bar, 'straddle' the break-even)."
         },
         {
           "row_id": "H3-c",
@@ -4421,7 +4639,7 @@
               "key": "resolution/max_abs_python_minus_aspen_lcoh_USD_per_kg"
             },
             {
-              "quantity": "net LCOH change choosing Ru/Al2O3 over Ni/MgO, equal conversion, derived central price",
+              "quantity": "net LCOH change choosing Ru/Al2O3 over Ni/MgO, equal conversion, derived central price (Python values; the key name 'fixed_inventory_aspen' is a mis-name kept for readers)",
               "value": 0.08127741385013199,
               "unit": "USD/kg H2",
               "source_type": "python",
@@ -4429,7 +4647,7 @@
               "key": "row_evidence/H3-c/numbers/fixed_inventory_aspen_HI_exchanger/Ru~1Al2O3/net_lcoh_delta_USD_per_kg"
             },
             {
-              "quantity": "net LCOH change choosing Ru/MgO over Ni/MgO, equal conversion, derived central price",
+              "quantity": "net LCOH change choosing Ru/MgO over Ni/MgO, equal conversion, derived central price (Python values; the key name 'fixed_inventory_aspen' is a mis-name kept for readers)",
               "value": 0.04344320770694665,
               "unit": "USD/kg H2",
               "source_type": "python",
@@ -4437,7 +4655,7 @@
               "key": "row_evidence/H3-c/numbers/fixed_inventory_aspen_HI_exchanger/Ru~1MgO/net_lcoh_delta_USD_per_kg"
             },
             {
-              "quantity": "net LCOH change choosing 5Ni1Ru/CeO2 over Ni/MgO, equal conversion, derived central price",
+              "quantity": "net LCOH change choosing 5Ni1Ru/CeO2 over Ni/MgO, equal conversion, derived central price (Python values; the key name 'fixed_inventory_aspen' is a mis-name kept for readers)",
               "value": 0.011430399059307206,
               "unit": "USD/kg H2",
               "source_type": "python",
@@ -4445,7 +4663,7 @@
               "key": "row_evidence/H3-c/numbers/fixed_inventory_aspen_HI_exchanger/5Ni1Ru~1CeO2/net_lcoh_delta_USD_per_kg"
             },
             {
-              "quantity": "net LCOH change choosing 2.5Ni0.5Ru/CeO2 over Ni/MgO, equal conversion, derived central price",
+              "quantity": "net LCOH change choosing 2.5Ni0.5Ru/CeO2 over Ni/MgO, equal conversion, derived central price (Python values; the key name 'fixed_inventory_aspen' is a mis-name kept for readers)",
               "value": 0.004568065936549459,
               "unit": "USD/kg H2",
               "source_type": "python",
@@ -4523,6 +4741,46 @@
               "source_type": "python",
               "source_file": "results/research/catalyst_economics/catalyst_economics.json",
               "key": "row_evidence/H3-c/numbers/ni_temperature_threshold/0/AmCraX_Ni_costopt_T_C_extrapolated"
+            },
+            {
+              "quantity": "net LCOH change choosing Ru/Al2O3 over Ni/MgO, equal conversion, without heat integration",
+              "value": 0.04877527189764308,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+              "key": "findings/energy_and_cost/fixed_inventory_aspen_noHI_exchanger/Ru~1Al2O3/net_lcoh_delta_USD_per_kg"
+            },
+            {
+              "quantity": "net LCOH change choosing Ru/MgO over Ni/MgO, equal conversion, without heat integration",
+              "value": 0.023246008303068777,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+              "key": "findings/energy_and_cost/fixed_inventory_aspen_noHI_exchanger/Ru~1MgO/net_lcoh_delta_USD_per_kg"
+            },
+            {
+              "quantity": "net LCOH change choosing 5Ni1Ru/CeO2 over Ni/MgO, equal conversion, without heat integration",
+              "value": -0.0010173907312722719,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+              "key": "findings/energy_and_cost/fixed_inventory_aspen_noHI_exchanger/5Ni1Ru~1CeO2/net_lcoh_delta_USD_per_kg"
+            },
+            {
+              "quantity": "net LCOH change choosing 2.5Ni0.5Ru/CeO2 over Ni/MgO, equal conversion, without heat integration",
+              "value": -0.005620400124854541,
+              "unit": "USD/kg H2",
+              "source_type": "python",
+              "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+              "key": "findings/energy_and_cost/fixed_inventory_aspen_noHI_exchanger/2.5Ni0.5Ru~1CeO2/net_lcoh_delta_USD_per_kg"
+            },
+            {
+              "quantity": "Ni/MgO reference temperature at equal conversion (extrapolated law)",
+              "value": 594.0,
+              "unit": "degC",
+              "source_type": "aspen",
+              "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+              "key": "row_evidence/H3-b/numbers/aspen_T_op_100kg_C/Ni~1MgO"
             }
           ],
           "uncertainty_range": "Ru price (USGS 2025 average to Nov 2026 JM spot), lifetime 1-5 yr, NH3 300-1000 USD/t, fuel price, natural-gas heat, electricity 0.084-0.222 USD/kWh, discount 0.085-0.10, 7000-8000 h, U 35-150, reactor cost driver, rates /5. The FEHE cost is a step function of temperature (4 -> 5 shells in series between 537 and 538 degC at U central, +0.235 MUSD TCI, about +0.023 USD/kg): in the 'exchanger' mode it pins several optima at 537 degC and is of the same size as the catalyst differences; the 'reference' mode (no exchanger response) is reported beside it.",
@@ -4533,7 +4791,7 @@
             "N2O not quantified.",
             "All rate laws are extrapolated to 20 bar from their fit pressure (1 atm; Kum: 10 bar); the Takahashi laws are evaluated on a mole-fraction basis and the Lucentini laws on concentrations; the Ni/MgO law fails its own validation (EXISTING-KIN-NI-PRED). No catalyst ranking at 20 bar is a property of the catalysts."
           ],
-          "conclusion": "At ruthenium prices derived from metal content, the low-temperature catalysts do not pay at equal conversion (against the essay). Against sourced Ni design temperatures the low-temperature designs win; against the AmCraX Ni optimum they do not.",
+          "conclusion": "With heat integration, at equal conversion, derived central prices and with the Ni reference at its modelled 594 degC (extrapolated law), 3 of the 4 low-temperature catalysts are dearer beyond the model resolution; 2.5Ni0.5Ru/CeO2 is within resolution; without heat integration 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 are slightly cheaper; against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper. The sourced and modelled Ni references straddle the threshold.",
           "conclusion_conditions": "Cost and threshold rule (methodology v2): SUPPORTED if at least one low-temperature catalyst is cheaper than Ni/MgO by more than the Python against Aspen resolution at equal conversion and both the sourced Ni design temperatures and the AmCraX Ni optimum lie above the Ni temperature threshold; CONTRADICTED if every low-temperature catalyst is dearer by more than the resolution and both lie below the threshold; otherwise INCONCLUSIVE (sourced values and model straddle). Here: cheaper at equal conversion False, dearer for all beyond resolution False, sourced Ni temperatures above threshold True, AmCraX Ni optimum above threshold False.",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/catalyst_comparison/assumptions.json, results/research/catalyst_comparison/catalyst_comparison.json, results/research/catalyst_economics/catalyst_economics.json, results/research/singapore/monte_carlo.json; version 2 verdict derived in the same script (function v2_h3c).",
           "links": {
@@ -4648,9 +4906,10 @@
             "comparison": "sourced above, AmCraX Ni optimum below"
           },
           "numerical_conclusions": [
-            "At equal conversion and derived prices every low-temperature catalyst is dearer than Ni/MgO: Ru/Al2O3 +0.081, Ru/MgO +0.043, 5Ni1Ru/CeO2 +0.011, 2.5Ni0.5Ru/CeO2 +0.005 USD/kg H2 (resolution 0.006).",
-            "Break-even catalyst prices Ru/Al2O3 1506, Ru/MgO 1297, 5Ni1Ru/CeO2 177, 2.5Ni0.5Ru/CeO2 151 USD/kg against derived central prices 4791, 3006, 628, 330 USD/kg.",
-            "Ni temperature threshold 540 to 676 degC: sourced Ni designs (736, 760 degC) are above it, the AmCraX Ni optimum (537 degC, extrapolated law) is below it."
+            "With heat integration, at equal conversion, derived central prices and with the Ni reference at its AmCraX-modelled 594 degC (extrapolated law), 3 of the 4 low-temperature catalysts are dearer than Ni/MgO beyond the 0.006 USD/kg H2 resolution (Ru/Al2O3 +0.081, Ru/MgO +0.043, 5Ni1Ru/CeO2 +0.011 USD/kg H2); 2.5Ni0.5Ru/CeO2 (+0.005) is within resolution.",
+            "Without heat integration 5Ni1Ru/CeO2 (-0.0010 USD/kg H2) and 2.5Ni0.5Ru/CeO2 (-0.0056 USD/kg H2) are slightly cheaper than Ni/MgO.",
+            "Break-even catalyst prices (each design fixed at its equal-conversion temperature, exchanger mode, central inputs) Ru/Al2O3 1506, Ru/MgO 1297, 5Ni1Ru/CeO2 177, 2.5Ni0.5Ru/CeO2 151 USD/kg against derived central prices 4791, 3006, 628, 330 USD/kg.",
+            "Ni temperature threshold 540 to 676 degC: against the sourced Ni design temperatures (736, 760 degC), every low-temperature design is cheaper; the AmCraX Ni optimum (537 degC, extrapolated law) is below the threshold."
           ],
           "assumptions": [
             "catalyst prices DERIVED from metal content + 32.2 USD/kg non-metal part (no quotation exists)",
@@ -5131,15 +5390,15 @@
       "id": "H4",
       "statement": "Purification: must balance purity requirements against recovery losses, energy and equipment cost.",
       "primary_hypothesis": "Purification: must balance purity requirements against recovery losses, energy and equipment cost.",
-      "verdict": "PARTIALLY SUPPORTED",
+      "verdict": "INCONCLUSIVE",
       "verdict_v1": "INCONCLUSIVE",
       "verdict_v1_rule_on_current_rows": "INCONCLUSIVE",
-      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H4-B PARTIALLY SUPPORTED. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: SUPPORTED: H4-e; CONTRADICTED: H4-c; INCONCLUSIVE: H4-a, H4-b, H4-d.",
+      "verdict_conditions": "Hypothesis verdict from its components (methodology v2; the cross-claim H2-X counts as a component): SUPPORTED if every component is SUPPORTED; CONTRADICTED if no component is SUPPORTED or PARTIALLY SUPPORTED and at least half are CONTRADICTED; MIXED if at least one component is SUPPORTED or PARTIALLY SUPPORTED and at least one is CONTRADICTED; PARTIALLY SUPPORTED if at least one component is SUPPORTED or PARTIALLY SUPPORTED, none is CONTRADICTED and not all are SUPPORTED; otherwise INCONCLUSIVE. Components: H4-B INCONCLUSIVE. Component verdict from its primary rows (methodology v2): SUPPORTED if every primary row is SUPPORTED; CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED; MIXED if at least one is SUPPORTED and at least one CONTRADICTED; PARTIALLY SUPPORTED if at least one is SUPPORTED, none is CONTRADICTED and at least one is INCONCLUSIVE; otherwise INCONCLUSIVE. Secondary rows are reported but do not vote. Row outcomes: CONTRADICTED: H4-c; INCONCLUSIVE: H4-a, H4-b, H4-e, H4-d.",
       "components": [
         {
           "id": "H4-B",
           "title": "Purity must be balanced against recovery, energy and cost",
-          "verdict": "PARTIALLY SUPPORTED",
+          "verdict": "INCONCLUSIVE",
           "primary_rows": [
             "H4-a",
             "H4-b",
@@ -5149,15 +5408,15 @@
             "H4-c",
             "H4-d"
           ],
-          "envelope": "H4-e: 20 bar baseline; above recovery 0.765 the tail gas does not cover the furnace and NH3 is burned; below it the lost H2 has no use in this flowsheet",
-          "note": "Primary rows: H4-a INCONCLUSIVE, H4-b INCONCLUSIVE, H4-e SUPPORTED. Secondary rows (do not vote): H4-c CONTRADICTED, H4-d INCONCLUSIVE."
+          "envelope": "none (no primary row is SUPPORTED)",
+          "note": "Primary rows: H4-a INCONCLUSIVE, H4-b INCONCLUSIVE, H4-e INCONCLUSIVE. Secondary rows (do not vote): H4-c CONTRADICTED, H4-d INCONCLUSIVE."
         }
       ],
-      "strongest_defensible_statement": "Recovery losses trade against energy: unrecovered hydrogen covers the furnace up to recovery 0.765 (computed). Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.79 for Grade D hydrogen; the industrial-grade value is in row H4-d).",
+      "strongest_defensible_statement": "In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.783 for Grade D hydrogen; the industrial-grade value is in row H4-d).",
       "findings_against_essay": [
         "The Phase 1 finding that a raw membrane is cheaper than PSA does not hold robustly on sourced ranges."
       ],
-      "summary": "Recovery losses trade against energy: unrecovered hydrogen covers the furnace up to recovery 0.765 (computed). Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.79 for Grade D hydrogen; the industrial-grade value is in row H4-d).",
+      "summary": "In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.783 for Grade D hydrogen; the industrial-grade value is in row H4-d).",
       "rows": [
         {
           "row_id": "H4-a",
@@ -5656,7 +5915,7 @@
         {
           "row_id": "H4-e",
           "sub_claim": "Recovery losses trade against energy: hydrogen not recovered by purification returns as fuel for the cracker, up to the furnace demand.",
-          "verdict": "SUPPORTED",
+          "verdict": "INCONCLUSIVE",
           "singapore_scenario": "Jurong Island cracker, 20 bar Aspen baseline cracked gas; base costs use the existing AmCraX economics defaults (purification assumptions.json), Singapore NH3 and electricity prices in singapore_price_scenario.json; delivery 30 bar (industrial, blend) or 350 bar (Grade D).",
           "aspen_model": "Stored Aspen Plus V15 baseline stream S7 (cracked gas) and H2PROD; PSA in Aspen is a split block with assumed fractions (no adsorption model). Furnace demand from the stored Aspen baseline.",
           "python_model": "amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.",
@@ -5804,8 +6063,8 @@
           "limitations": [
             "Heat-integration effect of placing a membrane on the hot effluent not modelled."
           ],
-          "conclusion": "Hydrogen not recovered returns as furnace fuel up to the furnace demand (computed energy balance).",
-          "conclusion_conditions": "Energy-balance rule: SUPPORTED if the computed recovery at which tail-gas heat equals the furnace demand lies between 0 and 1 and a recovery above it (0.85) leaves a positive deficit, consistent with the trade; otherwise INCONCLUSIVE.",
+          "conclusion": "In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. The threshold is the finding.",
+          "conclusion_conditions": "Threshold rule (methodology v2): that unrecovered hydrogen is burned in the cracker furnace restates the flowsheet's tail-gas routing (an assumption built into the model), so it cannot support the row by itself. The computed recovery at which the tail-gas heat equals the furnace demand is compared with the sourced and assumed PSA recoveries. SUPPORTED if every one lies above the threshold (all unrecovered hydrogen does useful work as furnace fuel); CONTRADICTED if every one lies below it (part of it is surplus with no use); otherwise INCONCLUSIVE and the threshold is the finding. Here the recoveries 0.555-0.850 against the threshold 0.765 give 'straddle'.",
           "provenance": "Values read by scripts/research/build_evidence_matrix.py from results/research/purification/phase2_comparison.json, results/research/purification/purification_study.json; version 2 verdict derived in the same script (function v2_h4e).",
           "links": {
             "data": [
@@ -5836,11 +6095,61 @@
                 "key": "row_evidence/H4-e/numbers/recovery_where_tail_heat_equals_demand"
               }
             ],
-            "sourced_values": [],
-            "comparison": "computed"
+            "sourced_values": [
+              {
+                "quantity": "PSA recovery, industrial_99.9, low (literature (derived))",
+                "value": 0.5715000000000013,
+                "unit": "fraction",
+                "source_type": "literature",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/industrial_99.9/low/value"
+              },
+              {
+                "quantity": "PSA recovery, industrial_99.9, central (assumption)",
+                "value": 0.751626143976041,
+                "unit": "fraction",
+                "source_type": "assumption",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/industrial_99.9/central/value"
+              },
+              {
+                "quantity": "PSA recovery, industrial_99.9, high (assumption)",
+                "value": 0.85,
+                "unit": "fraction",
+                "source_type": "assumption",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/industrial_99.9/high/value"
+              },
+              {
+                "quantity": "PSA recovery, fuel_cell_grade_D, low (literature)",
+                "value": 0.555,
+                "unit": "fraction",
+                "source_type": "literature",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/fuel_cell_grade_D/low/value"
+              },
+              {
+                "quantity": "PSA recovery, fuel_cell_grade_D, central (assumption)",
+                "value": 0.7512760443382585,
+                "unit": "fraction",
+                "source_type": "assumption",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/fuel_cell_grade_D/central/value"
+              },
+              {
+                "quantity": "PSA recovery, fuel_cell_grade_D, high (literature (low confidence))",
+                "value": 0.81,
+                "unit": "fraction",
+                "source_type": "literature",
+                "source_file": "results/research/purification/phase2_comparison.json",
+                "key": "inputs/psa_recovery/fuel_cell_grade_D/high/value"
+              }
+            ],
+            "comparison": "straddle"
           },
           "numerical_conclusions": [
-            "Furnace demand 2293 kW; the tail gas covers it at recovery 0.765; at 0.85 the deficit is 773 kW."
+            "Furnace demand 2293 kW; the tail gas covers it at PSA recovery 0.765; at 0.85 the deficit is 773 kW.",
+            "Sourced and assumed PSA recoveries 0.555 to 0.850 lie on both sides of 0.765."
           ],
           "assumptions": [
             "tail gas or retentate burned in the cracker furnace with the baseline furnace model; surplus not credited"
@@ -5849,7 +6158,7 @@
           "evidence_kinds": [
             "numerical_verification"
           ],
-          "verdict_rule": "Energy-balance rule: SUPPORTED if the computed recovery at which tail-gas heat equals the furnace demand lies between 0 and 1 and a recovery above it (0.85) leaves a positive deficit, consistent with the trade; otherwise INCONCLUSIVE."
+          "verdict_rule": "Threshold rule (methodology v2): that unrecovered hydrogen is burned in the cracker furnace restates the flowsheet's tail-gas routing (an assumption built into the model), so it cannot support the row by itself. The computed recovery at which the tail-gas heat equals the furnace demand is compared with the sourced and assumed PSA recoveries. SUPPORTED if every one lies above the threshold (all unrecovered hydrogen does useful work as furnace fuel); CONTRADICTED if every one lies below it (part of it is surplus with no use); otherwise INCONCLUSIVE and the threshold is the finding. Here the recoveries 0.555-0.850 against the threshold 0.765 give 'straddle'."
         },
         {
           "row_id": "H4-c",
@@ -6010,8 +6319,8 @@
             "PSA_D_MB"
           ],
           "input_assumptions": [
-            "Infinite H2/N2 selectivity in the base case (no numeric selectivity in the library).",
-            "Membrane cost 6000 EUR/m2 applied as USD at parity; housing, skid and compression CAPEX not modelled.",
+            "Ideal H2/N2 selectivity 40541 to 500000 (Cechetto et al. 2021, single gas, new membrane) against a requirement of 12919.",
+            "Membrane cost 7473 USD/m2 (6800 EUR at 1.099 USD/EUR), 10000 and 15000 USD/m2, annualised with the capital recovery factor at the membrane life (central 3 years); housing, skid and compression CAPEX not modelled.",
             "Membrane recovery 0.90 is a design choice."
           ],
           "literature": [
@@ -6054,7 +6363,7 @@
           "numerical_findings": [
             {
               "quantity": "cost usable H2, Grade D, Pd-Ag membrane + polishing (350 bar)",
-              "value": 4.326549688729102,
+              "value": 4.3331606092497905,
               "unit": "USD/kg H2",
               "source_type": "python",
               "source_file": "results/research/purification/purification_study.json",
@@ -6093,7 +6402,7 @@
               "key": "cases/20bar_baseline/configs/[id=MEM_1bar_raw]/product_ppm/NH3"
             },
             {
-              "quantity": "membrane cost (applied as USD at parity)",
+              "quantity": "membrane cost, Phase 1 point (EUR/m2, converted at the reference USD/EUR)",
               "value": 6000.0,
               "unit": "EUR/m2",
               "source_type": "assumption",
@@ -6102,7 +6411,7 @@
             },
             {
               "quantity": "share of sourced input pairs in which the membrane is cheaper (Grade D)",
-              "value": 0.5987654320987654,
+              "value": 0.5751028806584362,
               "unit": "fraction",
               "source_type": "python",
               "source_file": "results/research/purification/phase2_comparison.json",
@@ -6110,7 +6419,7 @@
             },
             {
               "quantity": "PSA recovery at parity, central membrane",
-              "value": 0.7883735148068309,
+              "value": 0.7829339880444707,
               "unit": "fraction",
               "source_type": "python",
               "source_file": "results/research/purification/phase2_comparison.json",
@@ -6118,7 +6427,7 @@
             },
             {
               "quantity": "PSA recovery at parity, industrial",
-              "value": 0.8008247288466054,
+              "value": 0.7952126379803761,
               "unit": "fraction",
               "source_type": "python",
               "source_file": "results/research/purification/phase2_comparison.json",
@@ -6150,7 +6459,7 @@
             }
           ],
           "uncertainty_range": "factorial over sourced inputs; ranking reverses inside it",
-          "key_uncertainty": "Outside this envelope the verdict may change: membrane cheaper only if PSA Grade D recovery is below about 0.788 (central membrane) or 0.749 (high-cost membrane)",
+          "key_uncertainty": "Outside this envelope the verdict may change: membrane cheaper only if PSA Grade D recovery is below about 0.783 (central membrane) or 0.745 (high-cost membrane)",
           "limitations": [
             "Without polishing the permeate carries 2.9 ppm NH3 (measured, Cechetto 2021) and fails Grade D.",
             "Membrane results are lower bounds on cost."
@@ -6176,13 +6485,13 @@
           "verdict_v1": "INCONCLUSIVE",
           "role": "secondary",
           "component": "H4-B",
-          "envelope": "membrane cheaper only if PSA Grade D recovery is below about 0.788 (central membrane) or 0.749 (high-cost membrane)",
+          "envelope": "membrane cheaper only if PSA Grade D recovery is below about 0.783 (central membrane) or 0.745 (high-cost membrane)",
           "threshold": {
             "parameter": "PSA recovery at cost parity",
             "values": [
               {
                 "quantity": "parity, Grade D central membrane",
-                "value": 0.7883735148068309,
+                "value": 0.7829339880444707,
                 "unit": "fraction",
                 "source_type": "python",
                 "source_file": "results/research/purification/phase2_comparison.json",
@@ -6190,7 +6499,7 @@
               },
               {
                 "quantity": "parity, industrial",
-                "value": 0.8008247288466054,
+                "value": 0.7952126379803761,
                 "unit": "fraction",
                 "source_type": "python",
                 "source_file": "results/research/purification/phase2_comparison.json",
@@ -6201,7 +6510,7 @@
             "comparison": "sourced PSA recoveries straddle parity"
           },
           "numerical_conclusions": [
-            "Membrane cheaper in 60 % of sourced input pairs; parity at PSA recovery 0.788 (Grade D) and 0.801 (industrial).",
+            "Membrane cheaper in 58 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial).",
             "Pd-Ag ideal H2/N2 selectivity 40541 (printed permeances) to 500000 (stated), single gas, new membrane, against a requirement of 12919; the paper is internally inconsistent."
           ],
           "assumptions": [

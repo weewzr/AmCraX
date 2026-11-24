@@ -265,6 +265,35 @@ def main():
         th_json[k] = entry
     write_csv(OUT / "turbine_threshold.csv", th_rows)
 
+    # ---------------- 2b. cracker-heat fuel efficiency (review C, finding M1) ----------------
+    # The reference pathways burn the extra NH3 for cracker heat at 100 % of its LHV (optimistic, favourable to
+    # cracking). Recompute the reference-basis thresholds with the heat delivered at the flowsheet's own tail-gas ratio
+    # and at the H3 furnace efficiency. Defaults are not changed.
+    bl = json.loads((ROOT / "results/research/reference_scenario/baseline.json").read_text(encoding="utf-8"))
+    fe_eta_flow = round(bl["fuel_efficiency_sensitivity"]["flowsheet_tailgas_ratio_exact"], 4)
+    fe_rows = []
+    for eta_h in (1.0, fe_eta_flow, 0.85):
+        row_ = {"heat_fuel_efficiency": eta_h}
+        for k_ in ("full_fired", "full_purified"):
+            a1 = power_activity(k_, heat_fuel_efficiency=eta_h)
+            fn_ = lambda e_: cost(power_activity(k_, eta_h2_fuel=e_, heat_fuel_efficiency=eta_h)) - D
+            e_ = brentq(fn_, 0.2, 0.99, xtol=1e-12)
+            row_[k_] = {"LCOE_USD_per_MWh": cost(a1), "system_efficiency": a1.efficiency,
+                        "threshold_eta_h2_fuel": e_, "threshold_delta_fuel_pp_vs_direct_turbine": (e_ - ETA0) * 100}
+        fe_rows.append(row_)
+    assert abs(fe_rows[0]["full_fired"]["threshold_delta_fuel_pp_vs_direct_turbine"] - th_json["full_fired"]["threshold_delta_pp_reference"]) < 1e-6
+    fuel_eff = {
+        "description": "Computed. Reference-basis turbine-efficiency thresholds (grey 450 USD/t, 8000 h, reference cracker CAPEX) "
+                       "with the extra NH3 for cracker heat delivered at 100 % of its LHV (reference, optimistic), at the stored "
+                       "flowsheet's tail-gas ratio and at the 0.85 H3 furnace efficiency. Direct NH3 is unaffected (no cracker heat). "
+                       "The reference outputs above are at 1.0 and are not changed.",
+        "cases": fe_rows,
+        "fired_threshold_shift_pp": {str(r_["heat_fuel_efficiency"]): r_["full_fired"]["threshold_delta_fuel_pp_vs_direct_turbine"]
+                                     - fe_rows[0]["full_fired"]["threshold_delta_fuel_pp_vs_direct_turbine"] for r_ in fe_rows},
+        "purified_threshold_shift_pp": {str(r_["heat_fuel_efficiency"]): r_["full_purified"]["threshold_delta_fuel_pp_vs_direct_turbine"]
+                                        - fe_rows[0]["full_purified"]["threshold_delta_fuel_pp_vs_direct_turbine"] for r_ in fe_rows},
+        "source_type": "python"}
+
     # ---------------- 3. sensitivities ----------------
     def row_all(extra, **kw):
         """LCOE of every pathway + direct-minus-cracking (negative = direct cheaper)."""
@@ -493,6 +522,7 @@ def main():
         "statement_of_result": statement,
         "sourced_values": sourced,
         "thresholds": th_json,
+        "cracker_heat_fuel_efficiency_sensitivity": fuel_eff,
         "threshold_bases": {b[0]: {"NH3_USD_t": b[1], "hours": b[2], "capex_basis": b[3]} for b in bases},
         "twoway_map": {"file": "results/research/enduse/twoway_map_efficiency_capital.csv", "panelA_thresholds_by_capex": beA, "panelB_thresholds_by_capex": beB,
                        "cracker_capex_factor_where_full_exhaust_equals_direct_at_ahmad_gain": fct_be},

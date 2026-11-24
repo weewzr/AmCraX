@@ -314,6 +314,7 @@ def compare(low: dict, ref: dict) -> dict:
             "decomposition_sum_check_USD_per_kg": sum(dec.values()) - net,
             "energy_saving_USD_per_kg": -d["heat_fuel"],
             "energy_saving_fired_duty_kW": ref["fired_process_duty_kW"] - low["fired_process_duty_kW"],
+            "ref_fired_process_duty_kW": ref["fired_process_duty_kW"],
             "energy_saving_supplementary_nh3_kg_h": ref["supplementary_nh3_kg_h"] - low["supplementary_nh3_kg_h"],
             "energy_saving_first_law_deficit_kW": ref["first_law_deficit_kW"] - low["first_law_deficit_kW"],
             "catalyst_cost_increase_USD_per_kg": d["catalyst"],

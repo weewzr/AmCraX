@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:36:56+00:00",
+  "generated_utc": "2026-11-24T06:23:46+00:00",
   "script": "scripts/research/uq_gsa_sobol.py",
   "source_type": "python",
   "inputs_summary": "amcrax.economics.singapore.evaluate (default capex_mode reference) on results/simulations/baseline.json and baseline_no_hi.json; ranges from the reference scenario (REF.sens), data/singapore.yaml NH3 ranges, and results/research/singapore/tornado.json bounds",

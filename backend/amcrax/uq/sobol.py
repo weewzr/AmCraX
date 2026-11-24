@@ -2,7 +2,9 @@
 
 Estimators (A, B: independent N x d base samples; AB_i = A with column i, or a group of columns, taken from B):
     V     = var(concat(f(A), f(B)))
-    S_i   = mean(f(B) * (f(AB_i) - f(A))) / V                Saltelli et al. (2010), Table 2 (b)
+    S_i   = mean((f(B) - mu) * (f(AB_i) - f(A))) / V         Saltelli et al. (2010), Table 2 (b), on centred
+            outputs, mu = mean(concat(f(A), f(B))) (fix pass 24 Nov 2026; the uncentred form had the same expectation
+            but a larger variance)
     ST_i  = 0.5 * mean((f(A) - f(AB_i))**2) / V              Jansen (1999)
 Bootstrap confidence intervals resample the N rows (A, B and every AB_i together).
 """
@@ -36,7 +38,11 @@ def indices_from_outputs(fA: np.ndarray, fB: np.ndarray, fAB: np.ndarray) -> tup
     V = float(np.var(np.concatenate([fA, fB])))
     if V <= 0.0:
         return np.zeros(fAB.shape[0]), np.zeros(fAB.shape[0]), 0.0
-    S = np.mean(fB[None, :] * (fAB - fA[None, :]), axis=1) / V
+    # Centred outputs (review C, finding m1): subtracting the mean leaves the estimator's expectation unchanged
+    # (f(AB_i) - f(A) has zero mean) but removes the mean^2 x var term from its variance. ST uses only differences
+    # and is unaffected.
+    mu = float(np.mean(np.concatenate([fA, fB])))
+    S = np.mean((fB[None, :] - mu) * (fAB - fA[None, :]), axis=1) / V
     ST = 0.5 * np.mean((fA[None, :] - fAB) ** 2, axis=1) / V
     return S, ST, V
 

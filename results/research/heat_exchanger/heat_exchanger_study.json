@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:30:10+00:00",
+  "generated_utc": "2026-11-24T06:13:20+00:00",
   "script": "scripts/research/heat_exchanger_study.py",
   "what": "FEHE sizing, cost and net benefit of heat integration",
   "source_type": "python (on stored Aspen results)",
@@ -15,7 +15,7 @@
   },
   "aspen_run": false
  },
- "method": "------\n1. LMTD of counter-current flow. A shell-and-tube unit with one shell pass and an even number of tube passes\n   (1-2 shell) needs the correction factor F (Bowman, Mueller and Nagle 1940 form, as given in Towler and Sinnott\n   2013, Sec. 19.6). With a temperature cross (cold outlet above hot outlet, as in the AmCraX FEHE) one 1-2 shell\n   is infeasible; the smallest number N of 1-2 shells in series with F >= F_MIN (0.75, textbook rule) is used.\n   A pure counter-current unit (F = 1) is also reported. When the caller passes a segmented UA (from the H-T\n   curves, ``amcrax.heat_integration.analyse``), the area uses that UA instead of Q / LMTD, divided by F.\n2. Area A = UA / (U F). U is NOT computed here: three cases from typical-range tables (U_CASES, below).\n3. Cost (CORRELATIONS): Turton et al. (2018) module costing (purchased cost Cp0 at CEPCI 397, pressure factor,\n   material factor, bare-module factor) as the central correlation; Towler and Sinnott (2013) U-tube\n   correlation (CEPCI 532.9, Jan 2010) with the Hand installation factor 3.5 as a cross-check. Escalated to the\n   2024 cost year of the reference CAPEX by CEPCI (CEPCI_2024 below; the library values conflict, so the range is\n   carried). An area above the correlation range is split into equal parallel units; below the range the cost\n   is evaluated at the lower bound (flagged).\n4. TCI-equivalent = installed (bare-module) cost x the reference-scenario indirect factor\n   (1 + OSBL)(1 + engineering + contingency), i.e. the same factor as every item of\n   amcrax.economics.reference.reference_capex. Turton's bare-module cost already contains some indirect costs,\n   so this is conservative (it counts against heat integration).\n5. Annualised cost: capital charge (reference CRF) + maintenance + insurance + plant overhead on maintenance,\n   with G&A, exactly as the fixed-opex formula of amcrax.economics.singapore.evaluate.\n\nAll values carry a source label; typical-range values are labelled as such.",
+ "method": "------\n1. LMTD of counter-current flow. A shell-and-tube unit with one shell pass and an even number of tube passes\n   (1-2 shell) needs the correction factor F (Bowman, Mueller and Nagle 1940 form, as given in Towler and Sinnott\n   2013, Sec. 19.6). With a temperature cross (cold outlet above hot outlet, as in the AmCraX FEHE) one 1-2 shell\n   is infeasible; the smallest number N of 1-2 shells in series with F >= F_MIN (0.75, textbook rule) is used.\n   A pure counter-current unit (F = 1) is also reported. When the caller passes a segmented UA (from the H-T\n   curves, ``amcrax.heat_integration.analyse``), the area uses that UA instead of Q / LMTD, divided by F.\n2. Area A = UA / (U F). U is NOT computed here: three cases from typical-range tables (U_CASES, below).\n3. Cost (CORRELATIONS): Turton et al. (2018) module costing (purchased cost Cp0 at CEPCI 397, pressure factor,\n   material factor, bare-module factor) as the central correlation; Towler and Sinnott (2013) U-tube\n   correlation (CEPCI 532.9, Jan 2010) with the Hand installation factor 3.5 as a cross-check. Escalated to the\n   2024 cost year of the reference CAPEX by CEPCI. The central target 797.9 is the 2023 annual value used as a proxy\n   for 2024; 720.2 (printed by Kum 2026 as a 2024 index) cannot be a 2024 annual index and is a sensitivity only. An area above the correlation range is split into equal parallel units; below the range the cost\n   is evaluated at the lower bound (flagged).\n4. TCI-equivalent = installed (bare-module) cost x the reference-scenario indirect factor\n   (1 + OSBL)(1 + engineering + contingency), i.e. the same factor as every item of\n   amcrax.economics.reference.reference_capex. Turton's bare-module cost already contains some indirect costs,\n   so this is conservative (it counts against heat integration).\n5. Annualised cost: capital charge (reference CRF) + maintenance + insurance + plant overhead on maintenance,\n   with G&A, exactly as the fixed-opex formula of amcrax.economics.singapore.evaluate.\n\nAll values carry a source label; typical-range values are labelled as such.",
  "U_cases": {
   "low": {
    "U_W_m2K": 35.0,
@@ -53,14 +53,17 @@
   },
   "target_2024_central": {
    "value": 797.9,
-   "source": "chemengonline.com: 2023 annual average 797.9 and 2024 monthly values 'relatively stable at just below 800' (search-result text, 2026-11-23); used as the 2024 value"
+   "label": "2023 annual CEPCI, used as a proxy for the 2024 cost year",
+   "source": "chemengonline.com: 2023 annual average 797.9 and 2024 monthly values 'relatively stable at just below 800' (search-result text, 2026-11-23). This is the 2023 annual value used as a proxy for 2024, not a published 2024 annual index"
   },
   "target_2024_low": {
    "value": 720.2,
-   "source": "kum2026heatintegrated Sec. 3.4.1 (CEPCI 2024 = 720.2; conflicts with the other library values)"
+   "label": "value printed by Kum 2026 as 'CEPCI 2024'; not a 2024 index (probable source error); sensitivity only",
+   "source": "kum2026heatintegrated Sec. 3.4.1 prints CEPCI 2024 = 720.2. Annual CEPCI was about 708 (2021), 816 (2022) and 798 (2023), so 720.2 cannot be a 2024 annual index; kept only as a low-side cost sensitivity"
   },
   "target_2024_high": {
    "value": 800.3,
+   "label": "value printed by Ahmad 2025 as 'CEPCI 2024'",
    "source": "ahmad2025gtcc Eq. 8 text (CEPCI 2024 = 800.3)"
   }
  },
@@ -2351,9 +2354,14 @@
     "breakeven_tci_USD": 1688009.7791225296
    }
   ],
+  "breakeven_crf": {
+   "low": 0.1855991811925393,
+   "central": 0.223380030892775,
+   "high": 0.24371478240844072
+  },
   "cepci_material_correlation": [
    {
-    "variant": "CEPCI 720.2 (Kum)",
+    "variant": "CEPCI 720.2 (printed by Kum 2026 as 2024; not a 2024 index; sensitivity only)",
     "U_case": "low",
     "tci_equivalent_USD": 1609856.3010559839,
     "net_benefit_USD_per_kg": 0.08115138036172692
@@ -2498,7 +2506,8 @@
  },
  "row_evidence": {
   "H3-d": {
-   "proposed_verdict": "SUPPORTED",
+   "proposed_verdict": "INCONCLUSIVE (energy half SUPPORTED; cost half threshold-dependent: sourced U straddles the break-even U)",
+   "energy_half_supported": true,
    "numbers": {
     "energy_first_law_deficit_kW_hi_vs_nohi": [
      772.8673174,
@@ -2560,7 +2569,12 @@
     },
     "note": "break-even U (conservative multi-shell 1-2 design, SS/SS, TCI factor 1.4336) is 7.7-11.3 W/(m2 K); it lies inside the 1-bar typical range and far below the high-pressure range. No sourced value at 20 bar: a 20 bar gas is expected above the 1-bar range, but that is an engineering expectation, not a sourced number."
    },
-   "reason": "Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative in adverse corners listed in net_benefit_negative_in. The cost result therefore is SUPPORTED only inside the envelope U >= ~12 W/(m2 K) with NH3 >= ~310 USD/t and CRF <= ~0.15; outside that it is threshold-dependent."
+   "reason": "Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative in adverse corners listed in net_benefit_negative_in. The cost half depends on an overall heat-transfer coefficient with no source at 20 bar: the break-even U (7.7-11.3 W/(m2 K)) lies inside the only sourced (1 bar) typical range 5-35, so the cost half is threshold-dependent (INCONCLUSIVE). Break-even CRF (solved): 0.186 / 0.223 / 0.244 at U low / central / high (reference CRF 0.110).",
+   "breakeven_crf_solved": {
+    "low": 0.1855991811925393,
+    "central": 0.223380030892775,
+    "high": 0.24371478240844072
+   }
   }
  }
 }

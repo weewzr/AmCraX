@@ -5,9 +5,9 @@
   "description": "Ishigami (a=7, b=0.1) indices at N=2^13 against the analytic values within 0.02 absolute",
   "estimated": {
    "S1": [
-    0.31338721306438677,
-    0.4424232043094545,
-    -0.000283390156795889
+    0.31338725096121084,
+    0.4424232046531079,
+    -0.0002860537424245283
    ],
    "ST": [
     0.5558847881028195,
@@ -65,7 +65,7 @@
   "id": "T1-SUM-grey|heat_integration_on-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.999206703891876,
+  "sum_S1": 0.9992373172153602,
   "status": "pass"
  },
  {
@@ -88,7 +88,7 @@
   "id": "T1-SUM-grey|heat_integration_on-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9795899613289141,
+  "sum_S1": 0.9795868399556029,
   "status": "pass"
  },
  {
@@ -111,7 +111,7 @@
   "id": "T1-SUM-grey|heat_integration_on-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9945732512248063,
+  "sum_S1": 0.9946474880352687,
   "status": "pass"
  },
  {
@@ -134,7 +134,7 @@
   "id": "T1-SUM-blue|heat_integration_on-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9981355911007976,
+  "sum_S1": 0.9982077208889543,
   "status": "pass"
  },
  {
@@ -157,7 +157,7 @@
   "id": "T1-SUM-blue|heat_integration_on-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9904884583391044,
+  "sum_S1": 0.9905026905198401,
   "status": "pass"
  },
  {
@@ -180,7 +180,7 @@
   "id": "T1-SUM-blue|heat_integration_on-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9948114495967567,
+  "sum_S1": 0.9949870286537024,
   "status": "pass"
  },
  {
@@ -203,7 +203,7 @@
   "id": "T1-SUM-green_current|heat_integration_on-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9982383767966468,
+  "sum_S1": 0.9983437325767279,
   "status": "pass"
  },
  {
@@ -226,7 +226,7 @@
   "id": "T1-SUM-green_current|heat_integration_on-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9970801844212234,
+  "sum_S1": 0.9970839617445012,
   "status": "pass"
  },
  {
@@ -249,7 +249,7 @@
   "id": "T1-SUM-green_current|heat_integration_on-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9954918734597392,
+  "sum_S1": 0.9960705910048027,
   "status": "pass"
  },
  {
@@ -272,7 +272,7 @@
   "id": "T1-SUM-green_2030|heat_integration_on-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.999583460219679,
+  "sum_S1": 0.9996064245226071,
   "status": "pass"
  },
  {
@@ -295,7 +295,7 @@
   "id": "T1-SUM-green_2030|heat_integration_on-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9791525497923801,
+  "sum_S1": 0.9791369359900295,
   "status": "pass"
  },
  {
@@ -318,7 +318,7 @@
   "id": "T1-SUM-green_2030|heat_integration_on-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9944320732513149,
+  "sum_S1": 0.9945889634905862,
   "status": "pass"
  },
  {
@@ -341,7 +341,7 @@
   "id": "T1-SUM-grey|heat_integration_off-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9992042166918321,
+  "sum_S1": 0.9992400177225118,
   "status": "pass"
  },
  {
@@ -364,7 +364,7 @@
   "id": "T1-SUM-grey|heat_integration_off-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9818622308003397,
+  "sum_S1": 0.9818751338128321,
   "status": "pass"
  },
  {
@@ -387,7 +387,7 @@
   "id": "T1-SUM-grey|heat_integration_off-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9948120085563571,
+  "sum_S1": 0.9949099215342926,
   "status": "pass"
  },
  {
@@ -410,7 +410,7 @@
   "id": "T1-SUM-blue|heat_integration_off-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9982556546676635,
+  "sum_S1": 0.9983346409442692,
   "status": "pass"
  },
  {
@@ -433,7 +433,7 @@
   "id": "T1-SUM-blue|heat_integration_off-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9904058082909475,
+  "sum_S1": 0.9904349628159145,
   "status": "pass"
  },
  {
@@ -456,7 +456,7 @@
   "id": "T1-SUM-blue|heat_integration_off-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9949970263094943,
+  "sum_S1": 0.9952276509235276,
   "status": "pass"
  },
  {
@@ -479,7 +479,7 @@
   "id": "T1-SUM-green_current|heat_integration_off-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9984164443570558,
+  "sum_S1": 0.9985414171876029,
   "status": "pass"
  },
  {
@@ -502,7 +502,7 @@
   "id": "T1-SUM-green_current|heat_integration_off-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9967889845797004,
+  "sum_S1": 0.9968027385776734,
   "status": "pass"
  },
  {
@@ -525,7 +525,7 @@
   "id": "T1-SUM-green_current|heat_integration_off-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9956299649356534,
+  "sum_S1": 0.9963179905638267,
   "status": "pass"
  },
  {
@@ -548,7 +548,7 @@
   "id": "T1-SUM-green_2030|heat_integration_off-lcoh_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9995429948253006,
+  "sum_S1": 0.9995720168788506,
   "status": "pass"
  },
  {
@@ -571,7 +571,7 @@
   "id": "T1-SUM-green_2030|heat_integration_off-rec_USD_per_kg",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9815550160345796,
+  "sum_S1": 0.9815515159132461,
   "status": "pass"
  },
  {
@@ -594,7 +594,7 @@
   "id": "T1-SUM-green_2030|heat_integration_off-npv_USD",
   "evidence_kind": "numerical_verification",
   "description": "sum S_i <= 1.05 and ST_i >= S_i - 0.02",
-  "sum_S1": 0.9947052924730124,
+  "sum_S1": 0.9948908344967987,
   "status": "pass"
  },
  {
