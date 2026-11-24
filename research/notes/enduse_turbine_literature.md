@@ -1,6 +1,6 @@
 # End-use turbine evidence: ammonia, hydrogen and cracked gas
 
-Access date for every item: 23 November 2026. Data: `research/data/turbine_efficiency_literature.json` (efficiency, NOx, programmes) and `research/data/enduse_cost_literature.json` (capital cost, SCR, capacity factor, Halim status). Evidence grades: measured on engine, vendor claim, cycle simulation, review statement. No measured combined-cycle efficiency on ammonia or cracked gas was found; every efficiency below is a simulation or a vendor statement.
+Access date for every item: 23 November 2026, except section 7 and the H-25 blend statement in section 3 (corrected on 24 November 2026 after the full text of Halim et al. 2025 was read). Data: `research/data/turbine_efficiency_literature.json` (efficiency, NOx, programmes) and `research/data/enduse_cost_literature.json` (capital cost, SCR, capacity factor, Halim status). Evidence grades: measured on engine, vendor claim, cycle simulation, review statement. No measured combined-cycle efficiency on ammonia or cracked gas was found; every efficiency below is a simulation or a vendor statement.
 
 ## 1. The key number: cracked gas minus direct ammonia, combined cycle
 
@@ -35,7 +35,7 @@ Access date for every item: 23 November 2026. Data: `research/data/turbine_effic
 | IHI 2 MW gas turbine and AIST 50 kW micro turbine | ammonia-methane runs; NETL reports "large-scale SCR systems were needed" | earlier (NETL 2024 p. 16-17) | review statement |
 | Siemens Energy | nothing found for ammonia | n/a | not found |
 
-The essay's "H-25 takes 30 to 60 vol% H2 in NH3-H2 blends" was not found for the H-25. A "30 to 60 % hydrogen" figure does appear in NETL's 2022 literature review as the capability of Baker Hughes turbines (mostly aeroderivatives) on hydrogen in natural gas, and Ahmad et al. cite about 30 vol% H2 for unmodified natural-gas combustors. The most likely reading is a mis-attribution (unverified).
+The essay's "H-25 takes 30 to 60 vol% H2 in NH3-H2 blends" **is in Halim et al. (2025), p. 3**, relayed from a trade-press article (their ref. [31]); it is a vendor-claim grade statement, not tested in that paper (correction of 24 November 2026; full text read, `research/notes/halim2025_full_text.md`). The earlier reading of it as a likely mis-attribution is withdrawn. Separately, a "30 to 60 % hydrogen" figure appears in NETL's 2022 literature review as the capability of Baker Hughes turbines (mostly aeroderivatives) on hydrogen in natural gas, and Ahmad et al. cite about 30 vol% H2 for unmodified natural-gas combustors; these concern hydrogen in natural gas.
 
 ## 4. Combustion constraints, NOx and N2O
 
@@ -63,7 +63,9 @@ The essay's "H-25 takes 30 to 60 vol% H2 in NH3-H2 blends" was not found for the
 
 ## 7. Halim et al. (2025), Applied Energy 386, 125581
 
-Full text not accessible (the repository record offers "request a copy" only; publisher page not opened). Abstract read: direct ammonia use is economically preferable to cracking because cracking has high capital and operating cost; green ammonia is near zero emission either way; coal-derived ammonia could exceed Singapore's grid emissions when cracked; blue ammonia from steam methane reforming is a transitional option. The numbers 60.1 MW, LCOH 15.1 and 10.1 USD/kg, "about 40 per cent cheaper" and "30 to 60 vol% H2 for the H-25" are **not** in the abstract and could not be located. DOI resolves (Crossref). No location can be given for any of them.
+**Superseded on 24 November 2026: the full text was read** (`research/notes/halim2025_full_text.md`, `research/data/halim2025_extract.json`). All four numbers quoted by the essay are located: 60.1 MW (p. 3, p. 11; the vendor rating of the H-25 used as the target output); LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5; cracked hydrogen from green and blue ammonia); "about 40 %" (Highlights; 39 % green and 44 % blue on p. 9), which is 1 - LCOA/LCOH, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent energy for the 40 % hydrogen share, with equal turbine efficiency and the power plant excluded, **not a cost of electricity**; and 30 to 60 vol% H2 for the H-25 (p. 3, trade press). The paper does not model the turbine: one vendor combined-cycle efficiency (54 %, basis and fuel not stated) is applied to every fuel, so it gives no turbine-efficiency difference between hydrogen-rich fuel and ammonia that is independent of that assumption.
+
+Earlier text (23 November 2026, kept for the record): full text not accessible (the repository record offered "request a copy" only). Abstract read: direct ammonia use is economically preferable to cracking because cracking has high capital and operating cost; green ammonia is near zero emission either way; coal-derived ammonia could exceed Singapore's grid emissions when cracked; blue ammonia from steam methane reforming is a transitional option. The four numbers were not in the abstract.
 
 ## Gaps
 

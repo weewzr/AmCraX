@@ -8,9 +8,9 @@
  ],
  "kinds": {
   "numerical_verification": {
-   "total": 464,
+   "total": 466,
    "by_status": {
-    "pass": 440,
+    "pass": 442,
     "informational": 19,
     "fail": 5
    },
@@ -138,10 +138,10 @@
    ]
   },
   "literature_comparison": {
-   "total": 48,
+   "total": 55,
    "by_status": {
     "pass": 11,
-    "informational": 35,
+    "informational": 42,
     "fail": 2
    },
    "failures": [
@@ -222,11 +222,11 @@
   },
   "enduse": {
    "file": "results/research/validation/enduse.json",
-   "n_items": 75,
+   "n_items": 77,
    "by_kind": {
-    "numerical_verification": 66,
+    "numerical_verification": 67,
     "python_vs_aspen": 1,
-    "literature_comparison": 8
+    "literature_comparison": 9
    }
   },
   "heat_exchanger": {
@@ -240,9 +240,9 @@
   },
   "kinetics": {
    "file": "results/research/validation/kinetics.json",
-   "n_items": 19,
+   "n_items": 21,
    "by_kind": {
-    "literature_comparison": 11,
+    "literature_comparison": 13,
     "numerical_verification": 8
    }
   },
@@ -256,10 +256,10 @@
   },
   "purification": {
    "file": "results/research/validation/purification.json",
-   "n_items": 17,
+   "n_items": 22,
    "by_kind": {
-    "numerical_verification": 9,
-    "literature_comparison": 8
+    "numerical_verification": 10,
+    "literature_comparison": 12
    }
   },
   "uq": {

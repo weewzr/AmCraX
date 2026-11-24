@@ -96,3 +96,32 @@ Hypothesis verdicts (methodology version 2, with components; version 1 verdicts 
 The evidence matrix also carries plain answers (Yes, No or Not established) to the claims inside each hypothesis. They
 are a reading aid derived in code from the row verdicts and from the separately stored halves of rows H1-a and H3-d;
 they change no verdict.
+
+## Addendum state (24 November 2026)
+
+Three papers were read in full on 24 November 2026 (Halim et al. 2025; Abdoos et al. 2025; Sayas et al. 2020). No
+verdict moved: every hypothesis, component and row verdict above is unchanged, and the baseline LCOH stays
+4.015461254695034 USD/kg (5.174 SGD/kg; PSA recovery 0.85; fuel at 100 % of its lower heating value). The record is
+`results/research/addendum_2026-11-24.json`.
+
+| Check | Result |
+|---|---|
+| Research validation (`results/research/validation/summary.json`) | 705 items: 609 pass, 12 fail, 83 informational, 1 not available |
+| By evidence kind | numerical verification 466 (442 pass, 5 fail, 19 informational); Python against Aspen comparison 183 (156, 5, 22); comparison with published literature 55 (11, 2, 42); independent experimental validation: none (1 placeholder item, not available) |
+| Python tests (`python -m pytest tests -o addopts=""`) | 773 passed, 1 skipped (opt-in live Aspen test), 0 failed |
+| Frontend unit tests (`npm test`) | 292 passed in 30 files |
+| Technical report | 251 pages; quality report: no unresolved tokens, privacy scan PASS |
+| Paper and executive summary | 18 pages and 2 pages |
+
+The two sensitivities printed beside the frozen baseline:
+
+| Sensitivity | Case | LCOH (USD/kg) | Break-even NH3 price against 3.06 USD/kg (USD/t) |
+|---|---|---|---|
+| Fuel efficiency (`fuel_efficiency_sensitivity`) | 1.0 (reference) / 0.9225 / 0.85 of the fuel LHV | 4.015 / 4.038 / 4.063 | 320.0 / 317.9 / 315.5 |
+| PSA recovery (`psa_recovery_sensitivity`) | 0.85 (reference) / 0.8192 / 0.7744 (Abdoos et al. 2025, simulated, 8 to 12 bar) | 4.015 / 4.066 / 4.146 | 320.0 / 314.1 / 304.9 |
+
+Presentation: each hypothesis is now summarised by a plain headline answer with its limitations first
+(`headline_answer`, `headline_limitations` in the matrix); the formal classification is kept in the evidence matrix
+under "Formal classification (rule fixed before the analysis)". The fired-cracking claim of H1-a carries the plain
+answer "Yes, under the stated assumption" (turbine not modelled; both fuels at 49.64 %; break-even +5.16 points);
+the row stays INCONCLUSIVE.

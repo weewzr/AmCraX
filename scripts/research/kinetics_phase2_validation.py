@@ -99,7 +99,38 @@ def kinetics_items() -> list[dict]:
                   "reference_source": "research/reference_additions/phase2_kinetics.json",
                   "observed": "no usable complete law found", "expected": None, "tolerance": None, "unit": "-",
                   "status": "informational", "source_files": ["research/notes/phase2_kinetics_search.md"],
-                  "note": "Sayas 2020 publisher HTML/PDF HTTP 403, SI connection closed; no parameter was estimated"})
+                  "note": "Sayas 2020 publisher HTML/PDF HTTP 403, SI connection closed; no parameter was estimated. Update 24 Nov 2026: "
+                          "the Sayas main text was read from a copy supplied by the user; it has no rate constant (supplementary "
+                          "information only, not obtained), so still no usable complete law"})
+    # addendum of 24 November 2026: Sayas et al. 2020 measured conversions (not used by any model) and the cross-catalyst caution
+    p = os.path.join(KIN, "validity_classification.json")
+    if os.path.exists(p):
+        d = json.load(open(p, encoding="utf-8"))
+        sp, cx = d.get("literature_comparison_points_sayas2020"), d.get("cross_catalyst_context_sayas2020")
+        if sp:
+            items.append({"id": "K1P2-SAYAS-POINTS", "description": "Sayas et al. 2020: 15 measured conversions of 3%Ru10%K/CaO at 10, "
+                          "20 and 40 bar, 350-550 degC, stored as literature comparison points; NOT used by any model, fit or rule",
+                          "method": "figure reading of Fig. 4A (+/-2 points); pure NH3, 30 N mL/min over 200 mg ('N mL' reference "
+                                    "state not defined, about 9 % in F)",
+                          "reference_source": "sayas2020rukcao p. 5032 Fig. 4A", "observed": sp["n_points"], "expected": 15,
+                          "tolerance": None, "unit": "points", "status": "informational",
+                          "source_files": ["results/research/kinetics/validity_classification.json", "research/data/sayas2020_extract.json"],
+                          "note": "Ru-K/CaO stays unmodelled; these points cannot test any AmCraX law (no Ru-K/CaO law exists)",
+                          "provenance": _prov("results/research/kinetics/validity_classification.json", "literature")})
+        if cx:
+            h = cx["headline_20bar_500C"]
+            items.append({"id": "K1P2-SAYAS-RUAL2O3-CONTEXT", "description": "caution, cross-catalyst context comparison (not a test of "
+                          "the law): the AmCraX Ru/Al2O3 law (fitted at 1-10 bar) at the Sayas conditions with equal ruthenium per "
+                          "mol NH3, against the measured Ru-K/CaO conversion at 20 bar and 500 degC",
+                          "method": "isothermal PFR with ru_kum_temkin_pyzhev at W(Ru/Al2O3) giving the Sayas g Ru h/mol NH3, both "
+                                    "flow reference states (0 and 25 degC)", "reference_source": "sayas2020rukcao Fig. 4A",
+                          "observed": h["X_RuAl2O3_law_equal_Ru"], "expected": h["X_measured_RuK_CaO"], "tolerance": None,
+                          "unit": "conversion (fraction)", "status": "informational",
+                          "source_files": ["results/research/kinetics/validity_classification.json"],
+                          "note": "different catalysts (support, K promoter, dispersion); the pressure-extrapolated Ru/Al2O3 law converts "
+                                  "far more per gram of Ru than this measured Ru catalyst at 20 bar, a reason to keep the Ru/Al2O3 20 bar "
+                                  "results labelled as extrapolation; not evidence under the verdict rules",
+                          "provenance": _prov("results/research/kinetics/validity_classification.json", "python")})
     return items
 
 

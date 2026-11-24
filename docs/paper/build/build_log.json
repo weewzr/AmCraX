@@ -1,10 +1,10 @@
 {
-  "build_time": "2026-11-24T15:43:13",
+  "build_time": "2026-11-24T22:25:54",
   "docx_only": false,
   "documents": [
     {
       "source": "docs/paper/amcrax_paper.md",
-      "words_markdown_body": 8429,
+      "words_markdown_body": 8585,
       "figures": 5,
       "tables": 6,
       "pdf_pages": 18,
@@ -12,7 +12,7 @@
     },
     {
       "source": "docs/executive_summary.md",
-      "words_markdown_body": 732,
+      "words_markdown_body": 791,
       "figures": 0,
       "tables": 1,
       "pdf_pages": 2,

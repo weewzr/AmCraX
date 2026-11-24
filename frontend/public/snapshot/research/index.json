@@ -33,8 +33,8 @@
     "name": "validity_classification",
     "file": "validity_classification.json",
     "kind": "json",
-    "bytes": 16611,
-    "modified_utc": "2026-11-23T08:49:24+00:00"
+    "bytes": 29138,
+    "modified_utc": "2026-11-24T12:49:12+00:00"
    }
   ],
   "aspen_kinetic": [
@@ -251,22 +251,22 @@
     "name": "phase2_comparison",
     "file": "phase2_comparison.json",
     "kind": "json",
-    "bytes": 56508,
-    "modified_utc": "2026-11-24T07:33:42+00:00"
+    "bytes": 73304,
+    "modified_utc": "2026-11-24T13:05:29+00:00"
    },
    {
     "name": "phase2_comparison",
     "file": "phase2_comparison.csv",
     "kind": "csv",
     "bytes": 3301,
-    "modified_utc": "2026-11-24T07:33:42+00:00"
+    "modified_utc": "2026-11-24T13:05:29+00:00"
    },
    {
     "name": "phase2_psa_recovery_sensitivity",
     "file": "phase2_psa_recovery_sensitivity.csv",
     "kind": "csv",
     "bytes": 6744,
-    "modified_utc": "2026-11-24T07:33:42+00:00"
+    "modified_utc": "2026-11-24T13:05:29+00:00"
    }
   ],
   "enduse": [
@@ -275,84 +275,84 @@
     "file": "pathway_table_power.csv",
     "kind": "csv",
     "bytes": 15098,
-    "modified_utc": "2026-11-23T11:24:55+00:00"
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "pathway_table_hydrogen",
     "file": "pathway_table_hydrogen.csv",
     "kind": "csv",
     "bytes": 2907,
-    "modified_utc": "2026-11-23T11:24:55+00:00"
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "claim_check_direct_vs_cracking",
     "file": "claim_check_direct_vs_cracking.csv",
     "kind": "csv",
     "bytes": 1233,
-    "modified_utc": "2026-11-23T11:24:55+00:00"
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "price_sweep",
     "file": "price_sweep.csv",
     "kind": "csv",
     "bytes": 2200,
-    "modified_utc": "2026-11-23T11:24:55+00:00"
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "enduse_results",
     "file": "enduse_results.json",
     "kind": "json",
-    "bytes": 65479,
-    "modified_utc": "2026-11-23T11:24:55+00:00"
+    "bytes": 66231,
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "assumptions",
     "file": "assumptions.json",
     "kind": "json",
     "bytes": 3558,
-    "modified_utc": "2026-11-24T07:32:43+00:00"
+    "modified_utc": "2026-11-24T12:47:39+00:00"
    },
    {
     "name": "turbine_threshold",
     "file": "turbine_threshold.json",
     "kind": "json",
-    "bytes": 142325,
-    "modified_utc": "2026-11-24T07:32:43+00:00"
+    "bytes": 159524,
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    },
    {
     "name": "turbine_threshold",
     "file": "turbine_threshold.csv",
     "kind": "csv",
     "bytes": 25251,
-    "modified_utc": "2026-11-24T06:08:35+00:00"
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    },
    {
     "name": "sensitivity_turbine_efficiency",
     "file": "sensitivity_turbine_efficiency.csv",
     "kind": "csv",
     "bytes": 11916,
-    "modified_utc": "2026-11-24T06:08:35+00:00"
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    },
    {
     "name": "sensitivity_nh3_price",
     "file": "sensitivity_nh3_price.csv",
     "kind": "csv",
     "bytes": 5047,
-    "modified_utc": "2026-11-24T06:08:35+00:00"
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    },
    {
     "name": "sensitivity_capital",
     "file": "sensitivity_capital.csv",
     "kind": "csv",
     "bytes": 4776,
-    "modified_utc": "2026-11-24T06:08:35+00:00"
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    },
    {
     "name": "nox_n2o_blends",
     "file": "nox_n2o_blends.json",
     "kind": "json",
-    "bytes": 3576,
-    "modified_utc": "2026-11-24T06:08:36+00:00"
+    "bytes": 3755,
+    "modified_utc": "2026-11-24T12:48:14+00:00"
    }
   ],
   "lca": [
@@ -390,15 +390,15 @@
     "name": "baseline",
     "file": "baseline.json",
     "kind": "json",
-    "bytes": 26585,
-    "modified_utc": "2026-11-24T07:34:29+00:00"
+    "bytes": 31424,
+    "modified_utc": "2026-11-24T12:47:20+00:00"
    },
    {
     "name": "capex_audit",
     "file": "capex_audit.json",
     "kind": "json",
     "bytes": 6119,
-    "modified_utc": "2026-11-24T07:34:29+00:00"
+    "modified_utc": "2026-11-24T12:47:20+00:00"
    },
    {
     "name": "supersession",
@@ -554,8 +554,8 @@
     "name": "enduse_cost_literature",
     "file": "enduse_cost_literature.json",
     "kind": "json",
-    "bytes": 8156,
-    "modified_utc": "2026-11-23T08:58:15+00:00"
+    "bytes": 9225,
+    "modified_utc": "2026-11-24T12:34:48+00:00"
    },
    {
     "name": "membrane_trl",
@@ -575,15 +575,15 @@
     "name": "purification_literature",
     "file": "purification_literature.json",
     "kind": "json",
-    "bytes": 30815,
-    "modified_utc": "2026-11-24T07:57:18+00:00"
+    "bytes": 32505,
+    "modified_utc": "2026-11-24T12:36:27+00:00"
    },
    {
     "name": "turbine_efficiency_literature",
     "file": "turbine_efficiency_literature.json",
     "kind": "json",
-    "bytes": 22386,
-    "modified_utc": "2026-11-23T08:57:45+00:00"
+    "bytes": 23763,
+    "modified_utc": "2026-11-24T12:35:22+00:00"
    }
   ]
  },

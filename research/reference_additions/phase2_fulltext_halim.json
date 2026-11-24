@@ -1,0 +1,11 @@
+[
+  {
+    "citekey": "halim2025ammonia",
+    "apa7": "Halim, I., Zain, N. S., & Khoo, H. H. (2025). Assessing the feasibility of ammonia utilization for power generation: A techno-economic-environmental study. Applied Energy, 386, 125581. https://doi.org/10.1016/j.apenergy.2025.125581",
+    "doi": "10.1016/j.apenergy.2025.125581",
+    "url": "https://doi.org/10.1016/j.apenergy.2025.125581",
+    "access_date": "2026-11-24", "doi_verified": true,
+    "verification": "full text read on 24 November 2026 (all 15 pages; every table, flowsheet and chart checked on the page image; supplementary Tables A1-A2 not available). Bibliographic data confirmed on page 1: Applied Energy 386 (2025) 125581, received 19 Nov 2024, accepted 16 Feb 2025, online 27 Feb 2025. Confirmed: 60.1 MW (p. 3, p. 11; vendor rating of the Mitsubishi H-25, ref. [32]); LCOH 15.1 and 10.1 USD/kg H2 for green and blue NH3 cracking (Highlights, p. 9, Fig. 5, Table 5); 'reduces costs by 40 %' (Highlights) = 39 % green and 44 % blue on p. 9, as 1 - LCOA/LCOH per kg H2 of fuel energy at the turbine inlet, power plant excluded (not a cost of electricity); H-25 'H2 content ranging from 30 % to 60 % by volume' (p. 3, relayed from trade press, ref. [31]). Supersedes the abstract-only entries of 23 November 2026 (economics.json, enduse_lca.json).",
+    "taken_from": "Pathways (4 scenarios, p. 9); 60/40 energy NH3/H2 fuel for 60.1 MW, 12,815.5 kg/h NH3 + 1,339.8 kg/h H2 (p. 3); vendor combined-cycle efficiency 54 % (basis not stated), applied to all fuels, no turbine model; equal-energy direct case 8,579.9 kg/h NH3 (p. 9); fired cracker burning 18 % of its outlet gas, 200 degC and 5.6 bar feed, 80 % conversion, flame 1,359 degC, Aspen Plus v14 PC-SAFT/NRTL (pp. 3-5); TSA + PSA 98 mol% at 90 % recovery (p. 7); Tables 2-4 utilities, TCI 282.5 M USD, O&M; 10 %, 30 y, capacity factor 0.9; NH3 prices 944.20 and 397.96 USD/t (July 2024); GHG 0.779 and 5.21 kg CO2e/kg H2, 0.006-0.043 and 0.187-0.461 kg CO2e/kWh, grid 0.417 (pp. 10-13); NCAC Table 5. Not in the paper: LCOE, turbine inlet conditions, separate turbine efficiencies, N2O, turbine NOx, carbon tax. Extract: research/data/halim2025_extract.json; note: research/notes/halim2025_full_text.md."
+  }
+]

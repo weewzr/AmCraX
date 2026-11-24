@@ -41,10 +41,10 @@ The older limitation lists remain valid unless this page says otherwise: [../kno
 
 | Limitation | Consequence for the conclusions |
 |---|---|
-| The PSA is a component splitter. No cycle, adsorbent, purge or purity-recovery relation is computed. The only sourced slope is for a different feed. | H4-a is INCONCLUSIVE. PSA recovery stays an input. |
+| The PSA is a component splitter. No cycle, adsorbent, purge or purity-recovery relation is computed. Two published relations show the direction: Yanez et al. (2020), measured on a different feed, and Abdoos et al. (2025), simulated for a dry, ammonia-free cracked-ammonia composition at 7.9 to 11.6 bar (99.03 % at 83.92 %, 99.95 % at 81.92 %, 99.99 % at 77.44 %). The baseline 0.85 at 99.96 % lies above that front. | H4-a is INCONCLUSIVE. PSA recovery stays an input. Baseline PSA-recovery sensitivity: 4.066 and 4.146 USD/kg at 0.8192 and 0.7744 (`baseline.json` `psa_recovery_sensitivity`). |
 | The ranking of PSA against a Pd-Ag membrane depends on PSA recovery. Parity is at a PSA recovery of 0.783 (Grade D) and 0.795 (industrial) against the central membrane, 0.745 and 0.749 against the high-cost membrane. The ranking reverses inside sourced ranges. | H4-d is INCONCLUSIVE. No technology ranking is claimed. |
 | Membrane selectivity is ideal, single gas, for a new membrane. The source gives 40,541 (from the printed permeances) and 500,000 (stated). The paper is internally inconsistent, so both are carried. The requirement computed for this case is 12,919. | Membrane purity is an upper bound. Membrane TRL is 4 to 5 against 9 for PSA. |
-| The purity-only increment of Grade D hydrogen is 0.002 to 0.17 USD/kg and rests on a proxy. Most of the Grade D cost increment is 350 bar delivery. | H4-b is INCONCLUSIVE under the strict row rule. |
+| The purity-only increment of Grade D hydrogen is 0.002 USD/kg on the assumed mass-balance relation, 0.080 on the Abdoos front and 0.166 on the Yanez points (another feed). Three points of the Abdoos surrogate scatter change its sign, and both published relations are applied outside their pressure range. Most of the Grade D cost increment is 350 bar delivery. | H4-b is INCONCLUSIVE under the strict row rule. |
 | No NH3 polishing, no compression in the flowsheet. The baseline product has about 392 ppm N2 and is not fuel-cell grade. | Product quality claims are limited to an industrial grade. |
 
 ### Economics
@@ -75,7 +75,7 @@ The older limitation lists remain valid unless this page says otherwise: [../kno
 | No sourced turbine efficiency exists for the hydrogen and nitrogen fuel of a fired cracker. The comparison assumes equal efficiency (49.64 %) for all pathways. | H1-a is INCONCLUSIVE. The cost advantage of direct use (7.6 % against fired cracking, 16.5 % against cracking with PSA) depends on this assumption. |
 | Thresholds: fired cracking needs +5.16 percentage points of turbine efficiency (range 3.29 to 8.79 over 11 bases) to match direct use. Cracking with PSA needs +12.55 (9.68 to 18.10), above the only sourced upper bound of +7.3 (NETL, pure hydrogen). | The PSA half passes on every basis against a single sourced gain (NETL, H-class cycle simulation with steam-diluted hydrogen, not like for like; an upper bound). The fired-cracking half has no sourced efficiency. |
 | Exhaust-heated cracking is 1.3 % cheaper than direct use on the reference basis. The outcome flips with CAPEX (x1.22 removes it), an ammonia price of 300 USD/t and 6000 operating hours or fewer; the margin is not robust. | This is a finding against the essay and H1-c is INCONCLUSIVE. |
-| Halim et al. and Abdoos et al. could not be read in full. | The essay figures from them (including the 40 % advantage) are unverified. H1-b is CONTRADICTED only in the sense that the largest computed gap is 16.6 %. |
+| Halim et al. (2025), read in full on 24 November 2026, computes no cost of electricity: its "about 40 %" (39 % green, 44 % blue) is a fuel-cost comparison per kg of hydrogen-equivalent energy at the turbine inlet, and it applies one vendor turbine efficiency (54 %) to every fuel. | H1-b, which tests the essay's sentence about power, stays CONTRADICTED (at most 16.6 % in the cost of electricity). On the paper's basis AmCraX gives 20 to 33 % (27.7 % for grey ammonia), the same direction and a smaller gap, reconciled within half a point by the paper's lower energy retention (69.5 against 87.7 %) and its capital and storage costs. The paper cannot test H1-a, because it assumes the same efficiency. |
 
 ### Uncertainty quantification
 
@@ -114,7 +114,7 @@ Ranked by how much each step would reduce the uncertainty of a verdict that is n
 5. **A film-coefficient estimate of the exchanger coefficient** at 20 bar for ammonia, hydrogen and nitrogen, or a vendor rating. The break-even U is 7.7 to 11.3 W/(m2 K), inside the 1 bar typical range (5 to 35), so this decides the cost half of H3-d.
 6. **A sourced hydrogen benchmark set for Singapore** and a gas price, WACC and location factor, so that the break-even ammonia price rests on more than one benchmark.
 7. **Reference CAPEX from equipment-level costing** with sized units, including temperature and volume dependence, replacing the single paper table extrapolated 30-fold.
-8. **Full texts of Halim et al., Abdoos et al. and Sayas et al.**, to verify or withdraw the essay figures that depend on them and to obtain Ru-K/CaO kinetics.
+8. **The Sayas et al. (2020) supplementary information** (the Ru-K/CaO rate constant and equilibrium term); the main texts of Halim et al., Abdoos et al. and Sayas et al. were read in full on 24 November 2026.
 9. **A membrane module model** with a sourced module cost and measured mixed-gas selectivity for cracked ammonia, to replace the ideal single-gas figure.
 10. **Singapore policy tracking.** If a carbon price covering embodied emissions is legislated, Mode B becomes an actual boundary and H2-e must be recomputed.
 11. **Independent experimental data**, for example a small packed-bed test on one catalyst at 20 bar. It would be the first evidence of kind (4).

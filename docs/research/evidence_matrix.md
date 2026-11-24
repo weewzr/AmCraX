@@ -1,6 +1,6 @@
 # Research evidence matrix (H1-H4), methodology version 2
 
-Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T08:00:32Z). Do not edit by hand; re-run the script.
+Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T14:28:39Z). Do not edit by hand; re-run the script.
 
 Verdict rule: `docs/research/verdict_methodology_v2.md` (version 2, fixed before the Phase 2 analyses). Row verdicts: SUPPORTED, CONTRADICTED, INCONCLUSIVE. Component and hypothesis verdicts add MIXED and PARTIALLY SUPPORTED. Every row verdict is derived in code from the result files by the rule printed with the row. The version 1 verdict of the 23 November 2026 release is shown beside every verdict.
 
@@ -21,20 +21,34 @@ Currency: calculations in USD; SGD values use 1.288444 SGD/USD (2026-11-20).
 
 Fix pass: 24 November 2026: the findings of three independent reviews (of the verdicts, of the documents against the result files, and of the models and code) were applied: rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under rewritten row rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d. Every changed value is recorded in results/research/fix_pass_2026-11-24.json and docs/research/phase2_findings_changed.md.
 
+Addendum: 24 November 2026: three papers earlier seen only as abstracts or search summaries were read in full (Halim et al. 2025; Abdoos et al. 2025; Sayas et al. 2020). Texts that had become false were corrected and the new evidence was added as computed literature comparisons and sensitivities beside the existing results (H1-b on the paper's own fuel-cost basis; PSA recovery from the published front for this composition, including a baseline sensitivity; Sayas conversions as comparison points). No row rule, verdict or reference value changed. Recorded in results/research/addendum_2026-11-24.json and docs/research/phase2_findings_changed.md.
+
 ## Plain answers (reading aid, not verdicts)
 
-Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is exactly one of 'Yes', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. Everything else is 'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict with its components is printed beside the plain answers. The qualifier and the limitation are computed from the same stored values as the row.
+Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is exactly one of 'Yes', 'Yes, under the stated assumption', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. 'Yes, under the stated assumption' only where ALL of these hold, checked in code from stored values: (i) the model result is computed and has the claimed direction on every basis of the analysis; (ii) the formal test behind it is INCONCLUSIVE solely because one named quantity is assumed by the model, not computed, and no sourced value of that quantity exists (not because sourced values straddle a threshold); (iii) the limitation printed with it names the assumption and gives the break-even value of the assumed quantity. It is a conditional statement of the computed result and never a verdict. Everything else is 'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict with its components is printed beside the plain answers. The qualifier and the limitation are computed from the same stored values as the row.
+
+Headline answers are part of the plain-answer reading aid and are never verdicts. Each hypothesis gets a headline answer and headline limitations, generated in code from its plain answers: the headline states the 'Yes' answers first (including 'Yes, under the stated assumption', which makes the headline conditional); where no claim is 'Yes' the headline is 'Not established.' The limitations follow immediately and always: first the assumption behind a conditional 'Yes' and the size limit of a qualified 'Yes', then every 'No' claim and every 'Not established' claim, each named explicitly with its computed limitation, so nothing unfavourable is left out. The formal classification under the rule fixed before the analysis (verdict and components) is unchanged and is published beside it in the detailed evidence matrix. Plain answers state what the model computes and under which assumptions; the formal classification applies a stricter rule fixed before the analysis, under which a result that rests on an untested assumption is not counted as supported; both are published.
 
 Published figures checked (secondary reproduction rows; they do not vote): 'reproduced' only where the reproduction row is SUPPORTED, 'not reproduced' only where it is CONTRADICTED, otherwise 'not established'.
 
 ### H1: End-use suitability: cracking is most justified when the end use needs molecular hydrogen, not where ammonia can be used directly.
+
+**Headline answer (reading aid, not a verdict):** Yes, under the modelled conditions: direct ammonia combustion gives cheaper electricity than the standalone cracking pathways (about 8 to 17 %).
+
+**Limitations:**
+
+* Assumption: The gas turbine is not modelled in AmCraX: both fuels are assigned the same 49.64 % efficiency. Under that assumption direct ammonia is 7.6 % cheaper than fired cracking (259 against 280 USD/MWh) and 16.5 % cheaper than cracking + PSA. Fired cracking would break even if the hydrogen-rich turbine were 5.16 percentage points more efficient (3.29 to 8.79 over the 11 bases; 5.82 and 6.54 if the cracker fuel delivers 92 % and 85 % of its heating value). No published efficiency exists for this fuel on a fired cracker.
+* Not established: cracking in front of a turbine does not pay. Against the essay, exhaust-heated full cracking is 1.3 % cheaper than direct use on the reference basis (255.6 against 258.9 USD/MWh); this is not robust: the sign changes across cost, price and hour bases (a cracker CAPEX x1.22 removes it).
+* Not established: cracking is justified where hydrogen is the product. Cracked hydrogen costs 4.015 USD/kg with fuel counted at 100 % of its LHV (4.038 to 4.063 at lower fuel efficiencies): above the 3.06 USD/kg NE Asia SMR marker, below the 6.0 USD/kg delivered low-carbon benchmark. For power, cracking + PSA gives 2.53 to 2.58 kWh/kg NH3 at sourced turbine gains against 2.57 for direct combustion, so the energy comparison is also unresolved.
+
+**Formal classification (rule fixed before the analysis):** INCONCLUSIVE (H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE). It differs from the plain answer because the turbine efficiency is assumed, not computed, so the rule cannot count the result as supported.
 
 **Plain answers (reading aid; formal verdict INCONCLUSIVE, components H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE).**
 
 | Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
 |---|---|---|---|---|---|
 | Direct ammonia is cheaper than cracking plus PSA for power | **Yes** | - | Direct use is 17 % cheaper (259 against 310 USD/MWh) at an assumed equal turbine efficiency of 49.64 %. Cracking + PSA would need a turbine 12.6 percentage points more efficient, above the only sourced gain (6.1 to 7.3 points, one upper-bound source that is not like for like) on every cost basis. Finding on the cracking + PSA half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (cracking + PSA half) | H1-a INCONCLUSIVE (cracking + PSA half SUPPORTED; the row needs both halves); component H1-P INCONCLUSIVE |
-| Direct ammonia is cheaper than fired cracking for power | **Not established** | - | Direct use is 8 % cheaper (259 against 280 USD/MWh) only at the assumed equal turbine efficiency; fired cracking would need +5.2 points (+6.5 with cracker heat at 0.85 of the fuel LHV), and no turbine efficiency on its H2/N2 fuel is sourced. Finding on the fired-cracking half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (fired-cracking half) | H1-a INCONCLUSIVE (fired-cracking half INCONCLUSIVE; the row needs both halves); component H1-P INCONCLUSIVE |
+| Direct ammonia is cheaper than fired cracking for power | **Yes, under the stated assumption** | - | The gas turbine is not modelled in AmCraX: both fuels are assigned the same 49.64 % efficiency. Under that assumption direct ammonia is 7.6 % cheaper than fired cracking (259 against 280 USD/MWh) and 16.5 % cheaper than cracking + PSA. Fired cracking would break even if the hydrogen-rich turbine were 5.16 percentage points more efficient (3.29 to 8.79 over the 11 bases; 5.82 and 6.54 if the cracker fuel delivers 92 % and 85 % of its heating value). No published efficiency exists for this fuel on a fired cracker. Finding on the fired-cracking half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. Conditional statement of the computed result, not a verdict: it holds only under the assumption named in the limitation; the formal test stays INCONCLUSIVE. | H1-a (fired-cracking half) | H1-a INCONCLUSIVE (fired-cracking half INCONCLUSIVE; the row needs both halves); component H1-P INCONCLUSIVE |
 | Cracking in front of a turbine does not pay | **Not established** | - | Against the essay, exhaust-heated full cracking is 1.3 % cheaper than direct use on the reference basis (255.6 against 258.9 USD/MWh); this is not robust: the sign changes across cost, price and hour bases (a cracker CAPEX x1.22 removes it). | H1-c | H1-c INCONCLUSIVE; component H1-P INCONCLUSIVE |
 | Cracking is justified where hydrogen is the product | **Not established** | - | Cracked hydrogen costs 4.015 USD/kg with fuel counted at 100 % of its LHV (4.038 to 4.063 at lower fuel efficiencies): above the 3.06 USD/kg NE Asia SMR marker, below the 6.0 USD/kg delivered low-carbon benchmark. For power, cracking + PSA gives 2.53 to 2.58 kWh/kg NH3 at sourced turbine gains against 2.57 for direct combustion, so the energy comparison is also unresolved. | H1-d | H1-d INCONCLUSIVE; component H1-Q INCONCLUSIVE |
 
@@ -42,9 +56,19 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 
 | Published figure | Result | Finding | Row |
 |---|---|---|---|
-| Direct ammonia power about 40 % cheaper than cracking-based power (Halim et al., quoted in the essay) | not reproduced | At most 16.6 % on AmCraX boundaries. | H1-b CONTRADICTED |
+| Direct ammonia power about 40 % cheaper than cracking-based power (the essay's wording, citing Halim et al.) | not reproduced | At most 16.6 % in the cost of electricity on AmCraX boundaries. The paper's own 40 % (39 % and 44 %) is a fuel cost at the turbine inlet, not a cost of power; on that basis AmCraX gives 20.4 % and 29.4 % at the paper's prices (27.7 % for grey at 450 USD/t): same direction, smaller gap. | H1-b CONTRADICTED |
 
 ### H2: Feedstock: affordable, low-carbon ammonia is essential to economic and environmental competitiveness.
+
+**Headline answer (reading aid, not a verdict):** Yes: ammonia price is the dominant cost of cracked hydrogen (feed 76 % of the LCOH), and low-carbon ammonia is needed for an emissions advantage in power and in hydrogen supply.
+
+**Limitations:**
+
+* No: low carbon intensity is rewarded economically in Singapore. Under the actual Singapore carbon tax the charge is 0 USD/kg for every ammonia route, while blue (4.29 USD/kg) and green at today's price (8.06) cost more than grey (4.02).
+* Not established: cheap ammonia makes cracked hydrogen competitive. Competitive with the 3.06 USD/kg NE Asia SMR marker only with ammonia at or below about 320 USD/t (277 to 379); grey ammonia at 450 USD/t is not cheap enough. Sourced prices (300 to 1052 USD/t) lie on both sides. Against the 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t.
+* Not established: low carbon intensity would be rewarded under a life-cycle carbon price. Blue overtakes grey at 33 SGD/t CO2e (range 12 to 605) against the legislated 45 SGD/t; green at today's price needs 305 SGD/t. Hypothetical, not Singapore law.
+
+**Formal classification (rule fixed before the analysis):** MIXED (H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED). It differs from the plain answer because the rule combines components: the feed-cost and emissions claims hold, while the carbon-price claim is contradicted and the break-even row is inconclusive, which the rule records as MIXED.
 
 **Plain answers (reading aid; formal verdict MIXED, components H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED).**
 
@@ -58,6 +82,17 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 | Low carbon intensity would be rewarded under a life-cycle carbon price | **Not established** | hypothetical, not Singapore law | Blue overtakes grey at 33 SGD/t CO2e (range 12 to 605) against the legislated 45 SGD/t; green at today's price needs 305 SGD/t. Hypothetical, not Singapore law. Hypothetical scenario, not Singapore law; reported separately and does not vote. | H2-e (hypothetical life-cycle carbon price, not Singapore law) | H2-e CONTRADICTED (hypothetical life-cycle carbon price, not Singapore law: INCONCLUSIVE; reported separately, does not vote); component H2-X CONTRADICTED |
 
 ### H3: Catalyst and heat integration: low-temperature, high-activity catalysts with effective heat integration reduce energy use and can outweigh higher catalyst cost.
+
+**Headline answer (reading aid, not a verdict):** Yes for energy: lower temperature (modestly) and heat integration both reduce energy use.
+
+**Limitations:**
+
+* Lower temperature reduces energy use at equal conversion only modestly: At most 25 kW (Ru/Al2O3), 4.9 % of the fired duty and 1.1 % of the 2293 kW total external heating; Python only; resolved only for Ru/Al2O3 and Ru/MgO (72 K or more below Ni/MgO). Cost-optimal Ru designs run hotter and use 19 to 21 kW more.
+* Not established: active catalysts allow that lower temperature at 20 bar. The models order the catalysts (499 to 594 degC), but no rate law is validated at the relevant conditions (20 bar): 3 are checked only against their own fitting data and 2 are extrapolated.
+* Not established: heat integration reduces cost. Saves 0.214 USD/kg gross and 0.067 to 0.095 net of the exchanger on the reference basis, but the break-even heat-transfer coefficient (7.7 to 11.3 W/(m2 K)) lies inside the only sourced range (5 to 35, about 1 bar; none at 20 bar); worst case -0.012 USD/kg.
+* Not established, leaning no: the energy savings outweigh the higher catalyst cost. With heat integration and derived catalyst prices 3 of 4 low-temperature catalysts are dearer than Ni/MgO beyond the model resolution, with Ni at its modelled 594 degC (extrapolated law); against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper.
+
+**Formal classification (rule fixed before the analysis):** PARTIALLY SUPPORTED (H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE). It differs from the plain answer because the rule counts only the energy component; the heat-integration cost and catalyst-economics components are inconclusive.
 
 **Plain answers (reading aid; formal verdict PARTIALLY SUPPORTED, components H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE).**
 
@@ -78,12 +113,23 @@ Published figures checked (secondary reproduction rows; they do not vote): 'repr
 
 ### H4: Purification: must balance purity requirements against recovery losses, energy and equipment cost.
 
+**Headline answer (reading aid, not a verdict):** Not established.
+
+**Limitations:**
+
+* Not established: higher purity costs hydrogen recovery. AmCraX computes no PSA purity-recovery relation (recoveries are inputs). Two published sources give the direction: Yanez et al. 2020, measured on a different feed (0.753 at 99.25 % to 0.555 at 99.97 %), and Abdoos et al. 2025, simulated for a dry, NH3-free cracked-ammonia composition (0.819 at 99.95 % to 0.774 at 99.99 %).
+* Not established: stricter purity raises the cost of hydrogen. The order raw < industrial < Grade D holds in every case; the purity-only Grade D increment at equal delivery pressure is 0.002 to 0.166 USD/kg on the coded bases (0.080 on the Abdoos et al. 2025 relation), above the 0.006 USD/kg model resolution on both published relations at their printed recoveries, but below it on the assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front.
+* Not established: unrecovered hydrogen offsets furnace fuel. The tail gas covers the 2293 kW furnace demand only at PSA recoveries below 0.765 (where part of it is surplus with no use in the model); sourced and assumed recoveries (0.555 to 0.850) lie on both sides.
+* Not established: a Pd-Ag membrane beats PSA for fuel-cell hydrogen. The membrane is cheaper in 57.5 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial); membrane readiness TRL 4 to 5 against 9 for PSA.
+
+**Formal classification (rule fixed before the analysis):** INCONCLUSIVE (H4-B INCONCLUSIVE).
+
 **Plain answers (reading aid; formal verdict INCONCLUSIVE, components H4-B INCONCLUSIVE).**
 
 | Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
 |---|---|---|---|---|---|
-| Higher purity costs hydrogen recovery | **Not established** | - | No purity-recovery relation is computed for cracked ammonia (PSA recoveries are inputs). The only sourced slope (Yanez et al. 2020: 0.753 at 99.25 % to 0.555 at 99.97 %) is for a different feed. | H4-a | H4-a INCONCLUSIVE; component H4-B INCONCLUSIVE |
-| Stricter purity raises the cost of hydrogen | **Not established** | - | The order raw < industrial < Grade D holds in every case, but the purity-only Grade D increment at equal delivery pressure is 0.002 to 0.166 USD/kg, partly below the 0.006 USD/kg model resolution and resting on assumed recoveries. | H4-b | H4-b INCONCLUSIVE; component H4-B INCONCLUSIVE |
+| Higher purity costs hydrogen recovery | **Not established** | - | AmCraX computes no PSA purity-recovery relation (recoveries are inputs). Two published sources give the direction: Yanez et al. 2020, measured on a different feed (0.753 at 99.25 % to 0.555 at 99.97 %), and Abdoos et al. 2025, simulated for a dry, NH3-free cracked-ammonia composition (0.819 at 99.95 % to 0.774 at 99.99 %). | H4-a | H4-a INCONCLUSIVE; component H4-B INCONCLUSIVE |
+| Stricter purity raises the cost of hydrogen | **Not established** | - | The order raw < industrial < Grade D holds in every case; the purity-only Grade D increment at equal delivery pressure is 0.002 to 0.166 USD/kg on the coded bases (0.080 on the Abdoos et al. 2025 relation), above the 0.006 USD/kg model resolution on both published relations at their printed recoveries, but below it on the assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front. | H4-b | H4-b INCONCLUSIVE; component H4-B INCONCLUSIVE |
 | Unrecovered hydrogen offsets furnace fuel | **Not established** | - | The tail gas covers the 2293 kW furnace demand only at PSA recoveries below 0.765 (where part of it is surplus with no use in the model); sourced and assumed recoveries (0.555 to 0.850) lie on both sides. | H4-e | H4-e INCONCLUSIVE; component H4-B INCONCLUSIVE |
 | A Pd-Ag membrane beats PSA for fuel-cell hydrogen | **Not established** | - | The membrane is cheaper in 57.5 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial); membrane readiness TRL 4 to 5 against 9 for PSA. Secondary row: reported, does not vote. | H4-d | H4-d INCONCLUSIVE; component H4-B INCONCLUSIVE (secondary row, does not vote) |
 
@@ -181,7 +227,7 @@ Role: primary (H1-P). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** fired threshold over bases 3.29 to 8.79 pp; purified 9.68 to 18.10 pp
 
-**Validation status.** Energy balance closure of every power pathway; Ahmad Case 2a LCOE reproduced; Aspen LHV efficiency reproduced (results/research/validation/enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+**Validation status.** Energy balance closure of every power pathway; Ahmad Case 2a LCOE reproduced; Aspen LHV efficiency reproduced (results/research/validation/enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
@@ -193,10 +239,10 @@ Role: primary (H1-P). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Stored Aspen Plus V15 baseline (results/simulations/baseline.json): cracker reactor and pre-heater duty, PSA heat deficit used as cracker heat; no Aspen combustion model.
 - Python model: amcrax.enduse.pathways power pathways (energy balance, Ahmad-scaled plant capital, amcrax.economics).
 - Case ids: baseline (stored Aspen), direct, full_fired, full_purified
-- Validation: Energy balance closure of every power pathway; Ahmad Case 2a LCOE reproduced; Aspen LHV efficiency reproduced (results/research/validation/enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+- Validation: Energy balance closure of every power pathway; Ahmad Case 2a LCOE reproduced; Aspen LHV efficiency reproduced (results/research/validation/enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 - Input assumptions: Fired variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption).; PSA recovery of the stored baseline (assumption) for the purified route.; Plant capital outside the cracker: Ahmad Case 2a scaled with plant power.; No NOx abatement cost; no combustion simulated.
-- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammoniapower` (Halim et al. 2025 (abstract only): direct use preferred to cracking for power)
-- Limitations: Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).; Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).; Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.; Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.; Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked.
+- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammonia` (Halim et al. 2025 (full text read 24 Nov 2026): fuel-cost comparison of direct use and cracking at the turbine inlet; turbine not modelled, no cost of electricity)
+- Limitations: Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).; Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).; Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.; Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.; Halim et al. (2025), full text read on 24 November 2026: the paper computes no cost of electricity (its 'about 40 %' is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet), and it applies one vendor turbine efficiency to every fuel, so it supplies no like-for-like LCOE and no independent turbine-efficiency difference.
 
 | Quantity | Value | Unit | Source type | File | Key |
 |---|---|---|---|---|---|
@@ -251,7 +297,7 @@ Role: primary (H1-P). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** full-exhaust threshold over bases 1.97 to 8.04 pp
 
-**Validation status.** Ahmad bypass table reproduced by stoichiometry; N and H atom balance and blend round trip (enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+**Validation status.** Ahmad bypass table reproduced by stoichiometry; N and H atom balance and blend round trip (enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
@@ -263,9 +309,9 @@ Role: primary (H1-P). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Partial-cracking heat is the stored Aspen baseline reactor + pre-heater duty scaled with the cracked share; no Aspen combustion or exhaust-heated reactor model.
 - Python model: amcrax.enduse.pathways partial-cracking scan and break-even efficiency gain.
 - Case ids: direct, partial_exhaust_40, partial_fired_40, full_exhaust
-- Validation: Ahmad bypass table reproduced by stoichiometry; N and H atom balance and blend round trip (enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+- Validation: Ahmad bypass table reproduced by stoichiometry; N and H atom balance and blend round trip (enduse.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 - Input assumptions: Exhaust-heated cracker efficiency taken from Ahmad's two end points (literature).; Efficiency of intermediate blends linearly interpolated between Ahmad's end points (assumption).; Fired variants: direct-NH3 turbine efficiency (assumption).
-- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammoniapower` (Halim et al. 2025 (abstract only): direct use preferred to cracking for power)
+- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammonia` (Halim et al. 2025 (full text read 24 Nov 2026): fuel-cost comparison of direct use and cracking at the turbine inlet; turbine not modelled, no cost of electricity)
 - Limitations: No combustion simulation; NOx not quantified for blends and cracked fuels.; Turbine H2 tolerance ranges are flags only (Ahmad p. 2; brief value unverified).
 
 | Quantity | Value | Unit | Source type | File | Key |
@@ -295,7 +341,8 @@ Role: primary (H1-Q). Version 1 verdict: INCONCLUSIVE.
 
 **Numerical conclusions.**
 
-- H2 as product keeps 87.7 % of the NH3 LHV (Aspen).
+- H2 as product keeps 87.7 % of the NH3 LHV (Aspen); the self-fired cracker of Halim et al. 2025 keeps 69.5 % (derived from the paper; a different flowsheet that burns 18 % of its product gas, literature comparison only).
+- At the PSA recoveries of the only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed) the frozen baseline would cost 4.066 USD/kg at 0.8192 and 4.146 USD/kg at 0.7744 (reference 4.015 at the assumed 0.85; sensitivity, reference unchanged).
 - Electricity per kg NH3: direct 2.565; cracking + PSA 2.251 at the efficiency copy, 2.526 to 2.582 at the NETL gains (straddles direct).
 - Cracked H2 costs 4.015 USD/kg (5.174 SGD/kg), above the 3.06 USD/kg NE Asia SMR marker and below the 6.0 USD/kg delivered low-carbon benchmark (fuel counted at 100 % of its lower heating value, optimistic; 4.038 to 4.063 USD/kg at fuel efficiencies 0.9225 and 0.85).
 
@@ -313,7 +360,7 @@ Role: primary (H1-Q). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** benchmarks 3.0-10 USD/kg straddle the computed LCOH range 4.0-8.1
 
-**Validation status.** Aspen LHV efficiency matched within tolerance; stored LCOH reproduced; purification mass closure (enduse.json, purification.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational; results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** Aspen LHV efficiency matched within tolerance; stored LCOH reproduced; purification mass closure (enduse.json, purification.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational; results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** python vs aspen, numerical verification, literature comparison.
 
@@ -325,7 +372,7 @@ Role: primary (H1-Q). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Stored Aspen Plus V15 baseline flowsheet (RGibbs cracker, FEHE, PSA split block) for the LHV efficiency.
 - Python model: amcrax.enduse hydrogen pathways with amcrax.economics; purification workstream PSA_D_MB for Grade D.
 - Case ids: baseline (stored Aspen), scn_fuel_cell_grade (stored Aspen), PSA_D_MB
-- Validation: Aspen LHV efficiency matched within tolerance; stored LCOH reproduced; purification mass closure (enduse.json, purification.json). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational; results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: Aspen LHV efficiency matched within tolerance; stored LCOH reproduced; purification mass closure (enduse.json, purification.json). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational; results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: PSA purity and recovery of the stored Aspen baseline are set by an assumed split (they support no purity claim).; Grade D cost is a lower bound: NH3 polishing and contaminants other than NH3, N2 and H2O not evaluated.
 - Literature: `iso14687_2019` (ISO 14687:2019 grade limits); `ahmad2025gtcc` (turbine efficiencies)
 - Limitations: No route other than cracking is evaluated for producing H2 from NH3; the comparison is between end uses, not between H2 sources (see H2 for SMR comparators).
@@ -346,6 +393,9 @@ Role: primary (H1-Q). Version 1 verdict: INCONCLUSIVE.
 | baseline LCOH with supplementary NH3 fuel at 1 of its LHV | 4.015 | USD/kg H2 | python | `results/research/reference_scenario/baseline.json` | `fuel_efficiency_sensitivity/cases/0/lcoh_USD_per_kg` |
 | baseline LCOH with supplementary NH3 fuel at 0.9225 of its LHV | 4.038 | USD/kg H2 | python | `results/research/reference_scenario/baseline.json` | `fuel_efficiency_sensitivity/cases/1/lcoh_USD_per_kg` |
 | baseline LCOH with supplementary NH3 fuel at 0.85 of its LHV | 4.063 | USD/kg H2 | python | `results/research/reference_scenario/baseline.json` | `fuel_efficiency_sensitivity/cases/2/lcoh_USD_per_kg` |
+| PSA-recovery sensitivity: baseline LCOH at PSA recovery 0.8192 (Abdoos et al. 2025 front) | 4.066 | USD/kg H2 | python | `results/research/reference_scenario/baseline.json` | `psa_recovery_sensitivity/cases/1/lcoh_USD_per_kg` |
+| PSA-recovery sensitivity: baseline LCOH at PSA recovery 0.7744 (Abdoos et al. 2025 front) | 4.146 | USD/kg H2 | python | `results/research/reference_scenario/baseline.json` | `psa_recovery_sensitivity/cases/2/lcoh_USD_per_kg` |
+| Halim et al. 2025: NH3 LHV retained as H2 in a self-fired cracker + PSA (derived) | 0.6949 | fraction | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/paper_energy_retained_as_h2_derived` |
 | electricity per kg NH3, direct | 2.565 | kWh/kg NH3 | python | `results/research/enduse/turbine_threshold.json` | `row_evidence/H1-d/numbers/kWh_per_kg_NH3/direct` |
 | electricity per kg NH3, cracking + PSA at the efficiency copy | 2.251 | kWh/kg NH3 | python | `results/research/enduse/turbine_threshold.json` | `row_evidence/H1-d/numbers/kWh_per_kg_NH3/cracked_purified_at_eta_copy` |
 
@@ -360,12 +410,14 @@ Role: secondary (H1-P). Version 1 verdict: CONTRADICTED.
 
 **Numerical conclusions.**
 
-- Largest computed gap 16.6 % (smallest -5.0 %) against the quoted 40 %; 27.3 % at most in any sensitivity.
+- Largest computed gap in the cost of electricity 16.6 % (smallest -5.0 %) against the quoted 40 %; 27.3 % at most in any sensitivity.
 - The quoted figure would need a cracker CAPEX x6.3 (cracking + PSA) or x11.1 (fired).
+- On the paper's own basis (fuel cost per kg of hydrogen-equivalent energy at the turbine inlet, not a cost of electricity) AmCraX gives 27.7 % for grey NH3 at 450 USD/t (31.4 % without heat integration; 20.0 to 32.9 % over the stored and the paper's prices) and 20.4 % and 29.4 % at the paper's green and blue prices, against the paper's 39 % and 44 %: same direction, smaller gap.
+- The difference comes from the paper's lower energy retention (69.5 % against 87.7 %) and above all its larger non-feed cost of cracking (6.40 against 0.71 USD/kg: a 25,000 t storage tank, a furnace fired by its own product gas, TCI 5.8 times equipment cost), offset in part by 3.15 USD/kg of storage, vaporisation and compression on the direct side; capacity factor and plant life change it by less than 0.1 point (computed reconciliation).
 
-**Conclusion.** The 40 % figure is not reproduced on AmCraX boundaries (at most 16.6 %). Halim et al. full text was not accessible.
+**Conclusion.** The essay's sentence (power about 40 % cheaper) is not reproduced on AmCraX boundaries (at most 16.6 % in the cost of electricity). Halim et al. (full text read 24 November 2026) compute no cost of electricity: their 40 % is a fuel cost at the turbine inlet, on which AmCraX gives 20.4 to 29.4 % at the paper's prices, the same direction with a smaller gap.
 
-**Rule and outcome.** Reproduction rule (unchanged from version 1): CONTRADICTED if the largest computed gap on any stored basis is below half the quoted figure; otherwise INCONCLUSIVE. Secondary row: does not vote.
+**Rule and outcome.** Reproduction rule (unchanged from version 1): CONTRADICTED if the largest computed gap on any stored basis is below half the quoted figure; otherwise INCONCLUSIVE. Secondary row: does not vote. The rule tests the essay's sentence about power (cost of electricity); the paper-basis fuel-cost comparison is reported beside it and is not read by the rule.
 
 **Envelope.** AmCraX boundaries and the three stored price and hour bases; does not show that Halim et al.'s own calculation is wrong.
 
@@ -374,25 +426,26 @@ Role: secondary (H1-P). Version 1 verdict: CONTRADICTED.
 **Assumptions.**
 
 - As H1-a; three stored price and operating-hour bases.
+- Paper-basis comparison: direct side is the NH3 purchase only (AmCraX has no ammonia storage item); cracked side is the unified LCOH.
 
-**Uncertainty.** Halim's inputs unknown (full text not accessible)
+**Uncertainty.** The paper (full text read 24 Nov 2026) computes no cost of electricity: its 'about 40 %' is a fuel cost at the turbine inlet (1 - LCOA/LCOH, 39 % green, 44 % blue). On that basis AmCraX gives 20.4 % (halim_green_FOB, HI on), 24.8 % (halim_green_FOB, HI off), 29.4 % (halim_blue_FOB, HI on), 32.9 % (halim_blue_FOB, HI off) (fuel_cost_gap_on_paper_basis)
 
-**Validation status.** Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational because Halim's inputs were not accessed). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+**Validation status.** Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational: the essay's wording is about power, while the paper's 40 % is a fuel cost at the turbine inlet; the paper-basis comparison is item EU-P2-halim-fuel-basis). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
 **Key uncertainty (what would change the verdict).** Outside this envelope the verdict may change: AmCraX boundaries and the three stored price and hour bases; does not show that Halim et al.'s own calculation is wrong.
 
-**Uncertainty range.** Halim's inputs unknown (full text not accessible)
+**Uncertainty range.** The paper (full text read 24 Nov 2026) computes no cost of electricity: its 'about 40 %' is a fuel cost at the turbine inlet (1 - LCOA/LCOH, 39 % green, 44 % blue). On that basis AmCraX gives 20.4 % (halim_green_FOB, HI on), 24.8 % (halim_green_FOB, HI off), 29.4 % (halim_blue_FOB, HI on), 32.9 % (halim_blue_FOB, HI off) (fuel_cost_gap_on_paper_basis)
 
 - Singapore scenario: Jurong Island representative power plant burning imported NH3; common reference NH3 price from the Singapore price set (grey), operating hours, Singapore electricity and carbon tax inputs as in price_set of enduse_results.json
 - Aspen model: No Aspen combustion model; cracker duties from the stored Aspen baseline.
 - Python model: amcrax.enduse.pathways (halim_claim_check).
 - Case ids: direct, full_exhaust, full_fired, full_purified
-- Validation: Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational because Halim's inputs were not accessed). Validation status of the underlying models: results/research/validation/enduse.json: 69 pass, 0 fail, 6 informational.
+- Validation: Claim check against computed 1 - direct/cracking on three bases (validation item EU-halim-claim, informational: the essay's wording is about power, while the paper's 40 % is a fuel cost at the turbine inlet; the paper-basis comparison is item EU-P2-halim-fuel-basis). Validation status of the underlying models: results/research/validation/enduse.json: 70 pass, 0 fail, 7 informational.
 - Input assumptions: Same as H1-a; three price and operating-hour bases (AmCraX, Ahmad, renewable NH3 today).
-- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammoniapower` (Halim et al. 2025 (abstract only): direct use preferred to cracking for power)
-- Limitations: Halim et al. (2025) full text not accessible; the claimed figure is from the essay and the abstract-level record.
+- Literature: `ahmad2025gtcc` (Ahmad et al. 2025: NH3 and cracked-NH3 GTCC efficiencies and Case 2a cost basis); `halim2025ammonia` (Halim et al. 2025 (full text read 24 Nov 2026): fuel-cost comparison of direct use and cracking at the turbine inlet; turbine not modelled, no cost of electricity)
+- Limitations: Halim et al. (2025), full text read on 24 November 2026: the quoted 40 % is located (p. 9: 39 % green, 44 % blue) but it is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet, not a cost of electricity; the paper applies one vendor turbine efficiency to every fuel and excludes the power plant.
 
 | Quantity | Value | Unit | Source type | File | Key |
 |---|---|---|---|---|---|
@@ -412,6 +465,17 @@ Role: secondary (H1-P). Version 1 verdict: CONTRADICTED.
 | largest gap in any sensitivity | 27.296 | % | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/largest_in_sensitivities_pct` |
 | cracker CAPEX factor needed for the essay figure, cracking + PSA | 6.281 | - | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/cracker_capex_factor_for_40pct_purified` |
 | cracker CAPEX factor needed for the essay figure, fired cracking | 11.137 | - | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/cracker_capex_factor_for_40pct_fired` |
+| paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, grey, heat integration on | 27.730 | % | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/0/gap_pct_1_minus_direct_over_cracked` |
+| paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, grey, heat integration off | 31.383 | % | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/1/gap_pct_1_minus_direct_over_cracked` |
+| paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, halim_green_FOB, heat integration on | 20.384 | % | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/10/gap_pct_1_minus_direct_over_cracked` |
+| paper-basis fuel-cost gap 1 - direct/cracked per kg H2-equivalent, halim_blue_FOB, heat integration on | 29.359 | % | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/cases/12/gap_pct_1_minus_direct_over_cracked` |
+| paper's own figure, green (1 - LCOA/LCOH, Halim et al. p. 9) | 39 | % | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/paper_values/green/gap_pct_printed` |
+| paper's own figure, blue (1 - LCOA/LCOH, Halim et al. p. 9) | 44 | % | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/paper_values/blue/gap_pct_printed` |
+| NH3 LHV retained as H2, AmCraX (feed plus fuel) | 0.8774 | fraction | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/amcrax_energy_retained_as_h2` |
+| NH3 LHV retained as H2, Halim et al. (derived from Table 4 and p. 9) | 0.6949 | fraction | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/paper_energy_retained_as_h2_derived` |
+| non-NH3 cost of cracked H2, AmCraX | 0.7079 | USD/kg H2 | python | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/amcrax_non_nh3_cost_USD_per_kg` |
+| non-feed cost of cracked H2, Halim et al. Fig. 5 (green) | 6.400 | USD/kg H2 | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/paper_non_feed_cost_cracked_USD_per_kg` |
+| non-feed cost of direct use, Halim et al. Fig. 5 (green) | 3.150 | USD/kg H2 | literature | `results/research/enduse/turbine_threshold.json` | `forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation/green/paper_non_feed_cost_direct_USD_per_kg` |
 
 Figures: `results/figures/research/enduse_power_cost_vs_price.png`
 Data: `results/research/enduse/claim_check_direct_vs_cracking.csv`, `results/research/enduse/enduse_results.json`, `results/research/enduse/turbine_threshold.json`, `results/research/validation/enduse.json`
@@ -524,6 +588,7 @@ Role: primary (H2-E). Version 1 verdict: SUPPORTED.
 - Against the 3.06 USD/kg NE Asia SMR marker the break-even NH3 price is 320 USD/t (277 to 371 over the CAPEX range; 379 with favourable non-feed inputs).
 - Against the 6.0 USD/kg delivered low-carbon benchmark it is 720 USD/t.
 - Sourced NH3 prices span 300 to 1052 USD/t (central 450 or more): they lie on both sides of both break-evens.
+- With the PSA recoveries of the only published front for this composition (Abdoos et al. 2025, simulated) instead of the assumed 0.85, the break-even against the 3.06 USD/kg marker falls to 314 USD/t at 0.8192 and 305 USD/t at 0.7744 (sensitivity beside the frozen reference; the comparison with the sourced prices is unchanged: they still straddle it).
 - P(LCOH < 3.06) = 0.014 for grey ammonia, conditional on the assumed triangular input distributions (the lower bound of the assumed NH3 price lies 20 USD/t below the break-even).
 
 **Conclusion.** The threshold is the finding: competitiveness with the single NE Asia SMR marker (3.06 USD/kg) needs ammonia at or below about 320 USD/t (277 to 379 over CAPEX and non-feed inputs), which only the low ends of the sourced price ranges reach; against the 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t. Sourced prices straddle both, so the row is INCONCLUSIVE.
@@ -579,9 +644,11 @@ Role: primary (H2-E). Version 1 verdict: SUPPORTED.
 | break-even NH3 price against the 6.0 USD/kg delivered low-carbon benchmark | 720.0 | USD/t | python | `results/research/carbon_pricing/feed_dominance.json` | `breakeven_nh3_USD_per_t/blue_delivered_east_asia` |
 | delivered low-carbon H2 benchmark, East Asia | 6 | USD/kg H2 | literature | `results/research/carbon_pricing/feed_dominance.json` | `breakeven_benchmarks_USD_per_kg/blue_delivered_east_asia` |
 | NE Asia SMR production-cost marker | 3.060 | USD/kg H2 | literature | `results/research/carbon_pricing/feed_dominance.json` | `breakeven_benchmarks_USD_per_kg/ne_asia_smr_production_cost` |
+| PSA-recovery sensitivity: break-even NH3 price against the 3.06 marker at PSA recovery 0.8192 (Abdoos et al. 2025 front) | 314.1 | USD/t | python | `results/research/reference_scenario/baseline.json` | `psa_recovery_sensitivity/cases/1/breakeven_nh3_USD_per_t_vs_marker` |
+| PSA-recovery sensitivity: break-even NH3 price against the 3.06 marker at PSA recovery 0.7744 (Abdoos et al. 2025 front) | 304.9 | USD/t | python | `results/research/reference_scenario/baseline.json` | `psa_recovery_sensitivity/cases/2/breakeven_nh3_USD_per_t_vs_marker` |
 
 Figures: `results/figures/research/singapore_breakeven.png`, `results/figures/research/singapore_monte_carlo.png`
-Data: `results/research/carbon_pricing/feed_dominance.json`, `results/research/carbon_pricing/row_evidence.json`, `results/research/singapore/breakeven_ammonia_price.json`, `results/research/singapore/monte_carlo.json`, `results/research/singapore/scenario_results.json`, `results/research/uq/row_evidence.json`
+Data: `results/research/carbon_pricing/feed_dominance.json`, `results/research/carbon_pricing/row_evidence.json`, `results/research/reference_scenario/baseline.json`, `results/research/singapore/breakeven_ammonia_price.json`, `results/research/singapore/monte_carlo.json`, `results/research/singapore/scenario_results.json`, `results/research/uq/row_evidence.json`
 
 ### H2-c: SUPPORTED
 
@@ -889,6 +956,8 @@ Role: primary (H3-T). Version 1 verdict: INCONCLUSIVE.
 
 - Operating temperature at 100 kg: Ru/Al2O3 499, Ru/MgO 522, 5Ni1Ru/CeO2 572, 2.5Ni0.5Ru/CeO2 576, Ni/MgO 594 degC.
 - Kinetic validity: 0 laws validated at relevant conditions, 3 validated against literature (their own fitting data), 2 extrapolated, 3 catalysts unmodelled; no rate law is validated at 20 bar.
+- Ru-K/CaO stays unmodelled: the main text of Sayas et al. 2020 (read 24 November 2026) gives no rate constant; its 15 measured conversions at 10-40 bar are stored as literature comparison points that no model uses.
+- Caution (cross-catalyst context, not a test of the law): at 20 bar and 500 degC Sayas et al. measured 68 % on Ru-K/CaO, while the AmCraX Ru/Al2O3 law, fitted at 1-10 bar, gives 95 % with the same ruthenium per mol of NH3; the 20 bar Ru/Al2O3 results stay labelled as pressure extrapolation.
 
 **Conclusion.** The temperature ordering exists in the models but rests on rate laws extrapolated to 20 bar.
 
@@ -904,7 +973,7 @@ Role: primary (H3-T). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** no law validated at 20 bar; Ni/MgO and Ru/MgO laws fail their literature comparison at 1 atm (KIN-NI-PRED, KIN-RU-PRED)
 
-**Validation status.** Lucentini Table 1 points reproduced (consistency, not independent); Takahashi predictions carried over as failures; Aspen native laws vs spec points (kinetics.json, aspen_kinetic.json). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/kinetics.json: 10 pass, 2 fail, 7 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
+**Validation status.** Lucentini Table 1 points reproduced (consistency, not independent); Takahashi predictions carried over as failures; Aspen native laws vs spec points (kinetics.json, aspen_kinetic.json). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/kinetics.json: 10 pass, 2 fail, 9 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
 
 **Evidence kinds.** python vs aspen, literature comparison.
 
@@ -916,9 +985,9 @@ Role: primary (H3-T). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Aspen standalone RPLUG operating-point checks (cs_OP_* cases) confirm the Python temperatures.
 - Python model: amcrax.kinetics laws in the isothermal PFR (study_temperature_for_target_conversion).
 - Case ids: cs_OP_kum_T499_P20_W100, cs_OP_tru_T522_P20_W100, cs_OP_luc5_T572_P20_W100, cs_OP_luc25_T576_P20_W100, cs_OP_tni_T594_P20_W100
-- Validation: Lucentini Table 1 points reproduced (consistency, not independent); Takahashi predictions carried over as failures; Aspen native laws vs spec points (kinetics.json, aspen_kinetic.json). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/kinetics.json: 10 pass, 2 fail, 7 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
+- Validation: Lucentini Table 1 points reproduced (consistency, not independent); Takahashi predictions carried over as failures; Aspen native laws vs spec points (kinetics.json, aspen_kinetic.json). Validation status of the underlying models: results/research/validation/aspen_kinetic.json: 163 pass, 5 fail, 22 informational (failures: cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium, cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium, cat_ru_takahashi_microkinetic_below_equilibrium, k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres, k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres); results/research/validation/kinetics.json: 10 pass, 2 fail, 9 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
 - Input assumptions: Effectiveness factor 1, no pressure drop (assumptions); catalyst masses are lower bounds.; Takahashi Ni/MgO and Ru/MgO rows use a fitted LHHW approximation (python fit, valid at 20 bar only; rate error RMS 12 %, max about 50 %) and are extrapolations from 1 atm data.
-- Literature: `kum2026heatintegrated` (Kum et al. 2026: Ru/Al2O3 Temkin-Pyzhev law); `takahashi2016kinetic` (Takahashi & Fujitani 2016: Ni/MgO and Ru/MgO microkinetics); `lucentini2021nirukinetic` (Lucentini et al. 2021: Ni-Ru/CeO2 LHHW (Table 3)); `lucentini2019ceo2` (Lucentini et al. 2019: Ru/CeO2 vs Ni/CeO2 conversion at atmospheric pressure (no rate law)); `sayas2020high` (Sayas et al. 2020: Ru-K/CaO (full text not obtained; values unverified))
+- Literature: `kum2026heatintegrated` (Kum et al. 2026: Ru/Al2O3 Temkin-Pyzhev law); `takahashi2016kinetic` (Takahashi & Fujitani 2016: Ni/MgO and Ru/MgO microkinetics); `lucentini2021nirukinetic` (Lucentini et al. 2021: Ni-Ru/CeO2 LHHW (Table 3)); `lucentini2019ceo2` (Lucentini et al. 2019: Ru/CeO2 vs Ni/CeO2 conversion at atmospheric pressure (no rate law)); `sayas2020rukcao` (Sayas et al. 2020: Ru-K/CaO (main text read 24 Nov 2026; orders and apparent Ea verified; no rate constant in the main text, so not implemented; 10-40 bar conversions stored as comparison points))
 - Limitations: All 20 bar operating points are outside the fitted ranges (within_fitted_range false).; Ni/CeO2, Ru/CeO2 and Ru-K/CaO not modelled: no usable rate law.; Takahashi Ni and Ru predictions fail the existing validation (EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).; All rate laws are extrapolated to 20 bar from their fit pressure (1 atm; Kum: 10 bar); the Takahashi laws are evaluated on a mole-fraction basis and the Lucentini laws on concentrations; the Ni/MgO law fails its own validation (EXISTING-KIN-NI-PRED). No catalyst ranking at 20 bar is a property of the catalysts.
 
 | Quantity | Value | Unit | Source type | File | Key |
@@ -940,6 +1009,8 @@ Role: primary (H3-T). Version 1 verdict: INCONCLUSIVE.
 | rate laws validated against literature (own fitting data) | 3 | count | literature | `results/research/kinetics/validity_classification.json` | `counts/validated_against_literature` |
 | rate laws extrapolated | 2 | count | literature | `results/research/kinetics/validity_classification.json` | `counts/extrapolated` |
 | catalysts without a rate law | 3 | count | literature | `results/research/kinetics/validity_classification.json` | `counts/unmodelled` |
+| Sayas et al. 2020: measured conversion of 3%Ru10%K/CaO at 20 bar and 500 degC (figure reading, not used by any model) | 0.68 | fraction | literature | `results/research/kinetics/validity_classification.json` | `cross_catalyst_context_sayas2020/headline_20bar_500C/X_measured_RuK_CaO` |
+| cross-catalyst context: Ru/Al2O3 law (fitted 1-10 bar) at the same conditions and equal Ru per mol NH3, 0 degC flow basis | 0.9478 | fraction | python | `results/research/kinetics/validity_classification.json` | `cross_catalyst_context_sayas2020/headline_20bar_500C/X_RuAl2O3_law_equal_Ru/0` |
 
 Figures: `results/figures/research/kinetics_conversion_vs_T.png`, `results/figures/research/aspen_kinetic_conversion_vs_T.png`
 Aspen screenshots: `docs/images/aspen_evidence/cs_OP_tni_T594_P20_W100__02_reactions_kinetic.png`, `docs/images/aspen_evidence/cs_OP_tni_T594_P20_W100__03_reactions_kinetic_tab.png`
@@ -1046,7 +1117,7 @@ Role: primary (H3-K). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** Ru price (USGS 2025 average to Nov 2026 JM spot), lifetime 1-5 yr, NH3 300-1000 USD/t, fuel price, natural-gas heat, electricity 0.084-0.222 USD/kWh, discount 0.085-0.10, 7000-8000 h, U 35-150, reactor cost driver, rates /5. The FEHE cost is a step function of temperature (4 -> 5 shells in series between 537 and 538 degC at U central, +0.235 MUSD TCI, about +0.023 USD/kg): in the 'exchanger' mode it pins several optima at 537 degC and is of the same size as the catalyst differences; the 'reference' mode (no exchanger response) is reported beside it.
 
-**Validation status.** Analytic catalyst-cost addition matches full evaluate(); T_opt interior to the grid; mass and energy closure (catalyst_comparison.json). Validation status of the underlying models: results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/catalyst_economics.json: 141 pass, 0 fail, 1 informational; results/research/validation/kinetics.json: 10 pass, 2 fail, 7 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
+**Validation status.** Analytic catalyst-cost addition matches full evaluate(); T_opt interior to the grid; mass and energy closure (catalyst_comparison.json). Validation status of the underlying models: results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/catalyst_economics.json: 141 pass, 0 fail, 1 informational; results/research/validation/kinetics.json: 10 pass, 2 fail, 9 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
 
 **Evidence kinds.** numerical verification, python vs aspen, literature comparison.
 
@@ -1058,7 +1129,7 @@ Role: primary (H3-K). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Aspen duties for the fixed-inventory comparison (ci_* cases); no Aspen run at the Python cost-optimal temperatures (those rows are Python only).
 - Python model: amcrax.research.catalyst_comparison: W(T) from PFR kinetics, T_opt = argmin LCOH, heat_integration configuration (c), amcrax.economics.singapore.evaluate.
 - Case ids: ci_kum_T499_P20_W100_hi, ci_kum_T499_P20_W100_nohi, ci_tru_T522_P20_W100_hi, ci_tru_T522_P20_W100_nohi, ci_luc5_T572_P20_W100_hi, ci_luc5_T572_P20_W100_nohi, ci_luc25_T576_P20_W100_hi, ci_luc25_T576_P20_W100_nohi, ci_tni_T594_P20_W100_hi, ci_tni_T594_P20_W100_nohi
-- Validation: Analytic catalyst-cost addition matches full evaluate(); T_opt interior to the grid; mass and energy closure (catalyst_comparison.json). Validation status of the underlying models: results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/catalyst_economics.json: 141 pass, 0 fail, 1 informational; results/research/validation/kinetics.json: 10 pass, 2 fail, 7 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
+- Validation: Analytic catalyst-cost addition matches full evaluate(); T_opt interior to the grid; mass and energy closure (catalyst_comparison.json). Validation status of the underlying models: results/research/validation/catalyst_comparison.json: 66 pass, 5 fail, 4 informational (failures: HCAT-ASPY-Ru/Al2O3-HI-heat, HCAT-ASPY-5Ni1Ru/CeO2-HI-heat, HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat, HCAT-ASPY-Ni/MgO-HI-heat, HCAT-ASPY-Ru/MgO-HI-heat); results/research/validation/catalyst_economics.json: 141 pass, 0 fail, 1 informational; results/research/validation/kinetics.json: 10 pass, 2 fail, 9 informational (failures: EXISTING-KIN-NI-PRED, EXISTING-KIN-RU-PRED).
 - Input assumptions: Catalyst prices: Cho Ni 33.4 and Ru 542 USD/kg used as proxies, 2-year life (assumption); no sourced NiRu/CeO2 price.; CAPEX does not respond to reactor volume, exchanger area or temperature (volume scaling is a sensitivity only).; Furnace efficiency and thermal-loss allowance as in H3-a (assumptions).
 - Literature: `kum2026heatintegrated` (Kum et al. 2026: Ru/Al2O3 Temkin-Pyzhev law); `takahashi2016kinetic` (Takahashi & Fujitani 2016: Ni/MgO and Ru/MgO microkinetics); `lucentini2021nirukinetic` (Lucentini et al. 2021: Ni-Ru/CeO2 LHHW (Table 3)); `cho2026nickel` (Cho et al. 2026: Ni and Ru catalyst prices)
 - Limitations: Ni/MgO law fails its prediction check (EXISTING-KIN-NI-PRED).; No sourced price for NiRu/CeO2.; N2O not quantified.; All rate laws are extrapolated to 20 bar from their fit pressure (1 atm; Kum: 10 bar); the Takahashi laws are evaluated on a mole-fraction basis and the Lucentini laws on concentrations; the Ni/MgO law fails its own validation (EXISTING-KIN-NI-PRED). No catalyst ranking at 20 bar is a property of the catalysts.
@@ -1232,7 +1303,7 @@ Data: `results/research/catalyst_comparison/catalyst_cho_comparison.csv`, `resul
 
 **Verdict.** INCONCLUSIVE (methodology v2). Version 1 verdict of the 23 November release: INCONCLUSIVE. Version 1 rule applied to the current rows: INCONCLUSIVE.
 
-**Strongest defensible statement.** In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. Stricter purity raises cost, but the purity-only part is small and rests on assumed recoveries. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.783 for Grade D hydrogen; the industrial-grade value is in row H4-d).
+**Strongest defensible statement.** In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. Stricter purity raises cost; the purity-only part is above the model resolution on the two published purity-recovery relations (one measured on a different feed, one simulated for this composition) and below it on the assumed one, and AmCraX computes no PSA purity-recovery relation of its own. PSA against Pd-Ag membrane is not robust either way (parity near PSA recovery 0.783 for Grade D hydrogen; the industrial-grade value is in row H4-d).
 
 **Findings against the essay.**
 
@@ -1254,12 +1325,13 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 **Numerical conclusions.**
 
-- Only sourced slope: Yanez et al. 2020, recovery 0.753 at 99.25 % to 0.555 at 99.97 %, for ammonia-plant purge gas, not cracked ammonia.
+- Sourced slope for a different feed: Yanez et al. 2020 (measured, ammonia-plant purge gas), recovery 0.753 at 99.25 % to 0.555 at 99.97 %.
+- Sourced front for a cracked-ammonia composition (simulated, dry and NH3-free, 7.9 to 11.6 bar, surrogate scatter about 1 to 3 points): Abdoos et al. 2025, recovery 0.8392 at 99.03 %, 0.8192 at 99.95 % and 0.7744 at 99.99 %. Its model and breakthrough check cite Yanez et al. 2020, so the two sources are not fully independent; both give the direction of the row.
 - The AmCraX mass-balance relation is flat by construction (0.7516 and 0.7513).
 
-**Conclusion.** No purity-recovery relation is computed for cracked ammonia; the direction rests on one source for a different feed.
+**Conclusion.** No purity-recovery relation is computed by AmCraX; the direction rests on two published sources, one measured on a different feed (Yanez 2020) and one simulated for a dry, NH3-free cracked-ammonia composition (Abdoos 2025).
 
-**Rule and outcome.** Computation rule (methodology v2): the trade-off can be SUPPORTED or CONTRADICTED only by a computed purity-recovery relation. In AmCraX every PSA recovery is an input (source_type of each entry in phase2_comparison.json inputs/psa_recovery is literature or assumption: computed = False), so the row is INCONCLUSIVE.
+**Rule and outcome.** Computation rule (methodology v2): the trade-off can be SUPPORTED or CONTRADICTED only by a computed purity-recovery relation. In AmCraX every PSA recovery is an input (source_type of each entry in phase2_comparison.json inputs/psa_recovery is literature or assumption: computed = False), so the row is INCONCLUSIVE. Published relations (Yanez 2020; Abdoos 2025) are literature comparisons and are not read by the rule.
 
 **Envelope.** none (not computed)
 
@@ -1267,21 +1339,21 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 - AmCraX has no adsorption-cycle model; the PSA recovery at any purity is an input
 
-**Uncertainty.** Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); no cracked-ammonia value
+**Uncertainty.** Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); for a cracked-ammonia composition only a simulated front exists: Abdoos 2025, 0.7744 at 99.99 % and 0.8192 at 99.95 % (dry, NH3-free feed, 11.3-11.6 bar, surrogate scatter about 1-3 points)
 
-**Validation status.** PSA point reproduction is true by construction (informational); mass closure for all configurations (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** PSA point reproduction is true by construction (informational); mass closure for all configurations (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** literature comparison.
 
 **Key uncertainty (what would change the verdict).** Outside this envelope the verdict may change: none (not computed)
 
-**Uncertainty range.** Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); no cracked-ammonia value
+**Uncertainty range.** Grade D recovery 0.555 (Yanez, different feed) to 0.81 (Mehr, low confidence); for a cracked-ammonia composition only a simulated front exists: Abdoos 2025, 0.7744 at 99.99 % and 0.8192 at 99.95 % (dry, NH3-free feed, 11.3-11.6 bar, surrogate scatter about 1-3 points)
 
 - Singapore scenario: Jurong Island cracker, 20 bar Aspen baseline cracked gas; base costs use the existing AmCraX economics defaults (purification assumptions.json), Singapore NH3 and electricity prices in singapore_price_scenario.json; delivery 30 bar (industrial, blend) or 350 bar (Grade D).
 - Aspen model: Stored Aspen Plus V15 baseline stream S7 (cracked gas) and H2PROD; PSA in Aspen is a split block with assumed fractions (no adsorption model).
 - Python model: amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.
 - Case ids: PSA_CHO, PSA_D_MB, PSA_D_LOW
-- Validation: PSA point reproduction is true by construction (informational); mass closure for all configurations (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: PSA point reproduction is true by construction (informational); mass closure for all configurations (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: PSA recovery at 99.975 % purity is not in the library: 0.751 from holding Cho's tail-H2 fraction (optimistic) and 0.71 from the lowest published point applied outside its range.
 - Literature: `iso14687_2019` (ISO 14687:2019 Tables 2-4 (grade D, E3, B limits)); `cho2026nickel` (Cho et al. 2026: published PSA recovery and purity point); `hansen2024hysys` (Hansen et al. 2024: lowest published PSA recovery point); `richard2024technoeconomic` (Richard et al. 2024: Pd-Ag permeability, Table 2); `cechetto2023membrane` (Cechetto et al. 2023: membrane review, NH3 in permeate)
 - Limitations: Only two usable published PSA points (Cho; Hansen), at different adsorbents and pressures; the Mehr points are mutually inconsistent.; The mass-balance relation is flat by construction and is not evidence of a small penalty.
@@ -1297,6 +1369,9 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 | Yanez 2020 recovery at 99.97 % (different feed) | 0.555 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/yanez2020_recovery_99.97` |
 | mass-balance recovery at 99.91 % | 0.7516 | fraction | assumption | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/mass_balance_recovery_99.91` |
 | mass-balance recovery at 99.975 % | 0.7513 | fraction | assumption | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/mass_balance_recovery_99.975` |
+| Abdoos et al. 2025 recovery at 99.03 % (simulated, dry NH3-free cracked-ammonia composition, 7.87 bar) | 0.8392 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/abdoos2025_table8_simulated/abdoos2025_recovery_99.03` |
+| Abdoos et al. 2025 recovery at 99.95 % (simulated, 11.29 bar) | 0.8192 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/abdoos2025_table8_simulated/abdoos2025_recovery_99.95` |
+| Abdoos et al. 2025 recovery at 99.99 % (simulated, 11.60 bar) | 0.7744 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-a/numbers/abdoos2025_table8_simulated/abdoos2025_recovery_99.99` |
 
 Figures: `results/figures/research/purification_recovery_purity.png`
 Data: `results/research/purification/phase2_comparison.json`, `results/research/purification/psa_recovery_vs_purity.csv`, `results/research/purification/purification_configurations.csv`, `results/research/purification/purification_study.json`
@@ -1311,8 +1386,9 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 - The order raw < industrial < Grade D holds in all 3 electricity cases.
 - Purity-only Grade D increment at equal delivery: psa_yanez_different_feed 0.1657, psa_mass_balance_assumption 0.0020, membrane_central 0.0174 USD/kg (resolution 0.0060).
+- On the relation simulated for a cracked-ammonia composition (Abdoos et al. 2025; dry NH3-free feed at 7.9 to 11.6 bar, applied at 19.5 bar) the increment is 0.0803 USD/kg (0.0506 with recoveries interpolated at the modelled purities), above the resolution; reported beside the rule, which reads the bases above unchanged. Within the paper's 1 to 3 point surrogate recovery scatter it is not robust: 0.0444 USD/kg with 1 point and -0.0273 USD/kg with 3 points of adverse scatter (industrial recovery lower, Grade D higher).
 
-**Conclusion.** Stricter purity costs more, but the purity-only part is small, partly below the model resolution, and rests on a cost proxy.
+**Conclusion.** Stricter purity costs more. The purity-only part is above the model resolution on both published relations at their printed recoveries (Yanez 2020, different feed; Abdoos 2025, simulated for this composition), but below it on the assumed mass-balance relation and not robust within the 3 point surrogate scatter of the Abdoos front, and it rests on a cost proxy; under the coded rule the row stays INCONCLUSIVE.
 
 **Rule and outcome.** Resolution rule (methodology v2): raw < industrial is structural and most of the Grade D increment is 350 bar delivery, so the purity effect is tested at equal delivery pressure. SUPPORTED if the order raw < industrial < Grade D holds in every case and the purity-only increment exceeds the Python against Aspen LCOH resolution on every recovery basis; CONTRADICTED if the order is reversed everywhere; otherwise INCONCLUSIVE. Here: order holds everywhere True, increment resolved on every basis False.
 
@@ -1324,7 +1400,7 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, selectivity, flux, recovery)
 
-**Validation status.** Component and mass closure for all configuration/case combinations; ISO limit transcription (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** Component and mass closure for all configuration/case combinations; ISO limit transcription (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
@@ -1336,7 +1412,7 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: Stored Aspen Plus V15 baseline stream S7 (cracked gas) and H2PROD; PSA in Aspen is a split block with assumed fractions (no adsorption model).
 - Python model: amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.
 - Case ids: RAW, PSA_AMCRAX, PSA_D_MB, PSA_D_LOW
-- Validation: Component and mass closure for all configuration/case combinations; ISO limit transcription (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: Component and mass closure for all configuration/case combinations; ISO limit transcription (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: PSA recoveries are assumed (0.85 AmCraX; 0.751 and 0.71 bounds for Grade D).; TSA regeneration energy, compression CAPEX, membrane housing and skid not modelled: purified-route costs are lower bounds.; Grade D cost includes delivery to 350 bar; industrial and blend to 30 bar.
 - Literature: `iso14687_2019` (ISO 14687:2019 Tables 2-4 (grade D, E3, B limits)); `cho2026nickel` (Cho et al. 2026: published PSA recovery and purity point); `hansen2024hysys` (Hansen et al. 2024: lowest published PSA recovery point); `richard2024technoeconomic` (Richard et al. 2024: Pd-Ag permeability, Table 2); `cechetto2023membrane` (Cechetto et al. 2023: membrane review, NH3 in permeate)
 - Limitations: Part of the Grade D increment is delivery pressure (1.59 vs 0.22 kWh/kg compression), not purity.; Contaminants other than NH3, N2 and H2O are not evaluated for Grade D.
@@ -1372,6 +1448,10 @@ Role: primary (H4-B). Version 1 verdict: INCONCLUSIVE.
 | purity-only Grade D increment at equal delivery pressure, psa_yanez_different_feed | 0.1657 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-b/numbers/equal_delivery_increment/psa_yanez_different_feed/increment` |
 | purity-only Grade D increment at equal delivery pressure, psa_mass_balance_assumption | 0.001955 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-b/numbers/equal_delivery_increment/psa_mass_balance_assumption/increment` |
 | purity-only Grade D increment at equal delivery pressure, membrane_central | 0.01742 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-b/numbers/equal_delivery_increment/membrane_central/increment` |
+| Abdoos et al. 2025 relation: Grade D increment at equal delivery (industrial at 0.8192, Grade D at 0.7744; simulated, applied outside its 6-12 bar range) | 0.08032 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-b/numbers/equal_delivery_increment_abdoos2025/abdoos2025_table8/increment` |
+| Abdoos et al. 2025 relation interpolated linearly at the modelled purities 99.91 % and 99.975 %: Grade D increment at equal delivery | 0.0506 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-b/numbers/equal_delivery_increment_abdoos2025/abdoos2025_interpolated_at_modelled_purities/increment` |
+| Abdoos et al. 2025 relation with 1 point adverse surrogate scatter: Grade D increment at equal delivery | 0.04443 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/0/increment` |
+| Abdoos et al. 2025 relation with 3 points adverse surrogate scatter: Grade D increment at equal delivery | -0.02726 | USD/kg H2 | python | `results/research/purification/phase2_comparison.json` | `abdoos2025_sourced_case/equal_delivery_increment_surrogate_scatter/2/increment` |
 
 Figures: `results/figures/research/purification_recovery_purity.png`, `results/figures/research/purification_recovery_cost.png`, `results/figures/research/purification_config_comparison.png`
 Data: `results/research/catalyst_economics/catalyst_economics.json`, `results/research/purification/phase2_comparison.json`, `results/research/purification/psa_recovery_vs_purity.csv`, `results/research/purification/purification_configurations.csv`, `results/research/purification/purification_study.json`, `results/research/purification/recovery_vs_cost.csv`, `results/research/purification/singapore_price_scenario.csv`, `results/research/purification/singapore_price_scenario.json`
@@ -1386,6 +1466,7 @@ Role: primary (H4-B). Version 1 verdict: SUPPORTED.
 
 - Furnace demand 2293 kW; the tail gas covers it at PSA recovery 0.765; at 0.85 the deficit is 773 kW.
 - Sourced and assumed PSA recoveries 0.555 to 0.850 lie on both sides of 0.765.
+- The three Table 8 optima of Abdoos et al. 2025 (simulated for this composition) all lie above 0.765; the Grade D-compatible point only 0.009 above it, inside the 1 to 3 point surrogate scatter, and the 99.99 % front reaches about 0.69 (figure reading), below it. Reported beside the rule; the rule's inputs are unchanged.
 
 **Conclusion.** In the AmCraX flowsheet unrecovered hydrogen is burned in the cracker furnace; it covers the furnace demand below a PSA recovery of 0.765, and sourced recoveries lie on both sides of that value. The threshold is the finding.
 
@@ -1401,7 +1482,7 @@ Role: primary (H4-B). Version 1 verdict: SUPPORTED.
 
 **Uncertainty.** computed for recoveries 0.50-0.95 (PSA and membrane trade-off grids)
 
-**Validation status.** Mass closure; tail-gas LHV from closed component balances (purification.json). Validation status of the underlying models: results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** Mass closure; tail-gas LHV from closed component balances (purification.json). Validation status of the underlying models: results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** numerical verification.
 
@@ -1413,7 +1494,7 @@ Role: primary (H4-B). Version 1 verdict: SUPPORTED.
 - Aspen model: Stored Aspen Plus V15 baseline stream S7 (cracked gas) and H2PROD; PSA in Aspen is a split block with assumed fractions (no adsorption model). Furnace demand from the stored Aspen baseline.
 - Python model: amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.
 - Case ids: PSA_AMCRAX, PSA_D_MB, baseline (stored Aspen)
-- Validation: Mass closure; tail-gas LHV from closed component balances (purification.json). Validation status of the underlying models: results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: Mass closure; tail-gas LHV from closed component balances (purification.json). Validation status of the underlying models: results/research/validation/economics.json: 9 pass, 0 fail, 6 informational; results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: Tail gas burned in the cracker furnace with the baseline furnace model; surplus heat beyond the demand is not credited.
 - Literature: `iso14687_2019` (ISO 14687:2019 Tables 2-4 (grade D, E3, B limits)); `cho2026nickel` (Cho et al. 2026: published PSA recovery and purity point); `hansen2024hysys` (Hansen et al. 2024: lowest published PSA recovery point); `richard2024technoeconomic` (Richard et al. 2024: Pd-Ag permeability, Table 2); `cechetto2023membrane` (Cechetto et al. 2023: membrane review, NH3 in permeate)
 - Limitations: Heat-integration effect of placing a membrane on the hot effluent not modelled.
@@ -1431,6 +1512,8 @@ Role: primary (H4-B). Version 1 verdict: SUPPORTED.
 | furnace demand | 2293.1 | kW | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-e/numbers/furnace_demand_kW` |
 | recovery at which tail-gas heat equals the furnace demand | 0.7651 | fraction | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-e/numbers/recovery_where_tail_heat_equals_demand` |
 | net deficit at PSA recovery 0.85 | 772.9 | kW | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-e/numbers/psa_0.85_net_deficit_kW` |
+| Abdoos et al. 2025: margin of the Grade D-compatible recovery 0.7744 above the threshold | 0.009344 | fraction | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-e/numbers/abdoos2025_furnace_balance/grade_D_point_margin` |
+| Abdoos et al. 2025: lowest recovery on the 99.99 % front (figure reading) | 0.69 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-e/numbers/abdoos2025_furnace_balance/front_at_99.99_reaches_down_to_about` |
 
 Figures: `results/figures/research/purification_recovery_cost.png`
 Data: `results/research/purification/phase2_comparison.json`, `results/research/purification/psa_recovery_vs_purity.csv`, `results/research/purification/purification_configurations.csv`, `results/research/purification/purification_study.json`
@@ -1457,7 +1540,7 @@ Role: secondary (H4-B). Version 1 verdict: CONTRADICTED.
 
 **Uncertainty.** none for the specification check
 
-**Validation status.** ISO 14687 evaluator applied per modelled contaminant (NH3, N2, H2O); P-ISO-2 Aspen H2PROD vs Grade D informational (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** ISO 14687 evaluator applied per modelled contaminant (NH3, N2, H2O); P-ISO-2 Aspen H2PROD vs Grade D informational (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
@@ -1469,7 +1552,7 @@ Role: secondary (H4-B). Version 1 verdict: CONTRADICTED.
 - Aspen model: Stored Aspen Plus V15 baseline stream S7 (cracked gas) and H2PROD; PSA in Aspen is a split block with assumed fractions (no adsorption model).
 - Python model: amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.
 - Case ids: PSA_CHO, PSA_AMCRAX
-- Validation: ISO 14687 evaluator applied per modelled contaminant (NH3, N2, H2O); P-ISO-2 Aspen H2PROD vs Grade D informational (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: ISO 14687 evaluator applied per modelled contaminant (NH3, N2, H2O); P-ISO-2 Aspen H2PROD vs Grade D informational (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: NH3 at the PSA outlet set to the TSA design target rather than computed.; The Aspen baseline PSA split is an assumption; its purity supports no purity claim.
 - Literature: `iso14687_2019` (ISO 14687:2019 Tables 2-4 (grade D, E3, B limits)); `cho2026nickel` (Cho et al. 2026: published PSA recovery and purity point); `hansen2024hysys` (Hansen et al. 2024: lowest published PSA recovery point); `richard2024technoeconomic` (Richard et al. 2024: Pd-Ag permeability, Table 2); `cechetto2023membrane` (Cechetto et al. 2023: membrane review, NH3 in permeate)
 - Limitations: Only NH3, N2 and H2O are evaluated; meeting a grade within model scope is not a fuel-cell grade claim.; The Aspen baseline product (N2 400 ppm, Grade D within model scope: False) is not Grade D and must not be called fuel-cell grade.
@@ -1497,6 +1580,7 @@ Role: secondary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 - Membrane cheaper in 58 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial).
 - Pd-Ag ideal H2/N2 selectivity 40541 (printed permeances) to 500000 (stated), single gas, new membrane, against a requirement of 12919; the paper is internally inconsistent.
+- The only published front for this composition (Abdoos et al. 2025, simulated, dry NH3-free feed at 7.9 to 11.6 bar) gives 0.7744 at the Grade D-compatible 99.99 %, between the Grade D parities 0.745 (high-cost membrane) and 0.783 (central membrane), and about 0.79 interpolated at 99.975 %; at industrial grade 0.8192 lies above both industrial parities (PSA cheaper). It sits on the parity band within its 1 to 3 point surrogate scatter and does not decide the row.
 
 **Conclusion.** PSA against Pd-Ag membrane is not robust either way; it turns on PSA recovery. Membrane TRL 4 to 5 against PSA 9.
 
@@ -1512,7 +1596,7 @@ Role: secondary (H4-B). Version 1 verdict: INCONCLUSIVE.
 
 **Uncertainty.** factorial over sourced inputs; ranking reverses inside it
 
-**Validation status.** Sieverts hand calculation and pinch limit checks (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+**Validation status.** Sieverts hand calculation and pinch limit checks (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 
 **Evidence kinds.** numerical verification, literature comparison.
 
@@ -1524,7 +1608,7 @@ Role: secondary (H4-B). Version 1 verdict: INCONCLUSIVE.
 - Aspen model: No Aspen membrane model: Python/literature only.
 - Python model: amcrax.separation.purification: PSA mass-balance relation, Sieverts membrane with pinch limit, ISO 14687 evaluator.
 - Case ids: MEM_1bar_polish, MEM_1bar_raw, PSA_D_MB
-- Validation: Sieverts hand calculation and pinch limit checks (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 10 pass, 0 fail, 7 informational.
+- Validation: Sieverts hand calculation and pinch limit checks (purification.json). Validation status of the underlying models: results/research/validation/purification.json: 11 pass, 0 fail, 11 informational.
 - Input assumptions: Ideal H2/N2 selectivity 40541 to 500000 (Cechetto et al. 2021, single gas, new membrane) against a requirement of 12919.; Membrane cost 7473 USD/m2 (6800 EUR at 1.099 USD/EUR), 10000 and 15000 USD/m2, annualised with the capital recovery factor at the membrane life (central 3 years); housing, skid and compression CAPEX not modelled.; Membrane recovery 0.90 is a design choice.
 - Literature: `iso14687_2019` (ISO 14687:2019 Tables 2-4 (grade D, E3, B limits)); `cho2026nickel` (Cho et al. 2026: published PSA recovery and purity point); `hansen2024hysys` (Hansen et al. 2024: lowest published PSA recovery point); `richard2024technoeconomic` (Richard et al. 2024: Pd-Ag permeability, Table 2); `cechetto2023membrane` (Cechetto et al. 2023: membrane review, NH3 in permeate); `cechetto2021fpt` (Pd-Ag membrane permeances)
 - Limitations: Without polishing the permeate carries 2.9 ppm NH3 (measured, Cechetto 2021) and fails Grade D.; Membrane results are lower bounds on cost.
@@ -1543,6 +1627,9 @@ Role: secondary (H4-B). Version 1 verdict: INCONCLUSIVE.
 | required H2/N2 selectivity | 12919.0 | - | python | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/required_selectivity` |
 | ideal H2/N2 selectivity from the printed permeances (Cechetto et al. 2021) | 40540.5 | - | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/sourced_selectivity/0` |
 | ideal H2/N2 selectivity as stated (Cechetto et al. 2021) | 500000 | - | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/sourced_selectivity/2` |
+| Abdoos et al. 2025 Grade D-compatible recovery (99.99 %, simulated) | 0.7744 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/abdoos2025_position/grade_D/abdoos_recovery` |
+| Abdoos et al. 2025 industrial-grade recovery (99.95 %, simulated) | 0.8192 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/abdoos2025_position/industrial/abdoos_recovery` |
+| Abdoos et al. 2025 recovery interpolated at the Grade D purity 99.975 % (points from different Pareto regions) | 0.7912 | fraction | literature | `results/research/purification/phase2_comparison.json` | `row_evidence/H4-d/numbers/abdoos2025_position/grade_D/interpolated_recovery_at_99.975` |
 
 Figures: `results/figures/research/purification_recovery_cost.png`, `results/figures/research/purification_sensitivity.png`
 Data: `results/research/purification/assumptions.json`, `results/research/purification/membrane_recovery_area_cost.csv`, `results/research/purification/membrane_required_selectivity.csv`, `results/research/purification/phase2_comparison.json`, `results/research/purification/purification_study.json`

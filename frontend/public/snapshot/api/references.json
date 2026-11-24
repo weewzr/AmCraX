@@ -152,7 +152,7 @@
   "url": "https://doi.org/10.1039/D0CY00686F",
   "doi_verified": true,
   "in_local_library": false,
-  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21)",
+  "verification": "doi.org handle responseCode=1, Crossref metadata (2026-11-21). Alias of sayas2020rukcao (same paper); main text read in full on 24 November 2026 (see that record and research/notes/sayas2020_full_text.md). The values 111 kJ/mol and K0 8584.8 quoted from maccarrone2025comprehensive are NOT in the main text (Table 4 gives 75 kJ/mol apparent at 350 degC and 1 atm); the supplementary information was not obtained.",
   "reason_needed": "Original source of the Ru-K/CaO reversible power law (maccarrone Table 4/5) and Ru kinetics used by cho2026nickel"
  },
  {
@@ -494,9 +494,10 @@
   "doi_verified": true,
   "url_verified": true,
   "in_local_library": false,
-  "access_date": "2026-11-23",
-  "verification": "Crossref metadata (2026-11-23): title, journal, volume 386, article 125581, year 2025, authors Halim, Zain, Khoo match; initials Iskandar, Nur Sara, Hsien H. from Crossref. Duplicate key halim2025ammoniapower merged here. Only the abstract was read; numeric values in the essay brief (60.1 MW, LCOH 15.1 and 10.1, 40 %) are NOT verified from the paper.",
-  "taken_from": "Abstract only: direct NH3 use preferred over cracking for power; numeric values not verified. Author initials as given in the brief; check against the PDF."
+  "access_date": "2026-11-24",
+  "verification": "Full text read on 24 November 2026 (all 15 pages; tables and figures checked on the page images; supplementary Tables A1-A2 not available); research/notes/halim2025_full_text.md. Bibliographic data confirmed on page 1 (Crossref match of 23 November 2026). Duplicate key halim2025ammoniapower merged here; the reference_additions entries of 23 November 2026 (abstract only) are superseded by this record. Located in the paper: 60.1 MW (p. 3, p. 11), LCOH 15.1 and 10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5), the 'about 40 %' (39 % green, 44 % blue on p. 9; 1 - LCOA/LCOH per kg of hydrogen-equivalent fuel energy at the turbine inlet, power plant excluded, not a cost of electricity) and 30-60 vol% H2 for the H-25 (p. 3, relayed from trade press).",
+  "verification_superseded_2026_11_23": "Crossref metadata (2026-11-23): title, journal, volume 386, article 125581, year 2025, authors Halim, Zain, Khoo match; initials Iskandar, Nur Sara, Hsien H. from Crossref. Duplicate key halim2025ammoniapower merged here. Only the abstract was read; numeric values in the essay brief (60.1 MW, LCOH 15.1 and 10.1, 40 %) are NOT verified from the paper.",
+  "taken_from": "Full text (research/data/halim2025_extract.json): fuel-cost comparison 1 - LCOA/LCOH (39 % and 44 %), LCOH 15.1 and 10.1 USD/kg, NH3 prices 944.20 and 397.96 USD/t, 10 %, 30 years, capacity factor 0.9, 69.5 % NH3-to-H2 energy retention (derived), storage and furnace capital; used for literature comparison only (H1-b, H1-d); no AmCraX input changed."
  },
  {
   "citekey": "sp_blue_ammonia_2025",
@@ -662,8 +663,9 @@
   "doi_verified": true,
   "url_verified": true,
   "in_local_library": false,
-  "access_date": "2026-11-23",
-  "verification": "Crossref (2026-11-23) match. Same paper as existing key sayas2020high; kept under this key because result files cite it. Full text not read (abstract-level facts only).",
-  "taken_from": "nothing used numerically; abstract-level facts only (3 wt% Ru, K/Ru 0.9, 1-40 bar, 250-550 degC, X about 0.8 at 550 degC/40 bar). Not implemented."
+  "access_date": "2026-11-24",
+  "verification": "Main text read in full on 24 November 2026 from a copy supplied by the user (not stored in the repository); electronic supplementary information NOT available; research/notes/sayas2020_full_text.md. Same paper as key sayas2020high (alias, kept because report sections cite it); this record is the one used. The reference_additions entries of 23 November 2026 (not read) are superseded.",
+  "verification_superseded_2026_11_23": "Crossref (2026-11-23) match. Same paper as existing key sayas2020high; kept under this key because result files cite it. Full text not read (abstract-level facts only).",
+  "taken_from": "research/data/sayas2020_extract.json: Table 4 (Ea 75 kJ/mol, orders 0.5 and -1.2 for 3%Ru10%K/CaO at 350 degC and 1 atm; 96 / 0.8 / -1.9 without K), test conditions (200 mg, pure NH3, 30 N mL/min, WHSV 9000 mL gcat-1 h-1 at 10-40 bar) and 15 conversions at 10-40 bar (Fig. 4A, figure reading), stored as literature comparison points that no model uses. The abstract's K/Ru atomic ratio 0.9 is inconsistent with the stated loadings (about 8.6 mol/mol). No rate constant in the main text; nothing implemented or fitted."
  }
 ]

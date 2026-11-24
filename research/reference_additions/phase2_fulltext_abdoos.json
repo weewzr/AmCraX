@@ -1,0 +1,12 @@
+[
+ {
+  "citekey": "abdoos2025psa",
+  "apa7": "Abdoos, B., Di Benedetto, A., & Russo, D. (2025). Integrated design, scale-up, and surrogate-based optimization of PSA systems for hydrogen purification from ammonia decomposition. Chemical Engineering Journal, 526, 170994. https://doi.org/10.1016/j.cej.2025.170994",
+  "doi": "10.1016/j.cej.2025.170994",
+  "url": "https://doi.org/10.1016/j.cej.2025.170994",
+  "access_date": "2026-11-24",
+  "doi_verified": true,
+  "verification": "full text read on 24 November 2026 (open access, CC BY 4.0; 15 pages; tables and figures checked on the page images); supplementary material (Table S1, Figs. S1-S2) not read. Confirmed: simulation study (Aspen Adsorption, ANN surrogate, NSGA-II) of a 4-bed 8-step zeolite 5A PSA on a dry 75/25 H2/N2 feed with NH3 assumed removed upstream (outside scope). Table 8: 99.99 % purity at 77.44 % recovery and 8.76 MJ/kg (11.60 bar); 99.95 % at 81.92 % and 8.10 MJ/kg (11.29 bar); 99.03 % at 83.92 % and 6.4 MJ/kg (7.87 bar); base case 96.35 % at 91.1 % and 7.2 MJ/kg (10 bar). The abstract value 5.19 MJ/kg is the lowest SEC on the front, not the SEC of the 99.99 % design. 'Four-layer bed at 35 bar, 99.97 % and 79 %' in an earlier search summary is a citation of Moon et al. 2016 (syngas), not a result of this paper. SEC is feed compression energy. No measurement of a PSA cycle; model checked only against a literature breakthrough curve (Yanez et al. 2020 / Kast 1988)",
+  "taken_from": "research/data/abdoos2025_extract.json (Table 8 p. 13, Table 9 p. 13, Tables 1, 3, 6, 7 pp. 4-9, Figs. 3, 7-13); research/notes/abdoos2025_full_text.md. Used for literature comparison only; no AmCraX input changed"
+ }
+]

@@ -12,7 +12,7 @@ import { HYPOTHESIS_PAGES } from '../routes'
 import { PageHero, Section } from '../ui'
 
 const LEAD: Record<string, string> = {
-  '': 'Four hypotheses from the project essay, tested with Aspen Plus V15 runs and independent Python models for a Singapore setting (Jurong Island as a representative industrial site; no facility is claimed to exist). Each verdict is SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED or INCONCLUSIVE under a written aggregation rule; the row-by-row rules were written after the results were known and then tested by an independent adversarial review (see the disclosures below). Results that go against the essay are reported as such.',
+  '': 'Four hypotheses from the project essay, tested with Aspen Plus V15 runs and independent Python models for a Singapore setting (Jurong Island as a representative industrial site; no facility is claimed to exist). Each hypothesis starts with a plain answer and its limitations, then the claims inside it one by one; the formal classification under the rule fixed before the analysis is in the evidence matrix further down. Results that go against the essay are reported as such.',
   catalyst: 'Hypothesis H3: catalyst prices derived from metal content, kinetic validity, catalyst cost per kg of hydrogen, break-even prices, heat-exchanger sizing and the net benefit of heat integration.',
   economics: 'Hypothesis H2: the unified baseline, the dominance of the ammonia price, the break-even ammonia price and carbon pricing under the actual Singapore boundary and a hypothetical life-cycle price.',
   purification: 'Hypothesis H4: PSA against Pd-Ag membrane per specification, readiness levels, parity thresholds and the recovery lost for each purity step.',

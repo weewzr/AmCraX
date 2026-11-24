@@ -747,6 +747,78 @@ def fix_pass_tables_md(summary: dict) -> str:
     return "\n\n".join(out) + "\n"
 
 
+ADDENDUM_JSON = RESULTS_RESEARCH / "addendum_2026-11-24.json"
+
+
+def _addendum(summary: dict, token: str):
+    try:
+        return read_json(ADDENDUM_JSON)
+    except Exception as e:  # noqa: BLE001
+        summary.setdefault("unresolved_tokens", []).append(token)
+        log(f"WARNING addendum record unreadable: {e!r}")
+        return None
+
+
+def addendum_summary_md(summary: dict) -> str:
+    """Opening paragraph of Section 31.5, read from results/research/addendum_2026-11-24.json."""
+    ad = _addendum(summary, "{{ADDENDUM_SUMMARY}}")
+    if ad is None:
+        return "*results/research/addendum_2026-11-24.json was not available at build time.*\n"
+    pv = ad.get("provenance") or {}
+    papers = "; ".join(str(v) for v in (pv.get("papers_read_in_full_on_2026_11_24") or {}).values())
+    bc = ad.get("baseline_check") or {}
+    nvc = len(ad.get("verdict_changes") or [])
+    return (f"Three papers that earlier could be seen only as abstracts or search summaries were read in full on 24 November 2026: "
+            f"{esc(papers)}. The papers are not stored in the repository; the readings, with page references, are in "
+            f"`research/notes/` and `research/data/`. {esc(pv.get('rule', ''))[:1].upper()}{esc(pv.get('rule', ''))[1:]}. "
+            f"Verdicts checked: {ad.get('verdicts_checked')}; verdicts changed: {nvc}"
+            f"{' (none)' if nvc == 0 else ''}. Frozen baseline LCOH {float(bc.get('lcoh_USD_per_kg', float('nan'))):.6f} USD/kg "
+            f"(difference from the frozen value {float(bc.get('abs_difference', float('nan'))):.1e}). Every correction and every new "
+            "value, with its file and key, is recorded in `results/research/addendum_2026-11-24.json`; Tables 31.4 and 31.5 are "
+            "generated from that file.")
+
+
+def addendum_tables_md(summary: dict) -> str:
+    """New computed values and corrections of record of the addendum of 24 November 2026."""
+    ad = _addendum(summary, "{{ADDENDUM_TABLES}}")
+    if ad is None:
+        return "*results/research/addendum_2026-11-24.json was not available at build time.*\n"
+
+    def _fv(v, unit):
+        if isinstance(v, (int, float)):
+            if unit == "USD" or abs(v) >= 1000:
+                return f"{v:,.0f}"
+            if abs(v) < 0.1:
+                return f"{v:.4f}"
+            return f"{v:.3f}" if unit not in ("%",) else f"{v:.1f}"
+        return _fmt_val(v)
+
+    out = []
+    rows = []
+    for x in ad.get("new_computed_values") or []:
+        f = str(x.get("file", "")).replace("results/research/", "")
+        rows.append([x.get("label"), _fv(x.get("value"), x.get("unit")), x.get("unit"), f])
+    out.append("Table: **Table 31.4.** New computed values of the addendum of 24 November 2026 (no stored value was replaced; "
+               "the frozen baseline is unchanged). *Source: results/research/addendum_2026-11-24.json new_computed_values "
+               "(file and key of each value in the source file).*\n\n"
+               + pipe_table(["Quantity", "Value", "Unit", "File"], rows, ["l", "r", "l", "l"]))
+    groups: dict = {}
+    for x in ad.get("text_corrections") or []:
+        groups.setdefault((x.get("what"), x.get("file"), x.get("reason")), []).append(x)
+    rows = [[q, str(f).replace("results/research/", ""), len(xs), _short_txt(reason, 220)] for (q, f, reason), xs in groups.items()]
+    out.append("Table: **Table 31.5.** Corrections of record in stored data and result texts, grouped by subject (old and new text of "
+               "each key in the source file). *Source: results/research/addendum_2026-11-24.json text_corrections.*\n\n"
+               + pipe_table(["Subject", "File", "Keys corrected", "Reason"], rows, ["l", "l", "r", "l"]))
+    rem = ad.get("reference_entries_removed") or []
+    if rem:
+        out.append("Reference entries of 23 November 2026 that recorded an abstract-only or unread status were removed, so that "
+                   "each paper has one record (" + "; ".join(f"`{esc(r.get('citekey'))}` in `{esc(r.get('file'))}`" for r in rem)
+                   + "). New computed blocks: "
+                   + "; ".join(f"`{str(b.get('file')).replace('results/research/', '')}` key `{b.get('key')}`"
+                               for b in ad.get("new_computed_blocks") or []) + ".\n")
+    return "\n\n".join(out) + "\n"
+
+
 def _verdict_with_basis(h: dict) -> str:
     """A PARTIALLY SUPPORTED or MIXED hypothesis verdict is never printed without its components."""
     v = str(h.get("verdict"))
@@ -786,7 +858,10 @@ _PA_HALF = {"cracking_psa": "cracking + PSA half", "fired_cracking": "fired-crac
 _PA_MODE = {"actual_sg": "actual Singapore boundary", "hypothetical_lca": "hypothetical price, not Singapore law"}
 PLAIN_LEAD = ("The plain answers are a reading aid derived in code from the formal rows of the evidence matrix; they are not "
               "verdicts and change none. An answer that rests on half of a row is a finding: that row's formal verdict stays "
-              "INCONCLUSIVE because the row needs both halves. The formal verdict and its components are printed beside the answers.")
+              "INCONCLUSIVE because the row needs both halves. 'Yes, under the stated assumption' is a conditional statement of the "
+              "computed result, given only where the formal test is inconclusive solely because one quantity is assumed and "
+              "unsourced; the assumption and its break-even value are in the limitation. The formal classification (rule fixed "
+              "before the analysis) is printed in the last column.")
 
 
 def _pa_basis(a: dict) -> str:
@@ -812,17 +887,31 @@ def plain_answers_table_md(hids: list[str], caption: str, summary: dict | None =
         formal = f"{h.get('verdict')} (" + ", ".join(f"{c.get('id')} {c.get('verdict')}" for c in (h.get("components") or [])) + ")"
         for i, a in enumerate(h["plain_answers"]):
             lim = _short_txt(a.get("limitation"), 100000) + ((" " + _short_txt(a.get("note"), 400)) if a.get("note") else "")
-            first = (f"{hid} {formal}" if i == 0 else "")
-            row = [first, _short_txt(a.get("claim"), 200), a.get("answer"), a.get("qualifier") or "-", lim,
-                   _pa_basis(a) + ": " + _short_txt(a.get("formal_verdict"), 300)]
-            if compact:
-                row = row[:5] + [_pa_basis(a)]
+            formal_cell = _pa_basis(a) + ": " + _short_txt(a.get("formal_verdict"), 300)
+            if i == 0:
+                formal_cell = f"{hid} {formal}; " + formal_cell
+            row = [a.get("answer"), f"{hid}: " + _short_txt(a.get("claim"), 200), a.get("qualifier") or "-", lim, formal_cell]
             rows.append(row)
     if not rows:
         return "*The plain answers were not available in the evidence matrix at build time.*\n"
-    heads = ["Hypothesis and formal verdict", "Claim", "Answer", "Qualifier", "Limitation",
-             "Basis" if compact else "Basis and formal verdict it rests on"]
+    heads = ["Plain answer", "Claim", "Qualifier", "Limitation", "Formal classification (rule fixed before the analysis)"]
     return caption + "\n\n" + pipe_table(heads, rows)
+
+
+def headline_md(hid: str, summary: dict, part: str) -> str:
+    """Headline answer or headline limitations of a hypothesis, read from the evidence matrix (reading aid)."""
+    h = _hyp(hid) or {}
+    if part == "answer":
+        v = h.get("headline_answer")
+        if not v:
+            summary.setdefault("unresolved_tokens", []).append(f"{{{{HEADLINE:{hid}}}}}")
+            return "[headline not available at build time]"
+        return esc(v)
+    lims = h.get("headline_limitations") or []
+    if not lims:
+        summary.setdefault("unresolved_tokens", []).append(f"{{{{HEADLINE_LIMS:{hid}}}}}")
+        return "[limitations not available at build time]"
+    return "Limitations: " + " ".join(esc(x if x.endswith(".") else x + ".") for x in lims)
 
 
 def plain_figures_md(hid: str) -> str:
@@ -966,6 +1055,12 @@ def substitute_tokens(text: str, summary: dict) -> str:
         text = text.replace("{{VALIDATION_BY_KIND_TABLE}}", validation_by_kind_table_md(summary))
     if "{{FIX_PASS_TABLES}}" in text:
         text = text.replace("{{FIX_PASS_TABLES}}", fix_pass_tables_md(summary))
+    text = re.sub(r"\{\{HEADLINE:(H\d)\}\}", lambda m: headline_md(m.group(1), summary, "answer"), text)
+    text = re.sub(r"\{\{HEADLINE_LIMS:(H\d)\}\}", lambda m: headline_md(m.group(1), summary, "lims"), text)
+    if "{{ADDENDUM_SUMMARY}}" in text:
+        text = text.replace("{{ADDENDUM_SUMMARY}}", addendum_summary_md(summary))
+    if "{{ADDENDUM_TABLES}}" in text:
+        text = text.replace("{{ADDENDUM_TABLES}}", addendum_tables_md(summary))
     text = re.sub(r"\{\{ROW_OUTCOMES:(H\d)\}\}", lambda m: esc(_row_outcomes(_hyp(m.group(1)) or {})) or "not available", text)
     if "{{EVIDENCE_SUMMARY_TABLE}}" in text:
         text = text.replace("{{EVIDENCE_SUMMARY_TABLE}}", evidence_summary_table_md())
@@ -975,8 +1070,9 @@ def substitute_tokens(text: str, summary: dict) -> str:
     def plain(m):
         ids = ["H1", "H2", "H3", "H4"] if m.group(1) == "ALL" else m.group(1).split(",")
         cap = (f"Table: **Table {m.group(2)}.** Plain answers to the claims inside the hypotheses (reading aid, not verdicts), "
-               "with the formal verdict and its components beside them and the main limitation after each answer. Yes only "
-               "where the underlying test is SUPPORTED, No only where it is CONTRADICTED, otherwise Not established; an answer "
+               "with the main limitation after each answer and the formal classification in the last column. Yes only "
+               "where the underlying test is SUPPORTED, No only where it is CONTRADICTED, Yes under the stated assumption only "
+               "under the three conditions of the plain-answer rule, otherwise Not established; an answer "
                "on half of a row is a finding and the row verdict stays as stated. *Source: results/research/evidence_matrix.json "
                "plain_answers (read at build time).*")
         return esc(PLAIN_LEAD) + "\n\n" + plain_answers_table_md(ids, cap, summary, compact=True)

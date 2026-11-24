@@ -4089,7 +4089,7 @@
         "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
        },
        "recovery_source": {
-        "note": "optimistic, flat by construction",
+        "note": "flat by construction; slightly pessimistic against Abdoos et al. 2025 (0.7744 at 99.99 %, simulated, dry NH3-free feed), so the earlier label 'optimistic' is withdrawn (24 Nov 2026)",
         "source": "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)",
         "source_type": "assumption"
        },
@@ -4223,7 +4223,7 @@
         "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
        },
        "recovery_source": {
-        "note": "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)",
+        "note": "no measured recovery at 99.9 % for cracked ammonia; flat by construction. Against the simulated front of Abdoos et al. 2025 (0.8192 at 99.95 %, dry NH3-free feed; see abdoos2025_sourced_case) it is pessimistic, not optimistic (label corrected 24 Nov 2026)",
         "source": "mass-balance relation, tail-gas H2 fraction held at the Cho 2026 point (Phase 1 PSA_B_MB)",
         "source_type": "assumption"
        },
@@ -4247,7 +4247,7 @@
         "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
        },
        "recovery_source": {
-        "note": "not supported by a source at this purity",
+        "note": "not supported by a source at this purity; it lies above the only published front for this composition (Abdoos et al. 2025, simulated: 0.8192 at 99.95 %, 0.7744 at 99.99 %)",
         "source": "AmCraX Aspen splitter assumption F4 (PSA_AMCRAX, 99.96 %)",
         "source_type": "assumption"
        },

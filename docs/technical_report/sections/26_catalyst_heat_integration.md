@@ -1,4 +1,4 @@
-<!-- cites: cho2026nickel, takahashi2016kinetic, kum2026heatintegrated, lucentini2021nirukinetic, linnhoff1983pinch, sayas2020high -->
+<!-- cites: cho2026nickel, takahashi2016kinetic, kum2026heatintegrated, lucentini2021nirukinetic, linnhoff1983pinch, sayas2020rukcao -->
 
 # 26 Catalyst comparison and heat integration
 

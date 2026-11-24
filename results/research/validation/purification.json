@@ -255,5 +255,100 @@
   "status": "informational",
   "evidence_kind": "literature_comparison",
   "source_files": []
+ },
+ {
+  "id": "P2-PSA-ABDOOS-1",
+  "description": "AmCraX PSA recovery assumption 0.85 at 99.96 % against the published front for a cracked-ammonia composition (Abdoos 2025 Table 8: 0.8192 at 99.95 %, 0.7744 at 99.99 %)",
+  "method": "comparison of an input with a simulated literature front; no AmCraX adsorption-cycle model; dry NH3-free feed at 11.3-11.6 bar against 19.5 bar; surrogate scatter 1-3 points",
+  "reference_source": "abdoos2025psa p. 13 Table 8",
+  "observed": 0.85,
+  "expected": [
+   0.8192,
+   0.7744
+  ],
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ],
+  "note": "the assumption lies above the front at matching purity; the baseline sensitivity is in reference_scenario/baseline.json psa_recovery_sensitivity"
+ },
+ {
+  "id": "P2-PSA-ABDOOS-2",
+  "description": "AmCraX mass-balance central recoveries (0.7516 at 99.91 %, 0.7513 at 99.975 %) against the Abdoos 2025 front",
+  "method": "comparison with the Table 8 point of the next higher purity (front assumed monotonic)",
+  "reference_source": "abdoos2025psa p. 13 Table 8",
+  "observed": [
+   0.751626143976041,
+   0.7512760443382585
+  ],
+  "expected": [
+   0.8192,
+   0.7744
+  ],
+  "tolerance": null,
+  "unit": "-",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ],
+  "note": "both mass-balance values lie below the front: the earlier label 'optimistic' is withdrawn"
+ },
+ {
+  "id": "P2-PSA-ABDOOS-3",
+  "description": "Grade D LCOH at the three Abdoos recoveries rises as recovery falls (computed with the model at each recovery, not interpolated)",
+  "method": "monotonicity of the computed LCOH over 0.8392 > 0.8192 > 0.7744",
+  "reference_source": "internal consistency",
+  "observed": [
+   4.255705103542585,
+   4.2888015691644,
+   4.36914118802754
+  ],
+  "expected": "strictly increasing",
+  "tolerance": null,
+  "unit": "USD/kg",
+  "status": "pass",
+  "evidence_kind": "numerical_verification",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ]
+ },
+ {
+  "id": "P2-PSA-ABDOOS-4",
+  "description": "Purity-only Grade D increment at equal (30 bar) delivery on the Abdoos 2025 relation against the model resolution (Python against Aspen LCOH offset)",
+  "method": "industrial at 0.8192, Grade D at 0.7744, both delivered at 30 bar; relation simulated for a dry NH3-free feed at 11.3-11.6 bar, applied at 19.5 bar",
+  "reference_source": "abdoos2025psa Table 8; catalyst_economics.json resolution",
+  "observed": 0.08031960773845359,
+  "expected": 0.006022354316313816,
+  "tolerance": null,
+  "unit": "USD/kg",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": [
+   "results/research/purification/phase2_comparison.json"
+  ],
+  "note": "above the resolution (13.3 times) at the printed recoveries, but -0.0273 with 3 points of adverse surrogate scatter; the Yanez relation (different feed) gives 0.1657 and the assumed mass-balance relation 0.0020 (below the resolution); the coded H4-b rule is unchanged"
+ },
+ {
+  "id": "P2-PSA-ABDOOS-BASELINE",
+  "description": "Reference baseline LCOH (PSA 0.85 at 99.96 %) beside the same economics code path at the Abdoos 2025 recoveries 0.8192 (99.95 %) and 0.7744 (99.99 %)",
+  "method": "singapore.evaluate psa_recovery override (linear re-scaling of the stored Aspen result); reference value frozen",
+  "reference_source": "abdoos2025psa Table 8; results/research/reference_scenario/baseline.json",
+  "observed": [
+   4.065782232135955,
+   4.146121850934717
+  ],
+  "expected": 4.015461254695034,
+  "tolerance": null,
+  "unit": "USD/kg",
+  "status": "informational",
+  "evidence_kind": "literature_comparison",
+  "source_files": [
+   "results/research/reference_scenario/baseline.json"
+  ],
+  "note": "sensitivity beside the frozen reference; the reference value does not change"
  }
 ]

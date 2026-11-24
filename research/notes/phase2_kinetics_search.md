@@ -29,5 +29,11 @@ Ru/CeO2 (research/notes/lucentini2019ceo2.md).
   must download the article and SI in a browser and record: the rate form, the orders in NH3 and H2, Ea, a
   pre-exponential factor with units and basis, and one fully specified data point (catalyst mass, WHSV, feed, T, P,
   conversion) to check the units. The essay values (Ea 96 to 75 kJ/mol, H2 order -1.9 vs -1.2) remain NOT VERIFIED.
+- Update of 24 November 2026: the main text of Sayas et al. (2020) has been read from a copy supplied by the user
+  (`research/notes/sayas2020_full_text.md`). The essay values (Ea 96 to 75 kJ/mol, H2 order -1.9 vs -1.2) are now
+  VERIFIED (Table 4, 350 degC, 1 atm). The pre-exponential factor, its units and the equilibrium term are only in the
+  supplementary information, which was not obtained, so Ru-K/CaO stays `unmodelled` and nothing was fitted. The 15
+  measured conversions at 10-40 bar are stored as literature comparison points that no model uses
+  (`results/research/kinetics/validity_classification.json`, key `literature_comparison_points_sayas2020`).
 - DOIs 10.1039/d0cy00686f and 10.1039/d3cy00055a were confirmed registered through https://doi.org/api/handles/
   (responseCode 1) on 23 November 2026.

@@ -151,6 +151,125 @@ def threshold(kind, y, price=PRICE, hours=HOURS, basis="reference"):
             "cracked_share": a.cracked_share, "LCOE_check": cost(a, price, hours, basis), "LCOE_direct": d}
 
 
+HALIM_X = ROOT / "research" / "data" / "halim2025_extract.json"
+
+
+def fuel_cost_gap_on_paper_basis():
+    """H1-b on the paper's own basis (addendum of 24 November 2026). Halim et al. (2025) report 'about 40 %' as
+    1 - LCOA/LCOH (39 % green, 44 % blue, p. 9): the cost of fuel delivered to the turbine per kg of hydrogen-equivalent
+    fuel energy, power plant excluded. The same quantity on AmCraX boundaries: direct = NH3 bought at the scenario price
+    for the same LHV as 1 kg H2 (no storage, vaporisation or compression item exists in AmCraX), cracked = the unified
+    LCOH (singapore.evaluate on the stored Aspen baseline), heat integration on and off. The LCOE comparison of the
+    essay's sentence about power (largest gap 16.6 %) is not changed."""
+    from amcrax.economics.singapore import evaluate as sg_eval
+    hx = {e["id"]: e for e in json.loads(HALIM_X.read_text(encoding="utf-8"))["entries"]}
+    lhv_nh3, lhv_h2 = P.LHV_NH3_MJ_KG, P.LHV_H2_MJ_KG
+    kg_eq = lhv_h2 / lhv_nh3                               # kg NH3 with the LHV of 1 kg H2
+    hi = json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8"))
+    nohi = json.loads((ROOT / "results/simulations/baseline_no_hi.json").read_text(encoding="utf-8"))
+    pr = hx["cost_nh3_prices"]["value"]
+    prices = [(k, "reference scenario (backend/amcrax/data/reference_scenario.yaml)", v) for k, v in P.NH3_PRICE_SET_USD_T.items()]
+    prices += [("halim_green_FOB", "Halim et al. 2025 Table 4 (Platts, July 2024)", pr["green_FOB_USD_per_t"]),
+               ("halim_blue_FOB", "Halim et al. 2025 Table 4 (Platts, July 2024)", pr["blue_FOB_USD_per_t"])]
+    cases = []
+    for lab, src, p in prices:
+        for hl, res in (("on", hi), ("off", nohi)):
+            e = sg_eval(res, float(p))
+            d = p / 1000.0 * kg_eq
+            cases.append({"price_case": lab, "price_source": src, "NH3_USD_per_t": float(p), "heat_integration": hl,
+                          "cracked_LCOH_USD_per_kg": e["lcoh_USD_per_kg"], "direct_fuel_cost_USD_per_kg_H2_equivalent": d,
+                          "gap_pct_1_minus_direct_over_cracked": 100.0 * (1.0 - d / e["lcoh_USD_per_kg"])})
+    # ---- reconciliation with the paper's printed and reader-derived quantities (heat integration on) ----
+    wt = hx["cost_discount_life_cf"]["value"]
+    retain = hx["eff_direct_equivalence"]["value"] / hx["eff_cracker_nh3_feed"]["value"]["kg_per_h_at_8760h"]   # 0.695
+    fig5 = {"green": {"price": pr["green_FOB_USD_per_t"], "lcoh": hx["cost_lcoh_green"]["value"], "lcoa": hx["cost_lcoa_green"]["value"],
+                      "lcoh_feed": 8.70, "lcoa_feed": 6.05, "paper_gap_pct": hx["cost_forty_percent"]["value"]["green_pct"]},
+            "blue": {"price": pr["blue_FOB_USD_per_t"], "lcoh": hx["cost_lcoh_blue"]["value"], "lcoa": hx["cost_lcoa_blue"]["value"],
+                     "lcoh_feed": 3.67, "lcoa_feed": 2.55, "paper_gap_pct": hx["cost_forty_percent"]["value"]["blue_pct"]}}
+    hours_halim = 8760.0 * wt["capacity_factor"]
+    rec = {}
+    for k, z in fig5.items():
+        p = z["price"] / 1000.0
+        e0 = sg_eval(hi, z["price"])
+        nh3_kg = e0["kg_nh3_feed_per_kg_h2"] + e0["kg_nh3_fuel_per_kg_h2"]
+        non0 = e0["lcoh_USD_per_kg"] - (e0["breakdown_USD_per_kg"]["ammonia_feed"] + e0["breakdown_USD_per_kg"]["heat_fuel"])
+        e2 = sg_eval(hi, z["price"], {"operating_hours_h_per_yr": hours_halim, "plant_life_yr": float(wt["life_years"])})
+        non2 = e2["lcoh_USD_per_kg"] - (e2["breakdown_USD_per_kg"]["ammonia_feed"] + e2["breakdown_USD_per_kg"]["heat_fuel"])
+        d0 = p * kg_eq
+        nh3_halim = kg_eq / retain
+        non_direct_halim = z["lcoa"] - z["lcoa_feed"]
+        non_crack_halim = z["lcoh"] - z["lcoh_feed"]
+        steps = [("0 AmCraX unified model at the paper's price, heat integration on", d0, e0["lcoh_USD_per_kg"]),
+                 (f"1 cracked side: NH3 per kg H2 at the paper's energy retention {retain:.4f} (AmCraX {kg_eq / nh3_kg:.4f})",
+                  d0, non0 + p * nh3_halim),
+                 (f"2 also the paper's capacity factor {wt['capacity_factor']} ({hours_halim:.0f} h) and life {wt['life_years']} yr on AmCraX non-NH3 costs",
+                  d0, non2 + p * nh3_halim),
+                 (f"3 also the paper's cracked-side non-feed cost {non_crack_halim:.2f} USD/kg instead of AmCraX {non2:.3f} (storage tank, fired furnace, compressors, PSA, O&M; Fig. 5)",
+                  d0, non_crack_halim + p * nh3_halim),
+                 (f"4 also the paper's direct-use non-feed cost {non_direct_halim:.2f} USD/kg (mostly the same storage tank, plus vaporisation and compression; Fig. 5)",
+                  d0 + non_direct_halim, non_crack_halim + p * nh3_halim)]
+        rows = []
+        for lab, dd, cc in steps:
+            rows.append({"step": lab, "direct_USD_per_kg": dd, "cracked_USD_per_kg": cc, "gap_pct": 100.0 * (1.0 - dd / cc)})
+        for i in range(1, len(rows)):
+            rows[i]["change_pp"] = rows[i]["gap_pct"] - rows[i - 1]["gap_pct"]
+        g0 = rows[0]["gap_pct"]
+        one = {"energy_retention_only": 100.0 * (1.0 - d0 / (non0 + p * nh3_halim)) - g0,
+               "hours_and_life_only": 100.0 * (1.0 - d0 / (non2 + p * nh3_kg)) - g0,
+               "cracked_non_feed_cost_only": 100.0 * (1.0 - d0 / (non_crack_halim + p * nh3_kg)) - g0,
+               "direct_non_feed_cost_only": 100.0 * (1.0 - (d0 + non_direct_halim) / e0["lcoh_USD_per_kg"]) - g0}
+        rec[k] = {"NH3_USD_per_t": z["price"], "paper_gap_pct_printed": z["paper_gap_pct"],
+                  "paper_gap_pct_from_printed_LCOA_LCOH": 100.0 * (1.0 - z["lcoa"] / z["lcoh"]),
+                  "amcrax_nh3_kg_per_kg_h2_feed_plus_fuel": nh3_kg, "amcrax_energy_retained_as_h2": kg_eq / nh3_kg,
+                  "paper_energy_retained_as_h2_derived": retain, "amcrax_non_nh3_cost_USD_per_kg": non0,
+                  "amcrax_non_nh3_cost_at_paper_hours_and_life_USD_per_kg": non2,
+                  "paper_non_feed_cost_cracked_USD_per_kg": non_crack_halim, "paper_non_feed_cost_direct_USD_per_kg": non_direct_halim,
+                  "steps": rows, "one_at_a_time_change_pp_from_step_0": one,
+                  "residual_pp_vs_printed": rows[-1]["gap_pct"] - z["paper_gap_pct"]}
+    cap = hx["cost_capex"]["value"]
+    h2_kg_h = hx["sys_fuel_flows"]["value"]["H2_kg_per_h"]
+    e_ref = sg_eval(hi, "grey")
+    capital = {"paper_TCI_USD_per_kg_h_H2": cap["TCI_USD"] / h2_kg_h,
+               "paper_TCI_excluding_storage_tank_share_USD_per_kg_h_H2": cap["TCI_USD"] * (1.0 - cap["storage_tank_T100_USD"] / cap["PEIC_USD"]) / h2_kg_h,
+               "paper_storage_tank_share_of_PEIC": cap["storage_tank_T100_USD"] / cap["PEIC_USD"],
+               "paper_furnace_share_of_PEIC": cap["furnace_F100_USD"] / cap["PEIC_USD"],
+               "amcrax_capex_USD_per_kg_h_H2": e_ref["capex"]["total_capex_USD"] / e_ref["h2_product_kg_h"],
+               "note": "derived; the storage-tank exclusion assumes every capital-proportional item scales with PEIC (the paper's "
+                       "factors are percentages of PEC); AmCraX has no ammonia storage item"}
+    return {
+        "description": fuel_cost_gap_on_paper_basis.__doc__.split("\n\n")[0].replace("\n", " ").replace("    ", " "),
+        "quantity": "1 - direct NH3 fuel cost / cracked-hydrogen cost, both per kg of hydrogen-equivalent fuel energy (not a cost of electricity)",
+        "lhv_MJ_per_kg": {"NH3": lhv_nh3, "H2": lhv_h2, "basis": "amcrax.schemas LHV_KJ_PER_MOL / MOLAR_MASS (the paper's implied NH3 LHV is 18.737)"},
+        "kg_NH3_per_kg_H2_equivalent": kg_eq,
+        "direct_side_boundary": "NH3 purchase only at the scenario price; AmCraX has no ammonia storage, vaporisation or compression item (the paper's LCOA includes them)",
+        "cracked_side_boundary": "unified reference LCOH: plant gate, H2 at 19.5 bar, PSA recovery 0.85, supplementary NH3 fuel at 100 % of its LHV, no storage",
+        "cases": cases,
+        "paper_values": {k: {"NH3_USD_per_t": z["price"], "LCOH_USD_per_kg": z["lcoh"], "LCOA_USD_per_kg": z["lcoa"],
+                             "gap_pct_printed": z["paper_gap_pct"]} for k, z in fig5.items()},
+        "reconciliation": rec,
+        "reconciliation_note": ("Sequential substitution of the paper's quantities into the AmCraX calculation, heat integration on; "
+                                "each step keeps the previous ones, so the change per step depends on the order (one-at-a-time "
+                                "changes from step 0 are given beside the steps). After step 4 the gap is rebuilt from the paper's "
+                                "own numbers on the AmCraX LHV basis. Reading: the paper's larger gap comes from its lower energy "
+                                "retention (0.695 against 0.877) and above all from its much larger non-feed cost of cracking "
+                                "(6.40 against 0.70 USD/kg); its ammonia storage, vaporisation and compression cost on the direct "
+                                "side (3.15 USD/kg) pulls the gap back down; hours and plant life change it by less than 0.1 point."),
+        "capital_intensity": capital,
+        "cannot_be_reconciled": [
+            "how the paper's non-feed costs split between the storage tank, the fired furnace, the compressors and the PSA beyond "
+            "the PEIC shares (the stream table and supplementary Tables A1-A2 were not available)",
+            "the price year of the paper's capital costs (not stated; CEPCI 800) against the AmCraX 2024 USD basis",
+            "the paper's NH3 LHV (18.737 MJ/kg implied) against AmCraX 18.60: about 0.7 % on every NH3 quantity",
+            "AmCraX has no ammonia storage, vaporisation or compression cost on either side, so steps 3 and 4 import the paper's "
+            "numbers rather than compute them",
+            "the paper's plant buys grid electricity at 0.16 USD/kWh inside 'other variable' costs; AmCraX uses its own electricity price",
+        ],
+        "lcoe_comparison_unchanged": "forty_percent_figure/largest_computed_pct (cost of electricity on AmCraX boundaries) is unchanged; "
+                                     "it tests the essay's sentence about power, which is not the paper's quantity",
+        "source_type": "python (unified economics) + literature (Halim et al. 2025, research/data/halim2025_extract.json)",
+    }
+
+
 def side(th, lo, hi):
     if th is None:
         return "no threshold in range"
@@ -403,7 +522,7 @@ def main():
         "blends_and_cracked_gas": {
             "N2O": "No source gives N2O for NH3-H2 blends or for cracked gas. pathway_table_power.csv scales the direct-NH3 N2O by the NH3 energy share of the fuel: this is an AmCraX assumption, not a sourced value.",
             "NOx": "No turbine NOx measurement or simulation for NH3-H2 blends or H2/N2 cracked gas was found (NO_kg_per_MWh = 'not quantified'). GE Vernova (vendor): NOx up to +35 % at 50 vol% H2 in natural gas, possibly double near 100 % H2; NETL 2023: N2-diluted H2 has higher NOx potential than steam-diluted. Qualitative only; not used in costs.",
-            "blend_limits": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' was not found. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas; Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No sourced H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
+            "blend_limits": "The essay's '30-60 vol% H2 for the H-25 in NH3-H2 blends' is printed in Halim et al. 2025 p. 3 (full text read 24 Nov 2026), relayed from a trade-press article: a vendor-claim grade statement, not tested in that paper. NETL 2022 states 30-60 % hydrogen for Baker Hughes turbines on hydrogen in natural gas (a different fuel); Ahmad 2025 p. 2 gives about 30 vol% for unmodified natural-gas combustors. No measured or simulated H2 limit for NH3-H2 blends exists in the library; the vol% labels in the tables are flags only.",
             "partial_cracking_efficiency": "Only Ahmad's two end points are sourced (alpha = 1 and 0). Intermediate efficiencies are a linear interpolation (assumption). Ahmad reports LCOE non-monotonic in the cracked fraction (not reproduced, Supplementary Material not available)."},
         "SCR": {"standard_EUR_per_kW": [15, 36], "advanced_additional_EUR_per_kW": 60, "USD_per_EUR": USD_PER_EUR,
                 "source": "Abuzayed et al. 2025 (EPRG2520) citing their ref. 109 (secondary quote, price year not stated)",
@@ -425,7 +544,15 @@ def main():
         "largest_in_sensitivities_pct": None,
         "cracker_capex_factor_for_40pct_fired": fct_for("full_fired", 0.40),
         "cracker_capex_factor_for_40pct_purified": fct_for("full_purified", 0.40),
-        "halim_status": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them.",
+        "halim_status": ("Full text read on 24 November 2026 (research/notes/halim2025_full_text.md; research/data/halim2025_extract.json). "
+                         "All four quoted numbers are located: 60.1 MW (p. 3, p. 11; vendor rating of the Mitsubishi H-25); LCOH 15.1 and "
+                         "10.1 USD/kg (Highlights, p. 9, Fig. 5, Table 5); 'about 40 %' (Highlights; 39 % green and 44 % blue on p. 9), which "
+                         "is 1 - LCOA/LCOH, the cost of fuel delivered to the turbine per kg of hydrogen-equivalent energy for the 40 % "
+                         "hydrogen share, with equal turbine efficiency and the power plant excluded, NOT a cost of electricity (the paper "
+                         "computes no LCOE); and 30-60 vol% H2 for the H-25 (p. 3, relayed from trade press). The same quantity on AmCraX "
+                         "boundaries is in fuel_cost_gap_on_paper_basis; the LCOE gaps above test the essay's sentence about power."),
+        "halim_status_superseded_2026_11_23": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them.",
+        "fuel_cost_gap_on_paper_basis": fuel_cost_gap_on_paper_basis(),
     }
     sens_all = [r_ for tbl in (s_eta, s_gain, s_price, s_cf, s_cap) for r_ in tbl]
     forty["largest_in_sensitivities_pct"] = max(100 * (1 - r_["direct"] / r_[k_]) for r_ in sens_all for k_ in ("full_fired", "full_purified", "full_exhaust"))
@@ -483,10 +610,17 @@ def main():
                         "cracker_capex_factor_needed_for_40pct_purified": forty["cracker_capex_factor_for_40pct_purified"],
                         "cracker_capex_factor_needed_for_40pct_fired": forty["cracker_capex_factor_for_40pct_fired"]},
             "assumptions": "as H1-a; three price/hour bases",
-            "uncertainty": "Halim's inputs unknown (full text not accessible)",
+            "uncertainty": ("The paper (full text read 24 Nov 2026) computes no cost of electricity: its 'about 40 %' is a fuel cost at the turbine "
+                            "inlet (1 - LCOA/LCOH, 39 % green, 44 % blue). On that basis AmCraX gives "
+                            + ", ".join(f"{c_['gap_pct_1_minus_direct_over_cracked']:.1f} % ({c_['price_case']}, HI {c_['heat_integration']})"
+                                        for c_ in forty["fuel_cost_gap_on_paper_basis"]["cases"] if c_["price_case"].startswith("halim"))
+                            + " (fuel_cost_gap_on_paper_basis)"),
             "envelope": "AmCraX boundaries; does not show Halim's own calculation is wrong",
             "threshold": "existing rule: CONTRADICTED if the largest computed gap is below half the claim (20 %)",
-            "reason": "Largest computed gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The figure could not be located in any accessible Halim text.",
+            "reason": ("Largest computed LCOE gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the "
+                       "reference (see numbers). The row tests the essay's sentence about power; the paper's own 40 % is a different quantity "
+                       "(fuel cost per kg of hydrogen-equivalent energy, located on p. 9), compared like for like in "
+                       "forty_percent_figure/fuel_cost_gap_on_paper_basis."),
         },
         "H1-c": {
             "proposed_verdict": "INCONCLUSIVE",
@@ -562,6 +696,22 @@ def main():
     add("EU-P2-threshold-vs-literature", "Full exhaust-heated threshold system gain against the like-for-like literature gain (Ahmad 2025, 4.4-5.4 pp on LHV 18.8)",
         te["threshold_delta_pp_reference"], [ahm_lo, ahm_hi], None, "pp", True, kind="literature_comparison", ref="research/data/turbine_efficiency_literature.json")
     items[-1]["status"] = "informational"
+    fb = forty["fuel_cost_gap_on_paper_basis"]
+    gh = {c_["price_case"]: c_["gap_pct_1_minus_direct_over_cracked"] for c_ in fb["cases"] if c_["heat_integration"] == "on"}
+    add("EU-P2-halim-fuel-basis", "Halim et al. 2025 'about 40 %' on the paper's own basis (1 - direct NH3 fuel cost / cracked H2 cost per kg "
+        "of hydrogen-equivalent energy; not a cost of electricity): AmCraX unified model at the paper's green and blue NH3 prices, heat "
+        "integration on, against the paper's 39 % and 44 %", [gh["halim_green_FOB"], gh["halim_blue_FOB"]],
+        [fb["paper_values"]["green"]["gap_pct_printed"], fb["paper_values"]["blue"]["gap_pct_printed"]], None, "%", True,
+        kind="literature_comparison", ref="research/data/halim2025_extract.json (p. 9; Table 4; Fig. 5)")
+    items[-1]["status"] = "informational"
+    items[-1]["note"] = ("same direction, smaller gap; reconciliation by sequential substitution of the paper's quantities in "
+                         "forty_percent_figure/fuel_cost_gap_on_paper_basis/reconciliation. Different boundaries (no ammonia storage in "
+                         "AmCraX; fired furnace and 25,000 t tank in the paper); not a validation")
+    rr = [fb["reconciliation"][k]["steps"][-1]["gap_pct"] for k in ("green", "blue")]
+    pp = [fb["reconciliation"][k]["paper_gap_pct_printed"] for k in ("green", "blue")]
+    add("EU-P2-halim-reconcile", "The reconciliation closes: with the paper's energy retention, hours, life and non-feed costs substituted, "
+        "the rebuilt gap equals the paper's printed 39 % and 44 % within 1 point (printed integers; NH3 LHV 18.60 against 18.737)",
+        rr, pp, 1.0, "%", all(abs(a_ - b_) <= 1.0 for a_, b_ in zip(rr, pp)))
     add("EU-P2-n2o-gwp", "Carbon-tax N2O uses GWP 265 (Carbon Pricing Act First Schedule); ratio of tax CO2e to life-cycle CO2e = 265/273",
         emis["direct_NH3"]["N2O_kgCO2e_per_MWh_CPA_265_tax"] / emis["direct_NH3"]["N2O_kgCO2e_per_MWh_AR6_273_lifecycle"], 265 / 273, 1e-12, "-",
         abs(emis["direct_NH3"]["N2O_kgCO2e_per_MWh_CPA_265_tax"] / emis["direct_NH3"]["N2O_kgCO2e_per_MWh_AR6_273_lifecycle"] - 265 / 273) < 1e-12)

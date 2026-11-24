@@ -236,20 +236,20 @@ def main():
                             "note": "One price set for every pathway. Cost columns: 'at_450' is the common reference price (isolates technology); the route columns use that route's own price. Carbon tax applies only to direct in-scope N2O (negligible) and is reported separately in USD per MWh."},
               "distance_km": D0, "ef_kgCO2e_per_kgNH3": EF,
               "power_pathways": rows, "hydrogen_pathways": hrows,
-              "halim_claim_check": {"halim_statement": "direct NH3 combustion about 40 % cheaper than cracking-based power (task brief; Halim abstract confirms only 'preferable because of high capital and operating costs of cracking')",
+              "halim_claim_check": {"halim_statement": "direct NH3 combustion about 40 % cheaper than cracking-based power (essay wording, attributed to Halim et al. 2025). Full text read 24 Nov 2026: the paper's 'about 40 %' (39 % green, 44 % blue, p. 9) is 1 - LCOA/LCOH, a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet with the power plant excluded, not a cost of electricity; the same quantity computed on AmCraX boundaries is in turbine_threshold.json forty_percent_figure/fuel_cost_gap_on_paper_basis. The LCOE gaps below test the essay's sentence about power.",
                                     "computed": claim, "crossover_prices": crossovers,
                                     "unpurified_exhaust_LCOE_with_full_cracker_correlation": full_corr,
-                                    "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim's inputs were not accessed."},
+                                    "verdict_note": "Computed gap depends strongly on whether the cracker is exhaust-heated (literature 54 % efficiency) or fired, and on purification; see results table. Halim et al. (full text read 24 Nov 2026) compute no cost of electricity, so these LCOE gaps cannot be compared with a number of the paper."},
               "partial_cracking": {"scan": scan, "breakeven_efficiency_gain": be_gain},
               "price_sweep": sweep, "hours_sensitivity": hours_rows, "hydrogen_summary": summary_h, "detour": detour,
               "fuel_flexibility": {"halim_blend_range_vol_H2": list(P.HALIM_H2_BLEND_RANGE_VOL), "NG_combustor_limit_vol_H2": P.NG_COMBUSTOR_H2_LIMIT_VOL,
-                                   "source_type": "literature (task brief; Ahmad 2025 p. 2)", "note": "Not Aspen results; combustion behaviour not simulated here."},
+                                   "source_type": "literature (Halim et al. 2025 p. 3, relayed from trade press, vendor-claim grade; Ahmad 2025 p. 2)", "note": "Not Aspen results; combustion behaviour not simulated here."},
               "nox_note": "NO and N2O are only available for direct NH3 (Ahmad Chemkin, simulated); other fuels are 'not quantified'. NOx is a local pollutant and is never added to CO2e.",
               "limitations": ["Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).",
                               "Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).",
                               "Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.",
                               "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
-                              "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."]}
+                              "Halim et al. (2025), full text read on 24 November 2026: the paper computes no cost of electricity (its 'about 40 %' is a fuel cost per kg of hydrogen-equivalent energy at the turbine inlet), and it applies one vendor turbine efficiency to every fuel, so it supplies no like-for-like LCOE and no independent turbine-efficiency difference."]}
     dump(OUT / "enduse_results.json", result)
     write_csv(OUT / "pathway_table_power.csv", rows)
     write_csv(OUT / "pathway_table_hydrogen.csv", [{k: v for k, v in r.items() if not isinstance(v, dict)} for r in hrows])
@@ -348,9 +348,9 @@ def main():
     add("EU-ahmad-eta", "Direct NH3 efficiency re-expressed on the AmCraX LHV basis gives Ahmad's electricity per kg NH3", "0.4912 x 18.8 / 18.6", "Ahmad 2025 Table 6",
         power_activity("direct").efficiency * P.LHV_NH3_MJ_KG, P.ELEC_MJ_PER_KG_DIRECT, 1e-9, "MJ/kg NH3", "pass", sf)
     add("EU-halim-claim", "Halim et al. (2025): direct NH3 combustion about 40 % cheaper than cracking-based power", "computed 1 - direct/cracking, see halim_claim_check",
-        "Halim 2025 (full text not accessed; abstract states direct use is preferable)", [round(c_["direct_cheaper_by_pct_of_cracking(1-d/c)"], 1) for c_ in claim if c_["basis"].startswith("AmCraX")], 40.0, None, "%", "informational", sf)
-    add("EU-halim-plant", "Halim et al. (2025): 60.1 MW Singapore plant, LCOH 15.1 (green) and 10.1 (blue) USD/kg H2", "not verifiable: only abstract and bibliographic data were accessible", "Halim 2025 abstract (A*STAR OAR, IDEAS)",
-        None, [60.1, 15.1, 10.1], None, "MW; USD/kg", "informational", sf)
+        "Halim 2025 (full text read 24 Nov 2026: the paper's 40 % is a fuel cost at the turbine inlet, 1 - LCOA/LCOH; this item compares the essay's power-cost wording with AmCraX LCOE gaps)", [round(c_["direct_cheaper_by_pct_of_cracking(1-d/c)"], 1) for c_ in claim if c_["basis"].startswith("AmCraX")], 40.0, None, "%", "informational", sf)
+    add("EU-halim-plant", "Halim et al. (2025): 60.1 MW Singapore plant, LCOH 15.1 (green) and 10.1 (blue) USD/kg H2", "located in the full text (read 24 Nov 2026): 60.1 MW p. 3 and p. 11 (vendor rating of the H-25); LCOH Highlights, p. 9, Fig. 5, Table 5; research/data/halim2025_extract.json", "Halim 2025 full text",
+        [60.1, 15.1, 10.1], [60.1, 15.1, 10.1], None, "MW; USD/kg", "informational", sf)
     add("EU-iso", "Industrial and fuel-cell candidate purity against ISO 14687 Grade D (99.97 %, N2+Ar <= 300 ppm, NH3 <= 0.1 ppm)", "stored purity vs thresholds; NH3 and other contaminants not modelled",
         "fact_sheet F4", [cr.purity_mole_frac, load_cracker("scn_fuel_cell_grade").purity_mole_frac], P.ISO14687_GRADE_D, None, "mol frac", "informational", ["results/simulations/baseline.json", "results/simulations/scn_fuel_cell_grade.json"])
     dump(VAL / "enduse.json", items)

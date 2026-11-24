@@ -130,16 +130,6 @@
   "taken_from": "4-column PSA, 5A zeolite, 9 bar, 58 % H2 / 25 % N2 / 15 % CH4 / 2 % Ar feed: 99.25 % purity at 75.3 % recovery, 99.97 % at 55.5 %"
  },
  {
-  "citekey": "abdoos2025psa",
-  "apa7": "Abdoos, B., Di Benedetto, A., & Russo, D. (2025). Integrated design, scale-up, and surrogate-based optimization of PSA systems for hydrogen purification from ammonia decomposition. Chemical Engineering Journal, 526, 170994. https://doi.org/10.1016/j.cej.2025.170994",
-  "doi": "10.1016/j.cej.2025.170994",
-  "url": "https://doi.org/10.1016/j.cej.2025.170994",
-  "access_date": "2026-11-23",
-  "doi_verified": true,
-  "verification": "doi.org handle responseCode=1; Crossref record read (no abstract); full text and abstract NOT read (403); no number from it is used",
-  "taken_from": "Nothing. Listed so that the next agent can obtain the abstract and the PSA purity, recovery and specific energy."
- },
- {
   "citekey": "doe_osti1460402",
   "apa7": "U.S. Department of Energy, Office of Scientific and Technical Information. (n.d.). Report 1460402 (hydrogen separation membrane project report). https://www.osti.gov/servlets/purl/1460402",
   "doi": null,

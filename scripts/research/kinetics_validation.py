@@ -176,9 +176,15 @@ def main() -> None:
                   "source_files": ["research/notes/lucentini2019ceo2.md"],
                   "note": "confirmed; the paper has no rate law, so Ni/CeO2 and Ru/CeO2 are not modelled"})
     items.append({"id": "KINR-LIT-SAYAS2020", "description": "essay lead: Ru-K/CaO Ea 96 -> 75 kJ/mol, H2 order -1.9 vs -1.2, about 80 % at 40 bar/550 degC",
-                  "method": "attempted primary-source read", "reference_source": "sayas2020rukcao (full text not retrievable)",
-                  "observed": None, "expected": None, "tolerance": None, "unit": "-", "status": "informational",
-                  "source_files": ["research/notes/sayas2020rukcao.md"], "note": "NOT VERIFIED: full text inaccessible; no Ru-K/CaO law implemented"})
+                  "method": "primary-source read (main text read in full on 24 Nov 2026; supplementary information not obtained)",
+                  "reference_source": "sayas2020rukcao p. 5033 Table 4; p. 5030-5031 text; Fig. 4A",
+                  "observed": {"Ea_kJ_per_mol": [96, 75], "H2_order": [-1.9, -1.2], "X_550C_40bar": "around 80 % (text); about 84 % (figure)"},
+                  "expected": {"Ea_kJ_per_mol": [96, 75], "H2_order": [-1.9, -1.2], "X_550C_40bar": "about 80 %"},
+                  "tolerance": None, "unit": "-", "status": "informational",
+                  "source_files": ["research/notes/sayas2020_full_text.md", "research/data/sayas2020_extract.json"],
+                  "note": "VERIFIED in the main text (Table 4, 350 degC and 1 atm, differential experiments). No complete rate law: the "
+                          "rate constant and equilibrium term are in the supplementary information (not obtained); no Ru-K/CaO law "
+                          "implemented and nothing fitted"})
     write_json(VAL / "kinetics.json", items)
     # Phase 2 (task K1): evidence_kind on every item + the K1P2- items (scripts/research/kinetics_phase2_validation.py)
     import importlib.util
