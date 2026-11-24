@@ -98,7 +98,8 @@ fn adiabatic_energy_balance_closes() {
 fn invalid_inputs_return_typed_errors() {
     let reg = KineticsRegistry::embedded();
     let s = SolverOptions::default();
-    let cases: Vec<Box<dyn Fn(&mut PfrInput)>> = vec![
+    type Mutation = Box<dyn Fn(&mut PfrInput)>;
+    let cases: Vec<Mutation> = vec![
         Box::new(|i| i.p_in_bar = -1.0),
         Box::new(|i| i.p_in_bar = f64::NAN),
         Box::new(|i| {

@@ -138,6 +138,25 @@ gate, pass or fail; uploaded by CI as the `verification-report` artifact).
 | root counts, dew-point scan decisions and brackets | identical | |
 | dew-point and saturation temperature | 1e-8 relative | brentq xtol 1e-9 K / 1e-11 K |
 
+`golden/stage2/` (rate laws, viscosity, reactor, searches) is written by
+`golden/generate_stage2_golden.py`, which also exports Cantera's viscosity polynomials and molar
+masses to `data/transport_gri30.json` (embedded by the engine). Checked by
+`crates/amcrax-engine/tests/stage2.rs` and `amcrax verify kinetics|reactor|all`.
+
+| Quantity | Gate | Why |
+|---|---|---|
+| rate laws (5 laws, options, overrides, edge cases) | 1e-12 relative to max(\|r\|, term scale) | same closed forms; near equilibrium the rate is a cancelling difference |
+| viscosity, pure and mixture | 1e-10 relative to Cantera | exact port of Cantera's polynomial and Wilke rule |
+| PFR outlet conversion / T / P | 1e-7 / 1e-4 K / 1e-6 bar absolute | Python LSODA (rtol 1e-8) versus DOPRI5 (rtol 1e-10) |
+| PFR profiles X, T, P, y | 1e-6 / 1e-4 K / 1e-6 bar / 1e-6 | idem |
+| hydraulic-limit flag, output points, W grid | identical | |
+| catalyst mass for a target | 1e-5 relative, same reachable/hydraulic flags | brentq xtol 1e-6 W |
+| temperature for a target conversion | 0.05 K, same bracket outcome | brentq xtol 0.05 K |
+
+`amcrax eval pfr --input case.json [--output result.json]` runs one reactor case from the
+keyword arguments of Python `simulate_pfr` (unknown keys are an error) and writes the result
+(Python `PFRResult` fields plus solver statistics; NaN as null).
+
 Not promised bit-identical across library versions: normal and other non-uniform variates (not
 ported), shuffles and bounded integers (NumPy does not freeze these streams), and therefore the
 scrambled Sobol' and LHS designs. For those, the promise is statistical equivalence (balance and
