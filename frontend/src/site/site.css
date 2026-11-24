@@ -419,7 +419,6 @@
 .hyp-vcell{min-width:15rem}.hyp-vcell .hyp-comp-chips{margin:6px 0 0;line-height:1.7}
 .hyp-summary td.wide .hyp-stmt{margin:0}.hyp-summary td.wide [data-testid^=qualifier-]{margin:8px 0 0;color:var(--text-2)}
 .hyp-rule{max-width:90ch;margin-bottom:var(--s5)}
-.hyp-secondary>.hyp-row-body>.hyp-details{background:var(--bg)}
 .site .hyp-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-bottom:1px solid var(--border)}
 .site .hyp-thumb img{border-bottom:0}
 .site .hyp-thumb:focus-visible{outline:2px solid var(--focus);outline-offset:-2px}

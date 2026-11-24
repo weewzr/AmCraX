@@ -205,12 +205,9 @@ function RowGroups({ rows }: { rows: MatrixRow[] }) {
     <>
       <h4>Primary rows (they vote)</h4>
       {prim.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}
-      {sec.length ? (
-        <details className="hyp-details hyp-secondary">
-          <summary><strong>Secondary rows ({sec.length})</strong>: reported, they do not vote</summary>
-          <div className="hyp-row-body">{sec.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}</div>
-        </details>
-      ) : null}
+      {/* secondary rows stay listed like the primary ones (ID and verdict visible in each summary line), so a row
+          that goes against the essay is never hidden behind a closed group */}
+      {sec.length ? <><h4>Secondary rows (reported, they do not vote)</h4>{sec.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}</> : null}
     </>
   )
 }
