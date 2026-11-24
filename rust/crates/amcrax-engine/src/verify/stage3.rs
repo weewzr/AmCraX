@@ -1192,3 +1192,241 @@ pub fn carbon(
     rep.push(sx);
     Ok(rep)
 }
+
+fn nums(v: &Value) -> Vec<f64> {
+    arr(v).iter().map(num).collect()
+}
+
+fn matrix(v: &Value) -> Vec<Vec<f64>> {
+    arr(v).iter().map(nums).collect()
+}
+
+/// Uncertainty-quantification estimators on fixed output matrices exported from Python, the
+/// Sobol' base samples of the studies, the distributions' PPFs.
+pub fn uq(golden: &Golden) -> Result<Report, EngineError> {
+    use crate::uq::{
+        bootstrap_ci, bootstrap_indices, indices_from_outputs, lognorm_ppf, norm_ppf, sobol_base,
+        tri_ppf,
+    };
+    let mut rep = Report::new("uq");
+    let t = golden.load("uq.json")?;
+    let mut ix = Acc::rel(
+        "uq.sobol_indices",
+        "indices_from_outputs on fixed Python output matrices (Ishigami N=1024, random N=500 k=4, constant): S, ST, V",
+        1e-12,
+    );
+    let mut ci = Acc::rel(
+        "uq.bootstrap_ci",
+        "bootstrap_ci percentile intervals of S and ST (NumPy index stream reproduced)",
+        1e-12,
+    );
+    let mut idx = Acc::exact(
+        "uq.bootstrap_index_stream",
+        "default_rng(seed).integers(0, N, N): first two resamples identical",
+    );
+    for e in arr(&t["estimators"]) {
+        let name = e["name"].as_str().unwrap_or("");
+        let (fa, fb, fab) = (nums(&e["fA"]), nums(&e["fB"]), matrix(&e["fAB"]));
+        let (s, st, v) = indices_from_outputs(&fa, &fb, &fab);
+        ix.add(&format!("{name} V"), v, num(&e["V"]));
+        for (k, (a, b)) in s.iter().zip(nums(&e["S"])).enumerate() {
+            ix.add(&format!("{name} S[{k}]"), *a, b);
+        }
+        for (k, (a, b)) in st.iter().zip(nums(&e["ST"])).enumerate() {
+            ix.add(&format!("{name} ST[{k}]"), *a, b);
+        }
+        let nb = e["n_boot"].as_u64().unwrap_or(0) as usize;
+        let seed = e["seed"].as_u64().unwrap_or(0);
+        let c = bootstrap_ci(&fa, &fb, &fab, nb, seed, 0.95);
+        for (lab, rust, py) in [("S_ci", &c.s, &e["S_ci"]), ("ST_ci", &c.st, &e["ST_ci"])] {
+            for (k, (r, p)) in rust.iter().zip(matrix(py)).enumerate() {
+                ci.add(&format!("{name} {lab}[{k}] lo"), r[0], p[0]);
+                ci.add(&format!("{name} {lab}[{k}] hi"), r[1], p[1]);
+            }
+        }
+        let ri = bootstrap_indices(fa.len(), 2, seed);
+        for (k, p) in arr(&e["first_bootstrap_idx"]).iter().enumerate() {
+            let pv: Vec<u64> = arr(p).iter().filter_map(Value::as_u64).collect();
+            idx.add_bool(&format!("{name} draw {k}"), ri.get(k) == Some(&pv), || {
+                "bootstrap indices differ".into()
+            });
+        }
+    }
+    rep.push(ix);
+    rep.push(ci);
+    rep.push(idx);
+
+    let mut sbx = Acc::exact(
+        "uq.sobol_base",
+        "sobol_base(n, d, 20261123): SHA-256 of the float64 bytes of [A | B] identical to Python (bit for bit)",
+    );
+    for b in arr(&t["sobol_base"]) {
+        let (n, d) = (
+            b["n"].as_u64().unwrap_or(0) as usize,
+            b["d"].as_u64().unwrap_or(0) as usize,
+        );
+        let (a, bb) = sobol_base(n, d, crate::uq::SEED)?;
+        let mut bytes = Vec::with_capacity(n * 2 * d * 8);
+        for (ra, rb) in a.iter().zip(&bb) {
+            for x in ra.iter().chain(rb) {
+                bytes.extend_from_slice(&x.to_le_bytes());
+            }
+        }
+        let h = crate::provenance::sha256_hex(&bytes);
+        let want = b["sha256_le_f8"].as_str().unwrap_or("");
+        sbx.add_bool(&format!("n={n} d={d}"), h == want, || {
+            format!(
+                "sha256 {h} != {want}; first row rust {:?} python {}",
+                a[0], b["first_rows"][0]
+            )
+        });
+    }
+    rep.push(sbx);
+
+    let mut dist = Acc::rel(
+        "uq.distributions",
+        "triang.ppf (5 shapes), lognorm.ppf (2 sigmas), ndtri and norm.ppf on 3008 probabilities incl. 1e-12, 1-1e-12, 1e-300",
+        1e-12,
+    )
+    .note("sqrt is correctly rounded; ndtri uses log, exp only in lognorm (libm may differ by an ulp)");
+    let u = nums(&t["normal"]["u"]);
+    for tr in arr(&t["triang_ppf"]) {
+        let (lo, md, hi) = (num(&tr["lo"]), num(&tr["mode"]), num(&tr["hi"]));
+        for (q, p) in u.iter().zip(nums(&tr["values"])) {
+            dist.add(
+                &format!("triang({lo},{md},{hi}) q={q}"),
+                tri_ppf(*q, lo, md, hi),
+                p,
+            );
+        }
+    }
+    for lg in arr(&t["lognorm_ppf"]) {
+        let s = num(&lg["s"]);
+        for (q, p) in u.iter().zip(nums(&lg["values"])) {
+            dist.add(&format!("lognorm({s}) q={q}"), lognorm_ppf(*q, s, 1.0), p);
+        }
+    }
+    for (q, p) in u.iter().zip(nums(&t["normal"]["ndtri"])) {
+        dist.add(
+            &format!("ndtri q={q}"),
+            amcrax_numerics::special::ndtri(*q),
+            p,
+        );
+    }
+    for (q, p) in u.iter().zip(nums(&t["normal"]["norm_ppf"])) {
+        dist.add(&format!("norm.ppf q={q}"), norm_ppf(*q), p);
+    }
+    rep.push(dist);
+
+    let mut fl = Acc::exact(
+        "uq.python_reproduces_stored",
+        "the tagged Python recomputes the stored gsa_sobol.json case and monte_carlo.json means identically",
+    );
+    for (k, ok) in t["python_reproduces_stored"]
+        .as_object()
+        .into_iter()
+        .flatten()
+    {
+        fl.add_bool(k, ok.as_bool() == Some(true), || "not reproduced".into());
+    }
+    rep.push(fl);
+    Ok(rep)
+}
+
+/// The ported studies against the stored Python results: the global sensitivity analysis
+/// (`gsa`: output of [`crate::studies::gsa_study`]) against results/research/uq/gsa_sobol.json and
+/// the Monte Carlo (`mc`, `mc_grey`: output of [`crate::studies::mc_singapore`]) against
+/// results/research/singapore/monte_carlo.json and monte_carlo_samples_grey.csv.
+pub fn studies(
+    golden: &Golden,
+    d: &EconomicsData,
+    root: &Path,
+    gsa: Option<&Value>,
+    mc: Option<(&Value, &[f64])>,
+) -> Result<Report, EngineError> {
+    let mut rep = Report::new("studies");
+    let t = golden.load("uq.json")?;
+    let mut k = Acc::rel(
+        "studies.gsa_constants",
+        "lognormal CAPEX sigma (brentq), triangular 5-95 % width, catalyst price of the GSA script",
+        1e-12,
+    );
+    let tornado = read_json(root, "results/research/singapore/tornado.json")?;
+    let st = crate::studies::GsaSetup::new(d, &tornado)?;
+    let gm = &t["gsa_module"];
+    k.add("SIG_LN", st.sig_ln, num(&gm["SIG_LN"]));
+    k.add("W_TRI", st.w_tri, num(&gm["W_TRI"]));
+    k.add("CAT_PRICE", st.cat_price, num(&gm["CAT_PRICE"]));
+    rep.push(k);
+    if let Some(g) = gsa {
+        let stored = read_json(root, "results/research/uq/gsa_sobol.json")?;
+        let mut n = Acc::rel(
+            "studies.gsa_sobol",
+            "uq_gsa_sobol.py: every index, bootstrap interval, convergence value, V, mean, sd, p5, p95 of the 16 cases \
+             and the dummy run (N = 8192, 1000 bootstraps) against results/research/uq/gsa_sobol.json",
+            1e-10,
+        )
+        .note("Sobol' sample and bootstrap stream reproduced bit for bit; differences would come only from the model outputs");
+        let mut x = Acc::exact(
+            "studies.gsa_sobol_structure",
+            "gsa_sobol.json: case keys, distribution descriptions, group members",
+        );
+        for (key, pv) in stored["cases"].as_object().into_iter().flatten() {
+            compare_tree(&mut n, &mut x, key, &g["cases"][key.as_str()], pv, false);
+        }
+        compare_tree(
+            &mut n,
+            &mut x,
+            "dummy_run_grey_HIon",
+            &g["dummy_run_grey_HIon"],
+            &stored["dummy_run_grey_HIon"],
+            false,
+        );
+        rep.push(n);
+        rep.push(x);
+    }
+    if let Some((m, grey)) = mc {
+        let stored = read_json(root, "results/research/singapore/monte_carlo.json")?;
+        let mut n = Acc::rel(
+            "studies.monte_carlo",
+            "economics_singapore.py Monte Carlo (5000 draws, 4 scenarios): percentiles and means against monte_carlo.json",
+            1e-12,
+        )
+        .note("NumPy uniform, triangular and random streams reproduced exactly: an exact (not statistical) comparison");
+        let mut x = Acc::exact(
+            "studies.monte_carlo_structure",
+            "monte_carlo.json results: keys",
+        );
+        compare_tree(&mut n, &mut x, "results", m, &stored["results"], false);
+        rep.push(n);
+        rep.push(x);
+        let csv = std::fs::read_to_string(
+            root.join("results")
+                .join("research")
+                .join("singapore")
+                .join("monte_carlo_samples_grey.csv"),
+        )
+        .map_err(|e| EngineError::data("monte_carlo_samples_grey.csv", e.to_string()))?;
+        let py: Vec<f64> = csv
+            .lines()
+            .skip(1)
+            .filter(|l| !l.trim().is_empty())
+            .map(|l| l.trim().parse::<f64>().unwrap_or(f64::NAN))
+            .collect();
+        let mut sm = Acc::rel(
+            "studies.monte_carlo_samples",
+            "the 5000 grey LCOH samples, sample for sample, against monte_carlo_samples_grey.csv",
+            1e-12,
+        );
+        let mut sx = Acc::exact("studies.monte_carlo_sample_count", "number of samples");
+        sx.add_bool("count", py.len() == grey.len(), || {
+            format!("rust {} python {}", grey.len(), py.len())
+        });
+        for (i, (r, p)) in grey.iter().zip(&py).enumerate() {
+            sm.add(&format!("sample {i}"), *r, *p);
+        }
+        rep.push(sm);
+        rep.push(sx);
+    }
+    Ok(rep)
+}

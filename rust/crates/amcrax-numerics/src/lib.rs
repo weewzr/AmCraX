@@ -13,6 +13,7 @@
 //! | [`poly`] | [`poly::cubic_real_roots`] | `numpy.roots` | 1e-10 relative |
 //! | [`stats`] | sum, mean, var, std, median, quantile | NumPy (`method="linear"`) | bit for bit |
 //! | [`random`] | [`random::SeedSequence`], [`random::Pcg64`] | `numpy.random.default_rng` | bit for bit for `random()`, `uniform()`, raw output |
+//! | [`special`] | [`special::ndtri`] | `scipy.special.ndtri` (Cephes) | bit for bit |
 //! | [`qmc`] | [`qmc::Sobol`], [`qmc::latin_hypercube`] | `scipy.stats.qmc` | bit for bit for the recorded versions |
 //!
 //! The golden tables that prove these statements are generated once by
@@ -29,4 +30,5 @@ pub mod qmc;
 pub mod random;
 pub mod roots;
 mod sobol_directions;
+pub mod special;
 pub mod stats;

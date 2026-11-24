@@ -62,10 +62,15 @@ jobs:
         run: |
           cargo run --profile ci --locked -p amcrax-cli -- --version
           cargo run --profile ci --locked -p amcrax-cli -- verify numerics --golden golden/numerics
-      - name: amcrax verify (Python versus Rust comparison report)
+      - name: amcrax verify (Python versus Rust comparison report, stages 1 to 3)
         run: |
-          cargo run --profile ci --locked -p amcrax-cli -- verify all --root .. --report target/verification/stage1_2_report.json
-          echo "===== BEGIN stage1_2_report.json"; cat target/verification/stage1_2_report.json; echo "===== END stage1_2_report.json"
+          cargo run --profile ci --locked -p amcrax-cli -- verify all --root .. --report target/verification/verify_all_report.json
+          echo "===== BEGIN verify_all_report.json"; cat target/verification/verify_all_report.json; echo "===== END verify_all_report.json"
+      - name: amcrax study mc-singapore and gsa (stored Python results reproduced)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- study mc-singapore --root .. --output target/studies/monte_carlo.json --report target/verification/study_mc_singapore_report.json
+          cargo run --profile ci --locked -p amcrax-cli -- study gsa --root .. --output target/studies/gsa_sobol.json --report target/verification/study_gsa_report.json
+          echo "===== BEGIN study reports"; cat target/verification/study_mc_singapore_report.json target/verification/study_gsa_report.json; echo "===== END study reports"
       - name: amcrax eval pfr (smoke test of the JSON interface)
         run: |
           echo '{"catalyst_id": "ru_takahashi_microkinetic", "W_kg": 50.0, "n_tubes": 50, "n_points": 3}' > target/case.json

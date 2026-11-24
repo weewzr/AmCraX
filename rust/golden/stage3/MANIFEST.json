@@ -9,12 +9,17 @@
    "bytes": 4151748,
    "cases": 1658,
    "sha256": "ed36b0234b752ed701312aecccb185a92c15177be74da89a987fd48d56971bd1"
+  },
+  "uq.json": {
+   "bytes": 747063,
+   "cases": 24008,
+   "sha256": "fa930ccd7dff01c7eb2d219e3434314105dee7c9ff4254f0b81210ef8bcf0db8"
   }
  },
  "meta": {
   "amcrax_source": "backend/amcrax (this repository)",
   "generator": "rust/golden/generate_stage3_golden.py",
-  "git_head_at_generation": "982c377d880f3dbbebac9b7e47ea0ea8b379252a",
+  "git_head_at_generation": "f5067f20620936598ef274d0f66ab4f34d028ebb",
   "numpy": "2.5.5",
   "platform": "Windows AMD64",
   "pydantic": "2.14.4",

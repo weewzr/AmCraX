@@ -604,7 +604,108 @@ def carbon() -> None:
     write_table("carbon", body, len(ci) + len(cc) + len(ab) + len(rcases) + len(xo) + 40)
 
 
-TABLES = {"economics": economics, "carbon": carbon}
+# ======================================================================================================== uq
+def uq() -> None:
+    import importlib.util
+    import time
+    from scipy import special, stats as sst
+    from amcrax.uq import SEED
+    from amcrax.uq import sobol as sb
+
+    def sha(a):
+        return hashlib.sha256(np.ascontiguousarray(a, dtype="<f8").tobytes()).hexdigest()
+
+    # ---- fixed output matrices for the estimators
+    est = []
+    A, B = sb.sobol_base(1024, 3, SEED)
+    to = lambda U: -math.pi + 2 * math.pi * U  # noqa: E731
+    fA, fB = sb.ishigami(to(A)), sb.ishigami(to(B))
+    fAB = np.stack([sb.ishigami(to(sb.ab_matrix(A, B, [i]))) for i in range(3)])
+    est.append(("ishigami_N1024", fA, fB, fAB, 200, SEED))
+    r = np.random.default_rng(7)
+    fA2 = r.normal(size=500)
+    fB2 = r.normal(size=500)
+    fAB2 = np.stack([0.3 * fA2 + 0.7 * r.normal(size=500) for _ in range(4)])
+    est.append(("random_N500_k4", fA2, fB2, fAB2, 300, 11))
+    c = np.full(64, 2.5)
+    est.append(("constant_N64", c, c.copy(), np.stack([c, c]), 20, 3))
+    estimators = []
+    for name, a_, b_, ab_, nb, seed in est:
+        S, ST, V = sb.indices_from_outputs(a_, b_, ab_)
+        ciS, ciT = sb.bootstrap_ci(a_, b_, ab_, nb, seed)
+        g = np.random.default_rng(seed)
+        idx = [g.integers(0, a_.size, a_.size).tolist() for _ in range(2)]
+        estimators.append({"name": name, "fA": a_, "fB": b_, "fAB": ab_, "n_boot": nb, "seed": seed,
+                           "S": S, "ST": ST, "V": V, "S_ci": ciS, "ST_ci": ciT, "first_bootstrap_idx": idx})
+    # ---- Sobol' base samples of the studies
+    bases = []
+    for n, d in ((8192, 10), (8192, 11), (8192, 3), (8192, 4), (1024, 3)):
+        a_, b_ = sb.sobol_base(n, d, SEED)
+        ab = np.hstack([a_, b_])
+        bases.append({"n": n, "d": d, "sha256_le_f8": sha(ab), "first_rows": ab[:3], "last_row": ab[-1]})
+    # ---- distributions
+    g = np.random.default_rng(99)
+    u = np.concatenate([g.random(3000), [1e-12, 1 - 1e-12, 0.5, 0.05, 0.95, 0.25, 1e-300, 0.999999]])
+    tri = []
+    for lo, md, hi in ((0.5, 1.0, 1.5), (300.0, 450.0, 610.0), (16.7, 33.4, 66.8), (0.0, 0.0, 1.0), (0.0, 1.0, 1.0)):
+        cc = (md - lo) / (hi - lo)
+        tri.append({"lo": lo, "mode": md, "hi": hi, "values": sst.triang.ppf(u, cc, loc=lo, scale=hi - lo)})
+    lgn = [{"s": s_, "values": sst.lognorm.ppf(u, s_, scale=1.0)} for s_ in (0.3, 0.2433)]
+    nd = {"u": u, "ndtri": special.ndtri(u), "norm_ppf": sst.norm.ppf(u)}
+    # ---- the GSA script's module constants and one reproduced case
+    spec = importlib.util.spec_from_file_location("uq_gsa_sobol", REPO / "scripts/research/uq_gsa_sobol.py")
+    gm = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(gm)
+    S_HI = SG.extract_summary(load("results/simulations/baseline.json"))
+    t0 = time.perf_counter()
+    case = gm.analyse(S_HI, "grey")
+    t_case = time.perf_counter() - t0
+    stored = load("results/research/uq/gsa_sobol.json")
+    same_case = json.dumps(enc(case), sort_keys=True) == json.dumps(enc(stored["cases"]["grey|heat_integration_on"]), sort_keys=True)
+    print(f"GSA grey|HI on recomputed in {t_case:.1f} s; identical to stored: {same_case}")
+    # ---- Monte Carlo of economics_singapore.py (section 6 replicated; the script itself writes results/)
+    t0 = time.perf_counter()
+    SD = SG.load_singapore_data()
+    REF = R.load_reference_scenario()
+    ELEC_LO, ELEC_HI = REF.sens("electricity_USD_per_kWh")
+    DR_LO, DR_HI = REF.sens("discount_rate")
+    PL_LO, PL_HI = REF.sens("plant_life_yr")
+    OH_LO, OH_HI = REF.sens("operating_hours_h_per_yr")
+    N = 5000
+    rng = np.random.default_rng(SEED)
+    draws = {"elec": rng.uniform(ELEC_LO, ELEC_HI, N), "cat": rng.triangular(16.7, 33.4, 66.8, N), "life": rng.uniform(1, 4, N),
+             "capx": rng.triangular(0.5, 1.0, 1.5, N), "dr": rng.uniform(DR_LO, DR_HI, N), "oh": rng.uniform(OH_LO, OH_HI, N),
+             "pl": rng.uniform(PL_LO, PL_HI, N)}
+    u_nh3 = rng.random(N)
+    mc = {}
+    for sc in ("grey", "blue", "green_current", "green_2030"):
+        d_ = SD["nh3_price_scenarios_USD_per_t"][sc]
+        lo, md, hi = d_["low"], d_["value"], d_["high"]
+        fc = (md - lo) / (hi - lo)
+        pr = np.where(u_nh3 < fc, lo + np.sqrt(u_nh3 * (hi - lo) * (md - lo)), hi - np.sqrt((1 - u_nh3) * (hi - lo) * (hi - md)))
+        L_ = []
+        for i in range(N):
+            e = SG.evaluate(S_HI, float(pr[i]), {"electricity_price_USD_per_kWh": draws["elec"][i], "catalyst_price_USD_per_kg": draws["cat"][i],
+                                                "catalyst_lifetime_yr": draws["life"][i], "capex_multiplier": draws["capx"][i],
+                                                "discount_rate": draws["dr"][i], "operating_hours_h_per_yr": draws["oh"][i],
+                                                "plant_life_yr": draws["pl"][i]})
+            L_.append(e["lcoh_USD_per_kg"])
+        mc[sc] = float(np.mean(L_))
+    t_mc = time.perf_counter() - t0
+    smc = load("results/research/singapore/monte_carlo.json")["results"]
+    same_mc = all(mc[k] == smc[k]["lcoh_mean"] for k in mc)
+    print(f"Monte Carlo recomputed in {t_mc:.1f} s; lcoh_mean identical to stored: {same_mc}")
+    body = {"estimators": estimators, "sobol_base": bases, "triang_ppf": tri, "lognorm_ppf": lgn, "normal": nd,
+            "gsa_module": {"SIG_LN": gm.SIG_LN, "W_TRI": gm.W_TRI, "CAT_PRICE": gm.CAT_PRICE, "N": gm.N, "N_BOOT": gm.N_BOOT,
+                           "SEED": SEED},
+            "python_reproduces_stored": {"gsa_sobol.json cases grey|heat_integration_on": same_case,
+                                         "monte_carlo.json lcoh_mean (4 scenarios)": same_mc},
+            "python_timing_s": {"gsa_one_case_of_17": t_case, "monte_carlo_4x5000": t_mc,
+                                "note": "generator machine (Windows, loaded); not the benchmark (see rust/verification/benchmark_stage3.json)"}}
+    write_table("uq", body, len(estimators) + len(bases) + 3000 * 8)
+
+
+TABLES = {"economics": economics, "carbon": carbon, "uq": uq}
 
 if __name__ == "__main__":
     names = sys.argv[1:] or list(TABLES)

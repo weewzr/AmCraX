@@ -32,6 +32,7 @@ pub mod reactor;
 pub mod schema;
 pub mod separation;
 pub mod species;
+pub mod studies;
 pub mod thermo;
 pub mod transport;
 pub mod units;

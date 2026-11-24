@@ -7,8 +7,10 @@ mod verify;
 
 use amcrax_engine::data::DataRoot;
 use amcrax_engine::economics::reference::EconomicsData;
+use amcrax_engine::economics::singapore::{Scenario, Summary, evaluate};
 use amcrax_engine::kinetics::KineticsRegistry;
 use amcrax_engine::reactor::{PfrInput, SolverOptions, simulate_pfr};
+use amcrax_engine::studies::{GsaSetup, gsa_study, mc_singapore};
 use amcrax_engine::verify as ev;
 use std::collections::BTreeMap;
 use std::path::{Path, PathBuf};
@@ -22,6 +24,8 @@ USAGE:
     amcrax --help
     amcrax verify <target> [--golden <dir>] [--root <repo>] [--report <file.json>]
     amcrax eval pfr --input <case.json> [--output <result.json>]
+    amcrax eval economics --input <case.json> [--output <result.json>]
+    amcrax study <name> [--root <repo>] [--output <result.json>] [--report <file.json>]
 
 VERIFY TARGETS:
     numerics    golden tables of amcrax-numerics (default dir rust/golden/numerics)
@@ -31,7 +35,10 @@ VERIFY TARGETS:
     economics   stage 3: reference CAPEX, evaluate, break-even, legacy LCOH, stored results
                 (rust/golden/stage3)
     carbon      stage 3: LCA factors, carbon intensity, carbon pricing (both modes), thresholds
-    all         every engine target in one report
+    uq          stage 3: Sobol' estimators, bootstrap, Sobol' base samples, distributions
+    all         every engine target above in one report
+    studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
+                the stored Python results (about a minute)
 
     --root      repository root (default $AMCRAX_ROOT, else . or ..)
     --golden    golden-table directory (single-stage targets only)
@@ -45,6 +52,12 @@ EVAL:
                 approach_factor, keq_basis, x_seed, n_points; unknown keys are an error) and write
                 the result as JSON (stdout when --output is not given). Errors: JSON
                 {\"error\": kind, \"message\": ...} and exit code 1.
+    economics   read {\"summary\": {...} | \"result\": <stored SimulationResult>, \"scenario\": name or
+                USD/t, \"overrides\": {...}} and write Python singapore.evaluate's dict
+
+STUDY (writes the study's JSON; --report also compares it with the stored Python result):
+    gsa                   scripts/research/uq_gsa_sobol.py (16 cases + dummy, N = 8192, 1000 bootstraps)
+    mc-singapore          scripts/research/economics_singapore.py Monte Carlo (5000 draws, 4 scenarios)
 ";
 
 #[derive(Debug, PartialEq, Eq)]
@@ -60,6 +73,16 @@ enum Command {
     EvalPfr {
         input: PathBuf,
         output: Option<PathBuf>,
+    },
+    EvalEconomics {
+        input: PathBuf,
+        output: Option<PathBuf>,
+    },
+    Study {
+        name: String,
+        root: Option<PathBuf>,
+        output: Option<PathBuf>,
+        report: Option<PathBuf>,
     },
 }
 
@@ -104,12 +127,43 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                 report,
             })
         }
-        Some("eval") => {
-            match it.next().map(String::as_str) {
-                Some("pfr") => {}
-                Some(other) => return Err(format!("unknown eval model {other} (available: pfr)")),
-                None => return Err("eval needs a model (pfr)".into()),
+        Some("study") => {
+            let name = it
+                .next()
+                .ok_or("study needs a name (gsa, mc-singapore)")?
+                .to_string();
+            let (mut root, mut output, mut report) = (None, None, None);
+            while let Some(a) = it.next() {
+                match a.as_str() {
+                    "--root" => {
+                        root = Some(PathBuf::from(it.next().ok_or("--root needs a directory")?))
+                    }
+                    "--output" => {
+                        output = Some(PathBuf::from(it.next().ok_or("--output needs a file")?))
+                    }
+                    "--report" => {
+                        report = Some(PathBuf::from(it.next().ok_or("--report needs a file")?))
+                    }
+                    s => return Err(format!("unexpected argument {s}")),
+                }
             }
+            Ok(Command::Study {
+                name,
+                root,
+                output,
+                report,
+            })
+        }
+        Some("eval") => {
+            let model = match it.next().map(String::as_str) {
+                Some(m @ ("pfr" | "economics")) => m.to_string(),
+                Some(other) => {
+                    return Err(format!(
+                        "unknown eval model {other} (available: pfr, economics)"
+                    ));
+                }
+                None => return Err("eval needs a model (pfr, economics)".into()),
+            };
             let mut input = None;
             let mut output = None;
             while let Some(a) = it.next() {
@@ -123,9 +177,11 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                     s => return Err(format!("unexpected argument {s}")),
                 }
             }
-            Ok(Command::EvalPfr {
-                input: input.ok_or("eval pfr needs --input <case.json>")?,
-                output,
+            let input = input.ok_or("eval needs --input <case.json>")?;
+            Ok(if model == "pfr" {
+                Command::EvalPfr { input, output }
+            } else {
+                Command::EvalEconomics { input, output }
             })
         }
         Some(other) => Err(format!("unknown command {other}")),
@@ -197,6 +253,20 @@ fn run_engine_target(
             ev::stage3::economics(&stage("stage3")?, EconomicsData::embedded(), root).map_err(s)?,
         );
     }
+    if matches!(target, "uq" | "all") {
+        out.push(ev::stage3::uq(&stage("stage3")?).map_err(s)?);
+    }
+    if target == "studies" {
+        let d = EconomicsData::embedded();
+        let base = read_value(&root.join("results/simulations/baseline.json"))?;
+        let s_hi = Summary::extract(&base).map_err(s)?;
+        let (mc, grey) = mc_singapore(d, &s_hi, 5000).map_err(s)?;
+        let gsa = run_gsa(root)?;
+        out.push(
+            ev::stage3::studies(&stage("stage3")?, d, root, Some(&gsa), Some((&mc, &grey)))
+                .map_err(s)?,
+        );
+    }
     if matches!(target, "carbon" | "all") {
         out.push(
             ev::stage3::carbon(
@@ -210,10 +280,156 @@ fn run_engine_target(
     }
     if out.is_empty() {
         return Err(format!(
-            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, all)"
+            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, uq, all, studies)"
         ));
     }
     Ok(out)
+}
+
+fn read_value(p: &Path) -> Result<serde_json::Value, String> {
+    let b = std::fs::read(p).map_err(|e| format!("{}: {e}", p.display()))?;
+    serde_json::from_slice(&b).map_err(|e| format!("{}: {e}", p.display()))
+}
+
+/// The global sensitivity study on the stored Aspen baselines (heat integration on and off).
+fn run_gsa(root: &Path) -> Result<serde_json::Value, String> {
+    let s = |e: amcrax_engine::EngineError| e.to_string();
+    let d = EconomicsData::embedded();
+    let tornado = read_value(&root.join("results/research/singapore/tornado.json"))?;
+    let st = GsaSetup::new(d, &tornado).map_err(s)?;
+    let mut sums = Vec::new();
+    for (name, file) in [
+        ("heat_integration_on", "results/simulations/baseline.json"),
+        (
+            "heat_integration_off",
+            "results/simulations/baseline_no_hi.json",
+        ),
+    ] {
+        sums.push((
+            name.to_string(),
+            Summary::extract(&read_value(&root.join(file))?).map_err(s)?,
+        ));
+    }
+    gsa_study(&st, &sums).map_err(s)
+}
+
+fn write_json(path: Option<&Path>, v: &serde_json::Value) -> Result<(), String> {
+    let text = serde_json::to_string_pretty(v).unwrap_or_default();
+    match path {
+        Some(p) => {
+            if let Some(dir) = p.parent()
+                && !dir.as_os_str().is_empty()
+            {
+                std::fs::create_dir_all(dir).map_err(|e| e.to_string())?;
+            }
+            std::fs::write(p, text + "\n").map_err(|e| e.to_string())
+        }
+        None => {
+            println!("{text}");
+            Ok(())
+        }
+    }
+}
+
+/// `amcrax study <name>`.
+fn study(name: &str, root: &Path, output: Option<&Path>, report: Option<&Path>) -> ExitCode {
+    let s = |e: amcrax_engine::EngineError| e.to_string();
+    let t0 = std::time::Instant::now();
+    let d = EconomicsData::embedded();
+    let res: Result<(serde_json::Value, Option<ev::Report>), String> = (|| match name {
+        "gsa" => {
+            let g = run_gsa(root)?;
+            let r = if report.is_some() {
+                let golden = ev::Golden::open(&default_golden_dir(root, "stage3")).map_err(s)?;
+                Some(ev::stage3::studies(&golden, d, root, Some(&g), None).map_err(s)?)
+            } else {
+                None
+            };
+            Ok((g, r))
+        }
+        "mc-singapore" => {
+            let base = read_value(&root.join("results/simulations/baseline.json"))?;
+            let s_hi = Summary::extract(&base).map_err(s)?;
+            let (mc, grey) = mc_singapore(d, &s_hi, 5000).map_err(s)?;
+            let r = if report.is_some() {
+                let golden = ev::Golden::open(&default_golden_dir(root, "stage3")).map_err(s)?;
+                Some(ev::stage3::studies(&golden, d, root, None, Some((&mc, &grey))).map_err(s)?)
+            } else {
+                None
+            };
+            Ok((
+                serde_json::json!({"source_type": "rust", "seed": 20261123, "n_samples": 5000,
+                                   "results": mc, "samples_lcoh_grey": grey}),
+                r,
+            ))
+        }
+        other => Err(format!(
+            "unknown study {other} (available: gsa, mc-singapore)"
+        )),
+    })();
+    match res {
+        Err(e) => {
+            eprintln!("amcrax study {name}: {e}");
+            ExitCode::from(2)
+        }
+        Ok((v, rep)) => {
+            eprintln!("amcrax study {name}: {:.2} s", t0.elapsed().as_secs_f64());
+            if let Err(e) = write_json(output, &v) {
+                eprintln!("amcrax study {name}: cannot write output: {e}");
+                return ExitCode::from(2);
+            }
+            match (rep, report) {
+                (Some(r), Some(p)) => {
+                    print!("{}", r.render());
+                    if let Err(e) = write_report(p, std::slice::from_ref(&r)) {
+                        eprintln!("amcrax study: cannot write report: {e}");
+                        return ExitCode::from(2);
+                    }
+                    if r.passed() {
+                        ExitCode::SUCCESS
+                    } else {
+                        ExitCode::FAILURE
+                    }
+                }
+                _ => ExitCode::SUCCESS,
+            }
+        }
+    }
+}
+
+/// `amcrax eval economics`: JSON case in, the `evaluate` dict out.
+fn eval_economics(input: &Path, output: Option<&Path>) -> ExitCode {
+    let res = read_value(input).and_then(|c| {
+        let s = if c.get("summary").is_some() {
+            Summary::from_summary_json(&c["summary"])
+        } else {
+            Summary::extract(&c["result"])
+        }
+        .map_err(|e| e.to_string())?;
+        let scenario = if c["scenario"].is_null() {
+            Scenario::Named("grey".into())
+        } else {
+            Scenario::from_json(&c["scenario"]).map_err(|e| e.to_string())?
+        };
+        let o = c["overrides"].as_object().cloned().unwrap_or_default();
+        evaluate(EconomicsData::embedded(), &s, &scenario, &o).map_err(|e| e.to_string())
+    });
+    match res {
+        Ok(v) => match write_json(output, &v) {
+            Ok(()) => ExitCode::SUCCESS,
+            Err(e) => {
+                eprintln!("amcrax eval economics: {e}");
+                ExitCode::from(2)
+            }
+        },
+        Err(e) => {
+            let _ = write_json(
+                output,
+                &serde_json::json!({"error": "domain", "message": e}),
+            );
+            ExitCode::FAILURE
+        }
+    }
 }
 
 fn error_kind(e: &amcrax_engine::EngineError) -> &'static str {
@@ -283,6 +499,16 @@ fn main() -> ExitCode {
             ExitCode::SUCCESS
         }
         Ok(Command::EvalPfr { input, output }) => eval_pfr(&input, output.as_deref()),
+        Ok(Command::EvalEconomics { input, output }) => eval_economics(&input, output.as_deref()),
+        Ok(Command::Study {
+            name,
+            root,
+            output,
+            report,
+        }) => {
+            let root = root.unwrap_or_else(ev::default_repo_root);
+            study(&name, &root, output.as_deref(), report.as_deref())
+        }
         Ok(Command::Verify {
             target,
             golden,

@@ -34,6 +34,23 @@ fn carbon_golden() {
 }
 
 #[test]
+fn uq_estimators_golden() {
+    check(stage3::uq(&golden()).expect("uq check runs"));
+}
+
+#[test]
+fn monte_carlo_study_reproduces_stored_results() {
+    let d = EconomicsData::embedded();
+    let base: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(root().join("results/simulations/baseline.json")).unwrap(),
+    )
+    .unwrap();
+    let s = amcrax_engine::economics::singapore::Summary::extract(&base).unwrap();
+    let (mc, grey) = amcrax_engine::studies::mc_singapore(d, &s, 5000).unwrap();
+    check(stage3::studies(&golden(), d, Path::new(&root()), None, Some((&mc, &grey))).unwrap());
+}
+
+#[test]
 fn economics_golden() {
     check(
         stage3::economics(&golden(), EconomicsData::embedded(), Path::new(&root()))

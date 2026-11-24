@@ -259,6 +259,35 @@ impl Pcg64 {
         low + range * self.random()
     }
 
+    /// `Generator.triangular(left, mode, right)` (NumPy `random_triangular`: inverse CDF of one
+    /// `random()` draw).
+    pub fn triangular(&mut self, left: f64, mode: f64, right: f64) -> f64 {
+        let base = right - left;
+        let leftbase = mode - left;
+        let ratio = leftbase / base;
+        let leftprod = leftbase * base;
+        let rightprod = (right - mode) * base;
+        let u = self.random();
+        if u <= ratio {
+            left + (u * leftprod).sqrt()
+        } else {
+            right - ((1.0 - u) * rightprod).sqrt()
+        }
+    }
+
+    /// `Generator.integers(0, n, size)` for the default `int64` dtype and `1 <= n <= 2^32`:
+    /// NumPy routes ranges that fit 32 bits to the buffered 32-bit Lemire generator (one call of
+    /// [`Pcg64::integers_u32`] per value).
+    pub fn integers_below(&mut self, n: u64) -> u64 {
+        if n == 1 {
+            return 0;
+        }
+        if n - 1 == u64::from(u32::MAX) {
+            return u64::from(self.next_u32());
+        }
+        u64::from(self.integers_u32(0, n as u32))
+    }
+
     /// `Generator.integers(low, high, dtype=np.uint32)` (exclusive `high`): Lemire's method on
     /// 32-bit draws, as NumPy's `buffered_bounded_lemire_uint32`.
     pub fn integers_u32(&mut self, low: u32, high: u32) -> u32 {
