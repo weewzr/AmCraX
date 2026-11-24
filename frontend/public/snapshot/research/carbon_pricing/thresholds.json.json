@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:34:19Z",
+  "generated_utc": "2026-11-24T06:24:19Z",
   "script": "scripts/research/carbon_pricing_run.py",
   "source_type": "python",
   "inputs_summary": "route LCOH from amcrax.economics.singapore.evaluate (reference scenario), CI from carbon_pricing.carbon_intensity_h2",

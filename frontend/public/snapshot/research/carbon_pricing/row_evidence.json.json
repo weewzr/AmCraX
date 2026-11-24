@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:34:19Z",
+  "generated_utc": "2026-11-24T06:24:19Z",
   "script": "scripts/research/carbon_pricing_run.py",
   "source_type": "python",
   "inputs_summary": "derived from the files in results/research/carbon_pricing",
@@ -42,7 +42,7 @@
     "stored Aspen activity 6.756 kg NH3 feed + 0.595 kg NH3 fuel per kg H2"
    ],
    "uncertainty": "MC (n=5000) feed share p5-p95 0.694-0.802; feed is the largest item in 1.0000 of draws",
-   "envelope": "NH3 >= 115 USD/t keeps feed above half of LCOH (CAPEX x1); CAPEX multiplier below 7.24 (capital charge vs feed, 450 USD/t) or 4.70 (capital + fixed opex vs feed); at 300 USD/t these are 4.83 and 3.09; plant capacity above x0.039 of the stored feed",
+   "envelope": "feed above 50 % of LCOH for NH3 >= 115 USD/t (CAPEX x1) and for CAPEX multiplier below 4.27 at 450 USD/t (2.81 at 300 USD/t); other comparators: capital + fixed opex equal feed at x4.70 (x3.09 at 300 USD/t); plant capacity above x0.039 of the stored feed",
    "threshold": {
     "nh3_price_feed_share_50pct_USD_per_t": 114.89532131171723,
     "capex_multiple_capital_plus_fixed_equals_feed_at_450": 4.6987384781776065,
@@ -51,10 +51,11 @@
     "sourced_capex_multiplier_max": 1.5,
     "capacity_scale": 0.03939688050433602
    },
-   "reason": "The share follows from assumed prices, so a threshold analysis is used: feed stays the largest item unless NH3 falls below the threshold price or CAPEX rises several-fold; every sourced NH3 price (lowest 300 USD/t) and every sourced CAPEX multiplier (0.41-1.5) lies clearly on the dominant side."
+   "reason": "The share follows from assumed prices, so a threshold analysis is used: feed stays the largest item unless NH3 falls below the threshold price or CAPEX rises several-fold; every sourced NH3 price (lowest 300 USD/t) and every CAPEX multiplier considered (independent published estimates x0.41-x0.85; x1.5 is the Cho Table 8 sensitivity bound, not a sourced plant cost) lies clearly on the dominant side.",
+   "sourced_capex_multiplier_max_note": "1.5 is the largest CAPEX multiplier in the Cho Table 8 sensitivity, not a sourced plant cost; the independent published range is x0.41-x0.85 (reference_scenario/capex_audit.json)."
   },
   "H2-b": {
-   "proposed_verdict": "SUPPORTED",
+   "proposed_verdict": "INCONCLUSIVE",
    "numbers": {
     "breakeven_vs_ne_asia_smr_USD_per_t": 320.0081986623751,
     "breakeven_vs_sg_wtp_USD_per_t": 311.84511717484065,
@@ -100,12 +101,12 @@
     "reference CAPEX"
    ],
    "uncertainty": "break-even 277-371 USD/t over CAPEX x0.41-1.5; grey MC P(LCOH < 3.06) = 0.0140",
-   "envelope": "against the NE Asia SMR marker and the Singapore willingness-to-pay figure; plant gate; CAPEX multiplier 0.41-1.5",
+   "envelope": "against the NE Asia SMR marker (3.06 USD/kg; the SG willingness-to-pay figure 3.0 gives 312 USD/t); other benchmarks (6.0, 10.0 USD/kg) give 720 and 1264 USD/t; plant gate; CAPEX multiplier 0.41-1.5",
    "threshold": {
     "breakeven_nh3_USD_per_t": 320.0081986623751,
     "sourced_central_prices_all_above": true
    },
-   "reason": "Competitiveness with the SMR marker needs NH3 at or below about 320 USD/t (about 371 at the lowest sourced CAPEX, x0.41); every central sourced price (450-1000) is above, only the low ends of grey (300) and green 2050 (315) reach it. Affordability is necessary. Note: even central grey ammonia is not affordable enough, a finding against a reading that grey ammonia is competitive."
+   "reason": "Competitiveness with the SMR marker needs NH3 at or below about 320 USD/t (about 371 at the lowest sourced CAPEX, x0.41); every central sourced price (450-1000) is above, only the low ends of grey (300) and green 2050 (315) reach it, so the sourced ranges straddle the break-even and the threshold is the finding (fix pass 24 Nov 2026; the earlier 'necessity' reading against central prices could not fail). Note: even central grey ammonia is not affordable enough against this marker."
   },
   "H2-c": {
    "proposed_verdict": "SUPPORTED",
@@ -209,7 +210,7 @@
     "breakeven_gate_ef_vs_smr_unabated_max": 1.5772151519588602,
     "grey_gate_ef_min": 2.0
    },
-   "reason": "Break-even gate EF vs unabated SMR is 1.31-1.58; the lowest sourced grey value 2.0 is above, so low-carbon NH3 is necessary. Blue v1 central (1.16) is only just below and its range (0.77-1.92) straddles; against SMR+CCS (break-even 0.41-0.67) only green passes."
+   "reason": "Break-even gate EF vs unabated SMR is 1.31-1.58; the lowest sourced grey value 2.0 is above, so low-carbon NH3 is necessary. Blue v1 central (1.16) is only just below and its range (0.77-1.92) straddles; against SMR+CCS (break-even 0.41-0.67) grey fails; green passes only below 0.41-0.67 (its high value fails the lowest-CCS case)."
   },
   "H2-e_mode_A_actual_policy": {
    "proposed_verdict": "CONTRADICTED",
@@ -320,5 +321,5 @@
    "reason": "Blue overtakes grey near 33 SGD/t centrally but the CI ranges give 12 to 605, straddling 45, 50-80 and the EU ETS level (127). Green at current prices needs 305 SGD/t (range 156-466) to beat grey and 747 to beat blue: above every reference price. Green 2030 needs 144. So the reward exists only for blue at moderate prices and is uncertain; green current ammonia is not cheapest at any reference price."
   }
  },
- "note": "Proposed verdicts only; the orchestrator decides. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."
+ "note": "Proposed verdicts only; the evidence matrix sets the verdicts by its coded rules. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."
 }

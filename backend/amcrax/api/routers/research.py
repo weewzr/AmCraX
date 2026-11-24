@@ -4,8 +4,10 @@ GET /api/research/index                 whitelist of served files per area (name
 GET /api/research/evidence-matrix       results/research/evidence_matrix.json (404 until the file exists)
 GET /api/research/validation-summary    pass / fail / informational counts per area, failures named (from results/research/validation/*.json)
 GET /api/research/aspen-evidence        docs/images/aspen_evidence/manifest.json (captures whose PNG exists)
+GET /api/research/validation/by_kind    counts of the research validation items by evidence kind and status, failures with causes
 GET /api/research/{area}/{name}         one whitelisted file: CSV -> {name, area, columns, rows, count, source_note}; JSON as stored
-                                        (a few large JSON files are served as a subset of named top-level keys, stated in `served_keys`)
+                                        (a few large JSON files are served as a subset of named top-level keys, stated in `served_keys`;
+                                        the Phase 2 files of PHASE2_FILES and the research data files, area "data", are included)
 
 Only the files in ``ALLOWED`` can be read; names are matched against that list, never joined into a path from the request,
 so path traversal is not possible. Nothing here runs a model or Aspen Plus.
@@ -91,6 +93,61 @@ ALLOWED: dict[str, dict[str, tuple[str, ...] | None]] = {
     },
 }
 
+# Phase 2 result files (the same files and key subsets that scripts/export_snapshot.py mirrors for the static site), merged
+# into ALLOWED so that LIVE mode serves the same pages. area -> {file -> None (whole file) or tuple of top-level keys}.
+PHASE2_FILES: dict[str, dict[str, tuple[str, ...] | None]] = {
+    "reference_scenario": {"baseline.json": None, "capex_audit.json": None, "supersession.json": None},
+    "carbon_pricing": {"site_summary.json": None, "feed_dominance.json": None, "thresholds.json": None,
+                       "carbon_intensity.json": None, "scenarios.json": None, "row_evidence.json": None, "price_sweep.csv": None},
+    "catalyst_economics": {"catalyst_prices_sgd.json": None,
+                           "catalyst_economics.json": ("provenance", "basis", "findings", "resolution", "row_evidence", "unmodelled_catalysts"),
+                           "catalyst_cost_table.csv": None, "catalyst_breakeven.csv": None, "catalyst_crossover.csv": None},
+    "heat_exchanger": {"heat_exchanger_study.json": ("provenance", "U_cases", "fx_SGD_per_USD", "fx_date", "baseline",
+                                                     "reference_capex_comparison", "row_evidence"),
+                       "fehe_duty_diagnosis.json": None},
+    # gsa_sobol.json is served without its convergence arrays (450 kB), see _slim_sobol
+    "uq": {"gsa_cost_decomposition.json": None, "row_evidence.json": None, "gsa_sobol.json": None},
+    "enduse": {"turbine_threshold.json": ("provenance", "what_each_pathway_assumes", "statement_of_result", "sourced_values",
+                                          "cracker_heat_fuel_efficiency_sensitivity", "forty_percent_figure", "row_evidence",
+                                          "notes"),
+               "turbine_threshold.csv": None, "sensitivity_turbine_efficiency.csv": None, "sensitivity_nh3_price.csv": None,
+               "sensitivity_capital.csv": None, "nox_n2o_blends.json": None},
+    "kinetics": {"validity_classification.json": None},
+    "purification": {"phase2_comparison.json": None, "phase2_comparison.csv": None, "phase2_psa_recovery_sensitivity.csv": None},
+}
+# Literature data files the pages cite: research/data/<name> (not under results/), served as area "data" (verbatim JSON)
+DATA_DIR = paths.RESEARCH_DIR / "data"
+PHASE2_DATA_FILES = ("carbon_policy_sg.json", "catalyst_prices.json", "enduse_cost_literature.json", "membrane_trl.json",
+                     "methodology_transfer.json", "purification_literature.json", "turbine_efficiency_literature.json")
+for _area, _files in PHASE2_FILES.items():
+    ALLOWED.setdefault(_area, {}).update(_files)
+ALLOWED["data"] = {n: None for n in PHASE2_DATA_FILES}
+# areas whose files do not live under results/research/<area>/
+AREA_DIRS: dict[str, Path] = {"data": DATA_DIR}
+EVIDENCE_KINDS = ("numerical_verification", "python_vs_aspen", "literature_comparison", "experimental_validation")
+
+
+def _area_dir(area: str) -> Path:
+    return AREA_DIRS.get(area, RESEARCH_DIR / area)
+
+
+def _slim_sobol(body: dict) -> dict:
+    """gsa_sobol.json without the convergence arrays: per case the distributions and, per output, the moments, indices and groups."""
+    out = {k: body[k] for k in ("provenance", "evidence_kind", "analysis_kind", "label", "method", "notes", "groups", "inputs",
+                                "capex_lognormal_ranking_change", "tornado_swing_grey_HIon") if k in body}
+    cases = {}
+    for cid, c in (body.get("cases") or {}).items():
+        if not isinstance(c, dict):
+            continue
+        outs = {o: {k: v for k, v in (ov or {}).items() if k in ("V", "mean", "sd", "p5", "p95", "indices", "groups")}
+                for o, ov in (c.get("outputs") or {}).items()}
+        cases[cid] = {k: c[k] for k in ("distributions", "N", "seed", "d", "n_evaluations", "lcoh_mean_mc_comparable") if k in c}
+        cases[cid]["outputs"] = outs
+    out["cases"] = cases
+    out["served_keys"] = list(out.keys())
+    out["source_note"] = "results/research/uq/gsa_sobol.json; convergence arrays omitted, every other value as stored"
+    return out
+
 
 def _num(x):
     if x is None or x == "":
@@ -134,7 +191,7 @@ def _resolve(area: str, name: str) -> tuple[Path, tuple[str, ...] | None]:
         if not same:
             raise ApiError(404, "research_not_found", f"No research file '{name}' in area '{area}'", {"area": area})
         fname = same[0]
-    p = RESEARCH_DIR / area / fname
+    p = _area_dir(area) / fname
     if not p.is_file():
         raise ApiError(404, "research_not_found", f"{area}/{fname} has not been generated yet", {"area": area, "file": fname})
     return p, files[fname]
@@ -147,6 +204,8 @@ def serve_file(area: str, name: str) -> dict:
         return {"name": p.stem, "area": area, "file": p.name, "columns": cols, "rows": rows, "count": len(rows),
                 "source_note": f"{_rel(p)}; values as stored, no post-processing"}
     body = _load_json(p)
+    if area == "uq" and p.name == "gsa_sobol.json" and isinstance(body, dict):
+        return jsonable(_slim_sobol(body))
     if keys is not None and isinstance(body, dict):
         sub = {k: body[k] for k in keys if k in body}
         if area == "purification" and p.name == "purification_study.json":
@@ -166,7 +225,7 @@ def index():
     for area, files in ALLOWED.items():
         items = []
         for fname in files:
-            p = RESEARCH_DIR / area / fname
+            p = _area_dir(area) / fname
             if p.is_file():
                 st = p.stat()
                 items.append({"name": p.stem, "file": fname, "kind": p.suffix.lstrip("."), "bytes": st.st_size,
@@ -230,6 +289,64 @@ def aspen_evidence() -> dict:
 @router.get("/aspen-evidence")
 def aspen_evidence_endpoint():
     return aspen_evidence()
+
+
+def validation_by_kind() -> dict:
+    """Counts of results/research/validation/<area>.json items by evidence_kind and status. Items without an evidence_kind are
+    counted under 'not_labelled' (never assigned a kind here). Failures are listed with their stored cause or note; when the
+    item has neither, the documented cause that summary.json carries for the same area and id is used. The method is kept
+    in its own field and is never shown as a cause."""
+    vdir = RESEARCH_DIR / "validation"
+    kinds: dict[str, dict] = {}
+    areas: dict[str, dict] = {}
+    summary_causes: dict[tuple[str, str], str] = {}
+    sp = vdir / "summary.json"
+    if sp.is_file():
+        s_areas = _load_json(sp).get("areas", {})
+        for area, block in (s_areas.items() if isinstance(s_areas, dict) else []):
+            for f in (block.get("failures") or []) if isinstance(block, dict) else []:
+                if isinstance(f, dict) and isinstance(f.get("id"), str) and isinstance(f.get("cause"), str):
+                    summary_causes[(area, f["id"])] = f["cause"]
+    # a cause that is only a key of the core matrix's failure_root_causes (results/validation/validation_matrix.json) is
+    # printed with that entry's stored description
+    core_causes: dict[str, str] = {}
+    cp = RESEARCH_DIR.parent / "validation" / "validation_matrix.json"
+    if cp.is_file():
+        for c in _load_json(cp).get("summary", {}).get("failure_root_causes", []) or []:
+            if isinstance(c, dict) and isinstance(c.get("cause"), str) and isinstance(c.get("description"), str):
+                core_causes[c["cause"]] = c["description"]
+
+    def cause_text(c):
+        return f"{c} (core validation matrix): {core_causes[c]}" if isinstance(c, str) and c in core_causes else c
+    for p in sorted(vdir.glob("*.json")) if vdir.is_dir() else []:
+        if p.name == "summary.json":
+            continue
+        items = _items(_load_json(p))
+        a = areas.setdefault(p.stem, {"file": _rel(p), "n_items": 0, "by_kind": {}})
+        for it in items:
+            k = it.get("evidence_kind") or "not_labelled"
+            st = str(it.get("status") or "informational")
+            e = kinds.setdefault(k, {"total": 0, "by_status": {}, "failures": []})
+            e["total"] += 1
+            e["by_status"][st] = e["by_status"].get(st, 0) + 1
+            a["n_items"] += 1
+            a["by_kind"][k] = a["by_kind"].get(k, 0) + 1
+            if st == "fail":
+                e["failures"].append({"area": p.stem, "id": it.get("id"), "description": it.get("description"),
+                                      "observed": it.get("observed"), "expected": it.get("expected"), "tolerance": it.get("tolerance"),
+                                      "unit": it.get("unit"), "method": it.get("method"),
+                                      "cause": cause_text(it.get("cause") or it.get("note") or summary_causes.get((p.stem, str(it.get("id")))))})
+    for k in EVIDENCE_KINDS:
+        kinds.setdefault(k, {"total": 0, "by_status": {}, "failures": []})
+    return jsonable({"source": "results/research/validation/*.json (summary.json excluded), counted by evidence_kind and status",
+                     "evidence_kinds": list(EVIDENCE_KINDS), "kinds": kinds, "areas": areas,
+                     "statement": "AmCraX has no independent experimental validation. Pass counts are numerical verification, Python against "
+                                  "Aspen comparison or comparison with published literature, never experimental validation."})
+
+
+@router.get("/validation/by_kind")
+def validation_by_kind_endpoint():
+    return validation_by_kind()
 
 
 @router.get("/{area}/{name}")

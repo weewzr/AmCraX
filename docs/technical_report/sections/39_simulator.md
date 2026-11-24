@@ -33,7 +33,7 @@ Table: **Table 39.1.** Browser model against the Python model (numerical verific
 | LCOH on the unified basis | 10 | 2.1e-16 relative |
 | Carbon intensity | 8 | 0 |
 
-The frontend has 227 passing unit tests in 25 files, including these parity tests, and the Python side has 9 tests on the exported simulator data.
+The frontend has 290 unit tests in 30 files at the final check of Phase 2 on 24 November 2026 (after the corrections of Section 31.4), including these parity tests, and 1037 browser checks of all routes at four viewport sizes pass; and the Python side has 9 tests on the exported simulator data.
 
 ## 39.3 Comparison with Aspen Plus (Python against Aspen kind)
 

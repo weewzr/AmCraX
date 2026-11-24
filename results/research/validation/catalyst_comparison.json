@@ -4,7 +4,7 @@
     "description": "Heat import after FEHE and tail-gas firing (config c) for the stored Aspen baseline, dT_min 20 K",
     "evidence_kind": "numerical_verification",
     "method": "cc.heat_accounting(results/simulations/baseline.json, 20)",
-    "reference_source": "docs/internal/fact_sheet.md F7 (752.6 kW)",
+    "reference_source": "pinch analysis of the stored Aspen baseline, results/simulations/heat_integration_baseline.json configuration (c) (752.6 kW)",
     "observed": 752.63,
     "expected": 752.6,
     "tolerance": 0.1,

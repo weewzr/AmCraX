@@ -3,21 +3,16 @@
 Note for `research/data/methodology_transfer.json` and `docs/research/methodology_transfer_matrix.md`.
 Access date for all web items: 23 November 2026. Generic User-Agent; no personal data in any request.
 
-## Researchers (official pages)
-- Koroush Shirvan: Associate Professor of Nuclear Science and Engineering, MIT. Official page
-  https://nse.mit.edu/people/faculty/shirvan.html (lists reactor design for cost, AI/ML and uncertainty quantification,
-  fuels and materials, space nuclear, safety, boiling heat transfer). The page links the lab site
-  https://spacenuclear.mit.edu/ (Aerospace Nuclear @ MIT, one thrust led by Shirvan). Personal research page
-  https://web.mit.edu/kshirvan/www/ returned HTTP 200.
-- Charles W. Forsberg: Principal Research Scientist, MIT NSE. Official page https://nse.mit.edu/people/research/forsberg.html
-  (heat storage coupled to reactors, firebrick, CRUSH, salt-cooled reactors, nuclear-assisted biofuels, integrated
-  energy systems). No group page linked; ORCID 0000-0002-2778-3135.
+## Scope
+- Published methods from the nuclear-engineering literature: uncertainty quantification, inverse UQ and design for cost
+  (K. Shirvan and co-authors), and high-temperature heat, heat storage and integrated energy systems (C. W. Forsberg
+  and co-authors). Authors are named only as authors of the cited works.
 
 ## How sources were checked
 - DOIs: doi.org handle API (`https://doi.org/api/handles/<doi>`, responseCode 1 for all 13 publication DOIs and the 5
   method DOIs) and Crossref metadata (authors, journal, volume, pages).
 - Abstracts: OpenAlex (Stewart 2021, Stewart 2023, Forsberg 2017, Forsberg and Peterson 2016, Forsberg 2021),
-  Crossref (Forsberg 2025), arXiv abstract pages (Wu 2018 Parts 1 and 2), DSpace@MIT (Radaideh 2021, Che 2022),
+  Crossref (Forsberg 2025), arXiv abstract pages (Wu 2018 Parts 1 and 2), institutional repository records (Radaideh 2021, Che 2022),
   RePEc (Stewart and Shirvan 2022).
 - Full texts: none read. MDPI and preprints.org returned HTTP 403; ScienceDirect not attempted for automated reading.
 - Che et al. (2021) and Forsberg et al. (2003): bibliographic record only, no abstract read.
@@ -33,7 +28,7 @@ Access date for all web items: 23 November 2026. Generic User-Agent; no personal
 - Bayesian inverse UQ (Wu et al. 2018) transfers in method, but the data the repository holds limit it:
   Lucentini Table 1 has 3 points per catalyst for 4 parameters and is part of the published fit; Takahashi figure
   points (33 Ni, 32 Ru, about +/-2 pp) lack the catalyst mass, so only temperature dependence can be inferred.
-  Hence T2a (propagation of Table 3 intervals) and T2b (diagnostic calibration) in `docs/internal/phase2_uq_spec.md`.
+  Hence T2a (propagation of Table 3 intervals) and T2b (diagnostic calibration) in Section 37 of the technical report.
 - Design for cost (Stewart and Shirvan 2022): the reference CAPEX already separates ISBL items from OSBL, engineering and
   contingency (Cho 2026 Tables 4 and 7). A bottom-up estimate is not possible without account-level data.
 - Forsberg's heat-storage and integrated-system work gives no number AmCraX can use without full texts; reactor,

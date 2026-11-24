@@ -4,8 +4,9 @@
  * every number comes from these files.
  */
 
-/** Source label of every simulator output. */
-export type SourceLabel = 'aspen' | 'interpolation' | 'browser-model' | 'extrapolation' | 'assumption'
+/** Source label of every simulator output. 'statutory': the value follows from the law itself (for example a zero
+ *  Singapore carbon tax because the facility has no taxable direct emissions), not from the equipment model. */
+export type SourceLabel = 'aspen' | 'interpolation' | 'browser-model' | 'extrapolation' | 'assumption' | 'statutory'
 
 export interface Labelled<T = number> {
   value: T

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:24:49+00:00",
+  "generated_utc": "2026-11-24T07:34:29+00:00",
   "script": "scripts/research/economics_reference_scenario.py",
   "source_type": "python",
   "inputs_summary": "Aspen Plus V15 stored baseline (results/simulations/baseline.json) costed on the unified reference scenario by amcrax.economics.singapore.evaluate",
@@ -611,5 +611,50 @@
   "Direct CO2e = 0 (ammonia-fuelled heat, no carbon in the feed); N2O not quantified; carbon tax 0.",
   "Reference CAPEX (cho2026_itemised_v1, 2024 USD) excludes product compression/storage, NOx after-treatment, land and taxes; no Singapore location factor (none sourced).",
   "Ammonia price is a scenario (delivered, international basis), not a Singapore transaction price."
- ]
+ ],
+ "fuel_efficiency_sensitivity": {
+  "description": "Computed. The reference LCOH counts supplementary NH3 fuel at 100 % of its lower heating value (heat delivered per unit of fuel heating value 1.0, optimistic). The same stored Aspen baseline delivers 1520.2 of 1648.0 kW of tail-gas LHV (0.9225); the H3 catalyst comparison uses 0.85. The baseline is frozen at efficiency 1.0; these cases are its envelope. Grey NH3 scenario, heat integration on unless stated.",
+  "flowsheet_tailgas_ratio_exact": 0.9224953014181734,
+  "h2_selling_price_USD_per_kg": 3.06,
+  "cases": [
+   {
+    "label": "reference (fuel at 100 % of its lower heating value, optimistic)",
+    "fuel_efficiency": 1.0,
+    "lcoh_USD_per_kg": 4.015461254695034,
+    "lcoh_SGD_per_kg": 5.173696960844288,
+    "heat_fuel_USD_per_kg": 0.2675295342291495,
+    "npv_USD": -17455719.99837225,
+    "breakeven_nh3_USD_per_t_vs_marker": 320.0081986623751,
+    "lcoh_heat_integration_off_USD_per_kg": 4.229241647903042,
+    "heat_integration_gross_saving_USD_per_kg": 0.21378039320800823
+   },
+   {
+    "label": "heat delivered by the tail-gas burner divided by the tail gas lower heating value in the Aspen flowsheet",
+    "fuel_efficiency": 0.9225,
+    "lcoh_USD_per_kg": 4.037936635619435,
+    "lcoh_SGD_per_kg": 5.202655230544046,
+    "heat_fuel_USD_per_kg": 0.2900049151535496,
+    "npv_USD": -17866332.102573484,
+    "breakeven_nh3_USD_per_t_vs_marker": 317.8483793005274,
+    "lcoh_heat_integration_off_USD_per_kg": 4.269520509214186,
+    "heat_integration_gross_saving_USD_per_kg": 0.23158387359475174
+   },
+   {
+    "label": "furnace efficiency assumed in the catalyst study",
+    "fuel_efficiency": 0.85,
+    "lcoh_USD_per_kg": 4.062672348970767,
+    "lcoh_SGD_per_kg": 5.23452581199729,
+    "heat_fuel_USD_per_kg": 0.3147406285048818,
+    "npv_USD": -18318239.162225705,
+    "breakeven_nh3_USD_per_t_vs_marker": 315.5047998891732,
+    "lcoh_heat_integration_off_USD_per_kg": 4.313850185799505,
+    "heat_integration_gross_saving_USD_per_kg": 0.25117783682873807
+   }
+  ],
+  "envelope_lcoh_USD_per_kg": [
+   4.015461254695034,
+   4.062672348970767
+  ],
+  "source_type": "python"
+ }
 }

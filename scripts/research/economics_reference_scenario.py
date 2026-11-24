@@ -119,9 +119,10 @@ def fuel_efficiency_sensitivity(hi: dict, nohi: dict, s: dict, e: dict, e_nohi: 
     flow_eta = s["tailgas_heat_kW"] / s["tailgas_lhv_kW"]
     marker = REF.h2_selling_price_USD_per_kg
     cases = []
-    for label, eta in (("reference (fuel at 100 % of LHV, optimistic)", 1.0),
-                       ("flowsheet tail-gas ratio (tailgas_combustion_heat_kW / tailgas_lhv_kW)", round(flow_eta, 4)),
-                       ("H3 furnace efficiency (catalyst_comparison FURNACE_EFFICIENCY)", 0.85)):
+    for label, eta in (("reference (fuel at 100 % of its lower heating value, optimistic)", 1.0),
+                       ("heat delivered by the tail-gas burner divided by the tail gas lower heating value in the Aspen flowsheet",
+                        round(flow_eta, 4)),
+                       ("furnace efficiency assumed in the catalyst study", 0.85)):
         o = {"fuel_efficiency": eta}
         x = evaluate(hi, REF.default_nh3_scenario, o)
         xn = evaluate(nohi, REF.default_nh3_scenario, o)
@@ -136,7 +137,7 @@ def fuel_efficiency_sensitivity(hi: dict, nohi: dict, s: dict, e: dict, e_nohi: 
     assert abs(ref["lcoh_USD_per_kg"] - e["lcoh_USD_per_kg"]) < 1e-12, "efficiency 1.0 case must equal the baseline"
     assert abs(cases[0]["lcoh_heat_integration_off_USD_per_kg"] - e_nohi["lcoh_USD_per_kg"]) < 1e-12
     return {"description": "Computed. The reference LCOH counts supplementary NH3 fuel at 100 % of its lower heating value "
-                           "(ammonia_fuel_heat_efficiency 1.0, optimistic). The same stored Aspen baseline delivers "
+                           "(heat delivered per unit of fuel heating value 1.0, optimistic). The same stored Aspen baseline delivers "
                            f"{s['tailgas_heat_kW']:.1f} of {s['tailgas_lhv_kW']:.1f} kW of tail-gas LHV ({flow_eta:.4f}); "
                            "the H3 catalyst comparison uses 0.85. The baseline is frozen at efficiency 1.0; these cases are "
                            "its envelope. Grey NH3 scenario, heat integration on unless stated.",

@@ -91,6 +91,34 @@ const PARTS: [string, string][] = [['ammonia_feed', 'Ammonia feed'], ['capex', '
 
 export function useBaseline() { return useRJson<O & Prov>('reference_scenario', 'baseline.json') }
 
+/** Fuel-efficiency envelope of the frozen baseline (baseline.json key fuel_efficiency_sensitivity): the reference counts the
+ *  supplementary NH3 fuel at 100 % of its lower heating value (optimistic). Every number is read from the file. */
+export function FuelEnvelope({ b, compact = false }: { b: O; compact?: boolean }) {
+  const fe = b.fuel_efficiency_sensitivity as O | undefined
+  const cases = (Array.isArray(fe?.cases) ? fe!.cases : []) as O[]
+  if (!cases.length) return null
+  const eff = (c: O) => { const x = (num(c.fuel_efficiency) ?? 0) * 100; return pct(c.fuel_efficiency, Math.abs(x - Math.round(x)) > 1e-6 ? 2 : 0) }
+  if (compact) {
+    return (
+      <span data-testid="fuel-envelope-note">The reference value counts the supplementary ammonia fuel at 100 % of its lower heating value (optimistic); with the fuel delivered at {cases.slice(1).map((c) => `${eff(c)} it is ${f(c.lcoh_USD_per_kg, 3)}`).join(' and at ')} USD/kg.</span>
+    )
+  }
+  return (
+    <div data-testid="fuel-envelope">
+      <DTable caption="Fuel-efficiency envelope of the baseline (supplementary NH3 fuel heat delivered; grey NH3, heat integration on)" rows={cases} keyOf={(_, i) => String(i)}
+        cols={[
+          { h: 'Fuel heat delivered', cell: (c) => <><strong>{eff(c)}</strong><div className="muted small">{num(c.fuel_efficiency) === 1 && !/optimistic/i.test(show(c.label)) ? 'reference (optimistic): ' : ''}{show(c.label)}</div></>, th: true },
+          { h: 'LCOH (USD/kg)', cell: (c) => f(c.lcoh_USD_per_kg, 3), right: true },
+          { h: 'LCOH (SGD/kg)', cell: (c) => f(c.lcoh_SGD_per_kg, 3), right: true },
+          { h: 'NPV (MUSD)', cell: (c) => mUSD(c.npv_USD, 2), right: true },
+          { h: 'Break-even NH3 (USD/t)', cell: (c) => f(c.breakeven_nh3_USD_per_t_vs_marker, 1), right: true },
+          { h: 'Heat-integration gross saving (USD/kg)', cell: (c) => f(c.heat_integration_gross_saving_USD_per_kg, 3), right: true },
+        ]} />
+      <p className="muted small">{show(fe?.description)}</p>
+    </div>
+  )
+}
+
 export function UnifiedBaseline() {
   const b = useBaseline()
   const fd = useRJson<O & Prov>('carbon_pricing', 'feed_dominance.json')
@@ -103,7 +131,7 @@ export function UnifiedBaseline() {
       return (
         <>
           <div className="p2-kpis" data-testid="baseline-kpis">
-            <Kpi label="Baseline LCOH" value={f(d.lcoh_USD_per_kg, 3)} unit="USD/kg H2" note={<><span data-testid="baseline-sgd">{f(d.lcoh_SGD_per_kg, 3)} SGD/kg</span></>} />
+            <Kpi label="Baseline LCOH" value={f(d.lcoh_USD_per_kg, 3)} unit="USD/kg H2" note={<><span data-testid="baseline-sgd">{f(d.lcoh_SGD_per_kg, 3)} SGD/kg</span>{d.fuel_efficiency_sensitivity ? '; fuel at 100 % of LHV (optimistic reference; envelope below)' : ''}</>} />
             <Kpi label="REC (cost excluding feed)" value={f(d.rec_USD_per_kg, 3)} unit="USD/kg H2" note={`${f(d.rec_SGD_per_kg, 3)} SGD/kg`} />
             <Kpi label="CAPEX (total capital investment)" value={mUSD(d.capex_total_USD, 3)} unit="MUSD" note={`${mUSD(d.capex_total_SGD, 2)} MSGD; method ${show(d.capex_method)}`} />
             <Kpi label="NPV" value={mUSD(d.npv_USD, 2)} unit="MUSD" note={`${mUSD(d.npv_SGD, 2)} MSGD; ${show(d.npv_basis)}`} />
@@ -111,6 +139,7 @@ export function UnifiedBaseline() {
             <Kpi label="Exchange rate" value={f(d.fx_SGD_per_USD, 6)} unit="SGD per USD" note={`ECB reference rate of ${show(d.fx_date)}; the only rate used for conversion`} />
           </div>
           <p className="prose-p">{show(d.description)}</p>
+          <FuelEnvelope b={d} />
           <DTable caption="Unified baseline LCOH by component (grey NH3, heat integration on)" rows={PARTS} keyOf={([k]) => k}
             cols={[
               { h: 'Component', cell: ([, l]) => l, th: true },
@@ -286,8 +315,9 @@ function CarbonBody({ s, sweep, scen, mode, setMode, price, setPrice }: { s: O; 
           { h: 'Carbon cost (USD/kg)', cell: (r) => f(r.carbon, 3), right: true },
           { h: 'Break-even NH3 (USD/t)', cell: (r) => f(r.breakeven, 0), right: true },
           { h: 'NPV (MUSD)', cell: (r) => mUSD(r.npv, 2), right: true },
-          { h: 'Carbon intensity (kgCO2e/kg H2)', cell: (r) => (r.ci ? `${f(r.ci.central, 2)} (${f(r.ci.low, 2)} to ${f(r.ci.high, 2)})` : 'n/a'), right: true },
+          { h: 'Carbon intensity (kgCO2e/kg H2; green: including embedded emissions)', cell: (r) => (r.ci ? `${f(r.ci.central, 2)} (${f(r.ci.low, 2)} to ${f(r.ci.high, 2)})` : 'n/a'), right: true },
         ]} />
+      <GreenCiNote />
       <p className="prose-p" data-testid="carbon-ranking">Ranking by central LCOH, cheapest first: {ranked.map((r) => ROUTE_LABEL[r.route] ?? r.route).join(', ')}.
         {near ? <> Stored cheapest route at the nearest sweep point ({f(near.price_SGD_per_tCO2e, 0)} SGD/tCO2e): {ROUTE_LABEL[String(near.cheapest_central)] ?? show(near.cheapest_central)}.</> : null}
         {bench !== null ? <> SMR benchmark adjusted for the same hypothetical price: {f(bench, 3)} USD/kg.</> : null}</p>
@@ -543,11 +573,15 @@ export function PurificationPhase2() {
                   { h: 'H2 purity', cell: (r) => f(r.purity, 5), right: true },
                   { h: 'N2 (ppm)', cell: (r) => f(r.n2_ppm, 0), right: true },
                   { h: 'H2 recovery', cell: (r) => f(r.recovery, 3), right: true },
-                  { h: 'Capital (MUSD)', cell: (r) => mUSD(r.capital_USD, 2), right: true },
+                  { h: 'Fixed capital, excluding membrane modules (MUSD)', cell: (r) => mUSD(r.capital_USD, 2), right: true },
+                  { h: 'Membrane modules, purchase cost (MUSD)', cell: (r) => (r.membrane_module_cost_USD === undefined ? 'not in file' : mUSD(r.membrane_module_cost_USD, 2)), right: true },
                   { h: 'LCOH USD/kg (SGD)', cell: (r) => `${f(r.lcoh_usd, 3)} (${f(r.lcoh_sgd, 3)})`, right: true },
                   { h: 'Readiness (TRL)', cell: (r) => <span className="small">{show(r.trl)}</span> },
                 ]} />
             ))}
+            <AsyncView a={pc} what="the column notes (purification/phase2_comparison.json)">{(d) => (
+              show(at(d, 'csv_column_notes.capital_USD')) ? <p className="muted small" data-testid="capital-note">{show(at(d, 'csv_column_notes.capital_USD'))} {show(at(d, 'csv_column_notes.membrane_module_cost_USD'))}</p> : null
+            )}</AsyncView>
           </>
         )
       }}</AsyncView>
@@ -589,6 +623,27 @@ export function PurificationPhase2() {
 }
 
 /* ================================================================== End use (H1) */
+/** H1 thresholds with the cracker-heat fuel counted at 100 %, the flowsheet tail-gas ratio and 85 % (turbine_threshold.json key
+ *  cracker_heat_fuel_efficiency_sensitivity); every value read from the file. */
+function H1FuelSensitivity({ s }: { s: unknown }) {
+  const cases = (Array.isArray(at(s, 'cases')) ? at(s, 'cases') : []) as O[]
+  if (!cases.length) return null
+  const eff = (c: O) => { const x = (num(c.heat_fuel_efficiency) ?? 0) * 100; return pct(c.heat_fuel_efficiency, Math.abs(x - Math.round(x)) > 1e-6 ? 2 : 0) }
+  return (
+    <div data-testid="h1-fuel-envelope" style={{ marginTop: 20 }}>
+      <DTable caption="Turbine-efficiency thresholds (pp, reference basis) with the extra NH3 for cracker heat delivered at less than 100 % of its LHV" rows={cases} keyOf={(_, i) => String(i)}
+        cols={[
+          { h: 'Cracker-heat fuel delivered', cell: (c) => <>{eff(c)}{num(c.heat_fuel_efficiency) === 1 ? <div className="muted small">reference (optimistic)</div> : null}</>, th: true },
+          { h: 'Fired cracking: threshold (pp)', cell: (c) => f(at(c, 'full_fired.threshold_delta_fuel_pp_vs_direct_turbine'), 2), right: true },
+          { h: 'Fired cracking: LCOE (USD/MWh)', cell: (c) => f(at(c, 'full_fired.LCOE_USD_per_MWh'), 1), right: true },
+          { h: 'Cracking plus PSA: threshold (pp)', cell: (c) => f(at(c, 'full_purified.threshold_delta_fuel_pp_vs_direct_turbine'), 2), right: true },
+          { h: 'Cracking plus PSA: LCOE (USD/MWh)', cell: (c) => f(at(c, 'full_purified.LCOE_USD_per_MWh'), 1), right: true },
+        ]} />
+      <p className="muted small">{show(at(s, 'description'))}</p>
+    </div>
+  )
+}
+
 const PATHS: [string, string][] = [['full_fired', 'Fired cracking, H2/N2 fuel'], ['full_purified', 'Cracking plus PSA, purified H2'], ['full_exhaust', 'Exhaust-heated cracking']]
 export function EndUsePhase2() {
   const tt = useRJson<O & Prov>('enduse', 'turbine_threshold.json')
@@ -622,6 +677,7 @@ export function EndUsePhase2() {
                 { h: 'Range over bases (pp)', cell: ([k]) => { const v = rows.filter((x) => x.pathway === k).map((x) => num(x.threshold_delta_pp)).filter((x): x is number => x !== null); return v.length ? `${fmt(Math.min(...v), 2)} to ${fmt(Math.max(...v), 2)} (${v.length} bases)` : 'n/a' }, right: true },
                 { h: 'Sourced efficiency gain', cell: ([k]) => <span className="small">{sourced[k]}</span> },
               ]} />
+            <H1FuelSensitivity s={d.cracker_heat_fuel_efficiency_sensitivity} />
             {exh !== null && exh < 0 ? <Callout kind="warn" title="Against the essay."><span data-testid="exhaust-finding">On the reference basis exhaust-heated full cracking ({f(at(nu, 'full_exhaust.LCOE'), 1)} USD/MWh) is {fmt(-exh, 1)} % cheaper than direct ammonia. The outcome flips with the CAPEX, price and operating-hours bases (see the range above and the row evidence).</span></Callout> : null}
             <p className="prose-p">{show(at(d, 'statement_of_result.text'))}</p>
             <div className="grid-2s">
@@ -646,6 +702,17 @@ export function EndUsePhase2() {
   )
 }
 
+/** The two green-ammonia carbon intensities, each with its boundary (carbon_intensity.json routes green and green_lee). */
+export function GreenCiNote() {
+  const ci = useRJson<O>('carbon_pricing', 'carbon_intensity.json')
+  if (ci.phase !== 'ready') return null
+  const g = at(ci.data, ['routes', 'green', 'ci_kgCO2e_per_kgH2', 'central']), z = at(ci.data, ['routes', 'green_lee', 'ci_kgCO2e_per_kgH2', 'central'])
+  if (num(g) === null || num(z) === null) return null
+  return (
+    <p className="muted small" data-testid="green-ci-note">Green ammonia has two carbon intensities here, on two boundaries: {f(g, 2)} kgCO2e/kg H2 including the embedded emissions of the renewable assets (the value used for the green routes in the cost and carbon-price tables), and {f(z, 2)} kgCO2e/kg H2 on the boundary that counts renewable electricity as zero (Lee et al.; what remains is shipping, electricity and external heat).</p>
+  )
+}
+
 /** Carbon intensity of hydrogen by ammonia route with ranges (Environmental Analysis). */
 export function CarbonIntensityTable() {
   const ci = useRJson<O & Prov>('carbon_pricing', 'carbon_intensity.json')
@@ -664,6 +731,7 @@ export function CarbonIntensityTable() {
               { h: 'At 2000 km / 12000 km', cell: (k) => `${f(at(routes[k], ['ci_at_distance_kgCO2e_per_kgH2', '2000_km']), 2)} / ${f(at(routes[k], ['ci_at_distance_kgCO2e_per_kgH2', '12000_km']), 2)}`, right: true },
               { h: 'Gate factor (kgCO2e/kg NH3)', cell: (k) => `${f(at(routes[k], 'gate_ef_kgCO2e_per_kgNH3.central'), 2)} (${f(at(routes[k], 'gate_ef_kgCO2e_per_kgNH3.low'), 2)} to ${f(at(routes[k], 'gate_ef_kgCO2e_per_kgNH3.high'), 2)})`, right: true },
             ]} />
+          <GreenCiNote />
           <p className="muted small">Comparators: {Object.entries(comp).map(([k, v]) => `${label(k)} ${show(v)}`).join('; ')} kgCO2e/kg H2.</p>
           <FileNote prov={d.provenance as Prov['provenance']} file="results/research/carbon_pricing/carbon_intensity.json" />
         </>
@@ -734,7 +802,7 @@ export function LegacyBanner() {
   return (
     <div className="wrap p2-legacy" data-testid="legacy-banner">
       <Callout kind="warn" title="Legacy core result.">
-        Cost figures on this page (for example the stored core LCOH of {f(at(b.data, 'superseded_bases.legacy_v1_correlation.lcoh_USD_per_kg'), 2)} USD/kg and its electricity price) are the legacy core result, superseded for research outputs by the unified baseline of {f(b.data.lcoh_USD_per_kg, 3)} USD/kg ({f(b.data.lcoh_SGD_per_kg, 3)} SGD/kg). <Link to="/hypotheses/economics#baseline">See the unified baseline</Link>.
+        Cost figures on this page (for example the stored core LCOH of {f(at(b.data, 'superseded_bases.legacy_v1_correlation.lcoh_USD_per_kg'), 2)} USD/kg and its electricity price) are the legacy core result, superseded for research outputs by the unified baseline of {f(b.data.lcoh_USD_per_kg, 3)} USD/kg ({f(b.data.lcoh_SGD_per_kg, 3)} SGD/kg). <FuelEnvelope b={b.data} compact /> <Link to="/hypotheses/economics#baseline">See the unified baseline</Link>.
       </Callout>
     </div>
   )

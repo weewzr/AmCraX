@@ -331,9 +331,9 @@
    ]
   },
   "heat_exchanger": {
-   "n_items": 37,
+   "n_items": 40,
    "by_status": {
-    "pass": 24,
+    "pass": 27,
     "fail": 0,
     "informational": 13
    },
@@ -572,10 +572,10 @@
   }
  },
  "totals": {
-  "pass": 604,
+  "pass": 607,
   "fail": 12,
   "informational": 76,
   "not_available": 1
  },
- "n_items": 693
+ "n_items": 696
 }

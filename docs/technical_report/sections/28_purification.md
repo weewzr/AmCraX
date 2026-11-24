@@ -62,9 +62,9 @@ Table: **Table 28.2.** Product quality and cost of the purification configuratio
 | PSA, 99.975 % (mass balance) | 0.751 | 99.975 | 250 | 0.1 | yes | 4.271 | 4.463 |
 | PSA, 99.975 % (R = 0.71) | 0.710 | 99.975 | 250 | 0.1 | yes | 4.518 | 4.710 |
 | PSA, AmCraX assumed R = 0.85 | 0.850 | 99.96 | 400 | 0.1 | no | 4.046 | not applicable |
-| Pd-Ag, 1 bar permeate, no bed | 0.900 | 99.9997 | 0 | 2.9 | no | 4.112 | not applicable |
-| Pd-Ag, 1 bar permeate, polishing bed | 0.900 | 99.99999 | 0 | 0.025 | yes (conditional) | 4.129 | 4.327 |
-| Pd-Ag, 0.1 bar vacuum, polishing bed | 0.900 | 99.99999 | 0 | 0.025 | yes (conditional) | 4.304 | 4.502 |
+| Pd-Ag, 1 bar permeate, no bed | 0.900 | 99.9997 | 0 | 2.9 | no | {{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_1bar_raw]/costs/industrial_99.9/usd_per_kg_usable_h2|.3f}} | not applicable |
+| Pd-Ag, 1 bar permeate, polishing bed | 0.900 | 99.99999 | 0 | 0.025 | yes (conditional) | {{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2|.3f}} | {{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2|.3f}} |
+| Pd-Ag, 0.1 bar vacuum, polishing bed | 0.900 | 99.99999 | 0 | 0.025 | yes (conditional) | {{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_vac0.1bar_polish]/costs/industrial_99.9/usd_per_kg_usable_h2|.3f}} | {{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_vac0.1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2|.3f}} |
 
 <!-- data: results/research/purification/purification_configurations.csv rows case 20bar_baseline, columns h2_recovery, purity_h2, N2_ppm, NH3_ppm, meets_gradeD_in_scope, usd_per_kg_product_h2 for end_use industrial_99.9 and fuel_cell_grade_D (PSA_AMCRAX at Grade D end use is 4.239 and does not pass) -->
 
@@ -96,11 +96,11 @@ Table: **Table 28.4.** Cost of Grade D hydrogen (350 bar) against assumed PSA re
 | PSA and TSA | 0.70 | 4.774 |
 | PSA and TSA | 0.75 | 4.471 |
 | PSA and TSA | 0.80 | 4.322 |
-| Pd-Ag with bed, 1 bar permeate | 0.80 | 4.468 |
-| Pd-Ag with bed, 1 bar permeate | 0.90 | 4.327 |
-| Pd-Ag with bed, 1 bar permeate | 0.95 | 4.269 |
+| Pd-Ag with bed, 1 bar permeate | 0.80 | 4.474 |
+| Pd-Ag with bed, 1 bar permeate | 0.90 | 4.333 |
+| Pd-Ag with bed, 1 bar permeate | 0.95 | 4.276 |
 
-<!-- data: results/research/purification/recovery_vs_cost.csv config "PSA+TSA grade D purity 99.975 %" recovery 0.6, 0.65, 0.7, 0.75, 0.8 (5.53259, 5.12416, 4.77408, 4.47067, 4.32213); sensitivity.csv rows "membrane recovery" 0.8 (4.46802), 0.95 (4.26884), base MEM_D 4.32655 -->
+<!-- data: results/research/purification/recovery_vs_cost.csv config "PSA+TSA grade D purity 99.975 %" recovery 0.6, 0.65, 0.7, 0.75, 0.8 (5.53259, 5.12416, 4.77408, 4.47067, 4.32213); sensitivity.csv rows "membrane recovery" 0.8 (4.47414), 0.95 (4.27604), base MEM_D 4.33316 (fix pass 24 Nov 2026: membrane annualised with the CRF at its life) -->
 
 
 ![**Figure 28.1.** Hydrogen recovery against product purity for the PSA relation and the Hansen anchor. The mass-balance relation is flat by construction and understates the penalty of tighter purity. *Source: independent Python calculation (results/research/purification/psa_recovery_vs_purity.csv).*](../../results/figures/research/purification_recovery_purity.png){width=85%}
@@ -116,7 +116,7 @@ Delivery compression to 30 bar costs 0.22 kWh/kg H~2~ for PSA product and 1.92 k
 
 ### Sensitivity and Singapore prices
 
-The ammonia price dominates: moving it from 300 to 610 USD/t changes the Grade D cost from 3.317 to 5.686 USD/kg for PSA and TSA, and from 3.369 to 5.347 USD/kg for the membrane with bed, so the order of the two routes reverses within the price range. Recovery assumptions come next. A membrane cost multiplier of 0.5 or 2 changes the membrane route by less than 0.035 USD/kg; a flux multiplier of 0.15 (concentration polarisation) raises it from 4.327 to 4.508 USD/kg. The PSA and TSA capital basis (Cho et al. unit cost instead of the reference items) moves the PSA route from 4.463 to 4.386 USD/kg.
+The ammonia price dominates: moving it from 300 to 610 USD/t changes the Grade D cost from 3.317 to 5.686 USD/kg for PSA and TSA, and from 3.376 to 5.354 USD/kg for the membrane with bed, so the order of the two routes reverses within the price range. Recovery assumptions come next. A membrane cost multiplier of 0.5 or 2 changes the membrane route by less than 0.04 USD/kg (4.314 and 4.372 USD/kg); a flux multiplier of 0.15 (concentration polarisation) raises it from 4.333 to 4.552 USD/kg. The membrane is annualised with the capital recovery factor at its life, as the PSA is (corrected on 24 November 2026, Section 31.4). The PSA and TSA capital basis (Cho et al. unit cost instead of the reference items) moves the PSA route from 4.463 to 4.386 USD/kg.
 <!-- data: results/research/purification/sensitivity.csv rows "NH3 price (USD/t)" 300 / 610, "membrane cost multiplier", "flux multiplier", "PSA/TSA CAPEX basis" -->
 
 On the unified basis the Singapore electricity price is already the base case, so the separate Singapore price table of version 1.0 is not repeated; the costs at the blue and green ammonia prices are in `results/research/purification/singapore_price_scenario.csv`. Section 36 compares PSA with the membrane over the full factorial of sourced inputs and finds that neither ranking is robust. Hybrids were screened but are not recommended: a membrane on the PSA tail gas could recover up to 0.87 of the tail H~2~ only at 0.1 bar vacuum and would need recompression of the product; a membrane followed by a small PSA is not quantified because no published PSA recovery exists for a ppm-level polishing duty.
@@ -141,4 +141,4 @@ The PSA recovery of 0.756 at 99.11 mol % (Cho et al., 2026) and 0.71 at 99 % (Ha
 
 ## 28.8 Implication for hypothesis H4
 
-Purity and recovery are linked through the NH~3~ and N~2~ limits: the 99.11 mol % PSA point of Cho et al. (2026) fails both 99.9 % and Grade D by N~2~, and meeting Grade D adds a TSA step and, for the membrane, a polishing bed and a selectivity requirement. Each 0.05 step of PSA recovery at 99.975 % moves the Grade D cost by 0.15 to 0.41 USD/kg in the range 0.60 to 0.80 (Table 28.4). What is not established is the size of the recovery penalty for tighter purity, because the library holds two PSA points and the relation used cannot resolve it. The membrane advantage over the Grade D PSA routes (4.327 against 4.463 and 4.710 USD/kg, Table 28.2) is driven by the assumed recovery (0.90 against 0.71 to 0.85), not by a demonstrated purity advantage; Section 36 shows that the ranking reverses inside the sourced ranges, with parity near a PSA recovery of 0.79. The verdict on H4 is given in Section 40.
+Purity and recovery are linked through the NH~3~ and N~2~ limits: the 99.11 mol % PSA point of Cho et al. (2026) fails both 99.9 % and Grade D by N~2~, and meeting Grade D adds a TSA step and, for the membrane, a polishing bed and a selectivity requirement. Each 0.05 step of PSA recovery at 99.975 % moves the Grade D cost by 0.15 to 0.41 USD/kg in the range 0.60 to 0.80 (Table 28.4). What is not established is the size of the recovery penalty for tighter purity, because the library holds two PSA points and the relation used cannot resolve it. The membrane advantage over the Grade D PSA routes ({{VAL:purification/purification_study.json#cases/20bar_baseline/configs/[MEM_1bar_polish]/costs/fuel_cell_grade_D/usd_per_kg_usable_h2|.3f}} against 4.463 and 4.710 USD/kg, Table 28.2) is driven by the assumed recovery (0.90 against 0.71 to 0.85), not by a demonstrated purity advantage; Section 36 shows that the ranking reverses inside the sourced ranges, with parity at a PSA recovery of {{VAL:purification/phase2_comparison.json#specs/fuel_cell_grade_D/thresholds/psa_recovery_at_parity_with_central_membrane|.3f}} (grade D) and {{VAL:purification/phase2_comparison.json#specs/industrial_99.9/thresholds/psa_recovery_at_parity_with_central_membrane|.3f}} (industrial). The verdict on H4 is given in Section 40.

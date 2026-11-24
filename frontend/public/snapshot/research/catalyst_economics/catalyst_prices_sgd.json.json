@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:30:14+00:00",
+  "generated_utc": "2026-11-24T06:14:43+00:00",
   "script": "scripts/research/catalyst_economics.py",
   "source_type": "python",
   "inputs_summary": "derived catalyst prices recomputed in SGD at the reference FX",

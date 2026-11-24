@@ -1,5 +1,5 @@
 {
-  "exported_utc": "2026-11-24T05:48:13+00:00",
+  "exported_utc": "2026-11-24T08:05:23+00:00",
   "files": [
     {
       "path": "flowsheet.json",
@@ -1222,7 +1222,7 @@
     {
       "path": "research/index.json",
       "source": "results/research/ (whitelist)",
-      "bytes": 8294,
+      "bytes": 14973,
       "how": "GET /api/research/index"
     },
     {
@@ -1247,6 +1247,12 @@
       "path": "research/kinetics/assumptions.json.json",
       "source": "results/research/kinetics/assumptions.json",
       "bytes": 3582,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/kinetics/validity_classification.json.json",
+      "source": "results/research/kinetics/validity_classification.json",
+      "bytes": 16611,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1384,13 +1390,13 @@
     {
       "path": "research/purification/purification_configurations.csv.json",
       "source": "results/research/purification/purification_configurations.csv",
-      "bytes": 69236,
+      "bytes": 69243,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/purification/recovery_vs_cost.csv.json",
       "source": "results/research/purification/recovery_vs_cost.csv",
-      "bytes": 6680,
+      "bytes": 6673,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1402,7 +1408,7 @@
     {
       "path": "research/purification/singapore_price_scenario.csv.json",
       "source": "results/research/purification/singapore_price_scenario.csv",
-      "bytes": 31304,
+      "bytes": 31313,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1414,13 +1420,31 @@
     {
       "path": "research/purification/purification_study.json.json",
       "source": "results/research/purification/purification_study.json",
-      "bytes": 23110,
+      "bytes": 23113,
       "how": "GET /api/research/<area>/<file>"
     },
     {
       "path": "research/purification/assumptions.json.json",
       "source": "results/research/purification/assumptions.json",
       "bytes": 6062,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/phase2_comparison.json.json",
+      "source": "results/research/purification/phase2_comparison.json",
+      "bytes": 56508,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/phase2_comparison.csv.json",
+      "source": "results/research/purification/phase2_comparison.csv",
+      "bytes": 7335,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/purification/phase2_psa_recovery_sensitivity.csv.json",
+      "source": "results/research/purification/phase2_psa_recovery_sensitivity.csv",
+      "bytes": 18556,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1456,7 +1480,43 @@
     {
       "path": "research/enduse/assumptions.json.json",
       "source": "results/research/enduse/assumptions.json",
-      "bytes": 3399,
+      "bytes": 3379,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/turbine_threshold.json.json",
+      "source": "results/research/enduse/turbine_threshold.json",
+      "bytes": 17715,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/turbine_threshold.csv.json",
+      "source": "results/research/enduse/turbine_threshold.csv",
+      "bytes": 74174,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/sensitivity_turbine_efficiency.csv.json",
+      "source": "results/research/enduse/sensitivity_turbine_efficiency.csv",
+      "bytes": 26714,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/sensitivity_nh3_price.csv.json",
+      "source": "results/research/enduse/sensitivity_nh3_price.csv",
+      "bytes": 12985,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/sensitivity_capital.csv.json",
+      "source": "results/research/enduse/sensitivity_capital.csv",
+      "bytes": 11117,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/enduse/nox_n2o_blends.json.json",
+      "source": "results/research/enduse/nox_n2o_blends.json",
+      "bytes": 3475,
       "how": "GET /api/research/<area>/<file>"
     },
     {
@@ -1484,6 +1544,168 @@
       "how": "GET /api/research/<area>/<file>"
     },
     {
+      "path": "research/reference_scenario/baseline.json.json",
+      "source": "results/research/reference_scenario/baseline.json",
+      "bytes": 24870,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/reference_scenario/capex_audit.json.json",
+      "source": "results/research/reference_scenario/capex_audit.json",
+      "bytes": 5734,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/reference_scenario/supersession.json.json",
+      "source": "results/research/reference_scenario/supersession.json",
+      "bytes": 77197,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/site_summary.json.json",
+      "source": "results/research/carbon_pricing/site_summary.json",
+      "bytes": 3165,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/feed_dominance.json.json",
+      "source": "results/research/carbon_pricing/feed_dominance.json",
+      "bytes": 7426,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/thresholds.json.json",
+      "source": "results/research/carbon_pricing/thresholds.json",
+      "bytes": 8905,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/carbon_intensity.json.json",
+      "source": "results/research/carbon_pricing/carbon_intensity.json",
+      "bytes": 7293,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/scenarios.json.json",
+      "source": "results/research/carbon_pricing/scenarios.json",
+      "bytes": 56814,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/row_evidence.json.json",
+      "source": "results/research/carbon_pricing/row_evidence.json",
+      "bytes": 13722,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/carbon_pricing/price_sweep.csv.json",
+      "source": "results/research/carbon_pricing/price_sweep.csv",
+      "bytes": 102038,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_economics/catalyst_prices_sgd.json.json",
+      "source": "results/research/catalyst_economics/catalyst_prices_sgd.json",
+      "bytes": 22174,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_economics/catalyst_economics.json.json",
+      "source": "results/research/catalyst_economics/catalyst_economics.json",
+      "bytes": 144797,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_economics/catalyst_cost_table.csv.json",
+      "source": "results/research/catalyst_economics/catalyst_cost_table.csv",
+      "bytes": 122271,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_economics/catalyst_breakeven.csv.json",
+      "source": "results/research/catalyst_economics/catalyst_breakeven.csv",
+      "bytes": 86176,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/catalyst_economics/catalyst_crossover.csv.json",
+      "source": "results/research/catalyst_economics/catalyst_crossover.csv",
+      "bytes": 29759,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/heat_exchanger/heat_exchanger_study.json.json",
+      "source": "results/research/heat_exchanger/heat_exchanger_study.json",
+      "bytes": 12769,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/heat_exchanger/fehe_duty_diagnosis.json.json",
+      "source": "results/research/heat_exchanger/fehe_duty_diagnosis.json",
+      "bytes": 8612,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/uq/gsa_cost_decomposition.json.json",
+      "source": "results/research/uq/gsa_cost_decomposition.json",
+      "bytes": 14471,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/uq/row_evidence.json.json",
+      "source": "results/research/uq/row_evidence.json",
+      "bytes": 7523,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/uq/gsa_sobol.json.json",
+      "source": "results/research/uq/gsa_sobol.json",
+      "bytes": 258312,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/carbon_policy_sg.json.json",
+      "source": "results/research/data/carbon_policy_sg.json",
+      "bytes": 20175,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/catalyst_prices.json.json",
+      "source": "results/research/data/catalyst_prices.json",
+      "bytes": 32456,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/enduse_cost_literature.json.json",
+      "source": "results/research/data/enduse_cost_literature.json",
+      "bytes": 8584,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/membrane_trl.json.json",
+      "source": "results/research/data/membrane_trl.json",
+      "bytes": 9579,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/methodology_transfer.json.json",
+      "source": "results/research/data/methodology_transfer.json",
+      "bytes": 29609,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/purification_literature.json.json",
+      "source": "results/research/data/purification_literature.json",
+      "bytes": 33344,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
+      "path": "research/data/turbine_efficiency_literature.json.json",
+      "source": "results/research/data/turbine_efficiency_literature.json",
+      "bytes": 23556,
+      "how": "GET /api/research/<area>/<file>"
+    },
+    {
       "path": "research/validation_summary.json",
       "source": "results/research/validation/*.json",
       "bytes": 23412,
@@ -1492,7 +1714,7 @@
     {
       "path": "research/evidence_matrix.json",
       "source": "results/research/evidence_matrix.json",
-      "bytes": 329909,
+      "bytes": 376799,
       "how": "GET /api/research/evidence-matrix"
     },
     {
@@ -1594,13 +1816,13 @@
     {
       "path": "research-figures/purification_config_comparison.png",
       "source": "results/figures/research/purification_config_comparison.png",
-      "bytes": 122204,
+      "bytes": 121770,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/purification_recovery_cost.png",
       "source": "results/figures/research/purification_recovery_cost.png",
-      "bytes": 110924,
+      "bytes": 110503,
       "how": "verbatim copy"
     },
     {
@@ -1612,7 +1834,7 @@
     {
       "path": "research-figures/purification_sensitivity.png",
       "source": "results/figures/research/purification_sensitivity.png",
-      "bytes": 106426,
+      "bytes": 106427,
       "how": "verbatim copy"
     },
     {
@@ -1850,232 +2072,10 @@
       "how": "verbatim copy"
     },
     {
-      "path": "research/reference_scenario/baseline.json.json",
-      "source": "results/research/reference_scenario/baseline.json",
-      "bytes": 22677,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/reference_scenario/capex_audit.json.json",
-      "source": "results/research/reference_scenario/capex_audit.json",
-      "bytes": 5734,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/reference_scenario/supersession.json.json",
-      "source": "results/research/reference_scenario/supersession.json",
-      "bytes": 77194,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/site_summary.json.json",
-      "source": "results/research/carbon_pricing/site_summary.json",
-      "bytes": 3165,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/feed_dominance.json.json",
-      "source": "results/research/carbon_pricing/feed_dominance.json",
-      "bytes": 7426,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/thresholds.json.json",
-      "source": "results/research/carbon_pricing/thresholds.json",
-      "bytes": 8905,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/carbon_intensity.json.json",
-      "source": "results/research/carbon_pricing/carbon_intensity.json",
-      "bytes": 7293,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/scenarios.json.json",
-      "source": "results/research/carbon_pricing/scenarios.json",
-      "bytes": 56814,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/row_evidence.json.json",
-      "source": "results/research/carbon_pricing/row_evidence.json",
-      "bytes": 13089,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/carbon_pricing/price_sweep.csv.json",
-      "source": "results/research/carbon_pricing/price_sweep.csv",
-      "bytes": 102038,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/catalyst_economics/catalyst_prices_sgd.json.json",
-      "source": "results/research/catalyst_economics/catalyst_prices_sgd.json",
-      "bytes": 22174,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/catalyst_economics/catalyst_economics.json.json",
-      "source": "results/research/catalyst_economics/catalyst_economics.json",
-      "bytes": 142560,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/catalyst_economics/catalyst_cost_table.csv.json",
-      "source": "results/research/catalyst_economics/catalyst_cost_table.csv",
-      "bytes": 122271,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/catalyst_economics/catalyst_breakeven.csv.json",
-      "source": "results/research/catalyst_economics/catalyst_breakeven.csv",
-      "bytes": 86176,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/catalyst_economics/catalyst_crossover.csv.json",
-      "source": "results/research/catalyst_economics/catalyst_crossover.csv",
-      "bytes": 29759,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/heat_exchanger/heat_exchanger_study.json.json",
-      "source": "results/research/heat_exchanger/heat_exchanger_study.json",
-      "bytes": 12330,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/heat_exchanger/fehe_duty_diagnosis.json.json",
-      "source": "results/research/heat_exchanger/fehe_duty_diagnosis.json",
-      "bytes": 8612,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/uq/gsa_cost_decomposition.json.json",
-      "source": "results/research/uq/gsa_cost_decomposition.json",
-      "bytes": 14471,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/uq/row_evidence.json.json",
-      "source": "results/research/uq/row_evidence.json",
-      "bytes": 7504,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/turbine_threshold.json.json",
-      "source": "results/research/enduse/turbine_threshold.json",
-      "bytes": 15324,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/turbine_threshold.csv.json",
-      "source": "results/research/enduse/turbine_threshold.csv",
-      "bytes": 74174,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/sensitivity_turbine_efficiency.csv.json",
-      "source": "results/research/enduse/sensitivity_turbine_efficiency.csv",
-      "bytes": 26714,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/sensitivity_nh3_price.csv.json",
-      "source": "results/research/enduse/sensitivity_nh3_price.csv",
-      "bytes": 12985,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/sensitivity_capital.csv.json",
-      "source": "results/research/enduse/sensitivity_capital.csv",
-      "bytes": 11117,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/enduse/nox_n2o_blends.json.json",
-      "source": "results/research/enduse/nox_n2o_blends.json",
-      "bytes": 3475,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/kinetics/validity_classification.json.json",
-      "source": "results/research/kinetics/validity_classification.json",
-      "bytes": 16611,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/purification/phase2_comparison.json.json",
-      "source": "results/research/purification/phase2_comparison.json",
-      "bytes": 55492,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/purification/phase2_comparison.csv.json",
-      "source": "results/research/purification/phase2_comparison.csv",
-      "bytes": 6777,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/purification/phase2_psa_recovery_sensitivity.csv.json",
-      "source": "results/research/purification/phase2_psa_recovery_sensitivity.csv",
-      "bytes": 18556,
-      "how": "phase 2 mirror (same shape as GET /api/research/<area>/<file>)"
-    },
-    {
-      "path": "research/uq/gsa_sobol.json.json",
-      "source": "results/research/uq/gsa_sobol.json",
-      "bytes": 258364,
-      "how": "phase 2 mirror (convergence arrays omitted)"
-    },
-    {
-      "path": "research/data/carbon_policy_sg.json.json",
-      "source": "research/data/carbon_policy_sg.json",
-      "bytes": 20175,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/catalyst_prices.json.json",
-      "source": "research/data/catalyst_prices.json",
-      "bytes": 31991,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/enduse_cost_literature.json.json",
-      "source": "research/data/enduse_cost_literature.json",
-      "bytes": 8584,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/membrane_trl.json.json",
-      "source": "research/data/membrane_trl.json",
-      "bytes": 9579,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/methodology_transfer.json.json",
-      "source": "research/data/methodology_transfer.json",
-      "bytes": 30686,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/purification_literature.json.json",
-      "source": "research/data/purification_literature.json",
-      "bytes": 33354,
-      "how": "verbatim JSON (research data)"
-    },
-    {
-      "path": "research/data/turbine_efficiency_literature.json.json",
-      "source": "research/data/turbine_efficiency_literature.json",
-      "bytes": 23556,
-      "how": "verbatim JSON (research data)"
-    },
-    {
       "path": "research/validation/by_kind.json",
       "source": "results/research/validation/*.json",
       "bytes": 13647,
-      "how": "counted by evidence_kind"
+      "how": "GET /api/research/validation/by_kind (counted by evidence_kind)"
     },
     {
       "path": "research-figures/aspen_kinetic_approach_vs_loading.png",
@@ -2194,19 +2194,19 @@
     {
       "path": "research-figures/purification_phase2_comparison.png",
       "source": "results/figures/research/purification_phase2_comparison.png",
-      "bytes": 100610,
+      "bytes": 100737,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/purification_phase2_psa_recovery.png",
       "source": "results/figures/research/purification_phase2_psa_recovery.png",
-      "bytes": 154280,
+      "bytes": 154164,
       "how": "verbatim copy"
     },
     {
       "path": "research-figures/purification_phase2_tradeoff.png",
       "source": "results/figures/research/purification_phase2_tradeoff.png",
-      "bytes": 263552,
+      "bytes": 263673,
       "how": "verbatim copy"
     },
     {
@@ -2224,7 +2224,7 @@
     {
       "path": "research-figures/uq_gsa_sobol.png",
       "source": "results/figures/research/uq_gsa_sobol.png",
-      "bytes": 67266,
+      "bytes": 66849,
       "how": "verbatim copy"
     },
     {
@@ -2248,7 +2248,7 @@
     {
       "path": "simulator/model.json",
       "source": "results/research/simulator/model.json",
-      "bytes": 180222,
+      "bytes": 180221,
       "how": "verbatim copy"
     },
     {
@@ -2277,7 +2277,6 @@
     "docs/images",
     "docs/screenshots",
     "index of cases/",
-    "research/data",
     "research/references.json",
     "results/figures",
     "results/optimisation",

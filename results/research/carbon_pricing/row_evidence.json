@@ -321,5 +321,5 @@
       "reason": "Blue overtakes grey near 33 SGD/t centrally but the CI ranges give 12 to 605, straddling 45, 50-80 and the EU ETS level (127). Green at current prices needs 305 SGD/t (range 156-466) to beat grey and 747 to beat blue: above every reference price. Green 2030 needs 144. So the reward exists only for blue at moderate prices and is uncertain; green current ammonia is not cheapest at any reference price."
     }
   },
-  "note": "Proposed verdicts only; the orchestrator decides. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."
+  "note": "Proposed verdicts only; the evidence matrix sets the verdicts by its coded rules. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."
 }

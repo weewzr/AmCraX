@@ -245,7 +245,7 @@
       "script": "scripts/research/record_fix_pass.py",
       "old_values": "git commit 70993a5",
       "new_values": "working tree after the fix-pass re-runs",
-      "plan": "docs/internal/phase2_fix_plan.md"
+      "plan": "findings of three independent reviews (verdicts; documents against the result files; models and code)"
     },
     "description": "Every selected stored number and every verdict that changed in the Phase 2 fix pass of 24 November 2026.",
     "verdict_changes": [

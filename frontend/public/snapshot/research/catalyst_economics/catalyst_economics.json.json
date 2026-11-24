@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:30:14+00:00",
+  "generated_utc": "2026-11-24T06:14:43+00:00",
   "script": "scripts/research/catalyst_economics.py",
   "source_type": "python",
   "inputs_summary": "catalyst economics for H3 on the unified basis",
@@ -989,6 +989,10 @@
      "caution": "Aspen runs reach unequal conversion with 100 kg (X 0.9496-0.9589): the per-kg feed and capital terms differ by the H2 output, not by the catalyst. Use the python_Top_X095 basis (equal X 0.95) for the cost comparison; this basis is the Aspen cross-check."
     }
    },
+   "key_descriptions": {
+    "fixed_inventory_aspen_HI_exchanger": "MIS-NAMED KEY, kept for readers (fix pass 24 Nov 2026, review A m10): it holds the PYTHON equal-conversion values (python_Top_X095_HI_exchanger: each catalyst at the temperature where its law reaches X 0.95, with FEHE, exchanger mode), not Aspen fixed-inventory values. The Aspen fixed 100 kg cross-check is fixed_inventory_aspen_cross_check_HI_exchanger.",
+    "fixed_inventory_aspen_noHI_exchanger": "MIS-NAMED KEY, kept: Python equal-conversion values without FEHE (python_Top_X095_noHI_exchanger), not Aspen values."
+   },
    "hi_saving_aspen_fixed_inventory": [
     {
      "catalyst": "Ru/Al2O3",
@@ -1092,6 +1096,13 @@
     }
    ],
    "resolution_USD_per_kg": 0.006022354316313816,
+   "resolution_readings": {
+    "max_abs_python_minus_aspen_lcoh_USD_per_kg": 0.006022354316313816,
+    "spread_of_offset_between_catalysts_USD_per_kg": 0.0006117647614942712,
+    "max_abs_fired_duty_offset_kW": 15.205638167150198,
+    "spread_of_fired_duty_offset_between_catalysts_kW": 1.360527692594303,
+    "rule": "verdict_methodology_v2: a difference smaller than the demonstrated Python-Aspen offset cannot support or contradict a row. The absolute offset (conservative) is used as the resolution for the verdicts. Both readings are reported (fix pass 24 Nov 2026, review C finding M2): the absolute offset, and the spread of that offset across catalysts, which is the demonstrated uncertainty of a difference between designs when the offset is common."
+   },
    "sensitivity_counts": {
     "n_rows": 100,
     "n_low_cheaper_resolved": 1,
@@ -1427,6 +1438,8 @@
  "resolution": {
   "max_abs_python_minus_aspen_lcoh_USD_per_kg": 0.006022354316313816,
   "spread_of_offset_between_catalysts_USD_per_kg": 0.0006117647614942712,
+  "max_abs_fired_duty_offset_kW": 15.205638167150198,
+  "spread_of_fired_duty_offset_between_catalysts_kW": 1.360527692594303,
   "rows": [
    {
     "catalyst": "Ru/Al2O3",
@@ -1474,7 +1487,7 @@
     "fired_python_kW": 584.7232748747009
    }
   ],
-  "rule": "verdict_methodology_v2: a difference smaller than the demonstrated Python-Aspen offset cannot support or contradict a row. The absolute offset (conservative) is used as the resolution."
+  "rule": "verdict_methodology_v2: a difference smaller than the demonstrated Python-Aspen offset cannot support or contradict a row. The absolute offset (conservative) is used as the resolution for the verdicts. Both readings are reported (fix pass 24 Nov 2026, review C finding M2): the absolute offset, and the spread of that offset across catalysts, which is the demonstrated uncertainty of a difference between designs when the offset is common."
  },
  "row_evidence": {
   "H3-a": {
@@ -1525,7 +1538,7 @@
     "fired duty = temperature-feasible import after FEHE and tail-gas firing"
    ],
    "uncertainty": "Python fired duty is 13.8-15.2 kW below Aspen at the same T and X for all five catalysts (spread 1.4 kW, so the T-dependence is reproduced within 1.4 kW over 95 K); FEHE duty offset +20.8 kW (model form, task X1).",
-   "envelope": "20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K (25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+   "envelope": "20 bar, X 0.95 (equal conversion; Python only, the Aspen runs reach unequal conversion), 499-594 degC, with and without FEHE. With FEHE the largest saving is 25.1 kW (Ru/Al2O3), which is 4.9 % of the supplementary fired duty and 1.1 % of the 2293 kW total external heating. On the absolute Python-Aspen offset (15.2 kW; 0.0060 USD/kg), the reading used for the verdicts, the saving is resolved only for temperature differences of 72 K or more (Ru/MgO 18.6 kW at 522 degC, Ru/Al2O3 25.1 kW at 499 degC); the NiRu/CeO2 savings (4.4-5.4 kW) are not. On the spread of that offset across catalysts (1.4 kW; 0.0006 USD/kg) the NiRu savings would also be resolved. Without FEHE 31-163 kW. When the designs are cost-optimised (exchanger mode, derived central prices) the Ru designs run hotter and use 19-21 kW MORE energy. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws (Ru/MgO and the Ni reference).",
    "threshold": null,
    "reason": "Computed (Python, cross-checked against Aspen at the same T and X); the reduction at equal conversion is not a built-in assumption. CORRECTION to Phase 1: the Aspen fixed-inventory runs reach unequal conversion (Ni 0.9589 against Ru/Al2O3 0.9496); most of the 102 kW (17 %) Aspen difference comes from that conversion difference (less unconverted NH3 burnt in the tail gas), not from temperature. At equal conversion the saving is 25 kW with FEHE. When each design is cost-optimised at derived central prices the Ru-containing designs move to HIGHER temperatures than Ni and the saving disappears or reverses (H3-c): the energy claim holds for low-T operating points, not for cost-optimal designs."
   },

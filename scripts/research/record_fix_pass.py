@@ -1,6 +1,6 @@
 """Record every stored number and verdict that changed in the Phase 2 fix pass of 24 November 2026.
 
-The fix pass applied the accepted findings of three independent reviews (docs/internal/phase2_fix_plan.md):
+The fix pass applied the accepted findings of three independent reviews (verdicts; documents; models and code):
 membrane annualised with the capital recovery factor at the membrane life, centred Sobol first-order estimator,
 three row verdicts (H2-b, H3-d, H4-e) moved to INCONCLUSIVE under coded rules that can fail, and new computed blocks
 (fuel-efficiency envelope, fired-cracking threshold shift, solved break-even CRF).
@@ -94,7 +94,7 @@ def main() -> int:
     vrows = [{"quantity": k, "file": VERDICT_FILE, "old": vo.get(k), "new": vn.get(k)} for k in vn if vo.get(k) != vn.get(k)]
     OUT.write_text(json.dumps({
         "provenance": {"script": "scripts/research/record_fix_pass.py", "old_values": f"git commit {PRE_FIX}",
-                       "new_values": "working tree after the fix-pass re-runs", "plan": "docs/internal/phase2_fix_plan.md"},
+                       "new_values": "working tree after the fix-pass re-runs", "plan": "findings of three independent reviews (verdicts; documents against the result files; models and code)"},
         "description": "Every selected stored number and every verdict that changed in the Phase 2 fix pass of 24 November 2026.",
         "verdict_changes": vrows, "number_changes": rows,
         "new_computed_blocks": [

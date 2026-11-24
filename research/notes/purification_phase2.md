@@ -72,7 +72,7 @@ Plain statement: what is commercially demonstrated is PSA for N2/H2-rich gas and
 7. CSIRO/Fortescue 200 kg/day pilot outcome: no source found after 2023.
 8. The NUS researchers: no relevant quantitative work (see `nus_membrane_researchers.md`).
 
-## 7. Consequences for the other workstreams (for the orchestrator)
+## 7. Consequences for the other workstreams
 
 - The H4 membrane case may now cite a sourced selectivity lower bound (400,000, ideal, 450 degC, new membrane) but should keep the condition "new membrane, single gas". The required selectivity of 12,919 corresponds to a factor of about 30 below that value.
 - PSA recovery at Grade D of 0.71 to 0.751 and the base 0.85 are not source-supported; the only sourced Grade D point is 0.555 (purge-gas feed) with one low-confidence model at 0.81. A sensitivity at 0.555 would show the membrane advantage widening, but this rests on one feed composition that differs from cracked ammonia.

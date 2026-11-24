@@ -67,3 +67,32 @@ None of them is an independent experimental validation.
 | H2 Feedstock | INCONCLUSIVE | H2-a to H2-d supported; H2-e contradicted |
 | H3 Catalyst and heat integration | INCONCLUSIVE | H3-a, H3-d supported; H3-b, H3-c, H3-e, H3-f inconclusive |
 | H4 Purification | INCONCLUSIVE | H4-e supported; H4-c contradicted; H4-a, H4-b, H4-d inconclusive |
+
+## Phase 2 final state (24 November 2026)
+
+Recorded after the fix pass and the plain-answers layer, on branch `feature/phase2-interactive-research` (uncommitted
+working tree at the time of the runs). Re-run the commands to confirm.
+
+| Check | Result |
+|---|---|
+| Python tests (`python -m pytest tests -o addopts=""`) | 753 passed, 1 skipped (opt-in live Aspen test), 0 failed |
+| Frontend unit tests (`npm test`) | 290 passed in 30 files |
+| Browser checks (`node scripts/site_check.mjs`, all routes, four viewports) | 1037 passed, 0 failed, no HTTP status of 400 or above |
+| Research validation (`results/research/validation/summary.json`) | 696 items: 607 pass, 12 fail, 76 informational, 1 not available |
+| By evidence kind | numerical verification 464 (440 pass, 5 fail, 19 informational); Python against Aspen comparison 183 (156, 5, 22); comparison with published literature 48 (11, 2, 35); independent experimental validation: none (1 placeholder item, not available) |
+| Technical report | `docs/technical_report/AmCraX_Technical_Report.pdf`, 243 pages, SHA-256 `2194C8CB1A23A42F1ED524755D25698536675C18F00D10D7A6946AAF7BF58B64`; quality report: no unresolved tokens, privacy scan PASS |
+| Paper and executive summary | `docs/paper/build/AmCraX_Paper.pdf` 18 pages; `docs/paper/build/AmCraX_Executive_Summary.pdf` 2 pages |
+| Baseline LCOH | 4.015461254695034 USD/kg (unchanged; fuel counted at 100 % of its lower heating value) |
+
+Hypothesis verdicts (methodology version 2, with components; version 1 verdicts all INCONCLUSIVE):
+
+| Hypothesis | Verdict | Components |
+|---|---|---|
+| H1 End-use suitability | INCONCLUSIVE | H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE |
+| H2 Feedstock | MIXED | H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED |
+| H3 Catalyst and heat integration | PARTIALLY SUPPORTED, resting only on H3-T | H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE |
+| H4 Purification | INCONCLUSIVE | H4-B INCONCLUSIVE |
+
+The evidence matrix also carries plain answers (Yes, No or Not established) to the claims inside each hypothesis. They
+are a reading aid derived in code from the row verdicts and from the separately stored halves of rows H1-a and H3-d;
+they change no verdict.

@@ -8,9 +8,9 @@
  ],
  "kinds": {
   "numerical_verification": {
-   "total": 461,
+   "total": 464,
    "by_status": {
-    "pass": 437,
+    "pass": 440,
     "informational": 19,
     "fail": 5
    },
@@ -231,9 +231,9 @@
   },
   "heat_exchanger": {
    "file": "results/research/validation/heat_exchanger.json",
-   "n_items": 37,
+   "n_items": 40,
    "by_kind": {
-    "numerical_verification": 23,
+    "numerical_verification": 26,
     "python_vs_aspen": 13,
     "literature_comparison": 1
    }

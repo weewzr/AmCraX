@@ -1,6 +1,6 @@
 {
   "provenance": {
-    "generated_utc": "2026-11-24T06:07:11+00:00",
+    "generated_utc": "2026-11-24T07:34:29+00:00",
     "script": "scripts/research/economics_reference_scenario.py",
     "source_type": "python",
     "inputs_summary": "Aspen Plus V15 stored baseline (results/simulations/baseline.json) costed on the unified reference scenario by amcrax.economics.singapore.evaluate",
@@ -613,12 +613,12 @@
     "Ammonia price is a scenario (delivered, international basis), not a Singapore transaction price."
   ],
   "fuel_efficiency_sensitivity": {
-    "description": "Computed. The reference LCOH counts supplementary NH3 fuel at 100 % of its lower heating value (ammonia_fuel_heat_efficiency 1.0, optimistic). The same stored Aspen baseline delivers 1520.2 of 1648.0 kW of tail-gas LHV (0.9225); the H3 catalyst comparison uses 0.85. The baseline is frozen at efficiency 1.0; these cases are its envelope. Grey NH3 scenario, heat integration on unless stated.",
+    "description": "Computed. The reference LCOH counts supplementary NH3 fuel at 100 % of its lower heating value (heat delivered per unit of fuel heating value 1.0, optimistic). The same stored Aspen baseline delivers 1520.2 of 1648.0 kW of tail-gas LHV (0.9225); the H3 catalyst comparison uses 0.85. The baseline is frozen at efficiency 1.0; these cases are its envelope. Grey NH3 scenario, heat integration on unless stated.",
     "flowsheet_tailgas_ratio_exact": 0.9224953014181734,
     "h2_selling_price_USD_per_kg": 3.06,
     "cases": [
       {
-        "label": "reference (fuel at 100 % of LHV, optimistic)",
+        "label": "reference (fuel at 100 % of its lower heating value, optimistic)",
         "fuel_efficiency": 1.0,
         "lcoh_USD_per_kg": 4.015461254695034,
         "lcoh_SGD_per_kg": 5.173696960844288,
@@ -629,7 +629,7 @@
         "heat_integration_gross_saving_USD_per_kg": 0.21378039320800823
       },
       {
-        "label": "flowsheet tail-gas ratio (tailgas_combustion_heat_kW / tailgas_lhv_kW)",
+        "label": "heat delivered by the tail-gas burner divided by the tail gas lower heating value in the Aspen flowsheet",
         "fuel_efficiency": 0.9225,
         "lcoh_USD_per_kg": 4.037936635619435,
         "lcoh_SGD_per_kg": 5.202655230544046,
@@ -640,7 +640,7 @@
         "heat_integration_gross_saving_USD_per_kg": 0.23158387359475174
       },
       {
-        "label": "H3 furnace efficiency (catalyst_comparison FURNACE_EFFICIENCY)",
+        "label": "furnace efficiency assumed in the catalyst study",
         "fuel_efficiency": 0.85,
         "lcoh_USD_per_kg": 4.062672348970767,
         "lcoh_SGD_per_kg": 5.23452581199729,

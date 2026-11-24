@@ -124,7 +124,7 @@ At the NE Asia SMR benchmark of 3.06 USD/kg no scenario recovers its cost: with 
 
 ### Uncertainty
 
-Table: **Table 27.5.** Monte Carlo LCOH (5000 samples, seed 20261123, heat integration on, independent draws). Ranges: NH~3~ price triangular over the scenario range; electricity 0.084 to 0.2216 USD/kWh; catalyst price 0.5× to 2×; catalyst life 1 to 4 yr; CAPEX multiplier 0.5 to 1.5; discount rate 8.5 to 10 %; operating hours 7000 to 8000 h/yr; plant life 20 to 25 yr. *Source: results/research/singapore/monte_carlo.json results.<scenario>.lcoh_p5, lcoh_p50, lcoh_p95.*
+Table: **Table 27.5.** Monte Carlo LCOH (5000 samples, seed 20261123, heat integration on, independent draws). Ranges: NH~3~ price triangular over the scenario range; electricity 0.084 to 0.2219 USD/kWh; catalyst price 0.5× to 2×; catalyst life 1 to 4 yr; CAPEX multiplier 0.5 to 1.5; discount rate 8.5 to 10 %; operating hours 7000 to 8000 h/yr; plant life 20 to 25 yr. *Source: results/research/singapore/monte_carlo.json results.<scenario>.lcoh_p5, lcoh_p50, lcoh_p95.*
 
 | Scenario | p5 (USD/kg) | p50 (USD/kg) | p95 (USD/kg) |
 |---|---|---|---|

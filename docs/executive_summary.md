@@ -1,75 +1,33 @@
 ---
 title: "AmCraX Phase 2: executive summary"
 author: "AmCraX project"
-date: "23 November 2026"
+date: "24 November 2026"
 ---
 
 # What was done
 
-AmCraX tests four hypotheses about cracking ammonia to hydrogen in Singapore: end use (H1), feedstock (H2), catalyst and heat integration (H3) and purification (H4). Phase 2 added:
+AmCraX tests four hypotheses about cracking ammonia to hydrogen in Singapore: end use (H1), feedstock (H2), catalyst and heat integration (H3) and purification (H4). Phase 2 put every workstream on one frozen cost scenario (USD; 1.288444 SGD/USD, European Central Bank, 20 November 2026), tested each assumption-driven conclusion with a threshold against sourced values, and added uncertainty quantification and an interactive simulator. An independent adversarial review moved three rows to INCONCLUSIVE.
 
-- one frozen techno-economic reference scenario used by every workstream, in USD with SGD at one sourced rate (1.288444 SGD/USD, European Central Bank, 20 November 2026);
-- threshold analyses for every conclusion that rests on an assumed quantity;
-- catalyst prices derived from metal content, and a kinetic validity class for each rate law;
-- the actual Singapore carbon-tax boundary, with a hypothetical life-cycle carbon price kept separate;
-- a sized and costed feed/effluent heat exchanger, and a PSA against Pd-Ag membrane comparison;
-- variance-based uncertainty quantification;
-- an interactive process simulator as the first page of the website, tested against the Python model.
+**Baseline.** Grey ammonia at 450 USD/t, 600 °C, 20 bar, heat integration on: LCOH **4.015 USD/kg (5.174 SGD/kg)** with the supplementary ammonia fuel counted at 100 % of its lower heating value (optimistic; 4.038 and 4.063 USD/kg at 92.25 % and 85 %), on a capital cost of 7.67 MUSD, the highest comparable estimate; feed is 76 % of the cost.
 
-Verdicts follow a rule written down before the analysis (version 2). The version 1 verdicts are shown alongside.
+# Answers and verdicts
 
-# Unified baseline
+The plain answers are a reading aid derived in code from the formal rows of the evidence matrix and change no verdict: Yes only where the test is SUPPORTED, No only where it is CONTRADICTED, otherwise not established; an answer on half of a row is a finding and that row stays INCONCLUSIVE.
 
-Grey ammonia at 450 USD/t, 600 °C, 20 bar, heat integration on, 251.6 kg/h hydrogen:
+| Hypothesis | Plain answers | Formal verdict (components) | Main limitation |
+|--------|----------------------------|--------------|-------------|
+| H1 end use | Direct ammonia cheaper than cracking + PSA for power: **Yes** (half of row H1-a). Cheaper than fired cracking; cracking in front of a turbine does not pay; cracking justified where hydrogen is the product: not established. | INCONCLUSIVE (H1-P, H1-Q INCONCLUSIVE) | Equal turbine efficiency assumed; one upper-bound source for the PSA half, none for fired cracking. |
+| H2 feedstock | Ammonia price dominates the cost: **Yes**. Cheap ammonia makes it competitive: not established (threshold 320 USD/t). Low-carbon ammonia needed for lower emissions in power and hydrogen: **Yes**. Low carbon intensity rewarded in Singapore: **No**. | MIXED (H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED) | Sourced prices (300 to 1052 USD/t) straddle the break-even (277 to 379 USD/t). |
+| H3 catalyst and heat integration | Lower temperature saves energy: **Yes, modestly** (25 kW, 1.1 % of heating). Heat integration saves energy: **Yes** (half of row H3-d). Active catalysts at 20 bar; heat integration saves cost: not established. Savings outweigh catalyst cost: not established, leaning no. | PARTIALLY SUPPORTED, resting only on H3-T (H3-T PARTIALLY SUPPORTED; H3-H, H3-K INCONCLUSIVE) | Python only; rate laws extrapolated to 20 bar; no heat-transfer coefficient at 20 bar. |
+| H4 purification | Purity costs recovery; stricter purity raises cost; tail gas offsets furnace fuel (threshold recovery 0.765); membrane beats PSA (parity 0.783): all not established. | INCONCLUSIVE (H4-B INCONCLUSIVE) | PSA recovery is an input, not measured on cracked ammonia. |
 
-- **LCOH 4.015 USD/kg (5.174 SGD/kg).** Feed 3.040, capital 0.420, fixed operating cost 0.284, ammonia burned for heat 0.268 USD/kg.
-- Capital cost 7.67 MUSD. Net present value at 3.06 USD/kg is -17.46 MUSD. Without heat integration the LCOH is 4.229 USD/kg.
-- The reference capital cost is at the conservative end of published estimates, which would give 3.64 to 3.92 USD/kg.
-- The earlier figures 3.919 and 3.613 USD/kg are superseded for research outputs.
+**H1.** Under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance. Cracking with PSA would need +12.55 points of turbine efficiency, above the only sourced bound of +7.3; fired cracking would need +5.16 and has no sourced value. Against the essay, exhaust-heated cracking is 1.3 % cheaper than direct use on the reference basis, a margin that reverses with plausible changes of capital cost, ammonia price or operating hours.
 
-# Verdicts
-
-| Hypothesis | Version 2 | Version 1 | Strongest defensible statement |
-|---|---|---|---|
-| H1 end use | INCONCLUSIVE | INCONCLUSIVE | Direct ammonia combustion is about 8 to 17 % cheaper than standalone cracking if the turbine is equally efficient on both fuels. Cracking with PSA would need a turbine 12.6 points more efficient, above the only sourced bound of 7.3, so that half is robust. Fired cracking has no sourced efficiency. |
-| H2 feedstock | MIXED | INCONCLUSIVE | Ammonia is 76 % of the cost and its price explains about 90 % of the variance. Competitiveness needs ammonia below about 320 USD/t, and low-carbon ammonia is needed for a lower carbon intensity than fossil hydrogen. Under the actual Singapore carbon tax, low-carbon ammonia earns no cost advantage. |
-| H3 catalyst and heat integration | PARTIALLY SUPPORTED | INCONCLUSIVE | Heat integration cuts external heating by 21 % and still pays after the exchanger cost (net +0.067 to +0.095 USD/kg). Lower-temperature operation saves about 5 % of fired duty at equal conversion. At realistic ruthenium prices the low-temperature catalysts do not pay. |
-| H4 purification | PARTIALLY SUPPORTED | INCONCLUSIVE | Hydrogen not recovered returns as cracker fuel up to a recovery of about 0.765. PSA against membrane is not robust either way; parity is near a PSA recovery of 0.80. |
-
-Findings against the original essay: exhaust-heated cracking is about 1.3 % cheaper than direct use on the reference basis, though not robustly; at ruthenium prices derived from metal content the low-temperature catalysts do not pay; grey ammonia at 450 USD/t is not cheap enough to compete.
-
-The hypothetical life-cycle carbon price is not Singapore law. Under it, blue ammonia overtakes grey at about 33 SGD/t (range 12 to 605), and green ammonia at current prices needs about 305 SGD/t.
-
-# What changed since the release of 23 November 2026
-
-| Finding | Phase 1 release | Phase 2 |
-|---|---|---|
-| Baseline LCOH | 3.92 and 3.61 USD/kg (two bases) | 4.015 USD/kg (one basis) |
-| Feed share | 84 % | 76 % |
-| Break-even ammonia price | 375 USD/t | 320 USD/t (277 to 371) |
-| Capital cost | 2.78 MUSD | 7.67 MUSD |
-| Direct use against fired cracking / cracking + PSA | 5 % / 15 % cheaper | 7.6 % / 16.5 % cheaper |
-| Exhaust-heated cracking against direct use | 4 % cheaper | 1.3 % cheaper |
-| Low-temperature energy saving | 17 % (unequal conversion) | about 5 % at equal conversion |
-| Heat-integration saving | 0.21 USD/kg gross | +0.067 to +0.095 USD/kg net of exchanger |
-| Ruthenium catalyst price | 542 USD/kg (published study) | 3006 to 4791 USD/kg (derived from metal content) |
-| PSA against membrane, industrial | membrane cheaper | depends on PSA recovery |
-| Verdicts | all INCONCLUSIVE | H1 INCONCLUSIVE, H2 MIXED, H3 and H4 PARTIALLY SUPPORTED |
+**Carbon price.** Under a life-cycle carbon price, which is hypothetical, not Singapore law, blue ammonia overtakes grey at about 33 SGD/t (range 12 to 605); the legislated rate is 45 SGD/t. Published figures not reproduced: the 40 % cost advantage of direct ammonia power (at most 16.6 %) and the published PSA point as industrial or fuel-cell grade hydrogen.
 
 # What is not established
 
-- No independent experimental validation exists. The checks are numerical verification, Python against Aspen comparison and comparison with published literature, and are reported under those names.
-- No rate law is validated at 20 bar. Three are validated against their own fitting data, two are extrapolated and three catalysts have no rate law.
-- There is no supplier catalyst quotation, no sourced heat-transfer coefficient at 20 bar, no turbine efficiency for fired-cracker fuel, and no measured PSA recovery on cracked ammonia.
-- Only one hydrogen price benchmark (3.06 USD/kg) was used, and no Singapore transaction price exists.
-- The browser simulator has no membrane model and uses an ideal-gas equilibrium.
+- No independent experimental validation exists. The 696 research checks are numerical verification (464), Python against Aspen comparison (183) and comparison with published literature (48).
+- No rate law is validated at 20 bar; there is no supplier catalyst quotation, no heat-transfer coefficient at 20 bar, no turbine efficiency for fired-cracker fuel and no measured PSA recovery on cracked ammonia.
 
-# Next steps
-
-1. Obtain a catalyst price quotation and a measured PSA recovery on cracked ammonia.
-2. Find or measure a turbine efficiency on cracked fuel, and a rate law fitted at elevated pressure.
-3. Estimate the exchanger heat-transfer coefficient at 20 bar.
-4. Add a membrane model and a second hydrogen price benchmark.
-5. Submit the evidence matrix to an adversarial review before any external use.
-
-Code, data and documents: <https://github.com/weewzr/AmCraX> (Phase 1 release tag amcrax-research-expansion-2026-11-23).
+**Next steps:** a catalyst quotation, a measured PSA recovery, a turbine efficiency on cracked fuel, a rate law fitted at pressure and an exchanger coefficient at 20 bar. Code, data and documents: <https://github.com/weewzr/AmCraX>.

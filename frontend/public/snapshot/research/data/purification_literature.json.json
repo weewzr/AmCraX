@@ -698,7 +698,7 @@
     "unit": "USD/m2",
     "entry": "M01 upper end"
    },
-   "basis": "No source gives a supplier quotation with year. The values are literature or model values; the Phase 1 value of 6000 EUR/m2 (M05) sits just below the low end. A currency conversion to USD or SGD is not applied here (no exchange rate in this file); the orchestrator should use the single sourced rate from the reference scenario. Projections 1000-5000 USD/m2 (M02) and a patent target below 500 USD/m2 (M06) are targets, not prices."
+   "basis": "No source gives a supplier quotation with year. The values are literature or model values; the Phase 1 value of 6000 EUR/m2 (M05) sits just below the low end. A currency conversion to USD or SGD is not applied here (no exchange rate in this file); the analysis uses the single sourced rate from the reference scenario. Projections 1000-5000 USD/m2 (M02) and a patent target below 500 USD/m2 (M06) are targets, not prices."
   },
   "psa_recovery_at_99_9_percent_purity": {
    "unit": "% of H2 in feed",

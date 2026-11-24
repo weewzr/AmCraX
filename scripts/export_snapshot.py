@@ -16,8 +16,9 @@ Layout (URL shapes the frontend requests, see frontend/src/api/client.ts):
     aspen-evidence/*.png (captures listed in the manifest), research-figures/*.png (only figures linked from the evidence matrix)
     snapshot/research/*  (index, <area>/<file>.json, validation_summary, evidence_matrix, aspen_evidence), aspen-evidence/*.png, research-figures/*.png
     (research items come from GET /api/research/...; research-figures holds only figures linked from the evidence matrix)
-    snapshot/research/<area>/<file>.json for the Phase 2 files in PHASE2_FILES (same shapes as the API), research/data/<name>.json,
-    research/validation/by_kind.json (counts by evidence kind), research/phase2_index.json, research-figures/*.png (all research figures)
+    snapshot/research/<area>/<file>.json for the Phase 2 files (research.py PHASE2_FILES, in the live whitelist, so written by the
+    GET /api/research/... loop like every other research file), research/data/<name>.json (area "data"),
+    research/validation/by_kind.json (GET /api/research/validation/by_kind), research/phase2_index.json, research-figures/*.png
     snapshot/simulator/{model,aspen_anchors,parity_report}.json   verbatim copies of results/research/simulator/ (browser simulator)
 
 Run:  python scripts/export_snapshot.py
@@ -36,147 +37,28 @@ from amcrax import paths  # noqa: E402
 
 OUT = ROOT / "frontend" / "public" / "snapshot"
 
-# Phase 2 result files mirrored for the static site in the same shapes as GET /api/research/<area>/<file>
-# (CSV -> {name, area, file, columns, rows, count, source_note}; JSON verbatim, or a subset of named top-level keys
-# with `served_keys`). area -> {file -> None (whole file) or tuple of top-level keys}. Missing files are skipped and listed.
-# The live API whitelist (backend/amcrax/api/routers/research.py ALLOWED) does not hold these yet: in LIVE mode they 404.
-PHASE2_FILES: dict[str, dict[str, tuple[str, ...] | None]] = {
-    "reference_scenario": {"baseline.json": None, "capex_audit.json": None, "supersession.json": None},
-    "carbon_pricing": {"site_summary.json": None, "feed_dominance.json": None, "thresholds.json": None,
-                       "carbon_intensity.json": None, "scenarios.json": None, "row_evidence.json": None, "price_sweep.csv": None},
-    "catalyst_economics": {"catalyst_prices_sgd.json": None,
-                           "catalyst_economics.json": ("provenance", "basis", "findings", "resolution", "row_evidence", "unmodelled_catalysts"),
-                           "catalyst_cost_table.csv": None, "catalyst_breakeven.csv": None, "catalyst_crossover.csv": None},
-    "heat_exchanger": {"heat_exchanger_study.json": ("provenance", "U_cases", "fx_SGD_per_USD", "fx_date", "baseline",
-                                                     "reference_capex_comparison", "row_evidence"),
-                       "fehe_duty_diagnosis.json": None},
-    "uq": {"gsa_cost_decomposition.json": None, "row_evidence.json": None},
-    "enduse": {"turbine_threshold.json": ("provenance", "what_each_pathway_assumes", "statement_of_result", "sourced_values",
-                                          "forty_percent_figure", "row_evidence", "notes"),
-               "turbine_threshold.csv": None, "sensitivity_turbine_efficiency.csv": None, "sensitivity_nh3_price.csv": None,
-               "sensitivity_capital.csv": None, "nox_n2o_blends.json": None},
-    "kinetics": {"validity_classification.json": None},
-    "purification": {"phase2_comparison.json": None, "phase2_comparison.csv": None, "phase2_psa_recovery_sensitivity.csv": None},
-}
-# Literature data files the pages cite (research/data/*.json), served as /snapshot/research/data/<name>.json
-PHASE2_DATA_FILES = ("carbon_policy_sg.json", "catalyst_prices.json", "enduse_cost_literature.json", "membrane_trl.json",
-                     "methodology_transfer.json", "purification_literature.json", "turbine_efficiency_literature.json")
-EVIDENCE_KINDS = ("numerical_verification", "python_vs_aspen", "literature_comparison", "experimental_validation")
-
-
-def _slim_sobol(body: dict) -> dict:
-    """gsa_sobol.json without the convergence arrays (450 kB): per case the distributions and, per output, the moments, indices and groups."""
-    out = {k: body[k] for k in ("provenance", "evidence_kind", "analysis_kind", "label", "method", "notes", "groups", "inputs",
-                                "capex_lognormal_ranking_change", "tornado_swing_grey_HIon") if k in body}
-    cases = {}
-    for cid, c in (body.get("cases") or {}).items():
-        if not isinstance(c, dict):
-            continue
-        outs = {o: {k: v for k, v in (ov or {}).items() if k in ("V", "mean", "sd", "p5", "p95", "indices", "groups")}
-                for o, ov in (c.get("outputs") or {}).items()}
-        cases[cid] = {k: c[k] for k in ("distributions", "N", "seed", "d", "n_evaluations", "lcoh_mean_mc_comparable") if k in c}
-        cases[cid]["outputs"] = outs
-    out["cases"] = cases
-    out["served_keys"] = list(out.keys())
-    out["source_note"] = "results/research/uq/gsa_sobol.json; convergence arrays omitted, every other value as stored"
-    return out
-
-
-def validation_by_kind(vdir: Path, rel) -> dict:
-    """Counts of results/research/validation/<area>.json items by evidence_kind and status. Items without an evidence_kind are
-    counted under 'not_labelled' (never assigned a kind here). Failures are listed with their stored cause or note; when the
-    item has neither, the documented cause that summary.json carries for the same area and id is used. The method is kept
-    in its own field and is never shown as a cause."""
-    kinds: dict[str, dict] = {}
-    areas: dict[str, dict] = {}
-    summary_causes: dict[tuple[str, str], str] = {}
-    sp = vdir / "summary.json"
-    if sp.is_file():
-        s_areas = json.loads(sp.read_text(encoding="utf-8-sig")).get("areas", {})
-        for area, block in (s_areas.items() if isinstance(s_areas, dict) else []):
-            for f in (block.get("failures") or []) if isinstance(block, dict) else []:
-                if isinstance(f, dict) and isinstance(f.get("id"), str) and isinstance(f.get("cause"), str):
-                    summary_causes[(area, f["id"])] = f["cause"]
-    # a cause that is only a key of the core matrix's failure_root_causes (results/validation/validation_matrix.json) is
-    # printed with that entry's stored description
-    core_causes: dict[str, str] = {}
-    cp = vdir.parents[1] / "validation" / "validation_matrix.json"
-    if cp.is_file():
-        for c in json.loads(cp.read_text(encoding="utf-8-sig")).get("summary", {}).get("failure_root_causes", []) or []:
-            if isinstance(c, dict) and isinstance(c.get("cause"), str) and isinstance(c.get("description"), str):
-                core_causes[c["cause"]] = c["description"]
-
-    def cause_text(c):
-        return f"{c} (core validation matrix): {core_causes[c]}" if isinstance(c, str) and c in core_causes else c
-    for p in sorted(vdir.glob("*.json")) if vdir.is_dir() else []:
-        if p.name == "summary.json":
-            continue
-        body = json.loads(p.read_text(encoding="utf-8-sig"))
-        items = body.get("items", []) if isinstance(body, dict) else body
-        items = [x for x in items if isinstance(x, dict)] if isinstance(items, list) else []
-        a = areas.setdefault(p.stem, {"file": rel(p), "n_items": 0, "by_kind": {}})
-        for it in items:
-            k = it.get("evidence_kind") or "not_labelled"
-            st = str(it.get("status") or "informational")
-            e = kinds.setdefault(k, {"total": 0, "by_status": {}, "failures": []})
-            e["total"] += 1
-            e["by_status"][st] = e["by_status"].get(st, 0) + 1
-            a["n_items"] += 1
-            a["by_kind"][k] = a["by_kind"].get(k, 0) + 1
-            if st == "fail":
-                e["failures"].append({"area": p.stem, "id": it.get("id"), "description": it.get("description"),
-                                      "observed": it.get("observed"), "expected": it.get("expected"), "tolerance": it.get("tolerance"),
-                                      "unit": it.get("unit"), "method": it.get("method"),
-                                      "cause": cause_text(it.get("cause") or it.get("note") or summary_causes.get((p.stem, str(it.get("id")))))})
-    for k in EVIDENCE_KINDS:
-        kinds.setdefault(k, {"total": 0, "by_status": {}, "failures": []})
-    return {"source": "results/research/validation/*.json (summary.json excluded), counted by evidence_kind and status",
-            "evidence_kinds": list(EVIDENCE_KINDS), "kinds": kinds, "areas": areas,
-            "statement": "AmCraX has no independent experimental validation. Pass counts are numerical verification, Python against "
-                         "Aspen comparison or comparison with published literature, never experimental validation."}
-
-
-def export_phase2(files, skipped, write, copy, rel) -> None:
-    """Mirror the Phase 2 result files, research data, validation counts by evidence kind and the research figures."""
-    from amcrax.api.errors import jsonable
+def export_phase2(files, skipped, write, copy, rel, api) -> None:
+    """Phase 2 part of the mirror. The Phase 2 result files and the research data files are in the live whitelist
+    (backend/amcrax/api/routers/research.py PHASE2_FILES, PHASE2_DATA_FILES, merged into ALLOWED), so main() has already
+    written them through GET /api/research/<area>/<file>; here missing ones are listed, the counts by evidence kind are
+    written from GET /api/research/validation/by_kind, and the research figures are copied."""
     from amcrax.api.routers import research as rs
 
     rdir = ROOT / "results" / "research"
     mirrored: dict[str, list[str]] = {}
-    for area, fl in PHASE2_FILES.items():
-        for fname, keys in fl.items():
-            p = rdir / area / fname
-            if not p.is_file():
-                skipped.append(f"results/research/{area}/{fname} missing")
-                continue
-            if p.suffix == ".csv":
-                cols, rows = rs._read_csv(p)
-                body = {"name": p.stem, "area": area, "file": p.name, "columns": cols, "rows": rows, "count": len(rows),
-                        "source_note": f"{rel(p)}; values as stored, no post-processing"}
+    for area, fl in rs.PHASE2_FILES.items():
+        for fname in fl:
+            if (rdir / area / fname).is_file():
+                mirrored.setdefault(area, []).append(fname)
             else:
-                body = json.loads(p.read_text(encoding="utf-8-sig"))
-                if keys is not None and isinstance(body, dict):
-                    body = {k: body[k] for k in keys if k in body}
-                    body["served_keys"] = list(body.keys())
-                    body["source_note"] = f"{rel(p)}; subset of top-level keys, values as stored"
-            write(f"research/{area}/{fname}.json", jsonable(body), rel(p), "phase 2 mirror (same shape as GET /api/research/<area>/<file>)")
-            mirrored.setdefault(area, []).append(fname)
-    sob = rdir / "uq" / "gsa_sobol.json"
-    if sob.is_file():
-        write("research/uq/gsa_sobol.json.json", jsonable(_slim_sobol(json.loads(sob.read_text(encoding="utf-8-sig")))), rel(sob),
-              "phase 2 mirror (convergence arrays omitted)")
-        mirrored.setdefault("uq", []).append("gsa_sobol.json")
-    else:
-        skipped.append("results/research/uq/gsa_sobol.json missing")
-    for name in PHASE2_DATA_FILES:
-        p = ROOT / "research" / "data" / name
-        if p.is_file():
-            write(f"research/data/{name}.json", jsonable(json.loads(p.read_text(encoding="utf-8-sig"))), rel(p), "verbatim JSON (research data)")
+                skipped.append(f"results/research/{area}/{fname} missing")
+    for name in rs.PHASE2_DATA_FILES:
+        if (rs.DATA_DIR / name).is_file():
             mirrored.setdefault("data", []).append(name)
         else:
             skipped.append(f"research/data/{name} missing")
-    write("research/validation/by_kind.json", jsonable(validation_by_kind(rdir / "validation", rel)), "results/research/validation/*.json",
-          "counted by evidence_kind")
+    write("research/validation/by_kind.json", api("/api/research/validation/by_kind"), "results/research/validation/*.json",
+          "GET /api/research/validation/by_kind (counted by evidence_kind)")
     figs = rdir.parent / "figures" / "research"
     copied = []
     for p in sorted(figs.glob("*.png")) if figs.is_dir() else []:
@@ -322,7 +204,7 @@ def main() -> int:
     else:
         skipped.append(f"/api/research/aspen-evidence -> HTTP {ae.status_code}")
 
-    export_phase2(files, skipped, write, copy, rel)
+    export_phase2(files, skipped, write, copy, rel, api)
 
     # browser-side simulator data (Phase 2 S1): verbatim copies of results/research/simulator/*.json
     # (generated by scripts/research/export_simulator_data.py; the app fetches snapshot/simulator/<name>)

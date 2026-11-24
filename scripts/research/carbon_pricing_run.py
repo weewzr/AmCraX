@@ -479,7 +479,7 @@ row_evidence = {
     },
 }
 wj(OUT / "row_evidence.json", {"provenance": prov("derived from the files in results/research/carbon_pricing"), "row_evidence": row_evidence,
-                               "note": "Proposed verdicts only; the orchestrator decides. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."})
+                               "note": "Proposed verdicts only; the evidence matrix sets the verdicts by its coded rules. Mode B evidence is conditional on a hypothetical price and cannot change a row about actual policy."})
 
 # ===================================================================== 6. site summary + test vectors
 site = {

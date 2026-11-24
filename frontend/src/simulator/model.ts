@@ -186,9 +186,10 @@ export const SOURCE_TEXT: Record<SourceLabel, string> = {
   'browser-model': 'Browser model (port of the Python model)',
   extrapolation: 'Extrapolation',
   assumption: 'Assumed scenario',
+  statutory: 'Statutory result',
 }
 export const SOURCE_SHORT: Record<SourceLabel, string> = {
-  aspen: 'Aspen', interpolation: 'Aspen grid', 'browser-model': 'Browser model', extrapolation: 'Extrapolation', assumption: 'Assumed',
+  aspen: 'Aspen', interpolation: 'Aspen grid', 'browser-model': 'Browser model', extrapolation: 'Extrapolation', assumption: 'Assumed', statutory: 'Statute',
 }
 export const SOURCE_HELP: Record<SourceLabel, string> = {
   aspen: 'Stored result of an Aspen Plus V15 run made offline for exactly these inputs',
@@ -196,6 +197,7 @@ export const SOURCE_HELP: Record<SourceLabel, string> = {
   'browser-model': 'Calculated in this page by the TypeScript port of the AmCraX Python model (checked against Python, not against experiments)',
   extrapolation: 'Browser model used outside the fitted range of the rate law or of a stored grid: treat with caution',
   assumption: 'Follows directly from an assumed input (scenario), not from a model of the equipment',
+  statutory: 'Follows from the Singapore carbon tax law: the facility has no taxable direct emissions above the threshold, so the tax is zero whatever the reactor model',
 }
 
 // ---------------------------------------------------------------- output rows
@@ -245,10 +247,15 @@ export function outputRows(s: SimState, r: SimOutputs, d: SimData): OutRow[] {
     e && e.payback_yr === null ? 'not reached: annual revenue does not cover the operating cost at the assumed hydrogen price' : noProc)
   add('capex_MUSD', `Capital cost (${d.model.economics.capex_reference.method}, ${d.model.economics.capex_reference.cost_year} USD)`, 'million USD', 'num',
     e && econSrc ? { value: e.capex_total_USD / 1e6, source: econSrc, note: `${(e.capex_total_USD * fx / 1e6).toFixed(2)} million SGD` } : null, noProc)
-  add('carbon_intensity', 'Carbon intensity (life cycle)', 'kg CO2e/kg H2', 'num',
+  const green = s.nh3_route === 'green'
+  add('carbon_intensity', green ? 'Carbon intensity (life cycle; green NH3 including embedded asset emissions)' : 'Carbon intensity (life cycle)', 'kg CO2e/kg H2', 'num',
     mem || !r.carbon ? null : { value: r.carbon.intensity.total_kgCO2e_per_kgH2, source: r.carbon.label }, noProc)
+  if (green) add('carbon_intensity_zero_boundary', 'Carbon intensity, green NH3 on the boundary that counts renewable electricity as zero (Lee et al.; not used for the carbon cost)', 'kg CO2e/kg H2', 'num',
+    mem || !r.carbon?.intensity_zero_boundary ? null : { value: r.carbon.intensity_zero_boundary.total_kgCO2e_per_kgH2, source: r.carbon.label }, noProc)
+  // a zero actual-mode tax is the statutory result (no taxable direct emissions), not an output of the reactor model
+  const statZero = s.carbon_mode !== 'hypothetical' && !!r.carbon && r.carbon.cost.SGD_per_kg_H2 === 0
   add('carbon_cost', s.carbon_mode === 'hypothetical' ? 'Carbon cost (HYPOTHETICAL price, not Singapore law)' : 'Carbon cost (actual Singapore carbon tax)', 'SGD/kg H2', 'num',
-    mem || !r.carbon ? null : { value: r.carbon.cost.SGD_per_kg_H2, source: s.carbon_mode === 'hypothetical' ? 'assumption' : r.carbon.label, note: r.carbon.cost.label }, noProc)
+    mem || !r.carbon ? null : { value: r.carbon.cost.SGD_per_kg_H2, source: s.carbon_mode === 'hypothetical' ? 'assumption' : statZero ? 'statutory' : r.carbon.label, note: r.carbon.cost.label }, noProc)
   return rows
 }
 
