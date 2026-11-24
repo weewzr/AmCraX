@@ -244,7 +244,7 @@ impl<'a> KpSetup<'a> {
             let cell = std::cell::RefCell::new(&mut c);
             let g = |t: f64| -> Result<f64, EngineError> {
                 let mut cc = cell.borrow_mut();
-                self.solve(&study_inp(w, t, p), &mut **cc).map(|x| x - xt)
+                self.solve(&study_inp(w, t, p), &mut cc).map(|x| x - xt)
             };
             let r =
                 brentq_try(g, lo, T_HI, BrentOptions::with_xtol(0.02)).map_err(|e| match e {
