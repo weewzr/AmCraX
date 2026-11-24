@@ -70,6 +70,10 @@ jobs:
         run: |
           cargo run --profile ci --locked -p amcrax-cli -- verify stage4 --root .. --report target/verification/stage4_report.json
           echo "===== BEGIN stage4_report.json"; cat target/verification/stage4_report.json; echo "===== END stage4_report.json"
+      - name: amcrax verify stage5 (catalyst, end use, LCA, optimisation, MCMC; tables back end)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- verify stage5 --root .. --report target/verification/stage5_report.json
+          echo "===== BEGIN stage5_report.json"; cat target/verification/stage5_report.json; echo "===== END stage5_report.json"
       - name: amcrax study mc-singapore and gsa (stored Python results reproduced)
         run: |
           cargo run --profile ci --locked -p amcrax-cli -- study mc-singapore --root .. --output target/studies/monte_carlo.json --report target/verification/study_mc_singapore_report.json
@@ -235,6 +239,13 @@ jobs:
           COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
         run: |
           cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify stage4 --props coolprop --root .. --report target/verification/verify_stage4_coolprop.json
+      - name: amcrax verify stage5 on the CoolProp back end
+        if: always()
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify stage5 --props coolprop --root .. --report target/verification/verify_stage5_coolprop.json
       - name: print the reports
         if: always()
         run: |

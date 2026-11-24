@@ -92,7 +92,7 @@ pub fn props(g: &Golden, b: &dyn FluidProps) -> Result<Report, EngineError> {
 }
 
 /// Accumulators of one flowsheet comparison (golden or stored).
-struct FsAcc {
+pub(crate) struct FsAcc {
     flows: Acc,
     temps: Acc,
     enth: Acc,
@@ -106,7 +106,7 @@ struct FsAcc {
 }
 
 impl FsAcc {
-    fn new(prefix: &str, what: &str) -> FsAcc {
+    pub(crate) fn new(prefix: &str, what: &str) -> FsAcc {
         let id = |s: &str| format!("{prefix}-{s}");
         FsAcc {
             flows: Acc::rel(
@@ -148,7 +148,7 @@ impl FsAcc {
             ),
         }
     }
-    fn push(self, rep: &mut Report) {
+    pub(crate) fn push(self, rep: &mut Report) {
         for a in [
             self.flows,
             self.temps,
@@ -242,7 +242,7 @@ fn compare_map(
 }
 
 /// Compare a Rust flowsheet result (as JSON) with a Python result.
-fn compare_result(acc: &mut FsAcc, case: &str, py: &Value, rs: &Value) {
+pub(crate) fn compare_result(acc: &mut FsAcc, case: &str, py: &Value, rs: &Value) {
     let hmax = max_h(py);
     for k in [
         "schema_version",

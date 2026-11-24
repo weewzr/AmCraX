@@ -52,6 +52,9 @@ VERIFY TARGETS:
     separation  stage 4: compression, PSA, Pd membrane (ODE, area search), purification helpers,
                 compare_purification on the stored baseline results
     stage4      flowsheet, heat and separation in one report
+    catalyst    stage 5: catalyst comparison (masses, LCOH curves and optima, design points,
+                heat accounting on the stored Aspen results, stored catalyst_comparison files)
+    stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
@@ -377,10 +380,20 @@ fn coolprop_notice() -> String {
 /// The fluid-property back end: `tables` (default; tabulated CoolProp values, exact only at the
 /// stored states) or `coolprop` (C++ library, feature `coolprop`).
 fn make_backend(kind: Option<&str>, root: &Path) -> Result<Box<dyn FluidProps>, String> {
+    make_backend_in(kind, root, "stage4")
+}
+
+/// As [`make_backend`], the tables back end from the golden directory `stage` (stage 5 records
+/// the additional states its studies visit).
+fn make_backend_in(
+    kind: Option<&str>,
+    root: &Path,
+    stage: &str,
+) -> Result<Box<dyn FluidProps>, String> {
     match kind.unwrap_or("tables") {
         "tables" => {
             let g =
-                ev::Golden::open(&default_golden_dir(root, "stage4")).map_err(|e| e.to_string())?;
+                ev::Golden::open(&default_golden_dir(root, stage)).map_err(|e| e.to_string())?;
             Ok(Box::new(
                 ev::stage4::tables_backend(&g).map_err(|e| e.to_string())?,
             ))
@@ -534,6 +547,16 @@ fn run_engine_target(
             )
             .map_err(s)?,
         );
+    }
+    if matches!(target, "catalyst" | "stage5" | "all") {
+        let b = make_backend_in(props, root, "stage5")?;
+        let ctx = amcrax_engine::catalyst::Ctx {
+            reg,
+            sopt,
+            econ: EconomicsData::embedded(),
+            props: b.as_ref(),
+        };
+        out.push(ev::stage5::catalyst(&stage("stage5")?, &ctx, root).map_err(s)?);
     }
     if out.is_empty() {
         return Err(format!(

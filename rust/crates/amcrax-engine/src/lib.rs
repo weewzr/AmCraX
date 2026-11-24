@@ -15,6 +15,7 @@
 //!   carries its SHA-256 for provenance.
 
 pub mod carbon;
+pub mod catalyst;
 pub mod data;
 pub mod economics;
 pub mod enduse;

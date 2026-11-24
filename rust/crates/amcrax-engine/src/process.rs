@@ -7,5 +7,5 @@ pub mod kpis;
 pub mod properties;
 pub mod result;
 
-pub use flowsheet::{eos_from_name, eos_name, run_python_case};
+pub use flowsheet::{Cracker, eos_from_name, eos_name, run_case, run_python_case};
 pub use result::{CaseInputs, SimulationResult};

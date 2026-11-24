@@ -247,6 +247,26 @@ pub fn run_python_case(
     eos: Eos,
     backend: &dyn FluidProps,
 ) -> Result<SimulationResult, EngineError> {
+    run_case(inputs, eos, backend, Cracker::Equilibrium)
+}
+
+/// Cracker outlet specification.
+#[derive(Debug, Clone, Copy, PartialEq)]
+pub enum Cracker {
+    /// Isothermal equilibrium (`run_python_case`).
+    Equilibrium,
+    /// Outlet conversion fixed at X (never above equilibrium): the replacement `solve` of Python
+    /// `research/catalyst_comparison.kinetic_flowsheet` (which patches `solve_equilibrium`).
+    FixedConversion(f64),
+}
+
+/// `run_python_case` with an explicit cracker specification.
+pub fn run_case(
+    inputs: &CaseInputs,
+    eos: Eos,
+    backend: &dyn FluidProps,
+    cracker: Cracker,
+) -> Result<SimulationResult, EngineError> {
     let t_start = start_clock();
     validate_inputs(inputs)?;
     let pp = Props::new(backend);
@@ -359,7 +379,29 @@ pub fn run_python_case(
     // ------------------------------------------------------------ HEATER / CRACKER
     let p4 = p_of("HEATER_out", p)?;
     let h4 = gas_h(&n_feed, t_r, p4)?;
-    let eq = solve_equilibrium(t_r, p, &clean(&n_feed), eos, &Kij::zero(), Alpha::Standard)?;
+    let mut eq = solve_equilibrium(t_r, p, &clean(&n_feed), eos, &Kij::zero(), Alpha::Standard)?;
+    if let Cracker::FixedConversion(x) = cracker {
+        if x > eq.conversion + 1e-9 {
+            return Err(EngineError::Domain(format!(
+                "X = {} above equilibrium {:.5} at {:.1} degC, {} bar",
+                py_repr(x),
+                eq.conversion,
+                t_r - K0,
+                py_repr(p)
+            )));
+        }
+        // out = dict(n): NH3, H2O, then N2 and H2 appended (the solver's dict n is n_feed)
+        let n0 = n_feed[0].1;
+        let ext = x * n0 / 2.0;
+        eq.n_out = vec![
+            (Species::NH3, n0 * (1.0 - x)),
+            (Species::H2O, n_feed[1].1),
+            (Species::N2, 0.0 + ext),
+            (Species::H2, 0.0 + 3.0 * ext),
+        ];
+        eq.conversion = x;
+        eq.extent = ext;
+    }
     let n5c = clean(&eq.n_out);
     let n5 = comp_list(&n5c);
     let h5 = gas_h(&n5, t_r, p)?;
