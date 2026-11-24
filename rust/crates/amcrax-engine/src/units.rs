@@ -22,6 +22,17 @@ pub const KW_TO_W: f64 = 1e3;
 /// Gas constant of the NASA-7 thermodynamics, J/(mol K) (`thermodynamics/nasa7.py: R_J_molK`).
 pub const R_J_MOL_K_NASA7: f64 = 8.314462618;
 
+/// Molar mass of NH3, kg/kmol (`schemas.py: MOLAR_MASS["NH3"]`).
+pub const MM_NH3: f64 = 17.0305;
+/// Molar mass of H2, kg/kmol (`schemas.py: MOLAR_MASS["H2"]`).
+pub const MM_H2: f64 = 2.01588;
+/// Molar mass of H2O, kg/kmol (`schemas.py: MOLAR_MASS["H2O"]`).
+pub const MM_H2O: f64 = 18.01528;
+/// Lower heating value of H2, kJ/mol (`schemas.py: LHV_KJ_PER_MOL["H2"]`).
+pub const LHV_H2_KJ_MOL: f64 = 241.826;
+/// Lower heating value of NH3, kJ/mol (`schemas.py: LHV_KJ_PER_MOL["NH3"]`).
+pub const LHV_NH3_KJ_MOL: f64 = 316.80;
+
 /// degC to K.
 #[inline]
 pub fn c_to_k(t_c: f64) -> f64 {

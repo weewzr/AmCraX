@@ -14,6 +14,7 @@
 
 pub mod stage1;
 pub mod stage2;
+pub mod stage3;
 
 use crate::error::EngineError;
 use crate::provenance::sha256_hex;
@@ -341,7 +342,9 @@ pub fn py_error(v: &Value) -> Option<&str> {
 /// Whether a Rust error corresponds to the Python exception class.
 pub fn error_matches(py: &str, e: &EngineError) -> bool {
     match py {
-        "ValueError" | "KeyError" | "TypeError" => matches!(e, EngineError::Domain(_)),
+        "ValueError" | "KeyError" | "TypeError" | "ZeroDivisionError" => {
+            matches!(e, EngineError::Domain(_))
+        }
         "RuntimeError" => matches!(e, EngineError::Numerical(_) | EngineError::Bracket(_)),
         _ => false,
     }

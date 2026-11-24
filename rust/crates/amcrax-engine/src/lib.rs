@@ -22,6 +22,7 @@ pub mod error;
 pub mod heat;
 pub mod kinetics;
 pub mod lca;
+pub mod odata;
 pub mod optim;
 pub mod process;
 pub mod props;

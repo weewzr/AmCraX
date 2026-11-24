@@ -6,6 +6,7 @@
 mod verify;
 
 use amcrax_engine::data::DataRoot;
+use amcrax_engine::economics::reference::EconomicsData;
 use amcrax_engine::kinetics::KineticsRegistry;
 use amcrax_engine::reactor::{PfrInput, SolverOptions, simulate_pfr};
 use amcrax_engine::verify as ev;
@@ -27,7 +28,9 @@ VERIFY TARGETS:
     thermo      stage 1: data loading parity and thermodynamics (rust/golden/stage1)
     kinetics    stage 2: rate laws and viscosity (rust/golden/stage2)
     reactor     stage 2: plug-flow reactor and the derived searches (rust/golden/stage2)
-    all         thermo, kinetics and reactor in one report
+    economics   stage 3: reference CAPEX, evaluate, break-even, legacy LCOH, stored results
+                (rust/golden/stage3)
+    all         every engine target in one report
 
     --root      repository root (default $AMCRAX_ROOT, else . or ..)
     --golden    golden-table directory (single-stage targets only)
@@ -188,9 +191,14 @@ fn run_engine_target(
     if matches!(target, "reactor" | "all") {
         out.push(ev::stage2::reactor(&stage("stage2")?, reg, &sopt).map_err(s)?);
     }
+    if matches!(target, "economics" | "all") {
+        out.push(
+            ev::stage3::economics(&stage("stage3")?, EconomicsData::embedded(), root).map_err(s)?,
+        );
+    }
     if out.is_empty() {
         return Err(format!(
-            "unknown target {target} (available: numerics, thermo, kinetics, reactor, all)"
+            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, all)"
         ));
     }
     Ok(out)
