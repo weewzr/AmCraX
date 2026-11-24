@@ -180,7 +180,7 @@ and `amcrax study gsa|mc-singapore|kinetic-propagation --report`.
 | Sobol' indices, bootstrap intervals on fixed output matrices | 1e-12 relative; bootstrap index stream identical | NumPy pairwise sums and `integers` stream ported |
 | Sobol' base samples of the studies | SHA-256 of the float64 bytes identical | SciPy scrambling; the legacy `seed=` keyword seeds `default_rng(seed)` without spawn |
 | `ndtri`, `triang.ppf`, `lognorm.ppf`, `norm.ppf` | 1e-12 relative | Cephes ndtri port, checked bitwise on 250,006 arguments before the port |
-| global sensitivity study (16 cases + dummy, N = 8192, 1000 bootstraps) | 1e-10 relative | sample and bootstrap stream reproduced exactly |
+| global sensitivity study (16 cases + dummy, N = 8192, 1000 bootstraps) | 1e-10 relative (indices and intervals relative to max(\|S\|, 1e-6)) | sample and bootstrap stream reproduced exactly; libm exp/log/pow ulps in the lognormal cases move near-zero indices by about 1e-18 absolute |
 | Monte Carlo of the Singapore economics (5000 draws) | 1e-12 relative, sample for sample | NumPy uniform/triangular/random streams reproduced exactly (not a statistical comparison) |
 | stiff PFR cases (750-900 degC) | stage 2 gates (X 1e-7, T 1e-4 K, P 1e-6 bar) | LSODA rtol 1e-8 against DOPRI5 or the Radau fallback at rtol 1e-10 |
 | kinetic propagation, draw for draw | draws 1e-12 rel; X_lab 1e-7; T_required 0.05 K; mass 1e-5 rel; decisions identical | stage 2 reactor and search gates |

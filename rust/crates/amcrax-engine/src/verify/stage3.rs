@@ -80,6 +80,19 @@ pub(crate) fn compare_tree(
     python: &Value,
     python_keys_only: bool,
 ) {
+    compare_tree_scaled(nums, exact, case, rust, python, python_keys_only, &|_| 0.0);
+}
+
+/// [`compare_tree`] with a term scale per leaf path (see [`super::deviation`]).
+pub(crate) fn compare_tree_scaled(
+    nums: &mut Acc,
+    exact: &mut Acc,
+    case: &str,
+    rust: &Value,
+    python: &Value,
+    python_keys_only: bool,
+    scale: &dyn Fn(&str) -> f64,
+) {
     let r = flatten(rust);
     let p = flatten(python);
     let mut missing = Vec::new();
@@ -87,7 +100,9 @@ pub(crate) fn compare_tree(
     for (k, pv) in &p {
         match (r.get(k), pv) {
             (None, _) => missing.push(k.clone()),
-            (Some(Leaf::Num(a)), Leaf::Num(b)) => nums.add(&format!("{case} {k}"), *a, *b),
+            (Some(Leaf::Num(a)), Leaf::Num(b)) => {
+                nums.add_scaled(&format!("{case} {k}"), *a, *b, scale(k))
+            }
             (Some(a), b) => {
                 if a != b {
                     other_bad.push(format!("{k}: rust {a:?} python {b:?}"));
@@ -1366,21 +1381,42 @@ pub fn studies(
              and the dummy run (N = 8192, 1000 bootstraps) against results/research/uq/gsa_sobol.json",
             1e-10,
         )
-        .note("Sobol' sample and bootstrap stream reproduced bit for bit; differences would come only from the model outputs");
+        .note(
+            "Sobol' sample and bootstrap stream reproduced bit for bit; the remaining differences come from libm \
+             exp/log/pow ulps in the model outputs (lognormal CAPEX cases). Indices are shares of the output \
+             variance: relative to max(|index|, 1e-6), so an index of -4.9e-9 that differs by 7e-19 absolute \
+             (run 45411002904) is not reported as a 1.5e-10 relative failure; V, mean, sd, p5, p95 are purely relative",
+        );
+        let idx_scale = |k: &str| -> f64 {
+            if k.contains("/indices/") || k.contains("/groups/") || k.contains("/convergence/") {
+                1e-6
+            } else {
+                0.0
+            }
+        };
         let mut x = Acc::exact(
             "studies.gsa_sobol_structure",
             "gsa_sobol.json: case keys, distribution descriptions, group members",
         );
         for (key, pv) in stored["cases"].as_object().into_iter().flatten() {
-            compare_tree(&mut n, &mut x, key, &g["cases"][key.as_str()], pv, false);
+            compare_tree_scaled(
+                &mut n,
+                &mut x,
+                key,
+                &g["cases"][key.as_str()],
+                pv,
+                false,
+                &idx_scale,
+            );
         }
-        compare_tree(
+        compare_tree_scaled(
             &mut n,
             &mut x,
             "dummy_run_grey_HIon",
             &g["dummy_run_grey_HIon"],
             &stored["dummy_run_grey_HIon"],
             false,
+            &idx_scale,
         );
         rep.push(n);
         rep.push(x);
