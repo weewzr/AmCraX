@@ -96,7 +96,7 @@
   },
   "unit": "mixed",
   "source_type": "literature",
-  "source": "values quoted in docs/internal/fact_sheet.md (99.97 %, 300 ppm) and brief (NH3 0.1 ppm)",
+  "source": "ISO 14687:2019 grade D limits (99.97 % H2, 300 ppm N2, 0.1 ppm NH3)",
   "applicability_note": "baseline product never called fuel-cell grade"
  }
 ]

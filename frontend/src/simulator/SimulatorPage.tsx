@@ -1,6 +1,7 @@
 import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, useState, type ReactNode } from 'react'
 import { Link, useSearchParams } from 'react-router-dom'
 import { withBase } from '../api/url'
+import { useJson } from '../site/data'
 import { inputRanges, loadSimulatorData, type SimData } from '../sim'
 import { Controls } from './Controls'
 import { baselineState, exportCSV, exportJSON, exportName, INPUT_UNITS, PRESETS, presetMatches, presetState, reducer, runCase, SOURCE_TEXT, type SimState } from './model'
@@ -33,6 +34,28 @@ function WhenNear({ children }: { children: ReactNode }) {
       <p>Eight graphs follow the controls: conversion and duties against temperature, reactor profiles, the catalyst comparison and the cost breakdown. They load when you scroll here, so that the page opens without the chart library.</p>
       <button type="button" className="btn" onClick={() => setNear(true)}>Load the graphs now</button>
     </section>
+  )
+}
+
+interface FuelCase { fuel_efficiency?: number; lcoh_USD_per_kg?: number; lcoh_SGD_per_kg?: number }
+/** The stored fuel-efficiency envelope of the frozen baseline (reference_scenario/baseline.json, key fuel_efficiency_sensitivity):
+ *  the reference cost counts the supplementary ammonia fuel at 100 % of its LHV (optimistic). Nothing is computed here. */
+function FuelEnvelopeNote() {
+  const b = useJson<{ fuel_efficiency_sensitivity?: { cases?: FuelCase[] } }>('/api/research/reference_scenario/baseline.json')
+  const cases = b.phase === 'ready' ? (b.data.fuel_efficiency_sensitivity?.cases ?? []).filter((c) => typeof c.fuel_efficiency === 'number' && typeof c.lcoh_USD_per_kg === 'number') : []
+  if (!cases.length) return null
+  const pc = (x: number) => `${Number((x * 100).toFixed(2))} %`
+  return (
+    <div className="sim-basis" data-testid="sim-fuel-envelope">
+      <p className="sim-basis">The reference cost counts the supplementary ammonia fuel at 100 % of its lower heating value (optimistic). Stored envelope of the baseline cost:</p>
+      <table className="sim-cmp sim-fuel-t" aria-label="Fuel-efficiency envelope of the baseline hydrogen cost">
+        <thead><tr><th scope="col">Fuel heat delivered</th><th scope="col">USD/kg H2</th><th scope="col">SGD/kg H2</th></tr></thead>
+        <tbody>{cases.map((c) => (
+          <tr key={c.fuel_efficiency}><th scope="row">{pc(c.fuel_efficiency!)}{c.fuel_efficiency === 1 ? ' (reference, optimistic)' : ''}</th>
+            <td className="sim-num">{c.lcoh_USD_per_kg!.toFixed(3)}</td><td className="sim-num">{typeof c.lcoh_SGD_per_kg === 'number' ? c.lcoh_SGD_per_kg.toFixed(3) : 'n/a'}</td></tr>
+        ))}</tbody>
+      </table>
+    </div>
   )
 }
 
@@ -196,7 +219,7 @@ function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | 
           <p className="sim-scroll-hint">Scroll sideways; tap an item for its values.</p>
           <ul className="sim-legend-html" aria-label="Diagram legend">
             {(['NH3', 'H2', 'N2', 'H2O', 'O2'] as const).map((k) => <li key={k}><i style={{ background: SPECIES_COLOR[k] }} aria-hidden="true" />{k}</li>)}
-            <li className="sim-legend-txt">Dots: colour shows the species, density the molar flow.{showValues ? ' Values: streams kmol/h, units kW; A Aspen, G Aspen grid, B browser model, E extrapolation, S assumed.' : ''}</li>
+            <li className="sim-legend-txt">Dots: colour shows the species, density the molar flow.{showValues ? ' Values: streams kmol/h, units kW; A Aspen, G Aspen grid, B browser model, E extrapolation, S assumed, L statutory. The flue-gas cooler shows the burner heat credited, not an exchanger duty.' : ''}</li>
           </ul>
           <div className="sim-pfd-box" ref={box} {...(overflow ? { tabIndex: 0, role: 'region', 'aria-label': 'Process flow diagram, scrolls sideways' } : {})}>
             <Pfd c={B} d={d} playing={playing} selected={sel} onSelect={onSelect} showValues={showValues} focus={tourFocus} />
@@ -256,6 +279,7 @@ function Simulator({ d, preset: initialPreset }: { d: SimData; preset: string | 
           ) : null}
           <p className="sim-basis">Costs: <strong>{d.model.economics.basis_short}</strong>, CAPEX method {d.model.economics.capex_reference.method} (cost year {d.model.economics.capex_reference.cost_year}); {d.model.economics.cost_basis}.
             {' '}SGD at {d.model.fx.SGD_per_USD} SGD/USD (ECB reference rate of {String(d.model.fx.date)}). Catalyst prices in the kinetic modes are derived from metal content, not supplier quotations; the equilibrium reactor has no catalyst choice and uses the reference inventory at the Phase 1 TEA Ni price, as the reference scenario does.</p>
+          <FuelEnvelopeNote />
         </section>
       </div>
 

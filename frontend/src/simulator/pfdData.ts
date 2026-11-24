@@ -193,7 +193,7 @@ export function unitViews(c: CaseResult, d: SimData): Record<string, UnitView> {
 }
 
 /** One-letter source markers printed next to diagram values (explained in the legend). */
-export const SOURCE_MARK: Record<SourceLabel, string> = { aspen: 'A', interpolation: 'G', 'browser-model': 'B', extrapolation: 'E', assumption: 'S' }
+export const SOURCE_MARK: Record<SourceLabel, string> = { aspen: 'A', interpolation: 'G', 'browser-model': 'B', extrapolation: 'E', assumption: 'S', statutory: 'L' }
 
 /** The value printed on the diagram for a stream (its first molar flow fact) or a unit (its first kW fact); null when none is computed. */
 export function labelValue(facts: Fact[] | undefined, unit: 'kmol/h' | 'kW'): { text: string; mark: string; fact: Fact } | null {

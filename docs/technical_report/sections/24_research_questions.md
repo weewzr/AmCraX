@@ -37,4 +37,4 @@ A hypothesis receives one of three verdicts:
 
 Three rules keep the test honest. A result that only reproduces an assumption is not counted as support; for example, a purity that follows from an assumed split fraction says nothing about H4. No parameter was tuned to agree with the essay or with a paper, and failing validation items are kept and reported. Literature values from the essay were checked against the primary source where it could be obtained, and those that could not be checked are labelled unverified wherever they appear.
 
-The verdicts are generated once, in `results/research/evidence_matrix.json`, and the report reads them from that file at build time (Sections 1 and 40); they are never retyped by hand.
+These three values are the verdicts of the release of 23 November 2026 (rule v1) and remain the row verdicts. Phase 2 adds MIXED and PARTIALLY SUPPORTED for components and hypotheses under verdict methodology v2 (Section 40). The verdicts are generated once, in `results/research/evidence_matrix.json`, and the report reads them from that file at build time (Sections 1 and 40); they are never retyped by hand.

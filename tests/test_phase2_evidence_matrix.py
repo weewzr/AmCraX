@@ -268,7 +268,7 @@ def test_no_em_dash_in_matrix_markdown():
     assert "—" not in MD.read_text(encoding="utf-8")
 
 
-# ---- fix pass of 24 November 2026 (docs/internal/phase2_fix_plan.md sections 1 to 3) -----------------
+# ---- fix pass of 24 November 2026 (findings of the three independent reviews) -----------------
 FIX_ROWS = {"H2-b": I, "H3-d": I, "H4-e": I}
 FIX_COMPONENTS = {"H1-P": I, "H1-Q": I, "H2-E": P, "H2-C": S, "H2-X": C, "H3-T": P, "H3-H": I, "H3-K": I, "H4-B": I}
 FIX_HYPOTHESES = {"H1": I, "H2": M, "H3": P, "H4": I}
@@ -343,6 +343,93 @@ def test_disclosures_and_text_corrections(matrix):
     for c in h3["components"]:
         assert f"{c['id']} {c['verdict']}" in h3["strongest_defensible_statement"]
     assert "72 K or more" in _row(matrix, "H3-a")["envelope"]
+
+
+# ---- plain answers (reading aid, never a verdict) --------------------------------------------
+@pytest.mark.parametrize("outcome, answer, figure", [(S, "Yes", "reproduced"), (C, "No", "not reproduced"),
+                                                     (I, "Not established", "not established")])
+def test_plain_answer_mapping_synthetic(builder, outcome, answer, figure):
+    assert builder.plain_answer(outcome) == answer
+    assert builder.figure_result(outcome) == figure
+
+
+@pytest.mark.parametrize("bad", [M, P, "Yes", "", None])
+def test_plain_answer_rejects_non_row_outcomes(builder, bad):
+    with pytest.raises(builder.EvidenceError):
+        builder.plain_answer(bad)
+    with pytest.raises(builder.EvidenceError):
+        builder.figure_result(bad)
+
+
+def test_basis_outcome_synthetic(builder):
+    row = {"row_id": "X-a", "verdict": I, "half_verdicts": {"one": S, "two": I}, "verdict_by_mode": {"actual_sg": C}}
+    assert builder.basis_outcome(row) == I
+    assert builder.basis_outcome(row, half="one") == S
+    assert builder.basis_outcome(row, mode="actual_sg") == C
+    for kw in ({"half": "three"}, {"mode": "other"}, {"half": "one", "mode": "actual_sg"}):
+        with pytest.raises(builder.EvidenceError):
+            builder.basis_outcome(row, **kw)
+
+
+def test_plain_answers_equal_mapping_of_stored_outcomes(matrix, builder):
+    prov = matrix["provenance"]
+    assert "reading aid" in prov["plain_answers_rule"] and "not verdicts" in prov["plain_answers_rule"]
+    md = MD.read_text(encoding="utf-8")
+    assert prov["plain_answers_rule"] in md and "## Plain answers" in md
+    n_half = 0
+    for h in matrix["hypotheses"]:
+        rows = {r["row_id"]: r for r in h["rows"]}
+        comps = {c["id"]: c["verdict"] for c in h["components"]}
+        assert h["plain_answers"], h["id"]
+        assert h["verdict"] in h["plain_answers_note"]
+        for a in h["plain_answers"]:
+            assert a["answer"] in builder.PLAIN_ANSWERS
+            b = a["basis"]
+            assert len(b["rows"]) == 1
+            r = rows[b["rows"][0]]
+            stored = builder.basis_outcome(r, b.get("half"), b.get("mode"))
+            assert a["basis_outcome"] == stored
+            assert a["answer"] == builder.plain_answer(stored)
+            if a["answer"] == "Yes":
+                assert stored == S, a["claim"]
+            if a["answer"] == "No":
+                assert stored == C, a["claim"]
+            assert a["row_verdict"] == r["verdict"] and a["component_verdict"] == comps[r["component"]]
+            assert f"{r['row_id']} {r['verdict']}" in a["formal_verdict"]
+            if b.get("half"):
+                n_half += 1
+                assert r["verdict"] == I and "half" in a["note"] and "stays" in a["note"]
+            assert a["limitation"]
+        for x in h["published_figures_checked"]:
+            r = rows[x["row"]]
+            assert r["role"] == "secondary" and x["result"] == builder.figure_result(r["verdict"])
+    assert n_half == 4
+
+
+def test_plain_answers_do_not_change_verdicts(matrix, builder):
+    """Verdicts are derived from the rows only: recomputing them ignores the plain answers."""
+    for h in matrix["hypotheses"]:
+        prim = {c["id"]: [next(r["verdict"] for r in h["rows"] if r["row_id"] == x) for x in c["primary_rows"]] for c in h["components"]}
+        cv = [builder.component_verdict(v) for v in prim.values()]
+        assert cv == [c["verdict"] for c in h["components"]]
+        assert builder.hypothesis_verdict_v2(cv) == h["verdict"]
+
+
+def test_plain_answer_halves_and_qualifiers(matrix):
+    pa = {(h["id"], a["claim"]): a for h in matrix["hypotheses"] for a in h["plain_answers"]}
+    by = {k[1]: v for k, v in pa.items()}
+    assert by["Direct ammonia is cheaper than cracking plus PSA for power"]["answer"] == "Yes"
+    assert by["Direct ammonia is cheaper than fired cracking for power"]["answer"] == "Not established"
+    assert by["Heat integration reduces energy use"]["answer"] == "Yes"
+    assert by["Heat integration reduces cost"]["answer"] == "Not established"
+    assert by["Lower temperature reduces energy use at equal conversion"]["qualifier"] == "modestly"
+    assert by["The energy savings outweigh the higher catalyst cost"]["qualifier"] == "leaning no"
+    assert by["Low carbon intensity is rewarded economically in Singapore"]["answer"] == "No"
+    hyp = by["Low carbon intensity would be rewarded under a life-cycle carbon price"]
+    assert hyp["answer"] == "Not established" and "not Singapore law" in hyp["qualifier"] and "not Singapore law" in hyp["limitation"]
+    blob = json.dumps(matrix)
+    for leak in ("orchestrator", "docs/internal", "v2_h1a", "function v2_"):
+        assert leak not in blob, leak
 
 
 def test_fix_pass_record_in_findings_changed(builder):

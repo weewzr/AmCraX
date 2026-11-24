@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:30:10+00:00",
+  "generated_utc": "2026-11-24T06:13:20+00:00",
   "script": "scripts/research/heat_exchanger_study.py",
   "what": "FEHE sizing, cost and net benefit of heat integration",
   "source_type": "python (on stored Aspen results)",
@@ -244,7 +244,8 @@
  },
  "row_evidence": {
   "H3-d": {
-   "proposed_verdict": "SUPPORTED",
+   "proposed_verdict": "INCONCLUSIVE (energy half SUPPORTED; cost half threshold-dependent: sourced U straddles the break-even U)",
+   "energy_half_supported": true,
    "numbers": {
     "energy_first_law_deficit_kW_hi_vs_nohi": [
      772.8673174,
@@ -306,7 +307,12 @@
     },
     "note": "break-even U (conservative multi-shell 1-2 design, SS/SS, TCI factor 1.4336) is 7.7-11.3 W/(m2 K); it lies inside the 1-bar typical range and far below the high-pressure range. No sourced value at 20 bar: a 20 bar gas is expected above the 1-bar range, but that is an engineering expectation, not a sourced number."
    },
-   "reason": "Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative in adverse corners listed in net_benefit_negative_in. The cost result therefore is SUPPORTED only inside the envelope U >= ~12 W/(m2 K) with NH3 >= ~310 USD/t and CRF <= ~0.15; outside that it is threshold-dependent."
+   "reason": "Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative in adverse corners listed in net_benefit_negative_in. The cost half depends on an overall heat-transfer coefficient with no source at 20 bar: the break-even U (7.7-11.3 W/(m2 K)) lies inside the only sourced (1 bar) typical range 5-35, so the cost half is threshold-dependent (INCONCLUSIVE). Break-even CRF (solved): 0.186 / 0.223 / 0.244 at U low / central / high (reference CRF 0.110).",
+   "breakeven_crf_solved": {
+    "low": 0.1855991811925393,
+    "central": 0.223380030892775,
+    "high": 0.24371478240844072
+   }
   }
  },
  "served_keys": [

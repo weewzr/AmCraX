@@ -76,6 +76,25 @@ describe('outputs', () => {
     expect(act.label).not.toMatch(/HYPOTHETICAL/)
     expect(hyp.value).not.toBe(act.value)
   })
+  it('a zero actual-mode carbon cost is labelled as the statutory result, also after a switch to an extrapolated kinetic catalyst', () => {
+    const kin = { ...base, reactor: 'isothermal' as const, catalyst_id: 'ni_takahashi_microkinetic', preset: null }
+    for (const s of [base, kin]) {
+      const cc = runCase(s, data).rows.find((x) => x.key === 'carbon_cost')!
+      expect(cc.value).toBe(0)
+      expect(cc.source).toBe('statutory')
+    }
+    expect(SOURCE_TEXT.statutory).toBe('Statutory result')
+    const hyp = runCase({ ...kin, carbon_mode: 'hypothetical', carbon_price_SGD_per_t: 80 }, data).rows.find((x) => x.key === 'carbon_cost')!
+    expect(hyp.source).toBe('assumption')
+  })
+  it('green ammonia shows both carbon intensities, each labelled with its boundary', () => {
+    const g = runCase({ ...base, nh3_route: 'green', preset: null }, data).rows
+    const emb = g.find((x) => x.key === 'carbon_intensity')!, zero = g.find((x) => x.key === 'carbon_intensity_zero_boundary')!
+    expect(emb.label).toMatch(/embedded/)
+    expect(zero.label).toMatch(/renewable electricity as zero/)
+    expect(zero.value!).toBeLessThan(emb.value!)
+    expect(runCase(base, data).rows.some((x) => x.key === 'carbon_intensity_zero_boundary')).toBe(false)
+  })
   it('source badge text covers every core label', () => {
     expect(SOURCE_TEXT.aspen).toBe('Aspen Plus V15')
     expect(SOURCE_TEXT.interpolation).toBe('Interpolated Aspen grid')

@@ -122,7 +122,7 @@ def main() -> None:
     val: list[dict] = []
 
     def add(id_, desc, method, ref, obs, exp, tol, unit, status, files):
-        # Phase 2: every item names its kind of evidence (docs/internal/phase2_brief.md); none is experimental
+        # Phase 2: every item names its kind of evidence (the four evidence kinds of Phase 2); none is experimental
         kind = ("python_vs_aspen" if id_.startswith("HCAT-ASPY-") else
                 "literature_comparison" if id_.startswith("HCAT-CHO-") else "numerical_verification")
         val.append({"id": id_, "description": desc, "evidence_kind": kind, "method": method, "reference_source": ref,
@@ -133,7 +133,7 @@ def main() -> None:
     base = SimulationResult.model_validate(json.loads((ROOT / "results/simulations/baseline.json").read_text(encoding="utf-8")))
     hb = cc.heat_accounting(base, 20.0)
     add("HCAT-PINCH-BASELINE", "Heat import after FEHE and tail-gas firing (config c) for the stored Aspen baseline, dT_min 20 K",
-        "cc.heat_accounting(results/simulations/baseline.json, 20)", "docs/internal/fact_sheet.md F7 (752.6 kW)",
+        "cc.heat_accounting(results/simulations/baseline.json, 20)", "pinch analysis of the stored Aspen baseline, results/simulations/heat_integration_baseline.json configuration (c) (752.6 kW)",
         round(hb["external_heat_import_kW"], 2), 752.6, 0.1, "kW",
         "pass" if abs(hb["external_heat_import_kW"] - 752.6) <= 0.1 else "fail", ["results/simulations/baseline.json"])
 

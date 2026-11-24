@@ -262,6 +262,7 @@
 .src-aspen{color:var(--src-aspen)}.src-interpolation{color:var(--src-aspen);border-style:dashed}
 .src-browser-model{color:var(--src-python)}.src-extrapolation{color:var(--error);border-style:dashed}
 .src-assumption{color:var(--src-assumption)}.src-none{color:var(--muted);border-style:dotted}
+.src-statutory{color:var(--text);border-style:double;border-width:3px}
 .sim-cmp-wrap{overflow-x:auto}
 .sim-cmp{width:100%;border-collapse:collapse;font-size:12px}
 .sim-cmp th,.sim-cmp td{padding:5px 4px;border-top:1px solid var(--border);vertical-align:top;text-align:left}

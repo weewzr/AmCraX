@@ -131,5 +131,7 @@ it('browser model against Python and against stored Aspen results (comparison, n
       inputs: ['results/research/simulator/model.json', 'results/research/simulator/aspen_anchors.json', 'results/research/simulator/test_vectors.json'] },
   }
   expect(rep.browser_vs_aspen.kinetic_summary.n).toBeGreaterThan(0)
+  // fix plan C-m13: browser economics against the Python-generated vectors to 1e-9 relative
+  expect(rep.browser_vs_python.lcoh_max_rel).toBeLessThan(1e-9)
   if (process.env.AMCRAX_WRITE_PARITY === '1') writeFileSync(new URL('parity_report.json', resultsDir), JSON.stringify(rep, null, 1) + '\n', 'utf-8')
 }, 300_000)

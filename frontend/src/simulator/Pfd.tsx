@@ -33,6 +33,8 @@ const UNIT_VAL: Record<string, [number, number, 'middle' | 'start']> = {
   PUMP: [150, 427, 'middle'], VAPORIZR: [254, 427, 'middle'], FEHE: [430, 427, 'middle'], HEATER: [562, 427, 'middle'],
   CRACKER: [762, 280, 'start'], BURNER: [762, 436, 'start'], COOLER: [915, 135, 'middle'], FLUEHX: [902, 317, 'middle'],
 }
+/** Line printed under a unit value where the number is not that unit's duty (FLUEHX shows the burner heat credited). */
+const UNIT_VAL_NOTE: Record<string, string> = { FLUEHX: 'burner heat credited' }
 
 /** Content of the diagram tooltip of a unit or a stream: the same facts as its panel. */
 export function tooltipModel(id: string, units: ReturnType<typeof unitViews>, streams: Record<string, StreamView>): { title: string; sub: string; facts: Fact[] } | null {
@@ -173,6 +175,7 @@ export const Pfd = memo(function Pfd({ c, d, playing, selected, onSelect, showVa
       <g {...p} className={`${p.className} ${extra}`}>
         {children}
         {lv && at ? <text x={at[0]} y={at[1]} textAnchor={at[2]} className="sim-val">{lv.text} <tspan className="sim-mark">{lv.mark}</tspan></text> : null}
+        {lv && at && UNIT_VAL_NOTE[id] ? <text x={at[0]} y={at[1] + 14} textAnchor={at[2]} className="sim-tag sim-val-note">{UNIT_VAL_NOTE[id]}</text> : null}
       </g>
     )
   }

@@ -1,6 +1,6 @@
 # Research evidence matrix (H1-H4), methodology version 2
 
-Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T06:32:16Z). Do not edit by hand; re-run the script.
+Generated from `results/research/evidence_matrix.json` by `scripts/research/build_evidence_matrix.py` (2026-11-24T08:00:32Z). Do not edit by hand; re-run the script.
 
 Verdict rule: `docs/research/verdict_methodology_v2.md` (version 2, fixed before the Phase 2 analyses). Row verdicts: SUPPORTED, CONTRADICTED, INCONCLUSIVE. Component and hypothesis verdicts add MIXED and PARTIALLY SUPPORTED. Every row verdict is derived in code from the result files by the rule printed with the row. The version 1 verdict of the 23 November 2026 release is shown beside every verdict.
 
@@ -14,12 +14,84 @@ Currency: calculations in USD; SGD values use 1.288444 SGD/USD (2026-11-20).
 
 ## Disclosures
 
-- Only the row roles, the components, the aggregation rule and the general row standard were fixed in commit f233509 before the analyses. The row-by-row coded rules (v2_h1a to v2_h4e in this script) were written after the results were known and were then tested by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from SUPPORTED to INCONCLUSIVE. Their agreement with the orchestrator's row decisions is by construction, not an independent check. The row standard was applied more strictly in that change, not relaxed.
+- Only the row roles, the components, the aggregation rule and the general row standard were fixed in commit f233509 before the analyses. The row-by-row rules were written after the results were known and were then checked by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from SUPPORTED to INCONCLUSIVE. Because the row rules were written with the results in view, their agreement with the row verdicts is not an independent check. The row standard was applied more strictly in that change, not relaxed. The corrections are recorded in results/research/fix_pass_2026-11-24.json and docs/research/phase2_findings_changed.md.
 - The CAPEX selection criteria were recorded together with the choice (commit 7447308); that they preceded the comparison cannot be shown. The chosen estimate is the highest of the candidates: it works against cracking (it raises LCOH, lowers the break-even ammonia price and widens the direct-use advantage in H1). No verdict changes across the independent CAPEX range.
 - By the written aggregation rule a MIXED component counts for nothing at hypothesis level (for example [MIXED] gives INCONCLUSIVE and [MIXED, SUPPORTED] gives PARTIALLY SUPPORTED).
 - Probabilities from the Monte Carlo and Sobol analyses (for example P(LCOH < 3.06 USD/kg)) are conditional on the assumed triangular and uniform input distributions.
 
-Fix pass: 24 November 2026: the accepted findings of three independent reviews were applied (docs/internal/phase2_fix_plan.md): rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under rewritten coded rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d.
+Fix pass: 24 November 2026: the findings of three independent reviews (of the verdicts, of the documents against the result files, and of the models and code) were applied: rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under rewritten row rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d. Every changed value is recorded in results/research/fix_pass_2026-11-24.json and docs/research/phase2_findings_changed.md.
+
+## Plain answers (reading aid, not verdicts)
+
+Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is exactly one of 'Yes', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. Everything else is 'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict with its components is printed beside the plain answers. The qualifier and the limitation are computed from the same stored values as the row.
+
+Published figures checked (secondary reproduction rows; they do not vote): 'reproduced' only where the reproduction row is SUPPORTED, 'not reproduced' only where it is CONTRADICTED, otherwise 'not established'.
+
+### H1: End-use suitability: cracking is most justified when the end use needs molecular hydrogen, not where ammonia can be used directly.
+
+**Plain answers (reading aid; formal verdict INCONCLUSIVE, components H1-P INCONCLUSIVE, H1-Q INCONCLUSIVE).**
+
+| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
+|---|---|---|---|---|---|
+| Direct ammonia is cheaper than cracking plus PSA for power | **Yes** | - | Direct use is 17 % cheaper (259 against 310 USD/MWh) at an assumed equal turbine efficiency of 49.64 %. Cracking + PSA would need a turbine 12.6 percentage points more efficient, above the only sourced gain (6.1 to 7.3 points, one upper-bound source that is not like for like) on every cost basis. Finding on the cracking + PSA half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (cracking + PSA half) | H1-a INCONCLUSIVE (cracking + PSA half SUPPORTED; the row needs both halves); component H1-P INCONCLUSIVE |
+| Direct ammonia is cheaper than fired cracking for power | **Not established** | - | Direct use is 8 % cheaper (259 against 280 USD/MWh) only at the assumed equal turbine efficiency; fired cracking would need +5.2 points (+6.5 with cracker heat at 0.85 of the fuel LHV), and no turbine efficiency on its H2/N2 fuel is sourced. Finding on the fired-cracking half of row H1-a; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H1-a (fired-cracking half) | H1-a INCONCLUSIVE (fired-cracking half INCONCLUSIVE; the row needs both halves); component H1-P INCONCLUSIVE |
+| Cracking in front of a turbine does not pay | **Not established** | - | Against the essay, exhaust-heated full cracking is 1.3 % cheaper than direct use on the reference basis (255.6 against 258.9 USD/MWh); this is not robust: the sign changes across cost, price and hour bases (a cracker CAPEX x1.22 removes it). | H1-c | H1-c INCONCLUSIVE; component H1-P INCONCLUSIVE |
+| Cracking is justified where hydrogen is the product | **Not established** | - | Cracked hydrogen costs 4.015 USD/kg with fuel counted at 100 % of its LHV (4.038 to 4.063 at lower fuel efficiencies): above the 3.06 USD/kg NE Asia SMR marker, below the 6.0 USD/kg delivered low-carbon benchmark. For power, cracking + PSA gives 2.53 to 2.58 kWh/kg NH3 at sourced turbine gains against 2.57 for direct combustion, so the energy comparison is also unresolved. | H1-d | H1-d INCONCLUSIVE; component H1-Q INCONCLUSIVE |
+
+**Published figures checked (secondary rows; they do not vote).**
+
+| Published figure | Result | Finding | Row |
+|---|---|---|---|
+| Direct ammonia power about 40 % cheaper than cracking-based power (Halim et al., quoted in the essay) | not reproduced | At most 16.6 % on AmCraX boundaries. | H1-b CONTRADICTED |
+
+### H2: Feedstock: affordable, low-carbon ammonia is essential to economic and environmental competitiveness.
+
+**Plain answers (reading aid; formal verdict MIXED, components H2-E PARTIALLY SUPPORTED, H2-C SUPPORTED, H2-X CONTRADICTED).**
+
+| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
+|---|---|---|---|---|---|
+| The ammonia price is the dominant cost of cracked hydrogen | **Yes** | - | Feed is 76 % of the LCOH. It stays above half for ammonia above 115 USD/t and for CAPEX below x4.27 at 450 USD/t (x2.81 at 300 USD/t). The cost excluding feed is driven by CAPEX and PSA recovery. | H2-a | H2-a SUPPORTED; component H2-E PARTIALLY SUPPORTED |
+| Cheap ammonia makes cracked hydrogen competitive | **Not established** | threshold 320 USD/t | Competitive with the 3.06 USD/kg NE Asia SMR marker only with ammonia at or below about 320 USD/t (277 to 379); grey ammonia at 450 USD/t is not cheap enough. Sourced prices (300 to 1052 USD/t) lie on both sides. Against the 6.0 USD/kg delivered low-carbon benchmark the break-even is 720 USD/t. | H2-b | H2-b INCONCLUSIVE; component H2-E PARTIALLY SUPPORTED |
+| Low-carbon ammonia is needed for an emissions advantage in power | **Yes** | - | Grey ammonia (gate factor 2.0 kg CO2e/kg NH3 or more) lies above every break-even (0.81 to 1.33) and green (at most 0.48) below; blue (central 1.16) passes only in part of its range. Emission factors are sourced, not measured. | H2-c | H2-c SUPPORTED; component H2-C SUPPORTED |
+| Low-carbon ammonia is needed for an emissions advantage in hydrogen supply | **Yes** | - | Against unabated SMR (break-even 1.31 to 1.58 kg CO2e/kg NH3) grey fails and green passes. Against SMR with CCS (break-even 0.41 to 0.67) green at its high value (0.48) fails the lowest case. | H2-d | H2-d SUPPORTED; component H2-C SUPPORTED |
+| Low carbon intensity is rewarded economically in Singapore | **No** | - | Under the actual Singapore carbon tax the charge is 0 USD/kg for every ammonia route, while blue (4.29 USD/kg) and green at today's price (8.06) cost more than grey (4.02). | H2-e (actual Singapore carbon-tax boundary) | H2-e CONTRADICTED (actual Singapore carbon-tax boundary: CONTRADICTED; this mode votes); component H2-X CONTRADICTED |
+| Low carbon intensity would be rewarded under a life-cycle carbon price | **Not established** | hypothetical, not Singapore law | Blue overtakes grey at 33 SGD/t CO2e (range 12 to 605) against the legislated 45 SGD/t; green at today's price needs 305 SGD/t. Hypothetical, not Singapore law. Hypothetical scenario, not Singapore law; reported separately and does not vote. | H2-e (hypothetical life-cycle carbon price, not Singapore law) | H2-e CONTRADICTED (hypothetical life-cycle carbon price, not Singapore law: INCONCLUSIVE; reported separately, does not vote); component H2-X CONTRADICTED |
+
+### H3: Catalyst and heat integration: low-temperature, high-activity catalysts with effective heat integration reduce energy use and can outweigh higher catalyst cost.
+
+**Plain answers (reading aid; formal verdict PARTIALLY SUPPORTED, components H3-T PARTIALLY SUPPORTED, H3-H INCONCLUSIVE, H3-K INCONCLUSIVE).**
+
+| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
+|---|---|---|---|---|---|
+| Lower temperature reduces energy use at equal conversion | **Yes** | modestly | At most 25 kW (Ru/Al2O3), 4.9 % of the fired duty and 1.1 % of the 2293 kW total external heating; Python only; resolved only for Ru/Al2O3 and Ru/MgO (72 K or more below Ni/MgO). Cost-optimal Ru designs run hotter and use 19 to 21 kW more. | H3-a | H3-a SUPPORTED; component H3-T PARTIALLY SUPPORTED |
+| Active catalysts allow that lower temperature at 20 bar | **Not established** | - | The models order the catalysts (499 to 594 degC), but no rate law is validated at the relevant conditions (20 bar): 3 are checked only against their own fitting data and 2 are extrapolated. | H3-b | H3-b INCONCLUSIVE; component H3-T PARTIALLY SUPPORTED |
+| Heat integration reduces energy use | **Yes** | - | Aspen first-law heat deficit 1385 to 773 kW (-44 %), far more than the catalyst temperature saves. Finding on the energy half of row H3-d; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H3-d (energy half) | H3-d INCONCLUSIVE (energy half SUPPORTED; the row needs both halves); component H3-H INCONCLUSIVE |
+| Heat integration reduces cost | **Not established** | - | Saves 0.214 USD/kg gross and 0.067 to 0.095 net of the exchanger on the reference basis, but the break-even heat-transfer coefficient (7.7 to 11.3 W/(m2 K)) lies inside the only sourced range (5 to 35, about 1 bar; none at 20 bar); worst case -0.012 USD/kg. Finding on the cost half of row H3-d; the formal row verdict stays INCONCLUSIVE because the row needs both halves. | H3-d (cost half) | H3-d INCONCLUSIVE (cost half INCONCLUSIVE; the row needs both halves); component H3-H INCONCLUSIVE |
+| The energy savings outweigh the higher catalyst cost | **Not established** | leaning no | With heat integration and derived catalyst prices 3 of 4 low-temperature catalysts are dearer than Ni/MgO beyond the model resolution, with Ni at its modelled 594 degC (extrapolated law); against sourced Ni design temperatures (736, 760 degC) every low-temperature design is cheaper. | H3-c | H3-c INCONCLUSIVE; component H3-K INCONCLUSIVE |
+
+**Published figures checked (secondary rows; they do not vote).**
+
+| Published figure | Result | Finding | Row |
+|---|---|---|---|
+| A Ru cracker needs no supplementary fuel while a Ni cracker does (Cho et al. 2026) | not established | Holds only for PSA recoveries of 0.756 to 0.781. | H3-e INCONCLUSIVE |
+| Ru gives a 7 % lower reconversion cost than Ni (Cho et al. 2026) | not established | -16.2 to 1.6 % on AmCraX boundaries; the sign depends on the price and inventory basis. | H3-f INCONCLUSIVE |
+
+### H4: Purification: must balance purity requirements against recovery losses, energy and equipment cost.
+
+**Plain answers (reading aid; formal verdict INCONCLUSIVE, components H4-B INCONCLUSIVE).**
+
+| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |
+|---|---|---|---|---|---|
+| Higher purity costs hydrogen recovery | **Not established** | - | No purity-recovery relation is computed for cracked ammonia (PSA recoveries are inputs). The only sourced slope (Yanez et al. 2020: 0.753 at 99.25 % to 0.555 at 99.97 %) is for a different feed. | H4-a | H4-a INCONCLUSIVE; component H4-B INCONCLUSIVE |
+| Stricter purity raises the cost of hydrogen | **Not established** | - | The order raw < industrial < Grade D holds in every case, but the purity-only Grade D increment at equal delivery pressure is 0.002 to 0.166 USD/kg, partly below the 0.006 USD/kg model resolution and resting on assumed recoveries. | H4-b | H4-b INCONCLUSIVE; component H4-B INCONCLUSIVE |
+| Unrecovered hydrogen offsets furnace fuel | **Not established** | - | The tail gas covers the 2293 kW furnace demand only at PSA recoveries below 0.765 (where part of it is surplus with no use in the model); sourced and assumed recoveries (0.555 to 0.850) lie on both sides. | H4-e | H4-e INCONCLUSIVE; component H4-B INCONCLUSIVE |
+| A Pd-Ag membrane beats PSA for fuel-cell hydrogen | **Not established** | - | The membrane is cheaper in 57.5 % of sourced input pairs; parity at PSA recovery 0.783 (Grade D) and 0.795 (industrial); membrane readiness TRL 4 to 5 against 9 for PSA. Secondary row: reported, does not vote. | H4-d | H4-d INCONCLUSIVE; component H4-B INCONCLUSIVE (secondary row, does not vote) |
+
+**Published figures checked (secondary rows; they do not vote).**
+
+| Published figure | Result | Finding | Row |
+|---|---|---|---|
+| The published PSA point (Cho et al. 2026: recovery 0.756 at 99.11 % H2) as a product that meets the industrial grade or ISO 14687 grade D | not reproduced | It contains about 8900 ppm N2 and meets neither grade. | H4-c CONTRADICTED |
 
 ## Verdict table
 
@@ -890,7 +962,7 @@ Role: primary (H3-H). Version 1 verdict: SUPPORTED.
 
 **Rule and outcome.** Two-half rule (methodology v2; the sub-claim says 'reduces energy use (and cost)', and a row with two halves needs both, as for H1-a). Energy half: SUPPORTED if heat integration lowers the Aspen first-law heat deficit by more than the Python against Aspen fired-duty offset (15.2 kW) and by more than the largest equal-conversion catalyst-temperature saving. Cost half, threshold rule: the overall heat-transfer coefficient at which the exchanger cost equals the fuel saving is compared with the sourced coefficient range; SUPPORTED if the sourced values lie above every break-even U, CONTRADICTED if below, otherwise INCONCLUSIVE. The row is SUPPORTED only if both halves are SUPPORTED. Here: energy half SUPPORTED, cost half INCONCLUSIVE (sourced 5-35 W/(m2 K) at about 1 bar, no value at 20 bar, 'straddle' the break-even).
 
-**Envelope.** 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.
+**Envelope.** 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below 7.7 to 11.3 W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.
 
 **Threshold.** overall heat-transfer coefficient at which the exchanger cost equals the fuel saving: 7.677, 11.305. Sourced: sourced typical U, gas ~1 bar both sides, low (VDI Heat Atlas; no value at 20 bar) 5, sourced typical U, gas ~1 bar both sides, high 35. Comparison: {"energy_half": "SUPPORTED", "cost_half": "INCONCLUSIVE", "sourced_U_vs_breakeven": "straddle"}.
 
@@ -908,7 +980,7 @@ Role: primary (H3-H). Version 1 verdict: SUPPORTED.
 
 **Evidence kinds.** python vs aspen, numerical verification, literature comparison.
 
-**Key uncertainty (what would change the verdict).** Outside this envelope the verdict may change: 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.
+**Key uncertainty (what would change the verdict).** Outside this envelope the verdict may change: 20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U. Energy: the Aspen first-law deficit falls by 44 % on the baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below 7.7 to 11.3 W/(m2 K) and in 4 adverse corners (for example U 10; NH3 300.0 USD/t, U low; CRF 0.199, U low); worst case -0.012 USD/kg. Break-even capital recovery factor (solved) 0.186 / 0.223 / 0.244 at U low / central / high.
 
 **Uncertainty range.** U 10-500 W/(m2 K), NH3 300-1000 USD/t, CRF 0.094-0.199, CEPCI 720-800, material CS/CS to SS/SS, Towler correlation, F=1 vs multi-shell
 

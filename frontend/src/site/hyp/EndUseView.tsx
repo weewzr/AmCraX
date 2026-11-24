@@ -5,10 +5,12 @@ import { XYChart } from '../../features/common/XYChart'
 import { HBarChart } from '../charts'
 import { Callout, Reading, Section } from '../ui'
 import { AssumptionsTable, COLORS, DTable, FileNote, SrcTag, useRJson, useRRows, type Assumption, type Prov, type Row } from './parts'
+import { GreenCiNote } from './phase2'
 import { groupBy, num, pivotXY, srcOf } from './shape'
 
 const PRICES: [string, string][] = [['grey_450', 'Grey NH3, 450 USD/t'], ['blue_487', 'Blue NH3, 487 USD/t'], ['green_2030_709', 'Green NH3 2030, 709 USD/t'], ['green_current_1000', 'Green NH3 now, 1000 USD/t']]
-const ROUTES: [string, string][] = [['green', 'Green NH3'], ['blue', 'Blue NH3'], ['grey', 'Grey NH3']]
+const ROUTES: [string, string][] = [['green', 'Green NH3 (incl. embedded emissions)'], ['blue', 'Blue NH3'], ['grey', 'Grey NH3']]
+const GREEN_EMB = 'Green NH3 (incl. embedded emissions)'
 
 interface EndUse extends Prov {
   halim_claim_check: { halim_statement: string; computed: Row[] }
@@ -41,9 +43,9 @@ function Power({ eu }: { eu: EndUse | null }) {
             description="Levelised cost of electricity for direct ammonia combustion and cracking-based power pathways at the selected ammonia price."
             series={[{ key: 'USD per MWh', label: 'USD per MWh', color: COLORS[0] }]} />
           <Reading>Efficiency values are calibrated to published plant data (literature) and cost is computed by the Python economics model; each pathway's basis is listed in the table below. Compare the direct-combustion pathway (c1) with the cracking pathways at the same price.</Reading>
-          <HBarChart title="Life-cycle carbon intensity of power by pathway and ammonia route" source="python_model" data={rows.map((r) => ({ pathway: String(r.pathway), 'Green NH3': num(r.CI_green_kgCO2e_per_MWh), 'Blue NH3': num(r.CI_blue_kgCO2e_per_MWh), 'Grey NH3': num(r.CI_grey_kgCO2e_per_MWh) }))} catKey="pathway" xLabel="kg CO2e per MWh net electricity" height={Math.max(520, rows.length * 62 + 110)} refLines={refs}
+          <HBarChart title="Life-cycle carbon intensity of power by pathway and ammonia route" source="python_model" data={rows.map((r) => ({ pathway: String(r.pathway), [GREEN_EMB]: num(r.CI_green_kgCO2e_per_MWh), 'Blue NH3': num(r.CI_blue_kgCO2e_per_MWh), 'Grey NH3': num(r.CI_grey_kgCO2e_per_MWh) }))} catKey="pathway" xLabel="kg CO2e per MWh net electricity" height={Math.max(520, rows.length * 62 + 110)} refLines={refs}
             description="Carbon intensity of electricity per pathway for green, blue and grey ammonia routes, with natural-gas CCGT and the Singapore grid average as reference lines."
-            series={[{ key: 'Green NH3', label: 'Green NH3', color: COLORS[2] }, { key: 'Blue NH3', label: 'Blue NH3', color: COLORS[0] }, { key: 'Grey NH3', label: 'Grey NH3', color: COLORS[1] }]} />
+            series={[{ key: GREEN_EMB, label: GREEN_EMB, color: COLORS[2] }, { key: 'Blue NH3', label: 'Blue NH3', color: COLORS[0] }, { key: 'Grey NH3', label: 'Grey NH3', color: COLORS[1] }]} />
           <Reading>Reference lines: natural-gas CCGT and the Singapore grid average{alt ? ` (${alt.ccgt_ng_kgCO2e_per_MWh.source_type}; ${alt.grid_average_kgCO2e_per_MWh.source_type})` : ''}. Ammonia routes below the lines cut emissions against them; routes above do not.</Reading>
           <DTable caption="Power pathways: efficiency, cost at each ammonia price and carbon intensity" rows={rows} keyOf={(r) => String(r.id)}
             cols={[
@@ -103,7 +105,7 @@ function Hydrogen() {
             { h: 'Grey NH3 (USD/kg)', cell: (r) => fmt(num(r.cost_USD_per_kg_at_grey_450), 2), right: true },
             { h: 'Blue NH3 (USD/kg)', cell: (r) => fmt(num(r.cost_USD_per_kg_at_blue_487), 2), right: true },
             { h: 'Green 2030 (USD/kg)', cell: (r) => fmt(num(r.cost_USD_per_kg_at_green_2030_709), 2), right: true },
-            { h: 'CI green (kg CO2e/kg H2)', cell: (r) => fmt(num(r.CI_green_kgCO2e_per_kgH2), 1), right: true },
+            { h: 'CI green, incl. embedded emissions (kg CO2e/kg H2)', cell: (r) => fmt(num(r.CI_green_kgCO2e_per_kgH2), 1), right: true },
             { h: 'CI blue', cell: (r) => fmt(num(r.CI_blue_kgCO2e_per_kgH2), 1), right: true },
             { h: 'CI grey', cell: (r) => fmt(num(r.CI_grey_kgCO2e_per_kgH2), 1), right: true },
             { h: 'Basis', cell: (r) => <span className="small">{String(r.source_labels ?? '')}</span> },
@@ -140,6 +142,7 @@ function Lcas() {
                 { h: 'Cracked H2 CCGT (kg CO2e/MWh)', cell: (r) => fmt(num(r.cracked_purified_H2_CCGT_kgCO2e_per_MWh), 0), right: true },
                 { h: 'Gate factor source', cell: (r) => <SrcTag s={r.source_type} /> },
               ]} />
+            <GreenCiNote />
             <FileNote file="results/research/lca/lca_routes.csv" />
           </>
         )

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-24T06:10:38Z",
+  "generated_utc": "2026-11-24T07:33:40Z",
   "script": "scripts/research/purification_phase2.py",
   "source_type": "python",
   "inputs_summary": "Phase 2 D2: PSA against Pd-Ag membrane on the unified reference basis; low/central/high from sourced inputs (purification_literature.json)",
@@ -1265,6 +1265,11 @@
   "phase2": "Required ideal H2/N2 selectivity for Grade D (N2 300 ppm, R 0.90, 1 bar permeate, 400 degC): 12919. Sourced: Cechetto et al. 2021 state above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance gives about 40,541. The requirement is met by every sourced value, but only as ideal (single-gas) values of NEW membranes from one group, at 450 degC, with trace NH3 only; mixed-gas and aged selectivity were not found (a review excerpt reporting decay 6000 -> 4300 and 4300 -> 1000 in about 1000 h could not be opened and is not used).",
   "nus_researchers": "Zhang Sui and Zhao Dan are membrane scientists at NUS Chemical and Biomolecular Engineering. Their verified published gas-separation work is on non-metallic membranes at low temperature and does not address cracked-ammonia purification. No number from their work is used in AmCraX and no specific work is attributed to them here (research/notes/nus_membrane_researchers.md)"
  },
+ "csv_column_notes": {
+  "capital_USD": "Fixed purification capital other than membrane modules, charged with the capital recovery factor plus maintenance and insurance: the PSA + TSA units for PSA; for the membrane only the NH3 polishing bed (Grade D only, an adsorber-share proxy). Zero for the industrial-grade membrane, which needs no polishing bed.",
+  "membrane_module_cost_USD": "Purchase cost of the Pd-Ag membrane modules (area x cost per m2). Not part of capital_USD: it is annualised over the membrane life with the capital recovery factor at that life.",
+  "replacement_USD_per_yr": "Annualised membrane module cost (area x cost per m2 x capital recovery factor at the membrane life); it covers the module replacement."
+ },
  "h4b_purity_cost_check": {
   "by_electricity": [
    {
@@ -1326,7 +1331,7 @@
    "reason": "the direction is shown by one literature source for a different feed (literature_comparison), not computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"
   },
   "H4-b": {
-   "proposed_verdict": "SUPPORTED (direction), narrow envelope; orchestrator to decide",
+   "proposed_verdict": "SUPPORTED (direction), narrow envelope; the evidence matrix rule decides",
    "numbers": {
     "by_electricity": [
      {
@@ -1374,7 +1379,7 @@
    "uncertainty": "factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, selectivity, flux, recovery)",
    "envelope": "20 bar baseline cracked gas, grey NH3 450 USD/t, electricity 0.084-0.222 USD/kWh, unified basis",
    "threshold": "none needed for the sign: the Grade D increment of the cheapest route is positive in every input combination; its purity-only part at equal delivery is small (membrane: polishing bed; PSA: about zero under the flat relation, positive under Yanez)",
-   "reason": "ordering raw < cheapest industrial < cheapest Grade D holds at every electricity price and every sourced input combination (order_holds_everywhere = True). Caveat: raw < industrial is structural (raw skips purification) and most of the Grade D increment is 350 bar delivery, not purity; the orchestrator may judge the purity-only part too small or too proxy-dependent and keep INCONCLUSIVE"
+   "reason": "ordering raw < cheapest industrial < cheapest Grade D holds at every electricity price and every sourced input combination (order_holds_everywhere = True). Caveat: raw < industrial is structural (raw skips purification) and most of the Grade D increment is 350 bar delivery, not purity; the evidence matrix rule may judge the purity-only part too small or too proxy-dependent and keep INCONCLUSIVE"
   },
   "H4-c": {
    "proposed_verdict": "CONTRADICTED (unchanged)",

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { baseName, extent, frac, groupBy, isoCheck, list, pivotXY, safeRepoPath, show, splitFitted, srcOf, truthy, verdictKind, normVerdict, interpRows, nearestRow } from './shape'
+import { baseName, extent, frac, groupBy, isoCheck, list, pivotXY, safeRepoPath, show, splitFitted, srcOf, truthy, verdictKind, normVerdict, interpRows, nearestRow, qualifierOf, thresholdSummary } from './shape'
 
 describe('srcOf', () => {
   it('maps the source_type strings of the result files', () => {
@@ -111,5 +111,22 @@ describe('range helpers', () => {
     expect(frac(5, 0, 10)).toBe(0.5)
     expect(frac(5, 5, 5)).toBe(0.5)
     expect(frac(20, 0, 10)).toBe(1)
+  })
+})
+
+describe('verdict qualifier and row thresholds (evidence matrix)', () => {
+  it('qualifierOf returns the first sentence only when it starts with the verdict word', () => {
+    expect(qualifierOf('PARTIALLY SUPPORTED, resting only on X-T (row X-a, narrow envelope). Components: more.', 'PARTIALLY SUPPORTED'))
+      .toBe('PARTIALLY SUPPORTED, resting only on X-T (row X-a, narrow envelope).')
+    expect(qualifierOf('Ammonia price dominates. More.', 'MIXED')).toBe('')
+    expect(qualifierOf(undefined, 'MIXED')).toBe('')
+    expect(qualifierOf('INCONCLUSIVE', 'INCONCLUSIVE')).toBe('INCONCLUSIVE')
+  })
+  it('thresholdSummary reads computed and sourced extents and the stored comparison', () => {
+    const t = { parameter: 'p', values: [{ value: 3, unit: 'u' }, { value: 1, unit: 'u' }], sourced_values: [{ value: 5 }, { value: 0.5 }], comparison: 'straddle' }
+    expect(thresholdSummary(t)).toEqual({ parameter: 'p', computed: [1, 3], sourced: [0.5, 5], unit: 'u', comparison: 'straddle' })
+    expect(thresholdSummary({ parameter: 'p', values: [] })).toBeNull()
+    expect(thresholdSummary('text')).toBeNull()
+    expect(thresholdSummary({ values: [{ value: 2 }], comparison: { a: 'straddle' } })?.comparison).toBe('a: straddle')
   })
 })

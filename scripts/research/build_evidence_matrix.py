@@ -1266,6 +1266,10 @@ def _v2(verdict, rule, *, envelope, threshold, conclusions, assumptions, uncerta
 
 
 # ---- H1 ------------------------------------------------------------------------------------
+# H1-a half outcome from the threshold comparison (sourced gains below every threshold: direct use is cheaper).
+HALF_FROM_SIDE = {"below": "SUPPORTED", "above": "CONTRADICTED"}
+
+
 def v2_h1a(r: Row, v1row: dict) -> dict:
     RE = "row_evidence/H1-a/numbers/"
     d = r.num("LCOE direct NH3 (unified basis)", F_TT, RE + "LCOE_direct", "USD/MWh", "python")
@@ -1329,7 +1333,10 @@ def v2_h1a(r: Row, v1row: dict) -> dict:
                            "cannot be tested because no efficiency is sourced, so the row is not SUPPORTED. Cracker heat is counted at "
                            f"100 % of the fuel LHV (optimistic, favourable to cracking): at 0.85 the fired threshold rises from "
                            f"+{f(fe_t[0],2)} to +{f(fe_t[-1],2)} pp (computed)."),
-               areas=["enduse"])
+               areas=["enduse"],
+               # each half computed and stored separately (the row needs both; plain answers may read one half)
+               extra={"half_verdicts": {"cracking_psa": HALF_FROM_SIDE.get(side_p, "INCONCLUSIVE"),
+                                        "fired_cracking": HALF_FROM_SIDE.get(side_f, "INCONCLUSIVE")}})
 
 
 def v2_h1b(r: Row, v1row: dict) -> dict:
@@ -1831,7 +1838,8 @@ def v2_h3d(r: Row, v1row: dict) -> dict:
             f"no value at 20 bar, '{s_u}' the break-even).")
     return _v2(v, rule,
                envelope=(text(F_HX, "row_evidence/H3-d/envelope") + f". Energy: the Aspen first-law deficit falls by {pct(red,0)} on the "
-                         "baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. Cost: the net saving is negative at U below {f(ub[0]['value'],1)}-{f(ub[1]['value'],1)} W/(m2 K) "
+                         "baseline, and the fuel saving is positive in every catalyst case and FEHE approach checked. "
+                         f"Cost: the net saving is negative at U below {f(ub[0]['value'],1)} to {f(ub[1]['value'],1)} W/(m2 K) "
                          f"and in {len(negs)} adverse corners (for example " + "; ".join(negs[:3]) + f"); worst case {f(worst,3)} USD/kg. "
                          f"Break-even capital recovery factor (solved) {f(crf['low'],3)} / {f(crf['central'],3)} / {f(crf['high'],3)} at U "
                          "low / central / high."),
@@ -1850,7 +1858,8 @@ def v2_h3d(r: Row, v1row: dict) -> dict:
                            f"{pct(-red,0)}), by far more than the catalyst temperature does. The cost half depends on an overall heat-transfer "
                            "coefficient with no source at 20 bar and the sourced 1-bar range straddles the break-even, so the row as "
                            "worded (energy and cost) is " + v + "."),
-               areas=["heat_exchanger", "aspen_kinetic", "economics"], literature=lit(("linnhoff1983pinch", "heat integration method")))
+               areas=["heat_exchanger", "aspen_kinetic", "economics"], literature=lit(("linnhoff1983pinch", "heat integration method")),
+               extra={"half_verdicts": {"energy": energy, "cost": cost}})
 
 
 def v2_h3e(r: Row, v1row: dict) -> dict:
@@ -2022,8 +2031,7 @@ V2_ROWS = {"H1-a": v2_h1a, "H1-b": v2_h1b, "H1-c": v2_h1c, "H1-d": v2_h1d,
            "H3-a": v2_h3a, "H3-b": v2_h3b, "H3-c": v2_h3c, "H3-d": v2_h3d, "H3-e": v2_h3e, "H3-f": v2_h3f,
            "H4-a": v2_h4a, "H4-b": v2_h4b, "H4-c": v2_h4c, "H4-d": v2_h4d, "H4-e": v2_h4e}
 
-# Verdicts listed in docs/internal/phase2_fix_plan.md section 1 (binding after the three independent reviews; it
-# supersedes docs/internal/phase2_decisions.md, which now agrees with it). They are NOT used to set any verdict; they are
+# Row verdicts decided after the three independent reviews of 24 November 2026. They are NOT used to set any verdict; they are
 # only compared with the coded result so that a difference is printed and reported instead of forced. Disclosure: the
 # row-specific rules v2_h1a to v2_h4e were written after the Phase 2 results were known (see DISCLOSURES), so agreement
 # with this table is not an independent check; the rules for H2-b, H3-d and H4-e were rewritten in the fix pass of
@@ -2034,13 +2042,14 @@ EXPECTED_ROW_V2 = {"H1-a": "INCONCLUSIVE", "H1-b": "CONTRADICTED", "H1-c": "INCO
                    "H3-e": "INCONCLUSIVE", "H3-f": "INCONCLUSIVE", "H4-a": "INCONCLUSIVE", "H4-b": "INCONCLUSIVE",
                    "H4-c": "CONTRADICTED", "H4-d": "INCONCLUSIVE", "H4-e": "INCONCLUSIVE"}
 
-# Disclosures required by docs/internal/phase2_fix_plan.md section 2 (printed in the matrix provenance and markdown).
+# Disclosures required after the independent reviews (printed in the matrix provenance and markdown).
 DISCLOSURES = [
     "Only the row roles, the components, the aggregation rule and the general row standard were fixed in commit f233509 "
-    "before the analyses. The row-by-row coded rules (v2_h1a to v2_h4e in this script) were written after the results were "
-    "known and were then tested by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from "
-    "SUPPORTED to INCONCLUSIVE. Their agreement with the orchestrator's row decisions is by construction, not an independent "
-    "check. The row standard was applied more strictly in that change, not relaxed.",
+    "before the analyses. The row-by-row rules were written after the results were known and were then checked by an "
+    "independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) from SUPPORTED to INCONCLUSIVE. Because "
+    "the row rules were written with the results in view, their agreement with the row verdicts is not an independent "
+    "check. The row standard was applied more strictly in that change, not relaxed. The corrections are recorded in "
+    "results/research/fix_pass_2026-11-24.json and docs/research/phase2_findings_changed.md.",
     "The CAPEX selection criteria were recorded together with the choice (commit 7447308); that they preceded the comparison "
     "cannot be shown. The chosen estimate is the highest of the candidates: it works against cracking (it raises LCOH, lowers "
     "the break-even ammonia price and widens the direct-use advantage in H1). No verdict changes across the independent CAPEX "
@@ -2089,6 +2098,13 @@ def apply_v2(hid: str, rows: list[dict]) -> dict:
         if "verdict_by_mode" in out:
             row["verdict_by_mode"] = out["verdict_by_mode"]
             row["mode_note"] = out["mode_note"]
+        if "half_verdicts" in out:
+            for hv in out["half_verdicts"].values():
+                if hv not in VERDICTS:
+                    raise EvidenceError(f"{rid}: bad half verdict {hv}")
+            row["half_verdicts"] = out["half_verdicts"]
+            row["half_note"] = ("The row needs both halves; each half is computed and stored separately. A half that is "
+                                "SUPPORTED is a finding and does not change the row verdict.")
         row["numerical_findings"] = row["numerical_findings"] + r.findings
         areas = sorted({Path(s["file"]).stem for s in row["validation_status"]} | set(out["areas"]))
         vtext, vstats = validation_text(areas)
@@ -2100,7 +2116,7 @@ def apply_v2(hid: str, rows: list[dict]) -> dict:
         files = sorted({x["source_file"] for x in row["numerical_findings"]})
         row["links"]["data"] = checked_paths(sorted(set(row["links"]["data"]) | set(files)))
         row["provenance"] = ("Values read by " + SCRIPT + " from " + ", ".join(files)
-                             + "; version 2 verdict derived in the same script (function v2_" + rid.replace("-", "").lower() + ").")
+                             + "; version 2 verdict derived in the same script by the rule printed with this row.")
         if EXPECTED_ROW_V2[rid] != row["verdict"]:
             print(f"NOTE: {rid} coded verdict {row['verdict']} differs from phase2_decisions.md ({EXPECTED_ROW_V2[rid]}); kept as coded",
                   file=sys.stderr)
@@ -2220,6 +2236,315 @@ def cv_h3_label(comps: list[dict], rows: list[dict]) -> str:
             f"{', '.join(rws)}, narrow envelope).")
 
 
+# --------------------------------------------------------------------------------------------
+# Plain answers: a reading aid derived in code from the formal outcomes. Never a verdict.
+# --------------------------------------------------------------------------------------------
+PLAIN_ANSWERS = ("Yes", "No", "Not established")
+FIGURE_RESULTS = ("reproduced", "not reproduced", "not established")
+PLAIN_RULE = (
+    "Plain answers are a reading aid derived in code from the formal outcomes; they are not verdicts. Each answer is "
+    "exactly one of 'Yes', 'No' or 'Not established'. 'Yes' only where the underlying test is SUPPORTED: a row verdict, "
+    "or one half of a two-half row that is computed and stored separately (H1-a: the cracking + PSA half and the "
+    "fired-cracking half; H3-d: the energy half and the cost half). 'No' only where it is CONTRADICTED. Everything else is "
+    "'Not established'. A plain answer for half a row is a finding: the formal row verdict stays INCONCLUSIVE because the "
+    "row needs both halves. No plain answer changes a row, component or hypothesis verdict, and the hypothesis verdict "
+    "with its components is printed beside the plain answers. The qualifier and the limitation are computed from the "
+    "same stored values as the row.")
+FIGURE_RULE = (
+    "Published figures checked (secondary reproduction rows; they do not vote): 'reproduced' only where the reproduction "
+    "row is SUPPORTED, 'not reproduced' only where it is CONTRADICTED, otherwise 'not established'.")
+
+
+def plain_answer(outcome: str) -> str:
+    """Map a formal outcome (row verdict, stored half verdict or stored mode verdict) to a plain answer."""
+    if outcome not in VERDICTS:
+        raise EvidenceError(f"plain answer needs a row-level outcome, got {outcome!r}")
+    return {"SUPPORTED": "Yes", "CONTRADICTED": "No"}.get(outcome, "Not established")
+
+
+def figure_result(outcome: str) -> str:
+    """Map the verdict of a secondary reproduction row to the result of the published-figure check."""
+    if outcome not in VERDICTS:
+        raise EvidenceError(f"figure check needs a row verdict, got {outcome!r}")
+    return {"SUPPORTED": "reproduced", "CONTRADICTED": "not reproduced"}.get(outcome, "not established")
+
+
+def basis_outcome(row: dict, half: str | None = None, mode: str | None = None) -> str:
+    """The stored outcome a plain answer rests on: a half verdict, a mode verdict or the row verdict."""
+    if half and mode:
+        raise EvidenceError("a plain answer rests on a half or a mode, not both")
+    if half:
+        hv = row.get("half_verdicts") or {}
+        if half not in hv:
+            raise EvidenceError(f"{row['row_id']}: no stored half {half!r}")
+        return hv[half]
+    if mode:
+        vm = row.get("verdict_by_mode") or {}
+        if mode not in vm:
+            raise EvidenceError(f"{row['row_id']}: no stored mode {mode!r}")
+        return vm[mode]
+    return row["verdict"]
+
+
+HALF_LABEL = {"cracking_psa": "cracking + PSA half", "fired_cracking": "fired-cracking half", "energy": "energy half", "cost": "cost half"}
+MODE_LABEL = {"actual_sg": "actual Singapore carbon-tax boundary", "hypothetical_lca": "hypothetical life-cycle carbon price, not Singapore law"}
+
+
+def _pa(rows: list[dict], comps: list[dict], claim: str, rid: str, limitation: str, *, half: str | None = None,
+        mode: str | None = None, qualifier: str = "") -> dict:
+    r = next(x for x in rows if x["row_id"] == rid)
+    out = basis_outcome(r, half, mode)
+    c = next(x for x in comps if x["id"] == r["component"])
+    fv = f"{rid} {r['verdict']}"
+    if half:
+        fv += f" ({HALF_LABEL[half]} {out}; the row needs both halves)"
+    if mode:
+        fv += f" ({MODE_LABEL[mode]}: {out}" + ("; reported separately, does not vote)" if mode != "actual_sg" else "; this mode votes)")
+    fv += f"; component {c['id']} {c['verdict']}" + (" (secondary row, does not vote)" if r["role"] == "secondary" else "")
+    note = ""
+    if half:
+        note = (f"Finding on the {HALF_LABEL[half]} of row {rid}; the formal row verdict stays {r['verdict']} because the row "
+                "needs both halves.")
+    elif mode == "hypothetical_lca":
+        note = "Hypothetical scenario, not Singapore law; reported separately and does not vote."
+    elif r["role"] == "secondary":
+        note = "Secondary row: reported, does not vote."
+    return {"claim": claim, "answer": plain_answer(out), "qualifier": qualifier, "limitation": limitation,
+            "basis": {"rows": [rid], "half": half, "mode": mode}, "basis_outcome": out,
+            "formal_verdict": fv, "row_verdict": r["verdict"], "component": c["id"], "component_verdict": c["verdict"],
+            "note": note}
+
+
+def _fig(rows: list[dict], figure: str, rid: str, finding: str) -> dict:
+    r = next(x for x in rows if x["row_id"] == rid)
+    return {"figure": figure, "result": figure_result(r["verdict"]), "finding": finding, "row": rid,
+            "row_verdict": r["verdict"], "component": r["component"]}
+
+
+def plain_answers_for(hid: str, rows: list[dict], comps: list[dict]) -> tuple[list[dict], list[dict]]:
+    """Plain answers and published-figure checks of one hypothesis; every number formatted from a stored value."""
+    R = {x["row_id"]: x for x in rows}
+    if hid == "H1":
+        d = _num(rows, "H1-a", "LCOE direct NH3 (unified basis)")
+        ff = _num(rows, "H1-a", "LCOE fired cracking (unified basis)")
+        fp = _num(rows, "H1-a", "LCOE cracking + PSA (unified basis)")
+        gf = _num(rows, "H1-a", "direct cheaper than fired cracking, 1 - d/c")
+        gp = _num(rows, "H1-a", "direct cheaper than cracking + PSA, 1 - d/c")
+        eta = _num(rows, "H1-a", "turbine efficiency assumed")
+        tp = _num(rows, "H1-a", "threshold, cracking + PSA (reference basis)")
+        fe0 = _num(rows, "H1-a", "fired-cracking threshold with cracker heat delivered at 1 ")
+        fe1 = _num(rows, "H1-a", "fired-cracking threshold with cracker heat delivered at 0.85")
+        ps = [x["value"] for x in R["H1-a"]["threshold"]["sourced_values"]]
+        fe = _num(rows, "H1-c", "LCOE exhaust-heated full cracking")
+        dc = _num(rows, "H1-c", "LCOE direct NH3")
+        xcap = _num(rows, "H1-c", "cracker CAPEX factor at which exhaust-heated")
+        lc = _num(rows, "H1-d", "baseline LCOH with supplementary NH3 fuel at 1 ")
+        lc1 = _num(rows, "H1-d", "baseline LCOH with supplementary NH3 fuel at 0.9225")
+        lc2 = _num(rows, "H1-d", "baseline LCOH with supplementary NH3 fuel at 0.85")
+        bm = _num(rows, "H1-d", "NE Asia SMR production-cost marker")
+        bm6 = _num(rows, "H1-d", "delivered low-carbon H2 benchmark")
+        kd = _num(rows, "H1-d", "electricity per kg NH3, direct")
+        ks = [x["value"] for x in R["H1-d"]["threshold"]["sourced_values"]]
+        claim = _num(rows, "H1-b", "essay figure")
+        gmax = _num(rows, "H1-b", "largest computed gap")
+        cheaper = 100 * (1 - fe / dc)
+        pa = [
+            _pa(rows, comps, "Direct ammonia is cheaper than cracking plus PSA for power", "H1-a",
+                f"Direct use is {f(gp,0)} % cheaper ({f(d,0)} against {f(fp,0)} USD/MWh) at an assumed equal turbine efficiency of "
+                f"{pct(eta,2)}. Cracking + PSA would need a turbine {f(tp,1)} percentage points more efficient, above the only "
+                f"sourced gain ({f(min(ps),1)} to {f(max(ps),1)} points, one upper-bound source that is not like for like) on every cost basis.",
+                half="cracking_psa"),
+            _pa(rows, comps, "Direct ammonia is cheaper than fired cracking for power", "H1-a",
+                f"Direct use is {f(gf,0)} % cheaper ({f(d,0)} against {f(ff,0)} USD/MWh) only at the assumed equal turbine efficiency; "
+                f"fired cracking would need +{f(fe0,1)} points (+{f(fe1,1)} with cracker heat at 0.85 of the fuel LHV), and no turbine "
+                "efficiency on its H2/N2 fuel is sourced.", half="fired_cracking"),
+            _pa(rows, comps, "Cracking in front of a turbine does not pay", "H1-c",
+                (f"Against the essay, exhaust-heated full cracking is {f(cheaper,1)} % cheaper than direct use on the reference basis "
+                 f"({f(fe,1)} against {f(dc,1)} USD/MWh); this is not robust: the sign changes across cost, price and hour bases "
+                 f"(a cracker CAPEX x{f(xcap,2)} removes it).") if fe < dc else
+                (f"Exhaust-heated full cracking costs {f(fe,1)} against {f(dc,1)} USD/MWh for direct use on the reference basis; the "
+                 "threshold moves across the sourced range over the cost bases.")),
+            _pa(rows, comps, "Cracking is justified where hydrogen is the product", "H1-d",
+                f"Cracked hydrogen costs {f(lc,3)} USD/kg with fuel counted at 100 % of its LHV ({f(lc1,3)} to {f(lc2,3)} at lower fuel "
+                f"efficiencies): above the {f(bm,2)} USD/kg NE Asia SMR marker, below the {f(bm6,1)} USD/kg delivered low-carbon benchmark. "
+                f"For power, cracking + PSA gives {f(min(ks),2)} to {f(max(ks),2)} kWh/kg NH3 at sourced turbine gains against "
+                f"{f(kd,2)} for direct combustion, so the energy comparison is also unresolved."),
+        ]
+        figs = [_fig(rows, f"Direct ammonia power about {f(claim,0)} % cheaper than cracking-based power (Halim et al., quoted in the essay)",
+                     "H1-b", f"At most {f(gmax,1)} % on AmCraX boundaries.")]
+        return pa, figs
+    if hid == "H2":
+        share = _num(rows, "H2-a", "feed share")
+        t50 = _num(rows, "H2-a", "NH3 price at which feed is half of LCOH (base)")
+        cx450 = _num(rows, "H2-a", "CAPEX multiple at which the feed share falls to 50 % of LCOH, 450")
+        cx300 = _num(rows, "H2-a", "CAPEX multiple at which the feed share falls to 50 % of LCOH, 300")
+        be = _num(rows, "H2-b", "break-even NH3 price against NE Asia SMR")
+        bfav = _num(rows, "H2-b", "break-even NH3 price against the 3.06 USD/kg marker, favourable")
+        b6 = _num(rows, "H2-b", "break-even NH3 price against the 6.0 USD/kg")
+        bm3 = _num(rows, "H2-b", "NE Asia SMR production-cost marker")
+        bm6 = _num(rows, "H2-b", "delivered low-carbon H2 benchmark")
+        grey = _num(rows, "H2-b", "grey NH3 price")
+        bes = [x["value"] for x in R["H2-b"]["threshold"]["values"] if x["quantity"].startswith("break-even NH3 price, ")]
+        bmin, bmax = min(bes), max(max(bes), bfav)
+        src = [x["value"] for x in R["H2-b"]["threshold"]["sourced_values"]]
+        cb = [x["value"] for x in R["H2-c"]["threshold"]["values"]]
+        cg = _num(rows, "H2-c", "lowest sourced grey gate emission factor")
+        cgr = _num(rows, "H2-c", "green NH3 gate emission factor, high")
+        cbl = _num(rows, "H2-c", "blue NH3 (Lee v1) gate emission factor, central")
+        db = [x["value"] for x in R["H2-d"]["threshold"]["values"]]
+        dgr = _num(rows, "H2-d", "green NH3 gate factor, high")
+        RE = "row_evidence/H2-d/numbers/breakeven_vs_smr_ccs"
+        ccs = [val(F_CPR, f"{RE}/{k}") for k in resolve(F_CPR, RE)]
+        tax = _num(rows, "H2-e", "carbon tax, every NH3 route")
+        lg = _num(rows, "H2-e", "LCOH grey")
+        lb = _num(rows, "H2-e", "LCOH blue")
+        lgc = _num(rows, "H2-e", "LCOH green, current price")
+        bc = _num(rows, "H2-e", "hypothetical life-cycle price at which blue")
+        gc = _num(rows, "H2-e", "hypothetical price at which green")
+        leg = _num(rows, "H2-e", "legislated Singapore carbon tax")
+        bv = [x["value"] for x in R["H2-e"]["threshold"]["values"][:2]]
+        pa = [
+            _pa(rows, comps, "The ammonia price is the dominant cost of cracked hydrogen", "H2-a",
+                f"Feed is {pct(share,0)} of the LCOH. It stays above half for ammonia above {f(t50,0)} USD/t and for CAPEX below "
+                f"x{f(cx450,2)} at 450 USD/t (x{f(cx300,2)} at 300 USD/t). The cost excluding feed is driven by CAPEX and PSA recovery."),
+            _pa(rows, comps, "Cheap ammonia makes cracked hydrogen competitive", "H2-b",
+                f"Competitive with the {f(bm3,2)} USD/kg NE Asia SMR marker only with ammonia at or below about {f(be,0)} USD/t "
+                f"({f(bmin,0)} to {f(bmax,0)}); grey ammonia at {f(grey,0)} USD/t is not cheap enough. Sourced prices "
+                f"({f(min(src),0)} to {f(max(src),0)} USD/t) lie on both sides. Against the {f(bm6,1)} USD/kg delivered low-carbon "
+                f"benchmark the break-even is {f(b6,0)} USD/t.", qualifier=f"threshold {f(be,0)} USD/t"),
+            _pa(rows, comps, "Low-carbon ammonia is needed for an emissions advantage in power", "H2-c",
+                f"Grey ammonia (gate factor {f(cg,1)} kg CO2e/kg NH3 or more) lies above every break-even ({f(min(cb),2)} to "
+                f"{f(max(cb),2)}) and green (at most {f(cgr,2)}) below; blue (central {f(cbl,2)}) passes only in part of its range. "
+                "Emission factors are sourced, not measured."),
+            _pa(rows, comps, "Low-carbon ammonia is needed for an emissions advantage in hydrogen supply", "H2-d",
+                f"Against unabated SMR (break-even {f(min(db),2)} to {f(max(db),2)} kg CO2e/kg NH3) grey fails and green passes. "
+                f"Against SMR with CCS (break-even {f(min(ccs),2)} to {f(max(ccs),2)}) green "
+                + ("passes in every case." if dgr < min(ccs) else f"at its high value ({f(dgr,2)}) fails the lowest case.")),
+            _pa(rows, comps, "Low carbon intensity is rewarded economically in Singapore", "H2-e",
+                f"Under the actual Singapore carbon tax the charge is {f(tax,0)} USD/kg for every ammonia route, while blue "
+                f"({f(lb,2)} USD/kg) and green at today's price ({f(lgc,2)}) cost more than grey ({f(lg,2)}).", mode="actual_sg"),
+            _pa(rows, comps, "Low carbon intensity would be rewarded under a life-cycle carbon price", "H2-e",
+                f"Blue overtakes grey at {f(bc,0)} SGD/t CO2e (range {f(min(bv),0)} to {f(max(bv),0)}) against the legislated "
+                f"{f(leg,0)} SGD/t; green at today's price needs {f(gc,0)} SGD/t. Hypothetical, not Singapore law.",
+                mode="hypothetical_lca", qualifier="hypothetical, not Singapore law"),
+        ]
+        return pa, []
+    if hid == "H3":
+        res = kw_resolution()
+        hi = {c: _num(rows, "H3-a", f"fired-duty saving against Ni/MgO at equal conversion, {c}, heat integration on") for c in LOWT}
+        best = max(hi, key=hi.get)
+        s = hi[best]
+        tt = {c: _num(rows, "H3-b", f"Aspen operating temperature for X 0.95 at 100 kg, {c}") for c in LOWT + ["Ni/MgO"]}
+        resolved = [c for c in LOWT if hi[c] > res]
+        dT = min(tt["Ni/MgO"] - tt[c] for c in resolved) if resolved else None
+        ext = val(F_HX, "row_evidence/H3-d/numbers/energy_total_external_heating_kW_hi_vs_nohi/0")
+        cmp_i = next(i for i, x in enumerate(load(F_CE)["comparisons"])
+                     if x.get("basis") == "python_Top_X095_HI_reference" and x.get("low") == best and x.get("U_case") == "central")
+        fired = val(F_CE, f"comparisons/{cmp_i}/ref_fired_process_duty_kW")
+        co = [val(F_CE, "row_evidence/H3-a/numbers/cost_optimal_exchanger_energy_saving_kW/" + esc(c)) for c in LOWT if c.startswith("Ru")]
+        nv = _num(rows, "H3-b", "rate laws validated at relevant conditions")
+        ne = _num(rows, "H3-b", "rate laws extrapolated")
+        nl = _num(rows, "H3-b", "rate laws validated against literature")
+        d_off = _num(rows, "H3-d", "first-law heat deficit, heat integration off")
+        d_on = _num(rows, "H3-d", "first-law heat deficit, heat integration on")
+        red = _num(rows, "H3-d", "reduction of the first-law deficit")
+        gs = _num(rows, "H3-d", "gross fuel saving")
+        nlo = _num(rows, "H3-d", "net saving after exchanger cost, low U")
+        nhi = _num(rows, "H3-d", "net saving after exchanger cost, high U")
+        worst = _num(rows, "H3-d", "worst net saving over the sensitivities")
+        ub = [x["value"] for x in R["H3-d"]["threshold"]["values"]]
+        us = [x["value"] for x in R["H3-d"]["threshold"]["sourced_values"]]
+        rlc = _num(rows, "H3-c", "Python against Aspen LCOH resolution")
+        net = {c: _num(rows, "H3-c", f"net LCOH change choosing {c} over Ni/MgO, equal conversion, derived central price") for c in LOWT}
+        t_ni = _num(rows, "H3-c", "Ni/MgO reference temperature at equal conversion")
+        srcT = [x["value"] for x in R["H3-c"]["threshold"]["sourced_values"]]
+        dearer = [c for c in LOWT if net[c] > rlc]
+        modest = s / ext < 0.05
+        lean_no = R["H3-c"]["verdict"] == "INCONCLUSIVE" and 2 * len(dearer) > len(LOWT)
+        pa = [
+            _pa(rows, comps, "Lower temperature reduces energy use at equal conversion", "H3-a",
+                f"At most {f(s,0)} kW ({best}), {pct(s / fired,1)} of the fired duty and {pct(s / ext,1)} of the {f(ext,0)} kW total "
+                f"external heating; Python only; resolved only for {' and '.join(resolved)} ({f(dT,0)} K or more below Ni/MgO). "
+                f"Cost-optimal Ru designs run hotter and use {f(-max(co),0)} to {f(-min(co),0)} kW more.",
+                qualifier="modestly" if modest else ""),
+            _pa(rows, comps, "Active catalysts allow that lower temperature at 20 bar", "H3-b",
+                f"The models order the catalysts ({f(min(tt[c] for c in LOWT),0)} to {f(tt['Ni/MgO'],0)} degC), but "
+                + ("no rate law is" if nv == 0 else f"only {f(nv,0)} rate laws are") + " validated at the relevant conditions (20 bar): "
+                f"{f(nl,0)} are checked only against their own fitting data and {f(ne,0)} are extrapolated."),
+            _pa(rows, comps, "Heat integration reduces energy use", "H3-d",
+                f"Aspen first-law heat deficit {f(d_off,0)} to {f(d_on,0)} kW ({pct(-red,0)}), far more than the catalyst temperature "
+                "saves.", half="energy"),
+            _pa(rows, comps, "Heat integration reduces cost", "H3-d",
+                f"Saves {f(gs,3)} USD/kg gross and {f(nlo,3)} to {f(nhi,3)} net of the exchanger on the reference basis, but the "
+                f"break-even heat-transfer coefficient ({f(min(ub),1)} to {f(max(ub),1)} W/(m2 K)) lies inside the only sourced range "
+                f"({f(min(us),0)} to {f(max(us),0)}, about 1 bar; none at 20 bar); worst case {f(worst,3)} USD/kg.", half="cost"),
+            _pa(rows, comps, "The energy savings outweigh the higher catalyst cost", "H3-c",
+                f"With heat integration and derived catalyst prices {len(dearer)} of {len(LOWT)} low-temperature catalysts are dearer "
+                f"than Ni/MgO beyond the model resolution, with Ni at its modelled {f(t_ni,0)} degC (extrapolated law); against sourced "
+                f"Ni design temperatures ({', '.join(f(x,0) for x in srcT)} degC) every low-temperature design is cheaper.",
+                qualifier="leaning no" if lean_no else ""),
+        ]
+        tn = _num(rows, "H3-e", "PSA recovery above which Ni")
+        tr = _num(rows, "H3-e", "PSA recovery above which Ru")
+        fv = [x["value"] for x in R["H3-f"]["numerical_findings"] if x["quantity"].startswith("Ru REC lower than Ni by, ")]
+        cho = _num(rows, "H3-f", "Cho et al. value")
+        figs = [_fig(rows, "A Ru cracker needs no supplementary fuel while a Ni cracker does (Cho et al. 2026)", "H3-e",
+                     f"Holds only for PSA recoveries of {f(tn,3)} to {f(tr,3)}."),
+                _fig(rows, f"Ru gives a {f(cho,0)} % lower reconversion cost than Ni (Cho et al. 2026)", "H3-f",
+                     f"{f(min(fv),1)} to {f(max(fv),1)} % on AmCraX boundaries; the sign depends on the price and inventory basis.")]
+        return pa, figs
+    y1 = _num(rows, "H4-a", "Yanez 2020 recovery at 99.25")
+    y2 = _num(rows, "H4-a", "Yanez 2020 recovery at 99.97")
+    incs = [x["value"] for x in R["H4-b"]["numerical_findings"] if x["quantity"].startswith("purity-only Grade D increment")]
+    rb = _num(rows, "H4-b", "Python against Aspen LCOH resolution")
+    dem = _num(rows, "H4-e", "furnace demand")
+    thr = _num(rows, "H4-e", "recovery at which tail-gas heat")
+    rec = [x["value"] for x in R["H4-e"]["threshold"]["sourced_values"]]
+    share = _num(rows, "H4-d", "share of sourced input pairs")
+    par = _num(rows, "H4-d", "PSA recovery at parity, central")
+    pari = _num(rows, "H4-d", "PSA recovery at parity, industrial")
+    rc = _num(rows, "H4-c", "Cho PSA recovery")
+    pc = _num(rows, "H4-c", "Cho PSA purity")
+    n2 = _num(rows, "H4-c", "N2 in product")
+    pa = [
+        _pa(rows, comps, "Higher purity costs hydrogen recovery", "H4-a",
+            f"No purity-recovery relation is computed for cracked ammonia (PSA recoveries are inputs). The only sourced slope "
+            f"(Yanez et al. 2020: {f(y1,3)} at 99.25 % to {f(y2,3)} at 99.97 %) is for a different feed."),
+        _pa(rows, comps, "Stricter purity raises the cost of hydrogen", "H4-b",
+            f"The order raw < industrial < Grade D holds in every case, but the purity-only Grade D increment at equal delivery "
+            f"pressure is {f(min(incs),3)} to {f(max(incs),3)} USD/kg, partly below the {f(rb,3)} USD/kg model resolution and "
+            "resting on assumed recoveries."),
+        _pa(rows, comps, "Unrecovered hydrogen offsets furnace fuel", "H4-e",
+            f"The tail gas covers the {f(dem,0)} kW furnace demand only at PSA recoveries below {f(thr,3)} (where part of it is surplus "
+            f"with no use in the model); sourced and assumed recoveries ({f(min(rec),3)} to {f(max(rec),3)}) lie on both sides."),
+        _pa(rows, comps, "A Pd-Ag membrane beats PSA for fuel-cell hydrogen", "H4-d",
+            f"The membrane is cheaper in {pct(share,1)} of sourced input pairs; parity at PSA recovery {f(par,3)} (Grade D) and "
+            f"{f(pari,3)} (industrial); membrane readiness TRL 4 to 5 against 9 for PSA."),
+    ]
+    figs = [_fig(rows, f"The published PSA point (Cho et al. 2026: recovery {f(rc,3)} at {pct(pc,2)} H2) as a product that meets "
+                       "the industrial grade or ISO 14687 grade D", "H4-c",
+                 f"It contains about {f(n2,0)} ppm N2 and meets neither grade.")]
+    return pa, figs
+
+
+def plain_answers_md(h: dict) -> list[str]:
+    """Markdown lines of the plain-answers table of one hypothesis (verdict and components beside it)."""
+    L = [f"**Plain answers (reading aid; formal verdict {h['verdict']}, components "
+         + ", ".join(f"{c['id']} {c['verdict']}" for c in h["components"]) + ").**", "",
+         "| Claim | Answer | Qualifier | Limitation | Basis | Formal verdict it rests on |", "|---|---|---|---|---|---|"]
+    for a in h["plain_answers"]:
+        b = a["basis"]
+        bt = ", ".join(b["rows"]) + (f" ({HALF_LABEL[b['half']]})" if b.get("half") else "") + (f" ({MODE_LABEL[b['mode']]})" if b.get("mode") else "")
+        L.append(f"| {_md_escape(a['claim'])} | **{a['answer']}** | {_md_escape(a['qualifier']) or '-'} | "
+                 f"{_md_escape(a['limitation'] + ((' ' + a['note']) if a['note'] else ''))} | {bt} | {_md_escape(a['formal_verdict'])} |")
+    if h.get("published_figures_checked"):
+        L += ["", "**Published figures checked (secondary rows; they do not vote).**", "",
+              "| Published figure | Result | Finding | Row |", "|---|---|---|---|"]
+        for x in h["published_figures_checked"]:
+            L.append(f"| {_md_escape(x['figure'])} | {x['result']} | {_md_escape(x['finding'])} | {x['row']} {x['row_verdict']} |")
+    return L + [""]
+
+
 def findings_changed(matrix_hyps: list[dict]) -> dict:
     """Findings that changed between the 23 November release and Phase 2, from supersession.json and the matrix."""
     sup = load(F_SUP)
@@ -2301,7 +2626,8 @@ def findings_changed_md(fc: dict) -> str:
     fp = fc.get("fix_pass_2026_11_24")
     if fp:
         L += ["", "## Fix pass of 24 November 2026 (after the three independent reviews)", "",
-              f"Applied from `docs/internal/phase2_fix_plan.md`. Old values: {fp['provenance']['old_values']} (Phase 2 before the fix pass); "
+              "The findings of three independent reviews (of the verdicts, of the documents against the result files, and of "
+              f"the models and code) were applied. Old values: {fp['provenance']['old_values']} (Phase 2 before the fix pass); "
               f"new values: current files. Recorded by `{fp['provenance']['script']}` in `{F_FIX}`. The row standard was applied more "
               "strictly, not relaxed: three rows moved from SUPPORTED to INCONCLUSIVE under coded rules that can fail.", "",
               "### Verdicts", "", "| Verdict | Before the fix pass | After | File |", "|---|---|---|---|"]
@@ -2367,6 +2693,7 @@ def build() -> dict:
         rows = sorted(rows, key=lambda r: order.index(r["row_id"]))
         comps = v2["components"]
         txt = hypothesis_texts(hid, rows, comps)
+        pans, figs = plain_answers_for(hid, rows, comps)
         v = v2["verdict"]
         h = {
             "id": hid,
@@ -2381,6 +2708,11 @@ def build() -> dict:
             "strongest_defensible_statement": txt["statement"],
             "findings_against_essay": txt["against"],
             "summary": txt["statement"],
+            "plain_answers": pans,
+            "plain_answers_note": ("Reading aid derived in code from the formal outcomes; not a verdict. The formal verdict of "
+                                   f"{hid} is {v} (" + ", ".join(f"{c['id']} {c['verdict']}" for c in comps) + "). Answers that rest "
+                                   "on half of a row are findings; the row verdict stays as stated."),
+            "published_figures_checked": figs,
             "rows": rows,
         }
         if hid in CROSS_CLAIM:
@@ -2418,13 +2750,19 @@ def build() -> dict:
             "key_format": "JSON-pointer-like path with '/' separators ('~1' = '/', '~0' = '~'); '[a=b;c=d]' selects one list element; for CSV files '[col=val]/col'.",
             "extra_row_fields": ("verdict, key_uncertainty and validation_status are added to the 15 contract fields. Methodology v2 adds role, "
                                  "component, verdict_v1, envelope, threshold, numerical_conclusions, assumptions, uncertainty, evidence_kinds, "
-                                 "verdict_rule (also in conclusion_conditions), verdict_by_mode (H2-e) and verdict_phase2_logic_v1_function "
-                                 "(the version 1 row function applied to the current files, kept for comparison)."),
+                                 "verdict_rule (also in conclusion_conditions), verdict_by_mode (H2-e), half_verdicts (H1-a, H3-d: each "
+                                 "half computed and stored separately; the row needs both) and verdict_phase2_logic_v1_function "
+                                 "(the version 1 row function applied to the current files, kept for comparison). Each hypothesis "
+                                 "adds plain_answers and published_figures_checked (reading aids; see plain_answers_rule)."),
             "input_sha256": hashes,
             "disclosures": DISCLOSURES,
-            "fix_pass": ("24 November 2026: the accepted findings of three independent reviews were applied "
-                         "(docs/internal/phase2_fix_plan.md): rows H2-b, H3-d and H4-e moved from SUPPORTED to INCONCLUSIVE under "
-                         "rewritten coded rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, H3-c, H3-d, H4-d."),
+            "fix_pass": ("24 November 2026: the findings of three independent reviews (of the verdicts, of the documents against "
+                         "the result files, and of the models and code) were applied: rows H2-b, H3-d and H4-e moved from SUPPORTED "
+                         "to INCONCLUSIVE under rewritten row rules that can fail; text corrections in H1, H2-a, H2-b, H2-d, H3-a, "
+                         "H3-c, H3-d, H4-d. Every changed value is recorded in results/research/fix_pass_2026-11-24.json and "
+                         "docs/research/phase2_findings_changed.md."),
+            "plain_answers_rule": PLAIN_RULE,
+            "published_figures_rule": FIGURE_RULE,
         },
         "methodology_version": METHODOLOGY_VERSION,
         "methodology": METHODOLOGY,
@@ -2463,7 +2801,11 @@ def to_markdown(m: dict) -> str:
          f"literature, and independent experimental validation. {m['provenance']['experimental_validation']}", "",
          f"Currency: calculations in {cur['calculation_currency']}; SGD values use {cur['fx_SGD_per_USD']} SGD/USD ({cur['fx_date']}).", "",
          "## Disclosures", ""] + [f"- {x}" for x in m["provenance"]["disclosures"]] + ["", f"Fix pass: {m['provenance']['fix_pass']}", "",
-         "## Verdict table", "",
+         "## Plain answers (reading aid, not verdicts)", "", m["provenance"]["plain_answers_rule"], "",
+         m["provenance"]["published_figures_rule"], ""]
+    for h in m["hypotheses"]:
+        L += [f"### {h['id']}: {h['primary_hypothesis']}", ""] + plain_answers_md(h)
+    L += ["## Verdict table", "",
          "| Hypothesis | Component or row | Role | Verdict (v2) | Verdict (v1) | Statement |", "|---|---|---|---|---|---|"]
     for h in m["hypotheses"]:
         L.append(f"| **{h['id']}** | | | **{h['verdict']}** | {h['verdict_v1']} | {_md_escape(h['primary_hypothesis'])} |")

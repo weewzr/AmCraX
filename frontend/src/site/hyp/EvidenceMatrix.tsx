@@ -4,10 +4,10 @@ import { staticAssetUrl } from '../../api/client'
 import { AsyncView } from '../../features/common/Notice'
 import { useJson } from '../data'
 import { splitShared } from '../siteHelpers'
-import { ExtLink } from '../ui'
+import { Callout, ExtLink } from '../ui'
 import { DTable, SrcTag } from './parts'
 import { VerdictChip, WhatChanged } from './phase2'
-import { baseName, list, safeRepoPath, show } from './shape'
+import { baseName, list, normVerdict, qualifierOf, safeRepoPath, show, thresholdSummary } from './shape'
 
 type Obj = Record<string, unknown>
 interface Finding { quantity?: unknown; value?: unknown; unit?: unknown; source_type?: unknown; source_file?: unknown; key?: unknown }
@@ -126,6 +126,61 @@ function RowView({ row }: { row: MatrixRow }) {
   )
 }
 
+/** Component verdict chips of a hypothesis, printed beside the hypothesis verdict (a bare PARTIALLY SUPPORTED is never shown alone). */
+function ComponentChips({ h }: { h: Hypothesis }) {
+  const cs = Array.isArray(h.components) ? h.components : []
+  if (!cs.length) return null
+  return (
+    <p className="small hyp-comp-chips" data-testid={`components-${show(h.id)}`}>Components:{' '}
+      {cs.map((c, i) => <span key={`${show(c.id)}${i}`}>{i > 0 ? '; ' : ''}<strong>{show(c.id)}</strong> <VerdictChip v={c.verdict} small /></span>)}
+    </p>
+  )
+}
+
+/** The matrix's own qualifier sentence of the hypothesis verdict (first sentence of its summary, when it starts with the verdict). */
+function Qualifier({ h }: { h: Hypothesis }) {
+  const q = qualifierOf(h.summary, h.verdict)
+  return q ? <p className="small" data-testid={`qualifier-${show(h.id)}`}><strong>Qualifier (from the matrix).</strong> {q}</p> : null
+}
+
+const fmtV = (v: number) => String(Number(v.toPrecision(3)))
+/** Rows whose verdict differs from version 1 (moved after the independent review): their threshold is the finding. */
+function MovedRows({ h }: { h: Hypothesis }) {
+  const rows = (h.rows ?? []).filter((r) => r.verdict_v1 && normVerdict(r.verdict) !== normVerdict(r.verdict_v1))
+  if (!rows.length) return null
+  return (
+    <div className="p2-against" data-testid={`moved-${show(h.id)}`}>
+      <strong>Rows that changed after the independent adversarial review; the threshold is the finding.</strong>
+      <ul className="hyp-list">
+        {rows.map((r) => {
+          const t = thresholdSummary(r.threshold)
+          return (
+            <li key={show(r.row_id)} data-testid={`threshold-${show(r.row_id)}`}>
+              <a href={`#row-${show(r.row_id)}`}><strong>{show(r.row_id)}</strong></a> <VerdictChip v={r.verdict} small /> <span className="muted small">v1: {show(r.verdict_v1)}</span>.{' '}
+              {t ? <>Threshold: {t.parameter}: computed {t.computed![1] !== t.computed![0] ? `values span ${fmtV(t.computed![0])} to ${fmtV(t.computed![1])}` : fmtV(t.computed![0])}{t.unit ? ` ${t.unit}` : ''}{t.sourced ? <>; sourced values {fmtV(t.sourced[0])} to {fmtV(t.sourced[1])}{t.unit ? ` ${t.unit}` : ''}</> : null}{t.comparison ? ` (comparison: ${t.comparison})` : ''}. </> : null}
+              {show(r.conclusion)}
+            </li>
+          )
+        })}
+      </ul>
+    </div>
+  )
+}
+
+/** Matrix provenance disclosures (what was fixed before the analyses, what was not, the review that moved three rows), as stored. */
+function Disclosures({ p }: { p: Obj | undefined }) {
+  const ds = list(p?.disclosures)
+  if (!ds.length && !show(p?.fix_pass)) return null
+  return (
+    <Callout kind="warn" title="How the verdicts were set (matrix provenance).">
+      <div data-testid="matrix-disclosures">
+        <ul className="hyp-list">{ds.map((x, i) => <li key={i}>{x}</li>)}</ul>
+        {show(p?.fix_pass) ? <p className="small">Fix pass: {show(p?.fix_pass)}</p> : null}
+      </div>
+    </Callout>
+  )
+}
+
 function Components({ h }: { h: Hypothesis }) {
   const cs = Array.isArray(h.components) ? h.components : []
   if (!cs.length) return null
@@ -174,21 +229,21 @@ export function EvidenceMatrix() {
       return (
         <>
           <p className="prose-p" data-testid="matrix-version">
-            {v2 ? <>Verdicts follow methodology version 2 (<ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>), fixed before the Phase 2 analysis. The version 1 verdict is shown beside each one.</>
+            {v2 ? <>Verdicts follow methodology version 2 (<ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>). What of it was fixed before the analyses and what was not is stated below. The version 1 verdict is shown beside each one.</>
               : <>This matrix file was written under methodology version 1 (every hypothesis verdict from all of its rows). The version 2 rule is in <ExtLink href={`${GITHUB_URL}/blob/main/${meth}`}><code>{meth}</code></ExtLink>; the version 2 matrix replaces this file when it is generated.</>}
             {' '}Verdict words: SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED, INCONCLUSIVE. Each chip prints its word; colour is not the only carrier.
           </p>
+          <Disclosures p={d.provenance} />
           <div className="table-scroll hyp-summary" tabIndex={0} role="region" aria-label="Verdict per hypothesis">
             <table className="data simple">
-              <caption>Verdict per hypothesis{v2 ? ', with the version 1 verdict beside it' : ''}</caption>
-              <thead><tr><th scope="col">Hypothesis</th><th scope="col">Verdict</th>{v2 ? <th scope="col">Version 1 verdict</th> : null}<th scope="col">Statement</th></tr></thead>
+              <caption>Verdict per hypothesis, with its component verdicts{v2 ? ' and the version 1 verdict beside it' : ''}</caption>
+              <thead><tr><th scope="col">Hypothesis</th><th scope="col">Verdict{v2 ? ', version 1 verdict' : ''} and components</th><th scope="col">Statement and qualifier</th></tr></thead>
               <tbody>
                 {hs.map((h) => (
                   <tr key={h.id} data-testid={`verdict-${h.id}`}>
                     <th scope="row"><a href={`#/hypotheses#${h.id}`} onClick={(e) => { e.preventDefault(); document.getElementById(String(h.id))?.scrollIntoView({ block: 'start' }) }}>{h.id}</a></th>
-                    <td><VerdictChip v={h.verdict} /></td>
-                    {v2 ? <td className="hyp-v1">{show(v1Of(h, d.methodology_version)) || 'not stored'}</td> : null}
-                    <td className="wide">{show(h.primary_hypothesis ?? h.statement)}</td>
+                    <td className="hyp-vcell" data-label={`Verdict${v2 ? ', version 1 verdict' : ''} and components`}><VerdictChip v={h.verdict} />{v2 ? <p className="hyp-v1">Version 1 verdict: {show(v1Of(h, d.methodology_version)) || 'not stored'}</p> : null}<ComponentChips h={h} /></td>
+                    <td className="wide" data-label="Statement and qualifier"><p className="hyp-stmt">{show(h.primary_hypothesis ?? h.statement)}</p><Qualifier h={h} /></td>
                   </tr>
                 ))}
               </tbody>
@@ -205,8 +260,11 @@ export function EvidenceMatrix() {
                 <h3>{h.id}: {show(h.statement)}</h3>
                 <span><VerdictChip v={h.verdict} />{v2 ? <span className="muted small"> v1: {show(v1Of(h, d.methodology_version)) || 'not stored'}</span> : null}</span>
               </header>
+              <ComponentChips h={h} />
+              <Qualifier h={h} />
               {show(h.primary_hypothesis) && show(h.primary_hypothesis) !== show(h.statement) ? <p><strong>Primary hypothesis.</strong> {show(h.primary_hypothesis)}</p> : null}
               <Components h={h} />
+              <MovedRows h={h} />
               {show(h.strongest_defensible_statement) ? <p className="p2-strongest"><strong>Strongest defensible statement.</strong> {show(h.strongest_defensible_statement)}</p> : null}
               {list(h.findings_against_essay).length ? <div className="p2-against"><strong>Findings against the essay.</strong><ul className="hyp-list">{list(h.findings_against_essay).map((x, i) => <li key={i}>{x}</li>)}</ul></div> : null}
               {show(h.cross_claim) ? <p><strong>Cross-claim.</strong> {show(h.cross_claim)}</p> : null}

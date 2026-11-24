@@ -10,7 +10,9 @@ Each step carries one of these requirements:
 | **[needs Aspen Plus V15]** | A licensed Aspen Plus V15 installation with COM registered. One Aspen instance runs at a time (see the Aspen rule in the [developer guide](developer_guide.md)). |
 | **[needs Word or PowerPoint]** | Microsoft Word (report) or PowerPoint (deck) for the PDF export. |
 
-Phase 2 (23 November 2026) added a master script and steps for the unified reference scenario, the evidence matrix version 2, the simulator data and the website. They are in [section 9](#9-phase-2-regenerate-everything-in-order). The check of the preserved release is in [section 10](#10-verify-the-preserved-release). Sections 1 to 8 describe the earlier steps, which remain valid. Where an earlier step writes a result that Phase 2 regenerates (everything under `results\research\`), run the Phase 2 steps afterwards.
+Phase 2 (23 and 24 November 2026) added a master script and steps for the unified reference scenario, the evidence matrix version 2, the record of the fix pass, the simulator data and the website. They are in [section 9](#9-phase-2-regenerate-everything-in-order).
+
+A migration of the computational core to Rust (Phase 3) is in progress on a separate branch. It is not part of this branch and is not complete. The Phase 2 results stored here are the reference baseline against which it is to be checked. The check of the preserved release is in [section 10](#10-verify-the-preserved-release). Sections 1 to 8 describe the earlier steps, which remain valid. Where an earlier step writes a result that Phase 2 regenerates (everything under `results\research\`), run the Phase 2 steps afterwards.
 
 The stored files in `results/` already hold the outputs. Reproduce them only when you change a model, a parameter or a script, or when you want to confirm them. Run times are given where a script or a document records them; where none is recorded the entry says so. They depend on the machine.
 
@@ -25,7 +27,7 @@ The Aspen steps need a seat that is free for the whole run. A single converged f
 python -m pytest tests -q
 ```
 
-Expected: all tests pass, and one test (the opt-in live Aspen test) is skipped. Aspen is never started. The count at the start of Phase 2 (513 passed, 1 skipped) is recorded in [research/phase2_baseline.md](research/phase2_baseline.md). Phase 2 adds tests (`tests\test_phase2_*.py`), so the number is higher on the Phase 2 branch: read it from your own run. Tests that read result files can fail while a script is rewriting them, so do not run the suite during step 9.2.
+Expected: all tests pass, and one test (the opt-in live Aspen test) is skipped. Aspen is never started. The count at the start of Phase 2 (513 passed, 1 skipped) is recorded in [research/phase2_baseline.md](research/phase2_baseline.md); on 24 November 2026, after the Phase 2 fix pass, the suite gave 705 passed and 1 skipped. Read the current number from your own run. Tests that read result files can fail while a script is rewriting them, so do not run the suite during step 9.2.
 
 ## 2. Aspen Plus results
 
@@ -237,12 +239,12 @@ Run from the repository root after `. scripts\env.ps1`. Nothing in 9.1 to 9.8 ne
 |---|---|---|
 | 9.1 | Environment | Python 3.12 venv, Node 24 (`scripts\setup.ps1`) |
 | 9.2 | All research results (master script) | Python only |
-| 9.3 | Evidence matrix, version 2 | Python only |
+| 9.3 | Record of the fix pass, then the evidence matrix, version 2 | Python only (git for the old values) |
 | 9.4 | Test suite | Python only |
 | 9.5 | Snapshot for the website | Python only |
 | 9.6 | Frontend tests and the Pages build | Node only |
 | 9.7 | Browser check of the built site | Node and Microsoft Edge |
-| 9.8 | Technical report and paper | pandoc; Word for the PDF of the report |
+| 9.8 | Technical report, paper and executive summary | pandoc; Word for the PDFs |
 | 9.9 | New Aspen runs (only if the Aspen model changes) | Aspen Plus V15 |
 
 ### 9.1 Environment
@@ -264,10 +266,11 @@ The script runs 17 steps in dependency order and stops at the first failure. In 
 ### 9.3 Evidence matrix, version 2
 
 ```powershell
+python scripts\research\record_fix_pass.py
 python scripts\research\build_evidence_matrix.py
 ```
 
-Reads the result files and writes `results\research\evidence_matrix.json` and `docs\research\evidence_matrix.md`. The verdict rule is [research/verdict_methodology_v2.md](research/verdict_methodology_v2.md), fixed before the Phase 2 analyses. The matrix shows the version 1 verdict beside each version 2 verdict. If a coded rule gives a verdict that differs from the one recorded in the project notes, the builder reports it and does not force it.
+The first script compares selected stored numbers and verdicts with their values at git commit `70993a5` (before the fix pass of 24 November 2026) and writes `results\research\fix_pass_2026-11-24.json`; it needs the git history. The second reads the result files and writes `results\research\evidence_matrix.json`, `docs\research\evidence_matrix.md` and the generated summary `docs\research\phase2_findings_changed.md`. The verdict rule is [research/verdict_methodology_v2.md](research/verdict_methodology_v2.md). Only the roles, components, aggregation rule and general row standard were fixed before the Phase 2 analyses; the row-by-row coded rules were written after the results were known and were then tested by an independent adversarial review, which moved three rows to INCONCLUSIVE. The matrix shows the version 1 verdict beside each version 2 verdict. If a coded rule gives a verdict that differs from the one recorded in the project notes, the builder reports it and does not force it.
 
 ### 9.4 Tests
 
@@ -312,7 +315,13 @@ The check opens every route at four viewport widths (390, 820, 1440 and 1920 px)
 python docs\technical_report\build_report.py [--no-pdf]
 ```
 
-Builds `docs\technical_report\AmCraX_Technical_Report.docx` and, with Word, the PDF. It reads every number from the result files. The short paper is built from its own folder under `docs\paper\`: follow the build instructions in that folder, which are kept with the paper. The 23 November 2026 release of the report in `docs\technical_report\releases\2026-11-23\` is not rebuilt and must not be edited.
+Builds `docs\technical_report\AmCraX_Technical_Report.docx` and, with Word, the PDF. It reads every number from the result files.
+
+```powershell
+python docs\paper\build_paper.py [--docx-only]
+```
+
+Builds the research paper (`docs\paper\amcrax_paper.md`) and the executive summary (`docs\executive_summary.md`) into `docs\paper\build\` as DOCX and, with Word, PDF; it scans sources and outputs for personal identifiers and records page and figure counts in `docs\paper\build\build_log.json`. With `--docx-only` Word is not needed. It needs pandoc. The 23 November 2026 release of the report in `docs\technical_report\releases\2026-11-23\` is not rebuilt and must not be edited.
 
 ### 9.9 Steps that need Aspen Plus V15
 

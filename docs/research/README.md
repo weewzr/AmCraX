@@ -1,6 +1,6 @@
 # Research expansion: Singapore-specific hypothesis tests
 
-This folder indexes the research expansion of AmCraX. It tests four hypotheses from the author's CN5190 essay computationally, using Jurong Island as a representative industrial setting for Singapore (no claim is made that a facility exists).
+This folder indexes the research expansion of AmCraX. It tests four hypotheses from an earlier literature essay computationally, using Jurong Island as a representative industrial setting for Singapore (no claim is made that a facility exists).
 
 | Id | Hypothesis |
 |---|---|
@@ -9,11 +9,25 @@ This folder indexes the research expansion of AmCraX. It tests four hypotheses f
 | H3 | Catalyst and heat integration: low-temperature, high-activity catalysts with effective heat integration reduce energy use and can outweigh higher catalyst cost. |
 | H4 | Purification: must balance purity requirements against recovery losses, energy and equipment cost. |
 
-Allowed verdicts are SUPPORTED, CONTRADICTED and INCONCLUSIVE. They are held only in the evidence matrix and are not repeated in these pages:
+Allowed verdicts are SUPPORTED, CONTRADICTED and INCONCLUSIVE for rows, and in addition MIXED and PARTIALLY SUPPORTED for components and hypotheses under rule v2 ([verdict_methodology_v2.md](verdict_methodology_v2.md)): five values in all. They are held only in the evidence matrix and are not repeated in these pages:
 
-- [evidence_matrix.md](evidence_matrix.md), generated from `results/research/evidence_matrix.json` (rows per sub-claim with the Aspen model, Python model, case ids, assumptions, literature, validation method, numerical findings, uncertainty, limitations and links to data, figures and screenshots).
-- [validation_and_limitations.md](validation_and_limitations.md): what was validated against what, what is preliminary or assumed, what failed and why, and inaccessible sources.
+- [evidence_matrix.md](evidence_matrix.md), generated from `results/research/evidence_matrix.json` (rows per sub-claim with the Aspen model, Python model, case ids, assumptions, literature, validation method, numerical findings, uncertainty, limitations and links to data, figures and screenshots; the version 1 verdict beside each version 2 verdict).
+- [validation_and_limitations.md](validation_and_limitations.md): what was checked against what, by evidence kind, what is preliminary or assumed, what failed and why, and inaccessible sources.
 - [../validation/research_validation.md](../validation/research_validation.md): aggregated research validation items, including every failure.
+
+## Phase 2 documents
+
+| Document | Contents |
+|---|---|
+| [unified_baseline.md](unified_baseline.md) | The frozen reference scenario, the CAPEX selection and the baseline cost breakdown |
+| [verdict_methodology_v2.md](verdict_methodology_v2.md) | Row roles, components, aggregation rule and row standard |
+| [uncertainty_quantification.md](uncertainty_quantification.md) | Sobol analysis, kinetic parameter propagation and the Takahashi calibration |
+| [phase2_findings_changed.md](phase2_findings_changed.md) | Generated record of what changed against the Phase 1 release and in the fix pass of 24 November 2026 |
+| [phase2_baseline.md](phase2_baseline.md) | State of the repository at the start of Phase 2 (test counts and release hashes) |
+| [methodology_transfer_matrix.md](methodology_transfer_matrix.md) | Published uncertainty-quantification and design-for-cost methods assessed for transfer |
+| [limitations_and_future_work.md](limitations_and_future_work.md) | Limitations by area and ranked next steps |
+
+Only the roles, components, aggregation rule and general row standard of rule v2 were fixed before the Phase 2 analyses. The row-by-row coded rules were written after the results were known and were then tested by an independent adversarial review, which moved three rows (H2-b, H3-d, H4-e) to INCONCLUSIVE. Every number and verdict changed in that fix pass is recorded in `results/research/fix_pass_2026-11-24.json` (script `scripts/research/record_fix_pass.py`).
 
 Every value is labelled `aspen` (Aspen Plus V15 run), `python` (independent model), `literature` or `assumption` in its result file. Ni/CeO2, Ru/CeO2 and Ru-K/CaO are not modelled because no usable published rate law was available (see [validation_and_limitations.md](validation_and_limitations.md), section 3.1).
 
@@ -30,7 +44,20 @@ Paths are relative to the repository root. Figures are in `results/figures/resea
 | Purification (H4) | `results/research/purification` | `scripts/research/purification_study.py` | `purification_*.png` | `results/research/validation/purification.json` |
 | End use (H1) | `results/research/enduse` | `scripts/research/enduse_run.py` (run `lca_run.py` first) | `enduse_*.png` | `results/research/validation/enduse.json` |
 | Life-cycle assessment (H1, H2) | `results/research/lca` | `scripts/research/lca_run.py` | `lca_*.png` | `results/research/validation/lca.json` |
+| Reference scenario (Phase 2, all hypotheses) | `results/research/reference_scenario` | `scripts/research/economics_reference_scenario.py` | none | `results/research/validation/economics.json` |
+| End-use turbine thresholds (Phase 2, H1) | `results/research/enduse` (`turbine_threshold.json`) | `scripts/research/enduse_threshold.py` | `enduse_turbine_threshold.png` | `results/research/validation/enduse.json` |
+| Carbon pricing, modes A and B (Phase 2, H2) | `results/research/carbon_pricing` | `scripts/research/carbon_pricing_run.py` | `carbon_*.png` | `results/research/validation/carbon_pricing.json` |
+| Catalyst economics (Phase 2, H3) | `results/research/catalyst_economics` | `scripts/research/catalyst_economics.py` | `catalyst_econ_*.png` | `results/research/validation/catalyst_economics.json` |
+| Heat exchanger sizing and cost (Phase 2, H3) | `results/research/heat_exchanger` | `scripts/research/heat_exchanger_study.py` | `heat_exchanger_*.png` | `results/research/validation/heat_exchanger.json` |
+| PSA against Pd-Ag membrane (Phase 2, H4) | `results/research/purification` (`phase2_comparison.json`) | `scripts/research/purification_phase2.py` | `purification_phase2_*.png` | `results/research/validation/purification.json` |
+| Kinetic validity and re-derivations (Phase 2, H3) | `results/research/kinetics` | `scripts/research/kinetics_validity_classification.py`, `kinetics_phase2_validation.py`, `kinetics_equilibrium_consistency.py`, `kinetics_takahashi_rederivation.py` | `kinetics_*.png` | `results/research/validation/kinetics.json` |
+| Uncertainty quantification (Phase 2) | `results/research/uq` | `scripts/research/uq_gsa_sobol.py`, `uq_kinetic_propagation.py`, `uq_takahashi_calibration.py`, `uq_build_validation.py` | `uq_*.png` | `results/research/validation/uq.json` |
+| Simulator data (Phase 2) | `results/research/simulator` | `scripts/research/export_simulator_data.py` | none | `results/research/simulator/parity_report.json` |
+| All Phase 2 steps in order | as above | `scripts/research/run_all_phase2.py` | | |
+| Evidence matrix and fix-pass record | `results/research/evidence_matrix.json`, `results/research/fix_pass_2026-11-24.json` | `scripts/research/build_evidence_matrix.py`, `scripts/research/record_fix_pass.py` | none | |
 | Validation summary | `results/research/validation/summary.json` | `scripts/research/build_research_validation.py` | none | all of the above |
+
+The validation summary holds 696 items on 24 November 2026: 607 pass, 12 fail, 76 informational, 1 not available. By evidence kind: numerical verification 464, Python against Aspen comparison 183, comparison with published literature 48, independent experimental validation none (one placeholder item, not available).
 
 Code added for the research expansion (additive; existing behaviour is unchanged): `backend/amcrax/kinetics` (research catalysts), `backend/amcrax/aspen/kinetic.py` (kinetic RPLUG builder and runner), `backend/amcrax/research/catalyst_comparison.py`, `backend/amcrax/economics/singapore.py` with `backend/amcrax/data/singapore.yaml`, `backend/amcrax/separation/purification.py`, `backend/amcrax/enduse` and `backend/amcrax/environmental/lca.py`. Tests: `tests/test_research_*.py`. New references: `research/reference_additions/*.json` (the library `research/references.json` is not edited). Each workstream also writes `assumptions.json` (name, value, unit, source type, source, applicability note) in its result folder.
 
@@ -93,6 +120,6 @@ The research tests are `tests/test_research_*.py`. The live-Aspen test is opt-in
 ## Reading the numbers
 
 - A pass in a validation file means the stated check was met, not that the physical claim is established; several kinetic passes are consistency checks against the fitting data.
-- All rate laws are used at 20 bar although fitted at 1 atm (Takahashi, Lucentini) or up to 10 bar (Kum); Aspen agreeing with Python validates the implementation, not the rate law.
-- The CAPEX model does not respond to temperature, reactor volume or exchanger area.
+- All rate laws are used at 20 bar although fitted at 1 atm (Takahashi, Lucentini) or up to 10 bar (Kum); Aspen agreeing with Python verifies the implementation, not the rate law.
+- The reference CAPEX does not respond to temperature or reactor volume; the exchanger area is costed only where Section 35 of the technical report passes it explicitly.
 - No product is called fuel-cell grade; purity claims name the ISO 14687 contaminants that were evaluated and list those that were not.

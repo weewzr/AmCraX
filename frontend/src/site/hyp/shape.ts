@@ -133,6 +133,29 @@ export function safeRepoPath(p: unknown): string | null {
   return s
 }
 
+/** The matrix's own qualifier of a hypothesis verdict: the first sentence of its summary when that sentence starts with the
+ *  verdict word (for example "PARTIALLY SUPPORTED, resting only on H3-T (...)."); '' otherwise. Nothing is composed here. */
+export function qualifierOf(summary: unknown, verdict: unknown): string {
+  const s = typeof summary === 'string' ? summary.trim() : ''
+  const v = normVerdict(verdict)
+  if (!s || !v || !normVerdict(s).startsWith(v)) return ''
+  const m = s.match(/^(.+?\.)(\s|$)/)
+  return m ? m[1] : s
+}
+
+export interface ThresholdSummary { parameter: string; computed: [number, number] | null; sourced: [number, number] | null; unit: string; comparison: string }
+/** Compact reading of a row threshold of the evidence matrix ({parameter, values[], sourced_values[], comparison}). Null when
+ *  the threshold holds no computed values. The comparison is printed as stored ("straddle", or "key: value" pairs). */
+export function thresholdSummary(t: unknown): ThresholdSummary | null {
+  if (!t || typeof t !== 'object' || Array.isArray(t)) return null
+  const o = t as Record<string, unknown>
+  const vals = (k: string) => (Array.isArray(o[k]) ? (o[k] as Record<string, unknown>[]).map((x) => num(x?.value)) : [])
+  const computed = extent(vals('values'))
+  if (!computed) return null
+  const first = Array.isArray(o.values) ? (o.values as Record<string, unknown>[])[0] : undefined
+  return { parameter: show(o.parameter), computed, sourced: extent(vals('sourced_values')), unit: show(first?.unit), comparison: show(o.comparison) }
+}
+
 /** Min/max over finite numbers (null when none). */
 export function extent(vals: (number | null | undefined)[]): [number, number] | null {
   const f = vals.filter((x): x is number => typeof x === 'number' && Number.isFinite(x))

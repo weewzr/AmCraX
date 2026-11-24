@@ -1,6 +1,6 @@
 {
  "schema": "amcrax.carbon_pricing.site/1",
- "generated_utc": "2026-11-23T11:34:19Z",
+ "generated_utc": "2026-11-24T06:24:19Z",
  "reference_scenario": {
   "file": "backend/amcrax/data/reference_scenario.yaml",
   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",

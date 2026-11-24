@@ -185,7 +185,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.1118822518809
+   "usd_per_kg_usable_h2": 4.118493172401586
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -201,7 +201,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.1118822518809
+   "usd_per_kg_usable_h2": 4.118493172401586
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -209,7 +209,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.129297984566003
+   "usd_per_kg_usable_h2": 4.135908905086691
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -217,7 +217,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 4.326549688729102
+   "usd_per_kg_usable_h2": 4.3331606092497905
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -225,7 +225,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.129297984566003
+   "usd_per_kg_usable_h2": 4.135908905086691
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -233,7 +233,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.286938922038355
+   "usd_per_kg_usable_h2": 4.291936334452673
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -249,7 +249,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.286938922038355
+   "usd_per_kg_usable_h2": 4.291936334452673
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -257,7 +257,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.304354153985061
+   "usd_per_kg_usable_h2": 4.309351566399378
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -265,7 +265,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 4.501602935822765
+   "usd_per_kg_usable_h2": 4.506600348237083
   },
   {
    "nh3_price_case": "nh3_price_grey",
@@ -273,7 +273,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.304354153985061
+   "usd_per_kg_usable_h2": 4.309351566399378
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -449,7 +449,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.347954879085987
+   "usd_per_kg_usable_h2": 4.354565799606674
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -465,7 +465,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.347954879085987
+   "usd_per_kg_usable_h2": 4.354565799606674
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -473,7 +473,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.365370611771092
+   "usd_per_kg_usable_h2": 4.371981532291779
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -481,7 +481,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 4.562622315934191
+   "usd_per_kg_usable_h2": 4.569233236454878
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -489,7 +489,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.365370611771092
+   "usd_per_kg_usable_h2": 4.371981532291779
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -497,7 +497,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.523011549243443
+   "usd_per_kg_usable_h2": 4.528008961657762
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -513,7 +513,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.523011549243443
+   "usd_per_kg_usable_h2": 4.528008961657762
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -521,7 +521,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 4.54042678119015
+   "usd_per_kg_usable_h2": 4.545424193604468
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -529,7 +529,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 4.737675563027854
+   "usd_per_kg_usable_h2": 4.742672975442172
   },
   {
    "nh3_price_case": "nh3_price_blue",
@@ -537,7 +537,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 4.54042678119015
+   "usd_per_kg_usable_h2": 4.545424193604468
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -713,7 +713,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 5.764390642316517
+   "usd_per_kg_usable_h2": 5.771001562837205
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -729,7 +729,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 5.764390642316517
+   "usd_per_kg_usable_h2": 5.771001562837205
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -737,7 +737,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 5.781806375001621
+   "usd_per_kg_usable_h2": 5.788417295522309
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -745,7 +745,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 5.97905807916472
+   "usd_per_kg_usable_h2": 5.985668999685408
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -753,7 +753,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 5.781806375001621
+   "usd_per_kg_usable_h2": 5.788417295522309
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -761,7 +761,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 5.939447312473975
+   "usd_per_kg_usable_h2": 5.944444724888293
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -777,7 +777,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 5.939447312473975
+   "usd_per_kg_usable_h2": 5.944444724888293
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -785,7 +785,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 5.95686254442068
+   "usd_per_kg_usable_h2": 5.961859956834998
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -793,7 +793,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 6.154111326258384
+   "usd_per_kg_usable_h2": 6.159108738672702
   },
   {
    "nh3_price_case": "nh3_price_green_2030",
@@ -801,7 +801,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 5.95686254442068
+   "usd_per_kg_usable_h2": 5.961859956834998
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -977,7 +977,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 7.621069953578159
+   "usd_per_kg_usable_h2": 7.627680874098846
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -993,7 +993,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 7.621069953578159
+   "usd_per_kg_usable_h2": 7.627680874098846
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1001,7 +1001,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 7.638485686263262
+   "usd_per_kg_usable_h2": 7.645096606783951
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1009,7 +1009,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 7.835737390426362
+   "usd_per_kg_usable_h2": 7.84234831094705
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1017,7 +1017,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 7.638485686263262
+   "usd_per_kg_usable_h2": 7.645096606783951
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1025,7 +1025,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 7.796126623735618
+   "usd_per_kg_usable_h2": 7.801124036149936
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1041,7 +1041,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_raw",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 7.796126623735618
+   "usd_per_kg_usable_h2": 7.801124036149936
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1049,7 +1049,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "industrial_99.9",
-   "usd_per_kg_usable_h2": 7.813541855682323
+   "usd_per_kg_usable_h2": 7.818539268096641
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1057,7 +1057,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "fuel_cell_grade_D",
-   "usd_per_kg_usable_h2": 8.010790637520026
+   "usd_per_kg_usable_h2": 8.015788049934345
   },
   {
    "nh3_price_case": "nh3_price_green_current",
@@ -1065,7 +1065,7 @@
    "electricity_USD_per_kWh": 0.14024,
    "config": "MEM_vac0.1bar_polish",
    "end_use": "turbine_blend",
-   "usd_per_kg_usable_h2": 7.813541855682323
+   "usd_per_kg_usable_h2": 7.818539268096641
   }
  ],
  "count": 132,

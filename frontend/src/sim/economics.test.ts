@@ -2,7 +2,8 @@
 import { describe, expect, it } from 'vitest'
 import { catalystPrice } from './economics'
 import { simulate, type SimInputs } from './simulate'
-import { data, model } from './testdata'
+import { readFileSync } from 'node:fs'
+import { data, model, resultsDir } from './testdata'
 
 const baseline: SimInputs = { catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 600, P_bar: 20, W_kg: 100, mode: 'isothermal', reactor_model: 'equilibrium',
   heat_integration: true, psa_h2_recovery: 0.85, feed_total_kmol_h: 100, nh3_route: 'grey', n_points: 2 }
@@ -17,13 +18,17 @@ describe('unified reference economics in the browser (phase 2, S3)', () => {
     expect(model.fx.SGD_per_USD).toBeCloseTo(1.288444, 6)
   })
 
-  it('shows the frozen baseline: 4.015 USD/kg and 5.174 SGD/kg (stored Aspen baseline, grey ammonia 450 USD/t)', () => {
+  it('shows the frozen baseline of reference_scenario/baseline.json (stored Aspen baseline, grey ammonia 450 USD/t, fuel at 100 % of LHV)', () => {
+    const bl = JSON.parse(readFileSync(new URL('../reference_scenario/baseline.json', resultsDir), 'utf-8'))
+    const ref = bl.fuel_efficiency_sensitivity.cases.find((c: { fuel_efficiency: number }) => c.fuel_efficiency === 1)
     const r = simulate(baseline, data)
     expect(r.process?.h2_product_kg_h.source).toBe('aspen')
     expect(r.economics!.nh3_price_USD_per_t).toBe(450)
-    expect(r.economics!.lcoh_USD_per_kg).toBeCloseTo(4.0155, 3)
-    expect(r.economics!.lcoh_USD_per_kg.toFixed(3)).toBe('4.015')
-    expect(r.economics!.lcoh_SGD_per_kg.toFixed(3)).toBe('5.174')
+    expect(Math.abs(r.economics!.lcoh_USD_per_kg - bl.lcoh_USD_per_kg) / bl.lcoh_USD_per_kg).toBeLessThan(1e-9)
+    expect(r.economics!.lcoh_USD_per_kg.toFixed(3)).toBe(bl.lcoh_USD_per_kg.toFixed(3))
+    expect(r.economics!.lcoh_SGD_per_kg.toFixed(3)).toBe(bl.lcoh_SGD_per_kg.toFixed(3))
+    // the browser baseline is the optimistic reference case (fuel at 100 % of LHV) of the stored fuel-efficiency envelope
+    expect(Math.abs(r.economics!.lcoh_USD_per_kg - ref.lcoh_USD_per_kg) / ref.lcoh_USD_per_kg).toBeLessThan(1e-9)
     expect(r.economics!.capex_method).toBe('cho2026_itemised_v1')
   })
 

@@ -101,6 +101,31 @@ for (const vp of VIEWPORTS) {
   /** Phase 2 content of the research pages: key numbers read from the snapshot must appear, the controls must work. */
   async function phase2Checks(route, id, body) {
     record(vp.label, `${id}: no single "validated" percentage, no "experimentally validated"`, !/\d+(\.\d+)?\s?% validated|experimentally validated/i.test(body))
+    // plain answers (reading aid): above the formal-verdict material, every claim and answer from the matrix file, the
+    // formal verdict printed in the same block before the first answer
+    const PLAIN_FOR = { hypotheses: ['H1', 'H2', 'H3', 'H4'], 'hypotheses/catalyst': ['H3'], 'hypotheses/economics': ['H2'], 'hypotheses/purification': ['H4'], 'hypotheses/end-use': ['H1'] }
+    if (PLAIN_FOR[route]) {
+      const emp = await snap('research/evidence_matrix.json')
+      const want = (emp?.hypotheses ?? []).filter((h) => PLAIN_FOR[route].includes(h.id))
+      const res = await Promise.all(want.map(async (h) => {
+        const t = await tid(`plain-answers-${h.id}`)
+        const order = await page.evaluate((hid) => {
+          const b = document.querySelector(`[data-testid="plain-answers-${hid}"]`)
+          const v = b?.querySelector('.verdict-chip'), a = b?.querySelector('.answer-chip')
+          return !!(v && a && (v.compareDocumentPosition(a) & Node.DOCUMENT_POSITION_FOLLOWING))
+        }, h.id)
+        const okClaims = (h.plain_answers ?? []).every((a) => t.includes(a.claim) && t.includes(a.answer))
+        return okClaims && order && t.toUpperCase().includes(String(h.verdict).toUpperCase()) && (h.components ?? []).every((c) => t.includes(c.id))
+      }))
+      const answers = await page.$$eval('[data-testid="plain-answers"] .answer-chip[data-answer]', (cs) => cs.map((c) => c.getAttribute('data-answer')))
+      record(vp.label, `${id}: plain answers from the matrix, formal verdict and components printed before them`, want.length === PLAIN_FOR[route].length && res.every(Boolean) && answers.length > 0 && answers.every((a) => ['Yes', 'No', 'Not established'].includes(a)), want.map((h, i) => `${h.id} ${res[i] ? 'ok' : 'MISMATCH'}`).join(', '))
+      const above = await page.evaluate(() => {
+        const p = document.querySelector('#plain-answers'); if (!p) return false
+        const after = [...document.querySelectorAll('main section[id]')].filter((s) => s.id !== 'plain-answers')
+        return after.length > 0 && after.every((s) => s.getBoundingClientRect().top >= p.getBoundingClientRect().bottom - 1)
+      })
+      record(vp.label, `${id}: plain answers placed above the formal-verdict material`, above && /reading aid/.test(await tid('plain-answers-lead')))
+    }
     if (route === 'hypotheses') {
       const chips = await page.$$eval('.verdict-chip', (cs) => cs.map((c) => c.getAttribute('data-verdict') ?? ''))
       const words = /^(SUPPORTED|CONTRADICTED|MIXED|PARTIALLY SUPPORTED|INCONCLUSIVE)\b/
@@ -109,12 +134,39 @@ for (const vp of VIEWPORTS) {
       const tiles = await Promise.all(['H1', 'H2', 'H3', 'H4'].map((h) => tid(`verdict-${h}`)))
       record(vp.label, `${id}: verdict chips render (v2 vocabulary) and match the matrix file`, chips.length >= 4 && chips.every((c) => words.test(c)) && want.every((w, i) => tiles[i]?.toUpperCase().includes(w)), `${chips.length} chips; ${want.join(', ')}`)
       record(vp.label, `${id}: methodology document linked`, /verdict_methodology_v2\.md/.test(await tid('matrix-version')))
+      // Phase 2 fix pass: component chips beside every hypothesis verdict, the matrix's own qualifier for PARTIALLY SUPPORTED,
+      // v1 verdicts, the provenance disclosures near the top, and the thresholds of the rows that moved (all read from the matrix file)
+      const hs = em?.hypotheses ?? []
+      const compOk = await Promise.all(hs.map(async (h) => {
+        const t = await tid(`components-${h.id}`)
+        return (h.components ?? []).every((c) => t.includes(c.id) && t.toUpperCase().includes(String(c.verdict).toUpperCase()))
+      }))
+      record(vp.label, `${id}: component verdict chips beside each hypothesis verdict match the matrix file`, hs.length > 0 && compOk.every(Boolean), hs.map((h, i) => `${h.id} ${compOk[i] ? 'ok' : 'MISMATCH'}`).join(', '))
+      const part = hs.filter((h) => String(h.verdict).toUpperCase() === 'PARTIALLY SUPPORTED')
+      const qs = await Promise.all(part.map((h) => tid(`qualifier-${h.id}`)))
+      record(vp.label, `${id}: PARTIALLY SUPPORTED hypotheses carry the matrix's qualifier text`, qs.every((q, i) => q.length > 20 && String(part[i].summary ?? '').startsWith(q.replace(/^Qualifier \(from the matrix\)\.\s*/, '').slice(0, 40))), qs.map((q) => q.slice(0, 90)).join(' | '))
+      const v1ok = hs.every((h, i) => !h.verdict_v1 || tiles[i]?.includes(`Version 1 verdict: ${h.verdict_v1}`))
+      record(vp.label, `${id}: version 1 verdicts shown beside the v2 verdicts`, v1ok)
+      const disc = await tid('matrix-disclosures')
+      const dl = em?.provenance?.disclosures ?? []
+      const pos = await page.evaluate(() => { const d = document.querySelector('[data-testid="matrix-disclosures"]'); const t = document.querySelector('[data-testid="verdict-H1"]'); return d && t ? d.getBoundingClientRect().top < t.getBoundingClientRect().top : false })
+      record(vp.label, `${id}: matrix provenance disclosures rendered above the verdict tiles`, dl.length > 0 && dl.every((x) => disc.includes(x.slice(0, 80))) && pos && /three rows/i.test(disc), `${dl.length} disclosures, above tiles: ${pos}`)
+      const moved = hs.flatMap((h) => (h.rows ?? []).filter((r) => r.verdict_v1 && r.verdict_v1 !== r.verdict))
+      const mt = await Promise.all(moved.map((r) => tid(`threshold-${r.row_id}`)))
+      record(vp.label, `${id}: rows that moved show their threshold as the finding`, moved.length > 0 && mt.every((t, i) => t.includes(moved[i].row_id) && /Threshold:/.test(t) && t.includes(String(moved[i].verdict))), moved.map((r) => r.row_id).join(', '))
+      record(vp.label, `${id}: no claim that the whole methodology was fixed before the analysis`, !/fixed before the Phase 2 analysis/i.test(body))
     }
     if (route === 'hypotheses/economics') {
       const bl = await snap('research/reference_scenario/baseline.json.json')
       const k = await tid('baseline-kpis')
       record(vp.label, `${id}: unified baseline numbers from the snapshot (USD and SGD)`, !!bl && k.includes(loc(bl.lcoh_USD_per_kg, 3)) && k.includes(loc(bl.lcoh_SGD_per_kg, 3)) && k.includes(String(bl.fx_date)), k.replace(/\n/g, ' ').slice(0, 200))
       record(vp.label, `${id}: superseded baselines noted`, /superseded|history/i.test(await tid('superseded-note')))
+      const fe = await tid('fuel-envelope')
+      const fcs = bl?.fuel_efficiency_sensitivity?.cases ?? []
+      record(vp.label, `${id}: fuel-efficiency envelope table from the snapshot (reference labelled optimistic)`, fcs.length >= 3 && fcs.every((c) => fe.includes(loc(c.lcoh_USD_per_kg, 3))) && /optimistic/i.test(fe), fcs.map((c) => `${c.fuel_efficiency}:${loc(c.lcoh_USD_per_kg, 3)}`).join(' '))
+      const ci = await snap('research/carbon_pricing/carbon_intensity.json.json')
+      const gn = await tid('green-ci-note')
+      record(vp.label, `${id}: both green-ammonia carbon intensities labelled with their boundary`, !!ci && gn.includes(loc(ci.routes?.green?.ci_kgCO2e_per_kgH2?.central, 2)) && gn.includes(loc(ci.routes?.green_lee?.ci_kgCO2e_per_kgH2?.central, 2)) && /embedded/.test(gn) && /renewable electricity as zero/.test(gn), gn.slice(0, 120))
       const fd = await snap('research/carbon_pricing/feed_dominance.json.json')
       record(vp.label, `${id}: adverse H2 finding with the break-even price`, !!fd && (await tid('adverse-h2')).includes(loc(fd.breakeven_nh3_USD_per_t?.ne_asia_smr_production_cost, 0)))
       // carbon control: Mode A default, Mode B hypothetical with a user price, values = interpolation of the stored sweep
@@ -153,6 +205,13 @@ for (const vp of VIEWPORTS) {
       record(vp.label, `${id}: required H1 wording with the equal-efficiency assumption`, /direct ammonia combustion produces electricity at a lower cost/.test(w) && /49\.64 %/.test(w) && /fuel-specific turbine performance/.test(w), w.slice(0, 120))
       record(vp.label, `${id}: turbine threshold from the snapshot and the exhaust-heated finding`, !!ref && (await tid('thr-full_purified')) === loc(ref.threshold_delta_pp, 2) && /cheaper than direct ammonia/.test(await tid('exhaust-finding')))
       record(vp.label, `${id}: Environmental Analysis reachable (carbon intensity by route)`, (await page.locator('#carbon-intensity table').count()) > 0 && (await page.locator('#lca').count()) > 0)
+      const tt = await snap('research/enduse/turbine_threshold.json.json')
+      const fs = tt?.cracker_heat_fuel_efficiency_sensitivity?.cases ?? []
+      const he = await tid('h1-fuel-envelope')
+      record(vp.label, `${id}: H1 thresholds with their fuel-efficiency sensitivity from the snapshot`, fs.length >= 3 && fs.every((c) => he.includes(loc(c.full_fired?.threshold_delta_fuel_pp_vs_direct_turbine, 2)) && he.includes(loc(c.full_purified?.threshold_delta_fuel_pp_vs_direct_turbine, 2))), fs.map((c) => loc(c.full_fired?.threshold_delta_fuel_pp_vs_direct_turbine, 2)).join(' / '))
+      const ci = await snap('research/carbon_pricing/carbon_intensity.json.json')
+      const gn = await tid('green-ci-note')
+      record(vp.label, `${id}: both green-ammonia carbon intensities labelled with their boundary`, !!ci && gn.includes(loc(ci.routes?.green?.ci_kgCO2e_per_kgH2?.central, 2)) && gn.includes(loc(ci.routes?.green_lee?.ci_kgCO2e_per_kgH2?.central, 2)), gn.slice(0, 120))
     }
     if (route === 'hypotheses') {
       const otp = await page.$$eval('nav.otp a', (as) => as.map((a) => a.getAttribute('href')))
@@ -238,6 +297,8 @@ for (const vp of VIEWPORTS) {
       const bl = await snap('research/reference_scenario/baseline.json.json')
       const t = await page.locator('[data-testid="legacy-banner"]').innerText().catch(() => '')
       record(vp.label, `${id}: legacy banner names the unified baseline`, /legacy core result, superseded for research outputs by the unified baseline/i.test(t) && (!bl || t.includes(loc(bl.lcoh_USD_per_kg, 3))), t.slice(0, 160))
+      const fc = bl?.fuel_efficiency_sensitivity?.cases ?? []
+      record(vp.label, `${id}: legacy banner gives the fuel-efficiency envelope of the baseline`, fc.length >= 3 && /optimistic/.test(t) && fc.slice(1).every((c) => t.includes(loc(c.lcoh_USD_per_kg, 3))), t.slice(160, 360))
     }
     record(vp.label, `${id}: no console errors / failed or 4xx requests / requests outside base`, problems.length === before, problems.slice(before).join(' | ').slice(0, 400))
     if (args['no-shots'] !== 'true') {
@@ -294,6 +355,9 @@ for (const vp of VIEWPORTS) {
     await page.selectOption('#sim-cat', 'ni_takahashi_microkinetic'); await page.waitForTimeout(400)
     const k1 = await kpi('conversion')
     record(vp.label, 'simulator: switching the catalyst changes the conversion', k0 !== k1, `${k0} -> ${k1}`)
+    // a zero actual-mode carbon cost is the statutory result, not an extrapolation (also after the switch to an extrapolated law)
+    const ccK = await outv('carbon_cost')
+    record(vp.label, 'simulator: zero actual-mode carbon cost after a catalyst switch is labelled as the statutory result', /Statutory result/.test(ccK) && !/Extrapolation/.test(ccK), ccK.replace(/\n/g, ' '))
     // carbon mode
     await page.locator('details.sim-sec:has-text("Ammonia and carbon pricing") > summary').evaluate((s) => { const d = s.parentElement; if (d && !d.open) d.open = true })
     const cc0 = await outv('carbon_cost')
@@ -327,6 +391,22 @@ for (const vp of VIEWPORTS) {
     await page.locator('button:has-text("Reset to baseline")').click(); await page.waitForTimeout(400)
     const base = await page.locator('[data-kpi="conversion"] .badge').innerText()
     record(vp.label, 'simulator: Reset returns to the Aspen baseline (Aspen Plus V15 label)', /Aspen Plus V15/.test(base), base)
+    // fix pass: fuel-efficiency envelope beside the baseline cost, statutory carbon cost, FLUEHX label, green carbon intensities
+    const blS = await snap('research/reference_scenario/baseline.json.json')
+    const envT = await tid('sim-fuel-envelope')
+    const envC = blS?.fuel_efficiency_sensitivity?.cases ?? []
+    record(vp.label, 'simulator: fuel-efficiency envelope of the baseline cost shown from the snapshot', envC.length >= 3 && envC.every((c) => envT.includes(c.lcoh_USD_per_kg.toFixed(3))) && /optimistic/.test(envT), envT.replace(/\n/g, ' ').slice(0, 160))
+    record(vp.label, 'simulator: baseline carbon cost (zero by statute) carries the statutory label', /Statutory result/.test(await outv('carbon_cost')))
+    if (vp.w > 700) {
+      const fl = await page.locator('.sim-pfd [data-unit="FLUEHX"]').first().textContent().catch(() => '')
+      record(vp.label, 'simulator: FLUEHX diagram value is labelled as burner heat credited (not an exchanger duty)', /\d+ kW[\s\S]*burner heat credited/.test(fl ?? ''), (fl ?? '').replace(/\s+/g, ' '))
+    }
+    await page.locator('details.sim-sec:has-text("Ammonia and carbon pricing") > summary').evaluate((s) => { const d = s.parentElement; if (d && !d.open) d.open = true })
+    await page.locator('input[name="sim-route"][value="green"]').check({ force: true }); await page.waitForTimeout(500)
+    const gEmb = await outv('carbon_intensity'), gZero = await outv('carbon_intensity_zero_boundary').catch(() => '')
+    const g8n = await tid('g8-green-ci')
+    record(vp.label, 'simulator: green route shows both carbon intensities with their boundary (outputs and graph 8)', /embedded/.test(gEmb) && /renewable electricity as zero/.test(gZero) && /embedded/.test(g8n) && /renewable electricity as zero/.test(g8n), `${gEmb.replace(/\n/g, ' ')} | ${gZero.replace(/\n/g, ' ')} | ${g8n}`)
+    await page.locator('button:has-text("Reset to baseline")').click(); await page.waitForTimeout(400)
     record(vp.label, 'simulator: no "undefined"/"NaN" text after the interactions', !/\bundefined\b|\bNaN\b|\[object /.test(await page.evaluate(() => document.body.innerText)))
   }
 

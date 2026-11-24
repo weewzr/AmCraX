@@ -1,6 +1,8 @@
 """Read-only research endpoints (GET /api/research/...). No model and no Aspen Plus is run."""
 from __future__ import annotations
 
+import json
+
 import pytest
 from fastapi.testclient import TestClient
 
@@ -65,6 +67,81 @@ def test_path_traversal_and_unlisted_files_are_refused(url):
         return
     assert r.status_code == 404
     assert r.json().get("code") in ("research_not_found", "not_found")
+
+
+def test_phase2_files_and_research_data_are_whitelisted():
+    for area, files in research.PHASE2_FILES.items():
+        for f, keys in files.items():
+            assert research.ALLOWED[area][f] == keys, (area, f)
+    assert set(research.ALLOWED["data"]) == set(research.PHASE2_DATA_FILES)
+    # the earlier areas keep their files
+    assert "purification_study.json" in research.ALLOWED["purification"] and "phase2_comparison.json" in research.ALLOWED["purification"]
+
+
+@pytest.mark.parametrize("area,file", [(a, f) for a, fs in research.PHASE2_FILES.items() for f in fs])
+def test_phase2_file_is_served_in_live_mode(area, file):
+    if not _have(area, file):
+        pytest.skip("result not generated")
+    r = client.get(f"/api/research/{area}/{file}")
+    assert r.status_code == 200, r.text[:200]
+    b = r.json()
+    if file.endswith(".csv"):
+        assert b["count"] == len(b["rows"]) and b["file"] == file
+    elif research.PHASE2_FILES[area][file] is not None:
+        assert set(b["served_keys"]) <= set(research.PHASE2_FILES[area][file])
+    assert any(it["file"] == file for it in client.get("/api/research/index").json()["areas"][area])
+
+
+@pytest.mark.skipif(not _have("reference_scenario", "baseline.json"), reason="results not generated")
+def test_baseline_serves_the_fuel_efficiency_envelope():
+    b = client.get("/api/research/reference_scenario/baseline.json").json()
+    cases = b["fuel_efficiency_sensitivity"]["cases"]
+    assert cases[0]["fuel_efficiency"] == 1.0
+    assert cases[0]["lcoh_USD_per_kg"] == pytest.approx(b["lcoh_USD_per_kg"], rel=1e-9)
+    assert all(c2["lcoh_USD_per_kg"] > c1["lcoh_USD_per_kg"] for c1, c2 in zip(cases, cases[1:]))
+
+
+@pytest.mark.skipif(not _have("enduse", "turbine_threshold.json"), reason="results not generated")
+def test_turbine_threshold_subset_includes_the_fuel_sensitivity():
+    b = client.get("/api/research/enduse/turbine_threshold.json").json()
+    assert "cracker_heat_fuel_efficiency_sensitivity" in b["served_keys"]
+    assert "twoway_map" not in b
+
+
+@pytest.mark.skipif(not _have("uq", "gsa_sobol.json"), reason="results not generated")
+def test_sobol_is_served_without_convergence_arrays():
+    b = client.get("/api/research/uq/gsa_sobol.json").json()
+    assert b["cases"] and "served_keys" in b
+    for c in b["cases"].values():
+        for o in c["outputs"].values():
+            assert set(o) <= {"V", "mean", "sd", "p5", "p95", "indices", "groups"}
+
+
+def test_research_data_files_are_served_from_research_data():
+    for name in research.PHASE2_DATA_FILES:
+        p = research.DATA_DIR / name
+        r = client.get(f"/api/research/data/{name}")
+        if not p.is_file():
+            assert r.status_code == 404
+            continue
+        assert r.status_code == 200
+        assert r.json() == json.loads(p.read_text(encoding="utf-8-sig"))
+    assert client.get("/api/research/data/..%2F..%2FREADME.md").status_code == 404
+    assert client.get("/api/research/data/references.json").status_code == 404
+
+
+def test_validation_by_kind_counts_match_the_summary():
+    r = client.get("/api/research/validation/by_kind")
+    assert r.status_code == 200
+    b = r.json()
+    assert b["evidence_kinds"] == list(research.EVIDENCE_KINDS)
+    assert set(research.EVIDENCE_KINDS) <= set(b["kinds"])
+    s = client.get("/api/research/validation-summary").json()
+    assert sum(k["total"] for k in b["kinds"].values()) == s["n_items"]
+    assert sum(len(k["failures"]) for k in b["kinds"].values()) == s["totals"]["fail"]
+    for k in b["kinds"].values():
+        assert sum(k["by_status"].values()) == k["total"]
+    assert "no independent experimental validation" in b["statement"].lower()
 
 
 def test_validation_summary_counts_are_consistent():

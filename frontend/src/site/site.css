@@ -410,12 +410,14 @@
 .hyp-intro>.callout{margin-top:0}
 .otp{margin:var(--s5) 0 0;padding:var(--s4) var(--s5);border:1px solid var(--border);border-radius:var(--r-md);background:var(--surface);max-width:90ch}
 .site .otp-h{font:600 13px var(--font-ui);letter-spacing:.02em;color:var(--muted);margin:0 0 var(--s2)}
-.otp-list{margin:0;padding-left:1.4em;columns:2 280px;column-gap:var(--s6);font-size:15px}
+.otp-list{margin:0;padding-left:2.2em;columns:2 280px;column-gap:calc(var(--s6) + 2.2em);font-size:15px}
 .otp-list li{margin:0 0 6px;break-inside:avoid}
 .otp-list li::marker{color:var(--muted);font:500 13px var(--font-mono)}
 .hyp-summary{margin:var(--s4) 0 var(--s5)}
 .hyp-summary th[scope=row] a{font:600 16px var(--font-head)}
-.hyp-v1{color:var(--text-2);font-size:14px;white-space:nowrap}
+.hyp-v1{color:var(--text-2);font-size:14px;margin:6px 0 0}
+.hyp-vcell{min-width:15rem}.hyp-vcell .hyp-comp-chips{margin:6px 0 0;line-height:1.7}
+.hyp-summary td.wide .hyp-stmt{margin:0}.hyp-summary td.wide [data-testid^=qualifier-]{margin:8px 0 0;color:var(--text-2)}
 .hyp-rule{max-width:90ch;margin-bottom:var(--s5)}
 .hyp-secondary>.hyp-row-body>.hyp-details{background:var(--bg)}
 .site .hyp-thumb{display:block;width:100%;padding:0;border:0;background:none;cursor:zoom-in;border-bottom:1px solid var(--border)}
@@ -439,3 +441,35 @@
 .lightbox-cap p{margin:0 0 6px}
 .lightbox-keys{margin:0;padding:6px 14px 10px;font-size:13px;color:var(--muted)}
 @media (max-width:640px){.lightbox{width:100vw;height:100vh;border-radius:0}.lightbox-bar{padding:8px 10px}}
+/* plain answers (hyp/PlainAnswers.tsx): a reading aid beside the formal verdicts; the chip prints its word */
+.answer-chip{font-weight:600;white-space:nowrap;border:1px solid currentColor}
+.answer-yes{color:var(--ok)}.answer-no{color:var(--error)}.answer-ne,.answer-other{color:var(--muted);border-style:dashed}
+.plain-block{margin:var(--s5) 0}
+.plain-h{font-size:18px;margin:0 0 var(--s2)}
+.plain-formal{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 var(--s3)}
+.plain-figs{margin-top:var(--s3)}
+.plain-table{overflow-x:auto}
+/* phone: each answer becomes a labelled card (no sideways scrolling for the limitation) */
+@media (max-width:640px){
+  .plain-h{font-size:16px}
+  .site .plain-table table.simple,.site .plain-table tbody,.site .plain-table tr,.site .plain-table th,.site .plain-table td{display:block;width:100%;min-width:0}
+  .site .plain-table thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .site .plain-table caption{display:block;text-align:left}
+  .site .plain-table tr{border-top:1px solid var(--border,rgba(127,127,127,.3));padding:8px 0}
+  .site .plain-table th,.site .plain-table td{border:0;padding:3px 0}
+  .site .plain-table td::before{content:attr(data-label) ": ";font-weight:600;font-size:12px;color:var(--muted)}
+  .site .plain-table td.wide{min-width:0}
+}
+/* phone: the verdict table becomes one labelled card per hypothesis (no sideways scrolling) */
+@media (max-width:640px){
+  .site .hyp-summary table.simple,.site .hyp-summary tbody,.site .hyp-summary tr,.site .hyp-summary th,.site .hyp-summary td{display:block;width:100%;min-width:0}
+  .site .hyp-summary thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+  .site .hyp-summary caption{display:block;text-align:left}
+  .site .hyp-summary tr{border-top:1px solid var(--border);padding:10px 14px}
+  .site .hyp-summary th,.site .hyp-summary td{border:0;padding:3px 0}
+  .site .hyp-summary td::before{content:attr(data-label) ": ";display:block;font-weight:600;font-size:12px;color:var(--muted)}
+  .site .hyp-summary td.wide{min-width:0}
+}
+/* light theme: inline code tint kept light enough for muted text (>= 4.5:1); chart legend labels in text colour (the swatch keeps the series colour) */
+:root[data-theme=light] .site code{background:color-mix(in srgb,var(--text) 5%,transparent)}
+:root[data-theme=light] .recharts-legend-item-text{color:var(--text)!important}

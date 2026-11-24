@@ -494,7 +494,7 @@ def row_evidence(comp):
                  "reason": "the direction is shown by one literature source for a different feed (literature_comparison), not "
                            "computed; the model relation is flat by construction. Computed for the membrane instead: at a fixed "
                            "sourced selectivity, permeate N2 rises with recovery (P2-MEM-1), but this row is about PSA"},
-        "H4-b": {"proposed_verdict": "SUPPORTED (direction), narrow envelope; orchestrator to decide",
+        "H4-b": {"proposed_verdict": "SUPPORTED (direction), narrow envelope; the evidence matrix rule decides",
                  "numbers": {"by_electricity": h4b["by_electricity"], "equal_delivery_increment": h4b["equal_delivery_increment"]},
                  "assumptions": "PSA recoveries are inputs; polishing-bed cost is a proxy (adsorber share); delivery 30 / 350 bar",
                  "uncertainty": "factorial over all sourced inputs (PSA recovery, CAPEX basis, electricity, membrane cost, life, "
@@ -506,7 +506,7 @@ def row_evidence(comp):
                  "reason": "ordering raw < cheapest industrial < cheapest Grade D holds at every electricity price and every "
                            "sourced input combination (order_holds_everywhere = %s). Caveat: raw < industrial is structural "
                            "(raw skips purification) and most of the Grade D increment is 350 bar delivery, not purity; "
-                           "the orchestrator may judge the purity-only part too small or too proxy-dependent and keep "
+                           "the evidence matrix rule may judge the purity-only part too small or too proxy-dependent and keep "
                            "INCONCLUSIVE" % h4b["order_holds_everywhere"]},
         "H4-c": {"proposed_verdict": "CONTRADICTED (unchanged)",
                  "numbers": {"cho_recovery": 0.756, "cho_purity": 0.9911, "n2_ppm": 8900.0},
@@ -617,7 +617,9 @@ def main():
             flat.append({"spec": spec, "config": k, "purity": d["h2_purity_mole_frac"], "n2_ppm": d["n2_ppm"],
                          "recovery": d["h2_recovery"], "compression_kWh_per_kg": d["energy"]["compression_kWh_per_kg_h2"],
                          "imported_heat_kWh_per_kg": d["energy"]["imported_heat_kWh_per_kg_h2"], "capital_USD": d["capital_USD"],
-                         "membrane_area_m2": d["membrane_area_m2"], "replacement_USD_per_yr": d["replacement_USD_per_yr"],
+                         "membrane_area_m2": d["membrane_area_m2"],
+                         "membrane_module_cost_USD": d["membrane_module_cost_USD"],
+                         "replacement_USD_per_yr": d["replacement_USD_per_yr"],
                          "lcoh_usd": d["lcoh_usd_per_kg_usable"], "lcoh_sgd": d["lcoh_sgd_per_kg_usable"],
                          "trl": d["readiness"]["trl"]})
         entry["factorial_summary"] = summarise(spec, psa_rows, mem_rows)
@@ -650,6 +652,15 @@ def main():
                             "on non-metallic membranes at low temperature and does not address cracked-ammonia purification. "
                             "No number from their work is used in AmCraX and no specific work is attributed to them here "
                             "(research/notes/nus_membrane_researchers.md)")}
+    comp["csv_column_notes"] = {
+        "capital_USD": ("Fixed purification capital other than membrane modules, charged with the capital recovery factor plus "
+                        "maintenance and insurance: the PSA + TSA units for PSA; for the membrane only the NH3 polishing bed "
+                        "(Grade D only, an adsorber-share proxy). Zero for the industrial-grade membrane, which needs no polishing bed."),
+        "membrane_module_cost_USD": ("Purchase cost of the Pd-Ag membrane modules (area x cost per m2). Not part of capital_USD: it "
+                                     "is annualised over the membrane life with the capital recovery factor at that life."),
+        "replacement_USD_per_yr": ("Annualised membrane module cost (area x cost per m2 x capital recovery factor at the membrane "
+                                   "life); it covers the module replacement."),
+    }
     comp["h4b_purity_cost_check"] = h4b_check(fact)
     comp["row_evidence"] = row_evidence(comp)
     json.dump(ps._clean(comp), open(OUT / "phase2_comparison.json", "w", encoding="utf-8"), indent=1,

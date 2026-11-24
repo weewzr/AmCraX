@@ -30,7 +30,7 @@ Old values are those of the 23 November 2026 release (`results/research_releases
 
 ## Fix pass of 24 November 2026 (after the three independent reviews)
 
-Applied from `docs/internal/phase2_fix_plan.md`. Old values: git commit 70993a5 (Phase 2 before the fix pass); new values: current files. Recorded by `scripts/research/record_fix_pass.py` in `results/research/fix_pass_2026-11-24.json`. The row standard was applied more strictly, not relaxed: three rows moved from SUPPORTED to INCONCLUSIVE under coded rules that can fail.
+The findings of three independent reviews (of the verdicts, of the documents against the result files, and of the models and code) were applied. Old values: git commit 70993a5 (Phase 2 before the fix pass); new values: current files. Recorded by `scripts/research/record_fix_pass.py` in `results/research/fix_pass_2026-11-24.json`. The row standard was applied more strictly, not relaxed: three rows moved from SUPPORTED to INCONCLUSIVE under coded rules that can fail.
 
 ### Verdicts
 

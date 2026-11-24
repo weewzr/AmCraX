@@ -16,7 +16,7 @@ The offset is +20.8 kW in every case. It splits exactly into two model-form part
 On the PR basis at the Aspen S2/S3 states, Python reproduces the Aspen duty within 0.12 %; the hot side (PR) agrees within 0.05 %.
 Both choices are documented in `process_model/properties.py` and `flowsheet.py`. They are model-form differences, not implementation
 errors, so the five checks stay failing and the 3 % tolerance is unchanged. A change would alter stored flowsheet results (and the
-reference-EOS residual is the more accurate one for pure ammonia), so none was applied. The exact change, if the orchestrator wants
+reference-EOS residual is the more accurate one for pure ammonia), so none was applied. The exact change, if a later revision wants
 Aspen-like behaviour: in `flowsheet.py` FEHE `coldH`, use `pp.gas_enthalpy_kW(n_feed, T, Pb, "pr")` (offset falls to 1.4-1.9 %, from the S2
 state alone). That change was not applied.
 

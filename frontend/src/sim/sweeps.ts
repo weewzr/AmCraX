@@ -112,6 +112,8 @@ export function carbonByRoute(d: SimData, base: SimInputs, hypothetical_price_SG
     const hyp = simulate({ ...base, nh3_route: route, carbon_mode: 'hypothetical', carbon_price_SGD_per_t: hypothetical_price_SGD_per_t, n_points: 2 }, d)
     return {
       route, ci_kgCO2e_per_kgH2: act.carbon ? act.carbon.intensity.total_kgCO2e_per_kgH2 : null,
+      /** green only: renewable electricity counted as zero (Lee boundary); null for grey and blue */
+      ci_zero_boundary_kgCO2e_per_kgH2: act.carbon?.intensity_zero_boundary ? act.carbon.intensity_zero_boundary.total_kgCO2e_per_kgH2 : null,
       breakdown: act.carbon ? act.carbon.intensity.breakdown_kgCO2e_per_kgH2 : null,
       actual_cost_SGD_per_kg: act.carbon ? act.carbon.cost.SGD_per_kg_H2 : null,
       hypothetical_cost_SGD_per_kg: hyp.carbon ? hyp.carbon.cost.SGD_per_kg_H2 : null,

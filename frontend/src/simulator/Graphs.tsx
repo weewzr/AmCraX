@@ -170,8 +170,9 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
   const yH2 = b.out.process?.h2_product_kg_h.value ?? null
 
   const energyData = (eb ?? []).map((r) => ({ label: r.label.replace(/ \(.*\)$/, ''), B: Number.isFinite(r.value) ? r.value : null, A: ebA?.find((x) => x.key === r.key)?.value ?? null }))
+  const g8green = g8?.b.find((r) => r.route === 'green')
   const carbonData = g8 ? g8.b.map((r, i) => ({
-    route: r.route, CI: r.ci_kgCO2e_per_kgH2, cost: s.carbon_mode === 'hypothetical' ? r.hypothetical_cost_SGD_per_kg : r.actual_cost_SGD_per_kg,
+    route: r.route === 'green' ? 'green (incl. embedded)' : r.route, CI: r.ci_kgCO2e_per_kgH2, cost: s.carbon_mode === 'hypothetical' ? r.hypothetical_cost_SGD_per_kg : r.actual_cost_SGD_per_kg,
     CI_A: g8.a ? g8.a[i].ci_kgCO2e_per_kgH2 : null,
   })) : []
   const lineY = (p: { y: number | null; y_SGD: number | null }) => (cur === 'SGD' ? p.y_SGD : p.y)
@@ -371,11 +372,14 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
           desc="Life-cycle carbon intensity and carbon cost for grey, blue and green ammonia"
           note={<>{memNote}Life-cycle carbon intensity (upstream ammonia, shipping, electricity, external heat). Carbon cost: {s.carbon_mode === 'hypothetical'
             ? <><strong>HYPOTHETICAL</strong> {s.carbon_price_SGD_per_t} SGD/tCO2e times the life-cycle intensity, not Singapore law.</>
-            : 'actual Singapore carbon tax on direct facility emissions above the threshold (zero with ammonia self-firing).'}</>}
+            : 'actual Singapore carbon tax on direct facility emissions above the threshold (zero with ammonia self-firing; a statutory result).'}
+            {g8green?.ci_kgCO2e_per_kgH2 != null ? <span data-testid="g8-green-ci"> Green bar: {g8green.ci_kgCO2e_per_kgH2.toFixed(2)} kg CO2e/kg H2 including the embedded emissions of the renewable assets{g8green.ci_zero_boundary_kgCO2e_per_kgH2 != null ? `; ${g8green.ci_zero_boundary_kgCO2e_per_kgH2.toFixed(2)} on the boundary that counts renewable electricity as zero (Lee et al.)` : ''}.</span> : null}</>}
           limit="Route emission factors are literature values with wide ranges; the actual boundary excludes upstream emissions." height={300}
           series={g8 ? [{ name: 'Carbon intensity', xLabel: 'Ammonia route', yLabel: 'kg CO2e/kg H2', pts: g8.b.map((r) => ({ x: r.route, y: r.ci_kgCO2e_per_kgH2, source: r.source ?? null })) },
             { name: s.carbon_mode === 'hypothetical' ? 'Carbon cost (HYPOTHETICAL price, not Singapore law)' : 'Carbon cost (actual Singapore tax)', xLabel: 'Ammonia route', yLabel: 'SGD/kg H2',
-              pts: g8.b.map((r) => ({ x: r.route, y: s.carbon_mode === 'hypothetical' ? r.hypothetical_cost_SGD_per_kg : r.actual_cost_SGD_per_kg, source: (s.carbon_mode === 'hypothetical' ? 'assumption' : r.source ?? null) as SourceLabel | null })) },
+              pts: g8.b.map((r) => ({ x: r.route, y: s.carbon_mode === 'hypothetical' ? r.hypothetical_cost_SGD_per_kg : r.actual_cost_SGD_per_kg, source: (s.carbon_mode === 'hypothetical' ? 'assumption' : r.actual_cost_SGD_per_kg === 0 ? 'statutory' : r.source ?? null) as SourceLabel | null })) },
+            ...(g8.b.some((r) => r.ci_zero_boundary_kgCO2e_per_kgH2 != null) ? [{ name: 'Carbon intensity, renewable electricity counted as zero (Lee boundary; green only)', xLabel: 'Ammonia route', yLabel: 'kg CO2e/kg H2',
+              pts: g8.b.filter((r) => r.ci_zero_boundary_kgCO2e_per_kgH2 != null).map((r) => ({ x: r.route, y: r.ci_zero_boundary_kgCO2e_per_kgH2, source: r.source ?? null })) }] : []),
             ...(g8.a ? [{ name: 'Carbon intensity, case A', xLabel: 'Ammonia route', yLabel: 'kg CO2e/kg H2', pts: g8.a.map((r) => ({ x: r.route, y: r.ci_kgCO2e_per_kgH2, source: r.source ?? null })) }] : [])] : []}>
           {g8 ? (
             <ResponsiveContainer width="100%" height="100%">
