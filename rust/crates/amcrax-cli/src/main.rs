@@ -30,6 +30,7 @@ VERIFY TARGETS:
     reactor     stage 2: plug-flow reactor and the derived searches (rust/golden/stage2)
     economics   stage 3: reference CAPEX, evaluate, break-even, legacy LCOH, stored results
                 (rust/golden/stage3)
+    carbon      stage 3: LCA factors, carbon intensity, carbon pricing (both modes), thresholds
     all         every engine target in one report
 
     --root      repository root (default $AMCRAX_ROOT, else . or ..)
@@ -196,9 +197,20 @@ fn run_engine_target(
             ev::stage3::economics(&stage("stage3")?, EconomicsData::embedded(), root).map_err(s)?,
         );
     }
+    if matches!(target, "carbon" | "all") {
+        out.push(
+            ev::stage3::carbon(
+                &stage("stage3")?,
+                EconomicsData::embedded(),
+                amcrax_engine::carbon::embedded_factors(),
+                root,
+            )
+            .map_err(s)?,
+        );
+    }
     if out.is_empty() {
         return Err(format!(
-            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, all)"
+            "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, all)"
         ));
     }
     Ok(out)

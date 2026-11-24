@@ -21,6 +21,19 @@ fn check(r: amcrax_engine::verify::Report) {
 }
 
 #[test]
+fn carbon_golden() {
+    check(
+        stage3::carbon(
+            &golden(),
+            EconomicsData::embedded(),
+            amcrax_engine::carbon::embedded_factors(),
+            Path::new(&root()),
+        )
+        .expect("carbon check runs"),
+    );
+}
+
+#[test]
 fn economics_golden() {
     check(
         stage3::economics(&golden(), EconomicsData::embedded(), Path::new(&root()))

@@ -79,7 +79,7 @@ pub struct EconAssumptions {
     catalyst_price_table: Vec<(String, f64)>,
 }
 
-fn dflt(e: &OValue, name: &str) -> &OValue {
+fn dflt<'a>(e: &'a OValue, name: &str) -> &'a OValue {
     e.at(&["defaults", name, "value"])
 }
 

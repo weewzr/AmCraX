@@ -131,7 +131,7 @@ def write_table(name: str, body: dict, n_cases: int) -> None:
 
 
 def save_manifest() -> None:
-    (OUT / "MANIFEST.json").write_text(json.dumps(MANIFEST, indent=1, sort_keys=True) + "\n", encoding="utf-8")
+    (OUT / "MANIFEST.json").write_bytes((json.dumps(MANIFEST, indent=1, sort_keys=True) + "\n").encode("utf-8"))
 
 
 def load(rel: str):
@@ -478,7 +478,133 @@ def stored_recipes(S) -> list:
     return out
 
 
-TABLES = {"economics": economics}
+# ======================================================================================================== carbon
+def carbon() -> None:
+    from amcrax.economics import carbon_pricing as cp
+    from amcrax.environmental import lca
+
+    S = summaries()
+    base_res = load("results/simulations/baseline.json")
+    # ---- lca.py
+    lc = {"route_spec": {r: _try(lambda: lca.route_spec(r).__dict__) for r in (*lca.ROUTES, "green_lee", "purple")},
+          "blue_nh3_ef": [{"args": a, "value": _try(lambda: lca.blue_nh3_ef(*a))}
+                          for a in ((1.0, 0.0), (1.0, 1.0), (0.9, 0.0, 0.03), (0.95, 0.0, 0.015), (0.5, 0.25, 0.01, 28.0),
+                                    (0.0, 0.0), (1.2, 0.0), (0.5, -0.1), (0.5, 0.5, -0.01))],
+          "green_nh3_ef": {k: _try(lambda: lca.green_nh3_ef(k)) for k in ("lee", "low", "mid", "high", "other")},
+          "ship_kg_per_kg_nh3": [{"distance_km": dk, "ef": e, "value": lca.ship_kg_per_kg_nh3(dk, e)}
+                                 for dk in (0.0, 2000.0, 5000.0, 12000.0) for e in (None, 0.02)],
+          "delivered_nh3_ef": [{"ef_gate": g, "distance_km": dk, "boil_off": bo, "value": _try(lambda: lca.delivered_nh3_ef(g, dk, bo))}
+                               for g in (0.0, 1.16, 2.6) for dk in (2000.0, 5000.0) for bo in (None, 0.0, 0.02, 1.0, -0.1)],
+          "n2o_noX_per_MWh": lca.n2o_noX_per_MWh(),
+          "ccgt_ci_kg_per_MWh": [{"eff": e, "leak": lk, "value": lca.ccgt_ci_kg_per_MWh(e, lk)}
+                                 for e in (None, 0.5, 0.6) for lk in (0.0, 0.002, 0.015, 0.03)],
+          "smr_h2_ci": {"ccs": lca.smr_h2_ci(True), "unabated": lca.smr_h2_ci(False)},
+          "KG_H2_PER_KG_NH3": lca.KG_H2_PER_KG_NH3}
+    # ---- carbon_pricing.py
+    ci_in = {"baseline": cp.ci_inputs_from_result(base_res),
+             "baseline_no_hi": cp.ci_inputs_from_result(load("results/simulations/baseline_no_hi.json")),
+             "surplus": dict(cp.ci_inputs_from_result(base_res), heat_deficit_kW=-50.0)}
+    grids = {g: cp.ci_factors(g).__dict__ for g in ("singapore_2024", "eu_average", "low_carbon_nuclear")}
+    ci = []
+    for name, x in ci_in.items():
+        for ef in (0.0, 0.2752157829839704, 1.16, 2.6, 4.6):
+            for heating in ("self_firing", "natural_gas", "electric", "coal"):
+                for dist in (None, 2000.0, 12000.0):
+                    for g in grids:
+                        ci.append({"inputs": name, "nh3_ef": ef, "heating": heating, "distance_km": dist, "grid": g,
+                                   "value": _try(lambda: cp.carbon_intensity_h2(x, ef, heating, dist, cp.ci_factors(g)))})
+    econs = {"grey": SG.evaluate(S["baseline"], "grey"), "blue": SG.evaluate(S["baseline"], "blue"),
+             "ng_liable": SG.evaluate(S["baseline"], "grey", {"heat_fuel": "natural_gas", "apply_threshold": False}),
+             "green_current": SG.evaluate(S["baseline"], "green_current")}
+    cc = []
+    for en, e in econs.items():
+        for mode in ("actual_sg", "hypothetical_lca", "other"):
+            for price in (0.0, 45.0, 127.43999603999998, 500.0, -1.0, float("inf")):
+                for ci_t in (2.43, 19.5):
+                    cc.append({"econ": en, "mode": mode, "price": price, "ci": ci_t,
+                               "value": _try(lambda: cp.carbon_cost(e, ci_t, mode, price))})
+    ab = []
+    for name in ("baseline", "baseline_no_hi"):
+        for sc in ("grey", "green_current"):
+            for year in (2023, 2024, 2025, 2026, 2030):
+                for n2o in (0.0, 1.0, 12.0):
+                    for o in ({}, {"heat_fuel": "natural_gas"}, {"heat_fuel": "natural_gas", "capacity_scale": 25.0},
+                              {"operating_hours_h_per_yr": 7000.0, "n2o_tCO2e_per_yr": 100.0}, {"carbon_tax_SGD_per_t": 80.0}):
+                        v = _try(lambda: cp.actual_boundary(S[name], sc, year=year, n2o_kg_per_h=n2o, overrides=o))
+                        ab.append({"summary": name, "scenario": sc, "year": year, "n2o_kg_per_h": n2o, "overrides": o, "value": v})
+    rcases = []
+    for route in ("grey", "blue", "green_current", "green_2030", "green_2050", "blue_v2"):
+        for mode, price in (("actual_sg", 0.0), ("hypothetical_lca", 0.0), ("hypothetical_lca", 45.0),
+                            ("hypothetical_lca", 127.43999603999998), ("hypothetical_lca", 500.0)):
+            for kw in ({}, {"ci_level": "low"}, {"ci_level": "high"}, {"nh3_ef_kg_per_kg": 1.0},
+                       {"benchmark_USD_per_kg": 5.0, "benchmark_ci_kgCO2e_per_kgH2": 3.5},
+                       {"overrides": {"heat_fuel": "natural_gas", "apply_threshold": False}},
+                       {"overrides": {"discount_rate": 0.0}}):
+                v = _try(lambda: cp.route_case(S["baseline"], route, mode, price, **kw))
+                rcases.append({"summary": "baseline", "route": route, "mode": mode, "price": price, "kwargs": kw, "value": v})
+    xo = [{"args": a, "value": cp.crossover_price(*a)}
+          for a in ((4.29, 8.9, 4.02, 19.5, 1.288444), (4.0, 8.9, 4.02, 19.5, 1.288444), (4.02, 8.9, 4.02, 19.5, 1.288444),
+                    (4.29, 19.5, 4.02, 8.9, 1.288444), (4.29, 19.5, 4.02, 19.5, 1.288444), (8.06, 2.43, 4.02, 19.52, 1.3))]
+    e_grey = SG.evaluate(base_res)
+    tt = cp.n2o_threshold_test(base_res, e_grey)
+    nt = {"threshold_test": tt, "at_ppmv": [cp.n2o_at_ppmv(p, tt, h) for p in (0.15, 1.0, 50.0) for h in (8000.0, 7000.0)]}
+    pairs = [("blue", "grey"), ("green_current", "grey"), ("green_2030", "grey"), ("green_2050", "grey"),
+             ("green_current", "blue"), ("green_2030", "blue"), ("green_2050", "blue")]
+    misc = {"legislated_rate_SGD": {str(y): cp.legislated_rate_SGD(y) for y in (2019, 2023, 2024, 2025, 2026, 2031)},
+            "eu_ets_SGD_per_t": cp.eu_ets_SGD_per_t(), "ci_factors": grids,
+            "route_gate_ef": {r: _try(lambda: cp.route_gate_ef(r)) for r in ("grey", "blue", "blue_v2", "green_current",
+                                                                             "green_2030", "green_2050", "coal", "purple")}}
+    # Python reproduces the stored carbon-pricing results (checked here; the Rust verifier compares with the files)
+    stored_ok = {}
+    sc_file = load("results/research/carbon_pricing/scenarios.json")
+    bench_ci = sc_file["benchmark_ci_smr_kgCO2e_per_kgH2"]
+    ok = True
+    for c in sc_file["cases"]:
+        hyp = c["mode"] == "hypothetical_lca"
+        v = cp.route_case(base_res, c["route"], c["mode"], c["carbon_price_SGD_per_tCO2e"] if hyp else 0.0,
+                          benchmark_ci_kgCO2e_per_kgH2=bench_ci if hyp else 11.0)
+        ok &= json.dumps(enc(v), sort_keys=True) == json.dumps(enc(c), sort_keys=True)
+    stored_ok["scenarios.json cases"] = ok
+    th = load("results/research/carbon_pricing/thresholds.json")["pairwise"]
+    stored_ok["thresholds.json pairwise (pairs)"] = [[t["route"], t["overtakes"]] for t in th] == [list(p) for p in pairs]
+    tv = load("results/research/carbon_pricing/test_vectors.json")
+    ok = True
+    for v in tv["vectors"]:
+        i = v["inputs"]
+        if v["function"] == "carbonIntensity":
+            got = cp.carbon_intensity_h2(i["x"], i["nh3_ef_kg_per_kg"], i["heating"], i["distance_km"], cp.CIFactors(**i["factors"]))
+        elif v["function"] == "carbonCost":
+            got = cp.carbon_cost(i["econ"], i["ci_total_kgCO2e_per_kgH2"], i["mode"], i["price_SGD_per_t"])
+        else:
+            got = cp.crossover_price(i["lcoh_a"], i["ci_a"], i["lcoh_b"], i["ci_b"], i["fx"])
+        exp = v["expected"]
+        if isinstance(exp, dict) and "label_contains" in exp:
+            exp = dict(exp)
+            ok &= exp.pop("label_contains") in got["label"]
+            got = {k: x for k, x in got.items() if k != "label"}
+        ok &= json.dumps(enc(got), sort_keys=True) == json.dumps(enc(exp), sort_keys=True)
+    stored_ok["test_vectors.json (18)"] = ok
+    cij = load("results/research/carbon_pricing/carbon_intensity.json")
+    ng = cij["power_comparators_kgCO2e_per_MWh"]["ng_ccgt"]
+    stored_ok["carbon_intensity.json ng_ccgt"] = (
+        ng["central"] == lca.ccgt_ci_kg_per_MWh() and ng["low_eff_0.50"] == lca.ccgt_ci_kg_per_MWh(0.5)
+        and ng["high_eff_0.60"] == lca.ccgt_ci_kg_per_MWh(0.6)
+        and all(ng[f"leak_{lk:g}"] == lca.ccgt_ci_kg_per_MWh(None, lk) for lk in (0.002, 0.015, 0.03)))
+    ci_base = cp.ci_inputs_from_result(base_res)
+    ok = True
+    for r, row in cij["routes"].items():
+        s_ = lca.route_spec(r)
+        ok &= row["gate_ef_kgCO2e_per_kgNH3"] == {"central": s_.ef, "low": s_.low, "high": s_.high}
+        ok &= row["ci_kgCO2e_per_kgH2"]["central"] == cp.carbon_intensity_h2(ci_base, s_.ef)["total_kgCO2e_per_kgH2"]
+    stored_ok["carbon_intensity.json routes"] = ok
+    print("python reproduces stored carbon results:", stored_ok)
+    body = {"summaries": S, "lca": lc, "ci_inputs": ci_in, "carbon_intensity": ci, "econs": econs, "carbon_cost": cc,
+            "actual_boundary": ab, "route_case": rcases, "crossover_price": xo, "n2o": nt, "pairs": pairs, "misc": misc,
+            "python_reproduces_stored": stored_ok}
+    write_table("carbon", body, len(ci) + len(cc) + len(ab) + len(rcases) + len(xo) + 40)
+
+
+TABLES = {"economics": economics, "carbon": carbon}
 
 if __name__ == "__main__":
     names = sys.argv[1:] or list(TABLES)

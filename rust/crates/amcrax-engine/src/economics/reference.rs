@@ -346,8 +346,9 @@ impl EconomicsData {
             .map(|(k, v)| (k.clone(), v.as_str().unwrap_or_default().to_string()))
             .collect();
         if let Some(rd) = a.reactor_size_driver.as_deref().filter(|s| !s.is_empty()) {
-            match driver.iter_mut().find(|e| e.0 == "reactor") {
-                Some(e) => e.1 = rd.to_string(),
+            let pos = driver.iter().position(|e| e.0 == "reactor");
+            match pos {
+                Some(k) => driver[k].1 = rd.to_string(),
                 None => driver.push(("reactor".into(), rd.to_string())),
             }
         }

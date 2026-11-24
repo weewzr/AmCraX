@@ -295,10 +295,11 @@ impl Scenario {
 /// Overrides of `evaluate` (a flat mapping, as the Python dict).
 pub type Overrides = Map<String, Value>;
 
+/// Keyword arguments in order.
+pub type KwList = Vec<(String, Value)>;
+
 /// Python `_split_overrides`: (EconomicAssumptions keys, SGParams keys); `KeyError` otherwise.
-pub fn split_overrides(
-    o: &Overrides,
-) -> Result<(Vec<(String, Value)>, Vec<(String, Value)>), EngineError> {
+pub fn split_overrides(o: &Overrides) -> Result<(KwList, KwList), EngineError> {
     let mut eo = Vec::new();
     let mut so = Vec::new();
     for (k, v) in o {
@@ -409,7 +410,7 @@ pub fn evaluate(
         .iter()
         .find(|e| e.0 == "capex_mode")
         .map(|e| e.1.clone())
-        .unwrap_or(Value::String("reference".into()));
+        .unwrap_or_else(|| Value::String("reference".into()));
     let eo: Vec<(String, Value)> = if mode_raw != Value::String("legacy".into()) {
         let mut v: Vec<(String, Value)> = r
             .economic_overrides()

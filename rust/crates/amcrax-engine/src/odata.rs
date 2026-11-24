@@ -230,10 +230,10 @@ impl<'de> Visitor<'de> for OVisitor {
         let mut m: Vec<(String, OValue)> = Vec::new();
         while let Some((k, v)) = map.next_entry::<KeyString, OValue>()? {
             // a repeated key replaces the earlier value in place (PyYAML dict semantics)
-            if let Some(e) = m.iter_mut().find(|e| e.0 == k.0) {
-                e.1 = v;
-            } else {
-                m.push((k.0, v));
+            let pos = m.iter().position(|e| e.0 == k.0);
+            match pos {
+                Some(i) => m[i].1 = v,
+                None => m.push((k.0, v)),
             }
         }
         Ok(OValue::Map(m))

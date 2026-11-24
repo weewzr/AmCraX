@@ -564,3 +564,631 @@ pub fn economics(golden: &Golden, d: &EconomicsData, root: &Path) -> Result<Repo
     rep.push(tvx);
     Ok(rep)
 }
+
+/// A pair of accumulators for one quantity (numbers, and structure/decisions/errors).
+fn pair(id: &str, quantity: &str) -> (Acc, Acc) {
+    (
+        Acc::rel(id, quantity, 1e-12),
+        Acc::exact(
+            &format!("{id}_structure"),
+            &format!("{quantity}: keys, labels, booleans, None and errors"),
+        ),
+    )
+}
+
+/// Compare a fallible Rust result with a Python value or recorded exception.
+fn cmp_result(
+    nums: &mut Acc,
+    exact: &mut Acc,
+    case: &str,
+    rust: Result<Value, EngineError>,
+    python: &Value,
+) {
+    match (py_error(python), rust) {
+        (Some(pe), r) => add_err_case(exact, case, pe, &r),
+        (None, Err(e)) => exact.add_bool(case, false, || format!("rust error {e}")),
+        (None, Ok(v)) => compare_tree(nums, exact, case, &v, python, false),
+    }
+}
+
+/// Carbon pricing and the LCA factors it needs.
+pub fn carbon(
+    golden: &Golden,
+    d: &EconomicsData,
+    factors: &crate::odata::OValue,
+    root: &Path,
+) -> Result<Report, EngineError> {
+    use crate::carbon::{
+        CiFactors, CiInputs, RouteCaseOpts, actual_boundary, carbon_cost, carbon_intensity_h2,
+        crossover_price, eu_ets_sgd_per_t, legislated_rate_sgd, n2o_at_ppmv, n2o_threshold_test,
+        pair_threshold, route_case, route_gate_ef,
+    };
+    use crate::lca;
+    let mut rep = Report::new("carbon");
+    let t = golden.load("carbon.json")?;
+    let s = summaries(&t)?;
+
+    // ---------------------------------------------------------------------------- lca.py
+    let (mut ln, mut lx) = pair(
+        "carbon.lca_factors",
+        "lca.py: route_spec (7 routes), blue_nh3_ef, green_nh3_ef, shipping, delivered factor, N2O/NO per MWh, \
+         CCGT, SMR",
+    );
+    let l = &t["lca"];
+    for (r, pv) in l["route_spec"].as_object().into_iter().flatten() {
+        cmp_result(
+            &mut ln,
+            &mut lx,
+            &format!("route_spec {r}"),
+            lca::route_spec(r).map(|x| x.to_json()),
+            pv,
+        );
+    }
+    for c in arr(&l["blue_nh3_ef"]) {
+        let a: Vec<f64> = arr(&c["args"]).iter().map(num).collect();
+        let g = |i: usize, dv: f64| a.get(i).copied().unwrap_or(dv);
+        let r = lca::blue_nh3_ef(g(0, 1.0), g(1, 0.0), g(2, 0.0), a.get(3).copied())
+            .map(crate::economics::jf);
+        cmp_result(
+            &mut ln,
+            &mut lx,
+            &format!("blue_nh3_ef {}", c["args"]),
+            r,
+            &c["value"],
+        );
+    }
+    for (k, pv) in l["green_nh3_ef"].as_object().into_iter().flatten() {
+        let r = lca::green_nh3_ef(k).map(crate::economics::jf);
+        cmp_result(&mut ln, &mut lx, &format!("green_nh3_ef {k}"), r, pv);
+    }
+    for c in arr(&l["ship_kg_per_kg_nh3"]) {
+        ln.add(
+            &format!("ship {} {}", c["distance_km"], c["ef"]),
+            lca::ship_kg_per_kg_nh3(num(&c["distance_km"]), opt_num(&c["ef"])),
+            num(&c["value"]),
+        );
+    }
+    for c in arr(&l["delivered_nh3_ef"]) {
+        let r = lca::delivered_nh3_ef(
+            num(&c["ef_gate"]),
+            num(&c["distance_km"]),
+            opt_num(&c["boil_off"]),
+            None,
+        )
+        .map(crate::economics::jf);
+        let case = format!(
+            "delivered {} {} {}",
+            c["ef_gate"], c["distance_km"], c["boil_off"]
+        );
+        cmp_result(&mut ln, &mut lx, &case, r, &c["value"]);
+    }
+    let (n2o, n2o_e, no) = lca::n2o_nox_per_mwh();
+    let pn = &l["n2o_noX_per_MWh"];
+    ln.add("N2O_kg_per_MWh", n2o, num(&pn["N2O_kg_per_MWh"]));
+    ln.add("N2O_kgCO2e_per_MWh", n2o_e, num(&pn["N2O_kgCO2e_per_MWh"]));
+    ln.add("NO_kg_per_MWh", no, num(&pn["NO_kg_per_MWh"]));
+    for c in arr(&l["ccgt_ci_kg_per_MWh"]) {
+        ln.add(
+            &format!("ccgt {} {}", c["eff"], c["leak"]),
+            lca::ccgt_ci_kg_per_mwh(opt_num(&c["eff"]), num(&c["leak"])),
+            num(&c["value"]),
+        );
+    }
+    ln.add("smr ccs", lca::smr_h2_ci(true), num(&l["smr_h2_ci"]["ccs"]));
+    ln.add(
+        "smr unabated",
+        lca::smr_h2_ci(false),
+        num(&l["smr_h2_ci"]["unabated"]),
+    );
+    ln.add(
+        "KG_H2_PER_KG_NH3",
+        lca::KG_H2_PER_KG_NH3,
+        num(&l["KG_H2_PER_KG_NH3"]),
+    );
+    rep.push(ln);
+    rep.push(lx);
+
+    // ---------------------------------------------------------------------------- misc
+    let (mut mn, mut mx) = pair(
+        "carbon.policy_and_factors",
+        "legislated CPA rates by year, EU ETS context in SGD, CI factors of three grids, route gate factors",
+    );
+    let m = &t["misc"];
+    for (y, pv) in m["legislated_rate_SGD"].as_object().into_iter().flatten() {
+        mn.add(
+            &format!("rate {y}"),
+            legislated_rate_sgd(y.parse().unwrap_or(0)),
+            num(pv),
+        );
+    }
+    mn.add(
+        "eu_ets_SGD_per_t",
+        eu_ets_sgd_per_t(d),
+        num(&m["eu_ets_SGD_per_t"]),
+    );
+    for (g, pv) in m["ci_factors"].as_object().into_iter().flatten() {
+        cmp_result(
+            &mut mn,
+            &mut mx,
+            &format!("ci_factors {g}"),
+            CiFactors::from_factors(factors, g).map(|f| f.to_json()),
+            pv,
+        );
+    }
+    for (r, pv) in m["route_gate_ef"].as_object().into_iter().flatten() {
+        cmp_result(
+            &mut mn,
+            &mut mx,
+            &format!("route_gate_ef {r}"),
+            route_gate_ef(r),
+            pv,
+        );
+    }
+    rep.push(mn);
+    rep.push(mx);
+
+    // ---------------------------------------------------------------------------- carbon intensity
+    let (mut cn, mut cx) = pair(
+        "carbon.intensity",
+        "carbon_intensity_h2: three activity sets x five gate factors x three heating options (and an invalid one) \
+         x distances x grids",
+    );
+    let mut ci_in = BTreeMap::new();
+    for (k, v) in t["ci_inputs"].as_object().into_iter().flatten() {
+        ci_in.insert(k.clone(), CiInputs::from_json(v)?);
+    }
+    for c in arr(&t["carbon_intensity"]) {
+        let inp = ci_in
+            .get(c["inputs"].as_str().unwrap_or(""))
+            .ok_or_else(|| EngineError::data("carbon.json", "ci inputs"))?;
+        let fc = CiFactors::from_factors(factors, c["grid"].as_str().unwrap_or(""))?;
+        let r = carbon_intensity_h2(
+            inp,
+            num(&c["nh3_ef"]),
+            c["heating"].as_str().unwrap_or(""),
+            opt_num(&c["distance_km"]),
+            &fc,
+        );
+        let case = format!(
+            "{} ef={} {} d={} {}",
+            c["inputs"], c["nh3_ef"], c["heating"], c["distance_km"], c["grid"]
+        );
+        cmp_result(&mut cn, &mut cx, &case, r, &c["value"]);
+    }
+    rep.push(cn);
+    rep.push(cx);
+
+    // ---------------------------------------------------------------------------- carbon cost
+    let (mut kn, mut kx) = pair(
+        "carbon.cost",
+        "carbon_cost: Mode A, Mode B (price on the CI replacing the tax term), invalid mode and prices",
+    );
+    for c in arr(&t["carbon_cost"]) {
+        let econ = &t["econs"][c["econ"].as_str().unwrap_or("")];
+        let r = carbon_cost(
+            econ,
+            num(&c["ci"]),
+            c["mode"].as_str().unwrap_or(""),
+            num(&c["price"]),
+        );
+        let case = format!(
+            "{} {} P={} CI={}",
+            c["econ"], c["mode"], c["price"], c["ci"]
+        );
+        cmp_result(&mut kn, &mut kx, &case, r, &c["value"]);
+    }
+    rep.push(kn);
+    rep.push(kx);
+
+    // ---------------------------------------------------------------------------- Mode A
+    let (mut an, mut ax) = pair(
+        "carbon.actual_boundary",
+        "actual_boundary (Mode A threshold test): years 2023-2030, N2O kg/h with GWP 265, natural-gas heat, \
+         capacity, hours and tax overrides (including the full evaluate output)",
+    );
+    for c in arr(&t["actual_boundary"]) {
+        let sm = get_summary(&s, c["summary"].as_str().unwrap_or(""))?;
+        let r = Scenario::from_json(&c["scenario"]).and_then(|sc| {
+            actual_boundary(
+                d,
+                sm,
+                &sc,
+                c["year"].as_i64().unwrap_or(2026),
+                num(&c["n2o_kg_per_h"]),
+                &overrides_of(&c["overrides"]),
+            )
+        });
+        let case = format!(
+            "{} {} {} n2o={} {}",
+            c["summary"], c["scenario"], c["year"], c["n2o_kg_per_h"], c["overrides"]
+        );
+        cmp_result(&mut an, &mut ax, &case, r, &c["value"]);
+    }
+    rep.push(an);
+    rep.push(ax);
+
+    // ---------------------------------------------------------------------------- route cases
+    let (mut rn, mut rx) = pair(
+        "carbon.route_case",
+        "route_case: six routes x Mode A and Mode B prices x CI level, custom gate factor, benchmark, overrides \
+         (LCOH, carbon cost, break-even NH3 price, NPV)",
+    );
+    let opts_of = |c: &Value| -> RouteCaseOpts {
+        let kw = &c["kwargs"];
+        RouteCaseOpts {
+            mode: c["mode"].as_str().unwrap_or("").to_string(),
+            price_sgd_per_t: num(&c["price"]),
+            ci_level: kw["ci_level"].as_str().unwrap_or("central").to_string(),
+            nh3_ef_kg_per_kg: opt_num(&kw["nh3_ef_kg_per_kg"]),
+            benchmark_usd_per_kg: opt_num(&kw["benchmark_USD_per_kg"]),
+            benchmark_ci_kgco2e_per_kgh2: opt_num(&kw["benchmark_ci_kgCO2e_per_kgH2"])
+                .unwrap_or(11.0),
+            overrides: overrides_of(&kw["overrides"]),
+        }
+    };
+    for c in arr(&t["route_case"]) {
+        let sm = get_summary(&s, c["summary"].as_str().unwrap_or(""))?;
+        let r = route_case(
+            d,
+            factors,
+            sm,
+            c["route"].as_str().unwrap_or(""),
+            &opts_of(c),
+        );
+        let case = format!(
+            "{} {} P={} {}",
+            c["route"], c["mode"], c["price"], c["kwargs"]
+        );
+        cmp_result(&mut rn, &mut rx, &case, r, &c["value"]);
+    }
+    rep.push(rn);
+    rep.push(rx);
+
+    // ---------------------------------------------------------------------------- crossover, N2O
+    let (mut xn, mut xx) = pair(
+        "carbon.crossover_and_n2o",
+        "crossover_price (all three branches), n2o_threshold_test on the stored Aspen baseline, n2o_at_ppmv",
+    );
+    for c in arr(&t["crossover_price"]) {
+        let a: Vec<f64> = arr(&c["args"]).iter().map(num).collect();
+        let v = crossover_price(a[0], a[1], a[2], a[3], a[4]);
+        add_opt(
+            &mut xn,
+            &mut xx,
+            &format!("crossover {}", c["args"]),
+            v,
+            &c["value"],
+        );
+    }
+    let base_res = read_json(root, "results/simulations/baseline.json")?;
+    let econ = evaluate(
+        d,
+        &Summary::extract(&base_res)?,
+        &Scenario::Named("grey".into()),
+        &Overrides::new(),
+    )?;
+    let tt = n2o_threshold_test(&base_res, &econ)?;
+    compare_tree(
+        &mut xn,
+        &mut xx,
+        "n2o_threshold_test",
+        &tt,
+        &t["n2o"]["threshold_test"],
+        false,
+    );
+    let grid: Vec<(f64, f64)> = [0.15, 1.0, 50.0]
+        .iter()
+        .flat_map(|p| [(*p, 8000.0), (*p, 7000.0)])
+        .collect();
+    for (k, (p, h)) in grid.into_iter().enumerate() {
+        let pv = &t["n2o"]["at_ppmv"][k];
+        compare_tree(
+            &mut xn,
+            &mut xx,
+            &format!("n2o_at_ppmv {p} {h}"),
+            &n2o_at_ppmv(p, &tt, h)?,
+            pv,
+            false,
+        );
+    }
+    rep.push(xn);
+    rep.push(xx);
+
+    // ---------------------------------------------------------------------------- test vectors
+    let (mut vn, mut vx) = pair(
+        "carbon.test_vectors",
+        "the 18 vectors of results/research/carbon_pricing/test_vectors.json (carbon intensity, carbon cost, \
+         crossover prices 33.106, 304.8 and 143.5 SGD/t)",
+    );
+    let tvs = read_json(root, "results/research/carbon_pricing/test_vectors.json")?;
+    for v in arr(&tvs["vectors"]) {
+        let id = v["id"].as_str().unwrap_or("");
+        let i = &v["inputs"];
+        let exp = &v["expected"];
+        match v["function"].as_str().unwrap_or("") {
+            "carbonIntensity" => {
+                let r = carbon_intensity_h2(
+                    &CiInputs::from_json(&i["x"])?,
+                    num(&i["nh3_ef_kg_per_kg"]),
+                    i["heating"].as_str().unwrap_or(""),
+                    opt_num(&i["distance_km"]),
+                    &CiFactors::from_json(&i["factors"])?,
+                )?;
+                compare_tree(&mut vn, &mut vx, id, &r, exp, false);
+            }
+            "carbonCost" => {
+                let mut r = carbon_cost(
+                    &i["econ"],
+                    num(&i["ci_total_kgCO2e_per_kgH2"]),
+                    i["mode"].as_str().unwrap_or(""),
+                    num(&i["price_SGD_per_t"]),
+                )?;
+                let mut e = exp.clone();
+                if let (Some(sub), Some(em)) = (exp["label_contains"].as_str(), e.as_object_mut()) {
+                    let ok = r["label"].as_str().unwrap_or("").contains(sub);
+                    vx.add_bool(&format!("{id} label"), ok, || {
+                        format!("label lacks {sub:?}")
+                    });
+                    em.remove("label_contains");
+                    if let Some(rm) = r.as_object_mut() {
+                        rm.remove("label");
+                    }
+                }
+                compare_tree(&mut vn, &mut vx, id, &r, &e, false);
+            }
+            _ => {
+                let v2 = crossover_price(
+                    num(&i["lcoh_a"]),
+                    num(&i["ci_a"]),
+                    num(&i["lcoh_b"]),
+                    num(&i["ci_b"]),
+                    num(&i["fx"]),
+                );
+                add_opt(&mut vn, &mut vx, id, v2, exp);
+            }
+        }
+    }
+    rep.push(vn);
+    rep.push(vx);
+
+    // ---------------------------------------------------------------------------- stored results
+    let (mut sn, mut sx) = pair(
+        "carbon.stored_results",
+        "results/research/carbon_pricing: every route case of scenarios.json, its Mode A block, the pairwise \
+         thresholds of thresholds.json, the route rows and comparators of carbon_intensity.json",
+    );
+    for (k, ok) in t["python_reproduces_stored"]
+        .as_object()
+        .into_iter()
+        .flatten()
+    {
+        sx.add_bool(
+            &format!("python reproduces {k}"),
+            ok.as_bool() == Some(true),
+            || "the Python reference does not reproduce the stored file".into(),
+        );
+    }
+    let base = Summary::extract(&base_res)?;
+    let sc = read_json(root, "results/research/carbon_pricing/scenarios.json")?;
+    let bench_ci = num(&sc["benchmark_ci_smr_kgCO2e_per_kgH2"]);
+    for (i, c) in arr(&sc["cases"]).iter().enumerate() {
+        let hyp = c["mode"] == "hypothetical_lca";
+        let o = RouteCaseOpts {
+            mode: c["mode"].as_str().unwrap_or("").to_string(),
+            price_sgd_per_t: if hyp {
+                num(&c["carbon_price_SGD_per_tCO2e"])
+            } else {
+                0.0
+            },
+            benchmark_ci_kgco2e_per_kgh2: if hyp { bench_ci } else { 11.0 },
+            ..RouteCaseOpts::default()
+        };
+        let r = route_case(d, factors, &base, c["route"].as_str().unwrap_or(""), &o)?;
+        compare_tree(
+            &mut sn,
+            &mut sx,
+            &format!("scenarios.json cases[{i}]"),
+            &r,
+            c,
+            false,
+        );
+    }
+    let ma = &sc["mode_a_actual_boundary"];
+    let mut ab = actual_boundary(
+        d,
+        &base,
+        &Scenario::Named("grey".into()),
+        2026,
+        0.0,
+        &Overrides::new(),
+    )?;
+    if let Some(m) = ab.as_object_mut() {
+        m.remove("econ");
+    }
+    compare_tree(
+        &mut sn,
+        &mut sx,
+        "mode_a reference_plant_self_firing",
+        &ab,
+        &ma["reference_plant_self_firing"],
+        false,
+    );
+    compare_tree(
+        &mut sn,
+        &mut sx,
+        "mode_a n2o_threshold_test",
+        &tt,
+        &ma["n2o_threshold_test"],
+        false,
+    );
+    let hours = num(&econ["assumptions"]["economic"]["operating_hours_h_per_yr"]);
+    compare_tree(
+        &mut sn,
+        &mut sx,
+        "mode_a n2o_at_ahmad_0p15_ppmv",
+        &n2o_at_ppmv(0.15, &tt, hours)?,
+        &ma["n2o_at_ahmad_0p15_ppmv_transferred"],
+        false,
+    );
+    let mut ngo = Overrides::new();
+    ngo.insert("heat_fuel".into(), Value::String("natural_gas".into()));
+    let ng = actual_boundary(d, &base, &Scenario::Named("grey".into()), 2026, 0.0, &ngo)?;
+    let ngv = &ma["natural_gas_heat_variant"];
+    sn.add(
+        "mode_a ng direct",
+        num(&ng["direct_tCO2e_per_yr"]),
+        num(&ngv["direct_tCO2e_per_yr"]),
+    );
+    sn.add(
+        "mode_a ng fraction",
+        num(&ng["threshold_fraction"]),
+        num(&ngv["threshold_fraction"]),
+    );
+    sn.add(
+        "mode_a ng capacity scale",
+        crate::carbon::THRESHOLD_TCO2E_PER_YR / num(&ng["direct_tCO2e_per_yr"]),
+        num(&ngv["capacity_scale_to_reach_threshold"]),
+    );
+    sx.add_bool("mode_a ng liable", ng["liable"] == ngv["liable"], || {
+        "liable differs".into()
+    });
+    let th = read_json(root, "results/research/carbon_pricing/thresholds.json")?;
+    for (i, row) in arr(&th["pairwise"]).iter().enumerate() {
+        let r = pair_threshold(
+            d,
+            factors,
+            &base,
+            row["route"].as_str().unwrap_or(""),
+            row["overtakes"].as_str().unwrap_or(""),
+        )?;
+        compare_tree(
+            &mut sn,
+            &mut sx,
+            &format!("thresholds.json pairwise[{i}]"),
+            &r,
+            row,
+            false,
+        );
+    }
+    let cij = read_json(
+        root,
+        "results/research/carbon_pricing/carbon_intensity.json",
+    )?;
+    let fc = CiFactors::from_factors(factors, "singapore_2024")?;
+    let inp = CiInputs::from_summary(&base);
+    let ci_tot = |ef: f64, dist: Option<f64>| -> Result<f64, EngineError> {
+        Ok(num(&carbon_intensity_h2(
+            &inp,
+            ef,
+            "self_firing",
+            dist,
+            &fc,
+        )?["total_kgCO2e_per_kgH2"]))
+    };
+    for (r, row) in cij["routes"].as_object().into_iter().flatten() {
+        let sp = lca::route_spec(r)?;
+        let case = format!("carbon_intensity.json routes.{r}");
+        sn.add(
+            &format!("{case} gate central"),
+            sp.ef,
+            num(&row["gate_ef_kgCO2e_per_kgNH3"]["central"]),
+        );
+        sn.add(
+            &format!("{case} gate low"),
+            sp.low,
+            num(&row["gate_ef_kgCO2e_per_kgNH3"]["low"]),
+        );
+        sn.add(
+            &format!("{case} gate high"),
+            sp.high,
+            num(&row["gate_ef_kgCO2e_per_kgNH3"]["high"]),
+        );
+        sn.add(
+            &format!("{case} ci central"),
+            ci_tot(sp.ef, None)?,
+            num(&row["ci_kgCO2e_per_kgH2"]["central"]),
+        );
+        sn.add(
+            &format!("{case} ci low"),
+            ci_tot(sp.low, None)?,
+            num(&row["ci_kgCO2e_per_kgH2"]["low"]),
+        );
+        sn.add(
+            &format!("{case} ci high"),
+            ci_tot(sp.high, None)?,
+            num(&row["ci_kgCO2e_per_kgH2"]["high"]),
+        );
+        sn.add(
+            &format!("{case} 2000 km"),
+            ci_tot(sp.ef, Some(2000.0))?,
+            num(&row["ci_at_distance_kgCO2e_per_kgH2"]["2000_km"]),
+        );
+        sn.add(
+            &format!("{case} 12000 km"),
+            ci_tot(sp.ef, Some(12000.0))?,
+            num(&row["ci_at_distance_kgCO2e_per_kgH2"]["12000_km"]),
+        );
+        let br = carbon_intensity_h2(&inp, sp.ef, "self_firing", None, &fc)?;
+        compare_tree(
+            &mut sn,
+            &mut sx,
+            &format!("{case} breakdown"),
+            &br["breakdown_kgCO2e_per_kgH2"],
+            &row["breakdown_central"],
+            false,
+        );
+        sx.add_bool(
+            &format!("{case} label"),
+            row["label"].as_str() == Some(sp.label.as_str()),
+            || "label".into(),
+        );
+    }
+    let ci0 = carbon_intensity_h2(&inp, 0.0, "self_firing", None, &fc)?;
+    let x = (inp.nh3_feed_kg_h + num(&ci0["nh3_fuel_kg_h"])) / inp.h2_kg_h;
+    sn.add(
+        "carbon_intensity.json activity kg_nh3_total",
+        x,
+        num(&cij["activity"]["kg_nh3_total_per_kg_h2"]),
+    );
+    let ci0t = num(&ci0["total_kgCO2e_per_kgH2"]);
+    for (key, vals) in [
+        ("vs_smr_unabated", vec![10.0, 11.0, 12.0]),
+        ("vs_smr_ccs", vec![3.4, 3.6, 5.3]),
+    ] {
+        for v in vals {
+            let k = crate::pyops::fmt_g(v, 6);
+            sn.add(
+                &format!("breakeven_gate_ef {key} {k}"),
+                (v - ci0t) / x,
+                num(&cij["breakeven_gate_ef_kgCO2e_per_kgNH3"][key][k.as_str()]),
+            );
+        }
+    }
+    let ng = &cij["power_comparators_kgCO2e_per_MWh"]["ng_ccgt"];
+    sn.add(
+        "ng_ccgt central",
+        lca::ccgt_ci_kg_per_mwh(None, 0.0),
+        num(&ng["central"]),
+    );
+    sn.add(
+        "ng_ccgt low_eff_0.50",
+        lca::ccgt_ci_kg_per_mwh(Some(0.5), 0.0),
+        num(&ng["low_eff_0.50"]),
+    );
+    sn.add(
+        "ng_ccgt high_eff_0.60",
+        lca::ccgt_ci_kg_per_mwh(Some(0.6), 0.0),
+        num(&ng["high_eff_0.60"]),
+    );
+    for lk in [0.002, 0.015, 0.03] {
+        let k = format!("leak_{}", crate::pyops::fmt_g(lk, 6));
+        sn.add(
+            &format!("ng_ccgt {k}"),
+            lca::ccgt_ci_kg_per_mwh(None, lk),
+            num(&ng[k.as_str()]),
+        );
+    }
+    rep.push(sn);
+    rep.push(sx);
+    Ok(rep)
+}

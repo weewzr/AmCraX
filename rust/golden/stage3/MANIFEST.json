@@ -1,5 +1,10 @@
 {
  "files": {
+  "carbon.json": {
+   "bytes": 2312819,
+   "cases": 1240,
+   "sha256": "91af1fd8df910ba80a88adeb9eeb583dfad8d59f46d3b8552a644447334598cb"
+  },
   "economics.json": {
    "bytes": 4151748,
    "cases": 1658,
@@ -9,7 +14,7 @@
  "meta": {
   "amcrax_source": "backend/amcrax (this repository)",
   "generator": "rust/golden/generate_stage3_golden.py",
-  "git_head_at_generation": "4df31b93481e0a0da676da3caa600579054aa43a",
+  "git_head_at_generation": "982c377d880f3dbbebac9b7e47ea0ea8b379252a",
   "numpy": "2.5.5",
   "platform": "Windows AMD64",
   "pydantic": "2.14.4",
