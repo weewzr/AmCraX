@@ -1,0 +1,65 @@
+{
+ "case_counts": {
+  "brentq": 28,
+  "cubic_roots": 30,
+  "dopri5": 17,
+  "interp": 6,
+  "lhs": 5,
+  "pcg64": 24,
+  "pchip": 9,
+  "sobol": 15,
+  "stats": 17
+ },
+ "files": {
+  "brentq.json": {
+   "bytes": 16578,
+   "sha256": "da185002958d5100aacd9902afc541fbf71da797c2c123dbea49eb11f0dd5afe"
+  },
+  "cubic_roots.json": {
+   "bytes": 6432,
+   "sha256": "c82b8e10553cf113630f5cc2aba0e5034fdb65605734399568c8d3e995d435d2"
+  },
+  "dopri5.json": {
+   "bytes": 114429,
+   "sha256": "f66e0b809cd1ae8f721cdd1c799f1f44e10d3d4c6c7da9ffbc24992049a077c2"
+  },
+  "interp.json": {
+   "bytes": 48148,
+   "sha256": "2bd1957563ee703e71e277c83711978e60b73a2080781a900a595caac1aefaf9"
+  },
+  "lhs.json": {
+   "bytes": 48960,
+   "sha256": "8e50a7523ec5231f9568e08e50c2b18808b516a2ff402be60eeae03485606d83"
+  },
+  "pcg64.json": {
+   "bytes": 239086,
+   "sha256": "565d19ccca899d11c9faa7f751760e9e24d9720b70b245404180d76fc8b8df5f"
+  },
+  "pchip.json": {
+   "bytes": 31510,
+   "sha256": "a721320c0e4b21163651c5ae243498e1128d4cb7cf63049db7ebbbc0260c74f2"
+  },
+  "sobol.json": {
+   "bytes": 465877,
+   "sha256": "4746f081b13416f26a039e9936287055b93ac1c7b18775e319124688f67bc916"
+  },
+  "stats.json": {
+   "bytes": 347981,
+   "sha256": "71faee34af38ec937992d5d2f0bfe6b9aeff5b1e17e1082328dae721066fbefe"
+  }
+ },
+ "meta": {
+  "generated_utc": "2026-11-24T06:44:55Z",
+  "generator": "rust/golden/generate_numerics_golden.py",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "python": "3.12.10",
+  "scipy": "1.18.1"
+ },
+ "policy": "generated once by Python and committed; never regenerated from Rust",
+ "sobol_directions_rs": {
+  "dims": 1111,
+  "path": "rust/crates/amcrax-numerics/src/sobol_directions.rs",
+  "sha256": "4be62bebc56bdc35884ebff5792577d5c1805e0a3124d0700da366b81790ad6a"
+ }
+}
