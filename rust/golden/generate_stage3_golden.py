@@ -705,7 +705,57 @@ def uq() -> None:
     write_table("uq", body, len(estimators) + len(bases) + 3000 * 8)
 
 
-TABLES = {"economics": economics, "carbon": carbon, "uq": uq}
+# ======================================================================================================== stiff
+def stiff() -> None:
+    """High-temperature plug-flow cases (stiff for an explicit method) with the Python LSODA reference."""
+    import time
+    import scipy.integrate as si
+    from amcrax.reactor import pfr as P
+
+    rec = {}
+    orig = si.solve_ivp
+
+    def solve_rec(*a, **k):
+        r = orig(*a, **k)
+        rec.update(nfev=int(r.nfev), njev=int(getattr(r, "njev", 0)), nlu=int(getattr(r, "nlu", 0)))
+        return r
+
+    P.solve_ivp = solve_rec
+    cases = []
+    cats = ["ru_kum_temkin_pyzhev", "nire_ceo2_5ni1ru_lucentini_lhhw", "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+            "ni_takahashi_microkinetic", "ru_takahashi_microkinetic"]
+    bed = {"eps_b": 0.36, "rho_particle_kg_m3": 1651.8}
+    for cid in cats:
+        for T in (750.0, 850.0, 900.0):
+            for Pb in (1.01325, 20.0):
+                for W in (100.0, 1000.0):
+                    kw = dict(W_kg=W, T_in_C=T, P_in_bar=Pb, feed_kmol_h={"NH3": 100.0}, mode="isothermal",
+                              pressure_drop=False, n_points=3, **bed)
+                    cases.append((cid, kw))
+    cases.append(("ru_kum_temkin_pyzhev", dict(W_kg=1000.0, T_in_C=900.0, P_in_bar=1.01325, n_points=3)))
+    cases.append(("nire_ceo2_5ni1ru_lucentini_lhhw", dict(W_kg=1000.0, T_in_C=900.0, P_in_bar=1.01325, feed_kmol_h={"NH3": 100.0},
+                                                          mode="isothermal", pressure_drop=False, n_points=3,
+                                                          **bed)))
+    for T in (700.0, 800.0):
+        cases.append(("ru_takahashi_microkinetic", dict(W_kg=500.0, T_in_C=T, P_in_bar=20.0, mode="adiabatic", n_tubes=50, n_points=3)))
+    out = []
+    for cid, kw in cases:
+        rec.clear()
+        t0 = time.perf_counter()
+        try:
+            r = P.simulate_pfr(cid, **kw)
+            v = {"conversion": r.outlet["conversion"], "T_C": r.outlet["T_C"], "P_bar": r.outlet["P_bar"],
+                 "X_profile": list(r.conversion), "T_K_profile": list(r.T_K), "W_profile": list(r.W_kg),
+                 "hydraulic_limit": bool(r.outlet["hydraulic_limit"])}
+        except Exception as e:  # noqa: BLE001
+            v = err(e)
+        out.append({"catalyst_id": cid, "kwargs": kw, "result": v, "lsoda": dict(rec),
+                    "python_seconds": time.perf_counter() - t0})
+    P.solve_ivp = orig
+    write_table("stiff", {"cases": out, "note": "Python simulate_pfr (LSODA rtol 1e-8, atol 1e-12) at high temperature"}, len(out))
+
+
+TABLES = {"economics": economics, "carbon": carbon, "uq": uq, "stiff": stiff}
 
 if __name__ == "__main__":
     names = sys.argv[1:] or list(TABLES)

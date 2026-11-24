@@ -51,6 +51,37 @@ fn monte_carlo_study_reproduces_stored_results() {
 }
 
 #[test]
+fn stiff_reactor_cases_against_lsoda() {
+    let r = stage3::stiff(
+        &golden(),
+        amcrax_engine::kinetics::KineticsRegistry::embedded(),
+        &amcrax_engine::reactor::SolverOptions::default(),
+    )
+    .expect("stiff check runs");
+    check(r);
+}
+
+#[test]
+fn kinetic_propagation_first_draws_match_stored_samples() {
+    use amcrax_engine::studies::kinetic::{KP_CATS, KpSetup, kinetic_propagation};
+    let reg = amcrax_engine::kinetics::KineticsRegistry::embedded();
+    let ky = amcrax_engine::odata::OValue::from_yaml(
+        "kinetics.yaml",
+        amcrax_engine::kinetics::EMBEDDED_YAML,
+    )
+    .unwrap();
+    let st = KpSetup::new(reg, &ky).unwrap();
+    let nominal: Vec<_> = (0..KP_CATS.len())
+        .map(|k| st.run_draw(k, None).unwrap())
+        .collect();
+    let res = kinetic_propagation(&st, 4000, Some(3), 2).unwrap();
+    // the result does not depend on the thread count
+    let res1 = kinetic_propagation(&st, 4000, Some(3), 1).unwrap();
+    assert_eq!(res[0].1[0].2, res1[0].1[0].2);
+    check(stage3::kinetic(Path::new(&root()), &res, &nominal, false).unwrap());
+}
+
+#[test]
 fn economics_golden() {
     check(
         stage3::economics(&golden(), EconomicsData::embedded(), Path::new(&root()))

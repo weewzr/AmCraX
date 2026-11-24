@@ -8,6 +8,8 @@
 //! Monte Carlo draws are `default_rng(seed).uniform / triangular / random`; all are reproduced
 //! bit for bit (`amcrax_numerics::random`, `amcrax_numerics::qmc`).
 
+pub mod kinetic;
+
 use crate::economics::jf;
 use crate::economics::lcoh::EconAssumptions;
 use crate::economics::reference::{EconomicsData, SINGAPORE_YAML};

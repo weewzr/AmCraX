@@ -1430,3 +1430,318 @@ pub fn studies(
     }
     Ok(rep)
 }
+
+/// High-temperature (stiff) plug-flow cases against Python LSODA, with the stage 2 tolerances.
+pub fn stiff(
+    golden: &Golden,
+    reg: &crate::kinetics::KineticsRegistry,
+    sopt: &crate::reactor::SolverOptions,
+) -> Result<Report, EngineError> {
+    use crate::reactor::{PfrInput, simulate_pfr};
+    let mut rep = Report::new("stiff");
+    let t = golden.load("stiff.json")?;
+    let mut xo = Acc::abs(
+        "stiff.outlet_conversion",
+        "PFR outlet conversion at 750-900 degC, 1 and 20 bar, 100-1000 kg (five rate laws)",
+        1e-7,
+    )
+    .note("stage 2 gate: Python LSODA rtol 1e-8 against DOPRI5 rtol 1e-10 or, when DOPRI5 exceeds 2,000 step attempts, ROS2 rtol 1e-10");
+    let mut to = Acc::abs("stiff.outlet_T", "outlet temperature, K", 1e-4);
+    let mut po = Acc::abs("stiff.outlet_P", "outlet pressure, bar", 1e-6);
+    let mut xp = Acc::abs(
+        "stiff.profile_conversion",
+        "conversion profile (3 points)",
+        1e-6,
+    );
+    let mut ex = Acc::exact(
+        "stiff.decisions",
+        "errors and hydraulic-limit flags identical",
+    );
+    let mut n_ros2 = 0usize;
+    let mut max_steps = 0usize;
+    for c in arr(&t["cases"]) {
+        let cid = c["catalyst_id"].as_str().unwrap_or("");
+        let mut kw = c["kwargs"].clone();
+        if let Some(m) = kw.as_object_mut() {
+            m.insert("catalyst_id".into(), Value::String(cid.into()));
+        }
+        let case = format!("{cid} {}", c["kwargs"]);
+        let inp: PfrInput = serde_json::from_value(kw)
+            .map_err(|e| EngineError::data("stiff.json", e.to_string()))?;
+        let r = simulate_pfr(reg, &inp, sopt);
+        let pv = &c["result"];
+        match (py_error(pv), r) {
+            (Some(pe), r) => add_err_case(&mut ex, &case, pe, &r),
+            (None, Err(e)) => ex.add_bool(&case, false, || format!("rust error {e}")),
+            (None, Ok(r)) => {
+                if r.solver.method.starts_with("ROS2") {
+                    n_ros2 += 1;
+                }
+                max_steps = max_steps.max(r.solver.n_steps);
+                ex.add_bool(
+                    &case,
+                    r.outlet.hydraulic_limit == (pv["hydraulic_limit"] == true),
+                    || "hydraulic flag differs".into(),
+                );
+                xo.add(&case, r.outlet.conversion, num(&pv["conversion"]));
+                to.add(&case, r.outlet.t_c, num(&pv["T_C"]));
+                po.add(&case, r.outlet.p_bar, num(&pv["P_bar"]));
+                for (i, (a, b)) in r.conversion.iter().zip(nums(&pv["X_profile"])).enumerate() {
+                    xp.add(&format!("{case} [{i}]"), *a, b);
+                }
+            }
+        }
+    }
+    rep.findings.push(format!(
+        "stiff cases: {n_ros2} of {} solved by the ROS2 fallback (DOPRI5 over 2,000 step attempts); largest step count {max_steps}",
+        arr(&t["cases"]).len()
+    ));
+    rep.push(xo);
+    rep.push(to);
+    rep.push(po);
+    rep.push(xp);
+    rep.push(ex);
+    Ok(rep)
+}
+
+fn csv_opt(s: &str) -> Option<f64> {
+    if s == "not_reached" {
+        None
+    } else {
+        s.parse::<f64>().ok()
+    }
+}
+
+fn add_opt_gate(nums: &mut Acc, exact: &mut Acc, case: &str, r: Option<f64>, p: Option<f64>) {
+    match (r, p) {
+        (Some(a), Some(b)) => nums.add(case, a, b),
+        (None, None) => exact.add_bool(case, true, String::new),
+        (a, b) => exact.add_bool(case, false, || format!("rust {a:?} python {b:?}")),
+    }
+}
+
+/// The kinetic parameter propagation (`scripts/research/uq_kinetic_propagation.py`) against the
+/// stored samples (results/research/uq/kinetic_param_propagation_samples.csv, draw for draw) and
+/// the stored summaries (kinetic_param_propagation.json), with the reactor tolerances of stage 2.
+/// `nominal`: the Rust `run_draw` of the nominal parameters per catalyst.
+pub fn kinetic(
+    root: &Path,
+    res: &[crate::studies::kinetic::KpCatalyst],
+    nominal: &[crate::studies::kinetic::DrawOut],
+    complete: bool,
+) -> Result<Report, EngineError> {
+    use crate::studies::kinetic::{KP_CATS, TARGETS, case_summary, target_key};
+    let mut rep = Report::new("kinetic_propagation");
+    let csv = std::fs::read_to_string(
+        root.join("results")
+            .join("research")
+            .join("uq")
+            .join("kinetic_param_propagation_samples.csv"),
+    )
+    .map_err(|e| EngineError::data("kinetic_param_propagation_samples.csv", e.to_string()))?;
+    let mut rows: BTreeMap<(String, String, usize), Vec<String>> = BTreeMap::new();
+    for l in csv.lines().skip(1).filter(|l| !l.trim().is_empty()) {
+        let f: Vec<String> = l.trim().split(',').map(str::to_string).collect();
+        let i = f.get(2).and_then(|x| x.parse().ok()).unwrap_or(usize::MAX);
+        rows.insert((f[0].clone(), f[1].clone(), i), f);
+    }
+    let mut par = Acc::rel(
+        "kinetic.draws",
+        "parameter draws k0, Ek, K1, K4 (Latin hypercube default_rng(20261123), norm.ppf), draw for draw",
+        1e-12,
+    )
+    .note("LHS and ndtri bit for bit; NumPy's vectorised log/exp may differ from libm by an ulp");
+    let mut xl = Acc::abs(
+        "kinetic.X_lab",
+        "laboratory conversions at 400, 450, 500 degC (W = 0.1 g, 1 atm, NH3/Ar), draw for draw",
+        1e-7,
+    )
+    .note("stage 2 reactor gate (Python LSODA rtol 1e-8 against DOPRI5/ROS2 rtol 1e-10)");
+    let mut tr = Acc::abs(
+        "kinetic.T_required",
+        "inlet temperature for X = 0.95 / 0.99 at 1 and 20 bar, W = 100 / 1000 kg per 100 kmol/h, draw for draw",
+        0.05,
+    )
+    .note("stage 2 gate of the temperature search (brentq xtol 0.02 K on conversions that differ by up to 1e-7)");
+    let mut ms = Acc::rel(
+        "kinetic.catalyst_mass",
+        "catalyst mass for 99 % of equilibrium at 600 degC, 20 bar, draw for draw",
+        1e-5,
+    )
+    .note("stage 2 gate of the mass search (brentq xtol 1e-6 W)");
+    let mut dec = Acc::exact(
+        "kinetic.decisions",
+        "reached / not reached of every target and mass, draws present in the stored file, C3 acceptance",
+    );
+    for (cid, cases, rate) in res {
+        let short = KP_CATS
+            .iter()
+            .find(|c| c.0 == cid)
+            .map(|c| c.1)
+            .unwrap_or("");
+        for (case, draws, outs) in cases {
+            for (i, (d, o)) in draws.iter().zip(outs).enumerate() {
+                let key = (cid.clone(), case.clone(), i);
+                let Some(f) = rows.get(&key) else {
+                    dec.add_bool(&format!("{cid} {case} {i}"), false, || {
+                        "draw missing in the stored samples".into()
+                    });
+                    continue;
+                };
+                let c = format!("{short} {case} {i}");
+                for (k, v) in d.iter().enumerate() {
+                    par.add(
+                        &format!("{c} p{k}"),
+                        *v,
+                        f[3 + k].parse().unwrap_or(f64::NAN),
+                    );
+                }
+                for j in 0..3 {
+                    xl.add(
+                        &format!("{c} X{j}"),
+                        o.x_lab[j],
+                        f[7 + j].parse().unwrap_or(f64::NAN),
+                    );
+                }
+                for k in 0..TARGETS.len() {
+                    add_opt_gate(
+                        &mut tr,
+                        &mut dec,
+                        &format!("{c} T{k}"),
+                        o.t_req[k].0,
+                        csv_opt(&f[10 + k]),
+                    );
+                }
+                add_opt_gate(
+                    &mut ms,
+                    &mut dec,
+                    &format!("{c} mass"),
+                    o.m_frac99.filter(|m| *m != 0.0),
+                    csv_opt(&f[18]),
+                );
+            }
+            if complete {
+                let n_stored = rows.keys().filter(|k| k.0 == *cid && k.1 == *case).count();
+                dec.add_bool(
+                    &format!("{cid} {case} count"),
+                    n_stored == draws.len(),
+                    || format!("rust {} draws, stored {n_stored}", draws.len()),
+                );
+            }
+        }
+        if complete {
+            let stored = read_json(root, "results/research/uq/kinetic_param_propagation.json")?;
+            let sc = &stored["catalysts"][cid.as_str()];
+            let r_py = num(&sc["C3_acceptance_rate"]);
+            dec.add_bool(&format!("{cid} C3 acceptance"), *rate == r_py, || {
+                format!("rust {rate} python {r_py}")
+            });
+        }
+    }
+    // nominal parameters (stored nominal_outputs)
+    let stored = read_json(root, "results/research/uq/kinetic_param_propagation.json")?;
+    for (k, (cid, ..)) in KP_CATS.iter().enumerate() {
+        let Some(o) = nominal.get(k) else { continue };
+        let pn = &stored["catalysts"][*cid]["nominal_outputs"];
+        for j in 0..3 {
+            xl.add(
+                &format!("{cid} nominal X{j}"),
+                o.x_lab[j],
+                num(&pn["X_lab"][j]),
+            );
+        }
+        for (i, (p, w, x)) in TARGETS.iter().enumerate() {
+            let pv = &pn["T_req"][target_key(*p, *w, *x).as_str()][0];
+            add_opt_gate(
+                &mut tr,
+                &mut dec,
+                &format!("{cid} nominal T{i}"),
+                o.t_req[i].0,
+                pv.as_f64(),
+            );
+        }
+        add_opt_gate(
+            &mut ms,
+            &mut dec,
+            &format!("{cid} nominal mass"),
+            o.m_frac99,
+            pn["m_frac99"].as_f64(),
+        );
+    }
+    rep.push(par);
+    rep.push(xl);
+    rep.push(tr);
+    rep.push(ms);
+    rep.push(dec);
+    if complete {
+        let mut sp = Acc::rel(
+            "kinetic.summary_params",
+            "case summaries of the parameter draws",
+            1e-12,
+        );
+        let mut sx = Acc::abs(
+            "kinetic.summary_X_lab",
+            "case summaries of the laboratory conversions",
+            1e-7,
+        );
+        let mut stt = Acc::abs(
+            "kinetic.summary_T_required",
+            "case summaries (mean, sd, p5, p50, p95) of the required temperatures",
+            0.05,
+        );
+        let mut sm = Acc::rel(
+            "kinetic.summary_mass",
+            "case summaries of the catalyst mass",
+            1e-5,
+        );
+        let mut sn = Acc::exact(
+            "kinetic.summary_counts",
+            "n and n_not_reached of every summary",
+        );
+        for (cid, cases, _) in res {
+            let t_lab = KP_CATS
+                .iter()
+                .find(|c| c.0 == cid)
+                .map(|c| c.2)
+                .unwrap_or([0.0; 3]);
+            for (case, draws, outs) in cases {
+                let r = case_summary(draws, outs, &t_lab);
+                let p = &stored["catalysts"][cid.as_str()]["cases"][case.as_str()];
+                for (key, rv) in r.as_object().into_iter().flatten() {
+                    let pv = &p[key.as_str()];
+                    if key == "n_draws" {
+                        sn.add_bool(&format!("{cid} {case} n_draws"), rv == pv, || {
+                            format!("{rv} vs {pv}")
+                        });
+                        continue;
+                    }
+                    let acc: &mut Acc = if key.starts_with("param_") {
+                        &mut sp
+                    } else if key.starts_with("X_lab") {
+                        &mut sx
+                    } else if key.starts_with("T_required") {
+                        &mut stt
+                    } else {
+                        &mut sm
+                    };
+                    for f in ["n", "n_not_reached"] {
+                        sn.add_bool(&format!("{cid} {case} {key} {f}"), rv[f] == pv[f], || {
+                            format!("rust {} python {}", rv[f], pv[f])
+                        });
+                    }
+                    for f in ["mean", "sd", "p5", "p50", "p95"] {
+                        if !pv[f].is_null() {
+                            acc.add(&format!("{cid} {case} {key} {f}"), num(&rv[f]), num(&pv[f]));
+                        }
+                    }
+                }
+            }
+        }
+        rep.push(sp);
+        rep.push(sx);
+        rep.push(stt);
+        rep.push(sm);
+        rep.push(sn);
+    }
+    Ok(rep)
+}

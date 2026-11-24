@@ -255,7 +255,10 @@ mod tests {
         let ci = bootstrap_ci(&f(&a), &f(&b), &fab, 50, 1, 0.95);
         assert!(ci.st.iter().all(|c| c[0] <= c[1]));
         let flat = vec![1.0; 4];
-        assert_eq!(indices_from_outputs(&flat, &flat, &[flat.clone()]).2, 0.0);
+        assert_eq!(
+            indices_from_outputs(&flat, &flat, std::slice::from_ref(&flat)).2,
+            0.0
+        );
         assert!(sobol_base(1000, 2, 1).is_err());
     }
 

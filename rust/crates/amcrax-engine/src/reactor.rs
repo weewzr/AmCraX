@@ -33,6 +33,7 @@ use crate::thermo::{Alpha, Eos, Kij, reaction_enthalpy_kj_mol};
 use crate::transport::{NV, Transport};
 use amcrax_numerics::ode::{Event, OdeError, OdeOptions, OdeStatus, dopri5};
 use amcrax_numerics::roots::{BrentError, BrentOptions, brentq_try};
+use amcrax_numerics::rosenbrock::ros2;
 use serde::{Deserialize, Serialize};
 use std::cell::RefCell;
 use std::collections::BTreeMap;
@@ -146,6 +147,10 @@ pub struct PfrInput {
     pub x_seed: f64,
     #[serde(default = "d_points")]
     pub n_points: usize,
+    /// Kinetic parameter overrides of the catalyst (Python `amcrax.uq.kinetic_hook`, which
+    /// rebinds the rate function inside `pfr.py`); not a Python keyword of `simulate_pfr`.
+    #[serde(skip)]
+    pub param_overrides: Option<crate::kinetics::Overrides>,
 }
 
 impl PfrInput {
@@ -170,6 +175,7 @@ impl PfrInput {
             keq_basis: d_keq(),
             x_seed: 1e-6,
             n_points: 201,
+            param_overrides: None,
         }
     }
 }
@@ -184,6 +190,12 @@ pub struct SolverOptions {
     pub max_attempts: usize,
     /// Accepted steps above which the case is reported as stiff for DOPRI5.
     pub stiff_steps: usize,
+    /// DOPRI5 step attempts after which the integration restarts with the L-stable ROS2 method
+    /// (`amcrax_numerics::rosenbrock`); stage 2 found at most 659 steps in the golden cases and
+    /// about 583,000 for Kum at 900 degC, 1 atm, 1000 kg.
+    pub stiff_switch_attempts: usize,
+    /// Relative tolerance of the ROS2 fallback.
+    pub stiff_rtol: f64,
 }
 
 impl Default for SolverOptions {
@@ -193,6 +205,8 @@ impl Default for SolverOptions {
             atol: [1e-13, 1e-9, 1e-11, 1e-12],
             max_attempts: 2_000_000,
             stiff_steps: 5_000,
+            stiff_switch_attempts: 2_000,
+            stiff_rtol: 1e-10,
         }
     }
 }
@@ -454,7 +468,7 @@ impl<'a> Case<'a> {
             RateOpts {
                 approach_factor: self.inp.approach_factor,
                 keq_basis: self.keq,
-                param_overrides: None,
+                param_overrides: self.inp.param_overrides.as_ref(),
             },
         )
     }
@@ -619,9 +633,10 @@ pub fn simulate_pfr(
         atol: sopt.atol,
         first_step: None,
         max_step: f64::INFINITY,
-        max_attempts: sopt.max_attempts,
+        max_attempts: sopt.max_attempts.min(sopt.stiff_switch_attempts),
     };
-    let sol = dopri5(
+    let mut method = "DOPRI5 (amcrax-numerics)";
+    let mut sol = dopri5(
         &mut rhs,
         (0.0, inp.w_kg),
         [x0, t_in, inp.p_in_bar, 0.0],
@@ -629,6 +644,26 @@ pub fn simulate_pfr(
         &mut events,
         &opts,
     );
+    if matches!(sol, Err(OdeError::TooManySteps { .. }))
+        && rhs_error.borrow().is_none()
+        && sopt.stiff_switch_attempts < sopt.max_attempts
+    {
+        // stiff for the explicit method: restart with the L-stable Rosenbrock method
+        method = "ROS2 (amcrax-numerics, stiff fallback after DOPRI5)";
+        let ropts = OdeOptions {
+            rtol: sopt.stiff_rtol,
+            max_attempts: sopt.max_attempts,
+            ..opts.clone()
+        };
+        sol = ros2(
+            &mut rhs,
+            (0.0, inp.w_kg),
+            [x0, t_in, inp.p_in_bar, 0.0],
+            Some(&w_eval),
+            &mut events,
+            &ropts,
+        );
+    }
     let sol = match sol {
         Ok(s) => s,
         Err(e) => {
@@ -751,8 +786,12 @@ pub fn simulate_pfr(
         assumptions,
         source: "rust_model".into(),
         solver: SolverStats {
-            method: "DOPRI5 (amcrax-numerics)",
-            rtol: sopt.rtol,
+            method,
+            rtol: if method.starts_with("ROS2") {
+                sopt.stiff_rtol
+            } else {
+                sopt.rtol
+            },
             nfev: sol.nfev,
             n_steps: sol.n_steps,
             n_rejected: sol.n_rejected,

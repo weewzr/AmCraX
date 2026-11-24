@@ -36,6 +36,7 @@ VERIFY TARGETS:
                 (rust/golden/stage3)
     carbon      stage 3: LCA factors, carbon intensity, carbon pricing (both modes), thresholds
     uq          stage 3: Sobol' estimators, bootstrap, Sobol' base samples, distributions
+    stiff       stage 3: high-temperature (stiff) PFR cases against Python LSODA
     all         every engine target above in one report
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
                 the stored Python results (about a minute)
@@ -57,6 +58,9 @@ EVAL:
 
 STUDY (writes the study's JSON; --report also compares it with the stored Python result):
     gsa                   scripts/research/uq_gsa_sobol.py (16 cases + dummy, N = 8192, 1000 bootstraps)
+    kinetic-propagation   scripts/research/uq_kinetic_propagation.py (2 catalysts x C1, C2 x 4000 draws;
+                          --threads N (default: all cores), --limit M (first M draws of each case));
+                          always compared with the stored samples and summaries
     mc-singapore          scripts/research/economics_singapore.py Monte Carlo (5000 draws, 4 scenarios)
 ";
 
@@ -83,6 +87,8 @@ enum Command {
         root: Option<PathBuf>,
         output: Option<PathBuf>,
         report: Option<PathBuf>,
+        threads: Option<usize>,
+        limit: Option<usize>,
     },
 }
 
@@ -133,6 +139,7 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                 .ok_or("study needs a name (gsa, mc-singapore)")?
                 .to_string();
             let (mut root, mut output, mut report) = (None, None, None);
+            let (mut threads, mut limit) = (None, None);
             while let Some(a) = it.next() {
                 match a.as_str() {
                     "--root" => {
@@ -144,6 +151,20 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                     "--report" => {
                         report = Some(PathBuf::from(it.next().ok_or("--report needs a file")?))
                     }
+                    "--threads" => {
+                        threads = Some(
+                            it.next()
+                                .and_then(|x| x.parse().ok())
+                                .ok_or("--threads needs a number")?,
+                        )
+                    }
+                    "--limit" => {
+                        limit = Some(
+                            it.next()
+                                .and_then(|x| x.parse().ok())
+                                .ok_or("--limit needs a number")?,
+                        )
+                    }
                     s => return Err(format!("unexpected argument {s}")),
                 }
             }
@@ -152,6 +173,8 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                 root,
                 output,
                 report,
+                threads,
+                limit,
             })
         }
         Some("eval") => {
@@ -252,6 +275,9 @@ fn run_engine_target(
         out.push(
             ev::stage3::economics(&stage("stage3")?, EconomicsData::embedded(), root).map_err(s)?,
         );
+    }
+    if matches!(target, "stiff" | "all") {
+        out.push(ev::stage3::stiff(&stage("stage3")?, reg, &sopt).map_err(s)?);
     }
     if matches!(target, "uq" | "all") {
         out.push(ev::stage3::uq(&stage("stage3")?).map_err(s)?);
@@ -397,6 +423,105 @@ fn study(name: &str, root: &Path, output: Option<&Path>, report: Option<&Path>) 
     }
 }
 
+/// `amcrax study kinetic-propagation`.
+fn kinetic_study(
+    root: &Path,
+    output: Option<&Path>,
+    report: Option<&Path>,
+    threads: Option<usize>,
+    limit: Option<usize>,
+) -> ExitCode {
+    use amcrax_engine::studies::kinetic::{KP_CATS, KpSetup, case_summary, kinetic_propagation};
+    let threads = threads.unwrap_or_else(|| {
+        std::thread::available_parallelism()
+            .map(std::num::NonZeroUsize::get)
+            .unwrap_or(1)
+    });
+    let run = || -> Result<(serde_json::Value, ev::Report), String> {
+        let s = |e: amcrax_engine::EngineError| e.to_string();
+        let reg = KineticsRegistry::embedded();
+        let ky = amcrax_engine::odata::OValue::from_yaml(
+            "kinetics.yaml",
+            amcrax_engine::kinetics::EMBEDDED_YAML,
+        )
+        .map_err(s)?;
+        let st = KpSetup::new(reg, &ky).map_err(s)?;
+        let t0 = std::time::Instant::now();
+        let mut nominal = Vec::new();
+        for k in 0..KP_CATS.len() {
+            nominal.push(st.run_draw(k, None).map_err(s)?);
+        }
+        let res = kinetic_propagation(&st, 4000, limit, threads).map_err(s)?;
+        let secs = t0.elapsed().as_secs_f64();
+        let (mut n_pfr, mut n_stiff) = (0usize, 0usize);
+        let mut cats = serde_json::Map::new();
+        for (cid, cases, rate) in &res {
+            let t_lab = KP_CATS
+                .iter()
+                .find(|c| c.0 == cid)
+                .map(|c| c.2)
+                .unwrap_or([0.0; 3]);
+            let mut cs = serde_json::Map::new();
+            for (case, draws, outs) in cases {
+                if case != "C3" {
+                    n_pfr += outs.iter().map(|o| o.n_pfr).sum::<usize>();
+                    n_stiff += outs.iter().map(|o| o.n_stiff).sum::<usize>();
+                }
+                let mut v = case_summary(draws, outs, &t_lab);
+                if let Some(m) = v.as_object_mut() {
+                    m.insert(
+                        "draws".into(),
+                        serde_json::json!(draws
+                            .iter()
+                            .zip(outs)
+                            .map(|(d, o)| serde_json::json!({"params": d, "X_lab": o.x_lab,
+                                "T_req": o.t_req.iter().map(|x| x.0).collect::<Vec<_>>(), "m_frac99": o.m_frac99}))
+                            .collect::<Vec<_>>()),
+                    );
+                }
+                cs.insert(case.clone(), v);
+            }
+            cats.insert(
+                cid.clone(),
+                serde_json::json!({"C3_acceptance_rate": rate, "cases": cs}),
+            );
+        }
+        eprintln!(
+            "kinetic propagation: {n_pfr} PFR solves ({n_stiff} with the ROS2 fallback) on {threads} thread(s) in {secs:.1} s"
+        );
+        let r = ev::stage3::kinetic(root, &res, &nominal, limit.is_none()).map_err(s)?;
+        Ok((
+            serde_json::json!({"source_type": "rust", "threads": threads, "limit": limit, "seconds": secs,
+                               "n_pfr_solves": n_pfr, "n_stiff_fallback": n_stiff, "catalysts": cats}),
+            r,
+        ))
+    };
+    match run() {
+        Err(e) => {
+            eprintln!("amcrax study kinetic-propagation: {e}");
+            ExitCode::from(2)
+        }
+        Ok((v, r)) => {
+            if let Err(e) = write_json(output, &v) {
+                eprintln!("amcrax study: cannot write output: {e}");
+                return ExitCode::from(2);
+            }
+            print!("{}", r.render());
+            if let Some(p) = report
+                && let Err(e) = write_report(p, std::slice::from_ref(&r))
+            {
+                eprintln!("amcrax study: cannot write report: {e}");
+                return ExitCode::from(2);
+            }
+            if r.passed() {
+                ExitCode::SUCCESS
+            } else {
+                ExitCode::FAILURE
+            }
+        }
+    }
+}
+
 /// `amcrax eval economics`: JSON case in, the `evaluate` dict out.
 fn eval_economics(input: &Path, output: Option<&Path>) -> ExitCode {
     let res = read_value(input).and_then(|c| {
@@ -505,8 +630,13 @@ fn main() -> ExitCode {
             root,
             output,
             report,
+            threads,
+            limit,
         }) => {
             let root = root.unwrap_or_else(ev::default_repo_root);
+            if name == "kinetic-propagation" {
+                return kinetic_study(&root, output.as_deref(), report.as_deref(), threads, limit);
+            }
             study(&name, &root, output.as_deref(), report.as_deref())
         }
         Ok(Command::Verify {

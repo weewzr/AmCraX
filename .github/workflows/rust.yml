@@ -40,7 +40,7 @@ jobs:
   check:
     name: fmt, clippy, test (Linux)
     runs-on: ubuntu-latest
-    timeout-minutes: 30
+    timeout-minutes: 45
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@master
@@ -82,6 +82,36 @@ jobs:
         with:
           name: verification-report
           path: rust/target/verification/
+          if-no-files-found: warn
+
+  kinetic:
+    name: kinetic parameter propagation study (release, all cores)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: release
+      - name: build (release)
+        run: cargo build --release --locked -p amcrax-cli
+      - name: amcrax study kinetic-propagation (16,000 draws, compared with the stored Python samples)
+        run: |
+          nproc; lscpu | grep -E "Model name|^CPU\(s\)" || true
+          ./target/release/amcrax study kinetic-propagation --root .. --output target/studies/kinetic_param_propagation.json --report target/verification/study_kinetic_report.json
+          echo "===== BEGIN kinetic report"; cat target/verification/study_kinetic_report.json; echo "===== END kinetic report"
+      - name: upload kinetic study
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kinetic-study
+          path: |
+            rust/target/verification/
+            rust/target/studies/
           if-no-files-found: warn
 
   windows:
