@@ -197,7 +197,10 @@ def main() -> None:
 
     def add(id_, desc, method, ref, obs, exp, tol, unit, status, files):
         items.append({"id": id_, "description": desc, "method": method, "reference_source": ref, "observed": obs, "expected": exp,
-                      "tolerance": tol, "unit": unit, "status": status, "source_files": files})
+                      "tolerance": tol, "unit": unit, "status": status, "source_files": files,
+                      # reproductions of published values and yardstick comparisons are literature comparisons
+                      "evidence_kind": ("literature_comparison" if id_.startswith(("LCA-blue-", "LCA-ccgt", "LCA-ref-", "LCA-smr"))
+                                        else "numerical_verification")})
     sf = ["backend/amcrax/environmental/lca.py", "results/research/lca/lca_results.json"]
     for nm, got, exp in (("v1", lca.blue_nh3_ef(1, 0), 1.16), ("v2", lca.blue_nh3_ef(1, 1), 0.77)):
         add(f"LCA-blue-{nm}", f"Blue NH3 function reproduces Lee et al. version {nm[1]}", "blue_nh3_ef with the published capture streams", "Lee 2022 p. 13",

@@ -1,0 +1,2080 @@
+{
+  "provenance": {
+    "script": "scripts/research/build_evidence_matrix.py",
+    "inputs": [
+      "results/research/reference_scenario/supersession.json",
+      "results/research/catalyst_economics/catalyst_economics.json",
+      "results/research_releases/2026-11-23/evidence_matrix.json",
+      "results/research/evidence_matrix.json"
+    ],
+    "note": "Phase 1 values from the 23 November release, Phase 2 values from the current result files."
+  },
+  "headline": [
+    {
+      "finding": "baseline LCOH, Phase 1 equipment-level CAPEX (grey, HI on) (results.grey|heat_integration_on.lcoh_USD_per_kg)",
+      "old": 3.612929322384218,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "Farokhi feed-scaled CAPEX (2.78 MUSD) -> cho2026_itemised_v1 (reference scenario)",
+      "file": "results/research/reference_scenario/baseline.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/1"
+      }
+    },
+    {
+      "finding": "baseline LCOH, legacy correlation (version 1 basis, core stored results) (lcoh_USD_per_kg)",
+      "old": 3.918842228473241,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation superseded for research outputs by the reference scenario; the stored core file itself is NOT changed",
+      "file": "results/research/reference_scenario/baseline.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/0"
+      }
+    },
+    {
+      "finding": "Singapore scenario LCOH/REC/CAPEX/NPV (results.grey|heat_integration_on.capex_total_USD)",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444",
+      "file": "results/research/singapore/scenario_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/8"
+      }
+    },
+    {
+      "finding": "Singapore scenario LCOH/REC/CAPEX/NPV (results.grey|heat_integration_on.npv_USD)",
+      "old": -10101696.3095058,
+      "new": -17455719.99837225,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444",
+      "file": "results/research/singapore/scenario_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/7"
+      }
+    },
+    {
+      "finding": "Singapore scenario LCOH/REC/CAPEX/NPV (results.grey|heat_integration_on.rec_USD_per_kg)",
+      "old": 0.5728843773887431,
+      "new": 0.9754163096995594,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444",
+      "file": "results/research/singapore/scenario_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/6"
+      }
+    },
+    {
+      "finding": "break-even NH3 price (results.heat_integration_on.ne_asia_smr_production_cost.breakeven_nh3_USD_per_t)",
+      "old": 374.7732147421736,
+      "new": 320.0081986623751,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/59"
+      }
+    },
+    {
+      "finding": "H1 power pathway LCOE / TCI (power_pathways[full_fired].cost_USD_per_MWh_at_450)",
+      "old": 272.85473735946783,
+      "new": 280.0850665923625,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)",
+      "file": "results/research/enduse/enduse_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/88"
+      }
+    },
+    {
+      "finding": "H1 power pathway LCOE / TCI (power_pathways[full_purified].cost_USD_per_MWh_at_450)",
+      "old": 304.4562967702604,
+      "new": 310.179325155085,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)",
+      "file": "results/research/enduse/enduse_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/90"
+      }
+    },
+    {
+      "finding": "H1 power pathway LCOE / TCI (power_pathways[full_exhaust].cost_USD_per_MWh_at_450)",
+      "old": 248.24505037820182,
+      "new": 255.58562736192215,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)",
+      "file": "results/research/enduse/enduse_results.json",
+      "source": {
+        "source_file": "results/research/reference_scenario/supersession.json",
+        "key": "rows/86"
+      }
+    },
+    {
+      "finding": "Ru/Al2O3 catalyst price",
+      "old": 542.0,
+      "new": 4790.512,
+      "unit": "USD/kg",
+      "reason": "published TEA price (Cho) replaced by a price derived from metal content; no supplier quotation exists",
+      "file": "results/research/catalyst_economics/catalyst_economics.json",
+      "source": {
+        "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+        "key": "row_evidence/H3-c/numbers/fixed_inventory_aspen_HI_exchanger/Ru~1Al2O3/central_price_USD_per_kg"
+      }
+    },
+    {
+      "finding": "feed share of LCOH (grey, HI on)",
+      "old": 0.8414349337421609,
+      "new": 0.7570848657650314,
+      "unit": "fraction",
+      "reason": "same feed cost on a larger LCOH (unified CAPEX basis); old value = feed / LCOH of the release matrix row H2-a",
+      "file": "results/research/carbon_pricing/row_evidence.json",
+      "source": {
+        "source_file": "results/research/carbon_pricing/row_evidence.json",
+        "key": "row_evidence/H2-a/numbers/feed_share"
+      }
+    },
+    {
+      "finding": "H3-a low-temperature saving (Ru/Al2O3 against Ni/MgO, heat integration on)",
+      "old": 0.17000029595595978,
+      "new": 25.11853373527873,
+      "unit": "fraction of fired duty (old, unequal conversion) -> kW (new, equal conversion 0.95)",
+      "reason": "the Phase 1 figure compared unequal conversions and is withdrawn; at equal conversion the saving is about 5 % of fired duty",
+      "file": "results/research/catalyst_economics/catalyst_economics.json",
+      "source": {
+        "source_file": "results/research/catalyst_economics/catalyst_economics.json",
+        "key": "row_evidence/H3-a/numbers/python_Top_X095_fired_duty_saving_kW_HI/Ru~1Al2O3"
+      }
+    },
+    {
+      "finding": "H1 verdict",
+      "old": "INCONCLUSIVE",
+      "new": "INCONCLUSIVE",
+      "unit": "verdict",
+      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H1]/verdict"
+      }
+    },
+    {
+      "finding": "H2 verdict",
+      "old": "INCONCLUSIVE",
+      "new": "MIXED",
+      "unit": "verdict",
+      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H2]/verdict"
+      }
+    },
+    {
+      "finding": "H3 verdict",
+      "old": "INCONCLUSIVE",
+      "new": "PARTIALLY SUPPORTED",
+      "unit": "verdict",
+      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H3]/verdict"
+      }
+    },
+    {
+      "finding": "H4 verdict",
+      "old": "INCONCLUSIVE",
+      "new": "PARTIALLY SUPPORTED",
+      "unit": "verdict",
+      "reason": "methodology v2 (fixed before the Phase 2 analyses) on the Phase 2 rows; v1 verdict from the 23 November release",
+      "file": "results/research/evidence_matrix.json",
+      "source": {
+        "source_file": "results/research_releases/2026-11-23/evidence_matrix.json",
+        "key": "hypotheses/[id=H4]/verdict"
+      }
+    }
+  ],
+  "all_supersession_rows": [
+    {
+      "quantity": "baseline LCOH, legacy correlation (version 1 basis, core stored results)",
+      "file": "results/simulations/economics_baseline.json",
+      "key": "lcoh_USD_per_kg",
+      "old": 3.918842228473241,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation superseded for research outputs by the reference scenario; the stored core file itself is NOT changed"
+    },
+    {
+      "quantity": "baseline LCOH, Phase 1 equipment-level CAPEX (grey, HI on)",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_on.lcoh_USD_per_kg",
+      "old": 3.612929322384218,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "Farokhi feed-scaled CAPEX (2.78 MUSD) -> cho2026_itemised_v1 (reference scenario)"
+    },
+    {
+      "quantity": "electricity price used by H4 and the legacy model",
+      "file": "results/research/purification/assumptions.json",
+      "key": "Electricity price",
+      "old": 0.084,
+      "new": 0.14024,
+      "unit": "USD/kWh",
+      "reason": "one electricity price (reference scenario)"
+    },
+    {
+      "quantity": "FX",
+      "file": "backend/amcrax/data/singapore.yaml",
+      "key": "fx_SGD_per_USD.value",
+      "old": 1.29,
+      "new": 1.288444,
+      "unit": "SGD per USD",
+      "reason": "ECB reference rates 20 Nov 2026 read at source (cross rate)"
+    },
+    {
+      "quantity": "USD per EUR (membrane price conversion)",
+      "file": "scripts/research/purification_study.py",
+      "key": "EURUSD_PARITY",
+      "old": 1.0,
+      "new": 1.099,
+      "unit": "USD per EUR",
+      "reason": "parity assumption replaced by the ECB rate"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_on.lcoh_USD_per_kg",
+      "old": 3.612929322384218,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_on.rec_USD_per_kg",
+      "old": 0.5728843773887431,
+      "new": 0.9754163096995594,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_on.npv_USD",
+      "old": -10101696.3095058,
+      "new": -17455719.99837225,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_on.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_on.lcoh_USD_per_kg",
+      "old": 3.8848854462315754,
+      "new": 4.287417378542392,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_on.rec_USD_per_kg",
+      "old": 0.59488125020314,
+      "new": 0.9974131825139563,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_on.npv_USD",
+      "old": -15070176.11587673,
+      "new": -22424199.804743186,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_on.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_on.lcoh_USD_per_kg",
+      "old": 7.655520352547647,
+      "new": 8.058052284858464,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_on.rec_USD_per_kg",
+      "old": 0.8998649192243704,
+      "new": 1.3023968515351871,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_on.npv_USD",
+      "old": -83957477.21501987,
+      "new": -91311500.9038863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_on.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_on.lcoh_USD_per_kg",
+      "old": 5.516622189315723,
+      "new": 5.91915412162654,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_on.rec_USD_per_kg",
+      "old": 0.7268624870895204,
+      "new": 1.1293944194003371,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_on.npv_USD",
+      "old": -44881054.95410241,
+      "new": -52235078.64296885,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_on.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_on.lcoh_USD_per_kg",
+      "old": 3.7084814740062626,
+      "new": 4.111013406317079,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_on.rec_USD_per_kg",
+      "old": 0.5806130083775853,
+      "new": 0.9831449406884021,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_on.npv_USD",
+      "old": -11847378.403636131,
+      "new": -19201402.092502583,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_on.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_off.lcoh_USD_per_kg",
+      "old": 3.8267097155922256,
+      "new": 4.229241647903042,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_off.rec_USD_per_kg",
+      "old": 0.7866647705967509,
+      "new": 1.1891967029075676,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_off.npv_USD",
+      "old": -14007339.439087223,
+      "new": -21361363.127953675,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.grey|heat_integration_off.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_off.lcoh_USD_per_kg",
+      "old": 4.116090277985835,
+      "new": 4.518622210296651,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_off.rec_USD_per_kg",
+      "old": 0.8260860819573996,
+      "new": 1.2286180142682155,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_off.npv_USD",
+      "old": -19294153.57759106,
+      "new": -26648177.266457513,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.blue|heat_integration_off.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_off.lcoh_USD_per_kg",
+      "old": 8.128312670091828,
+      "new": 8.530844602402643,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_off.rec_USD_per_kg",
+      "old": 1.3726572367685517,
+      "new": 1.7751891690793666,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_off.npv_USD",
+      "old": -92595117.17360395,
+      "new": -99949140.86247039,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_current|heat_integration_off.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_off.lcoh_USD_per_kg",
+      "old": 5.852373652347492,
+      "new": 6.254905584658308,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_off.rec_USD_per_kg",
+      "old": 1.062613950121289,
+      "new": 1.4651458824321058,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_off.npv_USD",
+      "old": -51015038.40861417,
+      "new": -58369062.09748062,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2030|heat_integration_off.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_off.lcoh_USD_per_kg",
+      "old": 3.9283839672440344,
+      "new": 4.330915899554851,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_off.rec_USD_per_kg",
+      "old": 0.8005155016153571,
+      "new": 1.2030474339261739,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_off.npv_USD",
+      "old": -15864868.730993979,
+      "new": -23218892.41986043,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "Singapore scenario LCOH/REC/CAPEX/NPV",
+      "file": "results/research/singapore/scenario_results.json",
+      "key": "results.green_2050|heat_integration_off.capex_total_USD",
+      "old": 2780626.6363950362,
+      "new": 7666560.407024863,
+      "unit": "USD/kg H2 or USD",
+      "reason": "CAPEX method Farokhi feed-scaled -> cho2026_itemised_v1; FX 1.290 -> 1.288444"
+    },
+    {
+      "quantity": "tornado base LCOH",
+      "file": "results/research/singapore/tornado.json",
+      "key": "lcoh_base_USD_per_kg",
+      "old": 3.612929322384218,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.grey.lcoh_p5",
+      "old": 2.8487193365357406,
+      "new": 3.25262006132794,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.grey.lcoh_p50",
+      "old": 3.642650880149702,
+      "new": 4.06665659844021,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.grey.lcoh_p95",
+      "old": 4.432127519179229,
+      "new": 4.8822617771398065,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.blue.lcoh_p5",
+      "old": 3.443880100090349,
+      "new": 3.818686173711243,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.blue.lcoh_p50",
+      "old": 3.899754239878606,
+      "new": 4.324491902618785,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.blue.lcoh_p95",
+      "old": 4.341255036883469,
+      "new": 4.806497483349836,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_current.lcoh_p5",
+      "old": 7.045385277563044,
+      "new": 7.425681902860878,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_current.lcoh_p50",
+      "old": 7.546834291420073,
+      "new": 7.962038068607196,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_current.lcoh_p95",
+      "old": 7.908607215151811,
+      "new": 8.388138304437353,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_2030.lcoh_p5",
+      "old": 4.300044572085235,
+      "new": 4.7068880432837625,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_2030.lcoh_p50",
+      "old": 5.525224997253792,
+      "new": 5.950044007552573,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "Monte Carlo LCOH percentile",
+      "file": "results/research/singapore/monte_carlo.json",
+      "key": "results.green_2030.lcoh_p95",
+      "old": 6.713140136677468,
+      "new": 7.151220544272729,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_on.sg_low_carbon_willingness_to_pay.breakeven_nh3_USD_per_t",
+      "old": 366.6101332546391,
+      "new": 311.84511717484065,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_on.ne_asia_smr_production_cost.breakeven_nh3_USD_per_t",
+      "old": 374.7732147421736,
+      "new": 320.0081986623751,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_on.blue_delivered_east_asia.breakeven_nh3_USD_per_t",
+      "old": 774.7642076313626,
+      "new": 719.9991915515642,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_on.low_carbon_offer_fob_malaysia.breakeven_nh3_USD_per_t",
+      "old": 1318.969640133661,
+      "new": 1264.2046240538623,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_off.sg_low_carbon_willingness_to_pay.breakeven_nh3_USD_per_t",
+      "old": 344.29746343741346,
+      "new": 292.8300069769408,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_off.ne_asia_smr_production_cost.breakeven_nh3_USD_per_t",
+      "old": 351.9690222374838,
+      "new": 300.5015657770112,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_off.blue_delivered_east_asia.breakeven_nh3_USD_per_t",
+      "old": 727.8754034409304,
+      "new": 676.4079469804578,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "break-even NH3 price",
+      "file": "results/research/singapore/breakeven_ammonia_price.json",
+      "key": "results.heat_integration_off.low_carbon_offer_fob_malaysia.breakeven_nh3_USD_per_t",
+      "old": 1239.312656778953,
+      "new": 1187.8452003184805,
+      "unit": "USD/t",
+      "reason": "reference CAPEX method"
+    },
+    {
+      "quantity": "H1 hydrogen pathway cost",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "hydrogen_pathways[h2_industrial].cost_USD_per_kg_at_grey_450",
+      "old": 3.919253484053714,
+      "new": 4.015461254695034,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation (3.92 basis) -> reference scenario; purification rows follow H4"
+    },
+    {
+      "quantity": "H1 hydrogen pathway cost",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "hydrogen_pathways[h2_fuelcell_candidate].cost_USD_per_kg_at_grey_450",
+      "old": 3.966694063653738,
+      "new": 4.094039778913806,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation (3.92 basis) -> reference scenario; purification rows follow H4"
+    },
+    {
+      "quantity": "H1 hydrogen pathway cost",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "hydrogen_pathways[h2_industrial_purif_study].cost_USD_per_kg_at_grey_450",
+      "old": 3.9366571667445975,
+      "new": 4.046232065802124,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation (3.92 basis) -> reference scenario; purification rows follow H4"
+    },
+    {
+      "quantity": "H1 hydrogen pathway cost",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "hydrogen_pathways[h2_fuelcell_gradeD_purif_study].cost_USD_per_kg_at_grey_450",
+      "old": 4.264011072404615,
+      "new": 4.463460302263019,
+      "unit": "USD/kg H2",
+      "reason": "legacy correlation (3.92 basis) -> reference scenario; purification rows follow H4"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_30].cost_USD_per_MWh_at_450",
+      "old": 256.90011691209196,
+      "new": 259.3218160595525,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_30].TCI_MUSD",
+      "old": 191.0862410686994,
+      "new": 196.60344913989266,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_30].cost_USD_per_MWh_at_450",
+      "old": 263.65223913364423,
+      "new": 266.0624251058547,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_30].TCI_MUSD",
+      "old": 186.7761704915446,
+      "new": 192.0862374309708,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_40].cost_USD_per_MWh_at_450",
+      "old": 255.61740987063413,
+      "new": 258.9301481476088,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_40].TCI_MUSD",
+      "old": 194.65358288252102,
+      "new": 202.28551416800263,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_40].cost_USD_per_MWh_at_450",
+      "old": 265.3228438994393,
+      "new": 268.6137169851577,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_40].TCI_MUSD",
+      "old": 188.32497015929383,
+      "new": 195.5489613265287,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_50].cost_USD_per_MWh_at_450",
+      "old": 254.01817108896262,
+      "new": 258.3217899860205,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_50].TCI_MUSD",
+      "old": 198.7078925689469,
+      "new": 208.754707635545,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_50].cost_USD_per_MWh_at_450",
+      "old": 267.1772326163451,
+      "new": 271.44352559408964,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_50].TCI_MUSD",
+      "old": 189.9254115327941,
+      "new": 199.25125584908403,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_60].cost_USD_per_MWh_at_450",
+      "old": 252.02399584496052,
+      "new": 257.4501541168256,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_exhaust_60].TCI_MUSD",
+      "old": 203.43626434793111,
+      "new": 216.30719052804815,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_60].cost_USD_per_MWh_at_450",
+      "old": 269.27631069437103,
+      "new": 274.64262715606696,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[partial_fired_60].TCI_MUSD",
+      "old": 191.61841329976215,
+      "new": 203.2912972409874,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_exhaust].cost_USD_per_MWh_at_450",
+      "old": 248.24505037820182,
+      "new": 255.58562736192215,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_exhaust].TCI_MUSD",
+      "old": 211.89316366286315,
+      "new": 229.82411706890804,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_fired].cost_USD_per_MWh_at_450",
+      "old": 272.85473735946783,
+      "new": 280.0850665923625,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_fired].TCI_MUSD",
+      "old": 194.27684101043903,
+      "new": 209.86898841782286,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_purified].cost_USD_per_MWh_at_450",
+      "old": 304.4562967702604,
+      "new": 310.179325155085,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[full_purified].TCI_MUSD",
+      "old": 199.67690413547473,
+      "new": 210.8338357109051,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_30].cost_USD_per_MWh_at_450",
+      "old": 271.8569973723595,
+      "new": 273.278334437137,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_30].TCI_MUSD",
+      "old": 189.91510516200137,
+      "new": 192.96807168736476,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_40].cost_USD_per_MWh_at_450",
+      "old": 276.0122881697155,
+      "new": 277.96855012640356,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_40].TCI_MUSD",
+      "old": 191.68038165142272,
+      "new": 195.83143854657328,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_50].cost_USD_per_MWh_at_450",
+      "old": 280.28444109862045,
+      "new": 282.79807315033025,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_50].TCI_MUSD",
+      "old": 193.27213519575375,
+      "new": 198.5386685008888,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_60].cost_USD_per_MWh_at_450",
+      "old": 284.70735739269304,
+      "new": 287.80297541988085,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H1 power pathway LCOE / TCI",
+      "file": "results/research/enduse/enduse_results.json",
+      "key": "power_pathways[blend_purified_60].TCI_MUSD",
+      "old": 194.7331255438087,
+      "new": 201.13390449866998,
+      "unit": "USD/MWh or MUSD",
+      "reason": "cracker CAPEX Ahmad correlation -> cho2026_itemised_v1 (sized on NH3 through the cracker)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[RAW].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.574475044448385,
+      "new": 3.784259176229415,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_CHO].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 4.123207902544567,
+      "new": 4.244978687715468,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_B_MB].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 4.146944657924904,
+      "new": 4.26925199727613,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_B_MB].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 4.146944657924904,
+      "new": 4.26925199727613,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_B_LOW].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 4.38899217048922,
+      "new": 4.517746367371031,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_B_LOW].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 4.38899217048922,
+      "new": 4.517746367371031,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_MB].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 4.148856582639573,
+      "new": 4.271207139826715,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_MB].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
+      "old": 4.264011072404615,
+      "new": 4.463460302263019,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_MB].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 4.148856582639573,
+      "new": 4.271207139826715,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_LOW].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 4.388980184498752,
+      "new": 4.517726356474564,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_LOW].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
+      "old": 4.504134674263794,
+      "new": 4.709979518910868,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_D_LOW].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 4.388980184498752,
+      "new": 4.517726356474564,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_AMCRAX].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 3.9366571667445975,
+      "new": 4.046232065802124,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[PSA_AMCRAX].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.9366571667445975,
+      "new": 4.046232065802124,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 3.786322116341959,
+      "new": 4.1118822518809,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.786322116341959,
+      "new": 4.1118822518809,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 3.820110571285622,
+      "new": 4.129297984566003,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
+      "old": 3.938259053528208,
+      "new": 4.326549688729102,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.820110571285622,
+      "new": 4.129297984566003,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 3.888744937535283,
+      "new": 4.286938922038355,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_raw].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.888744937535283,
+      "new": 4.286938922038355,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.industrial_99.9.usd_per_kg_usable_h2",
+      "old": 3.9225330925500703,
+      "new": 4.304354153985061,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.fuel_cell_grade_D.usd_per_kg_usable_h2",
+      "old": 4.040679824398096,
+      "new": 4.501602935822765,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H4 cost per kg usable H2 (20 bar)",
+      "file": "results/research/purification/purification_study.json",
+      "key": "cases.20bar_baseline.configs[MEM_vac0.1bar_polish].costs.turbine_blend.usd_per_kg_usable_h2",
+      "old": 3.9225330925500703,
+      "new": 4.304354153985061,
+      "unit": "USD/kg H2",
+      "reason": "legacy CAPEX split and 0.084 USD/kWh -> reference scenario (CAPEX items, 0.140 USD/kWh, USD/EUR 1.099, pump electricity included)"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[0].lcoh_USD_per_kg",
+      "old": 3.675705235895234,
+      "new": 4.09143366417306,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[0].rec_USD_per_kg",
+      "old": 0.5359962949880455,
+      "new": 0.9517247232658717,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[0].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.669627226369424,
+      "new": 4.0853994389325115,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[0].python_same_T_X.rec_USD_per_kg",
+      "old": 0.5295876358935998,
+      "new": 0.9453598484566874,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[1].lcoh_USD_per_kg",
+      "old": 3.8781566268026544,
+      "new": 4.29388505508048,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[1].rec_USD_per_kg",
+      "old": 0.738447685895466,
+      "new": 1.1541761141732918,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[1].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.875247655798644,
+      "new": 4.291019868361732,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[1].python_same_T_X.rec_USD_per_kg",
+      "old": 0.7352080653228201,
+      "new": 1.1509802778859082,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[2].lcoh_USD_per_kg",
+      "old": 3.682859132763826,
+      "new": 4.0976689532786965,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[2].rec_USD_per_kg",
+      "old": 0.5500878001854308,
+      "new": 0.9648976207003015,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[2].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.6772255551982083,
+      "new": 4.092078966989902,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[2].python_same_T_X.rec_USD_per_kg",
+      "old": 0.5441250306598384,
+      "new": 0.9589784424515324,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[3].lcoh_USD_per_kg",
+      "old": 3.9292586054023335,
+      "new": 4.344068425917204,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[3].rec_USD_per_kg",
+      "old": 0.7964872728239385,
+      "new": 1.2112970933388088,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[3].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.92679288441612,
+      "new": 4.341646296207815,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[3].python_same_T_X.rec_USD_per_kg",
+      "old": 0.7936923598777503,
+      "new": 1.2085457716694448,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[4].lcoh_USD_per_kg",
+      "old": 3.6836661867482654,
+      "new": 4.0989798772750605,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[4].rec_USD_per_kg",
+      "old": 0.547089472882742,
+      "new": 0.9624031634095371,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[4].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.678055835335696,
+      "new": 4.0934132224117485,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[4].python_same_T_X.rec_USD_per_kg",
+      "old": 0.541149134488065,
+      "new": 0.9565065215641178,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[5].lcoh_USD_per_kg",
+      "old": 3.9328481459023945,
+      "new": 4.34816183642919,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[5].rec_USD_per_kg",
+      "old": 0.7962714320368711,
+      "new": 1.2115851225636667,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[5].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.930409704414262,
+      "new": 4.345767091490315,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[5].python_same_T_X.rec_USD_per_kg",
+      "old": 0.7935030035666313,
+      "new": 1.2088603906426845,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[6].lcoh_USD_per_kg",
+      "old": 3.6695381662970963,
+      "new": 4.081228201101312,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[6].rec_USD_per_kg",
+      "old": 0.5603284148451966,
+      "new": 0.9720184496494122,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[6].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.6640845540086255,
+      "new": 4.075817526741711,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[6].python_same_T_X.rec_USD_per_kg",
+      "old": 0.5545505447101653,
+      "new": 0.9662835174432511,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[7].lcoh_USD_per_kg",
+      "old": 3.9276809047660146,
+      "new": 4.33937093957023,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[7].rec_USD_per_kg",
+      "old": 0.8184711533141149,
+      "new": 1.2301611881183305,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[7].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.9253719736837143,
+      "new": 4.3371049464168,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[7].python_same_T_X.rec_USD_per_kg",
+      "old": 0.815837964385254,
+      "new": 1.2275709371183399,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[8].lcoh_USD_per_kg",
+      "old": 3.676972380128965,
+      "new": 4.091033060649758,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[8].rec_USD_per_kg",
+      "old": 0.5498587831717319,
+      "new": 0.9639194636925246,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[8].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.671035736911945,
+      "new": 4.085139850182573,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[8].python_same_T_X.rec_USD_per_kg",
+      "old": 0.5435941451981825,
+      "new": 0.9576982584688105,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[9].lcoh_USD_per_kg",
+      "old": 3.8923988759547625,
+      "new": 4.306459556475556,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[9].rec_USD_per_kg",
+      "old": 0.7652852789975295,
+      "new": 1.1793459595183227,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[9].python_same_T_X.lcoh_USD_per_kg",
+      "old": 3.889619766602983,
+      "new": 4.303723879873611,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[9].python_same_T_X.rec_USD_per_kg",
+      "old": 0.7621781748892205,
+      "new": 1.1762822881598485,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[10].lcoh_USD_per_kg",
+      "old": 3.664843357097227,
+      "new": 4.080430193578271,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[10].rec_USD_per_kg",
+      "old": 0.5262037837922402,
+      "new": 0.9417906202732844,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[11].lcoh_USD_per_kg",
+      "old": 3.6683550334071873,
+      "new": 4.083941869888231,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[11].rec_USD_per_kg",
+      "old": 0.5297154601022003,
+      "new": 0.945302296583244,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[12].lcoh_USD_per_kg",
+      "old": 3.6738070691923643,
+      "new": 4.0893939056734085,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[12].rec_USD_per_kg",
+      "old": 0.5351674958873773,
+      "new": 0.9507543323684216,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[13].lcoh_USD_per_kg",
+      "old": 3.6749746162861268,
+      "new": 4.090561452767171,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[13].rec_USD_per_kg",
+      "old": 0.5363350429811398,
+      "new": 0.9519218794621844,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[14].lcoh_USD_per_kg",
+      "old": 3.6644255907972543,
+      "new": 4.080012427278299,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[14].rec_USD_per_kg",
+      "old": 0.5257860174922673,
+      "new": 0.9413728539733119,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[15].lcoh_USD_per_kg",
+      "old": 3.8744774753968665,
+      "new": 4.29006431187791,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[15].rec_USD_per_kg",
+      "old": 0.7358379020918795,
+      "new": 1.1514247385729233,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[16].lcoh_USD_per_kg",
+      "old": 3.888693232043152,
+      "new": 4.304280068524196,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[16].rec_USD_per_kg",
+      "old": 0.7500536587381652,
+      "new": 1.1656404952192094,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[17].lcoh_USD_per_kg",
+      "old": 3.9200718237315577,
+      "new": 4.3356586602126015,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[17].rec_USD_per_kg",
+      "old": 0.7814322504265707,
+      "new": 1.1970190869076145,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[18].lcoh_USD_per_kg",
+      "old": 3.91947270622261,
+      "new": 4.335059542703655,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[18].rec_USD_per_kg",
+      "old": 0.780833132917623,
+      "new": 1.1964199693986677,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[19].lcoh_USD_per_kg",
+      "old": 3.883741356907296,
+      "new": 4.29932819338834,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[19].rec_USD_per_kg",
+      "old": 0.7451017836023088,
+      "new": 1.160688620083353,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[20].lcoh_USD_per_kg",
+      "old": 3.6760696920413887,
+      "new": 4.091656528522433,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[20].rec_USD_per_kg",
+      "old": 0.5374301187364017,
+      "new": 0.9530169552174463,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[21].lcoh_USD_per_kg",
+      "old": 3.6790774038534466,
+      "new": 4.094664240334491,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "rows[21].rec_USD_per_kg",
+      "old": 0.5404378305484596,
+      "new": 0.9560246670295038,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/Al2O3.HI.lcoh_USD_per_kg",
+      "old": 3.664843357097227,
+      "new": 4.080430193578271,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/Al2O3.HI.rec_USD_per_kg",
+      "old": 0.5262037837922402,
+      "new": 0.9417906202732844,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.lcoh_USD_per_kg",
+      "old": 3.8744774753968665,
+      "new": 4.29006431187791,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/Al2O3.noHI.rec_USD_per_kg",
+      "old": 0.7358379020918795,
+      "new": 1.1514247385729233,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/MgO.HI.lcoh_USD_per_kg",
+      "old": 3.6683550334071873,
+      "new": 4.083941869888231,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/MgO.HI.rec_USD_per_kg",
+      "old": 0.5297154601022003,
+      "new": 0.945302296583244,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/MgO.noHI.lcoh_USD_per_kg",
+      "old": 3.888693232043152,
+      "new": 4.304280068524196,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ru/MgO.noHI.rec_USD_per_kg",
+      "old": 0.7500536587381652,
+      "new": 1.1656404952192094,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.lcoh_USD_per_kg",
+      "old": 3.6738070691923643,
+      "new": 4.0893939056734085,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.HI.rec_USD_per_kg",
+      "old": 0.5351674958873773,
+      "new": 0.9507543323684216,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.lcoh_USD_per_kg",
+      "old": 3.9200718237315577,
+      "new": 4.3356586602126015,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.5Ni1Ru/CeO2.noHI.rec_USD_per_kg",
+      "old": 0.7814322504265707,
+      "new": 1.1970190869076145,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.lcoh_USD_per_kg",
+      "old": 3.6749746162861268,
+      "new": 4.090561452767171,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.HI.rec_USD_per_kg",
+      "old": 0.5363350429811398,
+      "new": 0.9519218794621844,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.lcoh_USD_per_kg",
+      "old": 3.91947270622261,
+      "new": 4.335059542703655,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.2.5Ni0.5Ru/CeO2.noHI.rec_USD_per_kg",
+      "old": 0.780833132917623,
+      "new": 1.1964199693986677,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ni/MgO.HI.lcoh_USD_per_kg",
+      "old": 3.6644255907972543,
+      "new": 4.080012427278299,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ni/MgO.HI.rec_USD_per_kg",
+      "old": 0.5257860174922673,
+      "new": 0.9413728539733119,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ni/MgO.noHI.lcoh_USD_per_kg",
+      "old": 3.883741356907296,
+      "new": 4.29932819338834,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    },
+    {
+      "quantity": "H3 catalyst LCOH/REC",
+      "file": "results/research/catalyst_comparison/catalyst_comparison.json",
+      "key": "findings.cost_optimal_python.Ni/MgO.noHI.rec_USD_per_kg",
+      "old": 0.7451017836023088,
+      "new": 1.160688620083353,
+      "unit": "USD/kg H2",
+      "reason": "reference CAPEX method and FX"
+    }
+  ]
+}

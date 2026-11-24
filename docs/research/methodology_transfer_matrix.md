@@ -1,6 +1,6 @@
 # Methodology transfer from nuclear engineering to AmCraX
 
-This page assesses published computational methods of two researchers at the MIT Department of Nuclear Science and Engineering, Koroush Shirvan (uncertainty quantification, inverse UQ, design for cost) and Charles W. Forsberg (high-temperature heat, heat storage, integrated energy systems), for use in AmCraX. Each row states what was read, what could transfer, whether the repository holds the data, and where no defensible transfer exists. The assessment is a literature comparison (evidence kind 3); nothing on this page is experimental validation.
+This page assesses published computational methods from the nuclear-engineering literature for use in AmCraX: uncertainty quantification, inverse UQ and design for cost (publications of K. Shirvan and co-authors), and high-temperature heat, heat storage and integrated energy systems (publications of C. W. Forsberg and co-authors). Each row states what was read, what could transfer, whether the repository holds the data, and where no defensible transfer exists. The assessment is a literature comparison (evidence kind 3); nothing on this page is experimental validation.
 
 ## Matrix
 
@@ -40,7 +40,7 @@ This page assesses published computational methods of two researchers at the MIT
 
 ## Sources checked
 
-Researcher identity and position were checked on the official MIT NSE pages (https://nse.mit.edu/people/faculty/shirvan.html, https://nse.mit.edu/people/research/forsberg.html), accessed 23 November 2026. Every DOI below resolved through the doi.org handle service on the same date. Most rows rest on abstracts; the 'Read' note says which.
+Authorship was checked against the publication records, accessed 23 November 2026. Every DOI below resolved through the doi.org handle service on the same date. Most rows rest on abstracts; the 'Read' note says which.
 
 ## Data the repository holds for kinetic calibration
 

@@ -41,6 +41,34 @@ export interface ProcessGridNode {
   combustion_over_lhv: number
 }
 
+export type CatalystPriceLevel = 'central' | 'low' | 'high'
+/** 'phase1_tea' = the Phase 1 published TEA price (Ni or Ru per metal map). */
+export type CatalystPriceSource = CatalystPriceLevel | 'phase1_tea'
+
+export interface CatalystPriceEntry {
+  formulation: string; loading_wt_pct: Record<string, number>; grade: string; loading_basis: string
+  central: { usd_per_kg: number }; low: { usd_per_kg: number }; high: { usd_per_kg: number }
+}
+
+export interface CatalystPrices {
+  by_law: Record<string, CatalystPriceEntry>
+  currency: string; formula: string; statement: string; phase1_tea_note: string; fx_not_used: string; file: string
+  caveats: string[]; levels: CatalystPriceLevel[]; default_level: CatalystPriceLevel
+}
+
+export interface StoredPurificationRow {
+  h2_recovery: number; h2_purity_mole_frac: number; n2_ppm: number; nh3_ppm: number; meets_spec_within_model_scope: boolean
+  membrane_area_m2: number; capital_USD: number; membrane_module_cost_USD: number; replacement_USD_per_yr: number
+  purification_only_usd_per_kg: number; lcoh_usd_per_kg_usable: number; lcoh_sgd_per_kg_usable: number
+  readiness: { configuration?: string; trl?: string; polishing_bed?: string; source?: string }
+  recovery_source?: { source_type?: string; source?: string; note?: string }
+}
+export interface StoredPurification {
+  file: string; script: string | null; source_type: string; statement: string
+  basis: { economics?: string; baseline_lcoh_usd?: number; baseline_lcoh_sgd?: number; baseline_note?: string }
+  specs: Record<string, { label: string; configurations: Record<string, StoredPurificationRow> }>
+}
+
 export interface SimModel {
   schema: string
   thermo: {
@@ -67,7 +95,9 @@ export interface SimModel {
     air: { T_C: number; O2: number; N2: number }
     reduction: string
   }
-  purification: { psa_h2_recovery_default: number; psa_n2_slip_default: number; purity_label: string; membrane: string }
+  purification: { psa_h2_recovery_default: number; psa_n2_slip_default: number; purity_label: string; membrane: string
+    /** stored Python comparison of PSA and Pd-Ag membrane at the reference conditions (does not respond to the controls) */
+    stored_comparison?: StoredPurification | null }
   economics: {
     basis: string
     economic_assumptions: Record<string, number | string | boolean | null>
@@ -75,8 +105,16 @@ export interface SimModel {
     catalyst_price_USD_per_kg: Record<string, number>
     catalyst_metal_map: Record<string, string>
     nh3_price_scenarios_USD_per_t: Record<string, number>
-    capex_equipment: { equipment_shares_pct: Record<string, number>; pec_reference_kUSD: number; reference_feed_kmol_h: number
-      scaling_exponent: number; singapore_location_factor: number; tci_over_pec: number }
+    basis_short: string
+    capex_mode: string
+    basis_note: string
+    reference_scenario: { id: string; version: string; sha256: string }
+    capex_reference: { method: string; cost_year: number; price_year_label: string; installed_ISBL_USD_reference_plant: Record<string, number>
+      excluded_items: string[]; indirect_factor: number; reference_nh3_feed_kmol_h: number; scaling_exponent: number; location_factor: number
+      size_driver: Record<string, string>; formula: string; source: string }
+    catalyst_prices: CatalystPrices
+    catalyst_price_phase1_note: string
+    h2_selling_price_USD_per_kg: number
     carbon_tax: { rate_2026_SGD_per_tCO2e: number; threshold_tCO2e_per_yr: number }
     natural_gas_co2_factor_kg_per_GJ: number
     cost_basis: string

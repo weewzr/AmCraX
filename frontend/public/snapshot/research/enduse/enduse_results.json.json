@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:50:18Z",
+  "generated_utc": "2026-11-23T11:24:55Z",
   "script": "scripts/research/enduse_run.py",
   "source_type": "python+aspen(stored)+literature",
   "inputs_summary": "stored Aspen baseline / fuel-cell scenario activities; Ahmad 2025 turbine efficiencies and plant economics; economics.yaml prices",
   "reference_scenario": {
    "file": "backend/amcrax/data/reference_scenario.yaml",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0",
    "id": "amcrax_reference_2026_11_23",
    "fx_SGD_per_USD": 1.288444,
@@ -123,7 +123,7 @@
  },
  "limitations": [
   "Efficiencies of intermediate blends are a linear interpolation of Ahmad's two end points (assumption).",
-  "Fired variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption).",
+  "Fired and purified variants apply the direct-NH3 turbine efficiency to H2-rich fuel (assumption); the threshold at which each conclusion reverses is in turbine_threshold.json (scripts/research/enduse_threshold.py). Exhaust-heated variants use Ahmad's system efficiency instead (implied 47.8 % on cracked-gas LHV).",
   "Plant capital outside the cracker is Ahmad's Case 2a scaled with power^0.67; no NOx abatement cost.",
   "Fuel-cell candidate cost excludes NH3 polishing and other ISO 14687 contaminant control.",
   "Halim et al. (2025) full text was not accessible; only the abstract and bibliographic data were checked."

@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:50:29+00:00",
+  "generated_utc": "2026-11-23T11:25:10+00:00",
   "script": "scripts/research/catalyst_comparison.py",
   "source_type": "mixed (per row)",
   "inputs_summary": "Aspen integrated ci_* runs at the kinetic T_op; python flowsheet at kinetic X elsewhere",
   "reference_scenario": {
    "file": "backend/amcrax/data/reference_scenario.yaml",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0",
    "id": "amcrax_reference_2026_11_23",
    "fx_SGD_per_USD": 1.288444,
@@ -27,7 +27,7 @@
   "operating_temperature": "from kinetics: W(T) for the conversion target; T_opt = argmin LCOH over 470-760 degC (5 K)",
   "heat_import": "temperature-feasible import after FEHE and tail-gas firing (amcrax.heat_integration config (c); without FEHE: problem table of feed + reaction vs flue gas), dT_min 20 K",
   "furnace": "supplementary NH3 at furnace efficiency 0.85 plus 2% thermal loss of reactor + trim heater duty (assumptions)",
-  "economics": "amcrax.economics.singapore.evaluate, grey 450 USD/t, catalyst W*price/lifetime (2 yr)",
+  "economics": "amcrax.economics.singapore.evaluate, grey 450 USD/t, catalyst W*price/lifetime (2 yr); Phase 2: catalyst prices are the DERIVED central scenario prices of research/data/catalyst_prices.json (Cho TEA prices only in the Cho reconstruction and the labelled published-TEA sensitivity case); full catalyst economics in results/research/catalyst_economics/",
   "lca": "GWP100, 5000 km ship, routes grey/blue/green (amcrax.environmental.lca)"
  },
  "findings": {
@@ -47,255 +47,246 @@
     "Ni/MgO": 1213.8486415176174
    },
    "lcoh_HI_USD_per_kg": {
-    "Ru/Al2O3": 4.09143366417306,
-    "Ru/MgO": 4.091033060649758,
-    "5Ni1Ru/CeO2": 4.0976689532786965,
-    "2.5Ni0.5Ru/CeO2": 4.0989798772750605,
-    "Ni/MgO": 4.081228201101312
+    "Ru/Al2O3": 4.200435948191801,
+    "Ru/MgO": 4.154000872276572,
+    "5Ni1Ru/CeO2": 4.099864144657123,
+    "2.5Ni0.5Ru/CeO2": 4.093545593569501,
+    "Ni/MgO": 4.08131433206035
    },
    "lcoh_noHI_USD_per_kg": {
-    "Ru/Al2O3": 4.29388505508048,
-    "Ru/MgO": 4.306459556475556,
-    "5Ni1Ru/CeO2": 4.344068425917204,
-    "2.5Ni0.5Ru/CeO2": 4.34816183642919,
-    "Ni/MgO": 4.33937093957023
+    "Ru/Al2O3": 4.402887339099222,
+    "Ru/MgO": 4.36942736810237,
+    "5Ni1Ru/CeO2": 4.34626361729563,
+    "2.5Ni0.5Ru/CeO2": 4.34272755272363,
+    "Ni/MgO": 4.339457070529268
    },
    "Ru_Al2O3_vs_Ni_fired_duty_reduction_HI": 0.17000029595595978,
    "Ru_Al2O3_vs_Ni_fired_duty_reduction_noHI": 0.19704854548808337,
-   "Ru_Al2O3_minus_Ni_lcoh_HI": 0.010205463071748078,
-   "Ru_Al2O3_minus_Ni_lcoh_noHI": -0.045485884489750106,
+   "Ru_Al2O3_minus_Ni_lcoh_HI": 0.11912161613145145,
+   "Ru_Al2O3_minus_Ni_lcoh_noHI": 0.06343026856995415,
    "source_type": "aspen (duties) + python (economics)"
   },
   "cost_optimal_python": {
    "Ru/Al2O3": {
     "HI": {
-     "T_opt_C": 535.0,
-     "W_kg": 36.07261255476704,
-     "bed_volume_m3": 0.05751373175186071,
+     "T_opt_C": 643.0,
+     "W_kg": 4.590833098786566,
+     "bed_volume_m3": 0.007319568078422459,
      "T_range_within_0.001USD_kg_C": [
-      515.0,
-      565.0
+      615.0,
+      685.0
      ],
-     "fired_duty_kW": 495.18864275678914,
-     "lcoh_USD_per_kg": 4.080430193578271,
-     "rec_USD_per_kg": 0.9417906202732844,
-     "grey_kgCO2e_per_kgH2": 19.749402679845872,
-     "green_kgCO2e_per_kgH2": 2.4590049259146602
+     "fired_duty_kW": 521.5613606750577,
+     "lcoh_USD_per_kg": 4.092222352321941,
+     "rec_USD_per_kg": 0.953582779016954,
+     "grey_kgCO2e_per_kgH2": 19.81482353372903,
+     "green_kgCO2e_per_kgH2": 2.4671416485092013
     },
     "noHI": {
-     "T_opt_C": 498.0,
-     "W_kg": 101.36891607176264,
-     "bed_volume_m3": 0.1616213585327848,
+     "T_opt_C": 547.0,
+     "W_kg": 27.66661274776649,
+     "bed_volume_m3": 0.044111308590188913,
      "T_range_within_0.001USD_kg_C": [
-      498.0,
-      500.0
+      540.0,
+      555.0
      ],
-     "fired_duty_kW": 968.6241875761336,
-     "lcoh_USD_per_kg": 4.29006431187791,
-     "rec_USD_per_kg": 1.1514247385729233,
-     "grey_kgCO2e_per_kgH2": 20.923819275689603,
-     "green_kgCO2e_per_kgH2": 2.605073059905586
+     "fired_duty_kW": 1052.1928338585244,
+     "lcoh_USD_per_kg": 4.3453564959941575,
+     "rec_USD_per_kg": 1.2067169226891705,
+     "grey_kgCO2e_per_kgH2": 21.131121845511824,
+     "green_kgCO2e_per_kgH2": 2.630856329362623
     }
    },
    "Ru/MgO": {
     "HI": {
-     "T_opt_C": 562.0,
-     "W_kg": 39.67645340077092,
-     "bed_volume_m3": 0.06325965146806588,
+     "T_opt_C": 654.0,
+     "W_kg": 9.203469204228877,
+     "bed_volume_m3": 0.014673898603681245,
      "T_range_within_0.001USD_kg_C": [
-      540.0,
-      595.0
+      625.0,
+      700.0
      ],
-     "fired_duty_kW": 502.2997354141608,
-     "lcoh_USD_per_kg": 4.083941869888231,
-     "rec_USD_per_kg": 0.945302296583244,
-     "grey_kgCO2e_per_kgH2": 19.767042642292264,
-     "green_kgCO2e_per_kgH2": 2.461198897293584
+     "fired_duty_kW": 523.9451693536719,
+     "lcoh_USD_per_kg": 4.094687054735195,
+     "rec_USD_per_kg": 0.9560474814302076,
+     "grey_kgCO2e_per_kgH2": 19.820736871889032,
+     "green_kgCO2e_per_kgH2": 2.467877120294721
     },
     "noHI": {
-     "T_opt_C": 508.0,
-     "W_kg": 151.80486427220058,
-     "bed_volume_m3": 0.24203581676052385,
+     "T_opt_C": 555.0,
+     "W_kg": 45.72195121610397,
+     "bed_volume_m3": 0.07289851915832903,
      "T_range_within_0.001USD_kg_C": [
-      505.0,
-      515.0
+      550.0,
+      565.0
      ],
-     "fired_duty_kW": 985.6365901221023,
-     "lcoh_USD_per_kg": 4.304280068524196,
-     "rec_USD_per_kg": 1.1656404952192094,
-     "grey_kgCO2e_per_kgH2": 20.96602068642817,
-     "green_kgCO2e_per_kgH2": 2.6103218628773615
+     "fired_duty_kW": 1065.8884910495067,
+     "lcoh_USD_per_kg": 4.352415693527873,
+     "rec_USD_per_kg": 1.213776120222886,
+     "grey_kgCO2e_per_kgH2": 21.16509565096873,
+     "green_kgCO2e_per_kgH2": 2.635081823437914
     }
    },
    "5Ni1Ru/CeO2": {
     "HI": {
-     "T_opt_C": 621.0,
-     "W_kg": 35.26558654283538,
-     "bed_volume_m3": 0.03335905011089737,
-     "T_range_within_0.001USD_kg_C": [
-      595.0,
-      655.0
-     ],
-     "fired_duty_kW": 516.6247650378275,
-     "lcoh_USD_per_kg": 4.0893939056734085,
-     "rec_USD_per_kg": 0.9507543323684216,
-     "grey_kgCO2e_per_kgH2": 19.802577685467792,
-     "green_kgCO2e_per_kgH2": 2.4656185704030293
-    },
-    "noHI": {
-     "T_opt_C": 541.0,
-     "W_kg": 206.0331855873695,
-     "bed_volume_m3": 0.19489457106203223,
-     "T_range_within_0.001USD_kg_C": [
-      535.0,
-      550.0
-     ],
-     "fired_duty_kW": 1041.9309547261967,
-     "lcoh_USD_per_kg": 4.3356586602126015,
-     "rec_USD_per_kg": 1.1970190869076145,
-     "grey_kgCO2e_per_kgH2": 21.105665959722455,
-     "green_kgCO2e_per_kgH2": 2.6276902520528354
-    }
-   },
-   "2.5Ni0.5Ru/CeO2": {
-    "HI": {
-     "T_opt_C": 625.0,
-     "W_kg": 40.88038952467624,
-     "bed_volume_m3": 0.03867030429368363,
+     "T_opt_C": 628.0,
+     "W_kg": 30.747587434472788,
+     "bed_volume_m3": 0.029085304132681757,
      "T_range_within_0.001USD_kg_C": [
       600.0,
       665.0
      ],
-     "fired_duty_kW": 517.5388470692833,
-     "lcoh_USD_per_kg": 4.090561452767171,
-     "rec_USD_per_kg": 0.9519218794621844,
-     "grey_kgCO2e_per_kgH2": 19.80484518126411,
-     "green_kgCO2e_per_kgH2": 2.4659005903276223
+     "fired_duty_kW": 518.219618969864,
+     "lcoh_USD_per_kg": 4.090117352476266,
+     "rec_USD_per_kg": 0.9514777791712792,
+     "grey_kgCO2e_per_kgH2": 19.806533921847226,
+     "green_kgCO2e_per_kgH2": 2.4661106275381344
     },
     "noHI": {
-     "T_opt_C": 535.0,
-     "W_kg": 232.9604017815484,
-     "bed_volume_m3": 0.22036604176272512,
+     "T_opt_C": 546.0,
+     "W_kg": 182.05320519321424,
+     "bed_volume_m3": 0.17221100200653666,
      "T_range_within_0.001USD_kg_C": [
-      530.0,
-      545.0
+      540.0,
+      555.0
      ],
-     "fired_duty_kW": 1031.677423638412,
-     "lcoh_USD_per_kg": 4.335059542703655,
-     "rec_USD_per_kg": 1.1964199693986677,
-     "grey_kgCO2e_per_kgH2": 21.08023078231074,
-     "green_kgCO2e_per_kgH2": 2.62452675034875
+     "fired_duty_kW": 1050.481936658479,
+     "lcoh_USD_per_kg": 4.339950364609557,
+     "rec_USD_per_kg": 1.2013107913045697,
+     "grey_kgCO2e_per_kgH2": 21.126877749166496,
+     "green_kgCO2e_per_kgH2": 2.630328469627131
+    }
+   },
+   "2.5Ni0.5Ru/CeO2": {
+    "HI": {
+     "T_opt_C": 598.0,
+     "W_kg": 65.78067958762745,
+     "bed_volume_m3": 0.062224429020261464,
+     "T_range_within_0.001USD_kg_C": [
+      570.0,
+      635.0
+     ],
+     "fired_duty_kW": 511.2281080106549,
+     "lcoh_USD_per_kg": 4.087773836126219,
+     "rec_USD_per_kg": 0.9491342628212323,
+     "grey_kgCO2e_per_kgH2": 19.78919059688912,
+     "green_kgCO2e_per_kgH2": 2.463953550464468
+    },
+    "noHI": {
+     "T_opt_C": 518.0,
+     "W_kg": 347.5935359971281,
+     "bed_volume_m3": 0.32880185252180205,
+     "T_range_within_0.001USD_kg_C": [
+      515.0,
+      525.0
+     ],
+     "fired_duty_kW": 1002.6700711688466,
+     "lcoh_USD_per_kg": 4.319808807724905,
+     "rec_USD_per_kg": 1.1811692344199178,
+     "grey_kgCO2e_per_kgH2": 21.008274385047105,
+     "green_kgCO2e_per_kgH2": 2.615577169157369
     }
    },
    "Ni/MgO": {
     "HI": {
-     "T_opt_C": 547.0,
-     "W_kg": 378.2062255780007,
-     "bed_volume_m3": 0.6030073749649246,
+     "T_opt_C": 549.0,
+     "W_kg": 353.5734407807561,
+     "bed_volume_m3": 0.563733164510134,
      "T_range_within_0.001USD_kg_C": [
-      530.0,
+      535.0,
       570.0
      ],
-     "fired_duty_kW": 498.39352908850253,
-     "lcoh_USD_per_kg": 4.080012427278299,
-     "rec_USD_per_kg": 0.9413728539733119,
-     "grey_kgCO2e_per_kgH2": 19.757352804708574,
-     "green_kgCO2e_per_kgH2": 2.459993723167526
+     "fired_duty_kW": 498.92099345693816,
+     "lcoh_USD_per_kg": 4.080332149671913,
+     "rec_USD_per_kg": 0.9416925763669264,
+     "grey_kgCO2e_per_kgH2": 19.758661246617482,
+     "green_kgCO2e_per_kgH2": 2.4601564607078044
     },
     "noHI": {
-     "T_opt_C": 511.0,
-     "W_kg": 1632.8502734647557,
-     "bed_volume_m3": 2.603396481927225,
+     "T_opt_C": 512.0,
+     "W_kg": 1552.545638829387,
+     "bed_volume_m3": 2.47535975578665,
      "T_range_within_0.001USD_kg_C": [
       510.0,
       515.0
      ],
-     "fired_duty_kW": 990.7443857103323,
-     "lcoh_USD_per_kg": 4.29932819338834,
-     "rec_USD_per_kg": 1.160688620083353,
-     "grey_kgCO2e_per_kgH2": 20.978691217765828,
-     "green_kgCO2e_per_kgH2": 2.6118977609664342
+     "fired_duty_kW": 992.4474095675022,
+     "lcoh_USD_per_kg": 4.300711368458601,
+     "rec_USD_per_kg": 1.1620717951536141,
+     "grey_kgCO2e_per_kgH2": 20.982915783290885,
+     "green_kgCO2e_per_kgH2": 2.6124231915549925
     }
    }
   },
   "ranking_robustness": {
    "n_cases": 32,
-   "n_same_best_as_base": 21,
+   "n_same_best_as_base": 30,
    "cases_where_a_low_T_catalyst_beats_Ni": [
-    "Ru_price_x0.5",
-    "Ni_price_66.8",
-    "lifetime_4yr",
-    "NH3_610USD_t",
-    "NH3_1000USD_t",
-    "P_10bar",
-    "furnace_eff_0.65",
-    "no_heat_integration",
     "cracker_capex_scales_with_bed_volume",
-    "all_rates_x5",
-    "Ni_rate_div5_others_nominal"
+    "published_TEA_prices_and_Ni_rate_div5"
    ],
-   "max_abs_best_low_T_minus_Ni_USD_per_kg": 0.016791941852286385
+   "max_abs_best_low_T_minus_Ni_USD_per_kg": 0.018992463352837774
   },
   "breakeven_price": [
    {
     "catalyst": "Ru/Al2O3 (Kum)",
     "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-    "breakeven_price_USD_per_kg": 498.1647144531381
+    "breakeven_price_USD_per_kg": 531.4030428499808
    },
    {
     "catalyst": "Ru/MgO (Takahashi)",
     "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-    "breakeven_price_USD_per_kg": 251.56626957779758
+    "breakeven_price_USD_per_kg": 269.0630969967028
    },
    {
     "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-    "breakeven_price_USD_per_kg": 74.73219844895854
+    "breakeven_price_USD_per_kg": 80.23840509651872
    },
    {
     "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO (Takahashi) at its cost-optimal T",
-    "breakeven_price_USD_per_kg": 77.2502961828845
+    "breakeven_price_USD_per_kg": 82.28481361517626
    },
    {
     "catalyst": "Ru/Al2O3 (Kum)",
     "reference": "Ni/MgO fixed at 700 degC",
-    "breakeven_price_USD_per_kg": 4329.301654971339
+    "breakeven_price_USD_per_kg": 4338.3251104205165
    },
    {
     "catalyst": "Ru/MgO (Takahashi)",
     "reference": "Ni/MgO fixed at 700 degC",
-    "breakeven_price_USD_per_kg": 1932.5592270624556
+    "breakeven_price_USD_per_kg": 1936.0204524138876
    },
    {
     "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO fixed at 700 degC",
-    "breakeven_price_USD_per_kg": 856.8797917884232
+    "breakeven_price_USD_per_kg": 859.0071841206792
    },
    {
     "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO fixed at 700 degC",
-    "breakeven_price_USD_per_kg": 657.2333003603994
+    "breakeven_price_USD_per_kg": 658.6031788494276
    },
    {
     "catalyst": "Ru/Al2O3 (Kum)",
     "reference": "Ni/MgO fixed at 735 degC",
-    "breakeven_price_USD_per_kg": 7390.41166912898
+    "breakeven_price_USD_per_kg": 7400.439585295925
    },
    {
     "catalyst": "Ru/MgO (Takahashi)",
     "reference": "Ni/MgO fixed at 735 degC",
-    "breakeven_price_USD_per_kg": 2996.2926495866504
+    "breakeven_price_USD_per_kg": 2999.5818238625743
    },
    {
     "catalyst": "5Ni1Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO fixed at 735 degC",
-    "breakeven_price_USD_per_kg": 1571.3700558996104
+    "breakeven_price_USD_per_kg": 1573.8865535895775
    },
    {
     "catalyst": "2.5Ni0.5Ru/CeO2 (Lucentini)",
     "reference": "Ni/MgO fixed at 735 degC",
-    "breakeven_price_USD_per_kg": 1114.7634295933433
+    "breakeven_price_USD_per_kg": 1116.2760066649091
    }
   ]
  },

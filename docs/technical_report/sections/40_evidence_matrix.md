@@ -1,0 +1,48 @@
+<!-- cites: cho2026nickel, iso2019hydrogen, halim2025ammonia, sayas2020high -->
+
+# 40 Four-hypothesis evidence matrix
+
+This section brings the evidence of Sections 25 to 39 together. The evidence matrix is a single data file, `results/research/evidence_matrix.json`, with a human-readable version in `docs/research/evidence_matrix.md`. The tables of this section are generated from the JSON file when the report is built, so the verdicts and numbers shown here are those in the file and are never retyped.
+
+## 40.1 Verdict methodology v2
+
+The verdict rule is `docs/research/verdict_methodology_v2.md`. It was written and fixed before the Phase 2 analysis and has not been edited since. Each hypothesis is stated as one primary hypothesis and split into components; each component has primary rows, which vote, and secondary rows, which are reported but do not vote. Each row is judged against its own claim by a rule stated in the row, with an envelope (the range of inputs in which the conclusion holds) and, where the outcome depends on an unsourced input, a threshold compared with the sourced values. A row whose sourced values straddle its threshold is INCONCLUSIVE. A result smaller than the demonstrated numerical resolution of the model cannot support or contradict a row, and a hypothetical scenario cannot change a row about actual policy. A component is SUPPORTED if every primary row is SUPPORTED, CONTRADICTED if no primary row is SUPPORTED and at least half are CONTRADICTED, MIXED if at least one is SUPPORTED and one CONTRADICTED, PARTIALLY SUPPORTED if at least one is SUPPORTED, none CONTRADICTED and at least one INCONCLUSIVE, and INCONCLUSIVE otherwise. Components combine into the hypothesis verdict by the same pattern, with PARTIALLY SUPPORTED components counting towards MIXED and PARTIALLY SUPPORTED. The row standard itself is unchanged from version 1: a row is SUPPORTED only if the result is computed, does not restate a built-in assumption and survives its sensitivity or uncertainty analysis.
+
+Version 1.0 of this report used a stricter combination rule (rule v1): a hypothesis was SUPPORTED only if every one of its rows was SUPPORTED, and CONTRADICTED only if none was SUPPORTED and at least half were CONTRADICTED. Under that rule all four hypotheses were INCONCLUSIVE. The v1 verdicts are shown next to the v2 verdicts in the tables below, together with the result of applying rule v1 to the current rows, so that a change of label can be traced to the rule or to the evidence. Row H2-e is judged in two carbon-pricing modes: the actual Singapore boundary (Mode A), which votes because the row is about actual policy, and a hypothetical life-cycle price (Mode B, not Singapore law), which is reported only.
+
+No row verdict was moved to make a hypothesis look better. Where the coded rule of the matrix builder gives a different row verdict from the one decided from the result files, the matrix reports the difference instead of forcing a verdict.
+
+## 40.2 Verdicts
+
+{{EVIDENCE_SUMMARY_TABLE}}
+
+## 40.3 H1 End-use suitability
+
+{{EVIDENCE_ROWS:H1}}
+
+## 40.4 H2 Feedstock
+
+{{EVIDENCE_ROWS:H2}}
+
+## 40.5 H3 Catalyst and heat integration
+
+{{EVIDENCE_ROWS:H3}}
+
+## 40.6 H4 Purification
+
+{{EVIDENCE_ROWS:H4}}
+
+## 40.7 How to read the verdicts
+
+A verdict states what the AmCraX models, with their stated boundaries, can show about a hypothesis; it is not a general statement about ammonia cracking.
+
+**Support must not be built in.** Some results that look like support follow directly from model inputs and are not counted as evidence. The baseline hydrogen purity follows from the assumed PSA split fractions. The ranking of direct ammonia power above fired or purified cracking follows from the assumption of equal turbine efficiency; only the size of the gap and the efficiency threshold are computed results (Section 33). A share of an input, such as the feed share of the LCOH, is tested by a threshold against sourced ranges, not taken as evidence by itself (Section 34).
+
+**Thresholds decide where sources are missing.** Where no source exists for a decisive input (the turbine efficiency on H~2~/N~2~ fuel, the overall heat-transfer coefficient at 20 bar, a catalyst quotation, the PSA recovery on cracked ammonia), the row gives the threshold at which its conclusion changes and compares it with whatever is sourced. If the sourced values straddle the threshold, the row is INCONCLUSIVE.
+
+**Uncertainty is often larger than the effect.** The cost differences between catalysts are a few hundredths of a US dollar per kilogram, while the 90 % range of the LCOH from economic inputs alone spans 3.21 to 4.84 USD/kg (Section 37). An effect smaller than the resolution of the model that produces it is not counted as support in either direction.
+
+**Unverified literature is not evidence.** Essay values whose primary source could not be read are kept as leads and labelled unverified: the Singapore plant figures quoted from Halim et al. (2025), whose full text could not be accessed, and the Ru-K/CaO kinetic values of Sayas et al. (2020). No AmCraX result uses them as an input; where a row tests such a claim it does so with AmCraX's own calculation.
+
+**Essay statements that are not reproduced.** On the unified basis, direct NH~3~ power is 7.6 % cheaper than fired cracking and 16.5 % cheaper than cracking with PSA under the equal-efficiency assumption, not about 40 %, and 1.3 % dearer than exhaust-heated cracking ({{ROW_VERDICT:H1-b}}). The statement of Cho et al. (2026) that a Ru cracker needs no supplementary fuel while a Ni cracker does holds only for PSA recoveries of 0.7564 to 0.7813 ({{ROW_VERDICT:H3-e}}). Their 7.0 % lower reconversion cost for Ru becomes -16.2 to +1.6 % on AmCraX boundaries ({{ROW_VERDICT:H3-f}}). The published PSA point of 99.11 mol% H~2~ contains about 8,900 ppm N~2~ and meets neither the 99.9 % industrial grade nor ISO 14687:2019 grade D (International Organization for Standardization [ISO], 2019) ({{ROW_VERDICT:H4-c}}).
+<!-- data: results/research/enduse/turbine_threshold.json; results/research/catalyst_economics/catalyst_economics.json row_evidence H3-e, H3-f; results/research/purification/purification_study.json PSA_CHO N2 8900 ppm; results/research/uq/gsa_sobol.json (90 % range 3.206-4.840) -->

@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:25:01Z",
+  "generated_utc": "2026-11-24T05:28:46Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "one-at-a-time sensitivities on the 20 bar baseline; cost per kg usable H2 for grade D at 350 bar",

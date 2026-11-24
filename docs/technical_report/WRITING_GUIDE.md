@@ -43,11 +43,23 @@ Writers only write section files. Never edit another writer's section file.
 | `28_purification.md` | `# 28 <title set by its writer>` | research expansion (H4) |
 | `29_end_use.md` | `# 29 <title set by its writer>` | research expansion (H1) |
 | `30_life_cycle.md` | `# 30 <title set by its writer>` | research expansion (H1, H2) |
-| `31_evidence_matrix.md` | `# 31 Four-hypothesis evidence matrix` | tables generated at build time from `results/research/evidence_matrix.json` |
-| `32_limitations.md` | `# 32 Limitations` | 20 (was 24) |
-| `33_conclusions.md` | `# 33 Conclusions and future research` | 21 (was 25) |
-| (generated) | `# 34 References` | |
-| (generated) | `# 35 Appendices` | A-G as before; G.2 research screenshots; H research validation |
+| `31_changes.md` | `# 31 Changes since the 23 November 2026 release` | version 2.0 (Phase 2) |
+| `32_unified_baseline.md` | `# 32 Unified techno-economic baseline and CAPEX audit` | Phase 2 |
+| `33_h1_turbine_threshold.md` | `# 33 End use (H1): turbine-efficiency thresholds` | Phase 2 |
+| `34_h2_feed_carbon.md` | `# 34 Feedstock (H2): feed dominance and carbon pricing` | Phase 2 |
+| `35_h3_catalyst_economics.md` | `# 35 Catalysts (H3): prices, economics, kinetic validity and exchanger sizing` | Phase 2 |
+| `36_h4_membrane.md` | `# 36 Purification (H4): PSA against a Pd-Ag membrane` | Phase 2 |
+| `37_uncertainty.md` | `# 37 Uncertainty quantification` | Phase 2 |
+| `38_evidence_kinds.md` | `# 38 Validation by the four evidence kinds` | Phase 2 |
+| `39_simulator.md` | `# 39 Interactive process simulator` | Phase 2 |
+| `40_evidence_matrix.md` | `# 40 Four-hypothesis evidence matrix` | former 31; tables generated at build time from `results/research/evidence_matrix.json` (methodology v2 layout when `methodology_version` is 2) |
+| `41_limitations.md` | `# 41 Limitations and future work` | former 32 |
+| `42_conclusions.md` | `# 42 Conclusions` | former 33 |
+| `43_reproducibility.md` | `# 43 Reproducibility` | Phase 2 |
+| (generated) | `# 44 References` | from research/references.json plus research/reference_additions/*.json |
+| (generated) | `# 45 Appendices` | A-G as before; G.2 research screenshots; H research validation |
+
+Version 1.0 (the release of 23 November 2026) is preserved in `releases/2026-11-23/`; never edit or rebuild it. The build ends with a privacy scan (user and host name of the build machine, user-profile paths, e-mail addresses, student-number patterns, application wording) over the report text, the PDF text and the document properties; a finding fails the build with exit code 3.
 
 ### Build-time tokens (never retype a verdict)
 

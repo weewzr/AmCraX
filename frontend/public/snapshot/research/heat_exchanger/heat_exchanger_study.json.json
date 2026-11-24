@@ -1,0 +1,322 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:30:10+00:00",
+  "script": "scripts/research/heat_exchanger_study.py",
+  "what": "FEHE sizing, cost and net benefit of heat integration",
+  "source_type": "python (on stored Aspen results)",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "aspen_run": false
+ },
+ "U_cases": {
+  "low": {
+   "U_W_m2K": 35.0,
+   "source_type": "literature (typical range)",
+   "source": "vdi2010heatatlas, ch. C3 table, shell-and-tube, gas (~1 bar) / gas (~1 bar): 5-35 W/(m2 K) (upper bound)",
+   "url": "https://doi.org/10.1007/978-3-540-77877-6"
+  },
+  "central": {
+   "U_W_m2K": 72.4568837309472,
+   "source_type": "derived (interpolation between typical ranges)",
+   "source": "geometric mean of the low and high cases (35 and 150 W/(m2 K)); no sourced value at 20 bar",
+   "url": "https://doi.org/10.1007/978-3-540-77877-6"
+  },
+  "high": {
+   "U_W_m2K": 150.0,
+   "source_type": "literature (typical range)",
+   "source": "vdi2010heatatlas, ch. C3 table, shell-and-tube, high-pressure gas (200-300 bar) both sides: 150-500 W/(m2 K) (lower bound)",
+   "url": "https://doi.org/10.1007/978-3-540-77877-6"
+  },
+  "phase1_assumption": {
+   "U_W_m2K": 50.0,
+   "source_type": "assumption",
+   "source": "Phase 1 amcrax.heat_integration.analysis.U_ASSUMED_W_M2K (unsourced), kept for comparison",
+   "url": null
+  }
+ },
+ "fx_SGD_per_USD": 1.288444,
+ "fx_date": "2026-11-20",
+ "baseline": {
+  "case": "baseline_aspen_600C",
+  "lcoh_hi_USD_per_kg": 4.015461254695034,
+  "lcoh_no_hi_USD_per_kg": 4.229241647903042,
+  "saving_components_USD_per_kg": {
+   "capex": 0.0,
+   "fixed_opex": 0.0,
+   "ammonia_feed": 0.0,
+   "heat_fuel": 0.21191884718414122,
+   "electricity": 0.0,
+   "cooling_water": 0.0018615460238666668,
+   "catalyst": 0.0,
+   "carbon_tax": 0.0
+  },
+  "fehe": {
+   "duty_kW": 612.213344,
+   "T_hot_in": 600.0,
+   "T_hot_out": 228.380183,
+   "T_cold_in": 75.9000921,
+   "T_cold_out": 550.0,
+   "ua_seg_kW_K": 7.319157946694697
+  },
+  "saving_USD_per_kg": 0.21378039320800823,
+  "saving_SGD_per_kg": 0.2754440649464989,
+  "annual_h2_kg": 2012706.4404336,
+  "saving_USD_per_yr": 430277.1742481856,
+  "sizing_turton": {
+   "low": {
+    "U_case": "low",
+    "U_W_m2K": 35.0,
+    "area_m2": 248.8723961450787,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 560970.4710857226,
+    "installed_USD": 1244097.6435936317,
+    "tci_equivalent_USD": 1783538.3818558306,
+    "annualised_USD_per_yr": 295742.89615624305,
+    "purchase_SGD": 722779.0376475727,
+    "installed_SGD": 1602950.144302353,
+    "tci_equivalent_SGD": 2297989.326871854,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 49.77447922901574,
+    "below_correlation_range": false,
+    "correlation": "turton2018_fixed_tube_sheet"
+   },
+   "central": {
+    "U_case": "central",
+    "U_W_m2K": 72.4568837309472,
+    "area_m2": 120.21678847550798,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 485014.7003518389,
+    "installed_USD": 1075646.004411143,
+    "tci_equivalent_USD": 1542046.1119238148,
+    "annualised_USD_per_yr": 255699.11350732404,
+    "purchase_SGD": 624914.2805801247,
+    "installed_SGD": 1385909.6405075106,
+    "tci_equivalent_SGD": 1986840.0606315674,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 24.043357695101598,
+    "below_correlation_range": false,
+    "correlation": "turton2018_fixed_tube_sheet"
+   },
+   "high": {
+    "U_case": "high",
+    "U_W_m2K": 150.0,
+    "area_m2": 58.07022576718503,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 452069.4309258463,
+    "installed_USD": 1002581.3171004069,
+    "tci_equivalent_USD": 1437300.5761951434,
+    "annualised_USD_per_yr": 238330.4107022848,
+    "purchase_SGD": 582466.145859821,
+    "installed_SGD": 1291769.8825301165,
+    "tci_equivalent_SGD": 1851881.3035951753,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 11.614045153437006,
+    "below_correlation_range": false,
+    "correlation": "turton2018_fixed_tube_sheet"
+   }
+  },
+  "sizing_towler": {
+   "low": {
+    "U_case": "low",
+    "U_W_m2K": 35.0,
+    "area_m2": 248.8723961450787,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 329655.0083735708,
+    "installed_USD": 963606.9475535146,
+    "tci_equivalent_USD": 1381426.9200127188,
+    "annualised_USD_per_yr": 229065.5487479071,
+    "purchase_SGD": 424742.01760887704,
+    "installed_SGD": 1241553.5899336406,
+    "tci_equivalent_SGD": 1779891.2265288674,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 49.77447922901574,
+    "below_correlation_range": false,
+    "correlation": "towler2013_u_tube"
+   },
+   "central": {
+    "U_case": "central",
+    "U_W_m2K": 72.4568837309472,
+    "area_m2": 120.21678847550798,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 296372.1241740085,
+    "installed_USD": 866318.5168163326,
+    "tci_equivalent_USD": 1241954.2257078947,
+    "annualised_USD_per_yr": 205938.45545513308,
+    "purchase_SGD": 381858.88515925617,
+    "installed_SGD": 1116202.8950809028,
+    "tci_equivalent_SGD": 1600188.4703879824,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 24.043357695101598,
+    "below_correlation_range": false,
+    "correlation": "towler2013_u_tube"
+   },
+   "high": {
+    "U_case": "high",
+    "U_W_m2K": 150.0,
+    "area_m2": 58.07022576718503,
+    "n_shells": 5,
+    "F": 0.8402651387463911,
+    "arrangement": "5 x 1-2 shell in series",
+    "ua_kW_K": 7.319157946694697,
+    "lmtd_K": 91.90948617153532,
+    "purchase_USD": 282472.3730214321,
+    "installed_USD": 825688.4749857245,
+    "tci_equivalent_USD": 1183706.9977395348,
+    "annualised_USD_per_yr": 196280.012403007,
+    "purchase_SGD": 363949.834185226,
+    "installed_SGD": 1063853.3614645067,
+    "tci_equivalent_SGD": 1525140.178995517,
+    "n_units_costed": 5,
+    "area_per_unit_m2": 11.614045153437006,
+    "below_correlation_range": false,
+    "correlation": "towler2013_u_tube"
+   }
+  },
+  "exchanger_cost_USD_per_kg": {
+   "low": 0.14693791911975537,
+   "central": 0.1270424282302383,
+   "high": 0.11841290210754281
+  },
+  "net_benefit_USD_per_kg": {
+   "low": 0.06684247408825286,
+   "central": 0.08673796497776992,
+   "high": 0.09536749110046543
+  },
+  "net_benefit_SGD_per_kg": {
+   "low": 0.08612278468416487,
+   "central": 0.11175701054781778,
+   "high": 0.12287567170344807
+  },
+  "net_benefit_towler_USD_per_kg": {
+   "low": 0.09997067702378457,
+   "central": 0.11146122170937305,
+   "high": 0.11625995582086393
+  },
+  "breakeven_tci_USD": 2594875.0251728008,
+  "breakeven_tci_SGD": 3343351.156933744,
+  "breakeven_U_W_m2K_turton": 11.305118223967554,
+  "breakeven_U_W_m2K_towler": 7.791135480474322,
+  "survives": true
+ },
+ "reference_capex_comparison": {
+  "reference_item": "heat_exchangers (cho2026_itemised_v1; all exchangers of the Cho plant, scaled by NH3 feed)",
+  "reference_isbl_installed_USD": 1460808.290341493,
+  "reference_tci_USD": 2094214.7650335645,
+  "reference_tci_SGD": 2698278.448718906,
+  "fehe_tci_equivalent_USD": {
+   "low": 1783538.3818558306,
+   "central": 1542046.1119238148,
+   "high": 1437300.5761951434
+  },
+  "fehe_share_of_reference_item": {
+   "low": 0.8516501801224028,
+   "central": 0.7363361856056344,
+   "high": 0.6863195696035059
+  },
+  "verdict": "not comparable one-to-one: the reference item covers every exchanger of the Cho plant (FEHE, vaporiser, coolers, flue-gas exchangers, waste-heat boiler side) and does not respond to area; the FEHE alone is 69%-85% of it. Agreement is consistent (FEHE < item) but not a validation."
+ },
+ "row_evidence": {
+  "H3-d": {
+   "proposed_verdict": "SUPPORTED",
+   "numbers": {
+    "energy_first_law_deficit_kW_hi_vs_nohi": [
+     772.8673174,
+     1385.0806619999998
+    ],
+    "energy_total_external_heating_kW_hi_vs_nohi": [
+     2293.1167774,
+     2905.330122
+    ],
+    "energy_reduction_first_law": 0.4420055534642934,
+    "energy_reduction_total_external_heating": 0.21072075078977892,
+    "min_fuel_saving_over_cases_and_approaches_USD_per_kg": 0.1477493900776139,
+    "net_benefit_negative_in": [
+     "U 10",
+     "NH3 300.0 USD/t, U low",
+     "CRF 0.199, U low",
+     "approach 20.0 K, U low"
+    ],
+    "baseline_fuel_saving_USD_per_kg": 0.21378039320800823,
+    "baseline_exchanger_cost_USD_per_kg": {
+     "low": 0.14693791911975537,
+     "central": 0.1270424282302383,
+     "high": 0.11841290210754281
+    },
+    "baseline_net_USD_per_kg": {
+     "low": 0.06684247408825286,
+     "central": 0.08673796497776992,
+     "high": 0.09536749110046543
+    },
+    "baseline_breakeven_tci_USD": 2594875.0251728008,
+    "baseline_breakeven_U_W_m2K": 11.305118223967554,
+    "min_net_over_cases_and_U_USD_per_kg": 0.06684247408825286,
+    "max_breakeven_U_over_cases_W_m2K": 11.305118223967554,
+    "worst_sensitivity_net_USD_per_kg": -0.012098355416846368
+   },
+   "assumptions": [
+    "U typical-range cases (VDI Heat Atlas C3; central derived)",
+    "Turton 2018 module costing, SS/SS, 19.5 barg, CEPCI 797.9",
+    "TCI-equivalent = bare module x 1.4336 (reference indirect factor, conservative)",
+    "fuel saving on the unified reference basis (first-law deficit, supplementary NH3 at 450 USD/t)",
+    "reference CAPEX does not change between HI on and off; exchanger treated as incremental"
+   ],
+   "uncertainty": "U 10-500 W/(m2 K), NH3 300-1000 USD/t, CRF 0.094-0.199, CEPCI 720-800, material CS/CS to SS/SS, Towler correlation, F=1 vs multi-shell",
+   "envelope": "20 bar, 499-625 degC reactor, FEHE hot-end approach 20-200 K (python), U >= break-even U",
+   "threshold": {
+    "breakeven_U_W_m2K_range_over_cases": [
+     7.677167669941769,
+     11.305118223967554
+    ],
+    "sourced_typical_U_W_m2K": {
+     "gas ~1 bar both sides": [
+      5,
+      35
+     ],
+     "gas 200-300 bar both sides": [
+      150,
+      500
+     ]
+    },
+    "note": "break-even U (conservative multi-shell 1-2 design, SS/SS, TCI factor 1.4336) is 7.7-11.3 W/(m2 K); it lies inside the 1-bar typical range and far below the high-pressure range. No sourced value at 20 bar: a 20 bar gas is expected above the 1-bar range, but that is an engineering expectation, not a sourced number."
+   },
+   "reason": "Energy (the H3-d claim): heat integration lowers the first-law heat deficit by 44 % and total external heating by 21 % in Aspen (baseline 600 degC), and the fuel saving is positive in every catalyst case and at every FEHE approach 20-200 K (python); it is a computed result, not a built-in assumption (the 50 K approach is an assumption, varied). Cost (reported for H3-K and the essay): the 0.214 USD/kg saving survives the exchanger cost at every U case (net 0.067-0.095 USD/kg, conservative design; 0.165-0.184 with one counter-current unit), but turns negative in adverse corners listed in net_benefit_negative_in. The cost result therefore is SUPPORTED only inside the envelope U >= ~12 W/(m2 K) with NH3 >= ~310 USD/t and CRF <= ~0.15; outside that it is threshold-dependent."
+  }
+ },
+ "served_keys": [
+  "provenance",
+  "U_cases",
+  "fx_SGD_per_USD",
+  "fx_date",
+  "baseline",
+  "reference_capex_comparison",
+  "row_evidence"
+ ],
+ "source_note": "results/research/heat_exchanger/heat_exchanger_study.json; subset of top-level keys, values as stored"
+}

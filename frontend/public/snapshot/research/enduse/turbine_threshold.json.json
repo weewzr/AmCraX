@@ -1,0 +1,251 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:24:58Z",
+  "script": "scripts/research/enduse_threshold.py",
+  "source_type": "python (stored Aspen cracker activities + literature-calibrated turbine inputs)",
+  "inputs_summary": "stored Aspen baseline cracker; Ahmad 2025 turbine end points; reference scenario costs; literature ranges from research/data",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "literature_files": [
+   "research/data/turbine_efficiency_literature.json",
+   "research/data/enduse_cost_literature.json",
+   "research/notes/enduse_turbine_literature.md",
+   "research/data/carbon_policy_sg.json"
+  ]
+ },
+ "what_each_pathway_assumes": {
+  "direct": "Ahmad Case 2a system efficiency 49.12 % on LHV 18.8 = 9.2346 MJ electricity per kg NH3 = 49.64 % on the AmCraX LHV 18.60 MJ/kg.",
+  "full_fired / partial_fired": "Cracker heat = stored Aspen reactor + pre-heater duty (3.291 MJ per kg NH3 cracked) supplied by burning extra NH3 at 100 % heat-transfer efficiency (assumption, favourable to cracking). Combined cycle on the H2/N2(/NH3) fuel gas LHV at eta_h2_fuel = 49.64 % (copy of the direct value; assumption eta_gt_gas).",
+  "full_purified / blend_purified": "Stored Aspen baseline cracker + PSA (recovery 0.85); heat deficit after tail-gas firing from extra NH3; combined cycle on the H2 (or NH3 + H2 blend) LHV at eta_h2_fuel = 49.64 % (assumption).",
+  "full_exhaust / partial_exhaust": "Electricity per kg NH3 from Ahmad's two system end points (49.12 % and about 54 % on LHV 18.8, i.e. 49.64 % and 54.58 % on LHV 18.60, +4.93 pp), linear in the cracked share (assumption). No extra NH3 for cracker heat (exhaust supplies it) and ETA_GT_GAS is NOT used. The implied combined-cycle efficiency on cracked-gas LHV is 47.78 % (below 49.64 %, because exhaust heat goes to the cracker instead of the steam cycle).",
+  "double_counting_check": "Ahmad's efficiency gain enters only the exhaust-heated kinds through eta_exhaust_integrated(); those kinds neither add cracker-heat NH3 nor apply ETA_GT_GAS, and the fired/purified kinds never use the Ahmad 54 % value. Nothing is counted twice (validation EU-P2-no-double-count).",
+  "brief_correction": "The statement that all four stored power costs assume a 49.64 % hydrogen-rich turbine is true for fired cracking (280.1) and cracking + PSA (310.2) only. The exhaust-heated value (255.6) uses Ahmad's 54 % system efficiency."
+ },
+ "statement_of_result": {
+  "text": "On the unified reference scenario (grey NH3 450 USD/t, 8000 h/yr, 10 %, 25 y), direct NH3 combustion gives 258.9 USD/MWh. It is 7.6 % cheaper than a standalone fired cracker (280.1) and 16.5 % cheaper than cracking + PSA (310.2), as 1 - direct/cracking, ON THE ASSUMPTION that the turbine reaches the direct-NH3 efficiency (49.64 %) on the H2-rich fuel. Against an exhaust-heated cracker (Ahmad's +4.93 pp system gain) direct use is 1.3 % dearer (255.6).",
+  "old_pre_unification": {
+   "fired_pct": 5.0,
+   "purified_pct": 15.0,
+   "exhaust_pct": -4.0,
+   "source": "docs/internal/research_reports/enduse-lca.md (Phase 1: LCOE 259 / 273 / 304 / 248 USD/MWh); the user's 'about 5 to 15 %'"
+  },
+  "new_unified": {
+   "full_fired": {
+    "LCOE": 280.0850665923625,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 7.553743395682866,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": 8.17095648124937
+   },
+   "full_purified": {
+    "LCOE": 310.179325155085,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 16.523076048705764,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": 19.793585180913453
+   },
+   "full_exhaust": {
+    "LCOE": 255.58562736192215,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": -1.3077934173867378,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": -1.2909109687135878
+   },
+   "partial_exhaust_40": {
+    "LCOE": 258.9301481476088,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 0.0007680740443105627,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": 0.0007680799437359553
+   },
+   "partial_fired_40": {
+    "LCOE": 268.6137169851577,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 3.6057568919106497,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": 3.740635099823786
+   },
+   "blend_purified_40": {
+    "LCOE": 277.96855012640356,
+    "direct_cheaper_pct_of_cracking_1_minus_d_over_c": 6.849836337742932,
+    "cracking_dearer_pct_of_direct_c_over_d_minus_1": 7.353541924605733
+   }
+  }
+ },
+ "sourced_values": {
+  "exhaust_heated_system_delta_pp": {
+   "ahmad2025_like_for_like_AmCraX_basis": [
+    4.446852777777778,
+    4.931963989898994,
+    5.4575011363636365
+   ],
+   "karpilov2025_maximum": [
+    5.0,
+    5.5
+   ],
+   "supported_range": [
+    4.9,
+    5.5
+   ],
+   "sensitivity_range": [
+    0.0,
+    5.5
+   ],
+   "basis": "combined-cycle system efficiency on NH3 LHV supplied, exhaust-heated cracker; Ahmad 4.4-5.4 pp on LHV 18.8 rescaled by 18.8/18.6; Karpilov unit and basis not stated ('up to', a maximum over TIT 800-1200 C)",
+   "grade": "cycle_simulation (no measurement); small or idealised machines only; nothing for F/H class",
+   "source": "research/data/turbine_efficiency_literature.json key_deliverable_efficiency_difference"
+  },
+  "fired_H2N2_fuel_delta_pp": {
+   "sourced": null,
+   "indirect_bracket": [
+    -1.8635592645963095,
+    7.3
+   ],
+   "basis": "nothing sourced for a turbine on H2/N2 from a standalone fired cracker. Bracket for orientation only: lower = Ahmad exhaust-heated implied efficiency on cracked-gas LHV (derived here, exhaust heat diverted to the cracker); upper = NETL 2023 vs 2024 pure H2 (steam-diluted) minus NH3, +7.3 pp, which the literature note says NOT to use for cracked gas.",
+   "grade": "derived / not like-for-like"
+  },
+  "purified_H2_fuel_delta_pp": {
+   "netl_absolute": 7.3,
+   "netl_relative_on_AmCraX_turbine": 6.080440366246359,
+   "basis": "NETL 2023 (66.9 %, 100 % H2 steam-diluted, Exhibit 4-9) minus NETL 2024 (59.6 %, 100 % NH3, Exhibit 4-6), same agency method and B32A baseline, H-class-like. Steam dilution inflates the H2 figure, so it is an UPPER bound for dry H2 firing. No lower-side source.",
+   "grade": "cycle_simulation, not like-for-like (no cracker, steam diluent)"
+  }
+ },
+ "forty_percent_figure": {
+  "claim": "direct NH3 combustion about 40 % cheaper than cracking-based power (essay, attributed to Halim et al. 2025)",
+  "computed_gaps_pct_1_minus_d_over_c": {
+   "AmCraX price set (450 USD/t, 8000 h) | full_exhaust": -1.3077934173867378,
+   "AmCraX price set (450 USD/t, 8000 h) | full_fired": 7.553743395682866,
+   "AmCraX price set (450 USD/t, 8000 h) | full_purified": 16.523076048705764,
+   "Ahmad basis (480 USD/t, 7200 h) | full_exhaust": -1.0890134714951483,
+   "Ahmad basis (480 USD/t, 7200 h) | full_fired": 7.673754396570187,
+   "Ahmad basis (480 USD/t, 7200 h) | full_purified": 16.633965279196094,
+   "renewable NH3 today (1000 USD/t) | full_exhaust": -5.041712375339191,
+   "renewable NH3 today (1000 USD/t) | full_fired": 5.5222081715562865,
+   "renewable NH3 today (1000 USD/t) | full_purified": 14.64571334988305
+  },
+  "largest_computed_pct": 16.633965279196094,
+  "smallest_computed_pct": -5.041712375339191,
+  "largest_in_sensitivities_pct": 27.295990386561176,
+  "cracker_capex_factor_for_40pct_fired": 11.137072768344265,
+  "cracker_capex_factor_for_40pct_purified": 6.281351765235253,
+  "halim_status": "Full text not accessible (A*STAR repository: request a copy; abstract read; DOI resolves). The abstract supports only the direction (direct use preferable because cracking has high capital and operating cost). 40 %, 60.1 MW, LCOH 15.1 / 10.1 USD/kg and the 30-60 vol% H-25 range are not in the abstract and could not be located. No location can be given for any of them."
+ },
+ "row_evidence": {
+  "H1-a": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "LCOE_direct": 258.928159372348,
+    "LCOE_full_fired": 280.0850665923625,
+    "LCOE_full_purified": 310.179325155085,
+    "direct_cheaper_pct_fired": 7.553743395682866,
+    "direct_cheaper_pct_purified": 16.523076048705764,
+    "threshold_delta_fuel_pp_fired": 5.164806051620352,
+    "threshold_delta_fuel_pp_purified": 12.551065141956952
+   },
+   "assumptions": "eta_h2_fuel = 49.64 % (copy of direct) for fired and purified; fired cracker heat from NH3 at 100 % transfer efficiency; Cho-itemised cracker capex extrapolated about 30-fold; Ahmad plant capital scaled ^0.67; 8000 h (not sourced).",
+   "uncertainty": "fired threshold over bases 3.29 to 8.79 pp; purified 9.68 to 18.10 pp",
+   "envelope": "AmCraX boundary, grey 450 USD/t (300-1000 checked), 5000-8000 h, capex x0.5-x2 and Ahmad correlation.",
+   "threshold": {
+    "fired": 5.164806051620352,
+    "purified": 12.551065141956952,
+    "fired_vs_sources": "nothing sourced for a standalone fired cracker's turbine: threshold is the finding; indirect bracket: sourced values STRADDLE the threshold",
+    "purified_vs_sources": "all sourced values BELOW threshold: direct NH3 cheaper (NETL absolute); all sourced values BELOW threshold: direct NH3 cheaper (NETL ratio); all bases: all sourced values BELOW threshold: direct NH3 cheaper"
+   },
+   "reason": "The purified sub-pathway passes the threshold test (the only sourced H2-turbine gain, an upper bound, lies below the threshold on every basis checked), but the fired sub-pathway has no sourced turbine efficiency and its threshold lies inside the indirect bracket. The row claims both, so it stays INCONCLUSIVE; the purified half alone would be SUPPORTED inside the stated envelope."
+  },
+  "H1-b": {
+   "proposed_verdict": "CONTRADICTED (secondary, does not vote)",
+   "numbers": {
+    "claim_pct": 40.0,
+    "largest_computed_pct_stored_bases": 16.633965279196094,
+    "largest_in_all_sensitivities_pct": 27.295990386561176,
+    "cracker_capex_factor_needed_for_40pct_purified": 6.281351765235253,
+    "cracker_capex_factor_needed_for_40pct_fired": 11.137072768344265
+   },
+   "assumptions": "as H1-a; three price/hour bases",
+   "uncertainty": "Halim's inputs unknown (full text not accessible)",
+   "envelope": "AmCraX boundaries; does not show Halim's own calculation is wrong",
+   "threshold": "existing rule: CONTRADICTED if the largest computed gap is below half the claim (20 %)",
+   "reason": "Largest computed gap is below 20 % on every stored basis; reaching 40 % needs a cracker capital several times the reference (see numbers). The figure could not be located in any accessible Halim text."
+  },
+  "H1-c": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "LCOE_full_exhaust": 255.58562736192215,
+    "LCOE_partial_exhaust_40": 258.9301481476088,
+    "LCOE_partial_fired_40": 268.6137169851577,
+    "LCOE_direct": 258.928159372348,
+    "threshold_delta_system_pp_full_exhaust": 4.040191130059833,
+    "threshold_full_equiv_pp_partial": {
+     "0.2": 5.861469208089581,
+     "0.3": 5.318332478966836,
+     "0.4": 4.933319781839325,
+     "0.5": 4.6276417372308805,
+     "0.6": 4.367386063085041,
+     "0.7": 4.1344018329575025
+    },
+    "ahmad_gain_AmCraX_basis_pp": 4.931963989898994,
+    "capex_factor_where_full_exhaust_equals_direct": 1.2224417147439715
+   },
+   "assumptions": "Ahmad system end points (54 % 'about'), linear interpolation for partial cracking, reference cracker capex, 8000 h",
+   "uncertainty": "full-exhaust threshold over bases 1.97 to 8.04 pp",
+   "envelope": "small or mid-size machines (Ahmad 43 MW class, PR 8); no F/H-class source",
+   "threshold": {
+    "full_exhaust_reference": 4.040191130059833,
+    "vs_ahmad": "all sourced values ABOVE threshold: cracking pathway cheaper",
+    "vs_supported_range": "all sourced values ABOVE threshold: cracking pathway cheaper",
+    "vs_supported_range_all_bases": [
+     "all sourced values ABOVE threshold: cracking pathway cheaper",
+     "all sourced values BELOW threshold: direct NH3 cheaper",
+     "sourced values STRADDLE the threshold"
+    ],
+    "vs_sensitivity_range": "sourced values STRADDLE the threshold"
+   },
+   "reason": "The row says cracking in front of a turbine does not pay. The full-exhaust threshold lies below the like-for-like sourced gains on the reference basis, so on the reference basis the sourced values favour CRACKING (against the row and the essay), but by about 1 % of LCOE, the threshold moves across the supported range when the cracker capex basis or NH3 price changes, and the sensitivity range (0 to 5.5 pp) straddles it. Neither side is clear: INCONCLUSIVE, with the threshold as the finding. Fired partial cracking is dearer than direct at the copy efficiency, but that again follows from the assumption (see partial_fired thresholds)."
+  },
+  "H1-d": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "eta_H2_product": 0.8772018962224742,
+    "LCOH_grey_USD": 4.015461254695034,
+    "LCOH_grey_SGD": 5.173696960844288,
+    "LCOH_green_2030": 5.91915412162654,
+    "LCOH_green_current": 8.058052284858464,
+    "benchmarks": {
+     "sg_low_carbon_willingness_to_pay": 3.0,
+     "ne_asia_smr_production_cost": 3.06,
+     "blue_delivered_east_asia": 6.0,
+     "low_carbon_offer_fob_malaysia": 10.0
+    },
+    "kWh_per_kg_NH3": {
+     "direct": 2.5651555555555556,
+     "cracked_purified_at_eta_copy": 2.2505938615998464,
+     "cracked_purified_at_NETL_plus_7p3pp_absolute": 2.581543230319916,
+     "cracked_purified_at_NETL_ratio_1p1225": 2.526253848003855
+    }
+   },
+   "assumptions": "stored Aspen PSA split; reference capex; benchmarks of mixed basis and grade",
+   "uncertainty": "benchmarks 3.0-10 USD/kg straddle the computed LCOH range 4.0-8.1",
+   "envelope": "Jurong Island cracker, plant-gate 19.5 bar H2",
+   "threshold": {
+    "breakeven_NH3_vs_SMR_3p06": 320.0081986623751,
+    "breakeven_NH3_vs_WTP_3p0": 311.84511717484065,
+    "breakeven_NH3_vs_blue_delivered_6": 719.9991915515642,
+    "breakeven_NH3_vs_offer_10": 1264.2046240538623
+   },
+   "reason": "Beyond the definition (H2 is the product, so some conversion is unavoidable) the evidence is a cost comparison against benchmarks that straddle the computed LCOH: cracked grey-NH3 H2 is dearer than NE Asia SMR H2 and the Singapore willingness to pay, cheaper than delivered low-carbon offers. The energy half depends on the turbine assumption (NETL bound applied absolutely reverses it). INCONCLUSIVE."
+  }
+ },
+ "notes": [
+  "Capacity factor: no sourced base value (NETL sensitivity starts at 10 %); 8000 h is the reference-scenario choice.",
+  "Thresholds do not change any default; defaults reproduce the stored pathway table (validation EU-P2-defaults)."
+ ],
+ "served_keys": [
+  "provenance",
+  "what_each_pathway_assumes",
+  "statement_of_result",
+  "sourced_values",
+  "forty_percent_figure",
+  "row_evidence",
+  "notes"
+ ],
+ "source_note": "results/research/enduse/turbine_threshold.json; subset of top-level keys, values as stored"
+}

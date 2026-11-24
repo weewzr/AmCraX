@@ -1,0 +1,41 @@
+<!-- cites: lucentini2021nirukinetic, takahashi2016kinetic, peng1976new, bell2014coolprop -->
+
+# 38 Validation by the four evidence kinds
+
+AmCraX keeps four kinds of evidence apart and names them every time: (1) numerical verification, which checks that code computes what it is meant to compute (hand calculations, closures, test functions, browser against Python); (2) Python against Aspen comparison, which checks two independent implementations of the same physics against each other; (3) comparison with published literature, which checks a result against a published number; and (4) independent experimental validation, which would check the model against measurements it was not fitted to. **AmCraX has no independent experimental validation of any kind.** A pass count is never a statement of experimental validity, and no model is called validated outside the range in which it was checked.
+
+## 38.1 Counts by evidence kind
+
+Every Phase 2 research validation item carries an `evidence_kind`. Two Phase 1 research files (economics and life-cycle, 26 items) do not yet carry the field; they are counted separately and not assigned to a kind here.
+
+Table: **Table 38.1.** Research validation items by evidence kind and status. *Source: results/research/validation/*.json (11 files, 693 items), counted at build preparation.*
+
+| Evidence kind | Pass | Fail | Informational | Not available |
+|---|---|---|---|---|
+| (1) Numerical verification | 423 | 5 | 19 | - |
+| (2) Python against Aspen comparison | 156 | 5 | 22 | - |
+| (3) Comparison with published literature | 9 | 2 | 25 | - |
+| (4) Independent experimental validation | 0 | 0 | 0 | 1 (none exists) |
+| Not yet labelled (economics.json, lca.json) | 16 | 0 | 10 | - |
+
+<!-- data: results/research/validation/{aspen_kinetic,carbon_pricing,catalyst_comparison,catalyst_economics,economics,enduse,heat_exchanger,kinetics,lca,purification,uq}.json, counted by evidence_kind and status -->
+
+The core validation matrix of Section 16 (`results/validation/validation_matrix.json`) is unchanged: 137 items, 105 pass, 22 fail, 10 informational. Its 20 flowsheet cross-checks `FS-<case>` fail on the feed-section property models, as explained in Section 16.
+
+## 38.2 The failing checks and their quantified causes
+
+All failures are kept as failures; no tolerance was changed and no check was removed or relabelled. Phase 2 quantified the cause of each group.
+
+**Above-equilibrium kinetic runs (numerical verification, 5 failing).** Three Phase 1 Aspen RPlug runs end above the Aspen RGibbs equilibrium conversion by up to 4.9e-4 against a tolerance of 1e-4. In all ten affected runs the RPlug outlet stops exactly where the Aspen driving force goes to zero (within 7e-8 to 1.5e-5). For the Lucentini et al. (2021) laws on a molarity basis the excess has two parts: Aspen computes concentrations with the Peng-Robinson compressibility Z against an ideal-gas equilibrium constant, so the reaction stops at Q·P = Kp·Z (Z = 1.0087 at 600 °C and 40 bar, 3.2e-4), and the difference between the IDEAL and PENG-ROB RGibbs conversion is 1.6e-4; together 4.63e-4 against 4.87e-4 observed. For the Takahashi Ru law (mole-fraction basis) only the fugacity part exists (1.50e-4 against 1.60e-4). An exact partial-pressure form of the Lucentini law removes the compressibility part. All 60 Lucentini cases were re-run in this form: the 20 bar runs now lie 2.2e-5 to 8.1e-5 above equilibrium and pass the same tolerance; the 40 bar run is still 1.69e-4 above and fails. The two new items fail and are kept; the three original items are kept unchanged as failures. The fugacity part cannot be expressed in the concentration bases used.
+
+![**Figure 38.1.** Aspen Plus V15 reaction set NH3KIN of case cpp_cv_luc5_06_T600_P40_W1000 (Lucentini 5Ni1Ru/CeO~2~ law, 600 °C, 40 bar, 1000 kg): the kinetic tab with the concentration basis set to partial pressure in N/m^2^. This form removes the compressibility part of the above-equilibrium excess; the remaining fugacity part keeps the 40 bar run outside tolerance. *Source: Aspen Plus V15 screenshot, docs/images/aspen_evidence.*](../images/aspen_evidence/cpp_cv_luc5_06_T600_P40_W1000__03_reactions_kinetic_tab.png){width=95% crop="205,195,880,830"}
+
+![**Figure 38.2.** Aspen Plus V15 reaction set NH3KIN of the same partial-pressure case: reversible reaction 2 NH~3~ -> N~2~ + 3 H~2~ of class LHHW. *Source: Aspen Plus V15 screenshot, docs/images/aspen_evidence.*](../images/aspen_evidence/cpp_cv_luc5_06_T600_P40_W1000__02_reactions_kinetic.png){width=95%}
+
+**Takahashi prediction checks (comparison with published literature, 2 failing).** KIN-NI-PRED (0.110) and KIN-RU-PRED (0.111) reproduce the published conversion curves of Takahashi and Fujitani (2016) only within about 0.11 against a tolerance of 0.05. An independent re-implementation of the paper's equations reproduces the stored predictions to 1e-8, so the code is not the cause. Alternative readings of the paper (space velocity on NH~3~ flow, the paper's own Table 2 constants, T + 273) do not close the gap. The cause is a limit of the published law as it can be reproduced: the catalyst mass is not reported, so W/F rests on one anchor point, and the dilution and H~2~ co-feed series are under-predicted, as the calibration of Section 37.3 also shows.
+
+**FEHE duty in the catalyst flowsheets (Python against Aspen, 5 failing).** The five HCAT-ASPY-*-HI-heat items fail by the same +20.8 kW (3.4 to 4.4 %) in every case and in the baseline. The offset splits into two parts. The vaporiser outlet is specified as dew point + 10 K in both models, but the dew points differ (Python with Raoult's law 60.09 °C, Aspen PENG-ROB 65.90 °C), which moves 8.76 kW into the FEHE. The cold-side NH~3~ residual enthalpy from the reference equation of state (CoolProp; Bell et al., 2014) is -39.8 kW against -28.3 kW from Peng-Robinson (Peng & Robinson, 1976), a further 12.1 kW. On the Peng-Robinson basis at the Aspen states Python reproduces the Aspen duty within 0.12 %. The failures measure a model-form difference; the fix was described and not applied, because the reference equation is the more accurate model for ammonia and the change would alter stored results.
+
+## 38.3 What the passing checks show
+
+The 141 catalyst-economics checks, 78 uncertainty checks and 25 carbon-pricing checks that pass are numerical verifications: they show that the code reproduces hand calculations, closed forms and test functions. The 156 passing Python-Aspen comparisons show that two independent implementations agree within stated tolerances inside the checked range. The 9 passing literature comparisons show agreement with specific published values. None of these shows that the plant would behave as modelled.

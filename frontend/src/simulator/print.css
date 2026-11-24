@@ -1,0 +1,17 @@
+/* Print summary of the simulator (C9): inputs, key results with sources, outputs, warnings, basis and caption. No controls, no animation. */
+.sim-print-only{display:none}
+@media print{
+  @page{size:A4;margin:14mm}
+  body{background:#fff!important;color:#000!important}
+  header,nav,footer,.sim-toolbar,.sim-col-controls,.sim-pfd-box,.sim-legend-html,.sim-scroll-hint,.sim-detail,.sim-graphs,.sim-graphs-loading,.sim-how,.sim-tour,.sim-stored,.sim-print-row{display:none!important}
+  .sim-print-only{display:block}
+  .sim-grid{display:block!important}
+  .sim-col-out{position:static!important;max-height:none!important;overflow:visible!important;border:0!important;padding:0!important}
+  .sim-col-out .sim-out{display:block!important}
+  .sim-kpis{grid-template-columns:repeat(4,1fr)!important}
+  .sim-kpi,.sim-out-row,.sim-print-inputs tr{break-inside:avoid}
+  .sim-page,.sim-page *{color:#000!important;background:transparent!important;box-shadow:none!important}
+  .sim-badge{border:1px solid #555!important}
+  .sim-print-inputs{width:100%;border-collapse:collapse;font-size:10pt;margin:0 0 8pt}
+  .sim-print-inputs th,.sim-print-inputs td{border-top:1px solid #999;padding:2pt 4pt;text-align:left}
+}

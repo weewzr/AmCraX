@@ -34,6 +34,10 @@ GEN = HERE / "generated"
 REFERENCE_DOCX = HERE / "reference.docx"
 
 REPORT_DATE = "23 November 2026"
+REPORT_VERSION = "Version 2.0 (Phase 2)"
+RELEASE_NOTE = ("Supersedes version 1.0, the release of 23 November 2026 (178 pages), which is preserved unchanged in "
+                "docs/technical_report/releases/2026-11-23/ and in the repository tag amcrax-research-expansion-2026-11-23. "
+                "Section 31 lists what changed.")
 SUBTITLE = "Ammonia Cracking Simulation and Optimisation Platform"
 SCOPE_LINE = ("Aspen Plus V15 flowsheet model of ammonia cracking for hydrogen production, its Python automation, "
               "independent Python models, validation, sensitivity, energy, techno-economic and environmental assessment, "
@@ -80,19 +84,31 @@ EXPECTED = {
     28: ("28_purification.md", None),
     29: ("29_end_use.md", None),
     30: ("30_life_cycle.md", None),
-    31: ("31_evidence_matrix.md", "Four-hypothesis evidence matrix"),
-    32: ("32_limitations.md", "Limitations"),
-    33: ("33_conclusions.md", "Conclusions and future research"),
+    # Phase 2 (version 2.0): sections 31-39 are new, 40-42 are the former 31-33, 43 is new
+    31: ("31_changes.md", "Changes since the 23 November 2026 release"),
+    32: ("32_unified_baseline.md", "Unified techno-economic baseline and CAPEX audit"),
+    33: ("33_h1_turbine_threshold.md", "End use (H1): turbine-efficiency thresholds"),
+    34: ("34_h2_feed_carbon.md", "Feedstock (H2): feed dominance and carbon pricing"),
+    35: ("35_h3_catalyst_economics.md", "Catalysts (H3): prices, economics, kinetic validity and exchanger sizing"),
+    36: ("36_h4_membrane.md", "Purification (H4): PSA against a Pd-Ag membrane"),
+    37: ("37_uncertainty.md", "Uncertainty quantification"),
+    38: ("38_evidence_kinds.md", "Validation by the four evidence kinds"),
+    39: ("39_simulator.md", "Interactive process simulator"),
+    40: ("40_evidence_matrix.md", "Four-hypothesis evidence matrix"),
+    41: ("41_limitations.md", "Limitations and future work"),
+    42: ("42_conclusions.md", "Conclusions"),
+    43: ("43_reproducibility.md", "Reproducibility"),
 }
-REFERENCES_HEADING = "# 34 References"
-APPENDICES_HEADING = "# 35 Appendices"
+REFERENCES_HEADING = "# 44 References"
+APPENDICES_HEADING = "# 45 Appendices"
+EVIDENCE_SECTION_NO = 40
 EVIDENCE_JSON = ROOT / "results" / "research" / "evidence_matrix.json"
 EVIDENCE_MD = ROOT / "docs" / "research" / "evidence_matrix.md"
 EVIDENCE_SHOTS = ROOT / "docs" / "images" / "aspen_evidence" / "manifest.json"
 RESEARCH_VALIDATION = ROOT / "results" / "research" / "validation"
 # In-text abbreviations of group authors (APA 7: "International Organization for Standardization [ISO], 2019",
 # then "ISO, 2019").
-AUTHOR_ALIASES = {"iso2019hydrogen": ["ISO"]}
+AUTHOR_ALIASES = {"iso2019hydrogen": ["ISO"], "vdi2010heatatlas": ["VDI"]}
 
 LOG: list[str] = []
 
@@ -489,16 +505,27 @@ _EVIDENCE_TABLE_NO = [0]
 
 def evidence_table_caption(text: str) -> str:
     _EVIDENCE_TABLE_NO[0] += 1
-    return f"Table: **Table 31.{_EVIDENCE_TABLE_NO[0]}.** {text}"
+    return f"Table: **Table {EVIDENCE_SECTION_NO}.{_EVIDENCE_TABLE_NO[0]}.** {text}"
 
 
 def evidence_summary_table_md() -> str:
     d = load_evidence()
     if not d:
         return ("*The evidence matrix (results/research/evidence_matrix.json) was not available at build time.*\n")
+    gen = (d.get("provenance") or {}).get("generated_utc", "-")
+    if d.get("methodology_version") == 2:
+        rows = [[h.get("id"), h.get("verdict"), h.get("verdict_v1") or "-",
+                 "; ".join(f"{c.get('id')} {c.get('verdict')}" for c in (h.get("components") or [])) or "-",
+                 _short_txt(h.get("strongest_defensible_statement") or h.get("summary"), 400)]
+                for h in d.get("hypotheses", [])]
+        return (evidence_table_caption("Verdicts of the four hypotheses under the verdict methodology v2 (fixed before the Phase 2 "
+                                       "analysis), with the verdict of the preserved release (rule v1), the component verdicts and the "
+                                       "strongest defensible statement, read from the evidence matrix at build time. "
+                                       f"*Source: results/research/evidence_matrix.json (generated {gen}); rule: "
+                                       f"{d.get('methodology', 'docs/research/verdict_methodology_v2.md')}.*") + "\n\n"
+                + pipe_table(["H", "Verdict (v2)", "Verdict (v1)", "Components", "Strongest defensible statement"], rows))
     rows = [[h.get("id"), h.get("verdict"), _row_outcomes(h), _short_txt(h.get("summary"), 400)]
             for h in d.get("hypotheses", [])]
-    gen = (d.get("provenance") or {}).get("generated_utc", "-")
     return (evidence_table_caption("Verdicts of the four hypotheses with the outcome of each evidence row, read from the evidence "
                                    f"matrix at build time. *Source: results/research/evidence_matrix.json (generated {gen}).*") + "\n\n"
             + pipe_table(["H", "Verdict", "Row outcomes", "Summary"], rows))
@@ -525,6 +552,8 @@ def evidence_rows_md(hid: str) -> str:
     h = _hyp(hid)
     if h is None:
         return f"*Hypothesis {hid} is not in the evidence matrix available at build time.*\n"
+    if h.get("components") is not None:
+        return evidence_rows_v2_md(hid, h)
     out = []
     if h.get("summary"):
         out.append(f"**Verdict: {h.get('verdict')}.** {esc(_short_txt(h.get('summary'), 100000))}\n")
@@ -548,6 +577,93 @@ def evidence_rows_md(hid: str) -> str:
                                           "cases, assumptions, references, uncertainty ranges and evidence files of each row are in "
                                           "docs/research/evidence_matrix.md.*")
                    + "\n\n" + pipe_table(["Row", "Verdict", "Sub-claim", "Key numbers (origin)", "Conclusion"], rows))
+    return "\n".join(out) + "\n"
+
+
+def _txt_list(v, n=100000) -> str:
+    if v is None:
+        return ""
+    if isinstance(v, (list, tuple)):
+        return "; ".join(_short_txt(x if not isinstance(x, dict) else (x.get("text") or x.get("statement") or json.dumps(x, ensure_ascii=False)), n) for x in v)
+    if isinstance(v, dict):
+        return "; ".join(f"{k}: {_short_txt(x, n)}" for k, x in v.items() if x not in (None, ""))
+    return _short_txt(v, n)
+
+
+def evidence_rows_v2_md(hid: str, h: dict) -> str:
+    """Methodology v2 layout: primary hypothesis, components, rows (role, component, v2 and v1 verdicts, numerical
+    conclusions, assumptions, uncertainty, validation status, evidence kinds), strongest statement, findings against the essay."""
+    out = []
+    v1 = h.get("verdict_v1") or "-"
+    out.append(f"**Verdict (methodology v2): {h.get('verdict')}.** Verdict of the preserved release (rule v1): {v1}. "
+               f"Rule v1 applied to the current rows: {h.get('verdict_v1_rule_on_current_rows') or '-'}.\n")
+    if h.get("primary_hypothesis"):
+        out.append(f"**Primary hypothesis.** {esc(_short_txt(h.get('primary_hypothesis'), 100000))}\n")
+    comps = h.get("components") or []
+    if comps:
+        crow = [[c.get("id"), _short_txt(c.get("title"), 160), c.get("verdict"), _txt_list(c.get("primary_rows")) or "-",
+                 _txt_list(c.get("secondary_rows")) or "-", _short_txt(_txt_list(c.get("envelope")), 300) or "-",
+                 _short_txt(c.get("note"), 300) or "-"] for c in comps]
+        out.append(evidence_table_caption(f"Components of {hid} with their verdicts under methodology v2. Primary rows vote; "
+                                          "secondary rows are reported but do not vote. *Source: results/research/evidence_matrix.json.*")
+                   + "\n\n" + pipe_table(["Component", "Title", "Verdict", "Primary rows", "Secondary rows", "Envelope", "Note"], crow))
+    rows = []
+    for r in h.get("rows", []):
+        vb = r.get("verdict_by_mode")
+        verdict = str(r.get("verdict") or "-")
+        if isinstance(vb, dict) and vb:
+            names = {"actual_sg": "Mode A, actual Singapore boundary", "hypothetical_lca": "Mode B, hypothetical price, not Singapore law"}
+            verdict += " (" + "; ".join(f"{names.get(k, k)}: {v}" for k, v in vb.items()) + ")"
+        nums = _txt_list(r.get("numerical_conclusions"), 260)
+        if not nums:
+            nums = "; ".join(f"{_short_txt(f.get('quantity'), 70)} = {_fmt_val(f.get('value'))} ({f.get('source_type')})"
+                             for f in (r.get("numerical_findings") or [])[:4])
+        thr = r.get("threshold")
+        if isinstance(thr, dict) and isinstance(thr.get("values"), list):
+            vals = [f"{_short_txt(v.get('quantity'), 60)} = {_fmt_val(v.get('value'))}"
+                    + (f" {v.get('unit')}" if v.get("unit") not in (None, "", "-") else "")
+                    for v in thr["values"][:4] if isinstance(v, dict)]
+            more = len(thr["values"]) - 4
+            thr_t = _short_txt(thr.get("parameter"), 160) + ": " + "; ".join(vals) + (f"; {more} further value(s) in the matrix" if more > 0 else "")
+        else:
+            thr_t = _short_txt(_txt_list(thr), 260) if thr else "none"
+        head = (f"{r.get('row_id')} ({r.get('role') or '-'}, {r.get('component') or '-'}): {verdict}. "
+                f"Rule v1: {r.get('verdict_v1') or '-'}.")
+        rows.append([head, _short_txt(r.get("sub_claim"), 200), _short_txt(nums, 500) or "-", thr_t,
+                     _short_txt(_txt_list(r.get("envelope")), 260) or "-"])
+    if rows:
+        out.append(evidence_table_caption(f"Evidence rows for {hid}: row with its role and component, v2 verdict (with the verdict by "
+                                          "carbon-pricing mode where it applies) and v1 verdict; sub-claim; numerical conclusions; threshold; "
+                                          "envelope. *Source: results/research/evidence_matrix.json.*")
+                   + "\n\n" + pipe_table(["Row and verdict", "Sub-claim", "Numerical conclusions", "Threshold", "Envelope"], rows))
+        def _vstat(v):
+            if isinstance(v, list) and v and all(isinstance(x, dict) and "file" in x for x in v):
+                parts = []
+                for x in v:
+                    nm = str(x.get("file")).replace("\\", "/").split("/")[-1]
+                    s = f"{nm}: {x.get('pass', 0)} pass, {x.get('fail', 0)} fail, {x.get('informational', 0)} informational"
+                    if x.get("not_available"):
+                        s += f", {x.get('not_available')} not available"
+                    if x.get("failures"):
+                        s += " (failing: " + ", ".join(str(f) for f in x["failures"][:5]) + ")"
+                    parts.append(s)
+                return "; ".join(parts)
+            return _short_txt(_txt_list(v), 300)
+        rows2 = [[r.get("row_id"), _short_txt(_txt_list(r.get("assumptions")), 400) or "-", _short_txt(_txt_list(r.get("uncertainty")), 300) or "-",
+                  _vstat(r.get("validation_status")) or "-", _txt_list(r.get("evidence_kinds")) or "-"]
+                 for r in h.get("rows", [])]
+        out.append(evidence_table_caption(f"Assumptions, uncertainty, validation status and evidence kinds of the {hid} rows. AmCraX has no "
+                                          "independent experimental validation. *Source: results/research/evidence_matrix.json.*")
+                   + "\n\n" + pipe_table(["Row", "Assumptions", "Uncertainty", "Validation status", "Evidence kinds"], rows2))
+    if h.get("strongest_defensible_statement"):
+        out.append(f"**Strongest defensible statement.** {esc(_short_txt(h.get('strongest_defensible_statement'), 100000))}\n")
+    fa = h.get("findings_against_essay") or []
+    if fa:
+        out.append("**Findings against the essay.**\n\n" + "\n".join(f"* {esc(_short_txt(x if not isinstance(x, dict) else (x.get('text') or x.get('finding') or json.dumps(x, ensure_ascii=False)), 100000))}" for x in fa) + "\n")
+    cc = h.get("cross_claim")
+    if cc:
+        cc_t = cc.get("statement") if isinstance(cc, dict) and cc.get("statement") else _txt_list(cc)
+        out.append(f"**Cross-claim.** {esc(_short_txt(cc_t, 100000))}\n")
     return "\n".join(out) + "\n"
 
 
@@ -672,6 +788,25 @@ def italicise_apa(apa: str) -> tuple[str, str]:
 def build_references(cites: set[str], summary: dict) -> tuple[str, dict]:
     refs = json.loads((ROOT / "research" / "references.json").read_text(encoding="utf-8"))
     by_key = {r["citekey"]: r for r in refs}
+    # Phase 1 and Phase 2 additions (research/reference_additions/*.json, same schema); references.json wins on a
+    # duplicate key, so an addition never silently replaces a curated entry
+    added = []
+    for p in sorted((ROOT / "research" / "reference_additions").glob("*.json")):
+        try:
+            d = json.loads(p.read_text(encoding="utf-8"))
+        except Exception as e:  # noqa: BLE001
+            log(f"WARNING reference additions file unreadable: {p.name}: {e!r}")
+            continue
+        if isinstance(d, dict):
+            d = d.get("references") or d.get("entries") or []
+        for r in d:
+            if isinstance(r, dict) and r.get("citekey") and r.get("apa7") and r["citekey"] not in by_key:
+                r = dict(r)
+                # APA 7 puts a full stop after a group author ("Agency. (2024)."); some additions omit it
+                r["apa7"] = re.sub(r"^([A-Z][^().,]*?[a-z]) \((\d{4}[a-z]?|n\.d\.)((?:, [^)]*)?)\)\.", r"\1. (\2\3).", r["apa7"])
+                by_key[r["citekey"]] = r
+                added.append(r["citekey"])
+    summary["reference_additions_loaded"] = len(added)
     missing = sorted(k for k in cites if k not in by_key)
     for k in missing:
         log(f"WARNING cited key not in references.json: {k}")
@@ -1018,7 +1153,11 @@ Technical Report
 :::
 
 ::: {{custom-style="Cover Meta"}}
-{REPORT_DATE}
+{REPORT_VERSION}, {REPORT_DATE}
+:::
+
+::: {{custom-style="Cover Meta"}}
+{RELEASE_NOTE}
 :::
 {author}
 ::: {{custom-style="Front Heading"}}
@@ -1243,7 +1382,88 @@ def postprocess_docx(path: Path) -> None:
     # keep list: remove empty paragraphs directly before tables? (none created)
     doc.core_properties.title = "AmCraX Technical Report"
     doc.core_properties.subject = SUBTITLE
+    doc.core_properties.version = REPORT_VERSION
+    _neutral_metadata(doc)
     doc.save(str(path))
+
+
+NEUTRAL_AUTHOR = "AmCraX project"
+
+
+def _neutral_metadata(doc) -> None:
+    """Privacy: never let a user or host name reach the document properties."""
+    cp = doc.core_properties
+    cp.author = NEUTRAL_AUTHOR
+    cp.last_modified_by = NEUTRAL_AUTHOR
+    cp.comments = ""
+    cp.keywords = "ammonia cracking; hydrogen; Aspen Plus; techno-economic assessment"
+
+
+def scrub_outputs(docx: Path, pdf: Path | None) -> None:
+    """Word's Save writes its own user name into lastModifiedBy and the PDF Author; reset both."""
+    from docx import Document
+    d = Document(str(docx))
+    _neutral_metadata(d)
+    d.save(str(docx))
+    if pdf and pdf.exists():
+        import pymupdf
+        pd = pymupdf.open(str(pdf))
+        md = dict(pd.metadata or {})
+        md.update({"author": NEUTRAL_AUTHOR, "title": "AmCraX Technical Report", "subject": SUBTITLE,
+                   "keywords": "ammonia cracking; hydrogen; Aspen Plus", "creator": "AmCraX build_report.py"})
+        pd.set_metadata({k: v for k, v in md.items() if k in ("author", "title", "subject", "keywords", "creator", "producer",
+                                                             "creationDate", "modDate")})
+        tmp = pdf.with_suffix(".tmp.pdf")
+        pd.save(str(tmp), garbage=3, deflate=True)
+        pd.close()
+        tmp.replace(pdf)
+
+
+def privacy_scan(text: str, docx: Path, pdf: Path | None, summary: dict) -> list[str]:
+    """Return privacy findings: user or host name, user profile paths, e-mail addresses, identifier patterns,
+    and optional local patterns. The names are read from the build machine at run time and are never written to a file."""
+    import getpass
+    import os
+    import socket
+    needles = set()
+    for v in (getpass.getuser(), os.environ.get("USERNAME"), os.environ.get("COMPUTERNAME"), socket.gethostname()):
+        if v and len(v) >= 3:
+            needles.add(v.lower())
+    pats = [r"[A-Za-z]:[\\/]+Users[\\/]", r"/home/[a-z]", r"[\w.+-]+@[\w-]+\.[\w.]+", r"\b[Ee]\d{7}\b", r"\bA\d{7}[A-Z]\b"]
+    # Optional extra patterns, one regular expression per line, kept outside version control.
+    extra = Path(__file__).resolve().parents[2] / "docs" / "internal" / "privacy_patterns.txt"
+    if extra.exists():
+        pats += [ln.strip() for ln in extra.read_text(encoding="utf-8").splitlines()
+                 if ln.strip() and not ln.startswith("#")]
+    sources = {"report markdown": text}
+    try:
+        from docx import Document
+        cp = Document(str(docx)).core_properties
+        sources["docx properties"] = " ".join(str(x or "") for x in (cp.author, cp.last_modified_by, cp.comments, cp.title, cp.subject))
+    except Exception as e:  # noqa: BLE001
+        sources["docx properties"] = ""
+        log(f"WARNING docx properties not readable for the privacy scan: {e!r}")
+    if pdf and pdf.exists():
+        import pymupdf
+        pd = pymupdf.open(str(pdf))
+        sources["pdf metadata"] = " ".join(str(v) for v in (pd.metadata or {}).values())
+        sources["pdf text"] = "\n".join(pd[i].get_text() for i in range(pd.page_count))
+        pd.close()
+    hits = []
+    for name, t in sources.items():
+        low = t.lower()
+        for n in needles:
+            if n in low:
+                hits.append(f"{name}: machine user/host name found")
+        for p in pats:
+            for m in re.finditer(p, t, re.I):
+                s = m.group(0)
+                if "@" in s and re.search(r"\.(png|jpg|svg|json|md)$", s, re.I):
+                    continue
+                hits.append(f"{name}: pattern {p!r} matched '{s[:40]}'")
+    hits = sorted(set(hits))
+    summary["privacy_findings"] = hits
+    return hits
 
 
 # ----------------------------------------------------------------------------------------------
@@ -1352,7 +1572,7 @@ def quality(docx: Path, pdf: Path | None, summary: dict, scan_text: str, fail_on
     log(f"Missing sections     : {len(summary['missing_sections'])}")
     for m in summary["missing_sections"]:
         log(f"   - {m}")
-    log(f"DOCX outline = 35 items: {summary['docx_outline_ok']} ({len(h1)} level-1 headings)")
+    log(f"DOCX outline = {len(want)} items: {summary['docx_outline_ok']} ({len(h1)} level-1 headings)")
     log(f"Evidence matrix      : {summary.get('evidence_matrix_source')}")
     log(f"Unpublishable screenshots dropped: {summary.get('unpublishable_screenshots')}")
     if not summary["docx_outline_ok"]:
@@ -1424,7 +1644,15 @@ def main() -> int:
         if not a.no_pdf:
             export_pdf(docx, pdf)
             log(f"pdf written: {pdf}")
+        scrub_outputs(docx, None if a.no_pdf else pdf)
         rc = quality(docx, None if a.no_pdf else pdf, summary, scan_text, not a.no_fail_on_todo)
+        ph = privacy_scan(full, docx, None if a.no_pdf else pdf, summary)
+        log(f"Privacy scan         : {'PASS' if not ph else 'FAIL'} ({len(ph)} finding(s))")
+        for h_ in ph:
+            log(f"   - {h_}")
+        if ph and rc == 0:
+            log("BUILD FAILED: privacy scan")
+            rc = 3
         summary["exit_code"] = rc
         (GEN / "build_log.json").write_text(json.dumps(summary, indent=2, ensure_ascii=False), encoding="utf-8")
         (GEN / "build_log.txt").write_text("\n".join(LOG), encoding="utf-8")

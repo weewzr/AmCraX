@@ -71,3 +71,21 @@ Added 2026-11-23. Status values: complete and validated, complete but preliminar
 | Life-cycle assessment (`results/research/lca`) | complete but preliminary | `lca.json` 7 pass, 0 fail, 4 informational; low-confidence factors and unsourced distances |
 | Aspen evidence screenshots (`docs/images/aspen_evidence`) | complete but preliminary | All 31 inspected and marked publishable; `ci_luc5_T572_P20_W100_hi__08_reactor_results.png` was recaptured on 2026-11-23 after its first capture showed the Catalyst tab; some forms not captured |
 | API and dashboard integration of the research results | complete but preliminary | Read-only router `backend/amcrax/api/routers/research.py` and the Hypotheses pages under `frontend/src/site/hyp/` show the stored result files (end use and life cycle included); the end-use and life-cycle Python packages are not exposed as live calculation endpoints |
+
+## Phase 2 (23 November 2026)
+
+Status values are as in the research section above. Counts come from the files named; where a count was not final at the time of writing the entry says "see" and names the file. Evidence kinds are kept apart: numerical verification (NV), Python against Aspen comparison (PA), comparison with published literature (PL). AmCraX has no independent experimental validation.
+
+| Feature | Status | Evidence |
+|---|---|---|
+| Interactive simulator (first page of the site) | complete but preliminary | 227 frontend unit tests (25 files) reported on 23 November 2026; browser model against Python on 82 vectors to about 1e-7 (NV) and against stored Aspen kinetic cases (PA), `results/research/simulator/parity_report.json`; site check passed on four viewports. No membrane model, no IRR, flow animation only |
+| Unified reference scenario | complete but preliminary | `tests/test_phase2_reference.py` (29 tests); baseline 4.015 USD/kg reproduced; CAPEX extrapolated, see `docs/research/unified_baseline.md` |
+| Heat exchanger sizing and cost | complete but preliminary | `results/research/validation/heat_exchanger.json`: 37 items, 24 pass, 0 fail, 13 informational; no sourced U at 20 bar |
+| Kinetic validity classification | complete and validated for the classification itself | Every law classified; none validated at 20 bar |
+| End-use thresholds (H1) | complete but preliminary | `tests/test_phase2_enduse.py` (12 tests); no sourced turbine efficiency for the fired-cracker fuel |
+| Carbon pricing, modes A and B (H2) | complete but preliminary | `tests/test_phase2_carbon_pricing.py` (13 tests); Mode B is hypothetical |
+| Purification, PSA against membrane (H4) | complete but preliminary | `tests/test_phase2_purification.py` (10 tests); PSA recovery is an input |
+| Catalyst economics (H3) | complete but preliminary | `tests/test_phase2_catalyst_econ.py` (13 tests); derived catalyst prices |
+| Uncertainty quantification | complete but preliminary | `results/research/validation/uq.json`: 78 checks pass, 6 informational, 0 fail; `tests/test_phase2_uq.py` (13 tests); model-form error of the Takahashi law reported |
+| Evidence matrix version 2 | see `results/research/evidence_matrix.json` | Rule `docs/research/verdict_methodology_v2.md`; version 1 verdicts shown beside |
+| Full Python suite | see `docs/research/phase2_baseline.md` for the start of Phase 2 | 618 passed and 1 skipped in a run during Phase 2, excluding the evidence-matrix test that was being rewritten; re-run to confirm |

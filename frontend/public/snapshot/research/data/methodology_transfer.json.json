@@ -1,0 +1,401 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23",
+  "script": "hand-authored table (methodology workstream)",
+  "source_type": "literature",
+  "inputs_summary": "abstracts and bibliographic records of publications by K. Shirvan and C. W. Forsberg (MIT NSE), DOIs checked via doi.org handle API and Crossref on 2026-11-23; repository data inventory of research/notes and results/research",
+  "model_versions": {}
+ },
+ "researchers": [
+  {
+   "name": "Koroush Shirvan",
+   "position": "Associate Professor of Nuclear Science and Engineering, MIT",
+   "official_page": "https://nse.mit.edu/people/faculty/shirvan.html",
+   "personal_research_page": "https://web.mit.edu/kshirvan/www/",
+   "lab_site_linked_from_official_page": "https://spacenuclear.mit.edu/ (Aerospace Nuclear @ MIT, one thrust led by K. Shirvan)",
+   "listed_research_areas": "reactor design incl. design for cost, AI/ML and uncertainty quantification; nuclear fuels and materials; space nuclear power and propulsion; safety; boiling heat transfer",
+   "access_date": "2026-11-23",
+   "verified": true
+  },
+  {
+   "name": "Charles W. Forsberg",
+   "position": "Principal Research Scientist, MIT Department of Nuclear Science and Engineering",
+   "official_page": "https://nse.mit.edu/people/research/forsberg.html",
+   "orcid": "https://orcid.org/0000-0002-2778-3135",
+   "group_page": "none linked from the official page",
+   "listed_research_areas": "heat storage coupled to reactors (firebrick, CRUSH), salt-cooled reactors, nuclear-assisted liquid biofuels, zero-carbon integrated energy systems, waste management, fuel cycles",
+   "access_date": "2026-11-23",
+   "verified": true
+  }
+ ],
+ "matrix_columns": [
+  "publication",
+  "methodology",
+  "potential_amcrax_application",
+  "required_data",
+  "scientific_value",
+  "implementation_feasibility",
+  "validation_requirements"
+ ],
+ "rows": [
+  {
+   "id": "S1",
+   "researcher": "Shirvan",
+   "citekey": "wu2018iuqpart1",
+   "publication": "Wu, X., Kozlowski, T., Meidani, H., & Shirvan, K. (2018a). Inverse uncertainty quantification using the modular Bayesian approach based on Gaussian process, Part 1: Theory. Nuclear Engineering and Design, 335, 339-355. https://doi.org/10.1016/j.nucengdes.2018.06.004",
+   "source_link": "https://doi.org/10.1016/j.nucengdes.2018.06.004 (open preprint: https://arxiv.org/abs/1801.01782)",
+   "doi": "10.1016/j.nucengdes.2018.06.004",
+   "what_was_read": "arXiv abstract page; full text not read",
+   "methodology": "Bayesian inverse UQ: infer posterior distributions of uncertain model parameters from measurements, with an explicit model-discrepancy term (Kennedy-O'Hagan model updating equation) to avoid over-fitting; Gaussian-process emulator of the expensive code; full versus modular Bayesian approach; improved modular approach that does not extrapolate the learned discrepancy into the prediction domain.",
+   "potential_amcrax_application": "Calibration of ammonia-decomposition rate-law parameters against the conversion data the repository holds, with a discrepancy (or inflated noise) term, and propagation of the posterior to temperature for a target conversion, catalyst mass and LCOH. The warning about extrapolating discrepancy applies directly: every 20 bar use of a 1 atm law is outside the data domain.",
+   "required_data": "Held: Lucentini et al. (2021) Table 1, 3 conversions per catalyst at 400/450/500 degC, 1 atm, fully specified conditions (6 points for the two catalysts with a published rate law); these are part of the paper's fitting data. Takahashi and Fujitani (2016) Figs. 1-5 read from the figures (about +/-2 percentage points), 33 Ni and 32 Ru points, 1 atm, catalyst mass and SV volume basis not reported. No pressure-varied data with a full specification. Not held: Lucentini F/W, NH3 and H2 co-feed series (figures, not digitised).",
+   "scientific_value": "High in principle (replaces one-at-a-time confidence-interval bars with a joint parameter distribution). Limited in practice: 3 points per catalyst cannot identify 4 Lucentini parameters, and the Takahashi points cannot fix absolute activity without the catalyst mass.",
+   "implementation_feasibility": "medium (Takahashi shape parameters, as a model-form diagnostic); low (Lucentini calibration: under-determined and double counting); effort about 2-3 days",
+   "validation_requirements": "Synthetic-data recovery test; split of data into calibration and held-out validation sets; posterior predictive check; R-hat and effective sample size; result labelled as calibration to published 1 atm laboratory data, not experimental validation of the plant model.",
+   "decision": "implement (partly): see T2 in docs/internal/phase2_uq_spec.md",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S2",
+   "researcher": "Shirvan",
+   "citekey": "wu2018iuqpart2",
+   "publication": "Wu, X., Kozlowski, T., Meidani, H., & Shirvan, K. (2018b). Inverse uncertainty quantification using the modular Bayesian approach based on Gaussian process, Part 2: Application to TRACE. Nuclear Engineering and Design, 335, 417-431. https://doi.org/10.1016/j.nucengdes.2018.06.003",
+   "source_link": "https://doi.org/10.1016/j.nucengdes.2018.06.003 (open preprint: https://arxiv.org/abs/1801.09261)",
+   "doi": "10.1016/j.nucengdes.2018.06.003",
+   "what_was_read": "arXiv abstract page; full text not read",
+   "methodology": "Application of S1 to TRACE against BFBT steady-state void-fraction data: GP emulator replaces the code inside MCMC; discrepancy by GP; sequential test-source allocation selects which experiments are used for validation (covering the domain) and which for inverse UQ.",
+   "potential_amcrax_application": "The test-source allocation idea transfers as a data-split rule: use the Takahashi temperature series for calibration and keep the space-velocity and H2-inhibition series as held-out validation. The GP emulator does not transfer: the AmCraX PFR is cheap enough to call directly inside MCMC.",
+   "required_data": "Same as S1. The Takahashi set has three separable series per catalyst (temperature, NH3 partial pressure or SV, H2 co-feed), which allows a split.",
+   "scientific_value": "Medium: gives an honest held-out check instead of re-predicting fitted points.",
+   "implementation_feasibility": "high (as a data-split rule within T2); not applicable (emulator)",
+   "validation_requirements": "Held-out series reported separately with coverage of the 90 % posterior predictive interval.",
+   "decision": "implement as part of T2",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S3",
+   "researcher": "Shirvan",
+   "citekey": "che2021kriging",
+   "publication": "Che, Y., Wu, X., Pastore, G., Li, W., & Shirvan, K. (2021). Application of Kriging and Variational Bayesian Monte Carlo method for improved prediction of doped UO2 fission gas release. Annals of Nuclear Energy, 153, 108046. https://doi.org/10.1016/j.anucene.2020.108046",
+   "source_link": "https://doi.org/10.1016/j.anucene.2020.108046",
+   "doi": "10.1016/j.anucene.2020.108046",
+   "what_was_read": "bibliographic record and secondary summaries only; abstract and full text not read",
+   "methodology": "Bayesian calibration of the BISON fission-gas-release model for doped UO2: Kriging surrogate inside MCMC compared with Variational Bayesian Monte Carlo for an expensive likelihood (method description from secondary sources).",
+   "potential_amcrax_application": "None needed for the Python model (each PFR call is cheap). A surrogate would matter only for calibrating the Aspen RPlug model, which is restricted to one automation instance and is not in scope.",
+   "required_data": "Not applicable.",
+   "scientific_value": "Low for AmCraX.",
+   "implementation_feasibility": "not applicable",
+   "validation_requirements": "Not applicable.",
+   "decision": "no defensible transfer (no expensive likelihood in AmCraX Python models)",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S4",
+   "researcher": "Shirvan",
+   "citekey": "che2022thesis",
+   "publication": "Che, Y. (2022). Application of data-driven methods in nuclear fuel performance analysis [Doctoral dissertation, Massachusetts Institute of Technology]. DSpace@MIT. https://dspace.mit.edu/handle/1721.1/143359",
+   "source_link": "https://dspace.mit.edu/handle/1721.1/143359",
+   "doi": null,
+   "what_was_read": "DSpace record and abstract (thesis supervised by K. Shirvan); full text not read",
+   "methodology": "Validation and verification of BISON; sensitivity analysis over the complete set of uncertain inputs to rank importance and reduce the number carried into UQ; Bayesian calibration of the code; ML surrogates of full-core fuel response; multi-fidelity ML.",
+   "potential_amcrax_application": "Screen first, then quantify: a variance-based global sensitivity analysis of the unified techno-economic model replaces the one-at-a-time tornado, and a sensitivity screen of the kinetic parameters precedes the calibration (only parameters that move the output are calibrated).",
+   "required_data": "Held: the input ranges already used by results/research/singapore/monte_carlo.json and tornado.json (all sourced in backend/amcrax/data/singapore.yaml and economics.yaml).",
+   "scientific_value": "High: the existing tornado varies one input at a time and the Monte Carlo reports percentiles only; neither apportions variance or shows interactions.",
+   "implementation_feasibility": "high; effort about 1 day",
+   "validation_requirements": "Analytic test function (Ishigami) reproduced; indices sum check; bootstrap confidence intervals; convergence with N.",
+   "decision": "implement: T1",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S5",
+   "researcher": "Shirvan",
+   "citekey": "stewart2022capitalcost",
+   "publication": "Stewart, W. R., & Shirvan, K. (2022). Capital cost estimation for advanced nuclear power plants. Renewable and Sustainable Energy Reviews, 155, 111880. https://doi.org/10.1016/j.rser.2021.111880",
+   "source_link": "https://doi.org/10.1016/j.rser.2021.111880 (preprint: https://osf.io/erm3g)",
+   "doi": "10.1016/j.rser.2021.111880",
+   "what_was_read": "abstract via RePEc; full text not read",
+   "methodology": "Bottom-up cost estimate over more than 200 structures, systems and components for four reactor designs; examines which design and delivery levers (multiple units, factory production and learning, schedule, simplification, timing) change overnight cost.",
+   "potential_amcrax_application": "Design-for-cost decomposition of the cracker's capital: how much of total capital investment sits in equipment purchase cost versus installation, indirect and working-capital items, and which equipment items dominate. The Phase 2 reference CAPEX (backend/amcrax/data/reference_scenario.yaml, method cho2026_itemised_v1) already splits Cho et al. (2026) Table 7 into ISBL items (boiler, heat exchangers, T/PSA, reactor) and an OSBL + engineering + contingency block (0.177 of 0.586 USD/kg H2 at the Cho reference plant, about 30 %), which is the analogue of the direct/indirect split. The superseded Phase 1 basis had TCI/PEC 5.93 (Farokhi et al. 2025).",
+   "required_data": "Held: itemised unit CAPEX (Cho 2026 Table 7), OSBL 0.12, engineering 0.10 and contingency 0.18 fractions (Cho Table 4), scaling exponent 0.8 with 0.6 sensitivity, CAPEX multiplier 0.5-1.5. Not held: account-level installation factors, labour hours, learning rates for chemical plant. A bottom-up estimate is therefore not possible.",
+   "scientific_value": "Medium: identifies whether capital-cost uncertainty or feed price drives LCOH; cannot produce a new cost estimate.",
+   "implementation_feasibility": "medium as grouped Sobol indices inside T1 (capital group versus feed versus heat versus catalyst); low as a bottom-up estimate",
+   "validation_requirements": "Breakdown sums to LCOH exactly (numerical verification); grouped indices consistent with single-input indices.",
+   "decision": "implement as grouped indices within T1",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S6",
+   "researcher": "Shirvan",
+   "citekey": "stewart2021hchtgr",
+   "publication": "Stewart, W. R., Velez-Lopez, E., Wiser, R., & Shirvan, K. (2021). Economic solution for low carbon process heat: A horizontal, compact high temperature gas reactor. Applied Energy, 304, 117650. https://doi.org/10.1016/j.apenergy.2021.117650",
+   "source_link": "https://doi.org/10.1016/j.apenergy.2021.117650",
+   "doi": "10.1016/j.apenergy.2021.117650",
+   "what_was_read": "abstract (OpenAlex); full text not read",
+   "methodology": "Cost-estimating tool extended to HTGRs; design-to-build changes (horizontal core and steam generator on rails) cut reactor-building size; reported reductions of 42 % civil, 38 % indirect and 20 % total capital cost against NGNP; levelised cost of heat 6.13-12.48 USD/GJ from a survey of low-carbon process-heat options.",
+   "potential_amcrax_application": "A low-carbon heat-supply scenario for the cracker heat deficit would need a heat price AND a delivery temperature at or above the cracker temperature (about 600 degC baseline; Cho 2026: 567 degC Ru, 736 degC Ni). The abstract gives the price range only; the delivery temperature and the cost year were not read, and the reactor design itself (core, cavity cooling, neutronics) has no transfer.",
+   "required_data": "Not held: delivered heat temperature, cost year, Singapore siting basis. The price range is in the abstract.",
+   "scientific_value": "Low to medium, only as a clearly labelled hypothetical heat-price sensitivity.",
+   "implementation_feasibility": "low until the full text is read; no defensible transfer for the reactor design",
+   "validation_requirements": "Would require the delivery temperature from the full text; result labelled hypothetical.",
+   "decision": "rejected for this phase (needed numbers not verified)",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S7",
+   "researcher": "Shirvan",
+   "citekey": "stewart2023scheduleRisk",
+   "publication": "Stewart, W. R., & Shirvan, K. (2023). Construction schedule and cost risk for large and small light water reactors. Nuclear Engineering and Design, 407, 112305. https://doi.org/10.1016/j.nucengdes.2023.112305",
+   "source_link": "https://doi.org/10.1016/j.nucengdes.2023.112305",
+   "doi": "10.1016/j.nucengdes.2023.112305",
+   "what_was_read": "abstract (OpenAlex); full text not read",
+   "methodology": "Probabilistic risk model of construction delay drivers (supply-chain delay, human error, change orders, productivity) and their effect on installed cost; finds estimates seldom bound realised costs; design changes and productivity loss dominate.",
+   "potential_amcrax_application": "Methodological point only: capital-cost uncertainty is right-skewed, so the symmetric triangular(0.5, 1, 1.5) CAPEX multiplier in the AmCraX Monte Carlo may understate the upper tail. The nuclear delay data do not transfer to a chemical plant.",
+   "required_data": "Not held: construction-risk data for chemical plants.",
+   "scientific_value": "Low to medium (a stated limitation and an alternative-distribution sensitivity in T1).",
+   "implementation_feasibility": "high as a distribution-shape sensitivity in T1; not applicable as data",
+   "validation_requirements": "Report T1 indices under both distributions; label the skewed case as an assumption.",
+   "decision": "implement as a sensitivity case in T1 only",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "S8",
+   "researcher": "Shirvan",
+   "citekey": "radaideh2021rl",
+   "publication": "Radaideh, M. I., Wolverton, I., Joseph, J., Tusar, J. J., Otgonbaatar, U., Roy, N., Forget, B., & Shirvan, K. (2021). Physics-informed reinforcement learning optimization of nuclear assembly design. Nuclear Engineering and Design, 372, 110966. https://doi.org/10.1016/j.nucengdes.2020.110966",
+   "source_link": "https://doi.org/10.1016/j.nucengdes.2020.110966 (open copy: https://hdl.handle.net/1721.1/130571)",
+   "doi": "10.1016/j.nucengdes.2020.110966",
+   "what_was_read": "DSpace@MIT abstract",
+   "methodology": "Deep Q-learning and proximal policy optimisation, with designer rules encoded, for combinatorial fuel-assembly layout; compared with genetic algorithms and simulated annealing on spaces of about 2e6 and 1e31 layouts.",
+   "potential_amcrax_application": "None. The AmCraX design space is low-dimensional and continuous (temperature, pressure, catalyst mass, recovery); the existing optimisation module already covers it.",
+   "required_data": "Not applicable.",
+   "scientific_value": "Low for AmCraX.",
+   "implementation_feasibility": "not applicable",
+   "validation_requirements": "Not applicable.",
+   "decision": "no defensible transfer",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "record-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F1",
+   "researcher": "Forsberg",
+   "citekey": "forsberg2016fhrnacc",
+   "publication": "Forsberg, C., & Peterson, P. F. (2016). Basis for fluoride salt-cooled high-temperature reactors with nuclear air-Brayton combined cycles and firebrick resistance-heated energy storage. Nuclear Technology, 196(1), 13-33. https://doi.org/10.13182/NT16-28",
+   "source_link": "https://doi.org/10.13182/NT16-28",
+   "doi": "10.13182/NT16-28",
+   "what_was_read": "abstract (OpenAlex); full text not read",
+   "methodology": "Commercial and system basis for an FHR (coated-particle fuel, fluoride-salt coolant) delivering heat at 600-700 degC to a nuclear air-Brayton combined cycle with auxiliary-heat topping (66 % stated heat-to-electricity efficiency) and FIRES storage; revenue-based rather than cost-only argument.",
+   "potential_amcrax_application": "Qualitative only: a 600-700 degC heat-delivery band overlaps the Ru cracking temperatures but sits below the Ni temperature in Cho et al. (2026). The reactor physics, salt chemistry and fuel have no defensible transfer. No cost number for delivered process heat was read.",
+   "required_data": "Not held: price of delivered heat, availability, coupling losses.",
+   "scientific_value": "Low.",
+   "implementation_feasibility": "not applicable (reactor); low (heat-temperature band as context only)",
+   "validation_requirements": "Not applicable.",
+   "decision": "no defensible transfer (molten-salt reactor chemistry and neutronics); context sentence only",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F2",
+   "researcher": "Forsberg",
+   "citekey": "forsberg2017fires",
+   "publication": "Forsberg, C. W., Stack, D. C., Curtis, D., Haratyk, G., & Sepulveda, N. A. (2017). Converting excess low-price electricity into high-temperature stored heat for industry and high-value electricity production. The Electricity Journal, 30(6), 42-52. https://doi.org/10.1016/j.tej.2017.06.009",
+   "source_link": "https://doi.org/10.1016/j.tej.2017.06.009",
+   "doi": "10.1016/j.tej.2017.06.009",
+   "what_was_read": "abstract (OpenAlex); full text not read",
+   "methodology": "FIRES: buy electricity when it is cheap, store it as sensible heat in firebrick, deliver hot air to furnaces, kilns, power plants and gas turbines; argues this sets a floor on electricity prices near the fossil-fuel price.",
+   "potential_amcrax_application": "Possible future scenario: electrically charged stored heat to cover the cracker heat deficit instead of burning ammonia or natural gas. It would need the storage capital cost, charge and discharge efficiency, delivered air temperature and a Singapore half-hourly price series to compute the charging cost. Singapore has no large surplus-renewable price collapse of the kind the paper assumes, so the premise itself would need checking.",
+   "required_data": "Held: average Singapore wholesale price basis (singapore.yaml). Not held: FIRES cost and efficiency (full text not read), half-hourly price distribution.",
+   "scientific_value": "Low to medium: heat fuel is about 7-13 % of LCOH and ammonia feed about 79-88 % in results/research/singapore/scenario_breakdown.csv (heat integration on and off), so the heat source cannot change the conclusion much.",
+   "implementation_feasibility": "low",
+   "validation_requirements": "Would need sourced storage cost; result labelled hypothetical.",
+   "decision": "rejected for this phase (needed numbers not available)",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F3",
+   "researcher": "Forsberg",
+   "citekey": "forsberg2025baseload",
+   "publication": "Forsberg, C. (2025). Base-load nuclear reactors for fully dispatchable electricity: Nuclear air-Brayton combined cycles, firebrick heat storage, hydrogen storage, and hydrocarbon biofuels. Energies, 18(4), 821. https://doi.org/10.3390/en18040821",
+   "source_link": "https://doi.org/10.3390/en18040821",
+   "doi": "10.3390/en18040821",
+   "what_was_read": "abstract (Crossref); full text returned HTTP 403 to automated access",
+   "methodology": "System-level description of three partly coupled systems: gigawatt-hour firebrick storage to 1800 degC, NACC with topping cycles, and hydrogen and biofuel systems linking the electricity and industrial sectors.",
+   "potential_amcrax_application": "As F2. The system-level framing (where heat and hydrogen are used across sectors) is context for H1 but supplies no number AmCraX can use.",
+   "required_data": "Not held (full text not read).",
+   "scientific_value": "Low.",
+   "implementation_feasibility": "low",
+   "validation_requirements": "Not applicable.",
+   "decision": "rejected for this phase (full text not obtained)",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F4",
+   "researcher": "Forsberg",
+   "citekey": "forsberg2021biorefineries",
+   "publication": "Forsberg, C. W., Dale, B. E., Jones, D. S., Hossain, T., Morais, A. R. C., & Wendt, L. M. (2021). Replacing liquid fossil fuels and hydrocarbon chemical feedstocks with liquid biofuels from large-scale nuclear biorefineries. Applied Energy, 298, 117225. https://doi.org/10.1016/j.apenergy.2021.117225",
+   "source_link": "https://doi.org/10.1016/j.apenergy.2021.117225",
+   "doi": "10.1016/j.apenergy.2021.117225",
+   "what_was_read": "abstract (OpenAlex); full text not read",
+   "methodology": "System design argument: external low-carbon heat and hydrogen nearly double liquid-fuel yield per unit biomass; economies of scale require refineries of about 250,000 barrels per day and densified biomass logistics.",
+   "potential_amcrax_application": "None for the cracker model. It is a reminder that external hydrogen demand (for example refining and biofuel upgrading) is a use that needs molecular hydrogen, which is relevant to H1 framing only.",
+   "required_data": "Not applicable.",
+   "scientific_value": "Low.",
+   "implementation_feasibility": "not applicable",
+   "validation_requirements": "Not applicable.",
+   "decision": "no defensible transfer",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "F5",
+   "researcher": "Forsberg",
+   "citekey": "forsberg2003ahtr",
+   "publication": "Forsberg, C. W., Peterson, P. F., & Pickard, P. S. (2003). Molten-salt-cooled advanced high-temperature reactor for production of hydrogen and electricity. Nuclear Technology, 144(3), 289-302. https://doi.org/10.13182/NT03-1",
+   "source_link": "https://doi.org/10.13182/NT03-1",
+   "doi": "10.13182/NT03-1",
+   "what_was_read": "bibliographic record only (key earlier paper on nuclear heat for hydrogen); abstract and full text not read",
+   "methodology": "Reactor concept for high-temperature heat to thermochemical or electrolytic hydrogen production (early basis for the FHR line).",
+   "potential_amcrax_application": "None: concerns producing hydrogen with nuclear heat, not cracking ammonia; reactor and salt chemistry do not transfer.",
+   "required_data": "Not applicable.",
+   "scientific_value": "Low.",
+   "implementation_feasibility": "not applicable",
+   "validation_requirements": "Not applicable.",
+   "decision": "no defensible transfer",
+   "source_type": "literature",
+   "verbatim_or_derived": "derived (paraphrase of the abstract or record; assessment by this workstream)",
+   "evidence_grade": "abstract-level",
+   "access_date": "2026-11-23"
+  }
+ ],
+ "ranked_transfers": [
+  {
+   "rank": 1,
+   "id": "T1",
+   "name": "Variance-based global sensitivity analysis (Sobol first-order and total indices, grouped cost-driver indices) of the unified techno-economic model",
+   "from_rows": [
+    "S4",
+    "S5",
+    "S7"
+   ],
+   "feasibility": "high",
+   "spec": "docs/internal/phase2_uq_spec.md#t1"
+  },
+  {
+   "rank": 2,
+   "id": "T2a",
+   "name": "Kinetic parameter-uncertainty propagation (Lucentini 2021 Table 3) to temperature for target conversion, catalyst mass and LCOH",
+   "from_rows": [
+    "S1"
+   ],
+   "feasibility": "high",
+   "spec": "docs/internal/phase2_uq_spec.md#t2a"
+  },
+  {
+   "rank": 3,
+   "id": "T2b",
+   "name": "Bayesian inverse UQ of Takahashi (2016) rate-determining-step parameters against the digitised Figs. 3-5 points, with held-out series; model-form diagnostic only",
+   "from_rows": [
+    "S1",
+    "S2"
+   ],
+   "feasibility": "medium",
+   "spec": "docs/internal/phase2_uq_spec.md#t2b"
+  }
+ ],
+ "rejected": [
+  {
+   "id": "S3",
+   "reason": "Surrogate for an expensive likelihood is unnecessary: the Python PFR is cheap; Aspen calibration is out of scope."
+  },
+  {
+   "id": "S6",
+   "reason": "Heat price range is in the abstract, but delivery temperature and cost year were not read; reactor design does not transfer."
+  },
+  {
+   "id": "S8",
+   "reason": "Combinatorial RL optimisation has no counterpart in the low-dimensional continuous AmCraX design space."
+  },
+  {
+   "id": "F1",
+   "reason": "FHR neutronics, fuel and fluoride-salt chemistry: no defensible transfer."
+  },
+  {
+   "id": "F2",
+   "reason": "FIRES cost and efficiency not obtained; Singapore lacks the surplus-renewable price premise; no number to use."
+  },
+  {
+   "id": "F3",
+   "reason": "Full text not obtainable (HTTP 403); abstract has no usable number."
+  },
+  {
+   "id": "F4",
+   "reason": "Biorefinery system design does not touch the cracker model."
+  },
+  {
+   "id": "F5",
+   "reason": "Nuclear hydrogen production reactor concept; no defensible transfer."
+  },
+  {
+   "id": "Lucentini calibration",
+   "reason": "3 points per catalyst for 4 parameters, and the points are part of the published fit: Bayesian calibration would be under-determined and double count the data; replaced by T2a propagation."
+  }
+ ],
+ "calibration_data_inventory": {
+  "lucentini2021nirukinetic_table1": {
+   "points": "6 catalysts x 3 temperatures (400, 450, 500 degC); 2 catalysts have a published rate law (5Ni1Ru: 36.5, 86.1, 99.6 %; 2.5Ni0.5Ru: 49.7, 88.7, 99.2 %)",
+   "conditions": "1 atm, 0.1 g, F/W 15.0 L g^-1 h^-1, Ar:NH3 1.2:1, 25 mL/min (reference state not stated)",
+   "uncertainty": "MS analysis +/-5 % stated (absolute or relative not stated); no replicate scatter",
+   "status": "part of the fitting data",
+   "file": "research/notes/lucentini2021nirukinetic.md; results/research/kinetics/validation_*_CeO2.json"
+  },
+  "lucentini2021nirukinetic_table3": {
+   "points": "fitted k0, Ek, K1, K4 with +/- confidence intervals for both catalysts; no covariance",
+   "file": "research/notes/lucentini2021nirukinetic.md"
+  },
+  "takahashi2016kinetic_figures": {
+   "points": "Ni 33 (Fig. 3a 4, 3b 4, 3c 15, 5a 5, 1a 5); Ru 32 (Fig. 4a 3, 4b 4, 4c 15, 5b 5, 2a 5); Fig. 3a/4a 15000 h^-1 points repeat points of Figs. 3c/4c",
+   "conditions": "1 atm, SV 2000-30000 h^-1, catalyst mass and SV volume basis not reported",
+   "uncertainty": "figure reading about +/-2 percentage points; experimental scatter not reported",
+   "status": "Figs. 1a/2a are fitting data (<20 % conversion); Figs. 3-5 are the paper's extrapolation tests",
+   "file": "research/notes/takahashi2016kinetic.md (lines 123-152)"
+  },
+  "single_statements_not_usable": [
+   "Lucentini 2019: Ru/CeO2 98 % and Ni/CeO2 63 % at 450 degC (no rate law for those catalysts)",
+   "Cechetto 2023: packed bed 65.4 % at 4 bar, 400 degC (different catalyst, no rate law held)",
+   "Sayas 2020: about 80 % at 40 bar, 550 degC (full text not read; not implemented)"
+  ],
+  "pressure_data": "none with a published rate law and full specification; every 20 bar kinetic result remains an extrapolation"
+ }
+}

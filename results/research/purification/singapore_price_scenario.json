@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:25:01Z",
+  "generated_utc": "2026-11-24T05:28:46Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "prices from results/research/singapore/assumptions.json (electricity derived, NH3 scenario prices, delivered international); other inputs unchanged",

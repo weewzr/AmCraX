@@ -160,3 +160,25 @@ The register for this layer is kept next to the results as `assumptions.json` in
 | PSA and membrane parameters | recovery 0.85 baseline; Sieverts from Richard (2024); infinite H2/N2 selectivity in the base case; delivery pressures 30 and 350 bar | `results/research/purification/assumptions.json` | see file | Purification costs are lower bounds for membranes |
 | Turbine efficiencies and CCGT comparator | direct NH3 49.6 %, exhaust-heated full cracking 54.6 %, linear interpolation for blends; NG CCGT 0.55 | `results/research/enduse/assumptions.json` | Ahmad calibration; comparator is an assumption | Cost and carbon of power pathways |
 | LCA factors | GWP100 AR6; 5000 km shipping; grid 0.402 kg CO2e/kWh; low-confidence coal, SMR with CCS and methane leakage values | `results/research/lca/assumptions.json` | see file | Break-even emission intensities |
+
+## 10. Phase 2: reference scenario and added models (23 November 2026)
+
+All research cost paths read one file, `backend/amcrax/data/reference_scenario.yaml` (version 1.0.0). Every entry in it carries value, unit, source type, source and note. The values below are the ones that decide the research results. The file wins if it differs from this table.
+
+| Assumption | Value | Source type | Where | Note |
+|---|---|---|---|---|
+| CAPEX method | `cho2026_itemised_v1`, 2024 USD, 7.667 MUSD at baseline | literature (Cho et al., 2026 itemised table), extrapolated | `reference_scenario.yaml`; `docs/research/unified_baseline.md` | Chosen by criteria fixed before the outcomes were compared. Extrapolated more than 30-fold for the power-plant cracker. |
+| Operating hours | 8000 h/yr (capacity factor 0.913, derived) | literature | `operation` block | 7000 h in another source; sensitivity only |
+| Discount rate, life | 10 %, 25 yr | literature | `finance` block | No Singapore WACC sourced |
+| Ammonia price, grey | 450 USD/t | scenario | `reference_scenario.yaml` and `singapore.yaml` | Sourced prices span 300 to 1052 USD/t |
+| Electricity | 0.1402 USD/kWh | derived | `reference_scenario.yaml` | Replaces 0.084 USD/kWh of the legacy core model (section 6) in research outputs |
+| Exchange rate | 1.288444 SGD per USD (ECB reference rates of 20 November 2026; cross rate) | derived from official rates | `currency` block | The only conversion used in Phase 2 outputs |
+| Catalyst price | derived from metal content plus a non-metal part, central values 37 (Ni/MgO) to 4791 (Ru/Al2O3) USD/kg | derived (no supplier quotation exists) | `research/data/catalyst_prices.json` | Published TEA prices for Ru catalysts are below the Ru metal value and are shown only as a labelled historical case |
+| Exchanger coefficient U | range with a central value; no sourced value at 20 bar | assumption | `backend/amcrax/heat_integration/exchanger.py` | Break-even U is 7.7 to 11.3 W/(m2 K) |
+| Turbine efficiency | 49.64 % for every end-use pathway | assumption | `backend/amcrax/enduse/params.py` | Thresholds computed for the change that reverses each conclusion |
+| Carbon tax, actual boundary (Mode A) | SGD 45/tCO2e for 2026 and any later year; 25,000 t/yr facility threshold; upstream emissions outside the Act | official (statute) | `research/data/carbon_policy_sg.json` | N2O global warming potential 265 for the tax |
+| Carbon price, hypothetical (Mode B) | applied to life-cycle emissions; swept, not a point value | assumption | `results/research/carbon_pricing/` | Not Singapore law. Always labelled hypothetical |
+| Membrane H2/N2 selectivity | 40,541 to 500,000, ideal single gas, new membrane | literature (Cechetto et al., 2021) | `research/data/purification_literature.json` | The paper is internally inconsistent; both values are carried |
+| Uncertainty ranges for sensitivity analysis | ammonia price, CAPEX multiple (0.41 to 1.5), PSA recovery, electricity, catalyst inputs | sourced where available | `docs/research/uncertainty_quantification.md` | Indices hold inside the sampled ranges only |
+
+The legacy values (LCOH 3.92 USD/kg, electricity 0.084 USD/kWh, CAPEX correlation of section 6) are kept for the core stored results and are superseded for research outputs. Kinetic validity classes (validated against literature, extrapolated, not modelled) are in `results/research/kinetics/validity_classification.json`. No rate law is validated at 20 bar.

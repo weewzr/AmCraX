@@ -337,7 +337,9 @@ items = []
 
 def V(id_, desc, method, ref, obs, exp, tol, unit, status, files):
     items.append({"id": id_, "description": desc, "method": method, "reference_source": ref, "observed": obs, "expected": exp,
-                  "tolerance": tol, "unit": unit, "status": status, "source_files": files})
+                  "tolerance": tol, "unit": unit, "status": status, "source_files": files,
+                  # E08-E13 compare with published numbers; the others are numerical checks of the Python code
+                  "evidence_kind": "literature_comparison" if id_ in ("E08", "E09", "E10", "E11", "E12", "E13") else "numerical_verification"})
 
 
 V("E01", "Reproduction of the stored LCOH with the old settings (legacy capex, 450 USD/t, 0.084 USD/kWh)", "evaluate(capex_mode=legacy) vs results/simulations/economics_baseline.json",

@@ -2,7 +2,7 @@
 
 # 24 Research questions and hypotheses
 
-Sections 5 to 23 describe and validate a flowsheet model of one ammonia cracker. Sections 24 to 31 use that model, extended with kinetic reactors, a Singapore cost basis, purification models, end-use pathways and a life-cycle inventory, to test four statements made in a preceding literature essay by the author. The essay statements are treated as hypotheses, not as findings: each can be supported, contradicted or left undecided by the evidence.
+Sections 5 to 23 describe and validate a flowsheet model of one ammonia cracker. Sections 24 to 30 and 33 to 40 use that model, extended with kinetic reactors, a Singapore cost basis, purification models, end-use pathways and a life-cycle inventory, to test four statements made in a preceding literature essay by the author. The essay statements are treated as hypotheses, not as findings: each can be supported, contradicted or left undecided by the evidence.
 
 ## 24.1 Singapore context
 
@@ -27,7 +27,7 @@ The four hypotheses below are quoted in substance from the essay. Each is follow
 
 ## 24.4 How the hypotheses are judged
 
-Each hypothesis is split into sub-claims. For every sub-claim the evidence matrix (Section 31) records the Singapore scenario, the Aspen Plus and Python models used, the case identifiers, the input assumptions, the literature, the validation method, the numerical findings with their origin (**Aspen Plus V15 simulation**, **independent Python calculation**, **published literature** or **engineering assumption**), the uncertainty range, the limitations and a conclusion with the conditions under which it holds.
+Each hypothesis is split into sub-claims. For every sub-claim the evidence matrix (Section 40) records the Singapore scenario, the Aspen Plus and Python models used, the case identifiers, the input assumptions, the literature, the validation method, the numerical findings with their origin (**Aspen Plus V15 simulation**, **independent Python calculation**, **published literature** or **engineering assumption**), the uncertainty range, the limitations and a conclusion with the conditions under which it holds.
 
 A hypothesis receives one of three verdicts:
 
@@ -37,4 +37,4 @@ A hypothesis receives one of three verdicts:
 
 Three rules keep the test honest. A result that only reproduces an assumption is not counted as support; for example, a purity that follows from an assumed split fraction says nothing about H4. No parameter was tuned to agree with the essay or with a paper, and failing validation items are kept and reported. Literature values from the essay were checked against the primary source where it could be obtained, and those that could not be checked are labelled unverified wherever they appear.
 
-The verdicts are generated once, in `results/research/evidence_matrix.json`, and the report reads them from that file at build time (Sections 1 and 31); they are never retyped by hand.
+The verdicts are generated once, in `results/research/evidence_matrix.json`, and the report reads them from that file at build time (Sections 1 and 40); they are never retyped by hand.

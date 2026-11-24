@@ -4,18 +4,19 @@ import { EconomicsView } from '../hyp/EconomicsView'
 import { EndUseView } from '../hyp/EndUseView'
 import { EvidenceMatrix } from '../hyp/EvidenceMatrix'
 import { StoredNote, SubNav } from '../hyp/parts'
+import { CarbonIntensityTable, CatalystPhase2, EconomicsPhase2, EndUsePhase2, PurificationPhase2, ValidationByKind } from '../hyp/phase2'
 import { PurificationView } from '../hyp/PurificationView'
 import { AspenGallery, ValidationView } from '../hyp/ValidationAspen'
 import { HYPOTHESIS_PAGES } from '../routes'
 import { PageHero, Section } from '../ui'
 
 const LEAD: Record<string, string> = {
-  '': 'Four hypotheses from the project essay, tested with Aspen Plus V15 runs and independent Python models for a Singapore setting (Jurong Island as a representative industrial site; no facility is claimed to exist). Each verdict is SUPPORTED, CONTRADICTED or INCONCLUSIVE, and results that contradict the essay are reported as such.',
-  catalyst: 'Hypothesis H3: how much catalyst each rate law needs, what the heat duty and cost are with and without heat integration, and at what catalyst price a low-temperature catalyst stops paying.',
-  economics: 'Hypothesis H2: the cost of hydrogen from cracked ammonia under grey, blue and green ammonia price scenarios, with sensitivity, break-even and uncertainty.',
-  purification: 'Hypothesis H4: PSA against Pd-Ag membrane, the recovery lost for each purity step, and the cost per kg of hydrogen that meets the end-use specification.',
-  'end-use': 'Hypotheses H1 and H2: where cracking is justified against burning ammonia directly, and the life-cycle carbon of each ammonia route against Singapore alternatives.',
-  validation: 'The checks each area ran on its own results, with pass, fail and informational counts and every failure named.',
+  '': 'Four hypotheses from the project essay, tested with Aspen Plus V15 runs and independent Python models for a Singapore setting (Jurong Island as a representative industrial site; no facility is claimed to exist). Each verdict is SUPPORTED, CONTRADICTED, MIXED, PARTIALLY SUPPORTED or INCONCLUSIVE under a rule fixed before the analysis, and results that go against the essay are reported as such.',
+  catalyst: 'Hypothesis H3: catalyst prices derived from metal content, kinetic validity, catalyst cost per kg of hydrogen, break-even prices, heat-exchanger sizing and the net benefit of heat integration.',
+  economics: 'Hypothesis H2: the unified baseline, the dominance of the ammonia price, the break-even ammonia price and carbon pricing under the actual Singapore boundary and a hypothetical life-cycle price.',
+  purification: 'Hypothesis H4: PSA against Pd-Ag membrane per specification, readiness levels, parity thresholds and the recovery lost for each purity step.',
+  'end-use': 'Hypotheses H1 and H2: where cracking is justified against burning ammonia directly, the turbine-efficiency thresholds, and the carbon intensity of each ammonia route.',
+  validation: 'The checks each area ran on its own results, kept apart by evidence kind, with every failure named. AmCraX has no independent experimental validation.',
   'aspen-evidence': 'The Aspen Plus V15 windows behind the stored Aspen results.',
 }
 
@@ -31,11 +32,11 @@ export default function Hypotheses() {
       </PageHero>
       <div className="wrap" style={{ paddingTop: 'var(--s5, 24px)' }}><StoredNote extrapolated={p.slug === 'catalyst' || p.slug === ''} /></div>
       {p.slug === '' ? <Section id="matrix" title="Evidence matrix"><EvidenceMatrix /></Section> : null}
-      {p.slug === 'catalyst' ? <CatalystView /> : null}
-      {p.slug === 'economics' ? <EconomicsView /> : null}
-      {p.slug === 'purification' ? <PurificationView /> : null}
-      {p.slug === 'end-use' ? <EndUseView /> : null}
-      {p.slug === 'validation' ? <ValidationView /> : null}
+      {p.slug === 'catalyst' ? <><CatalystPhase2 /><CatalystView /></> : null}
+      {p.slug === 'economics' ? <><EconomicsPhase2 /><EconomicsView /></> : null}
+      {p.slug === 'purification' ? <><PurificationPhase2 /><PurificationView /></> : null}
+      {p.slug === 'end-use' ? <><EndUsePhase2 /><Section id="carbon-intensity" title="Carbon intensity of hydrogen by ammonia route" alt><CarbonIntensityTable /></Section><EndUseView /></> : null}
+      {p.slug === 'validation' ? <><ValidationByKind /><ValidationView /></> : null}
       {p.slug === 'aspen-evidence' ? <AspenGallery /> : null}
     </>
   )

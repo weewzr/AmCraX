@@ -8,11 +8,11 @@
 import { aspenEquilibrium, findCoreAnchor, findKineticAnchor } from './anchors'
 import { carbonCost, carbonIntensity, type CarbonCost, type CIResult, type Heating } from './carbon'
 import { domainWarnings, insideFittedRange } from './domain'
-import { economicMetal, evaluateEconomics, type EconResult } from './economics'
+import { catalystPrice, economicMetal, evaluateEconomics, type EconResult } from './economics'
 import { simulatePFR, type PFRResult, type ThermalMode } from './pfr'
 import { simulateProcess, type ProcessResult } from './process'
 import { equilibriumConversion } from './thermo'
-import type { KineticAnchor, Labelled, SimData, SourceLabel } from './types'
+import type { CatalystPriceSource, KineticAnchor, Labelled, SimData, SourceLabel } from './types'
 
 export type NH3Route = 'grey' | 'blue' | 'green'
 
@@ -47,6 +47,13 @@ export interface SimInputs {
    * The PFR is still run (for the axial-profile graphs), but its result does not enter the process balance.
    */
   reactor_model?: 'kinetic' | 'equilibrium'
+  /**
+   * Catalyst price of the economics (kinetic modes only): 'central' (default) | 'low' | 'high' = metal-content derived prices of
+   * research/data/catalyst_prices.json, not supplier quotations; 'phase1_tea' = the Phase 1 published TEA price. An equilibrium
+   * reactor has no catalyst: its catalyst cost is the Python reference one (inventory from the 9000 mL/(g h) space velocity at
+   * the Phase 1 TEA Ni price), as singapore.evaluate computes it by default.
+   */
+  catalyst_price_source?: CatalystPriceSource
 }
 
 export const ROUTE_PRICE_SCENARIO: Record<NH3Route, string> = { grey: 'grey', blue: 'blue', green: 'green_current' }
@@ -153,13 +160,23 @@ export function simulate(x: SimInputs, d: SimData): SimOutputs {
       cooling_kW: process.cooling_duty_kW.value, pump_kW: process.pump_power_kW.value }
     const metal = economicMetal(m, m.kinetics.laws[x.catalyst_id].metal)
     const heatFuel = (x.heating ?? 'self_firing') === 'natural_gas' ? 'natural_gas' : 'ammonia'
-    const e = evaluateEconomics(m, summ, x.nh3_price_USD_per_t ?? ROUTE_PRICE_SCENARIO[x.nh3_route], {
-      catalyst: metal, catalyst_mass_kg: x.W_kg, heat_fuel: heatFuel })
-    if (m.kinetics.laws[x.catalyst_id].metal !== metal) e.notes.push(`${m.kinetics.laws[x.catalyst_id].metal} catalyst priced as ${metal} (assumption, model.economics.catalyst_metal_map_note)`)
+    const src = x.catalyst_price_source ?? m.economics.catalyst_prices.default_level
+    const cp = eqMode ? null : catalystPrice(m, x.catalyst_id, src)
+    // equilibrium reactor: no catalyst is selected, so the Python reference inventory and price (evaluate defaults) apply
+    const e = evaluateEconomics(m, summ, x.nh3_price_USD_per_t ?? ROUTE_PRICE_SCENARIO[x.nh3_route], eqMode
+      ? { heat_fuel: heatFuel }
+      : { catalyst: metal, catalyst_mass_kg: x.W_kg, catalyst_price_USD_per_kg: cp!.usd_per_kg, heat_fuel: heatFuel })
+    if (eqMode) e.notes.push('Equilibrium reactor: catalyst cost uses the reference inventory (space velocity 9000 mL/(g h)) at the Phase 1 TEA Ni price, as singapore.evaluate does by default.')
+    else {
+      e.notes.push(`Catalyst price ${cp!.label}: ${cp!.usd_per_kg.toFixed(2)} USD/kg.`)
+      if (src === 'phase1_tea' && m.kinetics.laws[x.catalyst_id].metal !== metal) e.notes.push(`${m.kinetics.laws[x.catalyst_id].metal} catalyst priced as ${metal} (assumption, model.economics.catalyst_metal_map_note)`)
+    }
     const el: SourceLabel = aspenK ? 'browser-model' : pl
     econ = { ...e, label: el, lcoh_USD: L(e.lcoh_USD_per_kg, el, 'USD/kg H2'), lcoh_SGD: L(e.lcoh_SGD_per_kg, el, 'SGD/kg H2', `fx ${m.fx.SGD_per_USD} SGD/USD (rate date ${m.fx.date})`) }
     const ci = carbonIntensity(m, { h2_kg_h: summ.h2_kg_h, nh3_feed_kg_h: pr.nh3_feed_kmol_h * m.thermo.molar_mass_g_mol.NH3,
-      heat_deficit_kW: summ.heat_deficit_kW, pump_kW: summ.pump_kW }, x.nh3_route, x.heating ?? 'self_firing')
+      heat_deficit_kW: summ.heat_deficit_kW, pump_kW: summ.pump_kW }, x.nh3_route, x.heating ?? 'self_firing',
+      // gate factor of the Python carbon-pricing model (amcrax.environmental.lca.route_spec), as carbon_pricing.carbon_intensity_h2 uses it
+      { nh3_ef_kg_per_kg: m.carbon.lca_routes?.[x.nh3_route]?.ef_kg_per_kg_nh3 })
     carbon = { intensity: ci, label: el, cost: carbonCost(m, e, ci, x.carbon_mode ?? 'actual', x.carbon_price_SGD_per_t ?? 0) }
   }
   return { inputs: x, warnings, reactor, equilibrium, process, economics: econ, carbon }

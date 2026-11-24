@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:25:04Z",
+  "generated_utc": "2026-11-24T05:28:50Z",
   "script": "scripts/research/purification_phase2.py",
   "source_type": "python",
   "inputs_summary": "Phase 2 D2: PSA against Pd-Ag membrane on the unified reference basis; low/central/high from sourced inputs (purification_literature.json)",
@@ -1263,7 +1263,7 @@
  "selectivity_statement": {
   "phase1": "the base model assumes infinite selectivity and no numeric selectivity is available in the library",
   "phase2": "Required ideal H2/N2 selectivity for Grade D (N2 300 ppm, R 0.90, 1 bar permeate, 400 degC): 12919. Sourced: Cechetto et al. 2021 state above 400,000 (double sealed) and above 500,000 (dead end) at 450 degC; the printed double-sealed N2 permeance gives about 40,541. The requirement is met by every sourced value, but only as ideal (single-gas) values of NEW membranes from one group, at 450 degC, with trace NH3 only; mixed-gas and aged selectivity were not found (a review excerpt reporting decay 6000 -> 4300 and 4300 -> 1000 in about 1000 h could not be opened and is not used).",
-  "nus_researchers": "NUS has strong membrane-science groups (Zhang Sui, Zhao Dan) whose published gas-separation work is on non-metallic membranes at low temperature and does not address cracked-ammonia purification. No number from their work is used in AmCraX and no specific work is attributed to them here (research/notes/nus_membrane_researchers.md)"
+  "nus_researchers": "Zhang Sui and Zhao Dan are membrane scientists at NUS Chemical and Biomolecular Engineering. Their verified published gas-separation work is on non-metallic membranes at low temperature and does not address cracked-ammonia purification. No number from their work is used in AmCraX and no specific work is attributed to them here (research/notes/nus_membrane_researchers.md)"
  },
  "h4b_purity_cost_check": {
   "by_electricity": [

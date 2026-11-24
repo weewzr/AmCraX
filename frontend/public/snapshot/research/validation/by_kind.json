@@ -1,0 +1,275 @@
+{
+ "source": "results/research/validation/*.json (summary.json excluded), counted by evidence_kind and status",
+ "evidence_kinds": [
+  "numerical_verification",
+  "python_vs_aspen",
+  "literature_comparison",
+  "experimental_validation"
+ ],
+ "kinds": {
+  "numerical_verification": {
+   "total": 461,
+   "by_status": {
+    "pass": 437,
+    "informational": 19,
+    "fail": 5
+   },
+   "failures": [
+    {
+     "area": "aspen_kinetic",
+     "id": "cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium",
+     "description": "5Ni1Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "observed": 0.00048736808736804527,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_T_luc5_T600_P20_W100', 'cs_W_luc5_T600_P20_W200', 'cs_W_luc5_T600_P20_W500', 'cv_luc5_05_T550_P20_W1000', 'cv_luc5_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    },
+    {
+     "area": "aspen_kinetic",
+     "id": "cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium",
+     "description": "2.5Ni0.5Ru/CeO2 (Lucentini): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "observed": 0.0004873675873675598,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cs_W_luc25_T600_P20_W200', 'cs_W_luc25_T600_P20_W500', 'cv_luc25_05_T550_P20_W1000', 'cv_luc25_06_T600_P40_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a molarity basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    },
+    {
+     "area": "aspen_kinetic",
+     "id": "cat_ru_takahashi_microkinetic_below_equilibrium",
+     "description": "Ru/MgO (Takahashi, LHHW approx.): no RPLUG run above RGibbs equilibrium (same model, same feed), 23 runs",
+     "observed": 0.00016042366042368084,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4",
+     "cause": "runs above the PENG-ROB RGibbs equilibrium by more than 1e-4: ['cv_tru_09_T500_P20_W1000']. The LHHW reverse term uses the ideal-gas equilibrium constant of the kinetics spec (ln K fit) on a mole-fraction basis (concentrations from PENG-ROB molar volumes in the molarity case), not fugacities, so the kinetic model equilibrates to a slightly different state than RGibbs (PENG-ROB fugacity based). The excess is largest at 40 bar. Not tuned; kept as a failure of this strict check. The Python PFR at the same conditions agrees within the conversion tolerance (item cat_<catalyst>_study_vs_python / cat_cv_*_vs_spec)."
+    },
+    {
+     "area": "aspen_kinetic",
+     "id": "k1p2_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium_partialpres",
+     "description": "5Ni1Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "observed": 0.00016941906941903007,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_5ni1ru_lucentini_lhhw_below_equilibrium)",
+     "cause": "runs above by more than 1e-4: ['cpp_cv_luc5_06_T600_P40_W1000']. Remaining excess = PENG-ROB fugacity correction, not representable in Aspen's built-in LHHW concentration bases (see k1p2_*_cause items)"
+    },
+    {
+     "area": "aspen_kinetic",
+     "id": "k1p2_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium_partialpres",
+     "description": "2.5Ni0.5Ru/CeO2 (Lucentini), exact partial-pressure form (Phase 2): no RPLUG run above RGibbs equilibrium (same model, same feed), 30 runs",
+     "observed": 0.00016941896941891077,
+     "expected": 0.0,
+     "tolerance": 0.0001,
+     "unit": "-",
+     "method": "max(X_rplug - X_rgibbs) <= 1e-4 (same check and tolerance as cat_nire_ceo2_2p5ni0p5ru_lucentini_lhhw_below_equilibrium)",
+     "cause": "runs above by more than 1e-4: ['cpp_cv_luc25_06_T600_P40_W1000']. Remaining excess = PENG-ROB fugacity correction, not representable in Aspen's built-in LHHW concentration bases (see k1p2_*_cause items)"
+    }
+   ]
+  },
+  "python_vs_aspen": {
+   "total": 183,
+   "by_status": {
+    "pass": 156,
+    "informational": 22,
+    "fail": 5
+   },
+   "failures": [
+    {
+     "area": "catalyst_comparison",
+     "id": "HCAT-ASPY-Ru/Al2O3-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/Al2O3 (Kum) at 499 degC, X 0.9496",
+     "observed": 489.9469288794669,
+     "expected": 469.13745,
+     "tolerance": 0.03,
+     "unit": "relative",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "cause": "documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen 20.8 kW, of which 8.8 kW from the dew-point state of the cold-side stream and 12.0 kW from the NH3 residual-enthalpy basis; tolerance unchanged, item still fails"
+    },
+    {
+     "area": "catalyst_comparison",
+     "id": "HCAT-ASPY-5Ni1Ru/CeO2-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 5Ni1Ru/CeO2 (Lucentini) at 572 degC, X 0.9517",
+     "observed": 592.6560753623044,
+     "expected": 571.796932,
+     "tolerance": 0.03,
+     "unit": "relative",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "cause": "documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen 20.9 kW, of which 8.8 kW from the dew-point state of the cold-side stream and 12.1 kW from the NH3 residual-enthalpy basis; tolerance unchanged, item still fails"
+    },
+    {
+     "area": "catalyst_comparison",
+     "id": "HCAT-ASPY-2.5Ni0.5Ru/CeO2-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), 2.5Ni0.5Ru/CeO2 (Lucentini) at 576 degC, X 0.9505",
+     "observed": 598.3918178259712,
+     "expected": 577.53548,
+     "tolerance": 0.03,
+     "unit": "relative",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "cause": "documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen 20.9 kW, of which 8.8 kW from the dew-point state of the cold-side stream and 12.1 kW from the NH3 residual-enthalpy basis; tolerance unchanged, item still fails"
+    },
+    {
+     "area": "catalyst_comparison",
+     "id": "HCAT-ASPY-Ni/MgO-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ni/MgO (Takahashi) at 594 degC, X 0.9589",
+     "observed": 624.3393765018114,
+     "expected": 603.504301,
+     "tolerance": 0.03,
+     "unit": "relative",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "cause": "documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen 20.8 kW, of which 8.8 kW from the dew-point state of the cold-side stream and 12.1 kW from the NH3 residual-enthalpy basis; tolerance unchanged, item still fails"
+    },
+    {
+     "area": "catalyst_comparison",
+     "id": "HCAT-ASPY-Ru/MgO-HI-heat",
+     "description": "Python flowsheet vs Aspen, recovered heat (FEHE), Ru/MgO (Takahashi) at 522 degC, X 0.9534",
+     "observed": 521.9012989137885,
+     "expected": 501.058703,
+     "tolerance": 0.03,
+     "unit": "relative",
+     "method": "python kinetic_flowsheet at Aspen T and X vs stored Aspen run",
+     "cause": "documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen 20.8 kW, of which 8.8 kW from the dew-point state of the cold-side stream and 12.1 kW from the NH3 residual-enthalpy basis; tolerance unchanged, item still fails"
+    }
+   ]
+  },
+  "literature_comparison": {
+   "total": 48,
+   "by_status": {
+    "pass": 11,
+    "informational": 35,
+    "fail": 2
+   },
+   "failures": [
+    {
+     "area": "kinetics",
+     "id": "EXISTING-KIN-NI-PRED",
+     "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+     "observed": 0.10959381466219664,
+     "expected": "max |deviation| (absolute conversion) = 0.1096 (12 points, 6 outside tolerance; worst: T=500 C, pNH3=0.25 atm)",
+     "tolerance": 0.05,
+     "unit": "max |deviation| (absolute conversion)",
+     "method": "read from results/validation/validation_matrix.json; Ni/MgO microkinetic PFR conversion vs published curves (Figs. 3, 5)",
+     "cause": "kinetics_figure_predictions (core validation matrix): Takahashi (2016) microkinetic predictions: with W/F inferred from a single anchor point per catalyst (catalyst mass not reported; assumption) the PFR under-predicts conversion by more than 0.05 at diluted NH3 (p_NH3 0.25-0.3 atm) and with H2 co-feed (Figs. 3b, 5a, 5b), while the pure-NH3 temperature series agree; figure readings are approximate. Systematic, not tuned (developer guide 4.4)."
+    },
+    {
+     "area": "kinetics",
+     "id": "EXISTING-KIN-RU-PRED",
+     "description": "existing item, unchanged (not re-run): model reproduces literature within tolerance",
+     "observed": 0.11131148594953089,
+     "expected": "max |deviation| (absolute conversion) = 0.1113 (11 points, 6 outside tolerance; worst: T=450 C, pNH3=0.3 atm, pH2=0.7 atm)",
+     "tolerance": 0.05,
+     "unit": "max |deviation| (absolute conversion)",
+     "method": "read from results/validation/validation_matrix.json; Ru/MgO microkinetic PFR conversion vs published curves (Figs. 4, 5)",
+     "cause": "kinetics_figure_predictions (core validation matrix): Takahashi (2016) microkinetic predictions: with W/F inferred from a single anchor point per catalyst (catalyst mass not reported; assumption) the PFR under-predicts conversion by more than 0.05 at diluted NH3 (p_NH3 0.25-0.3 atm) and with H2 co-feed (Figs. 3b, 5a, 5b), while the pure-NH3 temperature series agree; figure readings are approximate. Systematic, not tuned (developer guide 4.4)."
+    }
+   ]
+  },
+  "experimental_validation": {
+   "total": 1,
+   "by_status": {
+    "not_available": 1
+   },
+   "failures": []
+  }
+ },
+ "areas": {
+  "aspen_kinetic": {
+   "file": "results/research/validation/aspen_kinetic.json",
+   "n_items": 190,
+   "by_kind": {
+    "numerical_verification": 47,
+    "python_vs_aspen": 143
+   }
+  },
+  "carbon_pricing": {
+   "file": "results/research/validation/carbon_pricing.json",
+   "n_items": 28,
+   "by_kind": {
+    "numerical_verification": 25,
+    "literature_comparison": 2,
+    "experimental_validation": 1
+   }
+  },
+  "catalyst_comparison": {
+   "file": "results/research/validation/catalyst_comparison.json",
+   "n_items": 75,
+   "by_kind": {
+    "numerical_verification": 46,
+    "python_vs_aspen": 25,
+    "literature_comparison": 4
+   }
+  },
+  "catalyst_economics": {
+   "file": "results/research/validation/catalyst_economics.json",
+   "n_items": 142,
+   "by_kind": {
+    "numerical_verification": 141,
+    "python_vs_aspen": 1
+   }
+  },
+  "economics": {
+   "file": "results/research/validation/economics.json",
+   "n_items": 15,
+   "by_kind": {
+    "numerical_verification": 9,
+    "literature_comparison": 6
+   }
+  },
+  "enduse": {
+   "file": "results/research/validation/enduse.json",
+   "n_items": 75,
+   "by_kind": {
+    "numerical_verification": 66,
+    "python_vs_aspen": 1,
+    "literature_comparison": 8
+   }
+  },
+  "heat_exchanger": {
+   "file": "results/research/validation/heat_exchanger.json",
+   "n_items": 37,
+   "by_kind": {
+    "numerical_verification": 23,
+    "python_vs_aspen": 13,
+    "literature_comparison": 1
+   }
+  },
+  "kinetics": {
+   "file": "results/research/validation/kinetics.json",
+   "n_items": 19,
+   "by_kind": {
+    "literature_comparison": 11,
+    "numerical_verification": 8
+   }
+  },
+  "lca": {
+   "file": "results/research/validation/lca.json",
+   "n_items": 11,
+   "by_kind": {
+    "literature_comparison": 6,
+    "numerical_verification": 5
+   }
+  },
+  "purification": {
+   "file": "results/research/validation/purification.json",
+   "n_items": 17,
+   "by_kind": {
+    "numerical_verification": 9,
+    "literature_comparison": 8
+   }
+  },
+  "uq": {
+   "file": "results/research/validation/uq.json",
+   "n_items": 84,
+   "by_kind": {
+    "numerical_verification": 82,
+    "literature_comparison": 2
+   }
+  }
+ },
+ "statement": "AmCraX has no independent experimental validation. Pass counts are numerical verification, Python against Aspen comparison or comparison with published literature, never experimental validation."
+}

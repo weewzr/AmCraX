@@ -14,7 +14,7 @@ Ammonia prices are **scenarios** (grey, blue, three green cases), taken from the
 
 ## 27.2 Method
 
-The LCOH follows Eq. (19.1) of Section 19, with the CAPEX built at equipment level instead of the single-correlation estimate of Section 19:
+The LCOH follows Eq. (19.1) of Section 19. In version 2.0 of this report every number of this section is on the unified reference scenario of Section 32 (CAPEX method `cho2026_itemised_v1`, 7.67 MUSD); the Phase 1 equipment-level CAPEX described below is kept selectable for reproduction only and its results (3.613 USD/kg) are superseded for research outputs:
 
 $$ \mathrm{LCOH} = \frac{\mathrm{CRF}\,C_\mathrm{cap} + C_\mathrm{fix} + C_\mathrm{var}}{\dot m_{\mathrm{H_2}}\,t_\mathrm{op}}, \qquad \mathrm{REC} = \mathrm{LCOH} - c_\mathrm{feed}, \qquad c_\mathrm{feed} = \frac{p_{\mathrm{NH_3}}\, y_\mathrm{feed}}{1000} \qquad (27.1) $$
 
@@ -30,7 +30,7 @@ The Singapore carbon tax is applied only to direct, in-scope emissions of a faci
 
 $$ C_\mathrm{tax} = \begin{cases} \tau\, E_\mathrm{direct} & E_\mathrm{direct} \ge 25\,000 \\ 0 & \text{otherwise} \end{cases} \qquad (27.3) $$
 
-where $\tau$ (SGD/t CO~2~e) is the rate (45 in 2026 and 2027) and $E_\mathrm{direct}$ (t CO~2~e/yr) the facility's direct emissions. Burning ammonia for heat emits no direct CO~2~, so $E_\mathrm{direct}$ is zero in the baseline. N~2~O is a covered gas but is not quantified here, because no primary-source emission factor for NH~3~ combustion in a furnace was found.
+where $\tau$ (SGD/t CO~2~e) is the rate (45 for 2026 and any later year under the Carbon Pricing Act; 50 to 80 by 2030 is a stated aim, not law) and $E_\mathrm{direct}$ (t CO~2~e/yr) the facility's direct emissions. Burning ammonia for heat emits no direct CO~2~, so $E_\mathrm{direct}$ is zero in the baseline. N~2~O is a covered gas but is not quantified here, because no primary-source emission factor for NH~3~ combustion in a furnace was found.
 
 ## 27.3 Data and assumptions
 
@@ -41,12 +41,12 @@ Table: **Table 27.1.** Principal inputs. All web values accessed 23 November 202
 | NH~3~ price, grey | 450 | USD/t | scenario (literature) | Cho et al. (2026), Table 4; range 300 to 610, Table 8 |
 | NH~3~ price, blue | 487 | USD/t | scenario (secondary web) | S&P Global Commodity Insights (2025): 400 (Far East Asia) and 574 (NW Europe); derived mean, article not fetched (HTTP 403) |
 | NH~3~ price, green now / 2030 / 2050 | 1000 / 709 / 463 | USD/t | scenario (literature) | Cho et al. (2026), p. 17, Table 9 |
-| Electricity | 0.140 | USD/kWh | derived | 2025 mean USEP (Energy Market Authority, 2026) plus network and fees (SP Group, 2026); not an industrial contract price |
+| Electricity | 0.1402 | USD/kWh | derived | 2025 mean USEP (Energy Market Authority, 2026) plus network and fees (SP Group, 2026); not an industrial contract price |
 | Regulated tariff, Q4 2026 | 28.59 | cent/kWh before GST | literature | SP Group (2026) |
-| Carbon tax 2026 and 2027 | 45 | SGD/t CO~2~e | literature | National Environment Agency (n.d.); 50 to 80 intended by 2030 (not legislated) |
+| Carbon tax, 2026 and any later year | 45 | SGD/t CO~2~e | literature | National Environment Agency (n.d.); 50 to 80 intended by 2030 (not legislated) |
 | Carbon tax threshold | 25 000 | t CO~2~e/yr | literature | National Environment Agency (n.d.) |
-| Exchange rate | 1.290 | SGD/USD | secondary web | Asian Development Bank (2026), close of 20 November 2026 |
-| Catalyst (Ni) price, life | 33.4, 2 | USD/kg, yr | literature | Cho et al. (2026), Tables 3 and 4 |
+| Exchange rate | 1.288444 | SGD/USD | literature | European Central Bank reference rates of 20 November 2026 (USD 1.0990 and SGD 1.4160 per EUR), the single rate of the reference scenario; the 1.290 of Asian Development Bank (2026) used in version 1.0 is kept only as a cross-check |
+| Catalyst (Ni) price, life | 33.4, 2 | USD/kg, yr | literature | Cho et al. (2026), Tables 3 and 4; baseline equilibrium case only, derived prices in Section 35 |
 | Discount rate, plant life | 0.10, 25 | -, yr | literature | Kum et al. (2026), Table 5 |
 | Operating hours | 8000 | h/yr | literature | Cho et al. (2026), Table 4 |
 | Singapore location factor | 1.0 | - | assumption | no sourced factor found |
@@ -59,48 +59,48 @@ The labour rate, fixed-cost fractions and CAPEX shares are Indian or European sm
 
 ### Cost by ammonia scenario
 
-Table: **Table 27.2.** LCOH and REC of the baseline cracker by ammonia scenario, with and without heat integration (HI). The plant makes 2012.7 t H~2~/yr (251.6 kg/h) and needs a total capital investment of 2.78 MUSD. *Source: independent Python calculation on Aspen Plus V15 baseline results; results/research/singapore/scenario_results.json, results[*].lcoh_USD_per_kg, rec_USD_per_kg.*
+Table: **Table 27.2.** LCOH and REC of the baseline cracker by ammonia scenario, with and without heat integration (HI). The plant makes 2012.7 t H~2~/yr (251.6 kg/h) and needs a total capital investment of 7.67 MUSD on the unified basis of Section 32. *Source: independent Python calculation on Aspen Plus V15 baseline results; results/research/singapore/scenario_results.json, results[*].lcoh_USD_per_kg, rec_USD_per_kg.*
 
 | Scenario | NH~3~ price (USD/t) | LCOH, HI on (USD/kg) | LCOH, HI off (USD/kg) | REC, HI on (USD/kg) | REC, HI off (USD/kg) |
 |---|---|---|---|---|---|
-| Grey | 450 | 3.613 | 3.827 | 0.573 | 0.787 |
-| Blue | 487 | 3.885 | 4.116 | 0.595 | 0.826 |
-| Green, 2050 | 463 | 3.708 | 3.928 | 0.581 | 0.801 |
-| Green, 2030 | 709 | 5.517 | 5.852 | 0.727 | 1.063 |
-| Green, current | 1000 | 7.656 | 8.128 | 0.900 | 1.373 |
+| Grey | 450 | 4.015 | 4.229 | 0.975 | 1.189 |
+| Blue | 487 | 4.287 | 4.519 | 0.997 | 1.229 |
+| Green, 2050 | 463 | 4.111 | 4.331 | 0.983 | 1.203 |
+| Green, 2030 | 709 | 5.919 | 6.255 | 1.129 | 1.465 |
+| Green, current | 1000 | 8.058 | 8.531 | 1.302 | 1.775 |
 
-<!-- data: results/research/singapore/scenario_results.json results["<scenario>|heat_integration_on|off"].lcoh_USD_per_kg, rec_USD_per_kg, nh3_price_USD_per_t; annual_h2_kg 2012706.44; capex_total_USD 2780626.64 -->
+<!-- data: results/research/singapore/scenario_results.json results["<scenario>|heat_integration_on|off"].lcoh_USD_per_kg, rec_USD_per_kg, nh3_price_USD_per_t; annual_h2_kg 2012706.44; capex_total_USD 7666560.41 -->
 
-In the grey case with heat integration, the feed NH~3~ is 3.040 of 3.613 USD/kg (84 %); annualised capital is 0.152, fixed operating cost 0.149, supplementary NH~3~ for heat 0.268, and electricity, cooling water and catalyst together 0.004 USD/kg (Figure 27.1). Heat integration lowers the LCOH by 0.214 USD/kg (3.827 to 3.613), 5.6 % of the case without it, entirely through supplementary fuel (0.479 to 0.268 USD/kg) and cooling water. Heat-exchanger capital does not respond to heat integration in this model, because no sourced cost per unit area exists, so this saving is gross of exchanger cost.
+In the grey case with heat integration, the feed NH~3~ is 3.040 of 4.015 USD/kg (76 %); annualised capital is 0.420, fixed operating cost 0.284, supplementary NH~3~ for heat 0.268, and electricity, cooling water and catalyst together 0.004 USD/kg (Figure 27.1). Heat integration lowers the LCOH by 0.214 USD/kg (4.229 to 4.015), 5.1 % of the case without it, entirely through supplementary fuel (0.479 to 0.268 USD/kg) and cooling water. In this table the exchanger capital does not respond to heat integration, so the saving is gross of exchanger cost; Section 35.5 sizes and costs the exchanger and gives the net benefit (+0.067 to +0.095 USD/kg).
 <!-- data: results/research/singapore/scenario_results.json results["grey|heat_integration_on"].breakdown_USD_per_kg; results["grey|heat_integration_off"].lcoh_USD_per_kg 3.826710; tornado.json bars[heat_integration].swing 0.21378 -->
 
 ![**Figure 27.1.** Cost breakdown of the baseline cracker by ammonia scenario. The feed NH~3~ term dominates every scenario; REC changes little between scenarios, because only the supplementary fuel scales with the NH~3~ price. *Source: independent Python calculation on Aspen Plus V15 baseline results (results/research/singapore/scenario_breakdown.csv).*](../../results/figures/research/singapore_cost_breakdown.png){width=85%}
 
 ### Sensitivity
 
-Table: **Table 27.3.** One-at-a-time sensitivity of the LCOH, grey scenario (450 USD/t), heat integration on, base 3.613 USD/kg. *Source: results/research/singapore/tornado.json bars[*].swing.*
+Table: **Table 27.3.** One-at-a-time sensitivity of the LCOH, grey scenario (450 USD/t), heat integration on, base 4.015 USD/kg (unified basis). *Source: results/research/singapore/tornado.json bars[*].swing.*
 
 | Parameter and range | Swing in LCOH (USD/kg) |
 |---|---|
 | NH~3~ price 300 to 610 USD/t | 2.279 |
-| Capacity ×0.25 to ×4 (feed 25 to 400 kmol/h) | 0.400 |
-| PSA recovery 0.95 to 0.756 (linear rescale of the stored result, not re-simulated) | 0.247 |
-| CAPEX multiplier 0.5 to 1.5 | 0.229 |
+| CAPEX multiplier 0.5 to 1.5 | 0.632 |
+| Capacity ×0.25 to ×4 (feed 25 to 400 kmol/h) | 0.626 |
+| PSA recovery 0.95 to 0.756 (linear rescale of the stored result, not re-simulated) | 0.339 |
 | Heat integration on versus off | 0.214 |
-| Operating hours 8000 to 7000 h/yr | 0.043 |
-| Capacity exponent 0.7451 to 0.8 | 0.021 |
-| Discount rate 8.5 to 10 % | 0.017 |
-| Plant life 25 to 20 yr | 0.010 |
+| Capacity exponent 0.6 to 0.8 | 0.114 |
+| Operating hours 8000 to 7000 h/yr | 0.101 |
+| Discount rate 8.5 to 10 % | 0.047 |
+| Plant life 25 to 20 yr | 0.028 |
 | Catalyst price 0.5× to 2×, or lifetime 4 to 1 yr | 0.003 each |
 | Electricity 0.084 to 0.222 USD/kWh | 0.001 |
 | Carbon tax 0 to 80 SGD/t | 0.000 |
 
 <!-- data: results/research/singapore/tornado.json bars[*].swing -->
 
-![**Figure 27.2.** Tornado diagram of the LCOH (grey scenario, heat integration on). The ammonia price outweighs every other parameter by a factor of five or more. *Source: independent Python calculation (results/research/singapore/tornado.csv).*](../../results/figures/research/singapore_tornado.png){width=85%}
+![**Figure 27.2.** Tornado diagram of the LCOH (grey scenario, heat integration on). The ammonia price outweighs every other parameter by a factor of more than three. *Source: independent Python calculation (results/research/singapore/tornado.csv).*](../../results/figures/research/singapore_tornado.png){width=85%}
 
-Over a feed range of 25 to 1000 kmol/h NH~3~ the grey LCOH falls from 3.903 to 3.463 USD/kg, a ratio of 1.127. Deka et al. (2025), as quoted in the project brief, report 5.21 to 3.58 USD/kg over the same range, a ratio of 1.455; the paper is not in the library and the value is unverified. The weaker scale effect here follows from the feed-dominated cost structure and the 0.8 scaling exponent.
-<!-- data: results/research/singapore/cost_vs_capacity.csv lcoh at 25 and 1000 kmol/h; benchmarks.json comparisons[Deka].amcrax_ratio_25_to_1000_kmol_h 1.12691, literature_ratio 1.45531 -->
+Over a feed range of 25 to 1000 kmol/h NH~3~ the grey LCOH falls from 4.434 to 3.717 USD/kg, a ratio of 1.193. Deka et al. (2025), as quoted in the project brief, report 5.21 to 3.58 USD/kg over the same range, a ratio of 1.455; the paper is not in the library and the value is unverified. The weaker scale effect here follows from the feed-dominated cost structure and the 0.8 scaling exponent.
+<!-- data: results/research/singapore/cost_vs_capacity.csv lcoh at 25 and 1000 kmol/h (4.43403, 3.71734); benchmarks.json comparisons[Deka].amcrax_ratio_25_to_1000_kmol_h 1.19280, literature_ratio 1.45531 -->
 
 ![**Figure 27.3.** LCOH and REC against plant capacity, grey scenario. *Source: independent Python calculation (results/research/singapore/cost_vs_capacity.csv).*](../../results/figures/research/singapore_cost_vs_capacity.png){width=80%}
 
@@ -110,16 +110,16 @@ Table: **Table 27.4.** Delivered NH~3~ price at which LCOH equals each hydrogen 
 
 | Hydrogen benchmark | USD/kg H~2~ | Break-even NH~3~, HI on (USD/t) | Break-even NH~3~, HI off (USD/t) |
 |---|---|---|---|
-| Singapore low-carbon willingness to pay (S&P Global Commodity Insights, 2025) | 3.0 | 367 | 344 |
-| NE Asia SMR production cost incl. capex (Argus Media, 2026) | 3.06 | 375 | 352 |
-| Blue hydrogen delivered to East Asia, midpoint of 5 to 7 (ASEAN Centre for Energy, n.d.) | 6.0 | 775 | 728 |
-| Low-carbon offers FOB Malaysia (S&P Global Commodity Insights, 2025) | 10.0 | 1319 | 1239 |
+| Singapore low-carbon willingness to pay (S&P Global Commodity Insights, 2025) | 3.0 | 312 | 293 |
+| NE Asia SMR production cost incl. capex (Argus Media, 2026) | 3.06 | 320 | 301 |
+| Blue hydrogen delivered to East Asia, midpoint of 5 to 7 (ASEAN Centre for Energy, n.d.) | 6.0 | 720 | 676 |
+| Low-carbon offers FOB Malaysia (S&P Global Commodity Insights, 2025) | 10.0 | 1264 | 1188 |
 
-<!-- data: results/research/singapore/breakeven_ammonia_price.json results.heat_integration_on|off.<benchmark>.breakeven_nh3_USD_per_t (366.61, 374.77, 774.76, 1318.97 | 344.30, 351.97, 727.88, 1239.31) -->
+<!-- data: results/research/singapore/breakeven_ammonia_price.json results.heat_integration_on|off.<benchmark>.breakeven_nh3_USD_per_t (311.8, 320.0, 720.0, 1264.2 | 292.8, 300.5, 676.4, 1187.8) -->
 
 ![**Figure 27.4.** Break-even NH~3~ price against hydrogen benchmarks. *Source: independent Python calculation (results/research/singapore/breakeven_ammonia_price.json).*](../../results/figures/research/singapore_breakeven.png){width=80%}
 
-At the NE Asia SMR benchmark of 3.06 USD/kg no scenario recovers its cost: with heat integration the NPV is -10.1 MUSD (grey), -15.1 MUSD (blue), -11.8 MUSD (green 2050), -44.9 MUSD (green 2030) and -84.0 MUSD (green, current), and no IRR or payback exists for any of them. Every scenario LCOH (3.613 USD/kg and above, Table 27.2) lies above this selling price. These indicators are pre-tax, at constant prices and with equipment-level CAPEX that probably understates real cost (Section 27.5); they are screening figures, not an investment case.
+At the NE Asia SMR benchmark of 3.06 USD/kg no scenario recovers its cost: with heat integration the NPV is -17.5 MUSD (grey), -22.4 MUSD (blue), -19.2 MUSD (green 2050), -52.2 MUSD (green 2030) and -91.3 MUSD (green, current), and no IRR or payback exists for any of them. Every scenario LCOH (4.015 USD/kg and above, Table 27.2) lies above this selling price. These indicators are pre-tax and at constant prices; they are screening figures, not an investment case.
 <!-- data: results/research/singapore/scenario_results.json results["<scenario>|heat_integration_on"].npv_USD, irr, payback_yr -->
 
 ### Uncertainty
@@ -128,17 +128,17 @@ Table: **Table 27.5.** Monte Carlo LCOH (5000 samples, seed 20261123, heat integ
 
 | Scenario | p5 (USD/kg) | p50 (USD/kg) | p95 (USD/kg) |
 |---|---|---|---|
-| Grey | 2.849 | 3.643 | 4.432 |
-| Blue | 3.444 | 3.900 | 4.341 |
-| Green, current | 7.045 | 7.547 | 7.909 |
-| Green, 2030 | 4.300 | 5.525 | 6.713 |
+| Grey | 3.253 | 4.067 | 4.882 |
+| Blue | 3.819 | 4.324 | 4.806 |
+| Green, current | 7.426 | 7.962 | 8.388 |
+| Green, 2030 | 4.707 | 5.950 | 7.151 |
 
 ![**Figure 27.5.** Monte Carlo distributions of the LCOH by scenario. *Source: independent Python calculation (results/research/singapore/monte_carlo_samples_grey.csv and monte_carlo.json).*](../../results/figures/research/singapore_monte_carlo.png){width=85%}
 
 ### Carbon tax
 
-With ammonia-fired heat the baseline has no direct CO~2~ and the carbon-tax term is exactly zero for tax rates from 0 to 80 SGD/t (Table 27.3). For a hypothetical gas-fired furnace, which is not the baseline, the heat duty would emit 1248.7 t CO~2~e/yr, below the 25 000 t threshold, so no tax would be due. The heat map that ignores the threshold (labelled hypothetical, gas heat at 4.25 USD/GJ, Kum et al., 2026; 56.1 t CO~2~/TJ, European Commission, 2018) shows an LCOH of 3.392 USD/kg at 450 USD/t with no tax and 3.414 USD/kg at 45 SGD/t. Gas-fired heat is cheaper than ammonia-fired heat here (3.392 against 3.613 USD/kg), but the comparison depends on an assumed gas price and on no Singapore gas price source. The 56.1 t CO~2~/TJ factor is the IPCC 2006 default quoted in the EU Regulation; the Annex VI PDF returned no readable text on 23 November 2026.
-<!-- data: results/research/singapore/tornado.json bars[carbon_tax_SGD_per_t].swing 0; results/research/validation/economics.json items[E14, E15].observed 0.0 and 1248.706; heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv row carbon_tax 0 and 45, column nh3_450 (3.39240, 3.41404) -->
+With ammonia-fired heat the baseline has no direct CO~2~ and the carbon-tax term is exactly zero for tax rates from 0 to 80 SGD/t (Table 27.3). For a hypothetical gas-fired furnace, which is not the baseline, the heat duty would emit 1248.7 t CO~2~e/yr, below the 25 000 t threshold, so no tax would be due. The heat map that ignores the threshold (labelled hypothetical, gas heat at 4.25 USD/GJ, Kum et al., 2026; 56.1 t CO~2~/TJ, European Commission, 2018) shows an LCOH of 3.795 USD/kg at 450 USD/t with no tax and 3.817 USD/kg at 45 SGD/t. Gas-fired heat is cheaper than ammonia-fired heat here (3.795 against 4.015 USD/kg), but the comparison depends on an assumed gas price and on no Singapore gas price source. The 56.1 t CO~2~/TJ factor is the IPCC 2006 default quoted in the EU Regulation; the Annex VI PDF returned no readable text on 23 November 2026.
+<!-- data: results/research/singapore/tornado.json bars[carbon_tax_SGD_per_t].swing 0; results/research/validation/economics.json items[E14, E15].observed 0.0 and 1248.706; heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv row carbon_tax 0 and 45, column nh3_450 (3.79493, 3.81660) -->
 
 ![**Figure 27.6.** LCOH over ammonia price and carbon tax for gas-fired heat (hypothetical; threshold ignored). The tax shifts the LCOH by a few hundredths of a USD per kg across the legislated range. *Source: independent Python calculation (results/research/singapore/heatmap_nh3_price_x_carbon_tax_gas_heat_hypothetical.csv).*](../../results/figures/research/singapore_heatmap_nh3_price_carbon_tax.png){width=80%}
 
@@ -146,13 +146,13 @@ With ammonia-fired heat the baseline has no direct CO~2~ and the carbon-tax term
 
 ## 27.5 Validation status and failures
 
-Fifteen items are recorded in `results/research/validation/economics.json`: 9 pass, 0 fail, 6 informational. The passes are reproduction of the stored Section 19 LCOH (3.918842 USD/kg, exact to 10^-9) in a legacy CAPEX mode, closure of the cost breakdown, unit consistency, the REC definition, the break-even inversion, the stoichiometric floor on feed NH~3~ (6.756 against 5.632 kg/kg), zero tax on ammonia heat, and the below-threshold gas-heat case. The informational items are comparisons that are not like for like, plus the Cho et al. Ru-to-Ni REC difference (6.97 %, against the 7.0 % quoted), which is arithmetic on Cho's own numbers and therefore a literature consistency check, not a validation.
+Fifteen items are recorded in `results/research/validation/economics.json`: 9 pass, 0 fail, 6 informational. The passes are reproduction of the stored Section 19 LCOH (3.918842 USD/kg, exact to 10^-9) in a legacy CAPEX mode, reproduction of the unified baseline (4.015461 USD/kg), closure of the cost breakdown, unit consistency, the REC definition, the break-even inversion, the stoichiometric floor on feed NH~3~ (6.756 against 5.632 kg/kg), zero tax on ammonia heat, and the below-threshold gas-heat case. The informational items are comparisons that are not like for like, plus the Cho et al. Ru-to-Ni REC difference (6.97 %, against the 7.0 % quoted), which is arithmetic on Cho's own numbers and therefore a literature consistency check, not a validation.
 
-**REC against Cho et al. (2026).** The AmCraX REC of 0.573 USD/kg is far below the 1.856 (Ru) to 1.995 (Ni) USD/kg of Cho et al. (2026, Fig. 8d). Cho et al. include 180 bar product compression, temperature-swing adsorption, NO~x~ treatment, off-site, engineering and contingency items, and a plant of about 100 kg H~2~/h with a 97 % conversion optimisation. The AmCraX boundary has none of these and runs at 251.6 kg H~2~/h. The gap is a boundary difference and is neither a validation pass nor a failure. The legacy-CAPEX LCOH of 3.919 USD/kg and the equipment-level value of 3.613 USD/kg both lie below the 5.439 USD/kg total of Cho et al. (2026) at 450 USD/t, for the same reason. The equipment-level CAPEX is a feed-scaled screening estimate and is probably optimistic.
+**REC against Cho et al. (2026).** The AmCraX REC of 0.975 USD/kg is far below the 1.856 (Ru) to 1.995 (Ni) USD/kg of Cho et al. (2026, Fig. 8d). Cho et al. include 180 bar product compression, temperature-swing adsorption, NO~x~ treatment, off-site, engineering and contingency items, and a plant of about 100 kg H~2~/h with a 97 % conversion optimisation. The AmCraX boundary has none of these and runs at 251.6 kg H~2~/h. The gap is a boundary difference and is neither a validation pass nor a failure. The unified LCOH of 4.015 USD/kg lies below the 5.439 USD/kg total of Cho et al. (2026) at 450 USD/t for the same reason, although its CAPEX is taken from Cho's own itemised table without the product compressor (Section 32).
 
 **Halim et al. (2025).** The LCOH values of 15.1 (green) and 10.1 (blue) USD/kg for a 60.1 MW plant could not be checked: only the abstract of Halim et al. (2025) was available. Those values are not used in any comparison here.
 
-**Consistency between sections.** The same plant appears at 3.613 USD/kg here (equipment-level CAPEX, 0.152 USD/kg capital) and at 3.919 USD/kg in Sections 19, 28 and 29 (correlation CAPEX, 0.356 USD/kg capital). The 0.31 USD/kg difference comes from the CAPEX basis and the CAPEX-proportional fixed costs (capital 0.356 against 0.152, fixed operating cost 0.252 against 0.149 USD/kg); the feed and heat terms are identical. Cross-section comparisons must use one basis.
+**Consistency between sections.** Version 1.0 showed the same plant at 3.613 USD/kg here (equipment-level CAPEX) and at 3.919 USD/kg in Sections 19, 28 and 29 (correlation CAPEX). Version 2.0 uses one basis for every research output, 4.015 USD/kg (Section 32); 3.919 remains in Section 19 as the legacy core result, superseded for research outputs, and 3.613 is superseded. The feed and heat terms are identical on all three bases; only the capital and the CAPEX-proportional fixed costs differ.
 
 ## 27.6 Comparison with literature
 
@@ -161,7 +161,7 @@ The Singapore-specific literature offers prices but few like-for-like costs. The
 ## 27.7 Limitations
 
 * Ammonia prices are scenarios from non-Singapore sources, three of them from one paper (Cho et al., 2026) and one (blue) from unretrievable secondary text.
-* CAPEX is a screening estimate; no equipment was sized. Heat-exchanger cost does not follow heat integration.
+* CAPEX comes from one paper's itemised table, scaled to the AmCraX feed (Section 32); no equipment was sized here. The exchanger cost is treated separately in Section 35.5.
 * The catalyst mass comes from the Cho et al. space velocity (248.5 kg), not from the kinetic PFR results; its effect on LCOH is 0.003 USD/kg.
 * Labour, overhead, location factor and discount rate are not Singapore values.
 * Landed cost, product compression, storage, NO~x~ treatment and N~2~O are not modelled or quantified.
@@ -169,4 +169,4 @@ The Singapore-specific literature offers prices but few like-for-like costs. The
 
 ## 27.8 Implication for hypothesis H2
 
-For the baseline cracker the feedstock term is 84 % of the LCOH in the grey case, and the ammonia price alone moves the LCOH by 2.279 USD/kg over 300 to 610 USD/t, five times the next parameter; REC varies only from 0.573 to 0.900 USD/kg across all scenarios. The cost result therefore turns on the ammonia price. It does not by itself test the other half of H2, low carbon intensity, which depends on how each price scenario is produced (Section 30); the cheapest scenarios here (grey, 450 USD/t; green 2050, 463 USD/t) are not equally low in carbon, and the low-carbon scenario at today's price (green, 1000 USD/t) gives an LCOH of 7.656 USD/kg. The verdict on H2 is given in Section 31.
+For the baseline cracker the feedstock term is 76 % of the LCOH in the grey case, and the ammonia price alone moves the LCOH by 2.279 USD/kg over 300 to 610 USD/t, more than three times the next parameter; REC varies only from 0.975 to 1.302 USD/kg across all scenarios. The cost result therefore turns on the ammonia price. It does not by itself test the other half of H2, low carbon intensity, which depends on how each price scenario is produced (Section 30); the cheapest scenarios here (grey, 450 USD/t; green 2050, 463 USD/t) are not equally low in carbon, and the low-carbon scenario at today's price (green, 1000 USD/t) gives an LCOH of 8.058 USD/kg. Section 34 tests H2 with thresholds and the two carbon-pricing modes; the verdict on H2 is given in Section 40.

@@ -74,7 +74,7 @@ All ten candidates converged and pass: the largest primary deviation is 1.15 % (
 
 ## 20.5 Scenario analysis
 
-Table: **Table 20.3.** Named Aspen Plus V15 scenarios (grey NH~3~ at 450 USD/t, heat deficit covered by burning NH~3~). The last column is Aspen minus Python at the same inputs, a model-form difference, not an error bar. *Source: Aspen Plus V15 simulation; LCOH and CI by independent Python calculation.*
+Table: **Table 20.3.** Named Aspen Plus V15 scenarios (grey NH~3~ at 450 USD/t, heat deficit covered by burning NH~3~). The last column is Aspen minus Python at the same inputs, a model-form difference, not an error bar. LCOH values are on the legacy cost basis of Section 19 (legacy core result, superseded for research outputs; the unified baseline is 4.015 USD/kg, Section 32). *Source: Aspen Plus V15 simulation; LCOH and CI by independent Python calculation.*
 
 | Scenario | X (–) | H~2~ (kg/h) | LHV eff. (–) | LCOH (USD/kg) | CI (kg CO~2~e/kg) | Aspen − Python LCOH |
 |---|---|---|---|---|---|---|

@@ -1,0 +1,75 @@
+<!-- cites: iso2019hydrogen, takahashi2016kinetic, kum2026heatintegrated, cho2026nickel, halim2025ammonia, sayas2020rukcao, abdoos2025psa -->
+
+# 41 Limitations and future work
+
+This section collects the limitations stated where they apply in Sections 5 to 39. They bound what the results can be used for. The repository keeps the same list with suggested remedies in `docs/known_limitations.md`.
+
+## 41.1 What AmCraX is not
+
+AmCraX is not a validated digital twin of a plant. No plant or pilot data were available, so no result has been compared with measured operation, and AmCraX has no independent experimental validation of any kind (Section 38). The models are steady state: start-up, shut-down, turn-down and dynamics are outside the scope. Everything below should be read with that in mind.
+
+## 41.2 Process model
+
+* **Equilibrium reactor.** The Aspen cracker of the baseline, the scenarios, the sensitivity studies and the optimisation is an RGibbs block (Section 9). Its conversion, 0.9808 at the baseline, is the thermodynamic ceiling at the given temperature and pressure; it carries no catalyst, residence time, heat-flux limit, pressure drop from geometry or deactivation. Kinetic RPlug crackers are used only in the research cases of Sections 25, 26 and 35, isothermal at the operating temperature, so a fired-reactor heat-flux limit is not modelled anywhere.
+* **Reduced-order PSA.** The PSA is a component splitter (Section 11). Its H~2~ recovery of 0.85 is an engineering assumption above the 0.71-0.81 range reported in the literature, and its N~2~ slip of 0.001 is also assumed. No measured PSA recovery on cracked ammonia exists. Product flow, tail-gas fuel and the LCOH all depend on these two numbers, and the PSA recovery decides the PSA-membrane ranking (Section 36).
+* **Purity is an input consequence.** The baseline purity of 99.961 mol% H~2~ (392 ppm N~2~) follows from the assumed split fractions; it is not a prediction. It is below the 99.97 mol% and 300 ppm limits of ISO 14687:2019 grade D (ISO, 2019), so the baseline product is not fuel-cell grade. The purity-driven scenario reaches 99.979 mol% only because its split fractions were set to do so.
+* **No NH~3~ polishing.** The cracked gas holds 9678 ppm NH~3~; reaching the 0.1 ppm limit needs a polishing step that is not modelled in the flowsheet, so its energy and NH~3~ recovery are missing from every balance. Section 36 adds a polishing bed only as a proxy cost.
+* **No compression, fixed pressure drops.** The flowsheet contains no gas compressor, and the pressure drops are fixed specifications, not hydraulic results (Section 5.4).
+* **Burner model.** The burner assumes complete combustion. NO~x~, N~2~O and NH~3~ slip are not predicted, and the flame temperature is the complete-combustion value, about 2.3 K above an equilibrium calculation with dissociation (Section 10.4). The burner heat is not physically connected to the cracker in Aspen; it is a first-law credit in the KPIs.
+* **First-law efficiency.** The LHV efficiency and the net fuel heat deficit are upper-bound metrics (Eq. (18.1)): external heat is counted one-to-one against fuel LHV, as from a 100 %-efficient fired heater, and flue heat below reactor temperature is credited. With temperature levels respected the pinch analysis gives a heat import of 752.6 kW against the KPI's 772.9 kW (Section 18.3); furnace losses, PSA and compression power and cooling utilities are not counted.
+* **Feed section.** The vaporiser outlet follows the assumed "dew point + 10 K" rule, and the dew point of the 0.2 mol% water mixture depends on the NH~3~-H~2~O model (65.9 °C in Aspen PENG-ROB, 60.1 °C with an ideal liquid, 50.9 °C for pure NH~3~; Section 8.3). No reference mixture model or measurement was available to decide between them. Section 38 shows that this choice accounts for 8.76 kW of the 20.8 kW FEHE offset.
+
+## 41.3 Thermodynamics and kinetics
+
+* **Unexplained equation-of-state gap.** Aspen PENG-ROB and the Python Peng-Robinson model differ by up to 0.185 percentage points in equilibrium conversion, at 250 °C and 40 bar. The Boston-Mathias α-function explains 0.04 points; about 0.18 points remain unexplained. A sensitivity study makes the binary interaction parameters an unlikely cause, but the actual cause has not been identified (Section 13.4).
+* **Feed-section model form.** The 20 failing `FS-<case>` items record that the two flowsheet models use different property models in the feed section (Section 16.4). The difference runs in both directions and is not resolved; individual feed-section and exchanger duties of the Python model therefore differ from Aspen by 3.5-11.8 % in the worst KPI per case.
+* **Kinetics extrapolated.** No rate law is validated at 20 bar: 3 laws are validated against literature (their own fitting data), 2 are extrapolated, and 3 catalysts (Ni/CeO~2~, Ru/CeO~2~, Ru-K/CaO) are unmodelled because no rate law was found, and none was invented (Section 35.2). The microkinetic models were fitted at 1 atm (Takahashi & Fujitani, 2016) and the Temkin-Pyzhev law at 350-450 °C and up to 10 bar (Kum et al., 2026); every result at 20 bar is an extrapolation. The contact time was inferred from one anchor point per catalyst, and the Takahashi laws under-predict the dilution and H~2~ co-feed series, a model-form limit (Section 37.3). Diffusion, external transfer, radial gradients and deactivation are neglected, so the catalyst masses are lower bounds (Section 14.6).
+
+## 41.4 Economics and environment
+
+* **One CAPEX source.** The unified CAPEX (Section 32) comes from one paper's itemised table (Cho et al., 2026), which is ambiguous on whether its items are purchase or installed costs. It lies at or above the top of the independent published range, so it is conservative for cracking. For the power-plant cracker of Section 33 it is extrapolated more than 30-fold. The FEHE cost of Section 35 is added on top of the reference exchanger item, a possible double count that makes the net heat-integration benefit conservative.
+* **Legacy core costs.** The legacy core LCOH of 3.919 USD/kg H~2~ of Section 19 (legacy core result, superseded for research outputs) comes from a plant-level correlation in hydrogen capacity alone and omits NO~x~ treatment, NH~3~ polishing, compression and installed-cost factors (Section 19.4).
+* **Unsourced decisive inputs.** No supplier catalyst quotation exists (Section 35.1); no overall heat-transfer coefficient at 20 bar was found (Section 35.5); no turbine efficiency for a fired cracker's H~2~/N~2~ fuel is sourced (Section 33). Each of these is handled as a threshold, and the conclusions that depend on it are stated as conditional.
+* **Cost boundary.** Electricity covers pump power only; PSA and compression power are outside the cost boundary, so the electricity price has almost no sensitivity index (Section 37.1).
+* **Simplified carbon accounting.** The carbon intensity multiplies activity data by emission factors. It is not a life-cycle assessment: it has no inventory analysis, allocation or review, and excludes construction, catalyst manufacture and H~2~ leakage (Sections 21, 30 and 34). Mode B carbon pricing is hypothetical, not Singapore law.
+* **Optimisation on a surrogate.** The optima of Section 20 come from the Python process model on the legacy cost basis. Only the ten candidates re-solved in Aspen are confirmed there, and the recovery and exchanger-approach optima sit on their bounds because equipment size is not costed (Section 20.6).
+
+## 41.5 Validation coverage
+
+The PSA and membrane models, the carbon accounting, the kinetics at 20 bar and the NH~3~-H~2~O dew point have no validation item that can pass or fail. Balance closures of about 10^-9^ show that values were extracted and booked consistently; they do not test the physics, because Aspen closes its own balances by construction. The research validation files hold 693 items, sorted by evidence kind in Section 38; 26 items of two Phase 1 files do not yet carry an evidence kind. Test suites show that the code behaves as specified, not that the models are right.
+
+## 41.6 Research expansion (Sections 24 to 30, Phase 1)
+
+* **Kinetics at 20 bar.** Every rate law in the catalyst comparison is used outside its fitted pressure range, two are 20-bar approximations of 1-atm microkinetic laws (rate error up to about 50 %), the effectiveness factor is 1, and the Ni/MgO law used as the nickel reference fails its own validation against published curves (Section 25.1).
+* **Model-form failures kept visible.** The above-equilibrium LHHW runs and the five FEHE duty failures are kept as failures; their causes are now quantified (Section 38.2).
+* **Superseded Phase 1 numbers.** Sections 26 to 30 report the Phase 1 studies; where they quote a superseded number the text gives the unified value or points to Sections 32 to 36 (full list in `results/research/reference_scenario/supersession.json`).
+* **End use and life cycle.** Turbine efficiencies are calibrated on one simulation study, shipping distances are scenario parameters, N~2~O and NO~x~ are estimated from simulated concentrations, and several upstream emission factors are of low confidence (Sections 29, 30 and 33).
+* **Unverified essay values.** The full texts of Halim et al. (2025) and of the PSA study of Abdoos et al. (2025) were not obtained, and the Ru-K/CaO kinetics of Sayas et al. (2020) could not be retrieved. Values whose primary source could not be read are labelled unverified and are not used as inputs to any AmCraX result (Section 40.7).
+<!-- data: results/research/kinetics/validity_classification.json; results/research/validation/aspen_kinetic.json; results/research/validation/catalyst_comparison.json HCAT-ASPY-*-HI-heat; results/research/heat_exchanger/fehe_duty_diagnosis.json; results/research/reference_scenario/capex_audit.json -->
+
+## 41.7 Interactive simulator
+
+The browser simulator has no membrane model and uses an ideal-gas equilibrium; the downstream duties are interpolated from a grid computed at equilibrium conversion with fixed FEHE approach, stack temperature and excess air; the feed composition is fixed; and IRR and the size drivers of the CAPEX method are not ported (Section 39.5). Its numbers outside a rate law's fitted range are labelled extrapolation.
+
+## 41.8 Software and platform
+
+* **Aspen access.** Live simulation needs Windows, pywin32 and a licensed Aspen Plus V15; another version needs another COM ProgID. One Aspen instance runs at a time under a machine-wide lock, so jobs are strictly serial and a waiting job counts towards its time-out (Section 12.5).
+* **Orphan clean-up.** The process id of an Aspen instance is inferred from a before-and-after list of processes. If another Aspen instance starts at the same moment, the wrong process could be recorded; a hung engine is stopped only by killing the worker and cleaning up on the next run.
+* **Job queue.** The Aspen job queue is held in memory and is unbounded: submissions are not limited in number, and a restart of the API abandons queued and running jobs.
+* **Deployment.** The local platform uses development servers without authentication or HTTPS and must not be exposed to a network.
+* **Static website.** The public site never runs Aspen Plus and never contacts an API. It is only as current as the last export of the stored results; its browser calculations are tested against the Python model (Section 39).
+<!-- data: docs/known_limitations.md sections 1, 2, 4-7, 10; results/validation/validation_matrix.json items FS-* (max 0.1180, min 0.0354), EQ-PR, EQ-KIJ-SENS, KIN-*; results/simulations/separation_baseline.json ammonia_slip nh3_cracked_gas_ppm 9677.98; heat_integration_baseline.json configurations (c) 752.628 -->
+
+## 41.9 Future work
+
+In order of the effect on the conclusions:
+
+1. **Measure or source the decisive inputs.** A supplier quotation for at least one Ru and one Ni cracking catalyst; a turbine efficiency on H~2~/N~2~ fuel from a fired cracker; an overall heat-transfer coefficient at 20 bar from a film-coefficient estimate or a vendor; and a measured PSA recovery on cracked ammonia. Each of these sits at a threshold that decides a row of H1, H3 or H4.
+2. **Kinetics at process pressure.** Fit or validate rate laws on data measured near 20 bar, obtain the Ni/Al~2~O~3~ and Ru-K/CaO laws used by Cho et al. (2026), implement the microkinetic laws exactly through a user kinetics subroutine, and replace the isothermal RPlug by a fired tubular reactor with a furnace heat-flux profile.
+3. **Make purity a design result.** Add an NH~3~ polishing step and replace the PSA splitter by an adsorption-cycle model, keeping the published points as bounds; obtain mixed-gas and aged Pd-Ag membrane selectivity.
+4. **Resolve the feed-section difference.** Obtain NH~3~-H~2~O vapour-liquid data or a reference mixture model to decide the dew point, so that the `FS-<case>` and FEHE items test physics rather than model form.
+5. **A second CAPEX source.** Compare the reference CAPEX item by item with a second itemised estimate and pass exchanger area and catalyst mass to the CAPEX method by default.
+6. **Strengthen the environmental and end-use evidence** with measured or kinetically modelled burner NO~x~ and N~2~O for NH~3~-rich tail gas and NH~3~ turbines, and primary-source checks of the Singapore plant study quoted in the essay.
+7. **Extend the simulator** with a membrane model and a non-ideal equilibrium, each tested against the Python model before it is shown.
+8. **Explain the remaining PENG-ROB gap** by comparing Aspen's pure-component constants and α-function treatment term by term with the Python implementation.
+9. **Harden the platform.** Capture the Aspen process id from the COM server, bound and persist the job queue, and add authentication before any shared deployment.

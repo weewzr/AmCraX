@@ -57,6 +57,9 @@ export function navActive(item: NavItem, pathname: string, hash = ''): boolean {
   return pathname === item.match
 }
 
+/** Older pages that show the legacy core cost results (3.92 USD/kg, 0.084 USD/kWh): they carry the "legacy core result" banner. */
+export const LEGACY_PATHS: string[] = ['/overview', '/results', '/methodology', '/research']
+
 /** Sub-pages of the Hypotheses section (/hypotheses/<slug>); the section's root page holds the evidence matrix. */
 export const HYPOTHESIS_PAGES: { slug: string; label: string; title: string }[] = [
   { slug: '', label: 'Evidence matrix', title: 'Evidence matrix: four hypotheses' },

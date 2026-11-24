@@ -23,13 +23,33 @@ ROOT = Path(__file__).resolve().parents[2]
 VAL_DIR = ROOT / "results" / "research" / "validation"
 OUT_JSON = VAL_DIR / "summary.json"
 OUT_MD = ROOT / "docs" / "validation" / "research_validation.md"
-STATUSES = ("pass", "fail", "informational")
+STATUSES = ("pass", "fail", "informational", "not_available")
 CAUSE_KEYS = ("cause", "root_cause_recorded", "note", "remark", "comment")
+# The four kinds of evidence (docs/internal/phase2_brief.md). AmCraX has no independent experimental validation:
+# an item of that kind may only exist as a "not_available" placeholder and is never counted as evidence.
+EVIDENCE_KINDS = ("numerical_verification", "python_vs_aspen", "literature_comparison", "experimental_validation")
+UNSPECIFIED = "unspecified"
 
 
 def _load(path: Path) -> list[dict]:
     data = json.loads(path.read_text(encoding="utf-8-sig"))
     return data["items"] if isinstance(data, dict) else data
+
+
+FEHE_DIAGNOSIS = ROOT / "results" / "research" / "heat_exchanger" / "fehe_duty_diagnosis.json"
+
+
+def _documented_cause(item: dict) -> str | None:
+    """Cause documented outside the item (read, never invented). Only the FEHE duty diagnosis exists so far."""
+    if not FEHE_DIAGNOSIS.is_file() or not str(item.get("id", "")).endswith("-HI-heat"):
+        return None
+    for row in json.loads(FEHE_DIAGNOSIS.read_text(encoding="utf-8")).get("rows", []):
+        if row.get("source_file") and row["source_file"] in str(item.get("source_files")):
+            return (f"documented in results/research/heat_exchanger/fehe_duty_diagnosis.json: Python minus Aspen "
+                    f"{row['difference_kW']:.1f} kW, of which {row['state_effect_kW']:.1f} kW from the dew-point state of "
+                    f"the cold-side stream and {row['property_effect_kW']:.1f} kW from the NH3 residual-enthalpy basis; "
+                    "tolerance unchanged, item still fails")
+    return None
 
 
 def _cause(item: dict) -> str:
@@ -38,6 +58,10 @@ def _cause(item: dict) -> str:
         v = item.get(k)
         if v:
             parts.append(str(v))
+    if not parts:
+        doc = _documented_cause(item)
+        if doc:
+            parts.append(doc)
     return " | ".join(parts) if parts else "no cause recorded in the item"
 
 
@@ -47,6 +71,31 @@ def _counts(items: list[dict]) -> dict:
         c[i["status"]] = c.get(i["status"], 0) + 1
     c["total"] = len(items)
     return c
+
+
+def _kind(item: dict) -> str:
+    k = item.get("evidence_kind")
+    if k is None:
+        return UNSPECIFIED
+    if k not in EVIDENCE_KINDS:
+        raise SystemExit(f"{item.get('id')}: unknown evidence_kind {k!r}")
+    return k
+
+
+def _by_kind(items: list[dict]) -> dict:
+    out = {}
+    for k in EVIDENCE_KINDS + (UNSPECIFIED,):
+        sel = [i for i in items if _kind(i) == k]
+        if sel or k != UNSPECIFIED:
+            out[k] = _counts(sel)
+    return out
+
+
+def _check_experimental(items: list[dict], name: str) -> None:
+    for i in items:
+        if _kind(i) == "experimental_validation" and i["status"] != "not_available":
+            raise SystemExit(f"{name}: item {i['id']} is labelled experimental_validation with status {i['status']}; "
+                             "AmCraX has no independent experimental validation")
 
 
 def build() -> dict:
@@ -74,11 +123,14 @@ def build() -> dict:
                     "mirrors_core_matrix": i["id"].startswith("EXISTING-"),
                     "source_files": i.get("source_files", []),
                 })
+        _check_experimental(items, p.name)
         areas[p.stem] = {"file": f"results/research/validation/{p.name}",
-                         **_counts(items), "failures": failures}
+                         **_counts(items), "failures": failures, "by_evidence_kind": _by_kind(items),
+                         "items_without_evidence_kind": [i["id"] for i in items if _kind(i) == UNSPECIFIED]}
         all_items.extend(items)
     mirrored = [i for i in all_items if i["id"].startswith("EXISTING-")]
     new_items = [i for i in all_items if not i["id"].startswith("EXISTING-")]
+    placeholders = [i["id"] for i in all_items if _kind(i) == "experimental_validation"]
     return {
         "provenance": {
             "script": "scripts/research/build_research_validation.py",
@@ -90,6 +142,16 @@ def build() -> dict:
         "totals": _counts(all_items),
         "totals_excluding_items_mirrored_from_core_matrix": _counts(new_items),
         "mirrored_core_items": _counts(mirrored),
+        "by_evidence_kind": _by_kind(all_items),
+        "by_area_and_evidence_kind": {name: a["by_evidence_kind"] for name, a in areas.items()},
+        "experimental_validation": {
+            "items_counted_as_evidence": 0,
+            "placeholder_items_not_available": placeholders,
+            "statement": "AmCraX has no independent experimental validation. Items of kind experimental_validation "
+                         "exist only as not_available placeholders and are never counted as evidence. Pass counts "
+                         "are numerical verification, Python against Aspen comparison or comparison with published "
+                         "literature, never experimental validation.",
+        },
         "areas": areas,
     }
 
@@ -106,9 +168,9 @@ def render_md(s: dict) -> str:
          "machine-readable copy in `results/research/validation/summary.json`. This summary is separate from the "
          "core validation matrix (`results/validation/validation_matrix.json`, `docs/validation/validation_matrix.md`), "
          "which is unchanged. Failures are reported as recorded and are not softened or re-scored.", "",
-         "## Totals", "", "| Scope | Pass | Fail | Informational | Total |", "|---|---|---|---|---|"]
+         "## Totals", "", "| Scope | Pass | Fail | Informational | Not available | Total |", "|---|---|---|---|---|---|"]
     def row(name, c):
-        return f"| {name} | {c['pass']} | {c['fail']} | {c['informational']} | {c['total']} |"
+        return f"| {name} | {c['pass']} | {c['fail']} | {c['informational']} | {c['not_available']} | {c['total']} |"
     for name, a in s["areas"].items():
         L.append(row(name, a))
     L.append(row("**All research items**", s["totals"]))
@@ -116,7 +178,18 @@ def render_md(s: dict) -> str:
     L.append(row("All items excluding mirrored core rows", s["totals_excluding_items_mirrored_from_core_matrix"]))
     L += ["", "Mirrored rows are items with ids starting `EXISTING-`: copies of core-matrix rows that the kinetics "
           "workstream listed for context without re-running them. They are already counted in the core matrix.", "",
-          "## Failures", ""]
+          "## By kind of evidence", "",
+          "The four kinds of evidence are kept apart: numerical verification, Python against Aspen comparison, "
+          "comparison with published literature, and independent experimental validation. "
+          + s["experimental_validation"]["statement"], "",
+          "| Kind of evidence | Pass | Fail | Informational | Not available | Total |", "|---|---|---|---|---|---|"]
+    for k, c in s["by_evidence_kind"].items():
+        L.append(row(k, c))
+    L += ["", "| Area | " + " | ".join(EVIDENCE_KINDS) + " |", "|---|" + "---|" * len(EVIDENCE_KINDS)]
+    for name, kinds in s["by_area_and_evidence_kind"].items():
+        L.append(f"| {name} | " + " | ".join(
+            f"{kinds[k]['total']} ({kinds[k]['pass']} pass, {kinds[k]['fail']} fail)" for k in EVIDENCE_KINDS) + " |")
+    L += ["", "## Failures", ""]
     n = 0
     for name, a in s["areas"].items():
         for f in a["failures"]:
@@ -143,7 +216,9 @@ def main() -> None:
     OUT_MD.parent.mkdir(parents=True, exist_ok=True)
     OUT_MD.write_text(render_md(s), encoding="utf-8")
     t = s["totals"]
-    print(f"research validation: {t['pass']} pass, {t['fail']} fail, {t['informational']} informational of {t['total']}")
+    print(f"research validation: {t['pass']} pass, {t['fail']} fail, {t['informational']} informational, "
+          f"{t['not_available']} not available of {t['total']}")
+    print("by evidence kind:", {k: c["total"] for k, c in s["by_evidence_kind"].items()})
 
 
 if __name__ == "__main__":

@@ -1,0 +1,46 @@
+<!-- cites: cechetto2021fpt, yanez2020psa, mehr2026highcapacity, hansen2024hysys, ammogen2025, iso2019hydrogen, cho2026nickel -->
+
+# 36 Purification (H4): PSA against a Pd-Ag membrane
+
+Hypothesis H4 states that purification must balance purity against recovery, energy and cost. Section 28 compared purification configurations on the Phase 1 basis. Phase 2 compares pressure-swing adsorption (PSA) with a palladium-silver (Pd-Ag) membrane on the unified basis, with every input taken from a sourced range, and adds technology readiness levels (TRL). Both technologies share one plant, one boundary and one cost basis.
+
+## 36.1 Inputs
+
+The PSA H~2~ recovery is the decisive input and no measured value on cracked ammonia exists. For industrial grade (99.9 %, 30 bar) the cases are 0.5715 (interpolated from Yáñez et al., 2020, for a different feed), 0.7516 (mass-balance assumption) and 0.85 (the AmCraX assumption); for ISO 14687:2019 grade D at 350 bar (International Organization for Standardization [ISO], 2019) they are 0.555, 0.7513 and 0.81 (Mehr et al., 2026, low confidence). Membrane inputs: cost 7,473 USD/m^2^ (6,800 EUR at 1.099 USD/EUR), 10,000 and 15,000 USD/m^2^; life 5, 3 and 2 years; flux multiplier 0.81 and 1.0; recovery 0.86, 0.90 and 0.905. Electricity runs from 0.084 to 0.2219 USD/kWh around the reference 0.1402.
+
+**Membrane selectivity.** Cechetto et al. (2021) report an ideal H~2~/N~2~ selectivity for a new Pd-Ag membrane measured with single gases. The paper is internally inconsistent: the printed permeances give 40,541, while the text states more than 400,000, and the dead-end value gives 500,000. All three are carried: 40,541 (low), 400,000 (central) and 500,000 (high). The grade D requirement is 12,919 (13,100 in the worst-area case) and the industrial requirement 3,871, so the low value gives a margin of 3.1 times for grade D and 10.5 times for industrial grade. These are ideal single-gas values for a new membrane from one group, measured at 450 °C (the model runs at 400 °C), with trace NH~3~ only; no mixed-gas or aged value exists. Membrane scientists at the National University of Singapore (Zhang Sui and Zhao Dan) were identified, but none of their verified publications covers cracked-ammonia purification; nothing quantitative is used and no result is attributed to them.
+
+## 36.2 Results
+
+Table: **Table 36.1.** LCOH and readiness by purification configuration on the unified basis, grey NH~3~ at 450 USD/t. *Source: independent Python calculation on Aspen Plus V15 results, results/research/purification/phase2_comparison.json specs.*
+
+| Specification | Configuration | LCOH (USD/kg) | LCOH (SGD/kg, central) | Readiness |
+|---|---|---|---|---|
+| Industrial 99.9 %, 30 bar | PSA, recovery 0.5715 / 0.7516 / 0.85 | 5.605 / 4.269 / 4.046 | 5.501 | PSA unit TRL 9; integrated chain 6 to 7 |
+| Industrial 99.9 %, 30 bar | Membrane, low / central / high cost | 4.102 / 4.128 / 4.262 | 5.319 | TRL 4 to 5 |
+| Grade D, 350 bar | PSA, recovery 0.555 / 0.7513 / 0.81 | 5.963 / 4.463 / 4.305 | 5.751 | PSA unit TRL 9; integrated chain 6 to 7 |
+| Grade D, 350 bar | Membrane + NH~3~ polishing bed, low / central / high cost | 4.316 / 4.343 / 4.478 | 5.596 | TRL 4 to 5; polishing bed not assessed |
+
+<!-- data: results/research/purification/phase2_comparison.json specs.*.configurations, factorial_summary, thresholds, selectivity_statement -->
+
+The membrane needs 1.92 kWh/kg of compression against 0.22 kWh/kg for PSA, imports 4.61 kWh/kg of heat (PSA imports none at the central recovery) and has an area of 31.1 m^2^. Over the full factorial of sourced inputs (2,916 pairs at equal electricity price) PSA spans 3.97 to 5.62 USD/kg and the membrane 3.99 to 4.42 for industrial grade, and 4.15 to 6.09 against 4.12 to 4.75 for grade D. The membrane is cheaper in 59 % (industrial) and 60 % (grade D) of the pairs. Neither ranking is robust.
+
+**What decides the ranking.** The PSA recovery at parity is 0.801 (industrial) and 0.788 (grade D) against the central membrane, and 0.753 and 0.749 against the most expensive sourced membrane. Sourced PSA recoveries straddle these values, so the PSA recovery decides. Membrane cost and life do not: parity would need 38,983 (industrial) or 34,772 USD/m^2^ (grade D) against a sourced maximum of 15,000, or a life below one year against a sourced 2 to 5 years. Readiness favours PSA throughout; the AMMOGEN demonstration of a membrane-based cracker missed its recovery target (Gemserv Ltd et al., 2025). Against the Phase 1 report: the industrial ranking that put the raw membrane below PSA is replaced by "depends on PSA recovery, parity near 0.80".
+
+![**Figure 36.1.** LCOH of PSA and Pd-Ag membrane configurations for industrial and grade D hydrogen over the sourced input ranges. *Source: independent Python calculation, results/figures/research/purification_phase2_comparison.png.*](../../results/figures/research/purification_phase2_comparison.png){width=85%}
+
+![**Figure 36.2.** LCOH against the PSA H~2~ recovery, with the membrane band and the parity recovery. *Source: independent Python calculation, results/figures/research/purification_phase2_psa_recovery.png.*](../../results/figures/research/purification_phase2_psa_recovery.png){width=85%}
+
+Relative to the 0.85 assumption, the pessimistic Yáñez recovery (different feed) adds 1.559 USD/kg (industrial) and 1.725 USD/kg (grade D); the 0.71 recovery of Hansen et al. (2024) adds 0.471, the mass-balance relation about 0.224 and the Mehr et al. (2026) value of 0.81 adds 0.066 USD/kg.
+
+## 36.3 Energy balance and purity cost (H4-e, H4-b)
+
+The tail gas covers the furnace demand of 2,293 kW at a recovery of 0.7651 for either technology. Above it, the plant needs supplementary fuel: PSA at 0.85 leaves a 773 kW deficit and the membrane at 0.90 imports 4.61 kWh/kg. Below it, the lost hydrogen has no use in this flowsheet and surplus heat is not credited. Row H4-e (recovery, energy and cost are coupled through the tail gas) is SUPPORTED by this computed balance.
+
+The cost order raw < industrial < grade D holds in every sourced combination and at every electricity price (3.784 / 3.984 / 4.237 USD/kg at 0.1402 USD/kWh). But raw < industrial is structural, most of the grade D increment is the 350 bar delivery, and the purity-only increment at equal 30 bar delivery is small: +0.017 USD/kg for the membrane polishing bed (proxy cost) and +0.002 (mass-balance relation) to +0.166 USD/kg (Yáñez points) for PSA. Row H4-b stays INCONCLUSIVE under the strict row rule. Row H4-a (a PSA purity-recovery trade-off) is INCONCLUSIVE because no PSA purity-recovery relation is computed; the only sourced slope (75.3 % to 55.5 % recovery between 99.25 and 99.97 % purity) is for a different feed. Row H4-c is CONTRADICTED: the published PSA point of Cho et al. (2026), 99.11 mol% H~2~ with about 8,900 ppm N~2~, meets neither grade. Row H4-d (membrane against PSA) is INCONCLUSIVE because the ranking reverses inside the sourced ranges.
+
+![**Figure 36.3.** Recovery against cost and energy for PSA and membrane, with membrane N~2~ leakage at the sourced selectivity (57 to 115 ppm over recovery 0.50 to 0.95 at 40,541). *Source: independent Python calculation, results/figures/research/purification_phase2_tradeoff.png.*](../../results/figures/research/purification_phase2_tradeoff.png){width=85%}
+
+## 36.4 Limits
+
+There is no adsorption-cycle PSA model and no measured PSA recovery on cracked ammonia. Membrane housing, skid and heating CAPEX, TSA heat, PSA power, NH~3~ inhibition and membrane ageing are not modelled. The NH~3~ price was not varied in this comparison. The browser simulator (Section 39) has no membrane model.

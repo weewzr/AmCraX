@@ -1,0 +1,255 @@
+{
+ "provenance": {
+  "generated": "2026-11-23",
+  "workstream": "Phase 2 L1 part A",
+  "access_date": "2026-11-23",
+  "purpose": "Actual Singapore carbon-tax boundary (default) from official sources, plus clearly separated hypothetical life-cycle price reference points. Hypothetical items are never Singapore law.",
+  "quote_provenance_key": {
+   "statute_verbatim": "Text copied by this agent from the Singapore Statutes Online page for the Carbon Pricing Act 2018 (2020 Revised Edition as amended, current version stated by the site as at 23 Nov 2026). Exact.",
+   "official_page_excerpt": "Short quoted fragments returned by the web-fetch tool from an official government page. The fragments are verbatim as returned, but they were not re-read in a browser; re-check before quoting in the report.",
+   "secondary": "Law-firm or press source. Context only; never the basis of a fact."
+  },
+  "access_notes": "Singapore Statutes Online (sso.agc.gov.sg) answers automated requests only intermittently (HTTP 202 with an empty body when throttled). Sections read in full: 1-7 (via whole-document view), 20, 33A, First Schedule, Second Schedule, Third Schedule. Sections 16, 20A-20G, 26 and 33B were requested but returned empty bodies and are NOT read. Subsidiary legislation (regulations that set the international carbon credit criteria and any numerical limit) was not read."
+ },
+ "facts": [
+  {
+   "id": "rate_2019_2023",
+   "fact": "Carbon tax rate for emissions years up to and including 2023",
+   "value": 5,
+   "unit": "SGD per tCO2e",
+   "quote": "for carbon tax for GHG emissions in 2023 or any earlier emissions year \u2014 $5/tCO2e",
+   "document": "Carbon Pricing Act 2018, Third Schedule, Part 1, para 1(a)",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc3-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim"
+  },
+  {
+   "id": "rate_2024_2025",
+   "fact": "Carbon tax rate for emissions years 2024 and 2025",
+   "value": 25,
+   "unit": "SGD per tCO2e",
+   "quote": "for carbon tax for GHG emissions in 2024 or 2025 \u2014 $25/tCO2e",
+   "document": "Carbon Pricing Act 2018, Third Schedule, Part 1, para 1(b) (inserted by Act 37 of 2022 wef 01/01/2024)",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc3-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim"
+  },
+  {
+   "id": "rate_2026_onward",
+   "fact": "Carbon tax rate for emissions year 2026 and every later year (the statute sets no end date and no step to a higher figure)",
+   "value": 45,
+   "unit": "SGD per tCO2e",
+   "quote": "for carbon tax for GHG emissions in 2026 or any later emissions year \u2014 $45/tCO2e",
+   "document": "Carbon Pricing Act 2018, Third Schedule, Part 1, para 1(c)",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc3-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "note": "The Act therefore fixes SGD 45 from 2026 with no 2027 change. A higher rate for 2028 onward needs a further amendment (not in the current text)."
+  },
+  {
+   "id": "rate_2030_range",
+   "fact": "Government aim for the rate by 2030",
+   "value": "50 to 80",
+   "unit": "SGD per tCO2e",
+   "quote": "with a view of reaching $50 to $80 per tonne by 2030",
+   "document": "National Environment Agency, Carbon Tax page; also National Climate Change Secretariat, Carbon Tax page (\"S$50-80/tCO2e by 2030\") and Minister Grace Fu, Second Reading speech, Carbon Pricing (Amendment) Bill (\"between $50 to $80 per tonne by 2030\")",
+   "url": "https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official_as_policy_intention_only",
+   "quote_class": "official_page_excerpt",
+   "note": "NOT legislated: the Third Schedule contains no rate above SGD 45. A press summary (secondary, not verified at the Ministry of Finance) says Budget 2026 stated the 2030 rate could be at the lower end of the range if global momentum weakens. Not confirmed at an official source."
+  },
+  {
+   "id": "carbon_price_fixed_price_credit",
+   "fact": "Value of a fixed-price carbon credit (used to pay the tax)",
+   "value": "5 (bought 2024 or earlier); 25 (bought 2025 or 2026); 45 (bought 2027 or later)",
+   "unit": "SGD per credit (1 credit = 1 tCO2e)",
+   "quote": "for any fixed-price carbon credit purchased in 2025 or 2026 \u2014 $25; (c) for any fixed-price carbon credit purchased in 2027 or any later year \u2014 $45.",
+   "document": "Carbon Pricing Act 2018, Third Schedule, Part 2, para 1",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc3-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim"
+  },
+  {
+   "id": "threshold_taxable",
+   "fact": "Facility emissions threshold for being a taxable facility",
+   "value": 25000,
+   "unit": "tCO2e per year, per business facility (single site)",
+   "quote": "The second emissions threshold is 25,000 tCO2e.",
+   "document": "Carbon Pricing Act 2018, Second Schedule, Part 1, para 2; s 7(1)(c) (registration as a taxable facility when the facility's total reckonable GHG emissions attain the second threshold in a year); s 3 (business facility is a single site)",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc2-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "note": "First (reporting) threshold is 2,000 tCO2e (same Schedule, para 1). Section 7(1) counts 'the total amount of reckonable GHG emissions'. NEA page: 'all industrial facilities with an annual direct GHG emissions of at least 25,000 tonne' (official_page_excerpt)."
+  },
+  {
+   "id": "what_counts_toward_threshold",
+   "fact": "Only reckonable GHG emissions count toward the threshold and are taxed; non-reckonable emissions are excluded",
+   "value": "reckonable = any GHG emission other than a non-reckonable one",
+   "quote": "\u201creckonable GHG emission\u201d means any GHG emission other than a non-reckonable GHG emission",
+   "document": "Carbon Pricing Act 2018, s 2(1); Second Schedule, Part 2 lists non-reckonable emissions",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?WholeDoc=1",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "list_of_non_reckonable_items_read": [
+    "SF6 emitted in manufacturing, installing, using or disposing of electrical equipment",
+    "CO2 used and emitted in purging; used and emitted in blasting; emitted in using lubricant or paraffin wax",
+    "CO2 from combustion of biodiesels, biogasoline, charcoal, landfill gas, sludge gas, black liquor, wood or wood waste, other biogas, other liquid biofuel, other primary solid biomass",
+    "HFCs and PFCs from refrigeration and air-conditioning for non-manufacturing purposes",
+    "any GHG emitted using fire protection equipment; as a fugitive emission (excluding flaring and venting); using any vehicle to transport persons or goods; using any fuel on which excise duty is payable or exempt under the Customs Act 1960; in AFOLU activities"
+   ],
+   "note": "Item 1 of Part 2 (deleted by Act 37 of 2022 wef 01/01/2024) is no longer in force."
+  },
+  {
+   "id": "gases_covered",
+   "fact": "Greenhouse gases covered and the global warming potentials written into the Act (IPCC AR5 basis)",
+   "value": {
+    "CO2": 1,
+    "CH4": 28,
+    "N2O": 265,
+    "NF3": 16100,
+    "SF6": 23500,
+    "HFCs": "listed individually, e.g. HFC-23 12,400",
+    "PFCs": "listed individually, e.g. PFC-14 6,630"
+   },
+   "unit": "GWP100 (dimensionless)",
+   "quote": "3. Nitrous oxide N2O 265",
+   "document": "Carbon Pricing Act 2018, First Schedule (as amended by Act 37 of 2022 wef 01/01/2024); definition of 'carbon dioxide equivalence' in s 2(1) uses the third column of the First Schedule",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc1-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "answer_is_N2O_covered": true,
+   "note_for_modellers": "N2O is covered and is converted with GWP 265 in the Act, not the AR6 value 273 used in the AmCraX LCA module. A carbon-tax calculation for Singapore should use 265 (and 28 for CH4). NOx (NO, NO2) and NH3 are not listed gases and are therefore outside the tax. NEA also lists CO2, CH4, N2O, SF6, NF3, HFCs, PFCs (official_page_excerpt)."
+  },
+  {
+   "id": "scope_direct_only",
+   "fact": "The tax base is emissions emitted directly from the business facility (Scope 1)",
+   "value": "direct emissions of the facility only",
+   "quote": "\u201cGHG emission\u201d, in relation to any business facility, means any greenhouse gas emitted into the atmosphere directly from the business facility",
+   "document": "Carbon Pricing Act 2018, s 2(1). NEA page: \"GHG emissions directly released into the atmosphere (i.e. Scope 1 Emissions)\"",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?WholeDoc=1",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "note": "Purchased electricity (Scope 2) is not an emission of the buyer's facility under this definition. The tax is levied on the emitting generator; cost pass-through to electricity tariffs is an economic effect, not a legal liability of the consumer (NCCS page, official_page_excerpt)."
+  },
+  {
+   "id": "imported_fuel_upstream_out_of_scope",
+   "fact": "Emissions embodied in imported fuels or feedstocks (for example imported ammonia) and upstream emissions abroad are not in the tax base",
+   "value": "out of scope (consequence of the direct-emission definition)",
+   "quote": "any greenhouse gas emitted into the atmosphere directly from the business facility",
+   "document": "Carbon Pricing Act 2018, s 2(1) definition of 'GHG emission'; s 5(1) 'This Act applies only to industry sectors prescribed.' No provision read imposes a charge on embodied or upstream emissions.",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?WholeDoc=1",
+   "access_date": "2026-11-23",
+   "status": "confirmed_by_definition_not_by_an_explicit_exclusion",
+   "quote_class": "statute_verbatim",
+   "caveat": "No official page or provision read states this in so many words. The conclusion follows from the direct-emission definition. The charging section (s 16) and the transition-framework sections were not retrieved (HTTP throttle), so a full read-through of the operative sections is outstanding. The Minister's second-reading speech mentions the EU carbon border adjustment mechanism only as a global trend, and no Singapore border adjustment is described in any page read."
+  },
+  {
+   "id": "ammonia_combustion_treatment",
+   "fact": "Burning ammonia or hydrogen on site emits no CO2, so no CO2 tax arises from that fuel; any N2O emitted is a covered gas and counts at GWP 265",
+   "value": "CO2 from NH3/H2 combustion = 0; N2O taxable if the facility is above the threshold",
+   "quote": "3. Nitrous oxide N2O 265",
+   "document": "Carbon Pricing Act 2018, First Schedule; neither NEA nor NCCS page mentions ammonia or hydrogen (official_page_excerpt, searched)",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018?ProvIds=Sc1-&ViewType=Within",
+   "access_date": "2026-11-23",
+   "status": "derived_from_official_text",
+   "note": "The facility threshold is on total reckonable CO2e. A small ammonia-fired facility with only N2O emissions would not reach 25,000 tCO2e/yr unless N2O is very large (25,000 / 265 = about 94 t N2O per year)."
+  },
+  {
+   "id": "icc_offset_limit",
+   "fact": "International carbon credits may offset up to 5 per cent of taxable emissions from 2024",
+   "value": 5,
+   "unit": "per cent of taxable emissions",
+   "quote": "taxable facilities are allowed to use high quality ICC to offset up to 5% of their taxable emissions",
+   "document": "NEA Carbon Tax page (also: NCCS Carbon Tax page 'offset up to 5% of their taxable emissions from 2024'; Minister Grace Fu second-reading speech: facility-level limit 'currently intended to be set at 5% of taxable emissions')",
+   "url": "https://www.nea.gov.sg/our-services/climate-change-energy-efficiency/climate-change/carbon-tax",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official_page_but_numeric_limit_not_found_in_statute_text_read",
+   "quote_class": "official_page_excerpt",
+   "statute_read": "s 33A: \"An eligible international carbon credit is an international carbon credit that \u2014 (a) meets the prescribed criteria; and (b) is accepted as an eligible international carbon credit by the Agency in accordance with any direction of the Minister.\" The numeric limit is not in s 33A; it presumably sits in s 33B or subsidiary legislation, which were not read.",
+   "unconfirmed": "Statutory source of the 5 per cent figure (section or regulation number)."
+  },
+  {
+   "id": "transition_framework_eite",
+   "fact": "Transition framework: transitory allowances for existing emissions-intensive trade-exposed (EITE) facilities reduce the reckonable emissions on which tax is charged; they cover only part of emissions; new facilities and new investments are excluded",
+   "value": "allowances apply from emissions year 2024 up to a date the Minister for Trade and Industry prescribes (secondary reading of the Bill)",
+   "quote": "\"Transitory allowances will be provided only for a proportion of the companies\u2019 emissions.\" and \"The remaining emissions will be subject to the prevailing headline carbon tax rate.\"",
+   "document": "Ministry of Trade and Industry, oral reply to PQ on transition framework for carbon tax; Minister Grace Fu, second-reading speech ('insert new Sections 20A to 20G in Part 5'; 'These transitory allowances will not offset the entire carbon tax obligation of the EITE companies'); NCCS Carbon Tax page ('limited to only a portion of companies' emissions', new investments do not qualify); NEA page ('The allowances will be determined based on efficiency standards and decarbonisation targets')",
+   "url": "https://www.meti.gov.sg/newsroom/oral-reply-to-pq-on-transition-framework-for-carbon-tax/",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official_policy_statements_statute_text_not_read",
+   "quote_class": "official_page_excerpt",
+   "secondary_support": "Rajah & Tann client update (Oct 2022, law firm): allowances 'refers to the amount by which the total amount of reckonable GHG emissions of the taxable facility in the emissions year may be reduced for the purpose only of determining the amount of the tax chargeable'; applies to emissions years from 1 Jan 2024 up to a date prescribed by the Minister for Trade and Industry. https://rajahtannasia.com/wp-content/uploads/2023/04/2022-10_Tabling-Carbon-Pricing-Amendment-Bill-10-Oct-2022.pdf",
+   "unconfirmed": "Text of ss 20A-20G (Division 1A, Part 5); which facilities are designated EITE; the allowance quantum for any ammonia or hydrogen facility; whether a hypothetical new ammonia cracker or turbine plant would qualify (policy statements say new investments do not)."
+  },
+  {
+   "id": "facility_count_context",
+   "fact": "Number of facilities liable",
+   "value": "about 50 facilities in manufacturing, power, waste and water sectors",
+   "quote": "about 50 facilities in the manufacturing, power, waste, and water sectors",
+   "document": "NCCS Carbon Tax page (official_page_excerpt)",
+   "url": "https://www.nccs.gov.sg/singapores-climate-action/mitigation-efforts/carbontax/",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "official_page_excerpt"
+  },
+  {
+   "id": "statute_version",
+   "fact": "Version of the Act read",
+   "value": "Carbon Pricing Act 2018, 2020 Revised Edition, amendments up to Act 37 of 2022 wef 01/01/2024; SSO states 'Current version as at 23 Nov 2026'",
+   "quote": "Status: Current version as at 23 Nov 2026",
+   "document": "Singapore Statutes Online, Carbon Pricing Act 2018",
+   "url": "https://sso.agc.gov.sg/Act/CPA2018",
+   "access_date": "2026-11-23",
+   "status": "confirmed_official",
+   "quote_class": "statute_verbatim",
+   "note": "Amendment history listed by SSO: 2019 Act 23 of 2018; S 160/2021; Act 40 of 2019; S 770/2021; 2020 RevEd; S 846/2022; Act 37 of 2022 (wef 01/01/2024). No amendment after 01 Jan 2024 is listed."
+  }
+ ],
+ "hypothetical_reference_points_NOT_SINGAPORE_LAW": {
+  "warning": "Context for a hypothetical life-cycle carbon price scenario only. None of this is Singapore law or policy and must be labelled hypothetical wherever used.",
+  "items": [
+   {
+    "id": "cbam_scope",
+    "fact": "EU Carbon Border Adjustment Mechanism applies to imports of selected carbon-intensive goods including fertilisers and hydrogen; definitive regime from 1 January 2026; certificate price is tied to EU ETS allowance prices",
+    "quote": "CBAM applies in its definitive regime from 1 January 2026.",
+    "document": "European Commission, Taxation and Customs Union, Carbon Border Adjustment Mechanism",
+    "url": "https://taxation-customs.ec.europa.eu/carbon-border-adjustment-mechanism_en",
+    "access_date": "2026-11-23",
+    "status": "confirmed_official_for_fertilisers_and_hydrogen_sectors",
+    "quote_class": "official_page_excerpt",
+    "also_quoted": "\"cement, iron and steel, aluminium, fertilisers, electricity and hydrogen\"; \"ensuring that the price of imports reflects their embedded carbon emissions\"; certificate prices based on \"EU Emissions Trading System (EU ETS) allowance auction prices\"",
+    "unconfirmed": "Ammonia (CN 2814) as an Annex I good and the direct versus indirect emission accounting for ammonia and hydrogen. A web search summary of Regulation (EU) 2023/956 Annex I (secondary extract hosted by the Malta climate-action ministry) lists ammonia under CN 2814 and nitric acid under CN 2808 with N2O; EUR-Lex and that file returned HTTP 202/403 to automated access, so Annex I was not read. Treat ammonia coverage as probable but unconfirmed at the primary text."
+   },
+   {
+    "id": "eu_ets_price",
+    "fact": "EU ETS allowance (EUA) futures price level, November 2026",
+    "value": "about 90",
+    "unit": "EUR per tCO2",
+    "quote": "CO\u2082 emission allowance futures (EUA, December contract) were trading at \u20ac90.5/t.",
+    "document": "GMK Center, 'European carbon prices exceeded \u20ac90/t in November' (press, citing ICE data; dated 1 November 2026 on the page yet reporting 2, 4 and 12-13 November prices, so the date line is unreliable); S&P Global and OPIS reports found by search give the same level",
+    "url": "https://gmk.center/en/news/european-carbon-prices-exceeded-e90-t-in-november/",
+    "access_date": "2026-11-23",
+    "status": "secondary_press_report_of_market_price",
+    "quote_class": "secondary",
+    "note": "Price dated 2 Nov 2026 (EUR 90.5), 4 Nov (EUR 90.2), 12-13 Nov (above EUR 90). A primary exchange (ICE) or European Commission figure was not obtained. The EC ETS page states no price."
+   }
+  ]
+ },
+ "gaps": [
+  "Charging section s 16 and the operative text of ss 20A-20G, 26, 33B not read (SSO throttled with empty responses).",
+  "Subsidiary legislation (carbon price, eligible ICC criteria, any numeric ICC limit) not read.",
+  "5 per cent ICC limit: official pages and a Minister's speech give it, statute or regulation reference not identified.",
+  "No official source states explicitly that imported-fuel or upstream emissions are outside the tax; the conclusion rests on the direct-emission definition.",
+  "Ministry of Finance Budget statement text for the 2022 rate path and the Budget 2026 remark on the 2030 rate was not retrieved from mof.gov.sg (search surfaced only an overview page).",
+  "CBAM Annex I ammonia entry and the EU ETS price from a primary source."
+ ]
+}

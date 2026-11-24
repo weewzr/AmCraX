@@ -2,6 +2,8 @@
 
 # 19 Techno-economic assessment
 
+**Status in version 2.0.** This section documents the legacy cost model of the core platform. Its results, including the baseline LCOH of 3.919 USD/kg H~2~ at 0.084 USD/kWh, are legacy core results, superseded for research outputs: every research section and the browser simulator use the unified reference scenario of Section 32 (4.015 USD/kg H~2~, 7.67 MUSD CAPEX, 0.1402 USD/kWh). The stored core files in `results/simulations` are unchanged and still reproduce the numbers below.
+
 ## 19.1 Method and economic basis
 
 The levelised cost of hydrogen (LCOH) is computed by `amcrax.economics.compute_lcoh` (**independent Python calculation**) from the converged **Aspen Plus V15 simulation** of the baseline (600 °C, 20 bar, H~2~ recovery 0.85; Section 5). Table 19.1 lists the inputs. Costs are nominal USD in the cost year of each source; no CEPCI escalation is applied because the two 2024 CEPCI values in the library conflict, so the result is labelled "mixed 2024–2025 USD".
@@ -37,7 +39,7 @@ where $C_\mathrm{cap}$ (USD) is the total CAPEX, $C_\mathrm{fix}$ (USD/yr) the f
 
 ## 19.2 Baseline LCOH
 
-The baseline LCOH is **3.919 USD/kg H~2~** (preliminary, order of magnitude). The NH~3~ feed contributes 3.040 USD/kg (78 %), the annualised CAPEX 0.356, the imported heat 0.268 and the fixed OPEX 0.252 USD/kg; electricity, cooling water and catalyst are each below 0.003 USD/kg (Figure 19.1). Excluding the feed, the reconversion cost is 0.879 USD/kg.
+The legacy baseline LCOH is **3.919 USD/kg H~2~** (preliminary, order of magnitude; legacy core result, superseded for research outputs by 4.015 USD/kg, Section 32). The NH~3~ feed contributes 3.040 USD/kg (78 %), the annualised CAPEX 0.356, the imported heat 0.268 and the fixed OPEX 0.252 USD/kg; electricity, cooling water and catalyst are each below 0.003 USD/kg (Figure 19.1). Excluding the feed, the reconversion cost is 0.879 USD/kg.
 <!-- data: results/simulations/economics_baseline.json lcoh_USD_per_kg (3.918842), breakdown_USD_per_kg, reconversion_cost_USD_per_kg (0.878797) -->
 
 ![**Figure 19.1.** Breakdown of the baseline LCOH (3.92 USD/kg H~2~ at 450 USD/t NH~3~). The feed cost controls the LCOH, and utilities other than heat are negligible. *Source: independent Python calculation (amcrax.economics) on Aspen Plus V15 baseline results.*](../../results/figures/lcoh_breakdown_baseline.png){width=85%}

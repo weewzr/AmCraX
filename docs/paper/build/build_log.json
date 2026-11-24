@@ -1,0 +1,31 @@
+{
+  "build_time": "2026-11-24T13:29:00",
+  "docx_only": false,
+  "documents": [
+    {
+      "source": "docs/paper/amcrax_paper.md",
+      "words_markdown_body": 8541,
+      "figures": 8,
+      "tables": 6,
+      "pdf_pages": 19,
+      "privacy_scan": "clean"
+    },
+    {
+      "source": "docs/executive_summary.md",
+      "words_markdown_body": 941,
+      "figures": 0,
+      "tables": 2,
+      "pdf_pages": 3,
+      "privacy_scan": "clean"
+    }
+  ],
+  "exit_code": 0,
+  "log": [
+    "pandoc: pandoc \"<root>\\docs\\paper\\build\\AmCraX_Paper.pre.md\" -f markdown+tex_math_dollars+pipe_tables+fenced_divs+bracketed_spans+implicit_figures+superscript+subscript -t docx --wrap=none \"--reference-doc=<root>\\docs\\technical_report\\reference.docx\" \"--resource-path=<root>\\docs\\paper;<root>;<root>\\docs\\paper\" -o \"<root>\\docs\\paper\\build\\AmCraX_Paper.docx\"",
+    "docx written: docs/paper/build/AmCraX_Paper.docx (8 figures, 6 tables)",
+    "pdf written: docs/paper/build/AmCraX_Paper.pdf (19 pages)",
+    "pandoc: pandoc \"<root>\\docs\\paper\\build\\AmCraX_Executive_Summary.pre.md\" -f markdown+tex_math_dollars+pipe_tables+fenced_divs+bracketed_spans+implicit_figures+superscript+subscript -t docx --wrap=none \"--reference-doc=<root>\\docs\\technical_report\\reference.docx\" \"--resource-path=<root>\\docs;<root>;<root>\\docs\\paper\" -o \"<root>\\docs\\paper\\build\\AmCraX_Executive_Summary.docx\"",
+    "docx written: docs/paper/build/AmCraX_Executive_Summary.docx (0 figures, 2 tables)",
+    "pdf written: docs/paper/build/AmCraX_Executive_Summary.pdf (3 pages)"
+  ]
+}

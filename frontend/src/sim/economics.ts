@@ -1,10 +1,11 @@
 /**
- * Port of amcrax.economics.singapore.evaluate (basis 'pre-unification'; parameters from model.json.economics).
+ * Port of amcrax.economics.singapore.evaluate with capex_mode 'reference' (unified reference scenario, CAPEX method cho2026_itemised_v1;
+ * parameters from model.json.economics).
  * All USD (cost basis as model.economics.cost_basis); SGD = USD x model.fx.SGD_per_USD.
- * Not ported: the psa_recovery re-scaling override (the browser re-computes the process instead), capex_mode 'legacy',
+ * Not ported: the psa_recovery re-scaling override (the browser re-computes the process instead), capex_mode 'equipment' and 'legacy',
  * IRR (NPV and payback are ported).
  */
-import type { SimModel } from './types'
+import type { CatalystPriceSource, SimModel } from './types'
 
 export interface EconSummary {
   h2_kg_h: number; nh3_feed_kmol_h: number; heat_deficit_kW: number; cooling_kW: number; pump_kW: number
@@ -39,6 +40,10 @@ export interface EconResult {
   direct_emissions_tCO2e_per_yr: number
   carbon_tax_liable: boolean
   capex_total_USD: number
+  capex_by_item_USD: Record<string, number>
+  capex_method: string
+  capex_cost_year: number
+  h2_price_USD_per_kg: number
   npv_USD: number
   payback_yr: number | null
   annual_h2_kg: number
@@ -106,15 +111,17 @@ export function evaluateEconomics(m: SimModel, s: EconSummary, scenario: string 
   const catPrice = o.catalyst_price_USD_per_kg ?? (a.catalyst_price_USD_per_kg as number | null) ?? E.catalyst_price_USD_per_kg[cat]
   const catLife = num('catalyst_lifetime_yr', o.catalyst_lifetime_yr)
   const catUSD = (mcat * catPrice) / catLife
-  // equipment capex
-  const c = E.capex_equipment
-  const shares = c.equipment_shares_pct
-  const ssum = Object.values(shares).reduce((x, y) => x + y, 0)
-  const ratio = nh3 / c.reference_feed_kmol_h
+  // unified reference CAPEX (cho2026_itemised_v1): every ISBL item scales with the NH3 feed ratio^n (size_driver 'nh3_feed'), then indirects
+  const c = E.capex_reference
+  const ratio = nh3 / c.reference_nh3_feed_kmol_h
   const n = (sp.capex_scaling_exponent as number | null) ?? c.scaling_exponent
-  let pecTot = 0
-  for (const v of Object.values(shares)) pecTot += ((c.pec_reference_kUSD * 1e3 * v) / ssum) * ratio ** n * c.singapore_location_factor
-  const capex = pecTot * c.tci_over_pec * num('capex_multiplier')
+  const mult = num('capex_multiplier')
+  const capexItems: Record<string, number> = {}
+  let capex = 0
+  for (const [item, inst] of Object.entries(c.installed_ISBL_USD_reference_plant)) {
+    const v = inst * ratio ** n * c.location_factor * mult * c.indirect_factor
+    capexItems[item] = v; capex += v
+  }
   const i = num('discount_rate', o.discount_rate), life = num('plant_life_yr', o.plant_life_yr)
   const f = crf(i, life)
   const maint = num('maintenance_frac_capex_per_yr') * capex
@@ -136,9 +143,21 @@ export function evaluateEconomics(m: SimModel, s: EconSummary, scenario: string 
   return {
     lcoh_USD_per_kg: lcoh, lcoh_SGD_per_kg: lcoh * fx, rec_USD_per_kg: lcoh - br.ammonia_feed, breakdown_USD_per_kg: br,
     breakdown_SGD_per_kg: brS, catalyst_mass_kg: mcat, catalyst_price_USD_per_kg: catPrice, direct_emissions_tCO2e_per_yr: direct,
-    carbon_tax_liable: liable, capex_total_USD: capex, npv_USD: npv, payback_yr: net > 0 ? capex / net : null, annual_h2_kg: annualH2,
+    carbon_tax_liable: liable, capex_total_USD: capex, capex_by_item_USD: capexItems,
+    capex_method: c.method, capex_cost_year: c.cost_year, h2_price_USD_per_kg: h2price, npv_USD: npv, payback_yr: net > 0 ? capex / net : null, annual_h2_kg: annualH2,
     h2_product_kg_h: h2, nh3_price_USD_per_t: price, kg_nh3_fuel_per_kg_h2: fuelKg / h2, fx_SGD_per_USD: fx, notes,
   }
+}
+
+/** Catalyst price (USD per kg finished catalyst) of a rate law. 'low' | 'central' | 'high' = metal-content derived prices
+ * (research/data/catalyst_prices.json, NOT supplier quotations); 'phase1_tea' = the Phase 1 published TEA price (Ni or Ru). */
+export function catalystPrice(m: SimModel, lawId: string, source: CatalystPriceSource): { usd_per_kg: number; label: string } {
+  if (source === 'phase1_tea') {
+    const metal = economicMetal(m, m.kinetics.laws[lawId].metal)
+    return { usd_per_kg: m.economics.catalyst_price_USD_per_kg[metal], label: `Phase 1 published TEA price (${metal})` }
+  }
+  const e = m.economics.catalyst_prices.by_law[lawId]
+  return { usd_per_kg: e[source].usd_per_kg, label: `${e.formulation}, ${source} metal-content scenario (derived, not a quotation)` }
 }
 
 /** Economic metal of a rate law (model.economics.catalyst_metal_map; Ni-Ru priced as Ru = assumption). */

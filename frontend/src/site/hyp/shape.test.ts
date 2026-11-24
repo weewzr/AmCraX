@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { baseName, extent, frac, groupBy, isoCheck, list, pivotXY, safeRepoPath, show, splitFitted, srcOf, truthy, verdictKind } from './shape'
+import { baseName, extent, frac, groupBy, isoCheck, list, pivotXY, safeRepoPath, show, splitFitted, srcOf, truthy, verdictKind, normVerdict, interpRows, nearestRow } from './shape'
 
 describe('srcOf', () => {
   it('maps the source_type strings of the result files', () => {
@@ -55,6 +55,15 @@ describe('evidence-matrix helpers', () => {
     expect(verdictKind('maybe')).toBe('neutral')
     expect(verdictKind(undefined)).toBe('neutral')
   })
+  it('maps the version 2 verdict words, with qualifiers and underscores', () => {
+    expect(verdictKind('MIXED')).toBe('mixed')
+    expect(verdictKind('PARTIALLY SUPPORTED')).toBe('partial')
+    expect(verdictKind('partially_supported')).toBe('partial')
+    expect(verdictKind('SUPPORTED (necessity)')).toBe('ok')
+    expect(verdictKind('CONTRADICTED under the actual boundary')).toBe('error')
+    expect(normVerdict(' partially_supported ')).toBe('PARTIALLY SUPPORTED')
+    expect(normVerdict(3)).toBe('')
+  })
   it('shows any JSON value as text', () => {
     expect(show(null)).toBe('')
     expect(show(['a', 'b'])).toBe('a; b')
@@ -71,6 +80,27 @@ describe('evidence-matrix helpers', () => {
     expect(safeRepoPath('/etc/passwd')).toBeNull()
     expect(safeRepoPath('https://example.org/a')).toBeNull()
     expect(baseName('results/figures/research/x.png')).toBe('x.png')
+  })
+})
+
+describe('grid interpolation (carbon-pricing Mode B)', () => {
+  const rows = [{ p: 10, y: 3 }, { p: 0, y: 1 }, { p: 5, y: 2 }, { p: 15, y: null }]
+  it('returns stored values at grid points and interpolates linearly between them', () => {
+    expect(interpRows(rows, 'p', 'y', 0)).toBe(1)
+    expect(interpRows(rows, 'p', 'y', 5)).toBe(2)
+    expect(interpRows(rows, 'p', 'y', 2.5)).toBeCloseTo(1.5, 12)
+    expect(interpRows(rows, 'p', 'y', 7)).toBeCloseTo(2.4, 12)
+  })
+  it('never extrapolates and skips rows without a value', () => {
+    expect(interpRows(rows, 'p', 'y', -1)).toBeNull()
+    expect(interpRows(rows, 'p', 'y', 12)).toBeNull()
+    expect(interpRows([], 'p', 'y', 1)).toBeNull()
+    expect(interpRows(rows, 'p', 'y', NaN)).toBeNull()
+  })
+  it('finds the nearest stored row', () => {
+    expect(nearestRow(rows, 'p', 6)?.p).toBe(5)
+    expect(nearestRow(rows, 'p', 9)?.p).toBe(10)
+    expect(nearestRow([], 'p', 9)).toBeNull()
   })
 })
 

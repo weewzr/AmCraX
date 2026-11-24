@@ -5,7 +5,8 @@ import { useData } from '../data/DataContext'
 import { STATIC_SITE_NOTICE } from '../components/Shell'
 import { exportDate } from './data'
 import { REPORT_PDF, downloadUrl } from './downloads'
-import { anchorId, NAV_MORE, NAV_PRIMARY, navActive, platformPath, titleFor } from './routes'
+import { LegacyBanner } from './hyp/phase2'
+import { anchorId, LEGACY_PATHS, NAV_MORE, NAV_PRIMARY, navActive, platformPath, titleFor } from './routes'
 import { useTheme } from './theme'
 import { ExtLink, Wordmark } from './ui'
 
@@ -110,6 +111,7 @@ export function SiteLayout() {
       </header>
       <main id="site-main" tabIndex={-1}>
         <RouteEffects />
+        {LEGACY_PATHS.includes(pathname) ? <LegacyBanner /> : null}
         <Outlet />
       </main>
       <footer className="site-footer">

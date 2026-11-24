@@ -50,7 +50,7 @@ function Configs({ study }: { study: Study }) {
           <HBarChart title={`Cost per kg usable hydrogen for ${END_USES.find((e) => e.id === eu)?.label.toLowerCase()}, ${CASES[cs]}`} source={srcOf(study.provenance?.source_type) ?? 'python_model'} data={data} catKey="config" xLabel="USD per kg usable H2" height={Math.max(300, sub.length * 36 + 90)}
             description="Cost per kg of hydrogen that meets the end-use specification for each purification configuration; configurations that do not meet the specification have no bar."
             series={[{ key: 'Cost per kg usable H2', label: 'Cost per kg usable H2', color: COLORS[0] }]} />
-          <Reading>Configurations without a bar do not meet the end-use specification within the modelled species, so they have no usable-hydrogen cost. Membrane costs assume the selectivity stated under the ranking below, which is not available from the library.</Reading>
+          <Reading>Configurations without a bar do not meet the end-use specification within the modelled species, so they have no usable-hydrogen cost. Membrane costs assume the infinite H2/N2 selectivity of the base model. The only sourced selectivity is an ideal, single-gas value for a new membrane; it is given with the required value under Membrane selectivity.</Reading>
           <DTable caption={`Purification configurations: recovery, purity, contaminants against ISO 14687 grade D limits and cost, ${CASES[cs]}, end use ${eu}`} rows={sub} keyOf={(r, i) => `${r.config}${i}`}
             cols={[
               { h: 'Configuration', cell: (r) => <><code>{String(r.config)}</code><div className="muted small">{label(String(r.config))}</div></>, th: true },

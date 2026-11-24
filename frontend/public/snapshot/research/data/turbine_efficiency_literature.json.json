@@ -1,0 +1,420 @@
+{
+ "provenance": {
+  "generated": "2026-11-23",
+  "workstream": "Phase 2 L1 part B",
+  "access_date": "2026-11-23",
+  "evidence_grade_key": {
+   "measured_on_engine": "Reported from a test on a real engine or combustor.",
+   "vendor_claim": "Manufacturer press release, patent or technical paper without independent data.",
+   "cycle_simulation": "Thermodynamic or process simulation in a peer-reviewed or agency report.",
+   "review_statement": "A review or white paper quoting others."
+  },
+  "verbatim_flag_key": "verbatim = number printed in the source at the stated location; derived = arithmetic by this agent from printed numbers (formula given); search_summary = number seen only in a search-tool summary of an abstract, source page not opened (treated as unverified)",
+  "page_note": "PDF page numbers are the file page; printed page in brackets where it differs."
+ },
+ "key_deliverable_efficiency_difference": {
+  "quantity": "Combined-cycle efficiency with hydrogen-rich cracked gas (H2/N2) minus combined-cycle efficiency with ammonia fired directly, comparable machines",
+  "unit": "percentage points (positive = cracked gas better), LHV basis on the ammonia (or hydrogen) energy supplied",
+  "like_for_like_values": [
+   {
+    "id": "ahmad2025",
+    "delta_pp": 4.9,
+    "type": "derived",
+    "detail": "full cracking (alpha = 0), exhaust-heated cracker, about 54 % versus vaporised NH3 case 2a 49.12 %, same 43 MW-class machine, PR 8",
+    "grade": "cycle_simulation"
+   },
+   {
+    "id": "karpilov2025",
+    "delta_pp": "up to 5.0 to 5.5 (unit printed as per cent; abstract says 5.5, conclusion says 5)",
+    "type": "verbatim",
+    "detail": "chemically recuperated cycle (cracked gas, exhaust-heated) versus simple cycle without recuperation, ammonia fed, TIT 800 to 1200 degC",
+    "grade": "cycle_simulation"
+   }
+  ],
+  "not_like_for_like_values": [
+   {
+    "id": "netl_h2_vs_nh3",
+    "delta_pp": 7.3,
+    "type": "derived",
+    "detail": "66.9 % (hydrogen, steam-diluted, Exhibit 4-9) minus 59.6 % (ammonia, Exhibit 4-6), same agency method and baseline, but pure H2 with steam injection, no cracker, no N2 in the fuel; an upper bound, not a cracked-gas figure",
+    "grade": "cycle_simulation"
+   },
+   {
+    "id": "mhi_patent_vs_netl",
+    "delta_pp": -0.2,
+    "type": "derived",
+    "detail": "MHI patent: cracked-gas plant about 97.4 % of natural-gas gross efficiency, with natural gas 63 % or more (so about -1.6 pp versus gas) minus NETL ammonia 59.6 minus 61.0 (-1.4 pp versus gas). Two unrelated machines, gross versus net basis, vendor claim versus agency model: indicative only and not a valid difference",
+    "grade": "vendor_claim"
+   }
+  ],
+  "recommended_range_for_modellers": {
+   "central": 4.9,
+   "supported_range_pp": "+4.9 to +5.5 (two independent simulation groups, direction and size agree)",
+   "sensitivity_range_pp": "0 to +5.5 (lower bound 0 reflects the cross-source vendor reading, which is not a like-for-like comparison)",
+   "do_not_use": "+7.3 as a cracked-gas value",
+   "evidence_strength": "Weak to moderate. Every number is a cycle simulation (no measured combined-cycle data on cracked gas or on ammonia). Only two like-for-like comparisons exist, both on small or idealised machines (43 MW-class at pressure ratio 8; HYSYS cycle at 800-1200 degC inlet), neither on an F- or H-class machine. The sign is consistent (cracked gas better when the cracker is heated by turbine exhaust); the size is not established for a large frame machine, where direct ammonia is modelled to lose only about 1.4 pp against natural gas (NETL, redesigned turbine)."
+  }
+ },
+ "entries": [
+  {
+   "id": "netl_nh3_ng_baseline",
+   "fuel": "natural gas (B32A reference)",
+   "metric": "combined-cycle net efficiency",
+   "value": 61.0,
+   "unit": "percent",
+   "basis": "LHV",
+   "cycle": "combined cycle",
+   "machine_or_study": "NETL B32A H-class NGCC reference used in NETL ammonia study",
+   "conditions": "Aspen Plus model; HHV basis 55.1 %; GT LHV efficiency 42.2 %; steam cycle 39.1 %; net 992 MWe",
+   "source": "NETL (Oct 2024), Cooled Gas Turbine and Combined Cycle Analysis for NH3-CH4 Fuel Mixes (up to 100% NH3)",
+   "location": "Exhibit 4-6, PDF pp. 54-55 (printed 40-41)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "netl_nh3_fm1_5",
+   "fuel": "NH3-CH4 mixtures, 20/40/60/80/100 mol% NH3 (Mix 1 to Mix 5)",
+   "metric": "combined-cycle net efficiency",
+   "value": {
+    "Mix1_20pct": 59.5,
+    "Mix2_40pct": 59.7,
+    "Mix3_60pct": 59.7,
+    "Mix4_80pct": 59.2,
+    "Mix5_100pct": 59.6
+   },
+   "unit": "percent",
+   "basis": "LHV (HHV: 53.2, 52.9, 52.1, 50.6, 49.3)",
+   "cycle": "combined cycle, steam cycle with HRSG",
+   "machine_or_study": "NETL ammonia-fuel gas turbine (AFGT): single design, H-class-like, TIT 2800 F (1538 degC), pressure ratio 23.1, two-stage rich-lean combustor, designed for 100 % NH3",
+   "conditions": "GT LHV efficiency 38.3, 38.8, 39.5, 39.9, 42.3 %; steam cycle 40.2, 40.1, 39.8, 40.4, 40.1 %; net power 1045, 1070, 1106, 1202, 1379 MWe",
+   "source": "NETL (Oct 2024)",
+   "location": "Exhibit 4-6, PDF pp. 54-55; text p. 52-53: 'ammonia combined cycle has similar combined cycle efficiency values'",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "change_vs_natural_gas_pp_Mix5": -1.4,
+   "change_note": "derived: 59.6 - 61.0",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "netl_h2_mix1_5",
+   "fuel": "hydrogen-methane with steam diluent, Mix 5 = 100 % hydrogen by mass (58 vol% H2 / 42 vol% H2O)",
+   "metric": "combined-cycle net efficiency",
+   "value": {
+    "Mix1": 58.7,
+    "Mix2": 59.1,
+    "Mix3": 60.9,
+    "Mix4": 63.6,
+    "Mix5_100pct_H2": 66.9
+   },
+   "unit": "percent",
+   "basis": "LHV (HHV: 52.8, 53.0, 54.4, 56.0, 56.6)",
+   "cycle": "combined cycle with steam extracted from the HP turbine as NOx diluent",
+   "machine_or_study": "NETL hydrogen gas turbine design (same cooled-turbine model and B32A baseline as the ammonia study)",
+   "conditions": "GT LHV efficiency 40.8, 41.2, 42.7, 45.6, 49.6 %; steam cycle 30.3 % for Mix 5; net 1399-1421 MWe; combustor NOx target below 45 ppm (40 ppmvd) by adiabatic flame temperature; combined-cycle results are for the steam-diluent case only (nitrogen diluent was analysed for combustion only)",
+   "source": "NETL (May 2023), Cooled Gas Turbine and Combined Cycle Analysis for H2-CH4 Fuel Mixes (up to 100% H2)",
+   "location": "Exhibit 4-9, PDF pp. 75-76 (printed 58-59); fuel mixtures Exhibit 2-3 PDF p. 26",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "change_vs_natural_gas_pp_Mix5": 5.9,
+   "change_note": "derived: 66.9 - 61.0. Steam diluent is generated from the plant's own steam cycle, which inflates the lower-heating-value figure relative to a dry-fired machine; do not compare with dry cracked-gas firing without that caveat.",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineandCombinedCycleAnalysisforH2CH4FuelMixesUpto100H2_052523.pdf",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "ahmad2025_direct_nh3",
+   "fuel": "100 % ammonia, liquid (Case 1), vaporised at 1 MPa (Case 2a), vaporised at 0.2 MPa (Case 2b)",
+   "metric": "combined-cycle thermal efficiency",
+   "value": {
+    "case1_liquid": 47.7,
+    "case2a_vaporised_1MPa": 49.12,
+    "case2b_vaporised_0.2MPa": 48.44
+   },
+   "unit": "percent",
+   "basis": "LHV of NH3 (18.8 MJ/kg), net electrical output over total NH3 feed (Eq. 7)",
+   "cycle": "combined cycle",
+   "machine_or_study": "Ahmad et al. 2025, 43 MW-class Keramasan NGCC, Aspen Plus V14, PR 8, ambient 25 degC",
+   "conditions": "NO 83.8 / 107 / 116 ppmv; N2O 0.18 ppmv (LNH3) and 0.15 ppmv (VNH3), Chemkin reactor network",
+   "source": "Ahmad et al. (2025), Int. J. Hydrogen Energy 173, 151337",
+   "location": "Table 6, p. 9; project note research/notes/ahmad2025gtcc.md",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "url": "https://doi.org/10.1016/j.ijhydene.2025.151337",
+   "access_date": "2026-11-23",
+   "note": "Supplementary Material (cracker heat duty) was not available; the paper's reaction equation R1 and the equilibrium figure 19(b) have printed errors recorded in the project note."
+  },
+  {
+   "id": "ahmad2025_full_crack",
+   "fuel": "H2/N2 cracked gas, full cracking (alpha = 0), cracker at 500 degC and 10 bar heated by turbine exhaust",
+   "metric": "combined-cycle thermal efficiency",
+   "value": 54,
+   "unit": "percent (about)",
+   "basis": "LHV of NH3 feed",
+   "cycle": "combined cycle with exhaust-heated cracker",
+   "machine_or_study": "Ahmad et al. 2025 (same machine as above)",
+   "conditions": "PR 8; read as 'about 54 %' in the text; TCI rises from 180 to 230 MUSD (+28 %)",
+   "source": "Ahmad et al. (2025)",
+   "location": "p. 15 (project note)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "delta_vs_case2a_pp": 4.9,
+   "delta_note": "derived: 54 - 49.12; 'about 54' carries a rounding uncertainty of roughly +-0.5 pp, so the difference is 4.4 to 5.4 pp",
+   "url": "https://doi.org/10.1016/j.ijhydene.2025.151337",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "karpilov2025_crgt",
+   "fuel": "ammonia, with and without exhaust-heat decomposition (chemically recuperated gas turbine)",
+   "metric": "combined-cycle efficiency gain of CRGT over simple gas turbine",
+   "value": "up to 5.5 (abstract) / up to 5 (conclusion)",
+   "unit": "per cent as printed (percentage points not stated)",
+   "basis": "not stated",
+   "cycle": "combined cycle",
+   "machine_or_study": "Karpilov, Papkov and Pashchenko, ICAE 2024, Aspen HYSYS, TIT 800-1200 degC, PR 5-20, turbine 0.90 / compressor 0.85 isentropic",
+   "conditions": "idealised cycle; no combustor or NOx model; maximum gain below 1000 degC inlet",
+   "source": "Karpilov, I., Papkov, V., & Pashchenko, D. (2025). Energy Proceedings 52 (ICAE2024)",
+   "location": "Abstract and Conclusion, pp. 1 and 4",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "url": "https://energy-proceedings.org/wp-content/uploads/icae2024/1728014537.pdf",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "mhi_patent_cracked_cc",
+   "fuel": "decomposed ammonia (about 75 mol% H2 / 25 mol% N2 after residual-NH3 removal)",
+   "metric": "gross thermal efficiency of the plant relative to natural-gas firing",
+   "value": {
+    "relative_to_natural_gas_percent": 97.4,
+    "absolute_LHV_percent_or_more": 60,
+    "natural_gas_case_LHV_percent_or_more": 63
+   },
+   "unit": "percent",
+   "basis": "LHV gross",
+   "cycle": "combined cycle with decomposer heated by steam from the exhaust-heat recovery boilers",
+   "machine_or_study": "Mitsubishi Heavy Industries, patent US 11702988 B2, 1,650 degC-class gas turbine; priority 2019-03-15, filed 2020-03-13, granted 2023-07-18",
+   "conditions": "embodiment, not a measurement; the patent also says 'there is no decrease in principle efficiency due to the ammonia pyrolysis reaction' because the heating value rises across the reaction",
+   "source": "Google Patents page of US11702988B2 (text read through the fetch tool, first 100,000 characters)",
+   "location": "description of first embodiment (no paragraph numbers on the page)",
+   "evidence_grade": "vendor_claim",
+   "verbatim": "verbatim_fragments",
+   "url": "https://patents.google.com/patent/US11702988B2/en",
+   "access_date": "2026-11-23",
+   "note": "No direct-ammonia comparison is made in the patent text read."
+  },
+  {
+   "id": "su2023_micro",
+   "fuel": "NH3 with chemically recuperated dual-fuel cycle",
+   "metric": "thermal efficiency of a microturbine",
+   "value": "29.16-31.79 rising to 35.48-36.09",
+   "unit": "percent",
+   "basis": "not recorded",
+   "cycle": "simple cycle, Capstone C200",
+   "machine_or_study": "Su et al. 2023, Appl. Energy 343, 121184, as summarised in Xu et al. 2025 review",
+   "conditions": "cracking heat 34.5 kW at 84.51 % conversion",
+   "source": "project note research/notes/xu2025review.md (p. 29-30 of review)",
+   "location": "review p. 29-30",
+   "evidence_grade": "review_statement",
+   "verbatim": "verbatim",
+   "doi": "10.1016/j.apenergy.2023.121184",
+   "access_date": "2026-11-23",
+   "note": "Primary paper not opened. Gain of 4.3 to 6.3 pp is derived."
+  },
+  {
+   "id": "pashchenko2024_trc",
+   "fuel": "ammonia, thermochemical recuperation",
+   "metric": "gas-turbine efficiency gain",
+   "value": "5-7",
+   "unit": "per cent (as quoted)",
+   "basis": "not recorded",
+   "cycle": "gas turbine",
+   "machine_or_study": "Pashchenko 2024 as summarised by Xu et al. 2025 review",
+   "conditions": "TCR also lowers the optimal pressure ratio",
+   "source": "project note research/notes/xu2025review.md",
+   "location": "review p. 29-30",
+   "evidence_grade": "review_statement",
+   "verbatim": "verbatim",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "shen2023_crhat",
+   "fuel": "ammonia in a chemically recuperated and humidified gas turbine",
+   "metric": "peak net electrical efficiency",
+   "value": 56.7,
+   "unit": "percent",
+   "basis": "not seen",
+   "cycle": "not seen (whether combined cycle unknown)",
+   "machine_or_study": "Shen, Nazir, Zhang and Duwig 2023, Energy 280",
+   "conditions": "reported to exceed an ammonia-fuelled Brayton cycle by 20.6 percentage points",
+   "source": "IDEAS listing (via search summary), abstract page not opened",
+   "location": "abstract",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "search_summary",
+   "doi_or_url": "https://ideas.repec.org/a/eee/energy/v280y2023ics0360544223014731.html",
+   "access_date": "2026-11-23",
+   "note": "Unverified; not used in the recommended range."
+  },
+  {
+   "id": "nh3_vs_h2_single_turbine_unverified",
+   "fuel": "100 % ammonia versus 100 % hydrogen",
+   "metric": "simple-cycle gas turbine efficiency",
+   "value": {
+    "NH3": 36.64,
+    "H2": 37.22
+   },
+   "unit": "percent",
+   "basis": "not recorded",
+   "cycle": "simple cycle",
+   "machine_or_study": "UNIDENTIFIED. A search summary quoted these values for one turbine model; a follow-up exact-phrase search could not find the source. The Energies 19(15):3606 abstract (255.6 MW heavy-duty turbine, 36.33 % rated efficiency) says efficiency 'decreases slightly' with ammonia fraction but gives no figures.",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "search_summary",
+   "access_date": "2026-11-23",
+   "note": "Do not cite. Listed so that nobody reuses the number without finding its source. Direction (ammonia slightly lower than hydrogen in a fixed turbine) matches the Energies abstract."
+  },
+  {
+   "id": "nox_nh3_netl",
+   "fuel": "NH3 and NH3-CH4",
+   "metric": "NOx",
+   "value": {
+    "two_stage_design_combustor_outlet_ppm_at_15pct_O2": "<20",
+    "conventional_combustor_micro_gas_turbine_ppm_at_16pct_O2": 200,
+    "stock_combustor_small_gas_turbine_ppm_at_16pct_O2": 500
+   },
+   "unit": "ppm",
+   "basis": "dry, O2-corrected as stated",
+   "machine_or_study": "NETL (2024) combustion analysis (in-house two-stage model) and cited AIST micro turbine (50 kW) and IHI small turbine (2 MW) tests",
+   "conditions": "NETL: 'large-scale SCR systems were needed' on both small-turbine tests; 'special combustor technologies are required for ammonia fuel to be a feasible option for large frame gas turbines'",
+   "source": "NETL (Oct 2024)",
+   "location": "Executive summary PDF p. 9-10; Section 1 PDF pp. 16-17",
+   "evidence_grade": "review_statement",
+   "verbatim": "verbatim",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf",
+   "access_date": "2026-11-23",
+   "note": "The under-20 ppm figure is a design calculation, not a measurement. The 200 and 500 ppm values are test results quoted from others."
+  },
+  {
+   "id": "nox_n2o_ahmad",
+   "fuel": "NH3 (liquid and vaporised), two-stage rich-lean",
+   "metric": "NO and N2O at the exhaust of a 43 MW-class combined cycle",
+   "value": {
+    "NO_ppmv": [
+     83.8,
+     107,
+     116
+    ],
+    "N2O_ppmv": [
+     0.18,
+     0.15
+    ],
+    "cited_AIST_experiments_NO_ppmv": [
+     282,
+     337
+    ]
+   },
+   "unit": "ppmv",
+   "machine_or_study": "Ahmad et al. 2025, Chemkin reactor network (Okafor mechanism)",
+   "conditions": "Chemkin underestimates NO per the paper; N2O 0.18 ppmv for LNH3 and 0.15 ppmv for VNH3; no N2O value for cracked gas",
+   "source": "Ahmad et al. (2025)",
+   "location": "p. 9 (project note)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "access_date": "2026-11-23",
+   "url": "https://doi.org/10.1016/j.ijhydene.2025.151337"
+  },
+  {
+   "id": "nox_h2_ge",
+   "fuel": "hydrogen in natural gas",
+   "metric": "NOx change",
+   "value": "up to +35 % at 50 vol% H2; potentially double near 100 % H2; diffusion flames 200 to 600 ppm; lean premixed single digit ppm",
+   "unit": "relative change / ppm",
+   "machine_or_study": "GE Vernova white paper GEA34805 'Hydrogen for Power Generation', Fig. 19 and p. 14",
+   "conditions": "mitigation by larger or higher-efficiency SCR or derating",
+   "source": "GE Vernova",
+   "location": "p. 14, Figure 19",
+   "evidence_grade": "vendor_claim",
+   "verbatim": "verbatim",
+   "url": "https://www.gevernova.com/content/dam/gepower-new/global/en_US/downloads/gas-new-site/future-of-energy/GEA34805-Hydrogen-For-Power-Generation.pdf",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "nox_h2_netl",
+   "fuel": "hydrogen-methane with steam diluent",
+   "metric": "combustor-outlet NOx and SCR",
+   "value": "design target below 45 ppm (40 ppmvd) at 15 % O2, reducible to 2-3 ppm with current SCR; more than 60 vol% H2 would exceed 45 ppm at the chosen flame temperature",
+   "unit": "ppm",
+   "machine_or_study": "NETL (2023) NASA CEA combustion analysis",
+   "source": "NETL (May 2023)",
+   "location": "Section 2, PDF pp. 25-27 (printed 8-10)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineandCombinedCycleAnalysisforH2CH4FuelMixesUpto100H2_052523.pdf",
+   "access_date": "2026-11-23",
+   "note": "Nitrogen-diluted cases were reported to have higher NOx potential than steam-diluted cases (same report), relevant to H2/N2 cracked gas."
+  },
+  {
+   "id": "h2_blend_limits_vendor",
+   "fuel": "hydrogen in natural gas (not ammonia-hydrogen blends)",
+   "metric": "hydrogen volume fraction supported by existing turbines",
+   "value": "30-60 vol%",
+   "unit": "vol% H2",
+   "machine_or_study": "NETL literature review of hydrogen and natural gas turbines (Aug 2022), statement for Baker Hughes turbines, mostly aeroderivatives; MAN: up to 60 % with diffusion flame plus NOx treatment, 20 % with DLE; Ansaldo 25-50 %",
+   "source": "NETL (Aug 2022), DOE/NETL-2022/3812",
+   "location": "PDF p. 9 (printed 9), Section on manufacturers",
+   "evidence_grade": "review_statement",
+   "verbatim": "verbatim",
+   "url": "https://netl.doe.gov/sites/default/files/publication/A-Literature-Review-of-Hydrogen-and-Natural-Gas-Turbines-081222.pdf",
+   "access_date": "2026-11-23",
+   "note": "This is the likely origin of '30 to 60 vol% H2' in the essay. It refers to hydrogen-natural gas fuels and a different vendor, not to the Mitsubishi H-25 on ammonia-hydrogen blends. Ahmad et al. 2025 p. 2 gives 'about 30 vol% H2 without modification' for natural-gas combustors."
+  },
+  {
+   "id": "programme_mhi",
+   "fuel": "100 % NH3; 100 % H2; NG-H2",
+   "machine_or_study": "Mitsubishi Heavy Industries / Mitsubishi Power",
+   "status": "Development announced 1 Mar 2021 of a 40 MW-class, 100 % ammonia gas turbine in the H-25 series, SCR plus newly developed combustor, 'commercialization in or around 2025' subject to testing. MHI Technical Review 62(3), 2025: ammonia single-fired system and a high-efficiency SCR for medium and small gas turbines are being developed and verified; H-25 (above 40 MW) 100 % H2 dry firing verification ongoing; M501JAC verified at 30 vol% H2 on actual equipment. No published H-25 ammonia efficiency or NOx figure and no evidence of a commercial delivery found.",
+   "year": "2021 announcement; 2025 status",
+   "evidence_grade": "vendor_claim",
+   "sources": [
+    "https://power.mhi.com/news/20210301.html",
+    "https://www.mhi.com/technology/review/abstract-62-3-20"
+   ],
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "programme_ihi_ge",
+   "machine_or_study": "IHI and GE Vernova",
+   "status": "18 Mar 2026: full-scale combustor components fired on 100 % ammonia at F-class full-load pressure, temperature and flow at IHI's Aioi test facility; no numeric emissions or efficiency published ('align with the companies' development roadmap'); goal commercial 100 % ammonia F-class turbine by 2030. IHI earlier ran a 2 MW class turbine on ammonia-methane (NETL 2024 p. 17, SCR needed).",
+   "year": 2026,
+   "evidence_grade": "vendor_claim",
+   "sources": [
+    "https://www.gevernova.com/news/press-releases/ihi-ge-vernova-achieve-milestone-100-ammonia"
+   ],
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "programme_siemens_energy",
+   "machine_or_study": "Siemens Energy",
+   "status": "No source found in this search for a Siemens Energy ammonia-fired gas turbine test or product. Not recorded as absent from the world, only as not found.",
+   "evidence_grade": "n/a",
+   "access_date": "2026-11-23"
+  },
+  {
+   "id": "halim2025_status",
+   "machine_or_study": "Halim, Zain and Khoo (2025), Applied Energy 386, 125581",
+   "status": "Full text NOT accessible (A*STAR repository lists the file apen-125581.pdf as request-a-copy only; publisher page not tried beyond DOI). Abstract read at the repository and IDEAS. The quoted figures 60.1 MW, LCOH 15.1 (green) and 10.1 (blue) USD/kg, 'direct combustion about 40 per cent cheaper' and '30 to 60 vol% H2 for the H-25' are NOT found in the abstract and cannot be located. The abstract does say direct ammonia use is economically preferable to cracking because of cracking capital and operating cost.",
+   "evidence_grade": "n/a",
+   "sources": [
+    "https://oar.a-star.edu.sg/communities-collections/articles/21565",
+    "https://ideas.repec.org/a/eee/appene/v386y2025ics0306261925003113.html",
+    "https://doi.org/10.1016/j.apenergy.2025.125581"
+   ],
+   "access_date": "2026-11-23"
+  }
+ ],
+ "not_found": [
+  "Measured combined-cycle efficiency on cracked gas or on 100 % ammonia for any large machine.",
+  "A published like-for-like ammonia versus H2/N2 comparison on an F- or H-class machine (the NETL pair compares ammonia with steam-diluted pure hydrogen).",
+  "Primary full texts of Pashchenko 2024, Shen 2023, Su 2023, Jeong and Kim 2025, Ahmad 2024 (Energy 304, 132098) and the Heliyon 2024 study (e40727): publisher pages returned HTTP 403.",
+  "The source of the '102.4 / 101.7 % of natural gas GTCC' mono-firing statement returned by a search summary."
+ ]
+}

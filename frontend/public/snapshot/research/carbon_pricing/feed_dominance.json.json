@@ -1,0 +1,228 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:34:19Z",
+  "script": "scripts/research/carbon_pricing_run.py",
+  "source_type": "python",
+  "inputs_summary": "stored Aspen baseline (results/simulations/baseline.json) costed by amcrax.economics.singapore.evaluate on the reference scenario; tornado and break-even read from results/research/singapore; CAPEX range from results/research/reference_scenario/capex_audit.json",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "model_versions": {
+   "carbon_pricing": "amcrax.economics.carbon_pricing/1",
+   "economics": "amcrax.economics.singapore (reference scenario, default output unchanged)",
+   "carbon_intensity": "carbon.ts-equivalent simplified accounting, gate factors amcrax.environmental.lca.route_spec"
+  },
+  "hypothetical_warning": "Every quantity under mode 'hypothetical_lca' is a HYPOTHETICAL life-cycle carbon price, not Singapore law."
+ },
+ "basis": "grey 450 USD/t, heat integration on, reference CAPEX cho2026_itemised_v1, plant gate",
+ "lcoh_USD_per_kg": 4.015461254695034,
+ "lcoh_SGD_per_kg": 5.173696960844288,
+ "breakdown_USD_per_kg": {
+  "capex": 0.4196390310095669,
+  "fixed_opex": 0.2842296199577379,
+  "ammonia_feed": 3.0400449449954747,
+  "heat_fuel": 0.2675295342291495,
+  "electricity": 0.0010285962703435283,
+  "cooling_water": 0.0009272681562831073,
+  "catalyst": 0.0020622600764787047,
+  "carbon_tax": 0.0
+ },
+ "share_of_lcoh": {
+  "capex": 0.10450581001594986,
+  "fixed_opex": 0.07078380338632467,
+  "ammonia_feed": 0.7570848657650314,
+  "heat_fuel": 0.06662485758425474,
+  "electricity": 0.0002561589329596577,
+  "cooling_water": 0.00023092444366108853,
+  "catalyst": 0.0005135798718185687,
+  "carbon_tax": 0.0
+ },
+ "feed_share": 0.7570848657650314,
+ "feed_plus_fuel_share": 0.8237097233492862,
+ "capital_plus_fixed_opex_share": 0.17528961340227453,
+ "feed_share_at_scenarios": {
+  "grey": 0.7570848657650314,
+  "blue": 0.767362704758861,
+  "green_current": 0.8383732438690594,
+  "green_2030": 0.8091966527322002,
+  "green_2050": 0.7608509524250934
+ },
+ "feed_share_at_cho_range": {
+  "300.0": 0.6957572469883718,
+  "610.0": 0.7937897619586565
+ },
+ "lcoh_slope_USD_per_kg_per_USD_per_t": 0.007350165509388054,
+ "lcoh_at_zero_nh3_price_USD_per_kg": 0.7078867754704101,
+ "thresholds": {
+  "nh3_price_feed_share_50pct_USD_per_t": 114.89532131171723,
+  "nh3_price_feed_equals_capital_plus_fixed_opex_USD_per_t": 104.1895428081438,
+  "nh3_price_feed_equals_capex_charge_USD_per_t": 62.1167013550802,
+  "capex_multiple": [
+   {
+    "nh3_price_USD_per_t": 300.0,
+    "capex_charge_equals_feed": 4.829618982584054,
+    "capital_plus_fixed_opex_equals_feed": 3.0943602409433537,
+    "feed_share_falls_to_50pct": 2.805622108621935
+   },
+   {
+    "nh3_price_USD_per_t": 450.0,
+    "capex_charge_equals_feed": 7.2444284738760825,
+    "capital_plus_fixed_opex_equals_feed": 4.6987384781776065,
+    "feed_share_falls_to_50pct": 4.268812116635679
+   },
+   {
+    "nh3_price_USD_per_t": 610.0,
+    "capex_charge_equals_feed": 9.820225264587576,
+    "capital_plus_fixed_opex_equals_feed": 6.410075264560806,
+    "feed_share_falls_to_50pct": 5.8295481251836785
+   }
+  ],
+  "capacity_scale_capital_plus_fixed_opex_equals_feed": 0.03939688050433602,
+  "capacity_scale_note": "multiplier on the stored 99.8 kmol/h NH3 feed; CAPEX items scaled with exponent 0.8, labour not scaled"
+ },
+ "sourced_comparison": {
+  "nh3_price_scenarios_USD_per_t": {
+   "grey": {
+    "value": 450,
+    "low": 300,
+    "high": 610
+   },
+   "blue": {
+    "value": 487,
+    "low": 400,
+    "high": 574
+   },
+   "green_current": {
+    "value": 1000,
+    "low": 887,
+    "high": 1052
+   },
+   "green_2030": {
+    "value": 709,
+    "low": 472,
+    "high": 946
+   },
+   "green_2050": {
+    "value": 463,
+    "low": 315,
+    "high": 611
+   }
+  },
+  "lowest_sourced_nh3_price_USD_per_t": 300,
+  "reference_capex_USD": 7666560.407024863,
+  "independent_published_capex_range_USD": [
+   3117726.6758492584,
+   6498801.651396336
+  ],
+  "independent_range_as_capex_multiplier": [
+   0.40666563756446605,
+   0.8476815294433067
+  ],
+  "cho_table8_capex_multiplier_range": [
+   0.5,
+   1.5
+  ]
+ },
+ "tornado_ranked": [
+  {
+   "parameter": "nh3_price_USD_per_t",
+   "swing_USD_per_kg": 2.278551307910296
+  },
+  {
+   "parameter": "capex_multiplier",
+   "swing_USD_per_kg": 0.6316143484627275
+  },
+  {
+   "parameter": "capacity_scale",
+   "swing_USD_per_kg": 0.6256995979410873
+  },
+  {
+   "parameter": "psa_recovery",
+   "swing_USD_per_kg": 0.3393680610267249
+  },
+  {
+   "parameter": "heat_integration",
+   "swing_USD_per_kg": 0.21378039320800823
+  },
+  {
+   "parameter": "capex_scaling_exponent",
+   "swing_USD_per_kg": 0.11371420328952775
+  },
+  {
+   "parameter": "operating_hours_h_per_yr",
+   "swing_USD_per_kg": 0.10084727300625485
+  },
+  {
+   "parameter": "discount_rate",
+   "swing_USD_per_kg": 0.04744738831067652
+  },
+  {
+   "parameter": "plant_life_yr",
+   "swing_USD_per_kg": 0.027774109135798142
+  },
+  {
+   "parameter": "catalyst_price_USD_per_kg",
+   "swing_USD_per_kg": 0.0030933901147180975
+  },
+  {
+   "parameter": "catalyst_lifetime_yr",
+   "swing_USD_per_kg": 0.0030933901147180975
+  },
+  {
+   "parameter": "electricity_price_USD_per_kWh",
+   "swing_USD_per_kg": 0.0010114187713048395
+  },
+  {
+   "parameter": "carbon_tax_SGD_per_t",
+   "swing_USD_per_kg": 0.0
+  }
+ ],
+ "tornado_source": "results/research/singapore/tornado.json",
+ "monte_carlo": {
+  "n": 5000,
+  "seed": 20261123,
+  "nh3_price": "triangular(300, 450, 610) USD/t (grey, Cho Table 8)",
+  "other_distributions": "as results/research/singapore/monte_carlo.json (electricity, catalyst price and life, CAPEX multiplier 0.5-1.5, discount rate, hours, life)",
+  "feed_share_p5_p50_p95": [
+   0.6940066691902009,
+   0.751391774022607,
+   0.8016995953978208
+  ],
+  "feed_share_min": 0.6427024311069526,
+  "P_feed_share_above_0p5": 1.0,
+  "P_feed_largest_item": 1.0,
+  "P_feed_above_capital_plus_fixed_opex": 1.0,
+  "lcoh_p5_p50_p95": [
+   3.25262006132794,
+   4.06665659844021,
+   4.8822617771398065
+  ],
+  "P_lcoh_below_ne_asia_smr_3p06": 0.014
+ },
+ "breakeven_nh3_USD_per_t": {
+  "sg_low_carbon_willingness_to_pay": 311.84511717484065,
+  "ne_asia_smr_production_cost": 320.0081986623751,
+  "blue_delivered_east_asia": 719.9991915515642,
+  "low_carbon_offer_fob_malaysia": 1264.2046240538623
+ },
+ "breakeven_benchmarks_USD_per_kg": {
+  "sg_low_carbon_willingness_to_pay": 3.0,
+  "ne_asia_smr_production_cost": 3.06,
+  "blue_delivered_east_asia": 6.0,
+  "low_carbon_offer_fob_malaysia": 10.0
+ },
+ "breakeven_vs_ne_asia_smr_by_capex_multiplier": {
+  "capex_multiplier_0.500": 362.97419362235206,
+  "capex_multiplier_0.407": 370.9946011143478,
+  "capex_multiplier_0.848": 333.09722793887573,
+  "capex_multiplier_1.000": 320.0081986623751,
+  "capex_multiplier_1.500": 277.0422037023982
+ },
+ "breakeven_source": "results/research/singapore/breakeven_ammonia_price.json (recomputed here for CAPEX multipliers)"
+}

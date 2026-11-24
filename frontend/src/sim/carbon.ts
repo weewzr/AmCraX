@@ -75,3 +75,14 @@ export function carbonCost(m: SimModel, econ: EconResult, ci: CIResult, mode: 'a
   return { mode, USD_per_kg_H2: usd, SGD_per_kg_H2: sgd, lcoh_USD_per_kg: lcoh, lcoh_SGD_per_kg: lcoh * fx,
     label: 'HYPOTHETICAL life-cycle carbon price (not Singapore law); replaces the actual tax term, no double counting' }
 }
+
+/**
+ * HYPOTHETICAL life-cycle carbon price (SGD per tCO2e, not Singapore law) at which case A (lower carbon intensity, higher cost)
+ * reaches the cost of case B: lcoh_a + p ci_a / (1000 fx) = lcoh_b + p ci_b / (1000 fx). Port of
+ * amcrax.economics.carbon_pricing.crossover_price: 0 when A is already not dearer, null when A never overtakes (ci_b <= ci_a).
+ */
+export function crossoverPrice(lcoh_a_USD: number, ci_a: number, lcoh_b_USD: number, ci_b: number, fx: number): number | null {
+  if (lcoh_a_USD <= lcoh_b_USD) return 0
+  if (ci_b <= ci_a) return null
+  return ((lcoh_a_USD - lcoh_b_USD) * fx * 1000) / (ci_b - ci_a)
+}

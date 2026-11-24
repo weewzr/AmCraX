@@ -1,0 +1,3615 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:30:14+00:00",
+  "script": "scripts/research/catalyst_economics.py",
+  "source_type": "python",
+  "inputs_summary": "catalyst economics for H3 on the unified basis",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "inputs": {
+   "prices": "research/data/catalyst_prices.json",
+   "kinetic_validity": "results/research/kinetics/validity_classification.json",
+   "exchanger": "amcrax.heat_integration.exchanger (task X1)",
+   "aspen": "results/research/aspen_kinetic/ci_*_P20_W100_{hi,nohi}.json (Aspen Plus V15, stored)",
+   "cho_rebuild": "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+  },
+  "evidence_kind_note": "economic model results; not validation evidence. No experimental validation exists."
+ },
+ "basis": {
+  "economics": "amcrax.economics.singapore.evaluate (reference scenario v1.0.0; default output unchanged); modes reference, exchanger, exchanger_reactor_mass",
+  "modes": {
+   "reference": "CAPEX by NH3 feed (frozen basis)",
+   "exchanger": "reference + FEHE TCI-equivalent from its area (task X1), passed through item_size_ratio['heat_exchangers'] (incremental convention)",
+   "exchanger_reactor_mass": "exchanger + reactor item scaled by catalyst mass (exponent 0.8)"
+  },
+  "design": "100 kmol/h NH3, 20 bar, X 0.95, PSA 0.85, grey 450 USD/t, furnace 0.85 + 2 % loss",
+  "fx_SGD_per_USD": 1.288444,
+  "lifetimes_yr": [
+   1.0,
+   2.0,
+   4.0,
+   5.0
+  ],
+  "sign": "delta = low-T design minus Ni reference; negative favours the low-T catalyst"
+ },
+ "findings": {
+  "energy_and_cost": {
+   "fixed_inventory_aspen_HI_exchanger": {
+    "Ru/Al2O3": {
+     "energy_saving_kW": 25.11853373527873,
+     "energy_saving_USD_per_kg": 0.010560964710831039,
+     "catalyst_increase_USD_per_kg": 0.1176143481218528,
+     "exchanger_delta_USD_per_kg": -0.025702203774658483,
+     "net_lcoh_delta_USD_per_kg": 0.08127741385013199,
+     "breakeven_price_USD_per_kg": 1505.8901248724696,
+     "floor_price_USD_per_kg": 1774.72,
+     "central_price_USD_per_kg": 4790.512,
+     "breakeven_lifetime_yr": 6.362365913523336,
+     "npv_choose_low_USD": -1777558.1605645397,
+     "simple_payback_yr": null,
+     "kinetics": {
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     }
+    },
+    "Ru/MgO": {
+     "energy_saving_kW": 18.62748383952163,
+     "energy_saving_USD_per_kg": 0.007831834515263397,
+     "catalyst_increase_USD_per_kg": 0.07549904366165774,
+     "exchanger_delta_USD_per_kg": -0.024169215707182945,
+     "net_lcoh_delta_USD_per_kg": 0.04344320770694665,
+     "breakeven_price_USD_per_kg": 1297.3272057124232,
+     "floor_price_USD_per_kg": 1109.2,
+     "central_price_USD_per_kg": 3006.145,
+     "breakeven_lifetime_yr": 4.634366699107624,
+     "npv_choose_low_USD": -986561.4965875694,
+     "simple_payback_yr": null,
+     "kinetics": {
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     }
+    },
+    "5Ni1Ru/CeO2": {
+     "energy_saving_kW": 5.425867236604972,
+     "energy_saving_USD_per_kg": 0.0022812793539361,
+     "catalyst_increase_USD_per_kg": 0.015004461215037368,
+     "exchanger_delta_USD_per_kg": -0.0012767649855501273,
+     "net_lcoh_delta_USD_per_kg": 0.011430399059307206,
+     "breakeven_price_USD_per_kg": 177.33086688907326,
+     "floor_price_USD_per_kg": 222.59,
+     "central_price_USD_per_kg": 627.7545,
+     "breakeven_lifetime_yr": 7.0800364427551425,
+     "npv_choose_low_USD": -245554.0413589884,
+     "simple_payback_yr": null,
+     "kinetics": {
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     }
+    },
+    "2.5Ni0.5Ru/CeO2": {
+     "energy_saving_kW": 4.4229385520993105,
+     "energy_saving_USD_per_kg": 0.001859602891600698,
+     "catalyst_increase_USD_per_kg": 0.00749208594315138,
+     "exchanger_delta_USD_per_kg": -0.001051358236287936,
+     "net_lcoh_delta_USD_per_kg": 0.004568065936549459,
+     "breakeven_price_USD_per_kg": 150.91675765361202,
+     "floor_price_USD_per_kg": 111.295,
+     "central_price_USD_per_kg": 329.97724999999997,
+     "breakeven_lifetime_yr": 4.372970306682206,
+     "npv_choose_low_USD": -102448.63227867451,
+     "simple_payback_yr": null,
+     "kinetics": {
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     }
+    }
+   },
+   "fixed_inventory_aspen_noHI_exchanger": {
+    "Ru/Al2O3": {
+     "net_lcoh_delta_USD_per_kg": 0.04877527189764308,
+     "energy_saving_kW": 162.5501421689106,
+     "breakeven_price_USD_per_kg": 2819.3822918660676
+    },
+    "Ru/MgO": {
+     "net_lcoh_delta_USD_per_kg": 0.023246008303068777,
+     "energy_saving_kW": 123.38510942687401,
+     "breakeven_price_USD_per_kg": 2091.7743830234695
+    },
+    "5Ni1Ru/CeO2": {
+     "net_lcoh_delta_USD_per_kg": -0.0010173907312722719,
+     "energy_saving_kW": 37.83221735002053,
+     "breakeven_price_USD_per_kg": 667.8455613089917
+    },
+    "2.5Ni0.5Ru/CeO2": {
+     "net_lcoh_delta_USD_per_kg": -0.005620400124854541,
+     "energy_saving_kW": 30.96235333347613,
+     "breakeven_price_USD_per_kg": 550.2874704563067
+    }
+   },
+   "cost_optimal": {
+    "reference": {
+     "Ru/Al2O3": {
+      "low_T_C": 643.0,
+      "ref_T_C": 549.0,
+      "low_W_kg": 4.590833098786566,
+      "ref_W_kg": 353.5734407807561,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.011889932952942495,
+      "net_lcoh_delta_SGD_per_kg": 0.01531951277362104,
+      "energy_saving_USD_per_kg": -0.00951903171382168,
+      "energy_saving_kW": -22.640367218119536,
+      "catalyst_increase_USD_per_kg": 0.0023040526423599994,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.00951903171382168,
+       "utilities_cooling_electricity": 6.684859676060122e-05,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.0023040526423599994,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.2948111230192678,
+      "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+      "npv_choose_low_USD": -217045.59816492748,
+      "npv_choose_low_SGD": -279651.0986820118,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "low_T_C": 654.0,
+      "ref_T_C": 549.0,
+      "low_W_kg": 9.203469204228877,
+      "ref_W_kg": 353.5734407807561,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.014354644813757034,
+      "net_lcoh_delta_SGD_per_kg": 0.018495155982416366,
+      "energy_saving_USD_per_kg": -0.01052129241890648,
+      "energy_saving_kW": -25.02417589673371,
+      "catalyst_increase_USD_per_kg": 0.003759445652752602,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.01052129241890648,
+       "utilities_cooling_electricity": 7.390674209802994e-05,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.003759445652752602,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.30188385290219966,
+      "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+      "npv_choose_low_USD": -264858.69396125094,
+      "npv_choose_low_SGD": -341255.59508220997,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "low_T_C": 628.0,
+      "ref_T_C": 549.0,
+      "low_W_kg": 30.747587434472788,
+      "ref_W_kg": 353.5734407807561,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.009784966239799076,
+      "net_lcoh_delta_SGD_per_kg": 0.012607381041871679,
+      "energy_saving_USD_per_kg": -0.00811401275080409,
+      "energy_saving_kW": -19.29862551292581,
+      "catalyst_increase_USD_per_kg": 0.001613995968272391,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.00811401275080409,
+       "utilities_cooling_electricity": 5.6957520722817354e-05,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.001613995968272391,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.2852231502632394,
+      "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+      "npv_choose_low_USD": -177806.34101525386,
+      "npv_choose_low_SGD": -229093.51324305774,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "low_T_C": 598.0,
+      "ref_T_C": 549.0,
+      "low_W_kg": 65.78067958762745,
+      "ref_W_kg": 353.5734407807561,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.007441368006158022,
+      "net_lcoh_delta_SGD_per_kg": 0.009587785959326266,
+      "energy_saving_USD_per_kg": -0.005174466147735757,
+      "energy_saving_kW": -12.307114553716758,
+      "catalyst_increase_USD_per_kg": 0.002230619430028084,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.005174466147735757,
+       "utilities_cooling_electricity": 3.628242839385186e-05,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.002230619430028084,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.2662437907748991,
+      "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+      "npv_choose_low_USD": -138114.09187071712,
+      "npv_choose_low_SGD": -177952.27298627424,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    },
+    "exchanger": {
+     "Ru/Al2O3": {
+      "low_T_C": 614.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 7.532774101877067,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03665203055336974,
+      "net_lcoh_delta_SGD_per_kg": 0.04722408885430592,
+      "energy_saving_USD_per_kg": -0.008106193369422338,
+      "energy_saving_kW": -19.28002764801454,
+      "catalyst_increase_USD_per_kg": 0.004170402201392792,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.008106193369422338,
+       "utilities_cooling_electricity": 5.682189779848603e-05,
+       "exchanger_capital_and_fixed": 0.024318613084755858,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": -1.1102230246251565e-16,
+       "catalyst": 0.004170402201392792,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.14314084226298895,
+      "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+      "npv_choose_low_USD": -660608.0442840197,
+      "npv_choose_low_SGD": -851156.4710094795,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "low_T_C": 622.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 14.287148736185594,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03971648072408929,
+      "net_lcoh_delta_SGD_per_kg": 0.05117246129006849,
+      "energy_saving_USD_per_kg": -0.008882477708614972,
+      "energy_saving_kW": -21.126366964173826,
+      "catalyst_increase_USD_per_kg": 0.00593071589626669,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.008882477708614972,
+       "utilities_cooling_electricity": 6.22832467695345e-05,
+       "exchanger_capital_and_fixed": 0.024841003872438372,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": -5.551115123125783e-17,
+       "catalyst": 0.00593071589626669,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.14769130264319053,
+      "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+      "npv_choose_low_USD": -719913.5023359851,
+      "npv_choose_low_SGD": -927568.2326037859,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 227.8853948642451,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03160597105895846,
+      "net_lcoh_delta_SGD_per_kg": 0.04072252377508867,
+      "energy_saving_USD_per_kg": -0.0,
+      "energy_saving_kW": 0.0,
+      "catalyst_increase_USD_per_kg": 0.0316059710589583,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0,
+       "utilities_cooling_electricity": 0.0,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.0316059710589583,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.11960459845659699,
+      "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+      "npv_choose_low_USD": -650465.8518499825,
+      "npv_choose_low_SGD": -838088.8240209988,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 222.78408837513538,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.013769838451819894,
+      "net_lcoh_delta_SGD_per_kg": 0.01774166573421663,
+      "energy_saving_USD_per_kg": -0.0,
+      "energy_saving_kW": 0.0,
+      "catalyst_increase_USD_per_kg": 0.013769838451820043,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0,
+       "utilities_cooling_electricity": 0.0,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.013769838451820043,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.11960459845659699,
+      "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+      "npv_choose_low_USD": -283389.79624108324,
+      "npv_choose_low_SGD": -365131.8826280462,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    },
+    "exchanger_reactor_mass": {
+     "Ru/Al2O3": {
+      "low_T_C": 630.0,
+      "ref_T_C": 654.0,
+      "low_W_kg": 5.7076848320451665,
+      "ref_W_kg": 28.630814477040044,
+      "low_is_lower_temperature": true,
+      "net_lcoh_delta_USD_per_kg": -0.005620553174120246,
+      "net_lcoh_delta_SGD_per_kg": -0.007241768013876187,
+      "energy_saving_USD_per_kg": 0.002217423438753807,
+      "energy_saving_kW": 5.273990300773562,
+      "catalyst_increase_USD_per_kg": 0.006742645830018655,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": -0.002217423438753807,
+       "utilities_cooling_electricity": -1.5612948280037744e-05,
+       "exchanger_capital_and_fixed": -0.0017133091738917305,
+       "reactor_capital_and_fixed": -0.008416853443212847,
+       "other_capital_and_fixed": -6.591949208711867e-17,
+       "catalyst": 0.006742645830018655,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.15224519403065262,
+      "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+      "npv_choose_low_USD": 80006.34831319921,
+      "npv_choose_low_SGD": 103083.69944605164,
+      "simple_payback_yr": null,
+      "below_resolution": true,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "low_T_C": 644.0,
+      "ref_T_C": 654.0,
+      "low_W_kg": 10.493249530954179,
+      "ref_W_kg": 28.630814477040044,
+      "low_is_lower_temperature": true,
+      "net_lcoh_delta_USD_per_kg": -0.0002402805699075472,
+      "net_lcoh_delta_SGD_per_kg": -0.00030958805861395973,
+      "energy_saving_USD_per_kg": 0.000910154703565702,
+      "energy_saving_kW": 2.16474084061565,
+      "catalyst_increase_USD_per_kg": 0.007820239571784664,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": -0.000910154703565702,
+       "utilities_cooling_electricity": -6.409585408703581e-06,
+       "exchanger_capital_and_fixed": -0.0007332713057506823,
+       "reactor_capital_and_fixed": -0.006410684546966765,
+       "other_capital_and_fixed": 1.5612511283791264e-17,
+       "catalyst": 0.007820239571784664,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.16022003408764007,
+      "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+      "npv_choose_low_USD": -18309.16621567763,
+      "npv_choose_low_SGD": -23590.335355592546,
+      "simple_payback_yr": null,
+      "below_resolution": true,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "low_T_C": 658.0,
+      "ref_T_C": 654.0,
+      "low_W_kg": 17.51936526833939,
+      "ref_W_kg": 28.630814477040044,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": -0.0005602839747416155,
+      "net_lcoh_delta_SGD_per_kg": -0.000721894525551986,
+      "energy_saving_USD_per_kg": -0.000358450678853095,
+      "energy_saving_kW": -0.8525504739137659,
+      "catalyst_increase_USD_per_kg": 0.0025505370686078953,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.000358450678853095,
+       "utilities_cooling_electricity": 2.524636118224669e-06,
+       "exchanger_capital_and_fixed": 0.00030169708474331314,
+       "reactor_capital_and_fixed": -0.0037734934430637412,
+       "other_capital_and_fixed": -2.7755575615628914e-17,
+       "catalyst": 0.0025505370686078953,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.1681968932608262,
+      "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+      "npv_choose_low_USD": 2556.3245371371086,
+      "npv_choose_low_SGD": 3293.6810119270845,
+      "simple_payback_yr": null,
+      "below_resolution": true,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "low_T_C": 655.0,
+      "ref_T_C": 654.0,
+      "low_W_kg": 24.96776374243951,
+      "ref_W_kg": 28.630814477040044,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.0008037190280472117,
+      "net_lcoh_delta_SGD_per_kg": 0.0010355469593732616,
+      "energy_saving_USD_per_kg": -8.9915770350113e-05,
+      "energy_saving_kW": -0.21385852265541416,
+      "catalyst_increase_USD_per_kg": 0.0018428957926921185,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 8.9915770350113e-05,
+       "utilities_cooling_electricity": 6.332797532835732e-07,
+       "exchanger_capital_and_fixed": 7.496089730779643e-05,
+       "reactor_capital_and_fixed": -0.0012046867120557997,
+       "other_capital_and_fixed": 4.163336342344337e-17,
+       "catalyst": 0.0018428957926921185,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.16648772801653866,
+      "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+      "npv_choose_low_USD": -19538.89850745537,
+      "npv_choose_low_SGD": -25174.776548539827,
+      "simple_payback_yr": null,
+      "below_resolution": true,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    },
+    "exchanger_U_low": {
+     "Ru/Al2O3": {
+      "low_T_C": 600.0,
+      "ref_T_C": 531.0,
+      "low_W_kg": 9.691449485265393,
+      "ref_W_kg": 676.7696180634078,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03887150666160277,
+      "net_lcoh_delta_SGD_per_kg": 0.05008375952910212,
+      "energy_saving_USD_per_kg": -0.007400666190500865,
+      "energy_saving_kW": -17.601979408091893,
+      "catalyst_increase_USD_per_kg": 0.005521115905036274,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.007400666190500865,
+       "utilities_cooling_electricity": 5.1819554907629435e-05,
+       "exchanger_capital_and_fixed": 0.025897905011157907,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 5.551115123125783e-17,
+       "catalyst": 0.005521115905036274,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.11355944574509369,
+      "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+      "npv_choose_low_USD": -703779.571461841,
+      "npv_choose_low_SGD": -906780.5661725802,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "low_T_C": 606.0,
+      "ref_T_C": 531.0,
+      "low_W_kg": 18.23408679393319,
+      "ref_W_kg": 676.7696180634078,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.0423430834695111,
+      "net_lcoh_delta_SGD_per_kg": 0.05455669183779076,
+      "energy_saving_USD_per_kg": -0.00799998927653739,
+      "energy_saving_kW": -19.027428461955367,
+      "catalyst_increase_USD_per_kg": 0.007672279221609147,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.00799998927653739,
+       "utilities_cooling_electricity": 5.603284891086719e-05,
+       "exchanger_capital_and_fixed": 0.02661478212245305,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 5.551115123125783e-17,
+       "catalyst": 0.007672279221609147,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.11662092110162625,
+      "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+      "npv_choose_low_USD": -771416.9300177024,
+      "npv_choose_low_SGD": -993927.5149797285,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 531.0,
+      "low_W_kg": 227.8853948642451,
+      "ref_W_kg": 676.7696180634078,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.0318274769618645,
+      "net_lcoh_delta_SGD_per_kg": 0.04100792172665254,
+      "energy_saving_USD_per_kg": -0.0006822615198458226,
+      "energy_saving_kW": -1.6227124577885093,
+      "catalyst_increase_USD_per_kg": 0.03030439919985154,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0006822615198458226,
+       "utilities_cooling_electricity": 4.7559339092645425e-06,
+       "exchanger_capital_and_fixed": 0.0008360603082576135,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 5.551115123125783e-17,
+       "catalyst": 0.03030439919985154,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.09959896435722282,
+      "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+      "npv_choose_low_USD": -650630.5343541403,
+      "npv_choose_low_SGD": -838301.0082053859,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 531.0,
+      "low_W_kg": 222.78408837513538,
+      "ref_W_kg": 676.7696180634078,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.01399134435472682,
+      "net_lcoh_delta_SGD_per_kg": 0.018027063685781643,
+      "energy_saving_USD_per_kg": -0.0006822615198458226,
+      "energy_saving_kW": -1.6227124577885093,
+      "catalyst_increase_USD_per_kg": 0.012468266592713283,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0006822615198458226,
+       "utilities_cooling_electricity": 4.7559339092645425e-06,
+       "exchanger_capital_and_fixed": 0.0008360603082576135,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 5.551115123125783e-17,
+       "catalyst": 0.012468266592713283,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.09959896435722193,
+      "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+      "npv_choose_low_USD": -283554.47874524095,
+      "npv_choose_low_SGD": -365344.0668124332,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    },
+    "exchanger_U_high": {
+     "Ru/Al2O3": {
+      "low_T_C": 630.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 5.7076848320451665,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03574241959644997,
+      "net_lcoh_delta_SGD_per_kg": 0.046052106074528386,
+      "energy_saving_USD_per_kg": -0.009646515006157985,
+      "energy_saving_kW": -22.943577527680645,
+      "catalyst_increase_USD_per_kg": 0.0019279817066968873,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.009646515006157985,
+       "utilities_cooling_electricity": 6.766019450246685e-05,
+       "exchanger_capital_and_fixed": 0.024100262689092045,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": -5.551115123125783e-17,
+       "catalyst": 0.0019279817066968873,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.1632460073107893,
+      "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+      "npv_choose_low_USD": -638042.7218048688,
+      "npv_choose_low_SGD": -822082.3166531523,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "low_T_C": 638.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 11.382326800998182,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03846326315377269,
+      "net_lcoh_delta_SGD_per_kg": 0.04955776063089949,
+      "energy_saving_USD_per_kg": -0.010398203526113176,
+      "energy_saving_kW": -24.731417366549977,
+      "catalyst_increase_USD_per_kg": 0.003691064372428673,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.010398203526113176,
+       "utilities_cooling_electricity": 7.29517243301329e-05,
+       "exchanger_capital_and_fixed": 0.02430104353090018,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 5.551115123125783e-17,
+       "catalyst": 0.003691064372428673,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.16815532558572865,
+      "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+      "npv_choose_low_USD": -691275.8717051747,
+      "npv_choose_low_SGD": -890670.249243302,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 227.8853948642451,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.03160597105895846,
+      "net_lcoh_delta_SGD_per_kg": 0.04072252377508867,
+      "energy_saving_USD_per_kg": -0.0,
+      "energy_saving_kW": 0.0,
+      "catalyst_increase_USD_per_kg": 0.0316059710589583,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0,
+       "utilities_cooling_electricity": 0.0,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.0316059710589583,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.12932707400394428,
+      "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+      "npv_choose_low_USD": -650465.8518499825,
+      "npv_choose_low_SGD": -838088.8240209988,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "low_T_C": 537.0,
+      "ref_T_C": 537.0,
+      "low_W_kg": 222.78408837513538,
+      "ref_W_kg": 538.8417765009283,
+      "low_is_lower_temperature": false,
+      "net_lcoh_delta_USD_per_kg": 0.013769838451819894,
+      "net_lcoh_delta_SGD_per_kg": 0.01774166573421663,
+      "energy_saving_USD_per_kg": -0.0,
+      "energy_saving_kW": 0.0,
+      "catalyst_increase_USD_per_kg": 0.013769838451820043,
+      "decomposition_USD_per_kg": {
+       "energy_heat_fuel": 0.0,
+       "utilities_cooling_electricity": 0.0,
+       "exchanger_capital_and_fixed": 0.0,
+       "reactor_capital_and_fixed": 0.0,
+       "other_capital_and_fixed": 0.0,
+       "catalyst": 0.013769838451820043,
+       "carbon_tax": 0.0,
+       "ammonia_feed": 0.0
+      },
+      "hi_saving_low_USD_per_kg": 0.12932707400394428,
+      "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+      "npv_choose_low_USD": -283389.79624108324,
+      "npv_choose_low_SGD": -365131.8826280462,
+      "simple_payback_yr": null,
+      "below_resolution": false,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    }
+   },
+   "fixed_inventory_aspen_cross_check_HI_exchanger": {
+    "Ru/Al2O3": {
+     "net_lcoh_delta_USD_per_kg": 0.09461647777977156,
+     "energy_saving_kW": 101.75680265925462,
+     "h2_product_rel_diff": -0.009714018091905086,
+     "feed_term_from_unequal_X_USD_per_kg": 0.030499189455288622,
+     "caution": "Aspen runs reach unequal conversion with 100 kg (X 0.9496-0.9589): the per-kg feed and capital terms differ by the H2 output, not by the catalyst. Use the python_Top_X095 basis (equal X 0.95) for the cost comparison; this basis is the Aspen cross-check."
+    },
+    "Ru/MgO": {
+     "net_lcoh_delta_USD_per_kg": 0.04910851962587248,
+     "energy_saving_kW": 63.582439344966815,
+     "h2_product_rel_diff": -0.0057253582098053535,
+     "feed_term_from_unequal_X_USD_per_kg": 0.017903845505333305,
+     "caution": "Aspen runs reach unequal conversion with 100 kg (X 0.9496-0.9589): the per-kg feed and capital terms differ by the H2 output, not by the catalyst. Use the python_Top_X095 basis (equal X 0.95) for the cost comparison; this basis is the Aspen cross-check."
+    },
+    "5Ni1Ru/CeO2": {
+     "net_lcoh_delta_USD_per_kg": 0.018391167880300152,
+     "energy_saving_kW": 65.49682589958104,
+     "h2_product_rel_diff": -0.007521002532637211,
+     "feed_term_from_unequal_X_USD_per_kg": 0.023561581126495312,
+     "caution": "Aspen runs reach unequal conversion with 100 kg (X 0.9496-0.9589): the per-kg feed and capital terms differ by the H2 output, not by the catalyst. Use the python_Top_X095 basis (equal X 0.95) for the cost comparison; this basis is the Aspen cross-check."
+    },
+    "2.5Ni0.5Ru/CeO2": {
+     "net_lcoh_delta_USD_per_kg": 0.012450942341606819,
+     "energy_saving_kW": 74.22827765716409,
+     "h2_product_rel_diff": -0.008725105396799493,
+     "feed_term_from_unequal_X_USD_per_kg": 0.027366962413623686,
+     "caution": "Aspen runs reach unequal conversion with 100 kg (X 0.9496-0.9589): the per-kg feed and capital terms differ by the H2 output, not by the catalyst. Use the python_Top_X095 basis (equal X 0.95) for the cost comparison; this basis is the Aspen cross-check."
+    }
+   },
+   "hi_saving_aspen_fixed_inventory": [
+    {
+     "catalyst": "Ru/Al2O3",
+     "mode": "reference",
+     "T_C": 499.0,
+     "gross_saving_USD_per_kg": 0.20245139090742037,
+     "net_saving_USD_per_kg": 0.20245139090742104,
+     "fired_duty_saving_kW": 477.8499495738828,
+     "fehe_tci_USD": 1237132.284630809,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "Ru/MgO",
+     "mode": "reference",
+     "T_C": 522.0,
+     "gross_saving_USD_per_kg": 0.21542649582579784,
+     "net_saving_USD_per_kg": 0.2154264958257981,
+     "fired_duty_saving_kW": 510.5245395967603,
+     "fehe_tci_USD": 1253054.3493681387,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "5Ni1Ru/CeO2",
+     "mode": "reference",
+     "T_C": 572.0,
+     "gross_saving_USD_per_kg": 0.24639947263850773,
+     "net_saving_USD_per_kg": 0.24639947263850726,
+     "fired_duty_saving_kW": 582.8727123992121,
+     "fehe_tci_USD": 1526642.9057929646,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "mode": "reference",
+     "T_C": 576.0,
+     "gross_saving_USD_per_kg": 0.24918195915412938,
+     "net_saving_USD_per_kg": 0.24918195915412955,
+     "fired_duty_saving_kW": 588.7398347095466,
+     "fehe_tci_USD": 1529243.7276723557,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "Ni/MgO",
+     "mode": "reference",
+     "T_C": 594.0,
+     "gross_saving_USD_per_kg": 0.25814273846891833,
+     "net_saving_USD_per_kg": 0.25814273846891833,
+     "fired_duty_saving_kW": 615.2802561683606,
+     "fehe_tci_USD": 1540095.063144986,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "Ru/Al2O3",
+     "mode": "exchanger",
+     "T_C": 499.0,
+     "gross_saving_USD_per_kg": 0.20245139090742037,
+     "net_saving_USD_per_kg": 0.09718809811274198,
+     "fired_duty_saving_kW": 477.8499495738828,
+     "fehe_tci_USD": 1237132.284630809,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "Ru/MgO",
+     "mode": "exchanger",
+     "T_C": 522.0,
+     "gross_saving_USD_per_kg": 0.21542649582579784,
+     "net_saving_USD_per_kg": 0.10923616172493844,
+     "fired_duty_saving_kW": 510.5245395967603,
+     "fehe_tci_USD": 1253054.3493681387,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "5Ni1Ru/CeO2",
+     "mode": "exchanger",
+     "T_C": 572.0,
+     "gross_saving_USD_per_kg": 0.24639947263850773,
+     "net_saving_USD_per_kg": 0.11678975009498682,
+     "fired_duty_saving_kW": 582.8727123992121,
+     "fehe_tci_USD": 1526642.9057929646,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "mode": "exchanger",
+     "T_C": 576.0,
+     "gross_saving_USD_per_kg": 0.24918195915412938,
+     "net_saving_USD_per_kg": 0.11919372537689465,
+     "fired_duty_saving_kW": 588.7398347095466,
+     "fehe_tci_USD": 1529243.7276723557,
+     "source_type": "aspen (duties) + python (economics)"
+    },
+    {
+     "catalyst": "Ni/MgO",
+     "mode": "exchanger",
+     "T_C": 594.0,
+     "gross_saving_USD_per_kg": 0.25814273846891833,
+     "net_saving_USD_per_kg": 0.12837433223146544,
+     "fired_duty_saving_kW": 615.2802561683606,
+     "fehe_tci_USD": 1540095.063144986,
+     "source_type": "aspen (duties) + python (economics)"
+    }
+   ],
+   "resolution_USD_per_kg": 0.006022354316313816,
+   "sensitivity_counts": {
+    "n_rows": 100,
+    "n_low_cheaper_resolved": 1,
+    "n_rows_resolved": 93,
+    "n_low_design_at_lower_T_than_Ni": 4,
+    "cases_where_some_low_T_catalyst_cheaper_resolved": [
+     "Ni_rate_div5"
+    ]
+   },
+   "ni_temperature_threshold": [
+    {
+     "catalyst": "Ru/Al2O3",
+     "variant": "Ni_kinetics_Takahashi_extrapolated",
+     "low_T_C": 614.0,
+     "low_W_kg": 7.532774101877067,
+     "low_lcoh_USD_per_kg": 4.226254719106754,
+     "Ni_threshold_T_C": 668.9549604531971,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 537.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "Ru/Al2O3": "validated_against_literature",
+      "Ni/MgO": "extrapolated"
+     },
+     "rests_on_extrapolated_law": true,
+     "result_label": "extrapolation",
+     "extrapolated_laws": [
+      "Ni/MgO"
+     ]
+    },
+    {
+     "catalyst": "Ru/Al2O3",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 614.0,
+     "low_W_kg": 7.532774101877067,
+     "low_lcoh_USD_per_kg": 4.226254719106754,
+     "Ni_threshold_T_C": 670.2141573981465,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "Ru/Al2O3": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    },
+    {
+     "catalyst": "Ru/MgO",
+     "variant": "Ni_kinetics_Takahashi_extrapolated",
+     "low_T_C": 622.0,
+     "low_W_kg": 14.287148736185594,
+     "low_lcoh_USD_per_kg": 4.229319169277473,
+     "Ni_threshold_T_C": 675.5102297931251,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 537.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "Ru/MgO": "extrapolated",
+      "Ni/MgO": "extrapolated"
+     },
+     "rests_on_extrapolated_law": true,
+     "result_label": "extrapolation",
+     "extrapolated_laws": [
+      "Ru/MgO",
+      "Ni/MgO"
+     ]
+    },
+    {
+     "catalyst": "Ru/MgO",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 622.0,
+     "low_W_kg": 14.287148736185594,
+     "low_lcoh_USD_per_kg": 4.229319169277473,
+     "Ni_threshold_T_C": 675.556909342881,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "Ru/MgO": "extrapolated"
+     },
+     "rests_on_extrapolated_law": true,
+     "result_label": "extrapolation",
+     "extrapolated_laws": [
+      "Ru/MgO"
+     ]
+    },
+    {
+     "catalyst": "5Ni1Ru/CeO2",
+     "variant": "Ni_kinetics_Takahashi_extrapolated",
+     "low_T_C": 537.0,
+     "low_W_kg": 227.8853948642451,
+     "low_lcoh_USD_per_kg": 4.221208659612342,
+     "Ni_threshold_T_C": 637.5278128330096,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 537.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "5Ni1Ru/CeO2": "validated_against_literature",
+      "Ni/MgO": "extrapolated"
+     },
+     "rests_on_extrapolated_law": true,
+     "result_label": "extrapolation",
+     "extrapolated_laws": [
+      "Ni/MgO"
+     ]
+    },
+    {
+     "catalyst": "5Ni1Ru/CeO2",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 537.0,
+     "low_W_kg": 227.8853948642451,
+     "low_lcoh_USD_per_kg": 4.221208659612342,
+     "Ni_threshold_T_C": 639.7505259335887,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "5Ni1Ru/CeO2": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    },
+    {
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "variant": "Ni_kinetics_Takahashi_extrapolated",
+     "low_T_C": 537.0,
+     "low_W_kg": 222.78408837513538,
+     "low_lcoh_USD_per_kg": 4.203372527005204,
+     "Ni_threshold_T_C": 540.0,
+     "threshold_status": "low-T design cheaper already at the first scanned Ni temperature",
+     "scan_start_C": 537.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+      "Ni/MgO": "extrapolated"
+     },
+     "rests_on_extrapolated_law": true,
+     "result_label": "extrapolation",
+     "extrapolated_laws": [
+      "Ni/MgO"
+     ]
+    },
+    {
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 537.0,
+     "low_W_kg": 222.78408837513538,
+     "low_lcoh_USD_per_kg": 4.203372527005204,
+     "Ni_threshold_T_C": 539.6198716644107,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "2.5Ni0.5Ru/CeO2": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    }
+   ],
+   "cho_psa_fuel_threshold": {
+    "Ni_735.52C_24.34bar": {
+     "psa_recovery_threshold": 0.7563583374023437,
+     "import_kW_at_0.70": 0.0,
+     "import_kW_at_0.95": 1603.2712691995735,
+     "import_kW_at_0.756": 0.0,
+     "import_kW_at_0.85": 676.2364556756901
+    },
+    "RuAl2O3_566.69C_10bar": {
+     "psa_recovery_threshold": 0.7812911987304687,
+     "import_kW_at_0.70": 0.0,
+     "import_kW_at_0.95": 1564.0405947245122,
+     "import_kW_at_0.756": 0.0,
+     "import_kW_at_0.85": 637.0057812006285
+    }
+   }
+  },
+  "validated_laws_only": {
+   "validated_laws": [
+    "Ru/Al2O3",
+    "5Ni1Ru/CeO2",
+    "2.5Ni0.5Ru/CeO2"
+   ],
+   "note": "No Ni rate law is validated against literature (Ni/MgO Takahashi is 'extrapolated'); every comparison with Ni/MgO and every Ru/MgO result rests on an extrapolated law. All laws are pressure-extrapolated at 20 bar.",
+   "cost_optimal_exchanger": {
+    "Ru/Al2O3": {
+     "T_C": 614.0,
+     "W_kg": 7.532774101877067,
+     "lcoh_USD_per_kg": 4.226254719106754
+    },
+    "5Ni1Ru/CeO2": {
+     "T_C": 537.0,
+     "W_kg": 227.8853948642451,
+     "lcoh_USD_per_kg": 4.221208659612342
+    },
+    "2.5Ni0.5Ru/CeO2": {
+     "T_C": 537.0,
+     "W_kg": 222.78408837513538,
+     "lcoh_USD_per_kg": 4.203372527005204
+    }
+   },
+   "ni_threshold_kinetics_free": [
+    {
+     "catalyst": "Ru/Al2O3",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 614.0,
+     "low_W_kg": 7.532774101877067,
+     "low_lcoh_USD_per_kg": 4.226254719106754,
+     "Ni_threshold_T_C": 670.2141573981465,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "Ru/Al2O3": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    },
+    {
+     "catalyst": "5Ni1Ru/CeO2",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 537.0,
+     "low_W_kg": 227.8853948642451,
+     "low_lcoh_USD_per_kg": 4.221208659612342,
+     "Ni_threshold_T_C": 639.7505259335887,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "5Ni1Ru/CeO2": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    },
+    {
+     "catalyst": "2.5Ni0.5Ru/CeO2",
+     "variant": "Ni_catalyst_free_kinetics_independent",
+     "low_T_C": 537.0,
+     "low_W_kg": 222.78408837513538,
+     "low_lcoh_USD_per_kg": 4.203372527005204,
+     "Ni_threshold_T_C": 539.6198716644107,
+     "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+     "scan_start_C": 0.0,
+     "sourced_Ni_design_T_C": {
+      "cho2026nickel": 735.52,
+      "mehr2026highcapacity_outlet": 760.0
+     },
+     "sourced_values_above_threshold": true,
+     "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+     "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+     "laws": {
+      "2.5Ni0.5Ru/CeO2": "validated_against_literature"
+     },
+     "rests_on_extrapolated_law": false,
+     "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+     "extrapolated_laws": []
+    }
+   ],
+   "energy_vs_temperature": "kinetics-independent: fired duty at fixed X and T comes from the flowsheet only"
+  },
+  "row_evidence_summary": {
+   "H3-a": "SUPPORTED",
+   "H3-b": "INCONCLUSIVE",
+   "H3-c": "INCONCLUSIVE",
+   "H3-e": "INCONCLUSIVE",
+   "H3-f": "INCONCLUSIVE"
+  }
+ },
+ "resolution": {
+  "max_abs_python_minus_aspen_lcoh_USD_per_kg": 0.006022354316313816,
+  "spread_of_offset_between_catalysts_USD_per_kg": 0.0006117647614942712,
+  "rows": [
+   {
+    "catalyst": "Ru/Al2O3",
+    "T_C": 499.0,
+    "lcoh_aspen": 4.200435999504983,
+    "lcoh_python": 4.1944136451886695,
+    "python_minus_aspen_USD_per_kg": -0.006022354316313816,
+    "fired_aspen_kW": 496.8115826900022,
+    "fired_python_kW": 481.605944522852
+   },
+   {
+    "catalyst": "Ru/MgO",
+    "T_C": 522.0,
+    "lcoh_aspen": 4.154001000044904,
+    "lcoh_python": 4.148113993919768,
+    "python_minus_aspen_USD_per_kg": -0.0058870061251354855,
+    "fired_aspen_kW": 534.98594600429,
+    "fired_python_kW": 520.0669977692716
+   },
+   {
+    "catalyst": "5Ni1Ru/CeO2",
+    "T_C": 572.0,
+    "lcoh_aspen": 4.099864259856671,
+    "lcoh_python": 4.0942741232925055,
+    "python_minus_aspen_USD_per_kg": -0.005590136564165071,
+    "fired_aspen_kW": 533.0715594496758,
+    "fired_python_kW": 518.8986985995824
+   },
+   {
+    "catalyst": "2.5Ni0.5Ru/CeO2",
+    "T_C": 576.0,
+    "lcoh_aspen": 4.093545523084263,
+    "lcoh_python": 4.087978134937339,
+    "python_minus_aspen_USD_per_kg": -0.005567388146923591,
+    "fired_aspen_kW": 524.3401076920927,
+    "fired_python_kW": 510.23626979268323
+   },
+   {
+    "catalyst": "Ni/MgO",
+    "T_C": 594.0,
+    "lcoh_aspen": 4.081314408282438,
+    "lcoh_python": 4.075903818727618,
+    "python_minus_aspen_USD_per_kg": -0.005410589554819545,
+    "fired_aspen_kW": 598.5683853492568,
+    "fired_python_kW": 584.7232748747009
+   }
+  ],
+  "rule": "verdict_methodology_v2: a difference smaller than the demonstrated Python-Aspen offset cannot support or contradict a row. The absolute offset (conservative) is used as the resolution."
+ },
+ "row_evidence": {
+  "H3-a": {
+   "proposed_verdict": "SUPPORTED",
+   "numbers": {
+    "aspen_fixed_100kg_fired_duty_saving_kW_HI": {
+     "Ru/Al2O3": 101.75680265925462,
+     "Ru/MgO": 63.582439344966815,
+     "5Ni1Ru/CeO2": 65.49682589958104,
+     "2.5Ni0.5Ru/CeO2": 74.22827765716409
+    },
+    "aspen_fixed_100kg_fired_duty_saving_kW_noHI": {
+     "Ru/Al2O3": 239.1871092537324,
+     "Ru/MgO": 168.33815591656708,
+     "5Ni1Ru/CeO2": 97.90436966872949,
+     "2.5Ni0.5Ru/CeO2": 100.76869911597805
+    },
+    "aspen_fixed_100kg_conversion_note": "Aspen runs reach X 0.9496-0.9589 (Ni highest), so Ni absorbs slightly more reaction heat",
+    "python_Top_X095_fired_duty_saving_kW_HI": {
+     "Ru/Al2O3": 25.11853373527873,
+     "Ru/MgO": 18.62748383952163,
+     "5Ni1Ru/CeO2": 5.425867236604972,
+     "2.5Ni0.5Ru/CeO2": 4.4229385520993105
+    },
+    "python_Top_X095_fired_duty_saving_kW_noHI": {
+     "Ru/Al2O3": 162.5501421689106,
+     "Ru/MgO": 123.38510942687401,
+     "5Ni1Ru/CeO2": 37.83221735002053,
+     "2.5Ni0.5Ru/CeO2": 30.96235333347613
+    },
+    "python_Top_X095_fuel_saving_USD_per_kg_HI": {
+     "Ru/Al2O3": 0.010560964710831039,
+     "Ru/MgO": 0.007831834515263397,
+     "5Ni1Ru/CeO2": 0.0022812793539361,
+     "2.5Ni0.5Ru/CeO2": 0.001859602891600698
+    },
+    "cost_optimal_exchanger_energy_saving_kW": {
+     "Ru/Al2O3": -19.28002764801454,
+     "Ru/MgO": -21.126366964173826,
+     "5Ni1Ru/CeO2": 0.0,
+     "2.5Ni0.5Ru/CeO2": 0.0
+    },
+    "resolution_USD_per_kg": 0.006022354316313816
+   },
+   "assumptions": [
+    "fixed 95 % conversion, 20 bar, PSA 0.85",
+    "furnace efficiency 0.85 and 2 % loss (assumptions)",
+    "fired duty = temperature-feasible import after FEHE and tail-gas firing"
+   ],
+   "uncertainty": "Python fired duty is 13.8-15.2 kW below Aspen at the same T and X for all five catalysts (spread 1.4 kW, so the T-dependence is reproduced within 1.4 kW over 95 K); FEHE duty offset +20.8 kW (model form, task X1).",
+   "envelope": "20 bar, X 0.95 (equal conversion), 499-594 degC, with and without FEHE. With FEHE the saving is about 0.26 kW per K (25 kW from 594 to 499 degC, about 5 % of fired duty); it exceeds the absolute Python-Aspen offset (15 kW) only for a temperature drop of about 60 K or more (Ru/Al2O3, Ru/MgO against Ni; not the NiRu/CeO2 catalysts, 4-5 kW). Without FEHE 31-163 kW. The direction is kinetics-independent; WHICH catalyst reaches which T rests on extrapolated laws.",
+   "threshold": null,
+   "reason": "Computed (Python, cross-checked against Aspen at the same T and X); the reduction at equal conversion is not a built-in assumption. CORRECTION to Phase 1: the Aspen fixed-inventory runs reach unequal conversion (Ni 0.9589 against Ru/Al2O3 0.9496); most of the 102 kW (17 %) Aspen difference comes from that conversion difference (less unconverted NH3 burnt in the tail gas), not from temperature. At equal conversion the saving is 25 kW with FEHE. When each design is cost-optimised at derived central prices the Ru-containing designs move to HIGHER temperatures than Ni and the saving disappears or reverses (H3-c): the energy claim holds for low-T operating points, not for cost-optimal designs."
+  },
+  "H3-b": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "aspen_T_op_100kg_C": {
+     "Ru/Al2O3": 499.0,
+     "Ru/MgO": 522.0,
+     "5Ni1Ru/CeO2": 572.0,
+     "2.5Ni0.5Ru/CeO2": 576.0,
+     "Ni/MgO": 594.0
+    },
+    "cost_optimal_T_C_exchanger_central": {
+     "Ru/Al2O3": 614.0,
+     "Ru/MgO": 622.0,
+     "5Ni1Ru/CeO2": 537.0,
+     "2.5Ni0.5Ru/CeO2": 537.0,
+     "Ni/MgO": 537.0
+    },
+    "kinetic_classes": {
+     "Ru/Al2O3": "validated_against_literature",
+     "Ru/MgO": "extrapolated",
+     "5Ni1Ru/CeO2": "validated_against_literature",
+     "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+     "Ni/MgO": "extrapolated"
+    }
+   },
+   "assumptions": [
+    "isothermal PFR, effectiveness factor 1, no pressure drop",
+    "1 atm (Takahashi, Lucentini) or 1-10 bar (Kum) laws used at 20 bar",
+    "AmCraX reversibility factor for Takahashi and Lucentini (not in the papers)"
+   ],
+   "uncertainty": "no law validated at 20 bar; Ni/MgO and Ru/MgO laws fail their literature comparison at 1 atm (KIN-NI-PRED, KIN-RU-PRED)",
+   "envelope": "20 bar, X 0.95, 100 kg per 100 kmol/h NH3; equilibrium limits X 0.95 to about 485 degC and above",
+   "threshold": null,
+   "reason": "The temperature ordering at fixed inventory (Ru/Al2O3 499 < Ru/MgO 522 < NiRu 572-576 < Ni/MgO 594 degC) rests on laws extrapolated to 20 bar, and the Ni reference law is in class 'extrapolated'. Among laws validated against literature only (Ru/Al2O3, NiRu/CeO2; pressure-extrapolated) the Ru/Al2O3 law reaches the target about 73-77 K lower than the NiRu laws, but no validated Ni law exists to compare with. This task adds no kinetic evidence."
+  },
+  "H3-c": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "fixed_inventory_aspen_HI_exchanger": {
+     "Ru/Al2O3": {
+      "energy_saving_kW": 25.11853373527873,
+      "energy_saving_USD_per_kg": 0.010560964710831039,
+      "catalyst_increase_USD_per_kg": 0.1176143481218528,
+      "exchanger_delta_USD_per_kg": -0.025702203774658483,
+      "net_lcoh_delta_USD_per_kg": 0.08127741385013199,
+      "breakeven_price_USD_per_kg": 1505.8901248724696,
+      "floor_price_USD_per_kg": 1774.72,
+      "central_price_USD_per_kg": 4790.512,
+      "breakeven_lifetime_yr": 6.362365913523336,
+      "npv_choose_low_USD": -1777558.1605645397,
+      "simple_payback_yr": null,
+      "kinetics": {
+       "laws": {
+        "Ru/Al2O3": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "Ru/MgO": {
+      "energy_saving_kW": 18.62748383952163,
+      "energy_saving_USD_per_kg": 0.007831834515263397,
+      "catalyst_increase_USD_per_kg": 0.07549904366165774,
+      "exchanger_delta_USD_per_kg": -0.024169215707182945,
+      "net_lcoh_delta_USD_per_kg": 0.04344320770694665,
+      "breakeven_price_USD_per_kg": 1297.3272057124232,
+      "floor_price_USD_per_kg": 1109.2,
+      "central_price_USD_per_kg": 3006.145,
+      "breakeven_lifetime_yr": 4.634366699107624,
+      "npv_choose_low_USD": -986561.4965875694,
+      "simple_payback_yr": null,
+      "kinetics": {
+       "laws": {
+        "Ru/MgO": "extrapolated",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ru/MgO",
+        "Ni/MgO"
+       ]
+      }
+     },
+     "5Ni1Ru/CeO2": {
+      "energy_saving_kW": 5.425867236604972,
+      "energy_saving_USD_per_kg": 0.0022812793539361,
+      "catalyst_increase_USD_per_kg": 0.015004461215037368,
+      "exchanger_delta_USD_per_kg": -0.0012767649855501273,
+      "net_lcoh_delta_USD_per_kg": 0.011430399059307206,
+      "breakeven_price_USD_per_kg": 177.33086688907326,
+      "floor_price_USD_per_kg": 222.59,
+      "central_price_USD_per_kg": 627.7545,
+      "breakeven_lifetime_yr": 7.0800364427551425,
+      "npv_choose_low_USD": -245554.0413589884,
+      "simple_payback_yr": null,
+      "kinetics": {
+       "laws": {
+        "5Ni1Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     },
+     "2.5Ni0.5Ru/CeO2": {
+      "energy_saving_kW": 4.4229385520993105,
+      "energy_saving_USD_per_kg": 0.001859602891600698,
+      "catalyst_increase_USD_per_kg": 0.00749208594315138,
+      "exchanger_delta_USD_per_kg": -0.001051358236287936,
+      "net_lcoh_delta_USD_per_kg": 0.004568065936549459,
+      "breakeven_price_USD_per_kg": 150.91675765361202,
+      "floor_price_USD_per_kg": 111.295,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "breakeven_lifetime_yr": 4.372970306682206,
+      "npv_choose_low_USD": -102448.63227867451,
+      "simple_payback_yr": null,
+      "kinetics": {
+       "laws": {
+        "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+        "Ni/MgO": "extrapolated"
+       },
+       "rests_on_extrapolated_law": true,
+       "result_label": "extrapolation",
+       "extrapolated_laws": [
+        "Ni/MgO"
+       ]
+      }
+     }
+    },
+    "cost_optimal": {
+     "reference": {
+      "Ru/Al2O3": {
+       "low_T_C": 643.0,
+       "ref_T_C": 549.0,
+       "low_W_kg": 4.590833098786566,
+       "ref_W_kg": 353.5734407807561,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.011889932952942495,
+       "net_lcoh_delta_SGD_per_kg": 0.01531951277362104,
+       "energy_saving_USD_per_kg": -0.00951903171382168,
+       "energy_saving_kW": -22.640367218119536,
+       "catalyst_increase_USD_per_kg": 0.0023040526423599994,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.00951903171382168,
+        "utilities_cooling_electricity": 6.684859676060122e-05,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.0023040526423599994,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.2948111230192678,
+       "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+       "npv_choose_low_USD": -217045.59816492748,
+       "npv_choose_low_SGD": -279651.0986820118,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/Al2O3": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "Ru/MgO": {
+       "low_T_C": 654.0,
+       "ref_T_C": 549.0,
+       "low_W_kg": 9.203469204228877,
+       "ref_W_kg": 353.5734407807561,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.014354644813757034,
+       "net_lcoh_delta_SGD_per_kg": 0.018495155982416366,
+       "energy_saving_USD_per_kg": -0.01052129241890648,
+       "energy_saving_kW": -25.02417589673371,
+       "catalyst_increase_USD_per_kg": 0.003759445652752602,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.01052129241890648,
+        "utilities_cooling_electricity": 7.390674209802994e-05,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.003759445652752602,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.30188385290219966,
+       "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+       "npv_choose_low_USD": -264858.69396125094,
+       "npv_choose_low_SGD": -341255.59508220997,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/MgO": "extrapolated",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ru/MgO",
+         "Ni/MgO"
+        ]
+       }
+      },
+      "5Ni1Ru/CeO2": {
+       "low_T_C": 628.0,
+       "ref_T_C": 549.0,
+       "low_W_kg": 30.747587434472788,
+       "ref_W_kg": 353.5734407807561,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.009784966239799076,
+       "net_lcoh_delta_SGD_per_kg": 0.012607381041871679,
+       "energy_saving_USD_per_kg": -0.00811401275080409,
+       "energy_saving_kW": -19.29862551292581,
+       "catalyst_increase_USD_per_kg": 0.001613995968272391,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.00811401275080409,
+        "utilities_cooling_electricity": 5.6957520722817354e-05,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.001613995968272391,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.2852231502632394,
+       "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+       "npv_choose_low_USD": -177806.34101525386,
+       "npv_choose_low_SGD": -229093.51324305774,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "5Ni1Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "2.5Ni0.5Ru/CeO2": {
+       "low_T_C": 598.0,
+       "ref_T_C": 549.0,
+       "low_W_kg": 65.78067958762745,
+       "ref_W_kg": 353.5734407807561,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.007441368006158022,
+       "net_lcoh_delta_SGD_per_kg": 0.009587785959326266,
+       "energy_saving_USD_per_kg": -0.005174466147735757,
+       "energy_saving_kW": -12.307114553716758,
+       "catalyst_increase_USD_per_kg": 0.002230619430028084,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.005174466147735757,
+        "utilities_cooling_electricity": 3.628242839385186e-05,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.002230619430028084,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.2662437907748991,
+       "hi_saving_ref_USD_per_kg": 0.23581707854105716,
+       "npv_choose_low_USD": -138114.09187071712,
+       "npv_choose_low_SGD": -177952.27298627424,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      }
+     },
+     "exchanger": {
+      "Ru/Al2O3": {
+       "low_T_C": 614.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 7.532774101877067,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03665203055336974,
+       "net_lcoh_delta_SGD_per_kg": 0.04722408885430592,
+       "energy_saving_USD_per_kg": -0.008106193369422338,
+       "energy_saving_kW": -19.28002764801454,
+       "catalyst_increase_USD_per_kg": 0.004170402201392792,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.008106193369422338,
+        "utilities_cooling_electricity": 5.682189779848603e-05,
+        "exchanger_capital_and_fixed": 0.024318613084755858,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": -1.1102230246251565e-16,
+        "catalyst": 0.004170402201392792,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.14314084226298895,
+       "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+       "npv_choose_low_USD": -660608.0442840197,
+       "npv_choose_low_SGD": -851156.4710094795,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/Al2O3": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "Ru/MgO": {
+       "low_T_C": 622.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 14.287148736185594,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03971648072408929,
+       "net_lcoh_delta_SGD_per_kg": 0.05117246129006849,
+       "energy_saving_USD_per_kg": -0.008882477708614972,
+       "energy_saving_kW": -21.126366964173826,
+       "catalyst_increase_USD_per_kg": 0.00593071589626669,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.008882477708614972,
+        "utilities_cooling_electricity": 6.22832467695345e-05,
+        "exchanger_capital_and_fixed": 0.024841003872438372,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": -5.551115123125783e-17,
+        "catalyst": 0.00593071589626669,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.14769130264319053,
+       "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+       "npv_choose_low_USD": -719913.5023359851,
+       "npv_choose_low_SGD": -927568.2326037859,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/MgO": "extrapolated",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ru/MgO",
+         "Ni/MgO"
+        ]
+       }
+      },
+      "5Ni1Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 227.8853948642451,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03160597105895846,
+       "net_lcoh_delta_SGD_per_kg": 0.04072252377508867,
+       "energy_saving_USD_per_kg": -0.0,
+       "energy_saving_kW": 0.0,
+       "catalyst_increase_USD_per_kg": 0.0316059710589583,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0,
+        "utilities_cooling_electricity": 0.0,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.0316059710589583,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.11960459845659699,
+       "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+       "npv_choose_low_USD": -650465.8518499825,
+       "npv_choose_low_SGD": -838088.8240209988,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "5Ni1Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "2.5Ni0.5Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 222.78408837513538,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.013769838451819894,
+       "net_lcoh_delta_SGD_per_kg": 0.01774166573421663,
+       "energy_saving_USD_per_kg": -0.0,
+       "energy_saving_kW": 0.0,
+       "catalyst_increase_USD_per_kg": 0.013769838451820043,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0,
+        "utilities_cooling_electricity": 0.0,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.013769838451820043,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.11960459845659699,
+       "hi_saving_ref_USD_per_kg": 0.11960459845659699,
+       "npv_choose_low_USD": -283389.79624108324,
+       "npv_choose_low_SGD": -365131.8826280462,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      }
+     },
+     "exchanger_reactor_mass": {
+      "Ru/Al2O3": {
+       "low_T_C": 630.0,
+       "ref_T_C": 654.0,
+       "low_W_kg": 5.7076848320451665,
+       "ref_W_kg": 28.630814477040044,
+       "low_is_lower_temperature": true,
+       "net_lcoh_delta_USD_per_kg": -0.005620553174120246,
+       "net_lcoh_delta_SGD_per_kg": -0.007241768013876187,
+       "energy_saving_USD_per_kg": 0.002217423438753807,
+       "energy_saving_kW": 5.273990300773562,
+       "catalyst_increase_USD_per_kg": 0.006742645830018655,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": -0.002217423438753807,
+        "utilities_cooling_electricity": -1.5612948280037744e-05,
+        "exchanger_capital_and_fixed": -0.0017133091738917305,
+        "reactor_capital_and_fixed": -0.008416853443212847,
+        "other_capital_and_fixed": -6.591949208711867e-17,
+        "catalyst": 0.006742645830018655,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.15224519403065262,
+       "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+       "npv_choose_low_USD": 80006.34831319921,
+       "npv_choose_low_SGD": 103083.69944605164,
+       "simple_payback_yr": null,
+       "below_resolution": true,
+       "kinetics": {
+        "laws": {
+         "Ru/Al2O3": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "Ru/MgO": {
+       "low_T_C": 644.0,
+       "ref_T_C": 654.0,
+       "low_W_kg": 10.493249530954179,
+       "ref_W_kg": 28.630814477040044,
+       "low_is_lower_temperature": true,
+       "net_lcoh_delta_USD_per_kg": -0.0002402805699075472,
+       "net_lcoh_delta_SGD_per_kg": -0.00030958805861395973,
+       "energy_saving_USD_per_kg": 0.000910154703565702,
+       "energy_saving_kW": 2.16474084061565,
+       "catalyst_increase_USD_per_kg": 0.007820239571784664,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": -0.000910154703565702,
+        "utilities_cooling_electricity": -6.409585408703581e-06,
+        "exchanger_capital_and_fixed": -0.0007332713057506823,
+        "reactor_capital_and_fixed": -0.006410684546966765,
+        "other_capital_and_fixed": 1.5612511283791264e-17,
+        "catalyst": 0.007820239571784664,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.16022003408764007,
+       "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+       "npv_choose_low_USD": -18309.16621567763,
+       "npv_choose_low_SGD": -23590.335355592546,
+       "simple_payback_yr": null,
+       "below_resolution": true,
+       "kinetics": {
+        "laws": {
+         "Ru/MgO": "extrapolated",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ru/MgO",
+         "Ni/MgO"
+        ]
+       }
+      },
+      "5Ni1Ru/CeO2": {
+       "low_T_C": 658.0,
+       "ref_T_C": 654.0,
+       "low_W_kg": 17.51936526833939,
+       "ref_W_kg": 28.630814477040044,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": -0.0005602839747416155,
+       "net_lcoh_delta_SGD_per_kg": -0.000721894525551986,
+       "energy_saving_USD_per_kg": -0.000358450678853095,
+       "energy_saving_kW": -0.8525504739137659,
+       "catalyst_increase_USD_per_kg": 0.0025505370686078953,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.000358450678853095,
+        "utilities_cooling_electricity": 2.524636118224669e-06,
+        "exchanger_capital_and_fixed": 0.00030169708474331314,
+        "reactor_capital_and_fixed": -0.0037734934430637412,
+        "other_capital_and_fixed": -2.7755575615628914e-17,
+        "catalyst": 0.0025505370686078953,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.1681968932608262,
+       "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+       "npv_choose_low_USD": 2556.3245371371086,
+       "npv_choose_low_SGD": 3293.6810119270845,
+       "simple_payback_yr": null,
+       "below_resolution": true,
+       "kinetics": {
+        "laws": {
+         "5Ni1Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "2.5Ni0.5Ru/CeO2": {
+       "low_T_C": 655.0,
+       "ref_T_C": 654.0,
+       "low_W_kg": 24.96776374243951,
+       "ref_W_kg": 28.630814477040044,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.0008037190280472117,
+       "net_lcoh_delta_SGD_per_kg": 0.0010355469593732616,
+       "energy_saving_USD_per_kg": -8.9915770350113e-05,
+       "energy_saving_kW": -0.21385852265541416,
+       "catalyst_increase_USD_per_kg": 0.0018428957926921185,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 8.9915770350113e-05,
+        "utilities_cooling_electricity": 6.332797532835732e-07,
+        "exchanger_capital_and_fixed": 7.496089730779643e-05,
+        "reactor_capital_and_fixed": -0.0012046867120557997,
+        "other_capital_and_fixed": 4.163336342344337e-17,
+        "catalyst": 0.0018428957926921185,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.16648772801653866,
+       "hi_saving_ref_USD_per_kg": 0.16591796989934693,
+       "npv_choose_low_USD": -19538.89850745537,
+       "npv_choose_low_SGD": -25174.776548539827,
+       "simple_payback_yr": null,
+       "below_resolution": true,
+       "kinetics": {
+        "laws": {
+         "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      }
+     },
+     "exchanger_U_low": {
+      "Ru/Al2O3": {
+       "low_T_C": 600.0,
+       "ref_T_C": 531.0,
+       "low_W_kg": 9.691449485265393,
+       "ref_W_kg": 676.7696180634078,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03887150666160277,
+       "net_lcoh_delta_SGD_per_kg": 0.05008375952910212,
+       "energy_saving_USD_per_kg": -0.007400666190500865,
+       "energy_saving_kW": -17.601979408091893,
+       "catalyst_increase_USD_per_kg": 0.005521115905036274,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.007400666190500865,
+        "utilities_cooling_electricity": 5.1819554907629435e-05,
+        "exchanger_capital_and_fixed": 0.025897905011157907,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 5.551115123125783e-17,
+        "catalyst": 0.005521115905036274,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.11355944574509369,
+       "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+       "npv_choose_low_USD": -703779.571461841,
+       "npv_choose_low_SGD": -906780.5661725802,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/Al2O3": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "Ru/MgO": {
+       "low_T_C": 606.0,
+       "ref_T_C": 531.0,
+       "low_W_kg": 18.23408679393319,
+       "ref_W_kg": 676.7696180634078,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.0423430834695111,
+       "net_lcoh_delta_SGD_per_kg": 0.05455669183779076,
+       "energy_saving_USD_per_kg": -0.00799998927653739,
+       "energy_saving_kW": -19.027428461955367,
+       "catalyst_increase_USD_per_kg": 0.007672279221609147,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.00799998927653739,
+        "utilities_cooling_electricity": 5.603284891086719e-05,
+        "exchanger_capital_and_fixed": 0.02661478212245305,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 5.551115123125783e-17,
+        "catalyst": 0.007672279221609147,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.11662092110162625,
+       "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+       "npv_choose_low_USD": -771416.9300177024,
+       "npv_choose_low_SGD": -993927.5149797285,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/MgO": "extrapolated",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ru/MgO",
+         "Ni/MgO"
+        ]
+       }
+      },
+      "5Ni1Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 531.0,
+       "low_W_kg": 227.8853948642451,
+       "ref_W_kg": 676.7696180634078,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.0318274769618645,
+       "net_lcoh_delta_SGD_per_kg": 0.04100792172665254,
+       "energy_saving_USD_per_kg": -0.0006822615198458226,
+       "energy_saving_kW": -1.6227124577885093,
+       "catalyst_increase_USD_per_kg": 0.03030439919985154,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0006822615198458226,
+        "utilities_cooling_electricity": 4.7559339092645425e-06,
+        "exchanger_capital_and_fixed": 0.0008360603082576135,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 5.551115123125783e-17,
+        "catalyst": 0.03030439919985154,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.09959896435722282,
+       "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+       "npv_choose_low_USD": -650630.5343541403,
+       "npv_choose_low_SGD": -838301.0082053859,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "5Ni1Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "2.5Ni0.5Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 531.0,
+       "low_W_kg": 222.78408837513538,
+       "ref_W_kg": 676.7696180634078,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.01399134435472682,
+       "net_lcoh_delta_SGD_per_kg": 0.018027063685781643,
+       "energy_saving_USD_per_kg": -0.0006822615198458226,
+       "energy_saving_kW": -1.6227124577885093,
+       "catalyst_increase_USD_per_kg": 0.012468266592713283,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0006822615198458226,
+        "utilities_cooling_electricity": 4.7559339092645425e-06,
+        "exchanger_capital_and_fixed": 0.0008360603082576135,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 5.551115123125783e-17,
+        "catalyst": 0.012468266592713283,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.09959896435722193,
+       "hi_saving_ref_USD_per_kg": 0.09678207075640533,
+       "npv_choose_low_USD": -283554.47874524095,
+       "npv_choose_low_SGD": -365344.0668124332,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      }
+     },
+     "exchanger_U_high": {
+      "Ru/Al2O3": {
+       "low_T_C": 630.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 5.7076848320451665,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03574241959644997,
+       "net_lcoh_delta_SGD_per_kg": 0.046052106074528386,
+       "energy_saving_USD_per_kg": -0.009646515006157985,
+       "energy_saving_kW": -22.943577527680645,
+       "catalyst_increase_USD_per_kg": 0.0019279817066968873,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.009646515006157985,
+        "utilities_cooling_electricity": 6.766019450246685e-05,
+        "exchanger_capital_and_fixed": 0.024100262689092045,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": -5.551115123125783e-17,
+        "catalyst": 0.0019279817066968873,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.1632460073107893,
+       "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+       "npv_choose_low_USD": -638042.7218048688,
+       "npv_choose_low_SGD": -822082.3166531523,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/Al2O3": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "Ru/MgO": {
+       "low_T_C": 638.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 11.382326800998182,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03846326315377269,
+       "net_lcoh_delta_SGD_per_kg": 0.04955776063089949,
+       "energy_saving_USD_per_kg": -0.010398203526113176,
+       "energy_saving_kW": -24.731417366549977,
+       "catalyst_increase_USD_per_kg": 0.003691064372428673,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.010398203526113176,
+        "utilities_cooling_electricity": 7.29517243301329e-05,
+        "exchanger_capital_and_fixed": 0.02430104353090018,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 5.551115123125783e-17,
+        "catalyst": 0.003691064372428673,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.16815532558572865,
+       "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+       "npv_choose_low_USD": -691275.8717051747,
+       "npv_choose_low_SGD": -890670.249243302,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "Ru/MgO": "extrapolated",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ru/MgO",
+         "Ni/MgO"
+        ]
+       }
+      },
+      "5Ni1Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 227.8853948642451,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.03160597105895846,
+       "net_lcoh_delta_SGD_per_kg": 0.04072252377508867,
+       "energy_saving_USD_per_kg": -0.0,
+       "energy_saving_kW": 0.0,
+       "catalyst_increase_USD_per_kg": 0.0316059710589583,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0,
+        "utilities_cooling_electricity": 0.0,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.0316059710589583,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.12932707400394428,
+       "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+       "npv_choose_low_USD": -650465.8518499825,
+       "npv_choose_low_SGD": -838088.8240209988,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "5Ni1Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      },
+      "2.5Ni0.5Ru/CeO2": {
+       "low_T_C": 537.0,
+       "ref_T_C": 537.0,
+       "low_W_kg": 222.78408837513538,
+       "ref_W_kg": 538.8417765009283,
+       "low_is_lower_temperature": false,
+       "net_lcoh_delta_USD_per_kg": 0.013769838451819894,
+       "net_lcoh_delta_SGD_per_kg": 0.01774166573421663,
+       "energy_saving_USD_per_kg": -0.0,
+       "energy_saving_kW": 0.0,
+       "catalyst_increase_USD_per_kg": 0.013769838451820043,
+       "decomposition_USD_per_kg": {
+        "energy_heat_fuel": 0.0,
+        "utilities_cooling_electricity": 0.0,
+        "exchanger_capital_and_fixed": 0.0,
+        "reactor_capital_and_fixed": 0.0,
+        "other_capital_and_fixed": 0.0,
+        "catalyst": 0.013769838451820043,
+        "carbon_tax": 0.0,
+        "ammonia_feed": 0.0
+       },
+       "hi_saving_low_USD_per_kg": 0.12932707400394428,
+       "hi_saving_ref_USD_per_kg": 0.12932707400394428,
+       "npv_choose_low_USD": -283389.79624108324,
+       "npv_choose_low_SGD": -365131.8826280462,
+       "simple_payback_yr": null,
+       "below_resolution": false,
+       "kinetics": {
+        "laws": {
+         "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+         "Ni/MgO": "extrapolated"
+        },
+        "rests_on_extrapolated_law": true,
+        "result_label": "extrapolation",
+        "extrapolated_laws": [
+         "Ni/MgO"
+        ]
+       }
+      }
+     }
+    },
+    "breakeven": [
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "catalyst": "Ru/Al2O3",
+      "reference": "Ni/MgO cost-optimal (exchanger)",
+      "low_T_C": 614.0,
+      "low_W_kg": 7.532774101877067,
+      "ref_T_C": 537.0,
+      "ref_W_kg": 538.8417765009283,
+      "central_price_USD_per_kg": 4790.512,
+      "floor_price_USD_per_kg": 1774.72,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": null,
+      "breakeven_price_fixed_design_SGD_per_kg": null,
+      "breakeven_price_reoptimised_USD_per_kg": 629.8891144174032,
+      "breakeven_price_reoptimised_SGD_per_kg": 811.5768501364166,
+      "T_at_reoptimised_breakeven_C": 523.0,
+      "lcoh_low_at_zero_price_minus_ref_USD_per_kg": -0.012748051706326535,
+      "breakeven_lifetime_fixed_design_yr": null,
+      "breakeven_lifetime_reoptimised_yr": 15.210662215587801,
+      "metal_value_central_USD_per_kg": 4758.312,
+      "ru_recovery_fraction_needed_for_breakeven": null,
+      "recovery_note": "net catalyst price = price - recovered metal value; no refining charge or verified recovery fraction is sourced (catalyst_prices.json L6, L7: snippet-level 85-95 %)",
+      "floor_vs_breakeven": null,
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "catalyst": "Ru/MgO",
+      "reference": "Ni/MgO cost-optimal (exchanger)",
+      "low_T_C": 622.0,
+      "low_W_kg": 14.287148736185594,
+      "ref_T_C": 537.0,
+      "ref_W_kg": 538.8417765009283,
+      "central_price_USD_per_kg": 3006.145,
+      "floor_price_USD_per_kg": 1109.2,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": null,
+      "breakeven_price_fixed_design_SGD_per_kg": null,
+      "breakeven_price_reoptimised_USD_per_kg": 313.2738725023521,
+      "breakeven_price_reoptimised_SGD_per_kg": 403.63584138242055,
+      "T_at_reoptimised_breakeven_C": 526.0,
+      "lcoh_low_at_zero_price_minus_ref_USD_per_kg": -0.012748051706326535,
+      "breakeven_lifetime_fixed_design_yr": null,
+      "breakeven_lifetime_reoptimised_yr": 19.191788470279764,
+      "metal_value_central_USD_per_kg": 2973.945,
+      "ru_recovery_fraction_needed_for_breakeven": null,
+      "recovery_note": "net catalyst price = price - recovered metal value; no refining charge or verified recovery fraction is sourced (catalyst_prices.json L6, L7: snippet-level 85-95 %)",
+      "floor_vs_breakeven": null,
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "catalyst": "5Ni1Ru/CeO2",
+      "reference": "Ni/MgO cost-optimal (exchanger)",
+      "low_T_C": 537.0,
+      "low_W_kg": 227.8853948642451,
+      "ref_T_C": 537.0,
+      "ref_W_kg": 538.8417765009283,
+      "central_price_USD_per_kg": 627.7545,
+      "floor_price_USD_per_kg": 222.59,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 86.99813998439079,
+      "breakeven_price_fixed_design_SGD_per_kg": 112.0922314740484,
+      "breakeven_price_reoptimised_USD_per_kg": 91.96872399677181,
+      "breakeven_price_reoptimised_SGD_per_kg": 118.49655062129666,
+      "T_at_reoptimised_breakeven_C": 527.0,
+      "lcoh_low_at_zero_price_minus_ref_USD_per_kg": -0.012748051706326535,
+      "breakeven_lifetime_fixed_design_yr": 14.431446467996482,
+      "breakeven_lifetime_reoptimised_yr": 13.651476532576009,
+      "metal_value_central_USD_per_kg": 595.5545,
+      "ru_recovery_fraction_needed_for_breakeven": 0.9079880347064949,
+      "recovery_note": "net catalyst price = price - recovered metal value; no refining charge or verified recovery fraction is sourced (catalyst_prices.json L6, L7: snippet-level 85-95 %)",
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "reference": "Ni/MgO cost-optimal (exchanger)",
+      "low_T_C": 537.0,
+      "low_W_kg": 222.78408837513538,
+      "ref_T_C": 537.0,
+      "ref_W_kg": 538.8417765009283,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "floor_price_USD_per_kg": 111.295,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 88.99022200101824,
+      "breakeven_price_fixed_design_SGD_per_kg": 114.65891759587994,
+      "breakeven_price_reoptimised_USD_per_kg": 97.9075907865545,
+      "breakeven_price_reoptimised_SGD_per_kg": 126.14844790339141,
+      "T_at_reoptimised_breakeven_C": 523.0,
+      "lcoh_low_at_zero_price_minus_ref_USD_per_kg": -0.012748051706326535,
+      "breakeven_lifetime_fixed_design_yr": 7.4160338648492035,
+      "breakeven_lifetime_reoptimised_yr": 6.740529383705588,
+      "metal_value_central_USD_per_kg": 297.77725,
+      "ru_recovery_fraction_needed_for_breakeven": 0.8092862298882192,
+      "recovery_note": "net catalyst price = price - recovered metal value; no refining charge or verified recovery fraction is sourced (catalyst_prices.json L6, L7: snippet-level 85-95 %)",
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "catalyst": "Ru/Al2O3",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_HI_exchanger)",
+      "basis": "aspen_fixed_100kg_HI_exchanger",
+      "low_T_C": 499.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 4790.512,
+      "floor_price_USD_per_kg": 1774.72,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 1102.7080642308956,
+      "breakeven_price_fixed_design_SGD_per_kg": 1420.777589109912,
+      "breakeven_lifetime_fixed_design_yr": 8.688631479885352,
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "catalyst": "Ru/Al2O3",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_noHI_exchanger)",
+      "basis": "aspen_fixed_100kg_noHI_exchanger",
+      "low_T_C": 499.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 4790.512,
+      "floor_price_USD_per_kg": 1774.72,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 2318.2333049034355,
+      "breakeven_price_fixed_design_SGD_per_kg": 2986.913792303002,
+      "breakeven_lifetime_fixed_design_yr": 4.132898953584437,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "catalyst": "Ru/MgO",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_HI_exchanger)",
+      "basis": "aspen_fixed_100kg_HI_exchanger",
+      "low_T_C": 522.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 3006.145,
+      "floor_price_USD_per_kg": 1109.2,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 1084.3652140344761,
+      "breakeven_price_fixed_design_SGD_per_kg": 1397.1438538314364,
+      "breakeven_lifetime_fixed_design_yr": 5.544524964638755,
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "catalyst": "Ru/MgO",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_noHI_exchanger)",
+      "basis": "aspen_fixed_100kg_noHI_exchanger",
+      "low_T_C": 522.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 3006.145,
+      "floor_price_USD_per_kg": 1109.2,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 1833.3055099343453,
+      "breakeven_price_fixed_design_SGD_per_kg": 2362.1114844418476,
+      "breakeven_lifetime_fixed_design_yr": 3.2794806797996876,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "catalyst": "5Ni1Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_HI_exchanger)",
+      "basis": "aspen_fixed_100kg_HI_exchanger",
+      "low_T_C": 572.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 627.7545,
+      "floor_price_USD_per_kg": 222.59,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": null,
+      "breakeven_price_fixed_design_SGD_per_kg": null,
+      "breakeven_lifetime_fixed_design_yr": null,
+      "floor_vs_breakeven": null,
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "catalyst": "5Ni1Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_noHI_exchanger)",
+      "basis": "aspen_fixed_100kg_noHI_exchanger",
+      "low_T_C": 572.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 627.7545,
+      "floor_price_USD_per_kg": 222.59,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 361.871200134334,
+      "breakeven_price_fixed_design_SGD_per_kg": 466.2507765858818,
+      "breakeven_lifetime_fixed_design_yr": 3.4694913536471796,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_HI_exchanger)",
+      "basis": "aspen_fixed_100kg_HI_exchanger",
+      "low_T_C": 576.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "floor_price_USD_per_kg": 111.295,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": null,
+      "breakeven_price_fixed_design_SGD_per_kg": null,
+      "breakeven_lifetime_fixed_design_yr": null,
+      "floor_vs_breakeven": null,
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (aspen_fixed_100kg_noHI_exchanger)",
+      "basis": "aspen_fixed_100kg_noHI_exchanger",
+      "low_T_C": 576.0,
+      "low_W_kg": 100.0,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 100.0,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "floor_price_USD_per_kg": 111.295,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 202.38425568282594,
+      "breakeven_price_fixed_design_SGD_per_kg": 260.760779929003,
+      "breakeven_lifetime_fixed_design_yr": 3.260898422030775,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "aspen (duties) + python (economics)",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "catalyst": "Ru/Al2O3",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_HI_exchanger)",
+      "basis": "python_Top_X095_HI_exchanger",
+      "low_T_C": 499.0,
+      "low_W_kg": 96.47915379471021,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 4790.512,
+      "floor_price_USD_per_kg": 1774.72,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 1505.8901248724696,
+      "breakeven_price_fixed_design_SGD_per_kg": 1940.2550960511842,
+      "breakeven_lifetime_fixed_design_yr": 6.362365913523336,
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_kum_temkin_pyzhev",
+      "catalyst": "Ru/Al2O3",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_noHI_exchanger)",
+      "basis": "python_Top_X095_noHI_exchanger",
+      "low_T_C": 499.0,
+      "low_W_kg": 96.47915379471021,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 4790.512,
+      "floor_price_USD_per_kg": 1774.72,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 2819.3822918660676,
+      "breakeven_price_fixed_design_SGD_per_kg": 3632.6161976610833,
+      "breakeven_lifetime_fixed_design_yr": 3.3982706168089734,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "catalyst": "Ru/MgO",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_HI_exchanger)",
+      "basis": "python_Top_X095_HI_exchanger",
+      "low_T_C": 522.0,
+      "low_W_kg": 99.12315505886066,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 3006.145,
+      "floor_price_USD_per_kg": 1109.2,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 1297.3272057124232,
+      "breakeven_price_fixed_design_SGD_per_kg": 1671.5334542369374,
+      "breakeven_lifetime_fixed_design_yr": 4.634366699107624,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "ru_takahashi_microkinetic",
+      "catalyst": "Ru/MgO",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_noHI_exchanger)",
+      "basis": "python_Top_X095_noHI_exchanger",
+      "low_T_C": 522.0,
+      "low_W_kg": 99.12315505886066,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 3006.145,
+      "floor_price_USD_per_kg": 1109.2,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 2091.7743830234695,
+      "breakeven_price_fixed_design_SGD_per_kg": 2695.134153160291,
+      "breakeven_lifetime_fixed_design_yr": 2.8742535757177516,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "catalyst": "5Ni1Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_HI_exchanger)",
+      "basis": "python_Top_X095_HI_exchanger",
+      "low_T_C": 572.0,
+      "low_W_kg": 98.94394306503287,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 627.7545,
+      "floor_price_USD_per_kg": 222.59,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 177.33086688907326,
+      "breakeven_price_fixed_design_SGD_per_kg": 228.4808914580251,
+      "breakeven_lifetime_fixed_design_yr": 7.0800364427551425,
+      "floor_vs_breakeven": "break-even below the metal-content floor",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+      "catalyst": "5Ni1Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_noHI_exchanger)",
+      "basis": "python_Top_X095_noHI_exchanger",
+      "low_T_C": 572.0,
+      "low_W_kg": 98.94394306503287,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 627.7545,
+      "floor_price_USD_per_kg": 222.59,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 667.8455613089917,
+      "breakeven_price_fixed_design_SGD_per_kg": 860.4816063952024,
+      "breakeven_lifetime_fixed_design_yr": 1.8799391247568904,
+      "floor_vs_breakeven": "break-even above the central price",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_HI_exchanger)",
+      "basis": "python_Top_X095_HI_exchanger",
+      "low_T_C": 576.0,
+      "low_W_kg": 99.46758640169047,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "floor_price_USD_per_kg": 111.295,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 150.91675765361202,
+      "breakeven_price_fixed_design_SGD_per_kg": 194.44779089825047,
+      "breakeven_lifetime_fixed_design_yr": 4.372970306682206,
+      "floor_vs_breakeven": "break-even between floor and central",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "mode": "exchanger",
+      "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "reference": "Ni/MgO at 594 degC (python_Top_X095_noHI_exchanger)",
+      "basis": "python_Top_X095_noHI_exchanger",
+      "low_T_C": 576.0,
+      "low_W_kg": 99.46758640169047,
+      "ref_T_C": 594.0,
+      "ref_W_kg": 98.13505456495304,
+      "central_price_USD_per_kg": 329.97724999999997,
+      "floor_price_USD_per_kg": 111.295,
+      "published_TEA_price_USD_per_kg": 542.0,
+      "breakeven_price_fixed_design_USD_per_kg": 550.2874704563067,
+      "breakeven_price_fixed_design_SGD_per_kg": 709.0145895846056,
+      "breakeven_lifetime_fixed_design_yr": 1.1992904353296574,
+      "floor_vs_breakeven": "break-even above the central price",
+      "source_type": "python (flowsheet at kinetic X 0.95 and the Aspen operating temperatures)",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     }
+    ],
+    "ni_temperature_threshold": [
+     {
+      "catalyst": "Ru/Al2O3",
+      "variant": "Ni_kinetics_Takahashi_extrapolated",
+      "low_T_C": 614.0,
+      "low_W_kg": 7.532774101877067,
+      "low_lcoh_USD_per_kg": 4.226254719106754,
+      "Ni_threshold_T_C": 668.9549604531971,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 537.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "catalyst": "Ru/Al2O3",
+      "variant": "Ni_catalyst_free_kinetics_independent",
+      "low_T_C": 614.0,
+      "low_W_kg": 7.532774101877067,
+      "low_lcoh_USD_per_kg": 4.226254719106754,
+      "Ni_threshold_T_C": 670.2141573981465,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 0.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature"
+      },
+      "rests_on_extrapolated_law": false,
+      "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+      "extrapolated_laws": []
+     },
+     {
+      "catalyst": "Ru/MgO",
+      "variant": "Ni_kinetics_Takahashi_extrapolated",
+      "low_T_C": 622.0,
+      "low_W_kg": 14.287148736185594,
+      "low_lcoh_USD_per_kg": 4.229319169277473,
+      "Ni_threshold_T_C": 675.5102297931251,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 537.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "Ru/MgO": "extrapolated",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO",
+       "Ni/MgO"
+      ]
+     },
+     {
+      "catalyst": "Ru/MgO",
+      "variant": "Ni_catalyst_free_kinetics_independent",
+      "low_T_C": 622.0,
+      "low_W_kg": 14.287148736185594,
+      "low_lcoh_USD_per_kg": 4.229319169277473,
+      "Ni_threshold_T_C": 675.556909342881,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 0.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "Ru/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ru/MgO"
+      ]
+     },
+     {
+      "catalyst": "5Ni1Ru/CeO2",
+      "variant": "Ni_kinetics_Takahashi_extrapolated",
+      "low_T_C": 537.0,
+      "low_W_kg": 227.8853948642451,
+      "low_lcoh_USD_per_kg": 4.221208659612342,
+      "Ni_threshold_T_C": 637.5278128330096,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 537.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "catalyst": "5Ni1Ru/CeO2",
+      "variant": "Ni_catalyst_free_kinetics_independent",
+      "low_T_C": 537.0,
+      "low_W_kg": 227.8853948642451,
+      "low_lcoh_USD_per_kg": 4.221208659612342,
+      "Ni_threshold_T_C": 639.7505259335887,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 0.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "5Ni1Ru/CeO2": "validated_against_literature"
+      },
+      "rests_on_extrapolated_law": false,
+      "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+      "extrapolated_laws": []
+     },
+     {
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "variant": "Ni_kinetics_Takahashi_extrapolated",
+      "low_T_C": 537.0,
+      "low_W_kg": 222.78408837513538,
+      "low_lcoh_USD_per_kg": 4.203372527005204,
+      "Ni_threshold_T_C": 540.0,
+      "threshold_status": "low-T design cheaper already at the first scanned Ni temperature",
+      "scan_start_C": 537.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "catalyst": "2.5Ni0.5Ru/CeO2",
+      "variant": "Ni_catalyst_free_kinetics_independent",
+      "low_T_C": 537.0,
+      "low_W_kg": 222.78408837513538,
+      "low_lcoh_USD_per_kg": 4.203372527005204,
+      "Ni_threshold_T_C": 539.6198716644107,
+      "threshold_status": "crossing (linear interpolation on the 5 K grid)",
+      "scan_start_C": 0.0,
+      "sourced_Ni_design_T_C": {
+       "cho2026nickel": 735.52,
+       "mehr2026highcapacity_outlet": 760.0
+      },
+      "sourced_values_above_threshold": true,
+      "AmCraX_Ni_costopt_T_C_extrapolated": 537.0,
+      "interpretation": "the low-T catalyst design is cheaper than a Ni design operated above Ni_threshold_T_C",
+      "laws": {
+       "2.5Ni0.5Ru/CeO2": "validated_against_literature"
+      },
+      "rests_on_extrapolated_law": false,
+      "result_label": "pressure extrapolation (laws validated against literature at <= 10 bar only)",
+      "extrapolated_laws": []
+     }
+    ],
+    "resolution_USD_per_kg": 0.006022354316313816,
+    "sensitivity_counts": {
+     "n_rows": 100,
+     "n_low_cheaper_resolved": 1,
+     "n_rows_resolved": 93,
+     "n_low_design_at_lower_T_than_Ni": 4,
+     "cases_where_some_low_T_catalyst_cheaper_resolved": [
+      "Ni_rate_div5"
+     ]
+    }
+   },
+   "assumptions": [
+    "catalyst prices DERIVED from metal content + 32.2 USD/kg non-metal part (no quotation exists)",
+    "lifetime 2 yr (Cho, assumed), varied 1-5 yr",
+    "FEHE U central 72.5 W/(m2 K) (derived), varied 35-150",
+    "reactor CAPEX by NH3 feed (frozen basis) or by catalyst mass (sensitivity)",
+    "no Ru recovery credit (no sourced refining charge or recovery fraction)"
+   ],
+   "uncertainty": "Ru price (USGS 2025 average to Nov 2026 JM spot), lifetime 1-5 yr, NH3 300-1000 USD/t, fuel price, natural-gas heat, electricity 0.084-0.222 USD/kWh, discount 0.085-0.10, 7000-8000 h, U 35-150, reactor cost driver, rates /5. The FEHE cost is a step function of temperature (4 -> 5 shells in series between 537 and 538 degC at U central, +0.235 MUSD TCI, about +0.023 USD/kg): in the 'exchanger' mode it pins several optima at 537 degC and is of the same size as the catalyst differences; the 'reference' mode (no exchanger response) is reported beside it.",
+   "envelope": "20 bar, X 0.95, PSA 0.85, grey 450 USD/t base; Python flowsheet (cost-optimal) or Aspen duties (fixed 100 kg)",
+   "threshold": {
+    "breakeven_price": "catalyst_breakeven.csv (fixed and re-optimised); compared with the metal-content floor and the central price",
+    "breakeven_lifetime": "catalyst_breakeven.csv",
+    "Ni_temperature_threshold_C": {
+     "Ru/Al2O3|Ni_kinetics_Takahashi_extrapolated": 668.9549604531971,
+     "Ru/Al2O3|Ni_catalyst_free_kinetics_independent": 670.2141573981465,
+     "Ru/MgO|Ni_kinetics_Takahashi_extrapolated": 675.5102297931251,
+     "Ru/MgO|Ni_catalyst_free_kinetics_independent": 675.556909342881,
+     "5Ni1Ru/CeO2|Ni_kinetics_Takahashi_extrapolated": 637.5278128330096,
+     "5Ni1Ru/CeO2|Ni_catalyst_free_kinetics_independent": 639.7505259335887,
+     "2.5Ni0.5Ru/CeO2|Ni_kinetics_Takahashi_extrapolated": 540.0,
+     "2.5Ni0.5Ru/CeO2|Ni_catalyst_free_kinetics_independent": 539.6198716644107
+    },
+    "ru_recovery_fraction_needed": {
+     "Ru/Al2O3|reference": null,
+     "Ru/MgO|reference": null,
+     "5Ni1Ru/CeO2|reference": null,
+     "2.5Ni0.5Ru/CeO2|reference": null,
+     "Ru/Al2O3|exchanger": null,
+     "Ru/MgO|exchanger": null,
+     "5Ni1Ru/CeO2|exchanger": 0.9079880347064949,
+     "2.5Ni0.5Ru/CeO2|exchanger": 0.8092862298882192,
+     "Ru/Al2O3|exchanger_reactor_mass": 0.0,
+     "Ru/MgO|exchanger_reactor_mass": 0.0,
+     "5Ni1Ru/CeO2|exchanger_reactor_mass": 0.0,
+     "2.5Ni0.5Ru/CeO2|exchanger_reactor_mass": 0.42148495742917563
+    }
+   },
+   "reason": "(1) Kinetic operating temperatures at equal conversion 0.95 (90-100 kg, Python flowsheet, FEHE costed): break-even prices Ru/Al2O3 1506, Ru/MgO 1297, 5Ni1Ru/CeO2 177, 2.5Ni0.5Ru/CeO2 151 USD/kg against floors 1775, 1109, 223, 111 and central 4791, 3006, 628, 330; break-even below the metal floor for ['Ru/Al2O3', '5Ni1Ru/CeO2'], above the central price for none. (2) Cost-optimal designs (both re-optimised, exchanger mode): low-T catalyst cheaper beyond the resolution 0.0060 USD/kg for none; Ru-containing designs at a LOWER temperature than Ni for none: at derived prices the economic optimum of an expensive catalyst is a small charge at high temperature, so the energy saving that the claim rests on is not chosen. (3) Against Ni at sourced design temperatures (Cho 735.52, Mehr 760 degC), the kinetics-free Ni threshold temperatures are {'Ru/Al2O3': 670.2141573981465, 'Ru/MgO': 675.556909342881, '5Ni1Ru/CeO2': 639.7505259335887, '2.5Ni0.5Ru/CeO2': 539.6198716644107}; the low-T designs win against those Ni designs but lose against the AmCraX Ni/MgO optimum (537 degC, extrapolated law). The Ni design temperature therefore decides the ranking, sourced values and the extrapolated model straddle the threshold, and every LCOH difference is below 1 % of LCOH. Resolved low-T wins in 1 of 100 sensitivity rows."
+  },
+  "H3-e": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "psa_recovery_threshold_for_zero_supplementary_fuel": {
+     "Ni_735.52C_24.34bar": {
+      "psa_recovery_threshold": 0.7563583374023437,
+      "import_kW_at_0.70": 0.0,
+      "import_kW_at_0.95": 1603.2712691995735,
+      "import_kW_at_0.756": 0.0,
+      "import_kW_at_0.85": 676.2364556756901
+     },
+     "RuAl2O3_566.69C_10bar": {
+      "psa_recovery_threshold": 0.7812911987304687,
+      "import_kW_at_0.70": 0.0,
+      "import_kW_at_0.95": 1564.0405947245122,
+      "import_kW_at_0.756": 0.0,
+      "import_kW_at_0.85": 637.0057812006285
+     }
+    },
+    "cho_rows": [
+     {
+      "psa_recovery": 0.85,
+      "inventory_basis": "cho_ghsv_9000",
+      "price_case": "published_TEA_Cho",
+      "price_Ni_USD_per_kg": 33.4,
+      "price_Ru_USD_per_kg": 542.0,
+      "rec_Ni_USD_per_kg": 0.9588522842887124,
+      "rec_Ru_USD_per_kg": 0.9735662222391359,
+      "rec_Ru_lower_by_pct": -1.534536465263625,
+      "cho_value_pct": 7.0,
+      "W_Ni_kg": 248.54635555555555,
+      "W_Ru_kg": 248.54635555555555,
+      "Ni_supp_nh3_kg_h": 161.08049360626003,
+      "Ru_supp_nh3_kg_h": 151.97742561368335,
+      "note": "Cho reconstruction rows (catalyst_cho_comparison.json, Cho economic basis) with the catalyst term re-priced analytically; Ru kinetics are the Ru/Al2O3 proxy (Cho's Ru-K/CaO law unmodelled), Ru-K/CaO priced as 3 wt% Ru",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "psa_recovery": 0.85,
+      "inventory_basis": "kinetic_minimum",
+      "price_case": "published_TEA_Cho",
+      "price_Ni_USD_per_kg": 33.4,
+      "price_Ru_USD_per_kg": 542.0,
+      "rec_Ni_USD_per_kg": 0.9568531659809172,
+      "rec_Ru_USD_per_kg": 0.941984545370159,
+      "rec_Ru_lower_by_pct": 1.5539082838813223,
+      "cho_value_pct": 7.0,
+      "W_Ni_kg": 10.26550112380547,
+      "W_Ru_kg": 16.57571684620821,
+      "Ni_supp_nh3_kg_h": 161.08049360626003,
+      "Ru_supp_nh3_kg_h": 151.97742561368335,
+      "note": "Cho reconstruction rows (catalyst_cho_comparison.json, Cho economic basis) with the catalyst term re-priced analytically; Ru kinetics are the Ru/Al2O3 proxy (Cho's Ru-K/CaO law unmodelled), Ru-K/CaO priced as 3 wt% Ru",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "psa_recovery": 0.756,
+      "inventory_basis": "cho_ghsv_9000",
+      "price_case": "published_TEA_Cho",
+      "price_Ni_USD_per_kg": 33.4,
+      "price_Ru_USD_per_kg": 542.0,
+      "rec_Ni_USD_per_kg": 0.7649935315899627,
+      "rec_Ru_USD_per_kg": 0.7996998339752448,
+      "rec_Ru_lower_by_pct": -4.536809914346396,
+      "cho_value_pct": 7.0,
+      "W_Ni_kg": 248.54635555555555,
+      "W_Ru_kg": 248.54635555555555,
+      "Ni_supp_nh3_kg_h": 7.11465191662313,
+      "Ru_supp_nh3_kg_h": 6.943642769601813,
+      "note": "Cho reconstruction rows (catalyst_cho_comparison.json, Cho economic basis) with the catalyst term re-priced analytically; Ru kinetics are the Ru/Al2O3 proxy (Cho's Ru-K/CaO law unmodelled), Ru-K/CaO priced as 3 wt% Ru",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     },
+     {
+      "psa_recovery": 0.756,
+      "inventory_basis": "kinetic_minimum",
+      "price_case": "published_TEA_Cho",
+      "price_Ni_USD_per_kg": 33.4,
+      "price_Ru_USD_per_kg": 542.0,
+      "rec_Ni_USD_per_kg": 0.7627458456618861,
+      "rec_Ru_USD_per_kg": 0.7641913348500733,
+      "rec_Ru_lower_by_pct": -0.18951125022947934,
+      "cho_value_pct": 7.0,
+      "W_Ni_kg": 10.26550112380547,
+      "W_Ru_kg": 16.57571684620821,
+      "Ni_supp_nh3_kg_h": 7.11465191662313,
+      "Ru_supp_nh3_kg_h": 6.943642769601813,
+      "note": "Cho reconstruction rows (catalyst_cho_comparison.json, Cho economic basis) with the catalyst term re-priced analytically; Ru kinetics are the Ru/Al2O3 proxy (Cho's Ru-K/CaO law unmodelled), Ru-K/CaO priced as 3 wt% Ru",
+      "laws": {
+       "Ru/Al2O3": "validated_against_literature",
+       "Ni/MgO": "extrapolated"
+      },
+      "rests_on_extrapolated_law": true,
+      "result_label": "extrapolation",
+      "extrapolated_laws": [
+       "Ni/MgO"
+      ]
+     }
+    ]
+   },
+   "assumptions": [
+    "Cho operating points rebuilt on AmCraX boundaries (no compression, recycle, TSA, expander)",
+    "supplementary fuel needed when the temperature-feasible process heat import after tail-gas firing is > 0"
+   ],
+   "uncertainty": "PSA recovery 0.70-0.95; boundary differences to Cho; Python only at Cho's points",
+   "envelope": "X 0.97; Ni 735.52 degC / 24.34 bar; Ru 566.69 degC / 10 bar",
+   "threshold": {
+    "Ni_735.52C_24.34bar": 0.7563583374023437,
+    "RuAl2O3_566.69C_10bar": 0.7812911987304687
+   },
+   "reason": "The fuel need at fixed T, P and X is kinetics-independent. Whether Ru needs no supplementary fuel while Ni does depends on PSA recovery: Cho's pattern appears only for recoveries between the two thresholds. At Cho's own 0.756 neither design needs process heat import on AmCraX boundaries; at the AmCraX 0.85 both do. The source value 0.756 lies outside the window, so on AmCraX boundaries the claim is not reproduced; because the boundaries differ (Cho's extra units), this is a reproduction finding, not a contradiction of Cho's own flowsheet. Secondary row."
+  },
+  "H3-f": {
+   "proposed_verdict": "INCONCLUSIVE",
+   "numbers": {
+    "rec_Ru_lower_by_pct": {
+     "published_TEA_Cho|psa0.85|cho_ghsv_9000": -1.534536465263625,
+     "derived_central|psa0.85|cho_ghsv_9000": -9.833272707061802,
+     "derived_floor|psa0.85|cho_ghsv_9000": -2.5538090826442206,
+     "published_TEA_Cho|psa0.85|kinetic_minimum": 1.5539082838813223,
+     "derived_central|psa0.85|kinetic_minimum": 0.9992986735256948,
+     "derived_floor|psa0.85|kinetic_minimum": 1.491611634902934,
+     "published_TEA_Cho|psa0.756|cho_ghsv_9000": -4.536809914346396,
+     "derived_central|psa0.756|cho_ghsv_9000": -16.23187102203851,
+     "derived_floor|psa0.756|cho_ghsv_9000": -5.983362994392238,
+     "published_TEA_Cho|psa0.756|kinetic_minimum": -0.18951125022947934,
+     "derived_central|psa0.756|kinetic_minimum": -0.9717689834029652,
+     "derived_floor|psa0.756|kinetic_minimum": -0.27759508489675344
+    },
+    "cho_value_pct": 7.0
+   },
+   "assumptions": [
+    "Cho economic basis (8.5 %, 0.084 USD/kWh, 25 yr)",
+    "Ru/Al2O3 kinetics as a proxy for Cho's Ru-K/CaO",
+    "Ru-K/CaO priced as 3 wt% Ru (derived) or at Cho's 542 USD/kg (published TEA, below the Ru floor)"
+   ],
+   "uncertainty": "inventory basis (kinetic minimum or Cho GHSV 9000), PSA recovery, catalyst price case",
+   "envelope": "Cho operating points on AmCraX boundaries",
+   "threshold": null,
+   "reason": "The sign of the REC difference changes with the inventory basis at Cho's prices; at derived prices of a 3 wt% Ru catalyst the Ru REC advantage shrinks or reverses. Cho's 7 % is not reproduced; the AmCraX CAPEX does not respond to T and P as Cho's does. Secondary row."
+  }
+ },
+ "unmodelled_catalysts": [
+  {
+   "catalyst": "Ni/CeO2",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 5,
+    "Ru": 0
+   },
+   "loading_basis": "loading NOT specified in any source; ASSUMED 5 wt% Ni (monometallic counterpart of 5Ni1Ru); change in JSON to recompute",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 0.75,
+    "SGD_per_kg": 0.9663329999999999,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 0.75,
+    "price_file_SGD_per_kg_superseded_fx": 0.96,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 32.965500000000006,
+    "SGD_per_kg": 42.474200682,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 32.97,
+    "price_file_SGD_per_kg_superseded_fx": 42.2,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 33.490750000000006,
+    "SGD_per_kg": 43.150955893,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 33.49,
+    "price_file_SGD_per_kg_superseded_fx": 42.87,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  },
+  {
+   "catalyst": "Ru/CeO2",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 1
+   },
+   "loading_basis": "loading NOT specified; ASSUMED 1 wt% Ru (counterpart of 5Ni1Ru)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 221.84,
+    "SGD_per_kg": 285.82841695999997,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 221.84,
+    "price_file_SGD_per_kg_superseded_fx": 283.98,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 626.989,
+    "SGD_per_kg": 807.840215116,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 626.99,
+    "price_file_SGD_per_kg_superseded_fx": 802.61,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 626.989,
+    "SGD_per_kg": 807.840215116,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 626.99,
+    "price_file_SGD_per_kg_superseded_fx": 802.61,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  },
+  {
+   "catalyst": "Ru-K/CaO",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 3
+   },
+   "loading_basis": "3 wt% Ru (Cho et al. table); K promoter (10 wt% K2O/K in project source) priced at zero, below resolution",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 665.52,
+    "SGD_per_kg": 857.48525088,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 665.52,
+    "price_file_SGD_per_kg_superseded_fx": 851.93,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 1816.567,
+    "SGD_per_kg": 2340.544851748,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 1816.57,
+    "price_file_SGD_per_kg_superseded_fx": 2325.39,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 1816.567,
+    "SGD_per_kg": 2340.544851748,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 1816.57,
+    "price_file_SGD_per_kg_superseded_fx": 2325.39,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  }
+ ],
+ "served_keys": [
+  "provenance",
+  "basis",
+  "findings",
+  "resolution",
+  "row_evidence",
+  "unmodelled_catalysts"
+ ],
+ "source_note": "results/research/catalyst_economics/catalyst_economics.json; subset of top-level keys, values as stored"
+}

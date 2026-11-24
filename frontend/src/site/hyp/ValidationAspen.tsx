@@ -13,8 +13,8 @@ const AREA: Record<string, string> = {
   economics: 'Singapore techno-economics', purification: 'Purification', enduse: 'End-use comparison', lca: 'Life-cycle assessment',
 }
 interface FailItem { id: string; description: string; method?: string; reference_source?: string; observed?: unknown; expected?: unknown; tolerance?: unknown; unit?: string }
-interface VArea { n_items: number; by_status: { pass: number; fail: number; informational: number }; file: string; failures: FailItem[]; informational: { id: string; description: string }[] }
-interface VSum { areas: Record<string, VArea>; totals: { pass: number; fail: number; informational: number }; n_items: number }
+interface VArea { n_items: number; by_status: { pass: number; fail: number; informational: number; not_available?: number }; file: string; failures: FailItem[]; informational: { id: string; description: string }[] }
+interface VSum { areas: Record<string, VArea>; totals: { pass: number; fail: number; informational: number; not_available?: number }; n_items: number }
 const val = (v: unknown) => (typeof v === 'number' ? fmt(v, Math.abs(v) < 1 ? 4 : 2) : v === null || v === undefined ? 'n/a' : String(v))
 
 export function ValidationView() {
@@ -24,7 +24,7 @@ export function ValidationView() {
       intro="Each area of the research expansion records its own checks: reproduction of published values, Aspen against Python, balance closures and arithmetic. A check is pass, fail or informational. Failures are listed by name and are not hidden or retuned.">
       <AsyncView a={v} what="the research validation items">{(d) => (
         <>
-          <p className="prose-p"><strong>{d.n_items} checks:</strong> {d.totals.pass} pass, {d.totals.fail} fail, {d.totals.informational} informational.</p>
+          <p className="prose-p"><strong>{d.n_items} checks:</strong> {d.totals.pass} pass, {d.totals.fail} fail, {d.totals.informational} informational{d.totals.not_available ? <>, {d.totals.not_available} not available (no experimental data exist; not counted as evidence)</> : null}.</p>
           <DTable caption="Research validation by area" rows={Object.entries(d.areas)} keyOf={([k]) => k}
             cols={[
               { h: 'Area', cell: ([k]) => AREA[k] ?? k, th: true },
@@ -32,6 +32,7 @@ export function ValidationView() {
               { h: 'Pass', cell: ([, a]) => <StatusPill kind="ok">{a.by_status.pass}</StatusPill>, right: true },
               { h: 'Fail', cell: ([, a]) => <StatusPill kind={a.by_status.fail ? 'error' : 'neutral'}>{a.by_status.fail}</StatusPill>, right: true },
               { h: 'Informational', cell: ([, a]) => <StatusPill kind="info">{a.by_status.informational}</StatusPill>, right: true },
+              ...(d.totals.not_available ? [{ h: 'Not available', cell: ([, a]: [string, VArea]) => <StatusPill kind="neutral">{a.by_status.not_available ?? 0}</StatusPill>, right: true }] : []),
               { h: 'Item file', cell: ([, a]) => <code className="small">{a.file}</code> },
             ]} />
           <h3>Failed checks</h3>

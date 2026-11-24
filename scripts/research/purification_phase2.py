@@ -635,7 +635,7 @@ def main():
                    "sourced value, but only as ideal (single-gas) values of NEW membranes from one group, at 450 degC, with "
                    "trace NH3 only; mixed-gas and aged selectivity were not found (a review excerpt reporting decay 6000 -> 4300 "
                    "and 4300 -> 1000 in about 1000 h could not be opened and is not used)."),
-        "nus_researchers": ("NUS has strong membrane-science groups (Zhang Sui, Zhao Dan) whose published gas-separation work is "
+        "nus_researchers": ("Zhang Sui and Zhao Dan are membrane scientists at NUS Chemical and Biomolecular Engineering. Their verified published gas-separation work is "
                             "on non-metallic membranes at low temperature and does not address cracked-ammonia purification. "
                             "No number from their work is used in AmCraX and no specific work is attributed to them here "
                             "(research/notes/nus_membrane_researchers.md)")}

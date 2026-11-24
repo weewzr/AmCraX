@@ -45,7 +45,8 @@ export function SubNav({ current }: { current: string }) {
   )
 }
 
-export interface Col<R> { h: string; cell: (r: R) => ReactNode; right?: boolean; th?: boolean }
+/** `wide`: a long-text column; on a phone it gets a wider floor so the row does not become a tall, narrow strip. */
+export interface Col<R> { h: string; cell: (r: R) => ReactNode; right?: boolean; th?: boolean; wide?: boolean }
 
 /** Plain accessible data table in the site style. */
 export function DTable<R>({ caption, cols, rows, keyOf }: { caption: string; cols: Col<R>[]; rows: R[]; keyOf: (r: R, i: number) => string }) {
@@ -56,7 +57,7 @@ export function DTable<R>({ caption, cols, rows, keyOf }: { caption: string; col
         <thead><tr>{cols.map((c) => <th key={c.h} scope="col" className={c.right ? 'r' : undefined}>{c.h}</th>)}</tr></thead>
         <tbody>
           {rows.map((r, i) => (
-            <tr key={keyOf(r, i)}>{cols.map((c) => (c.th ? <th key={c.h} scope="row">{c.cell(r)}</th> : <td key={c.h} className={c.right ? 'r' : undefined}>{c.cell(r)}</td>))}</tr>
+            <tr key={keyOf(r, i)}>{cols.map((c) => (c.th ? <th key={c.h} scope="row">{c.cell(r)}</th> : <td key={c.h} className={[c.right ? 'r' : '', c.wide ? 'wide' : ''].join(' ').trim() || undefined}>{c.cell(r)}</td>))}</tr>
           ))}
         </tbody>
       </table>

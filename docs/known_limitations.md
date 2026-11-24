@@ -133,3 +133,22 @@ Added on 2026-11-23. The full per-workstream account, with what was validated, w
 | Halim et al. (2025) and Deka et al. (2025) could not be read in full | The essay figures taken from them (60.1 MW, 15.1 and 10.1 USD/kg, 40 %, 81 % PSA recovery, 5.21 to 3.58 USD/kg) are unverified | Obtain the full texts |
 | LCA uses unsourced scenario distances (5000 km baseline), a parameterised boil-off of zero, and low-confidence factors for coal ammonia, SMR with CCS and methane leakage | Break-even emission intensities are scenario results, not measurements | Sea-distance and leakage sources |
 | The end-use and life-cycle packages are not wired into the API or the dashboard | They run from scripts only | Add endpoints and pages |
+
+## 12. Phase 2 (23 November 2026)
+
+Phase 2 changes the basis of the research results and adds the items below. The full list by area, with the consequence for each verdict and the ranked next steps, is [research/limitations_and_future_work.md](research/limitations_and_future_work.md). Items in sections 1 to 11 still apply unless a line below replaces them.
+
+| Limitation | Consequence | Remedy |
+|---|---|---|
+| The baseline LCOH of research outputs is 4.015 USD/kg (5.174 SGD/kg) on the unified reference scenario. The values 3.92 (legacy correlation, core stored results) and 3.61 (Phase 1 equipment method) are superseded for research outputs. Section 6 above describes the legacy core model. | Do not compare a research result with a core result without checking the basis. | Use `results/research/reference_scenario/` for any cost statement about the research hypotheses |
+| Reference CAPEX comes from one paper's itemised table and is extrapolated more than 30-fold for the power-plant cracker. The exchanger cost is added on top of the reference exchanger item (conservative, possible double count). | The independent published CAPEX range (3.1 to 6.5 MUSD) gives 3.64 to 3.92 USD/kg. The reference sits at the conservative end. | Equipment-level costing with sized units |
+| No supplier quotation exists for a cracking catalyst. Prices are derived from metal content. | H3-c is INCONCLUSIVE and the low-temperature catalysts do not pay at equal conversion on the derived prices. | Supplier quotations |
+| No sourced overall heat-transfer coefficient at 20 bar. | The net heat-integration benefit depends on it (turns negative below about 12 W/(m2 K)). | A film-coefficient estimate or a vendor rating |
+| No sourced turbine efficiency for the hydrogen and nitrogen fuel of a fired cracker. The H1 comparison assumes 49.64 % for all pathways. | H1-a and H1-c are INCONCLUSIVE. The thresholds are reported as findings. | Fuel-specific turbine data |
+| No measured PSA recovery on cracked ammonia. | The ranking of PSA against a Pd-Ag membrane turns on recovery (parity near 0.80). | A cracked-ammonia PSA cycle model or data |
+| No rate law is validated at 20 bar. The Takahashi laws under-predict the dilution and H2 co-feed series (a model-form limit). | Kinetic results at 20 bar are extrapolations. | Kinetic data at 10 to 20 bar |
+| Five FEHE duty checks still fail (Python above Aspen by 20.8 kW: dew-point state 8.8 kW, ammonia residual enthalpy 12.1 kW). Tolerance unchanged. The 40 bar kinetic check still fails. | Absolute Python duties carry a known offset. Effects smaller than about 15 kW cannot be resolved between Python and Aspen. | Align the property basis; do not widen the tolerance |
+| Carbon pricing: under the actual Singapore boundary the tax is zero for every route. A life-cycle carbon price is hypothetical and is not Singapore law. | H2-e is CONTRADICTED under the actual boundary. Mode B results are what-if results. | Track Singapore policy; recompute if the boundary changes |
+| The browser simulator has no membrane model, no IRR, an ideal-gas equilibrium where no stored Aspen value applies, and an animation that shows flow direction only. | Purification route comparison is on the research pages only. Away from stored cases, values are browser-model values and are labelled. | Add the missing models and test them against Python |
+| The full texts of Halim et al. and Abdoos et al. and the Sayas rate data were not obtained. | The essay figures from them are unverified. | Obtain the full texts |
+| There is no independent experimental validation. | Every result is a model result. | Experimental data from a packed bed at 20 bar |

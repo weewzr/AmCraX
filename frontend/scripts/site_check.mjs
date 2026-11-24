@@ -36,6 +36,16 @@ const results = []
 const record = (vp, id, ok, detail = '') => { results.push({ vp, id, ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} [${vp}] ${id}${detail ? ' - ' + detail : ''}`) }
 const external = /^https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\//
 
+const LEGACY = ['overview', 'results', 'methodology', 'research']
+/** Same text as the site's fmt(): en-US grouping, fixed digits. */
+const loc = (v, d) => (typeof v === 'number' && Number.isFinite(v) ? v.toLocaleString('en-US', { minimumFractionDigits: d, maximumFractionDigits: d }) : 'n/a')
+const snapCache = new Map()
+/** A snapshot JSON file as served (null when missing); used so that expected numbers are read, never typed here. */
+async function snap(rel) {
+  if (!snapCache.has(rel)) snapCache.set(rel, fetch(`${base}snapshot/${rel}`).then((r) => (r.ok ? r.json() : null)).catch(() => null))
+  return snapCache.get(rel)
+}
+
 const browser = await chromium.launch({ channel: 'msedge', headless: true })
 const notes404 = new Set()
 
@@ -81,6 +91,71 @@ for (const vp of VIEWPORTS) {
     await page.evaluate((r) => { window.location.hash = `#/${r}` }, route)
     await settle(route)
   }
+  const tid = (t) => page.locator(`[data-testid="${t}"]`).first().innerText().catch(() => '')
+
+  /** Phase 2 content of the research pages: key numbers read from the snapshot must appear, the controls must work. */
+  async function phase2Checks(route, id, body) {
+    record(vp.label, `${id}: no single "validated" percentage, no "experimentally validated"`, !/\d+(\.\d+)?\s?% validated|experimentally validated/i.test(body))
+    if (route === 'hypotheses') {
+      const chips = await page.$$eval('.verdict-chip', (cs) => cs.map((c) => c.getAttribute('data-verdict') ?? ''))
+      const words = /^(SUPPORTED|CONTRADICTED|MIXED|PARTIALLY SUPPORTED|INCONCLUSIVE)\b/
+      const em = await snap('research/evidence_matrix.json')
+      const want = (em?.hypotheses ?? []).map((h) => String(h.verdict ?? '').toUpperCase().replace(/_/g, ' '))
+      const tiles = await Promise.all(['H1', 'H2', 'H3', 'H4'].map((h) => tid(`verdict-${h}`)))
+      record(vp.label, `${id}: verdict chips render (v2 vocabulary) and match the matrix file`, chips.length >= 4 && chips.every((c) => words.test(c)) && want.every((w, i) => tiles[i]?.toUpperCase().includes(w)), `${chips.length} chips; ${want.join(', ')}`)
+      record(vp.label, `${id}: methodology document linked`, /verdict_methodology_v2\.md/.test(await tid('matrix-version')))
+    }
+    if (route === 'hypotheses/economics') {
+      const bl = await snap('research/reference_scenario/baseline.json.json')
+      const k = await tid('baseline-kpis')
+      record(vp.label, `${id}: unified baseline numbers from the snapshot (USD and SGD)`, !!bl && k.includes(loc(bl.lcoh_USD_per_kg, 3)) && k.includes(loc(bl.lcoh_SGD_per_kg, 3)) && k.includes(String(bl.fx_date)), k.replace(/\n/g, ' ').slice(0, 200))
+      record(vp.label, `${id}: superseded baselines noted`, /superseded|history/i.test(await tid('superseded-note')))
+      const fd = await snap('research/carbon_pricing/feed_dominance.json.json')
+      record(vp.label, `${id}: adverse H2 finding with the break-even price`, !!fd && (await tid('adverse-h2')).includes(loc(fd.breakeven_nh3_USD_per_t?.ne_asia_smr_production_cost, 0)))
+      // carbon control: Mode A default, Mode B hypothetical with a user price, values = interpolation of the stored sweep
+      const ctl = page.locator('[data-testid="carbon-control"]')
+      record(vp.label, `${id}: carbon control defaults to Mode A (actual Singapore boundary)`, (await ctl.getAttribute('data-mode')) === 'actual_sg' && /not law/.test(await tid('mode-a-text')))
+      const a45 = await tid('lcoh-green_current')
+      await page.locator('[data-testid="mode-b"]').click(); await page.waitForTimeout(250)
+      const bText = await tid('mode-b-text')
+      record(vp.label, `${id}: Mode B is labelled hypothetical, not Singapore law, and as interpolation of stored Python results`, (await ctl.getAttribute('data-mode')) === 'hypothetical_lca' && /not Singapore law/i.test(bText) && /interpolation of stored Python results/i.test(bText), bText.slice(0, 160))
+      const num = page.locator('input[aria-label="Hypothetical carbon price in SGD per tonne CO2e"]')
+      await num.fill('303'); await page.waitForTimeout(250)
+      const sweep = await snap('research/carbon_pricing/price_sweep.csv.json')
+      const rows = sweep?.rows ?? []
+      const r300 = rows.find((r) => r.price_SGD_per_tCO2e === 300), r305 = rows.find((r) => r.price_SGD_per_tCO2e === 305)
+      const yk = 'lcoh_green_current_central_USD_per_kg'
+      const exp = r300 && r305 ? r300[yk] + ((r305[yk] - r300[yk]) * 3) / 5 : null
+      const b303 = await tid('lcoh-green_current')
+      record(vp.label, `${id}: Mode B at 303 SGD/tCO2e shows the green LCOH interpolated between the stored 300 and 305 points`, exp !== null && b303 === loc(exp, 3) && b303 !== a45, `${a45} -> ${b303}, expected ${exp === null ? 'n/a' : loc(exp, 3)}`)
+      const ss = await snap('research/carbon_pricing/site_summary.json.json')
+      record(vp.label, `${id}: crossover threshold blue over grey shown`, !!ss && (await tid('th-blue_over_grey')) === loc(ss.thresholds_SGD_per_tCO2e?.blue_over_grey?.central, 1))
+      await page.locator('[data-testid="mode-a"]').click(); await page.waitForTimeout(250)
+      record(vp.label, `${id}: switching back to Mode A restores the actual-boundary LCOH`, (await tid('lcoh-green_current')) === a45)
+    }
+    if (route === 'hypotheses/catalyst') {
+      record(vp.label, `${id}: kinetic validity statement and derived-price label`, /20 bar/.test(await tid('validity-statement')) && /no supplier quotation exists/i.test(body) && /unmodelled, no performance figures/i.test(body))
+      record(vp.label, `${id}: equal-conversion correction shown`, (await tid('equal-conversion')).length > 40)
+    }
+    if (route === 'hypotheses/purification') {
+      const nus = await tid('nus-wording')
+      record(vp.label, `${id}: NUS wording and parity threshold`, /none of their verified publications covers cracked-ammonia purification/i.test(nus) && /no specific result is attributed to them/i.test(nus) && (await tid('h4-parity')).length > 40)
+    }
+    if (route === 'hypotheses/end-use') {
+      const w = await tid('h1-wording')
+      const tc = await snap('research/enduse/turbine_threshold.csv.json')
+      const ref = (tc?.rows ?? []).find((r) => r.pathway === 'full_purified' && r.basis === 'reference')
+      record(vp.label, `${id}: required H1 wording with the equal-efficiency assumption`, /direct ammonia combustion produces electricity at a lower cost/.test(w) && /49\.64 %/.test(w) && /fuel-specific turbine performance/.test(w), w.slice(0, 120))
+      record(vp.label, `${id}: turbine threshold from the snapshot and the exhaust-heated finding`, !!ref && (await tid('thr-full_purified')) === loc(ref.threshold_delta_pp, 2) && /cheaper than direct ammonia/.test(await tid('exhaust-finding')))
+      record(vp.label, `${id}: Environmental Analysis reachable (carbon intensity by route)`, (await page.locator('#carbon-intensity table').count()) > 0 && (await page.locator('#lca').count()) > 0)
+    }
+    if (route === 'hypotheses/validation') {
+      const kinds = await Promise.all(['numerical_verification', 'python_vs_aspen', 'literature_comparison', 'experimental_validation'].map((k) => tid(`kind-${k}`)))
+      const bk = await snap('research/validation/by_kind.json')
+      record(vp.label, `${id}: four evidence-kind blocks with counts from the snapshot`, kinds.every((t) => t.length > 0) && !!bk && ['numerical_verification', 'python_vs_aspen', 'literature_comparison', 'experimental_validation'].every((k, i) => kinds[i].includes(`${bk.kinds[k]?.total ?? 0}`)), kinds.map((t) => t.split('\n')[1] ?? '').join(' | '))
+      record(vp.label, `${id}: no independent experimental validation stated`, /no independent experimental validation/i.test(await tid('no-experimental')))
+    }
+  }
 
   // ---- boot ----
   await page.goto(base, { waitUntil: 'domcontentloaded' })
@@ -120,6 +195,12 @@ for (const vp of VIEWPORTS) {
       record(vp.label, `${id}: stored-results statement, sub-navigation, source badges`, hy.stored && hy.subnav === 7 && (route === 'hypotheses' || route === 'hypotheses/validation' || hy.badges >= 4), JSON.stringify(hy))
       record(vp.label, `${id}: no missing-data notice and no broken images`, !hy.notAvail && hy.brokenImgs === 0, JSON.stringify(hy))
       if (['hypotheses/catalyst', 'hypotheses/economics', 'hypotheses/purification', 'hypotheses/end-use'].includes(route)) record(vp.label, `${id}: charts drawn (${info.charts} cards, ${info.emptyCharts} without data marks)`, info.charts >= 4 && info.emptyCharts === 0)
+      await phase2Checks(route, id, info.bodyText)
+    }
+    if (LEGACY.includes(route)) {
+      const bl = await snap('research/reference_scenario/baseline.json.json')
+      const t = await page.locator('[data-testid="legacy-banner"]').innerText().catch(() => '')
+      record(vp.label, `${id}: legacy banner names the unified baseline`, /legacy core result, superseded for research outputs by the unified baseline/i.test(t) && (!bl || t.includes(loc(bl.lcoh_USD_per_kg, 3))), t.slice(0, 160))
     }
     record(vp.label, `${id}: no console errors / failed or 4xx requests / requests outside base`, problems.length === before, problems.slice(before).join(' | ').slice(0, 400))
     if (args['no-shots'] !== 'true') {
@@ -313,7 +394,16 @@ for (const vp of VIEWPORTS) {
       const len = (await r.body()).length
       record(vp.label, `download ${f}`, r.status() === 200 && len > 2000, `HTTP ${r.status()}, ${(len / 1024).toFixed(0)} kB`)
     }
-    for (const u of ['og-image.png', 'favicon.svg', 'img/pfd_baseline.png', 'snapshot/manifest.json', 'snapshot/aspen-screenshots/01_flowsheet.png', 'snapshot/simulator/model.json', 'snapshot/simulator/aspen_anchors.json', 'snapshot/simulator/parity_report.json']) {
+    // every file prepare_site.mjs copied (paper, executive summary, research notes when they exist at build time)
+    const idx = await page.request.get(`${base}downloads/index.json`)
+    const listed = idx.status() === 200 ? ((await idx.json()).files ?? []) : []
+    record(vp.label, 'downloads/index.json lists the copied files', idx.status() === 200 && listed.length >= 8, `HTTP ${idx.status()}, ${listed.length} files`)
+    for (const f of listed) {
+      const r = await page.request.get(`${base}downloads/${f.file}`)
+      record(vp.label, `listed download ${f.file}`, r.status() === 200 && (await r.body()).length > 0, `HTTP ${r.status()}`)
+    }
+    for (const u of ['og-image.png', 'favicon.svg', 'img/pfd_baseline.png', 'snapshot/manifest.json', 'snapshot/aspen-screenshots/01_flowsheet.png', 'snapshot/simulator/model.json', 'snapshot/simulator/aspen_anchors.json', 'snapshot/simulator/parity_report.json',
+      'snapshot/research/phase2_index.json', 'snapshot/research/validation/by_kind.json', 'snapshot/research/reference_scenario/baseline.json.json', 'snapshot/research/carbon_pricing/price_sweep.csv.json']) {
       const r = await page.request.get(`${base}${u}`)
       record(vp.label, `asset ${u}`, r.status() === 200, `HTTP ${r.status()}`)
     }

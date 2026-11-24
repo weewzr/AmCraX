@@ -1,0 +1,114 @@
+{
+ "areas": {
+  "reference_scenario": [
+   "baseline.json",
+   "capex_audit.json",
+   "supersession.json"
+  ],
+  "carbon_pricing": [
+   "site_summary.json",
+   "feed_dominance.json",
+   "thresholds.json",
+   "carbon_intensity.json",
+   "scenarios.json",
+   "row_evidence.json",
+   "price_sweep.csv"
+  ],
+  "catalyst_economics": [
+   "catalyst_prices_sgd.json",
+   "catalyst_economics.json",
+   "catalyst_cost_table.csv",
+   "catalyst_breakeven.csv",
+   "catalyst_crossover.csv"
+  ],
+  "heat_exchanger": [
+   "heat_exchanger_study.json",
+   "fehe_duty_diagnosis.json"
+  ],
+  "uq": [
+   "gsa_cost_decomposition.json",
+   "row_evidence.json",
+   "gsa_sobol.json"
+  ],
+  "enduse": [
+   "turbine_threshold.json",
+   "turbine_threshold.csv",
+   "sensitivity_turbine_efficiency.csv",
+   "sensitivity_nh3_price.csv",
+   "sensitivity_capital.csv",
+   "nox_n2o_blends.json"
+  ],
+  "kinetics": [
+   "validity_classification.json"
+  ],
+  "purification": [
+   "phase2_comparison.json",
+   "phase2_comparison.csv",
+   "phase2_psa_recovery_sensitivity.csv"
+  ],
+  "data": [
+   "carbon_policy_sg.json",
+   "catalyst_prices.json",
+   "enduse_cost_literature.json",
+   "membrane_trl.json",
+   "methodology_transfer.json",
+   "purification_literature.json",
+   "turbine_efficiency_literature.json"
+  ]
+ },
+ "figures": [
+  "aspen_kinetic_approach_vs_loading.png",
+  "aspen_kinetic_conversion_vs_P.png",
+  "aspen_kinetic_conversion_vs_T.png",
+  "aspen_kinetic_operating_point.png",
+  "carbon_feed_dominance.png",
+  "carbon_intensity_routes.png",
+  "carbon_price_sweep.png",
+  "catalyst_breakeven_price.png",
+  "catalyst_cost_breakdown.png",
+  "catalyst_econ_breakeven.png",
+  "catalyst_econ_cost_per_kg.png",
+  "catalyst_econ_sensitivity.png",
+  "catalyst_heat_duty.png",
+  "catalyst_ranking_robustness.png",
+  "enduse_hydrogen_cost_ci.png",
+  "enduse_partial_cracking_cost.png",
+  "enduse_power_cost_vs_ci.png",
+  "enduse_power_cost_vs_price.png",
+  "enduse_power_efficiency.png",
+  "enduse_sensitivity_capital.png",
+  "enduse_sensitivity_efficiency.png",
+  "enduse_sensitivity_price_cf.png",
+  "enduse_turbine_threshold.png",
+  "enduse_twoway_map.png",
+  "heat_exchanger_net_benefit.png",
+  "heat_exchanger_U_sensitivity.png",
+  "kinetics_conversion_vs_P.png",
+  "kinetics_conversion_vs_T.png",
+  "kinetics_conversion_vs_W_GHSV.png",
+  "kinetics_mass_for_equilibrium_fraction.png",
+  "kinetics_validation_lucentini.png",
+  "lca_breakeven_power.png",
+  "lca_h2_by_route.png",
+  "lca_power_by_route.png",
+  "lca_sensitivity_blue_power.png",
+  "purification_config_comparison.png",
+  "purification_phase2_comparison.png",
+  "purification_phase2_psa_recovery.png",
+  "purification_phase2_tradeoff.png",
+  "purification_recovery_cost.png",
+  "purification_recovery_purity.png",
+  "purification_sensitivity.png",
+  "singapore_breakeven.png",
+  "singapore_cost_breakdown.png",
+  "singapore_cost_vs_capacity.png",
+  "singapore_heatmap_nh3_price_capacity.png",
+  "singapore_heatmap_nh3_price_carbon_tax.png",
+  "singapore_monte_carlo.png",
+  "singapore_tornado.png",
+  "uq_gsa_sobol.png",
+  "uq_kinetic_T_required.png",
+  "uq_takahashi_ppc.png"
+ ],
+ "evidence_matrix_methodology_version": 2
+}

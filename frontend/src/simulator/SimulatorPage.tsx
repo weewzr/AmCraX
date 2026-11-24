@@ -1,13 +1,17 @@
-import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useState } from 'react'
+import { lazy, Suspense, useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { withBase } from '../api/url'
 import { inputRanges, loadSimulatorData, type SimData } from '../sim'
 import { Controls } from './Controls'
-import { baselineState, exportCSV, exportJSON, PRESETS, presetMatches, reducer, runCase, SOURCE_TEXT, type SimState } from './model'
+import { baselineState, exportCSV, exportJSON, exportName, INPUT_UNITS, PRESETS, presetMatches, reducer, runCase, SOURCE_TEXT, type SimState } from './model'
 import { FactList, KpiStrip, OutputList, SimBadge } from './Outputs'
 import { Pfd } from './Pfd'
-import { STREAM_NAMES, streamViews, UNITS, unitViews } from './pfdData'
+import { itemStatus, SPECIES_COLOR, STREAM_NAMES, streamViews, UNIT_LIMITS, UNITS, unitViews } from './pfdData'
+import { StoredPurification } from './StoredPurification'
+import { Tour } from './Tour'
+import { TOUR_STEPS } from './tourSteps'
 import './simulator.css'
+import './print.css'
 
 // Recharts and the sweeps load as a separate chunk, so the diagram and the controls appear first.
 const Graphs = lazy(() => import('./Graphs'))
@@ -61,14 +65,43 @@ function Simulator({ d }: { d: SimData }) {
   const presets = useMemo(() => PRESETS.filter((p) => presetMatches(d, p.id)), [d])
   const units = useMemo(() => unitViews(B, d), [B, d])
   const streams = useMemo(() => streamViews(B, d), [B, d])
-  const onSelect = useCallback((id: string) => setSelected(id), [])
   const preset = PRESETS.find((p) => p.id === s.preset)
+  const [showValues, setShowValues] = useState(() => !(typeof window !== 'undefined' && !!window.matchMedia && window.matchMedia('(max-width:700px)').matches))
+  const [tour, setTour] = useState<number | null>(null)
+  const [auto, setAuto] = useState(false)
+  const tourBtn = useRef<HTMLButtonElement>(null)
+  const box = useRef<HTMLDivElement>(null)
+  const [overflow, setOverflow] = useState(false)
+
+  // the diagram box is a named, focusable scroll region only when it overflows (C11)
+  useEffect(() => {
+    const el = box.current
+    if (!el || typeof ResizeObserver === 'undefined') return
+    const ro = new ResizeObserver(() => setOverflow(el.scrollWidth - el.clientWidth > 1))
+    ro.observe(el)
+    return () => ro.disconnect()
+  }, [])
+
+  /** select an item and bring it into view inside the diagram box (list view, Inspect select, tour) */
+  const reveal = useCallback((id: string) => {
+    const el = box.current?.querySelector<SVGGElement>(`[data-unit="${id}"], [data-stream="${id}"]`)
+    if (el && box.current && box.current.scrollWidth > box.current.clientWidth + 1) {
+      const br = box.current.getBoundingClientRect(), er = el.getBoundingClientRect()
+      const target = box.current.scrollLeft + (er.left - br.left) - (br.width - er.width) / 2
+      box.current.scrollTo({ left: Math.max(0, target), behavior: reduced ? 'auto' : 'smooth' })
+    }
+  }, [reduced])
+  const onSelect = useCallback((id: string) => setSelected(id), [])
+  const pick = (id: string) => { setSelected(id); window.requestAnimationFrame(() => reveal(id)) }
+
+  const setStep = useCallback((n: number) => { setTour(n); const st = TOUR_STEPS[n]; setSelected(st.unit); window.requestAnimationFrame(() => reveal(st.unit)) }, [reveal])
+  const exitTour = useCallback(() => { setTour(null); setAuto(false); window.requestAnimationFrame(() => tourBtn.current?.focus()) }, [])
 
   const doExport = (kind: 'csv' | 'json') => {
     const cases = A ? [{ name: 'A', result: A }, { name: 'B', result: B }] : [{ name: 'current', result: B }]
     const stamp = new Date().toISOString()
-    if (kind === 'json') download('amcrax_simulator_case.json', exportJSON(cases, d, stamp), 'application/json')
-    else download('amcrax_simulator_case.csv', exportCSV(cases), 'text/csv')
+    if (kind === 'json') download(exportName(s.preset, stamp, 'json'), exportJSON(cases, d, stamp), 'application/json')
+    else download(exportName(s.preset, stamp, 'csv'), exportCSV(cases), 'text/csv')
   }
 
   const sel = selected ?? 'CRACKER'
@@ -76,6 +109,7 @@ function Simulator({ d }: { d: SimData }) {
   const uv = isUnit ? units[sel] : null
   const sv = !isUnit ? streams[sel] : null
   const hiddenStream = !isUnit && !s.heat_integration && (sel === 'S3' || sel === 'S6')
+  const tourFocus = tour !== null ? TOUR_STEPS[tour].focus : null
 
   return (
     <div className="sim-page">
@@ -87,21 +121,29 @@ function Simulator({ d }: { d: SimData }) {
         <div className="sim-toolbar" role="toolbar" aria-label="Simulator actions">
           <button type="button" className={`btn sim-play ${playing ? 'is-on' : ''}`} aria-pressed={playing} onClick={() => setPlaying((p) => !p)}>
             <svg viewBox="0 0 16 16" aria-hidden="true" width="14" height="14">{playing ? <path d="M4 3v10M12 3v10" stroke="currentColor" strokeWidth="2.6" /> : <path d="M4 2.5v11L13 8z" fill="currentColor" />}</svg>
-            {playing ? 'Pause' : 'Play'}<span className="sr-only"> flow animation</span>
+            {playing ? 'Pause animation' : 'Play animation'}
           </button>
+          <button type="button" ref={tourBtn} className={`btn sim-tour-btn ${tour !== null ? 'is-on' : ''}`} aria-pressed={tour !== null} onClick={() => (tour === null ? setStep(0) : exitTour())}>
+            {tour === null ? `Take the tour (${TOUR_STEPS.length} steps)` : 'Exit the tour'}
+          </button>
+          <label className="sim-valtoggle">
+            <input type="checkbox" role="switch" checked={showValues} aria-checked={showValues} onChange={(e) => setShowValues(e.target.checked)} />
+            <span>Show values</span>
+          </label>
           <label className="sim-preset">
             <span className="sr-only">Preset scenario</span>
             <select value={s.preset ?? ''} onChange={(e) => { if (e.target.value) dispatch({ type: 'preset', data: d, id: e.target.value }) }} aria-label="Preset scenario (stored Aspen case)">
               <option value="">{s.preset ? 'Preset scenarios' : 'Custom case (edited)'}</option>
-              {presets.map((p) => <option key={p.id} value={p.id}>{p.label} [{p.caseId}]</option>)}
+              {presets.map((p) => <option key={p.id} value={p.id}>{p.label}</option>)}
             </select>
           </label>
           <button type="button" className="btn" onClick={() => dispatch({ type: 'reset', data: d })}>Reset to baseline</button>
           {pinned
             ? <button type="button" className="btn sim-pin is-on" onClick={() => setPinned(null)}>Stop comparing</button>
             : <button type="button" className="btn sim-pin" onClick={() => setPinned(s)}>Compare: pin as case A</button>}
-          <button type="button" className="btn" onClick={() => doExport('csv')}>Export CSV</button>
-          <button type="button" className="btn" onClick={() => doExport('json')}>Export JSON</button>
+          <button type="button" className="btn" onClick={() => doExport('csv')} title="CSV: inputs and outputs, one row each, with the source of every output" aria-describedby="sim-exp-help">Export CSV</button>
+          <button type="button" className="btn" onClick={() => doExport('json')} title="JSON: inputs, outputs with sources, fixed values, basis and warnings" aria-describedby="sim-exp-help">Export JSON</button>
+          <span id="sim-exp-help" className="sr-only">CSV: inputs and outputs with the source of every output. JSON: the same plus fixed values, cost basis and warnings. Case A and case B when comparing.</span>
         </div>
       </div>
 
@@ -117,29 +159,49 @@ function Simulator({ d }: { d: SimData }) {
             {preset ? <span className="sim-case">Preset: {preset.label} <code>{preset.caseId}</code> ({preset.kind})</span> : <span className="sim-case">Custom case</span>}
             {pinned ? <span className="sim-case sim-case-a">Comparing with pinned case A</span> : null}
           </div>
+          {preset ? <p className="sim-preset-about" data-preset-about={preset.id}>{preset.about}</p> : null}
+          <table className="sim-print-only sim-print-inputs" aria-hidden="true">
+            <caption>Inputs of this case (steady state, computed in the browser)</caption>
+            <tbody>{(Object.keys(s) as (keyof SimState)[]).filter((k) => k !== 'preset').map((k) => <tr key={k}><th>{k}</th><td>{String(s[k])}{INPUT_UNITS[k] ? ` ${INPUT_UNITS[k]}` : ''}</td></tr>)}</tbody>
+          </table>
           <KpiStrip c={B} />
-          <div className="sim-pfd-box">
-            <Pfd c={B} d={d} playing={playing} selected={sel} onSelect={onSelect} />
+          <p className="sim-scroll-hint">Scroll sideways; tap an item for its values.</p>
+          <ul className="sim-legend-html" aria-label="Diagram legend">
+            {(['NH3', 'H2', 'N2', 'H2O', 'O2'] as const).map((k) => <li key={k}><i style={{ background: SPECIES_COLOR[k] }} aria-hidden="true" />{k}</li>)}
+            <li className="sim-legend-txt">Dots: colour shows the species, density the molar flow.{showValues ? ' Values: streams kmol/h, units kW; A Aspen, G Aspen grid, B browser model, E extrapolation, S assumed.' : ''}</li>
+          </ul>
+          <div className="sim-pfd-box" ref={box} {...(overflow ? { tabIndex: 0, role: 'region', 'aria-label': 'Process flow diagram, scrolls sideways' } : {})}>
+            <Pfd c={B} d={d} playing={playing} selected={sel} onSelect={onSelect} showValues={showValues} focus={tourFocus} />
           </div>
-          <p className="sim-scroll-hint">Scroll the diagram sideways to see the whole plant; tap a unit or a stream for its values.</p>
           <p className="sim-caption" id="sim-caption">
             The animation shows the direction and the relative size of the flows of the steady-state solution; it is not a transient simulation.
             Dot colour marks the species, dot density the computed molar flow; in the reactor the colour follows the computed conversion along the bed.
             {reduced ? <strong> Animation paused because your system asks for reduced motion; press Play to start it.</strong> : null}
           </p>
+          {tour !== null ? <Tour step={tour} setStep={setStep} onExit={exitTour} c={B} units={units} auto={auto} setAuto={setAuto} reduced={reduced} /> : null}
           <div className="sim-detail" aria-live="polite">
             <div className="sim-detail-head">
               <label htmlFor="sim-inspect">Inspect</label>
-              <select id="sim-inspect" value={sel} onChange={(e) => setSelected(e.target.value)}>
+              <select id="sim-inspect" value={sel} onChange={(e) => pick(e.target.value)}>
                 <optgroup label="Equipment">{UNITS.map((u) => <option key={u.id} value={u.id}>{u.name} ({u.tag})</option>)}</optgroup>
                 <optgroup label="Streams">{Object.entries(STREAM_NAMES).map(([id, n]) => <option key={id} value={id}>{id} - {n.name}</option>)}</optgroup>
               </select>
             </div>
+            <details className="sim-list">
+              <summary>List view: every unit and stream with its status</summary>
+              <ul>
+                {[...UNITS.map((u) => ({ id: u.id, name: `${u.name} (${u.tag})` })), ...Object.entries(STREAM_NAMES).map(([id, n]) => ({ id, name: `${id}: ${n.name}` }))].map((it) => (
+                  <li key={it.id}><button type="button" className={`sim-list-btn ${sel === it.id ? 'is-on' : ''}`} aria-pressed={sel === it.id} onClick={() => pick(it.id)}>
+                    <span>{it.name}</span><span className="sim-list-st">{itemStatus(it.id, B, units, streams)}</span></button></li>
+                ))}
+              </ul>
+            </details>
             {uv ? (
               <div className="sim-panel" data-panel={uv.id}>
                 <h3>{uv.title}{uv.bypassed ? <span className="sim-flag"> bypassed</span> : null}{uv.notModelled ? <span className="sim-flag"> not modelled</span> : null}</h3>
                 <p>{uv.what}</p>
                 <FactList facts={uv.facts} />
+                <p className="sim-unit-lim"><strong>Limitation.</strong> {UNIT_LIMITS[uv.id]} <strong>Sources.</strong> <Link to="/methodology">Methodology</Link>, <Link to="/hypotheses/aspen-evidence">Aspen Evidence</Link>.</p>
               </div>
             ) : sv ? (
               <div className="sim-panel" data-panel={sv.id}>
@@ -155,13 +217,17 @@ function Simulator({ d }: { d: SimData }) {
         <section className="sim-col sim-col-out" aria-labelledby="sim-out-h">
           <h2 id="sim-out-h" className="sim-h2">Live outputs{A ? ': case A against case B' : ''}</h2>
           <OutputList b={B} a={A} />
+          {s.purification === 'membrane' ? <StoredPurification sp={d.model.purification.stored_comparison} /> : null}
+          <p className="sim-print-row"><button type="button" className="btn sim-print-btn" onClick={() => window.print()}>Print summary</button>
+            <span>A4 page: inputs, key results with sources, outputs, warnings and basis.</span></p>
           {B.out.warnings.length ? (
             <details className="sim-warnings" open={!compact}>
               <summary>Domain notes ({B.out.warnings.length})</summary>
               <ul>{B.out.warnings.map((w) => <li key={w}>{w}</li>)}</ul>
             </details>
           ) : null}
-          <p className="sim-basis">Costs: {d.model.economics.basis === 'pre-unification' ? <strong>pre-unification basis</strong> : d.model.economics.basis} (Phase 1 equipment CAPEX), {d.model.economics.cost_basis}. SGD at {d.model.fx.SGD_per_USD} SGD/USD (rate date {String(d.model.fx.date)}).</p>
+          <p className="sim-basis">Costs: <strong>{d.model.economics.basis_short}</strong>, CAPEX method {d.model.economics.capex_reference.method} (cost year {d.model.economics.capex_reference.cost_year}); {d.model.economics.cost_basis}.
+            {' '}SGD at {d.model.fx.SGD_per_USD} SGD/USD (ECB reference rate of {String(d.model.fx.date)}). Catalyst prices in the kinetic modes are derived from metal content, not supplier quotations; the equilibrium reactor has no catalyst choice and uses the reference inventory at the Phase 1 TEA Ni price, as the reference scenario does.</p>
         </section>
       </div>
 
@@ -206,7 +272,7 @@ function HowProduced({ d }: { d: SimData }) {
             ideal-gas against Aspen Peng-Robinson equilibrium up to {pa.equilibrium_grid?.max_abs_conversion_diff_ideal_gas_vs_aspen_PR.toFixed(4)} in conversion.</> : null}
           {' '}<a href={withBase('/snapshot/simulator/parity_report.json')}>Parity report (JSON)</a>.</p>
         <p><strong>None of this is experimental validation.</strong> AmCraX has no independent experimental data. Most rate laws were fitted at 1 atm: every use at higher
-          pressure is an extrapolation and is labelled so. Hydrogen purity follows from an assumed PSA recovery and nitrogen slip. Costs use the {d.model.economics.basis} Phase 1 basis.
+          pressure is an extrapolation and is labelled so. Hydrogen purity follows from an assumed PSA recovery and nitrogen slip. Costs follow the {d.model.economics.basis_short} (CAPEX method {d.model.economics.capex_reference.method}, cost year {d.model.economics.capex_reference.cost_year}), at {d.model.fx.SGD_per_USD} SGD/USD (ECB reference rate of {String(d.model.fx.date)}); the browser calculation is a port of <code>amcrax.economics.singapore.evaluate</code>. Catalyst prices are derived from metal content (a price per kg of metal times the loading, plus a non-metal term from one published cost estimate); no supplier quotation exists for any of these catalysts.
           Hypothetical carbon prices are not Singapore law. More in <Link to="/methodology">Methodology</Link> and <Link to="/hypotheses/validation">Validation</Link>.</p>
       </div>
     </details>

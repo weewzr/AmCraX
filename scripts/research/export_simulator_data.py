@@ -6,9 +6,9 @@ Writes (deterministic: no timestamps, sorted keys, fixed rounding of nothing - v
     results/research/simulator/test_vectors.json   cases computed by the PYTHON models, used by the vitest suite
 
 The TypeScript code contains no scientific parameter values of its own; it reads model.json.
-Economics are read through the public Python objects of amcrax.economics (singapore.py, lcoh.py) and the data file
-backend/amcrax/data/singapore.yaml. They are marked basis 'pre-unification': when the unified
-backend/amcrax/data/reference_scenario.yaml exists, only `economics_block()` has to be switched.
+Economics are read through the public Python objects of amcrax.economics (singapore.evaluate, reference.py) on the unified
+reference scenario backend/amcrax/data/reference_scenario.yaml (capex_mode 'reference', method cho2026_itemised_v1).
+Catalyst prices come from research/data/catalyst_prices.json (derived from metal content, not quotations).
 
 Run:  python scripts/research/export_simulator_data.py
 Check that the stored files are current:  python scripts/research/export_simulator_data.py --check
@@ -234,27 +234,97 @@ def purification_block() -> dict:
                       "assumed inputs; NH3, H2O, O2 go to the tail gas"),
             "purity_label": "assumption (follows from assumed recovery and N2 slip; no adsorption model)",
             "membrane": "not ported to the browser (Python Sieverts model in amcrax.separation.membrane); known gap",
+            "stored_comparison": stored_purification_comparison(),
             "source": "amcrax.schemas.CaseInputs; amcrax.process_model.flowsheet"}
 
 
-ECON_CAPEX_MODE = "equipment"   # the Phase 1 equipment CAPEX that the browser ports (see economics_block)
+PURIFICATION_COMPARISON = ROOT / "results" / "research" / "purification" / "phase2_comparison.json"
+_PUR_FIELDS = ("h2_recovery", "h2_purity_mole_frac", "n2_ppm", "nh3_ppm", "meets_spec_within_model_scope", "membrane_area_m2",
+               "capital_USD", "membrane_module_cost_USD", "replacement_USD_per_yr", "purification_only_usd_per_kg",
+               "lcoh_usd_per_kg_usable", "lcoh_sgd_per_kg_usable")
+
+
+def stored_purification_comparison():
+    """PSA against Pd-Ag membrane at the reference conditions (Python results of scripts/research/purification_phase2.py).
+    Stored values only: the browser has no membrane model, so these numbers do not respond to the simulator controls."""
+    if not PURIFICATION_COMPARISON.exists():
+        return None
+    src = json.loads(PURIFICATION_COMPARISON.read_text(encoding="utf-8"))
+    specs = {}
+    for sid, sp in (src.get("specs") or {}).items():
+        confs = {}
+        for cid, c in (sp.get("configurations") or {}).items():
+            row = {k: c.get(k) for k in _PUR_FIELDS}
+            rd = c.get("readiness") or {}
+            row["readiness"] = {k: rd.get(k) for k in ("configuration", "trl", "polishing_bed", "source") if rd.get(k) is not None}
+            rs = c.get("recovery_source")
+            if rs:
+                row["recovery_source"] = {k: rs.get(k) for k in ("source_type", "source", "note") if rs.get(k) is not None}
+            confs[cid] = row
+        specs[sid] = {"label": sp.get("label"), "configurations": confs}
+    basis = src.get("basis") or {}
+    return {"file": rel(PURIFICATION_COMPARISON), "script": (src.get("provenance") or {}).get("script"),
+            "source_type": "python",
+            "statement": ("Stored Python results at the reference conditions (plant gate, reference scenario). They do not respond "
+                          "to the simulator controls; the browser has no membrane model."),
+            "basis": {k: basis.get(k) for k in ("economics", "baseline_lcoh_usd", "baseline_lcoh_sgd", "baseline_note") if k in basis},
+            "specs": specs}
+
+
+CARBON_PRICING_VECTORS = ROOT / "results" / "research" / "carbon_pricing" / "test_vectors.json"
+
+
+def carbon_pricing_vectors() -> dict:
+    """The Python carbon-pricing test vectors (scripts/research/carbon_pricing_run.py), copied without the generation time so
+    that the export stays deterministic. Used by frontend/src/sim/carbon.test.ts (relative tolerance as stored)."""
+    src = json.loads(CARBON_PRICING_VECTORS.read_text(encoding="utf-8"))
+    prov = {k: v for k, v in (src.get("provenance") or {}).items() if k != "generated_utc"}
+    return {"schema": SCHEMA, "source_file": rel(CARBON_PRICING_VECTORS), "provenance": prov,
+            "tolerance_relative": src["tolerance_relative"], "mapping": src.get("mapping"),
+            "n_vectors": len(src["vectors"]), "vectors": src["vectors"]}
+
+
+ECON_CAPEX_MODE = "reference"   # unified reference CAPEX (cho2026_itemised_v1), the default of singapore.evaluate
+CATALYST_PRICES = ROOT / "research" / "data" / "catalyst_prices.json"
+#: rate law -> formulation key of research/data/catalyst_prices.json (the supports of the two Takahashi laws are as in the
+#: laws' own composition strings; the Ni-Ru laws match the two CeO2 formulations by name)
+CATALYST_PRICE_KEY = {"ni_takahashi_microkinetic": "Ni/MgO", "ru_takahashi_microkinetic": "Ru/MgO", "ru_kum_temkin_pyzhev": "Ru/Al2O3",
+                      "nire_ceo2_5ni1ru_lucentini_lhhw": "5Ni1Ru/CeO2", "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": "2.5Ni0.5Ru/CeO2"}
 
 
 def _reference():
-    try:
-        from amcrax.economics.reference import load_reference_scenario
-        return load_reference_scenario()
-    except Exception:  # noqa: BLE001 - module absent before unification
-        return None
+    from amcrax.economics.reference import load_reference_scenario
+    return load_reference_scenario()
+
+
+def catalyst_price_block() -> dict:
+    """Metal-content catalyst prices (research/data/catalyst_prices.json). Original currency is USD; SGD is computed in the
+    browser with the reference scenario's one exchange rate (the 1.2801 stored in that file is superseded and not exported)."""
+    d = json.loads(CATALYST_PRICES.read_text(encoding="utf-8"))
+    sc = d["scenarios_usd_per_kg_finished_catalyst"]
+    by_law = {}
+    for cid, key in CATALYST_PRICE_KEY.items():
+        s = sc[key]
+        by_law[cid] = {"formulation": key, "loading_wt_pct": s["loading_wt_pct"], "grade": s["grade"],
+                       "loading_basis": s["loading_basis"],
+                       **{lvl: {"usd_per_kg": s[lvl]["usd_per_kg"], "P_Ni_usd_per_kg": s[lvl]["P_Ni_usd_per_kg"],
+                                "P_Ru_usd_per_kg": s[lvl]["P_Ru_usd_per_kg"], "N_usd_per_kg": s[lvl]["N_usd_per_kg"]}
+                          for lvl in ("low", "central", "high")}}
+    return {"by_law": by_law, "currency": "USD", "formula": "price = wNi*P_Ni + wRu*P_Ru + N (per kg finished catalyst)",
+            "inputs": d["inputs"], "caveats": d["scenario_caveats"], "file": rel(CATALYST_PRICES),
+            "statement": ("derived from metal content (metal price times loading plus a non-metal term taken from one published TEA "
+                          "price), NOT supplier quotations; no quotation or published commercial price exists for any "
+                          "ammonia-cracking catalyst in the file"),
+            "levels": ["central", "low", "high"], "default_level": "central",
+            "phase1_tea_note": ("Phase 1 published TEA price: Ni 33.4 USD/kg (8 wt% Ni/Al2O3, Cho 2026) and Ru 542 USD/kg (Ru-K/CaO), "
+                                "selectable; the Ru value is below the Ru metal floor"),
+            "fx_not_used": "the file's own SGD values (1.2801 SGD/USD, Fed G.5 2026-10) are superseded by the reference scenario rate"}
 
 
 def economics_block() -> dict:
-    """Economic parameters as amcrax.economics.singapore.evaluate RESOLVES them (its returned 'assumptions').
-
-    Switch point for the unified reference scenario: evaluate() itself decides where its defaults come from
-    (singapore.yaml before unification, reference_scenario.yaml after); this block exports what it used. Only the
-    CAPEX method is pinned to ECON_CAPEX_MODE ('equipment', Phase 1), because the browser ports that method.
-    """
+    """Economic parameters as amcrax.economics.singapore.evaluate RESOLVES them (its returned 'assumptions') with the
+    unified reference CAPEX (capex_mode 'reference', method cho2026_itemised_v1; backend/amcrax/economics/reference.py)."""
+    from amcrax.economics import reference as rf
     data = sg.load_singapore_data()
     probe = sg.evaluate(sg.extract_summary(_case(600.0, 20.0, True)), "grey", {"capex_mode": ECON_CAPEX_MODE})
     a_eff = dict(probe["assumptions"]["economic"])
@@ -263,30 +333,41 @@ def economics_block() -> dict:
     for c in ("Ni", "Ru"):
         prices[c] = EconomicAssumptions(**{**a_eff, "catalyst": c, "catalyst_price_USD_per_kg": None}).resolved_catalyst_price_USD_per_kg()
     ref = _reference()
-    thr = (getattr(ref, "carbon_threshold_tCO2e_per_yr", None) if ref is not None else None) or data["carbon_tax"]["threshold_tCO2e_per_yr"]
+    cx = ref.raw["capex"]
+    items = rf.reference_item_costs()
     return {
-        "basis": "pre-unification",
-        "basis_note": (f"CAPEX: Phase 1 equipment method (capex_mode='{ECON_CAPEX_MODE}'); the unified reference CAPEX "
-                       "(capex_mode 'reference') is not ported yet. Other parameters: exactly as evaluate() resolves them "
-                       + ("(it reads backend/amcrax/data/reference_scenario.yaml)." if ref is not None else "(singapore.yaml).")),
+        "basis": f"reference_scenario {ref.id} v{ref.version} ({ref.capex_method})",
+        "basis_short": f"unified reference scenario {ref.id} v{ref.version}",
+        "basis_note": (f"CAPEX: unified reference method {ref.capex_method} (capex_mode='{ECON_CAPEX_MODE}'), cost year {cx['cost_year']['value']} USD. "
+                       "Every other parameter exactly as evaluate() resolves it from backend/amcrax/data/reference_scenario.yaml."),
         "capex_mode": ECON_CAPEX_MODE,
-        "reference_scenario": ({"id": getattr(ref, "id", None), "version": getattr(ref, "version", None), "sha256": getattr(ref, "sha256", None)}
-                               if ref is not None else None),
-        "source_files": ["backend/amcrax/data/singapore.yaml", "backend/amcrax/data/economics.yaml (via EconomicAssumptions)"]
-                        + (["backend/amcrax/data/reference_scenario.yaml"] if ref is not None else []),
-        "source_functions": ["amcrax.economics.singapore.evaluate", "amcrax.economics.lcoh.EconomicAssumptions"],
+        "reference_scenario": {"id": ref.id, "version": ref.version, "sha256": ref.sha256},
+        "source_files": ["backend/amcrax/data/reference_scenario.yaml", "backend/amcrax/data/singapore.yaml",
+                         "backend/amcrax/data/economics.yaml (via EconomicAssumptions)", rel(CATALYST_PRICES)],
+        "source_functions": ["amcrax.economics.singapore.evaluate", "amcrax.economics.reference.reference_capex",
+                             "amcrax.economics.lcoh.EconomicAssumptions"],
         "economic_assumptions": a_eff,
         "sg_params": p_eff,
         "catalyst_price_USD_per_kg": prices,
+        "catalyst_price_phase1_note": "Phase 1 published TEA price (EconomicAssumptions): Ni 8 wt% Ni/Al2O3 (Cho 2026), Ru Ru-K/CaO",
+        "catalyst_prices": catalyst_price_block(),
         "catalyst_metal_map": {"Ni": "Ni", "Ru": "Ru", "Ni-Ru": "Ru"},
-        "catalyst_metal_map_note": ("assumption: EconomicAssumptions prices only Ni and Ru; a Ru-containing Ni-Ru catalyst is "
-                                    "priced as Ru (conservative upper bound) until the catalyst-economics workstream supplies a price"),
+        "catalyst_metal_map_note": ("assumption (Phase 1 TEA price only): EconomicAssumptions prices only Ni and Ru; a Ru-containing Ni-Ru "
+                                    "catalyst is priced as Ru. The metal-content prices price each of the five formulations separately."),
         "nh3_price_scenarios_USD_per_t": {k: sg.scenario_price(k) for k in sg.SCENARIOS},
-        "capex_equipment": {k: (v["value"] if isinstance(v, dict) and "value" in v else v)
-                            for k, v in data["capex_equipment"].items() if k != "comment"},
-        "carbon_tax": {"rate_2026_SGD_per_tCO2e": p_eff["carbon_tax_SGD_per_t"], "threshold_tCO2e_per_yr": thr},
+        "capex_reference": {
+            "method": ref.capex_method, "cost_year": cx["cost_year"]["value"], "price_year_label": ref.raw["price_year_label"],
+            "installed_ISBL_USD_reference_plant": {k: v for k, v in items["installed_USD"].items() if k != "compressor"},
+            "excluded_items": ["compressor"], "indirect_factor": items["indirect_factor"],
+            "reference_nh3_feed_kmol_h": items["reference_nh3_feed_kmol_h"], "scaling_exponent": ref.capex_scaling_exponent,
+            "location_factor": cx["location_factor_singapore"]["value"],
+            "size_driver": dict(cx["size_driver"]["value"]),
+            "formula": "TCI = sum_i(I_i,ref (S/S_ref)^n x location_factor) x capex_multiplier x indirect_factor; S = NH3 feed (all items)",
+            "source": "backend/amcrax/economics/reference.py (reference_capex); backend/amcrax/data/reference_scenario.yaml"},
+        "carbon_tax": {"rate_2026_SGD_per_tCO2e": p_eff["carbon_tax_SGD_per_t"], "threshold_tCO2e_per_yr": ref.carbon_threshold_tCO2e_per_yr},
         "natural_gas_co2_factor_kg_per_GJ": data["gas_and_fuel"]["natural_gas_co2_factor_kg_per_GJ"]["value"],
-        "cost_basis": data["base_year_label"],
+        "cost_basis": ref.raw["price_year_label"],
+        "h2_selling_price_USD_per_kg": ref.h2_selling_price_USD_per_kg,
     }
 
 
@@ -348,6 +429,7 @@ def build_model() -> dict:
         "fx": fx_block(), "carbon": carbon_block(), "tolerances": TOLERANCES,
         "provenance": {"script": "scripts/research/export_simulator_data.py", "source_type": "python",
                        "inputs": [rel(KIN), "backend/amcrax/data/nasa7.json", "backend/amcrax/data/singapore.yaml",
+                                  "backend/amcrax/data/reference_scenario.yaml", rel(CATALYST_PRICES),
                                   "backend/amcrax/data/environmental.yaml", "config/flowsheet.json"]},
     }
 
@@ -534,6 +616,9 @@ def econ_vectors() -> list[dict]:
         ("base_ng_heat", base, "grey", {"heat_fuel": "natural_gas"}),
         ("base_ng_nothreshold", base, "grey", {"heat_fuel": "natural_gas", "apply_threshold": False}),
         ("base_scale5", base, "grey", {"capacity_scale": 5.0}),
+        ("base_ru_derived_price", base, "grey", {"catalyst": "Ru", "catalyst_mass_kg": 100.0, "catalyst_price_USD_per_kg": 3006.14}),
+        ("base_price_h2_high", base, "grey", {"h2_price_USD_per_kg": 6.0}),
+        ("stored_baseline", json.loads((SIM / "baseline.json").read_text(encoding="utf-8")), "grey", {}),
     ]
     for name, res, scen, ov in combos:
         summ = sg.extract_summary(res)
@@ -544,7 +629,8 @@ def econ_vectors() -> list[dict]:
                   "python": finite({"lcoh_USD_per_kg": out["lcoh_USD_per_kg"], "rec_USD_per_kg": out["rec_USD_per_kg"],
                                     "breakdown_USD_per_kg": out["breakdown_USD_per_kg"], "catalyst_mass_kg": out["catalyst_mass_kg"],
                                     "direct_emissions_tCO2e_per_yr": out["direct_emissions_tCO2e_per_yr"],
-                                    "carbon_tax_liable": out["carbon_tax_liable"], "npv_USD": out["npv_USD"],
+                                    "carbon_tax_liable": out["carbon_tax_liable"], "npv_USD": out["npv_USD"], "payback_yr": out["payback_yr"],
+                                    "lcoh_SGD_per_kg": out["lcoh_SGD_per_kg"],
                                     "capex_total_USD": out["capex"]["total_capex_USD"]})})
     return v
 
@@ -582,7 +668,7 @@ def dumps(obj) -> str:
 
 def build_all() -> dict[str, str]:
     return {"model.json": dumps(build_model()), "aspen_anchors.json": dumps(build_anchors()),
-            "test_vectors.json": dumps(build_vectors())}
+            "test_vectors.json": dumps(build_vectors()), "carbon_pricing_vectors.json": dumps(carbon_pricing_vectors())}
 
 
 def main(argv=None) -> int:

@@ -7,8 +7,9 @@
 </p>
 
 <p align="center">
-  <a href="https://weewzr.github.io/AmCraX/">Live site</a> |
-  <a href="https://weewzr.github.io/AmCraX/#/platform/pfd">Interactive platform</a> |
+  <a href="https://weewzr.github.io/AmCraX/">Interactive simulator (live site)</a> |
+  <a href="https://weewzr.github.io/AmCraX/#/hypotheses">Hypothesis evidence</a> |
+  <a href="https://weewzr.github.io/AmCraX/#/platform/pfd">Platform pages</a> |
   <a href="docs/technical_report/AmCraX_Technical_Report.pdf">Technical report</a> |
   <a href="docs/README.md">Documentation</a> |
   <a href="https://weewzr.github.io/weewzr/projects/amcrax/">Portfolio page</a>
@@ -16,7 +17,9 @@
 
 AmCraX simulates the decomposition of ammonia into hydrogen. An Aspen Plus V15 flowsheet is driven through COM, independent Python models cross-check it, and a FastAPI service and React dashboard show every result with the name of the model that produced it.
 
-<p align="center"><img src="docs/images/hero_site_home.png" width="720" alt="Home page of the AmCraX website with the interactive process flow diagram of the baseline cracker and headline results."></p>
+Phase 2 (23 November 2026) puts an interactive process simulator on the first page of the website. It runs in the browser, with no server. Every number on it is labelled as a stored Aspen Plus result, an interpolation of stored results, a browser-model value (code tested against the Python model), an extrapolation or an assumption. The animation shows flow direction only and is not a transient simulation. Phase 2 also moves all economics onto one reference scenario and tests four hypotheses on a stricter, documented verdict rule.
+
+<p align="center"><img src="docs/screenshots/site_simulator_playing_desktop.png" width="720" alt="The interactive simulator page: process flow diagram of the ammonia cracker with animated streams, input controls and labelled outputs."></p>
 
 <details>
 <summary>Contents</summary>
@@ -28,7 +31,9 @@ AmCraX simulates the decomposition of ammonia into hydrogen. An Aspen Plus V15 f
 - [Aspen Plus integration](#aspen-plus-integration)
 - [Software architecture](#software-architecture)
 - [Technology stack](#technology-stack)
+- [The interactive simulator](#the-interactive-simulator)
 - [Status and validation](#status-and-validation)
+- [Research expansion and Phase 2](#research-expansion-and-phase-2-singapore-specific-hypothesis-tests)
 - [Prerequisites](#prerequisites)
 - [Installation and running locally](#installation-and-running-locally)
 - [Usage examples](#usage-examples)
@@ -51,8 +56,11 @@ AmCraX lets a student or engineer explore that design space with an auditable ch
 
 ## Key features
 
+- An interactive, browser-side process simulator as the first page of the public site (see below).
 - Aspen Plus V15 flowsheet built and solved by script, with 279 converged runs behind the stored results.
-- Independent Python models: equilibrium, flowsheet mirror, pinch analysis, kinetics and plug-flow reactor, PSA and membrane purification, techno-economics, carbon intensity, optimisation, scenarios.
+- Independent Python models: equilibrium, flowsheet mirror, pinch analysis, kinetics and plug-flow reactor, PSA and membrane purification, techno-economics, carbon intensity, optimisation, scenarios, and (Phase 2) heat exchanger sizing, catalyst economics, carbon pricing, end use and uncertainty quantification.
+- One unified techno-economic reference scenario (USD and SGD) used by every research workstream.
+- Four hypotheses with an evidence matrix: row, component and hypothesis verdicts under a documented rule, with the earlier rule beside them.
 - A FastAPI service ([docs/api.md](docs/api.md)) and an 11-page React dashboard with an interactive process diagram.
 - A provenance label on every value (`aspen_plus_v15`, `python_model`, `literature`, `assumption`, `demo`).
 - A static public site that runs from the published results without Aspen Plus.
@@ -111,28 +119,76 @@ The API never imports COM. The static export (`scripts/export_snapshot.py`) feed
 
 Versions: [docs/dependencies.md](docs/dependencies.md).
 
+## The interactive simulator
+
+The first page of the site (`/`) is a process flow diagram of the baseline cracker (pump, vaporiser, feed/effluent exchanger, heater, cracker, cooler, PSA, burner, flue-gas cooler) with animated streams, input controls, unit and stream panels and eight graphs. It runs in the browser on GitHub Pages. It cannot run Aspen Plus or Python.
+
+- **Inputs:** catalyst and rate law (five), temperature, pressure, catalyst mass, reactor mode (equilibrium as in the Aspen baseline, isothermal, adiabatic, external wall, fixed duty), feed rate, heat integration, PSA recovery and nitrogen slip, ammonia route and price, heating fuel and the carbon price mode. Ten presets each reproduce a stored Aspen case. Reset returns to the stored Aspen baseline. Each input shows its allowed range and a warning where the value lies outside the range in which the model was checked.
+- **Outputs:** conversion, hydrogen product, heat duties, recovered heat, levelised cost of hydrogen in USD and SGD, carbon intensity and carbon cost. Each value carries a label: `Aspen Plus V15` (a stored result), `interpolation` (of stored results), `browser model`, `extrapolation` or `assumption`. Results can be exported as JSON or CSV.
+- **How the numbers are produced:** stored Aspen results are used where an input matches a stored case. Elsewhere the browser code (`frontend/src/sim`) is used. It is a port of the Python models, checked against them on 82 stored test vectors to about 1e-7 (numerical verification) and compared with stored Aspen kinetic cases (Python against Aspen type comparison). The record is `results/research/simulator/parity_report.json`.
+- **What it does not do:** no transient simulation, no membrane model, no IRR, no Aspen run. Where the simulator is extrapolating a rate law (all rate laws are extrapolated to 20 bar), it says so next to the number.
+
+At the unified reference basis the simulator shows 4.015 USD/kg (5.174 SGD/kg) at the baseline. The earlier values 3.92 and 3.61 USD/kg are history; see [Results](#results).
+
 ## Status and validation
 
-The validation matrix (`results/validation/validation_matrix.json`, generated 2026-11-21) has 137 items: 105 pass, 22 fail, 0 not run and 10 informational. The failures are kept and reported. They have two causes:
+Four kinds of evidence are used and kept apart. AmCraX has the first three and none of the fourth.
 
-- 20 flowsheet cross-check items (`FS-<case>`): the Python and Aspen models use different property models in the feed section (Aspen PENG-ROB; Python a reference equation of state for ammonia and an ideal-liquid dew point). The duties differ by 3 to 10 %. This measures a model-form difference and is not evidence that either model is the weaker one. The primary quantities pass for all 20 cases.
-- 2 kinetics items (`KIN-NI-PRED`, `KIN-RU-PRED`): published conversion curves are reproduced within about 0.11 against a tolerance of 0.05.
+| Kind | What it is | Where it is recorded |
+|---|---|---|
+| 1. Numerical verification | Hand calculations, closure of balances, analytic limits, agreement of the browser port with the Python code | `results/validation/`, `results/research/validation/`, `results/research/simulator/parity_report.json` |
+| 2. Python against Aspen comparison | The independent Python models against stored Aspen Plus V15 results, on the same case and, where possible, the same property method | `results/validation/validation_matrix.json`, `results/research/validation/*.json` |
+| 3. Comparison with published literature | Reproduction of values or curves from papers | same files; each item names its source |
+| 4. Independent experimental validation | Comparison with measurements not used to build the model | none exists |
 
-Tests: 513 Python tests pass and 1 opt-in live-Aspen test is skipped (2026-11-23, after the research expansion below); 107 frontend unit tests pass (2026-11-23). A feature-by-feature check is in [docs/verification_matrix.md](docs/verification_matrix.md) and the matrix itself in [docs/validation/validation_matrix.md](docs/validation/validation_matrix.md).
+Every validation item in the research files carries its evidence kind. No single percentage summarises them, because the kinds are not interchangeable, and a pass count is never described as experimental validation. Failures are kept and explained:
+
+- Flowsheet cross-check items (`FS-<case>`): the Python and Aspen models use different property models in the feed section. The primary quantities pass for all 20 cases. The feed-effluent exchanger duty items still fail against their tolerance. Phase 2 traced the Python excess (20.8 kW) to the dew-point state of the vaporiser outlet (8.8 kW) and the residual enthalpy of ammonia (12.1 kW). The tolerance was not changed.
+- Two Takahashi prediction items (`KIN-NI-PRED`, `KIN-RU-PRED`): the published curves are reproduced only approximately. Phase 2 found the law under-predicts the dilution and H2 co-feed series, a limit of the model form.
+- Kinetic RPlug checks above the equilibrium conversion: explained and reduced. The 20 bar cases pass in the partial-pressure form and the 40 bar case still fails.
+- No rate law is validated at 20 bar. Three are validated against literature inside their own fitting data, two are extrapolated and three catalysts (Ni/CeO2, Ru/CeO2, Ru-K/CaO) have no rate law and are not modelled.
+
+Tests, as reported by the Phase 2 runs on 23 November 2026 (re-run them to confirm; the counts at the start of Phase 2 are in [docs/research/phase2_baseline.md](docs/research/phase2_baseline.md)): 618 Python tests passed and 1 opt-in live-Aspen test was skipped; 227 frontend unit tests passed in 25 files; the browser check of all routes at four viewport sizes passed with no HTTP status of 400 or above. A feature-by-feature check is in [docs/verification_matrix.md](docs/verification_matrix.md) and the core matrix in [docs/validation/validation_matrix.md](docs/validation/validation_matrix.md).
 
 <p align="center"><img src="docs/images/equilibrium_parity.png" width="720" alt="Parity plots of NH3 conversion and reactor duty, independent Python model against Aspen Plus RGibbs."></p>
 
-## Research expansion: Singapore-specific hypothesis tests
+## Research expansion and Phase 2: Singapore-specific hypothesis tests
 
-A research expansion tests four hypotheses on end-use suitability, ammonia feedstock, catalyst and heat integration, and purification for Singapore (Jurong Island as a representative industrial setting; no facility is claimed). It adds, without changing the existing results or behaviour:
+Four hypotheses on end-use suitability, ammonia feedstock, catalyst and heat integration, and purification are tested for Singapore (Jurong Island as a representative industrial setting; no facility is claimed). Phase 2 adds, without changing the preserved Phase 1 release (tag `amcrax-research-expansion-2026-11-23`):
 
-- Catalyst kinetics in the Python reactor model and as an Aspen Plus RPlug cracker, standalone and in the full flowsheet. 162 new Aspen Plus V15 runs were made and all 162 finished with status `ok` (`results/research/aspen_kinetic/run_status.json`).
-- Catalysts actually modelled: Ru/Al2O3 (Kum), 5Ni1Ru/CeO2 and 2.5Ni0.5Ru/CeO2 (Lucentini 2021), and Ni/MgO and Ru/MgO through a fitted approximation of the Takahashi law (valid at 20 bar only). Ni/CeO2, Ru/CeO2 and Ru-K/CaO are not modelled: no usable published rate law was available.
-- A Singapore techno-economic model with sourced prices, a catalyst and heat-integration comparison, a purification study against ISO 14687, an end-use comparison and a life-cycle assessment.
-- A research validation summary kept separate from the core matrix: 350 items, 295 pass, 10 fail and 45 informational (`results/research/validation/summary.json`). The failures are kept and explained.
-- Aspen Plus screenshots under `docs/images/aspen_evidence/`, each inspected (31 of 31 pass; one was recaptured on 2026-11-23 after its first capture showed the wrong tab).
+- **One reference scenario.** `backend/amcrax/data/reference_scenario.yaml` (itemised CAPEX method, 2024 USD, 8000 h per year, 10 % discount rate, 25 years, grey ammonia at 450 USD/t, exchange rate 1.288444 SGD per USD of 20 November 2026). Baseline levelised cost of hydrogen: 4.015 USD/kg (5.174 SGD/kg); feed 3.040, capital 0.420, fixed operation 0.284, heat fuel 0.268.
+- **Catalyst prices from metal content**, because no supplier quotation exists, and a kinetic validity classification of every rate law.
+- **Exchanger sizing and cost**, end-use turbine thresholds, carbon pricing under the actual Singapore boundary and a labelled hypothetical life-cycle price, a purification study of PSA against Pd-Ag membrane, and uncertainty quantification (global sensitivity analysis, kinetic parameter propagation, a model-form diagnostic of the Takahashi law).
+- **Verdict rule version 2** ([docs/research/verdict_methodology_v2.md](docs/research/verdict_methodology_v2.md)), fixed before the analyses. Rows are primary or secondary, grouped into components, and each verdict is printed with its envelope. Version 1 verdicts are shown beside them.
 
-Rate laws are fitted at 1 atm or up to 10 bar and extrapolated to 20 bar, and the CAPEX model does not respond to temperature or reactor volume. Verdicts for the four hypotheses are in the [evidence matrix](docs/research/evidence_matrix.md) (generated from `results/research/evidence_matrix.json`); they are not repeated here. See [docs/research/README.md](docs/research/README.md) for the index and reproduction commands, [docs/research/validation_and_limitations.md](docs/research/validation_and_limitations.md) for validation, limitations and inaccessible sources, and [docs/validation/research_validation.md](docs/validation/research_validation.md) for every research validation failure.
+### Verdicts
+
+Computed rows and verdicts are in the [evidence matrix](docs/research/evidence_matrix.md) (generated from `results/research/evidence_matrix.json`). The table below is a reading aid. If the matrix and this table differ, the matrix is correct.
+
+| Hypothesis | Verdict v2 | Verdict v1 | Components and findings |
+|---|---|---|---|
+| H1 End use | INCONCLUSIVE | INCONCLUSIVE | Direct ammonia combustion is 7.6 % cheaper than fired cracking and 16.5 % cheaper than cracking with PSA, if the hydrogen-rich turbine has the same 49.64 % efficiency. Fired cracking would match it at +5.16 percentage points of turbine efficiency, with no sourced value. Cracking with PSA would need +12.55, above the only sourced upper bound (+7.3). Against the essay: exhaust-heated cracking is 1.3 % cheaper than direct use on the reference basis, and the result flips with CAPEX and operating hours. |
+| H2 Feedstock | MIXED | INCONCLUSIVE | Affordable ammonia is necessary: feed is 76 % of cost and the ammonia price has a total-effect index of 0.896; break-even is 320 USD/t (277 to 371), and grey ammonia at 450 USD/t does not reach it. Under the actual Singapore carbon tax, low-carbon ammonia earns no cost advantage (tax is zero for every route), so the cross-claim is contradicted. A hypothetical life-cycle price (not Singapore law) would make blue ammonia cheaper than grey above about 33 SGD/t. |
+| H3 Catalyst and heat integration | PARTIALLY SUPPORTED | INCONCLUSIVE | Heat integration reduces the heat deficit by 44 % and pays after the exchanger cost (+0.067 to +0.095 USD/kg), subject to the exchanger coefficient. A lower temperature reduces fired duty by about 5 % at equal conversion (the Phase 1 figure of 17 % is withdrawn). Against the essay: at ruthenium prices derived from metal content, the low-temperature catalysts do not pay at equal conversion. |
+| H4 Purification | PARTIALLY SUPPORTED | INCONCLUSIVE | The energy balance of the purification step is supported. The ranking of PSA against a Pd-Ag membrane turns on PSA recovery, with parity near 0.80, and is not robust either way. |
+
+These verdicts describe model results. They are not experimental validation.
+
+For H1 the required statement is: under the modelled operating conditions, direct ammonia combustion produces electricity at a lower cost than the standalone cracking pathways, with a calculated cost advantage of approximately 8 to 17 % (5 to 15 % on the earlier cost basis). This comparison assumes that the hydrogen-rich turbine operates at the same 49.64 % efficiency as the direct-ammonia turbine. The actual economic advantage depends on fuel-specific turbine performance.
+
+### What changed from the Phase 1 release
+
+| Finding | Phase 1 (23 November 2026) | Phase 2 |
+|---|---|---|
+| Baseline LCOH | 3.92 (legacy) and 3.61 (equipment) USD/kg | 4.015 USD/kg, one basis |
+| Feed share | 84 % of 3.61 | 76 % of 4.015 |
+| Break-even NH3 price against the NE Asia SMR benchmark | 375 USD/t | 320 USD/t |
+| CAPEX | 2.78 MUSD | 7.67 MUSD |
+| NPV at 3.06 USD/kg | -10.1 MUSD | -17.5 MUSD |
+| Low-temperature fired-duty saving | 17 % (unequal conversion) | about 5 % at equal conversion |
+| Verdicts | all INCONCLUSIVE (rule v1) | H1 INCONCLUSIVE, H2 MIXED, H3 and H4 PARTIALLY SUPPORTED (rule v2) |
+
+The index of research files and commands is [docs/research/README.md](docs/research/README.md). Limitations and the ranked next steps are in [docs/research/limitations_and_future_work.md](docs/research/limitations_and_future_work.md), and validation by workstream in [docs/research/validation_and_limitations.md](docs/research/validation_and_limitations.md). Every research validation failure is listed in [docs/validation/research_validation.md](docs/validation/research_validation.md). The 31 Aspen Plus screenshots under `docs/images/aspen_evidence/` were each inspected.
 
 ## Prerequisites
 
@@ -204,10 +260,13 @@ Baseline case, 600 degC, 20 bar, 100 kmol/h feed:
 | External heating | 2293 kW (2905 kW without the exchanger) | same and `baseline_no_hi.json` |
 | Heat recovered in the exchanger | 612 kW | same |
 | LHV efficiency | 0.877 (0.824 without the exchanger) | same; first-law upper bound |
-| Levelised cost of hydrogen | 3.92 USD/kg at 450 USD/t NH3 | Python model, `economics_baseline.json`; preliminary |
+| Levelised cost of hydrogen (research basis) | 4.015 USD/kg (5.174 SGD/kg) at 450 USD/t NH3, itemised CAPEX 7.667 MUSD | Python model, `results/research/reference_scenario/baseline.json`; the unified reference scenario |
+| Levelised cost of hydrogen (legacy core result) | 3.92 USD/kg at 450 USD/t NH3 | Python model, `results/simulations/economics_baseline.json`; legacy plant-level correlation, kept as the core stored result and superseded for research outputs |
 | Carbon intensity | 0.41 kg CO2e/kg H2 (green NH3, self-fired heat); 19.5 (grey NH3) | Python model, `environmental_baseline.json`; simplified accounting |
 
-The 99.961 mol% purity (392 ppm N2) is below the 99.97 % limit quoted for fuel-cell hydrogen and NH3 polishing is not modelled, so the baseline product is not fuel-cell grade. All 10 optimisation candidates converged in Aspen Plus, with primary metrics within 1.15 % of the Python model. The live results page is <https://weewzr.github.io/AmCraX/#/results>.
+The 99.961 mol% purity (392 ppm N2) is below the 99.97 % limit quoted for fuel-cell hydrogen and NH3 polishing is not modelled, so the baseline product is not fuel-cell grade. All 10 optimisation candidates converged in Aspen Plus, with primary metrics within 1.15 % of the Python model. The live results page is <https://weewzr.github.io/AmCraX/#/results>. The carbon intensities above are core results; the research pages give the actual Singapore carbon-tax outcome and a labelled hypothetical life-cycle price.
+
+The legacy numbers 3.92 USD/kg (and the 0.084 USD/kWh electricity price of the legacy model) belong to the core stored results of 21 November 2026. Research outputs use the reference scenario (0.1402 USD/kWh). The legacy figure is not the baseline of any research result.
 
 <table>
   <tr>
@@ -224,9 +283,11 @@ The 99.961 mol% purity (392 ppm N2) is below the 99.97 % limit quoted for fuel-c
 | [docs/README.md](docs/README.md) | Index of the documentation |
 | [docs/installation.md](docs/installation.md) | Setup, launch, running without Aspen Plus, troubleshooting |
 | [docs/user_guide.md](docs/user_guide.md) | The dashboard pages and data modes |
-| [docs/reproducing.md](docs/reproducing.md) | Commands that regenerate every result |
+| [docs/reproducing.md](docs/reproducing.md) | Commands that regenerate every result, the master script, the browser check and the check of the preserved release |
 | [docs/api.md](docs/api.md) | HTTP endpoints and job life-cycle |
 | [docs/known_limitations.md](docs/known_limitations.md) | Limitations with consequences and remedies |
+| [docs/research/limitations_and_future_work.md](docs/research/limitations_and_future_work.md) | Phase 2 limitations by area and ranked next steps |
+| [docs/research/evidence_matrix.md](docs/research/evidence_matrix.md) | Row, component and hypothesis verdicts (rule version 2) |
 | [docs/verification_matrix.md](docs/verification_matrix.md) | Feature-by-feature verification |
 | [docs/technical_report/AmCraX_Technical_Report.pdf](docs/technical_report/AmCraX_Technical_Report.pdf) | Technical report |
 
@@ -242,25 +303,19 @@ Selected sources in APA style. The full list is in [research/references_apa.md](
 
 ## Roadmap
 
-These are the next steps named in [docs/known_limitations.md](docs/known_limitations.md). No dates are set.
-
-- Rate laws for Ni/CeO2, Ru/CeO2 and Ru-K/CaO, which could not be modelled because no usable published rate law was obtained. The Aspen Plus RPlug reactor now exists for the research cases (see the research expansion section above); the baseline flowsheet still uses the equilibrium reactor.
-- Designed PSA and TSA purification units, for example in Aspen Adsorption, instead of the component splitter.
-- Cracked-gas compression and NH3 polishing in the flowsheet.
-- Equipment-level costing in place of the plant-level CAPEX correlation.
-- Kinetics fitted or validated at high pressure, resolving the two failing kinetics items.
+The ranked next research steps, with the verdict each would decide, are in [docs/research/limitations_and_future_work.md](docs/research/limitations_and_future_work.md). In short, in order of value: fuel-specific turbine data, supplier quotations for cracking catalysts, a cracked-ammonia PSA cycle model, measured kinetics at 10 to 20 bar, a film-coefficient estimate of the exchanger coefficient, and equipment-level costing. No dates are set.
 
 ## Known limitations
 
-- The Aspen reactor is an equilibrium reactor, so conversion is an upper bound. The model is steady state only.
-- The PSA is a reduced-order splitter whose recovery (0.85) is above the 0.71 to 0.81 literature range. NH3 polishing and compression are not in the flowsheet.
-- Kinetics were fitted at 1 atm (Takahashi) or up to 10 bar (Kum) and are extrapolated to 20 bar.
-- Costs are a preliminary plant-level estimate in mixed 2024 to 2025 USD. Published values at a comparable ammonia price are 5.1 to 6.4 USD/kg, and AmCraX omits NOx treatment, NH3 polishing, compression and installed-cost factors.
-- Carbon accounting is simplified and is not a life-cycle assessment.
+- The Aspen reactor is an equilibrium reactor, so conversion is an upper bound. The model is steady state only. The browser simulator has no membrane model and uses an ideal-gas equilibrium where no stored Aspen value applies.
+- No rate law is validated at 20 bar. Ni/CeO2, Ru/CeO2 and Ru-K/CaO have no rate law and are not modelled.
+- The PSA is a reduced-order splitter. Its recovery is an input, and the ranking of PSA against a Pd-Ag membrane turns on it.
+- There is no supplier price for any cracking catalyst, no sourced exchanger coefficient at 20 bar and no sourced turbine efficiency for the hydrogen and nitrogen fuel of a fired cracker. The H1 and H3 verdicts depend on these.
+- The reference CAPEX comes from one paper's itemised table and is extrapolated more than 30-fold for the power-plant cracker. The independent published CAPEX range gives 3.64 to 3.92 USD/kg, so the reference is at the conservative end.
+- Carbon accounting is simplified. Under the actual Singapore carbon tax the tax is zero for every route. Any carbon price on embodied emissions is hypothetical and is not Singapore law.
 - Live Aspen runs need Windows and one licence seat. The servers are for development, without authentication.
 
-What AmCraX does not claim: it is not a validated digital twin, there is no plant data behind it, and the PSA, membrane, cost and carbon models are not validated.
-
+What AmCraX does not claim: it is not a validated digital twin, there is no plant data behind it, and it has no independent experimental validation. Its checks are numerical verification, comparison of Python with Aspen Plus and comparison with published literature. The PSA, membrane, cost and carbon models are not validated.
 ## Contributing
 
 Read [CONTRIBUTING.md](CONTRIBUTING.md) first. A change is judged on whether its numbers can be trusted: no invented numbers, no tuning to force agreement, and no weakening of a failing check.

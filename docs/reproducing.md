@@ -10,6 +10,8 @@ Each step carries one of these requirements:
 | **[needs Aspen Plus V15]** | A licensed Aspen Plus V15 installation with COM registered. One Aspen instance runs at a time (see the Aspen rule in the [developer guide](developer_guide.md)). |
 | **[needs Word or PowerPoint]** | Microsoft Word (report) or PowerPoint (deck) for the PDF export. |
 
+Phase 2 (23 November 2026) added a master script and steps for the unified reference scenario, the evidence matrix version 2, the simulator data and the website. They are in [section 9](#9-phase-2-regenerate-everything-in-order). The check of the preserved release is in [section 10](#10-verify-the-preserved-release). Sections 1 to 8 describe the earlier steps, which remain valid. Where an earlier step writes a result that Phase 2 regenerates (everything under `results\research\`), run the Phase 2 steps afterwards.
+
 The stored files in `results/` already hold the outputs. Reproduce them only when you change a model, a parameter or a script, or when you want to confirm them. Run times are given where a script or a document records them; where none is recorded the entry says so. They depend on the machine.
 
 The Aspen steps need a seat that is free for the whole run. A single converged flowsheet solve takes a few seconds (the engine time recorded for the baseline is about 2 s). Scripts that solve many points take correspondingly longer.
@@ -23,7 +25,7 @@ The Aspen steps need a seat that is free for the whole run. A single converged f
 python -m pytest tests -q
 ```
 
-Expected: all tests pass, and one test (the opt-in live Aspen test) is skipped. Aspen is never started.
+Expected: all tests pass, and one test (the opt-in live Aspen test) is skipped. Aspen is never started. The count at the start of Phase 2 (513 passed, 1 skipped) is recorded in [research/phase2_baseline.md](research/phase2_baseline.md). Phase 2 adds tests (`tests\test_phase2_*.py`), so the number is higher on the Phase 2 branch: read it from your own run. Tests that read result files can fail while a script is rewriting them, so do not run the suite during step 9.2.
 
 ## 2. Aspen Plus results
 
@@ -226,3 +228,123 @@ python scripts\research\build_research_validation.py
 ```
 
 **[Python only]**. Aggregates `results\research\validation\*.json` into `results\research\validation\summary.json` and `docs\validation\research_validation.md`. Deterministic. It does not read or change the core validation matrix. Run it last.
+
+## 9. Phase 2: regenerate everything, in order
+
+Run from the repository root after `. scripts\env.ps1`. Nothing in 9.1 to 9.8 needs Aspen Plus, Word or PowerPoint, except where marked. The stored Aspen kinetic results (`results\research\aspen_kinetic`) are inputs, not outputs, of these steps.
+
+| Step | What | Needs |
+|---|---|---|
+| 9.1 | Environment | Python 3.12 venv, Node 24 (`scripts\setup.ps1`) |
+| 9.2 | All research results (master script) | Python only |
+| 9.3 | Evidence matrix, version 2 | Python only |
+| 9.4 | Test suite | Python only |
+| 9.5 | Snapshot for the website | Python only |
+| 9.6 | Frontend tests and the Pages build | Node only |
+| 9.7 | Browser check of the built site | Node and Microsoft Edge |
+| 9.8 | Technical report and paper | pandoc; Word for the PDF of the report |
+| 9.9 | New Aspen runs (only if the Aspen model changes) | Aspen Plus V15 |
+
+### 9.1 Environment
+
+```powershell
+powershell -ExecutionPolicy Bypass -File scripts\setup.ps1
+. scripts\env.ps1
+```
+
+### 9.2 All research results
+
+```powershell
+python scripts\research\run_all_phase2.py
+python scripts\research\run_all_phase2.py --from uq     # resume at the first step whose path contains "uq"
+```
+
+The script runs 17 steps in dependency order and stops at the first failure. In order: the unified reference scenario (`economics_reference_scenario.py`), Singapore economics, life-cycle assessment, end-use pathways, end-use turbine thresholds, purification and the PSA against membrane study, catalyst comparison, heat exchanger study, catalyst economics, carbon pricing (modes A and B), the three uncertainty-quantification scripts and their acceptance checks, the simulator data export (`export_simulator_data.py`) and the research validation summary. The whole run takes about 20 to 30 minutes on the machine used for Phase 2. It never starts Aspen Plus. It rewrites `results\research\**` and the figures in `results\figures\research\`. Only a provenance hash changes when the inputs are unchanged.
+
+### 9.3 Evidence matrix, version 2
+
+```powershell
+python scripts\research\build_evidence_matrix.py
+```
+
+Reads the result files and writes `results\research\evidence_matrix.json` and `docs\research\evidence_matrix.md`. The verdict rule is [research/verdict_methodology_v2.md](research/verdict_methodology_v2.md), fixed before the Phase 2 analyses. The matrix shows the version 1 verdict beside each version 2 verdict. If a coded rule gives a verdict that differs from the one recorded in the project notes, the builder reports it and does not force it.
+
+### 9.4 Tests
+
+```powershell
+python -m pytest tests -q
+```
+
+Run it after 9.2 and 9.3 have finished. The expected result is zero failures and one skipped test (the opt-in live Aspen test). The failing items inside the validation files (exchanger duty, 40 bar kinetic check, two Takahashi prediction checks) are recorded results, not test failures.
+
+### 9.5 Snapshot for the website
+
+```powershell
+python scripts\export_snapshot.py
+```
+
+Copies the stored results, the API responses derived from them and the three simulator files (`model.json`, `aspen_anchors.json`, `test_vectors.json`) into `frontend\public\snapshot\`. Run it after 9.2 and 9.3. It writes nothing synthetic.
+
+### 9.6 Frontend tests and the Pages build
+
+```powershell
+cd frontend
+npm test
+npm run build:pages
+```
+
+`npm test` runs the unit tests, including the tests that compare the browser model with the Python test vectors. `npm run build:pages` writes the static site to `frontend\dist` with base path `/AmCraX/`. The site never contacts an API.
+
+### 9.7 Browser check
+
+```powershell
+cd frontend
+node scripts\serve_pages.mjs        # terminal 1, serves the built site locally
+node scripts\site_check.mjs         # terminal 2, needs Microsoft Edge
+node scripts\site_check.mjs --routes home     # optional: one route only ("home" is the simulator at "/")
+```
+
+The check opens every route at four viewport widths (390, 820, 1440 and 1920 px), and reports failed assertions and any HTTP status of 400 or above. It checks that pages load and that required elements and downloads exist. It does not judge whether a diagram is well drawn: look at the screenshots in `docs\screenshots\` for that. Screenshots are regenerated with `node scripts\capture_site.mjs` against the locally served build. By default the check also writes screenshots to `docs\screenshots\`; pass `--no-shots` to avoid that. `node scripts\e2e_sim_run.mjs` is a separate check of the live Simulation page of the platform (Python engine, API running); it is not part of the static site check.
+
+### 9.8 Technical report and paper
+
+```powershell
+python docs\technical_report\build_report.py [--no-pdf]
+```
+
+Builds `docs\technical_report\AmCraX_Technical_Report.docx` and, with Word, the PDF. It reads every number from the result files. The short paper is built from its own folder under `docs\paper\`: follow the build instructions in that folder, which are kept with the paper. The 23 November 2026 release of the report in `docs\technical_report\releases\2026-11-23\` is not rebuilt and must not be edited.
+
+### 9.9 Steps that need Aspen Plus V15
+
+Only these need a licence. They are not needed to reproduce anything in 9.1 to 9.8.
+
+- The baseline and sensitivity runs of section 2 (`aspen\automation\run_baseline.py`, `run_sensitivity.py`, `run_scenarios.py`, `run_equilibrium_grid.py`).
+- The kinetic RPlug runs of section 8 (`aspen\automation\run_kinetic_cases.py`).
+- `aspen\automation\verify_candidates.py` and `capture_screenshots.py`, `capture_kinetic_screenshots.py`.
+
+Phase 2 made no new Aspen runs. All Aspen numbers in Phase 2 results are the stored values.
+
+## 10. Verify the preserved release
+
+The report and the research outputs of 23 November 2026 are kept unchanged. To check them:
+
+```powershell
+git rev-parse amcrax-research-expansion-2026-11-23^{commit}      # expect 80444217297c486cf8ec983fb3a1c10824b0cb2f
+Get-FileHash docs\technical_report\releases\2026-11-23\AmCraX_Technical_Report_2026-11-23.pdf  -Algorithm SHA256
+Get-FileHash docs\technical_report\releases\2026-11-23\AmCraX_Technical_Report_2026-11-23.docx -Algorithm SHA256
+Get-FileHash results\research_releases\2026-11-23\evidence_matrix.json -Algorithm SHA256
+```
+
+The expected hashes are in [research/phase2_baseline.md](research/phase2_baseline.md):
+
+| File | SHA-256 |
+|---|---|
+| Report PDF (10 806 889 bytes, 178 pages) | `0B4D03A487E3B06E26B7A38A1502D17E7C687F21D6C3A5D46FBECA19DF8A8F51` |
+| Report DOCX | `B5272013E9BCFC2A67748438FF77F1FBAF7D5D183230A9B47D7554C194660B14` |
+| Evidence matrix (version 1) | `3C72F509EF02AE8FD59A12963F3CC89C0662D98D4E1992924B6B1F8CE2FBAA60` |
+
+To see the whole release as it was, use `git checkout amcrax-research-expansion-2026-11-23` in a separate clone. Do not run the Phase 2 scripts in that checkout, because they overwrite `results\research\`.
+
+## 11. What the steps do and do not show
+
+A passing run reproduces the stored numbers. It is numerical verification only. Comparisons of Python with Aspen, and with published values, are separate evidence kinds and have their own files under `results\research\validation\`. AmCraX has no independent experimental validation.

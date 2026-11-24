@@ -18,7 +18,8 @@ MATRIX = ROOT / "results" / "research" / "evidence_matrix.json"
 MD = ROOT / "docs" / "research" / "evidence_matrix.md"
 SCRIPT = ROOT / "scripts" / "research" / "build_evidence_matrix.py"
 
-ALLOWED_VERDICTS = {"SUPPORTED", "CONTRADICTED", "INCONCLUSIVE"}
+ALLOWED_VERDICTS = {"SUPPORTED", "CONTRADICTED", "INCONCLUSIVE"}  # row level (unchanged vocabulary)
+ALLOWED_V2_VERDICTS = ALLOWED_VERDICTS | {"MIXED", "PARTIALLY SUPPORTED"}  # component and hypothesis level (methodology v2)
 ALLOWED_SOURCE_TYPES = {"aspen", "python", "literature", "assumption"}
 HYP_FIELDS = {"id", "statement", "verdict", "verdict_conditions", "summary", "rows"}
 ROW_FIELDS = {"row_id", "sub_claim", "singapore_scenario", "aspen_model", "python_model", "case_ids",
@@ -52,7 +53,9 @@ def _rows(m):
 
 
 def test_top_level_schema(matrix):
-    assert set(matrix) == {"provenance", "hypotheses"}
+    assert set(matrix) == {"provenance", "hypotheses", "methodology_version", "methodology"}
+    assert matrix["methodology_version"] == 2
+    assert matrix["methodology"] == "docs/research/verdict_methodology_v2.md"
     for k in ("generated_utc", "script", "source_type", "inputs_summary", "model_versions"):
         assert k in matrix["provenance"]
     assert [h["id"] for h in matrix["hypotheses"]] == ["H1", "H2", "H3", "H4"]
@@ -80,7 +83,7 @@ def test_hypothesis_and_row_schema(matrix):
 
 def test_allowed_verdicts_and_source_types(matrix):
     for h, r in _rows(matrix):
-        assert h["verdict"] in ALLOWED_VERDICTS
+        assert h["verdict"] in ALLOWED_V2_VERDICTS
         assert r["verdict"] in ALLOWED_VERDICTS, r["row_id"]
         for n in r["numerical_findings"]:
             assert FINDING_FIELDS <= set(n)
@@ -89,7 +92,13 @@ def test_allowed_verdicts_and_source_types(matrix):
 
 def test_hypothesis_verdict_follows_rule(matrix, builder):
     for h in matrix["hypotheses"]:
-        assert h["verdict"] == builder.hypothesis_verdict(h["rows"]), h["id"]
+        # version 1 rule, applied to the current rows, is kept beside the version 2 verdict
+        assert h["verdict_v1_rule_on_current_rows"] == builder.hypothesis_verdict(h["rows"]), h["id"]
+        # version 2: components from primary rows, hypothesis from components
+        rows = {r["row_id"]: r for r in h["rows"]}
+        for c in h["components"]:
+            assert c["verdict"] == builder.component_verdict([rows[x]["verdict"] for x in c["primary_rows"]]), c["id"]
+        assert h["verdict"] == builder.hypothesis_verdict_v2([c["verdict"] for c in h["components"]]), h["id"]
 
 
 def test_every_source_and_link_exists(matrix):
@@ -132,6 +141,7 @@ def test_matrix_is_current_with_result_files(matrix, builder):
     fresh = builder.build()
     for h_old, h_new in zip(matrix["hypotheses"], fresh["hypotheses"]):
         assert h_old["verdict"] == h_new["verdict"], h_old["id"]
+        assert [c["verdict"] for c in h_old["components"]] == [c["verdict"] for c in h_new["components"]], h_old["id"]
         for r_old, r_new in zip(h_old["rows"], h_new["rows"]):
             assert r_old["row_id"] == r_new["row_id"]
             assert r_old["verdict"] == r_new["verdict"], r_old["row_id"]

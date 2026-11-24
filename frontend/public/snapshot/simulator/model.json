@@ -62,22 +62,40 @@
   "lca_source": "amcrax.environmental.lca.route_spec (research life-cycle factors, kg CO2e per kg NH3 at the producer gate)"
  },
  "economics": {
-  "basis": "pre-unification",
-  "basis_note": "CAPEX: Phase 1 equipment method (capex_mode='equipment'); the unified reference CAPEX (capex_mode 'reference') is not ported yet. Other parameters: exactly as evaluate() resolves them (it reads backend/amcrax/data/reference_scenario.yaml).",
-  "capex_equipment": {
-   "equipment_shares_pct": {
-    "adsorber": 4,
-    "cracker": 21,
-    "heat_exchangers": 5,
-    "psa": 26
+  "basis": "reference_scenario amcrax_reference_2026_11_23 v1.0.0 (cho2026_itemised_v1)",
+  "basis_note": "CAPEX: unified reference method cho2026_itemised_v1 (capex_mode='reference'), cost year 2024 USD. Every other parameter exactly as evaluate() resolves it from backend/amcrax/data/reference_scenario.yaml.",
+  "basis_short": "unified reference scenario amcrax_reference_2026_11_23 v1.0.0",
+  "capex_mode": "reference",
+  "capex_reference": {
+   "cost_year": 2024,
+   "excluded_items": [
+    "compressor"
+   ],
+   "formula": "TCI = sum_i(I_i,ref (S/S_ref)^n x location_factor) x capex_multiplier x indirect_factor; S = NH3 feed (all items)",
+   "indirect_factor": 1.4336000000000002,
+   "installed_ISBL_USD_reference_plant": {
+    "adsorber": 75467.74153871651,
+    "boiler": 849012.0923105606,
+    "heat_exchangers": 660342.7384637694,
+    "other_isbl": 99463.52335688961,
+    "psa": 490540.3200016573,
+    "reactor": 242574.88351730304
    },
-   "pec_reference_kUSD": 1702,
-   "reference_feed_kmol_h": 500,
+   "location_factor": 1.0,
+   "method": "cho2026_itemised_v1",
+   "price_year_label": "mixed nominal USD: CAPEX 2024 USD (Cho 2026 analysis year); Singapore prices 2026; no escalation index",
+   "reference_nh3_feed_kmol_h": 36.9914,
    "scaling_exponent": 0.8,
-   "singapore_location_factor": 1.0,
-   "tci_over_pec": 5.93
+   "size_driver": {
+    "adsorber": "nh3_feed",
+    "boiler": "nh3_feed",
+    "heat_exchangers": "nh3_feed",
+    "other_isbl": "nh3_feed",
+    "psa": "nh3_feed",
+    "reactor": "nh3_feed"
+   },
+   "source": "backend/amcrax/economics/reference.py (reference_capex); backend/amcrax/data/reference_scenario.yaml"
   },
-  "capex_mode": "equipment",
   "carbon_tax": {
    "rate_2026_SGD_per_tCO2e": 45.0,
    "threshold_tCO2e_per_yr": 25000.0
@@ -87,12 +105,189 @@
    "Ni-Ru": "Ru",
    "Ru": "Ru"
   },
-  "catalyst_metal_map_note": "assumption: EconomicAssumptions prices only Ni and Ru; a Ru-containing Ni-Ru catalyst is priced as Ru (conservative upper bound) until the catalyst-economics workstream supplies a price",
+  "catalyst_metal_map_note": "assumption (Phase 1 TEA price only): EconomicAssumptions prices only Ni and Ru; a Ru-containing Ni-Ru catalyst is priced as Ru. The metal-content prices price each of the five formulations separately.",
   "catalyst_price_USD_per_kg": {
    "Ni": 33.4,
    "Ru": 542.0
   },
-  "cost_basis": "mixed 2024-2026 nominal USD; no escalation index applied",
+  "catalyst_price_phase1_note": "Phase 1 published TEA price (EconomicAssumptions): Ni 8 wt% Ni/Al2O3 (Cho 2026), Ru Ru-K/CaO",
+  "catalyst_prices": {
+   "by_law": {
+    "ni_takahashi_microkinetic": {
+     "central": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 15.31,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 36.79
+     },
+     "formulation": "Ni/MgO",
+     "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+     "high": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 25.815,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 39.94
+     },
+     "loading_basis": "30 wt% Ni from project kinetics source (model_parameters.yaml line 28)",
+     "loading_wt_pct": {
+      "Ni": 30,
+      "Ru": 0
+     },
+     "low": {
+      "N_usd_per_kg": 0.0,
+      "P_Ni_usd_per_kg": 15.0,
+      "P_Ru_usd_per_kg": 22184.0,
+      "usd_per_kg": 4.5
+     }
+    },
+    "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": {
+     "central": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 15.31,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 329.98
+     },
+     "formulation": "2.5Ni0.5Ru/CeO2",
+     "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+     "high": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 25.815,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 330.24
+     },
+     "loading_basis": "2.5 wt% Ni + 0.5 wt% Ru from name",
+     "loading_wt_pct": {
+      "Ni": 2.5,
+      "Ru": 0.5
+     },
+     "low": {
+      "N_usd_per_kg": 0.0,
+      "P_Ni_usd_per_kg": 15.0,
+      "P_Ru_usd_per_kg": 22184.0,
+      "usd_per_kg": 111.3
+     }
+    },
+    "nire_ceo2_5ni1ru_lucentini_lhhw": {
+     "central": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 15.31,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 627.75
+     },
+     "formulation": "5Ni1Ru/CeO2",
+     "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+     "high": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 25.815,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 628.28
+     },
+     "loading_basis": "5 wt% Ni + 1 wt% Ru from name",
+     "loading_wt_pct": {
+      "Ni": 5,
+      "Ru": 1
+     },
+     "low": {
+      "N_usd_per_kg": 0.0,
+      "P_Ni_usd_per_kg": 15.0,
+      "P_Ru_usd_per_kg": 22184.0,
+      "usd_per_kg": 222.59
+     }
+    },
+    "ru_kum_temkin_pyzhev": {
+     "central": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 15.31,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 4790.51
+     },
+     "formulation": "Ru/Al2O3",
+     "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+     "high": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 25.815,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 4790.51
+     },
+     "loading_basis": "8 wt% Ru, Hypermec 10010 per project source (line 118)",
+     "loading_wt_pct": {
+      "Ni": 0,
+      "Ru": 8
+     },
+     "low": {
+      "N_usd_per_kg": 0.0,
+      "P_Ni_usd_per_kg": 15.0,
+      "P_Ru_usd_per_kg": 22184.0,
+      "usd_per_kg": 1774.72
+     }
+    },
+    "ru_takahashi_microkinetic": {
+     "central": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 15.31,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 3006.14
+     },
+     "formulation": "Ru/MgO",
+     "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+     "high": {
+      "N_usd_per_kg": 32.2,
+      "P_Ni_usd_per_kg": 25.815,
+      "P_Ru_usd_per_kg": 59478.9,
+      "usd_per_kg": 3006.14
+     },
+     "loading_basis": "5 wt% Ru from project kinetics source (line 81)",
+     "loading_wt_pct": {
+      "Ni": 0,
+      "Ru": 5
+     },
+     "low": {
+      "N_usd_per_kg": 0.0,
+      "P_Ni_usd_per_kg": 15.0,
+      "P_Ru_usd_per_kg": 22184.0,
+      "usd_per_kg": 1109.2
+     }
+    }
+   },
+   "caveats": [
+    "Central values for Ru catalysts are dominated by Ru at JM spot, a market that has tripled in about 18 months; low uses the 2025 annual average.",
+    "N is taken from one paper's 'Calculated' Ni/Al2O3 price (derivation not visible) and applied to MgO, CeO2 and CaO supports; support-specific manufacturing costs not found. CeO2 oxide raw cost (1.71 USD/kg, M6) is negligible versus N.",
+    "Metal content is treated as mass fraction of finished catalyst times metal price; precursor salt, yield and loss, and refining margins are not included (no sourced values).",
+    "Published TEA Ru catalyst prices (C2 542, C3 25, C6 22.3 EUR, C7 24 USD) are below the Ru metal floor and must not be used as central values.",
+    "No recovery credit is deducted: no sourced refining charge. Gross credit upper bound = metal content x Ru price x recovery fraction (85-95% hydro, snippet-level)."
+   ],
+   "currency": "USD",
+   "default_level": "central",
+   "file": "research/data/catalyst_prices.json",
+   "formula": "price = wNi*P_Ni + wRu*P_Ru + N (per kg finished catalyst)",
+   "fx_not_used": "the file's own SGD values (1.2801 SGD/USD, Fed G.5 2026-10) are superseded by the reference scenario rate",
+   "inputs": {
+    "N_usd_per_kg": {
+     "central": "33.4 - 0.08*15.0 = 32.2 USD/kg: Cho et al. 8 wt% Ni/Al2O3 price (C1) minus Ni metal at 15 USD/kg; proxy for support + preparation of a supported-oxide catalyst, applied to all formulations",
+     "high": "same as central: no sourced higher value (Cho sensitivity +100% is an assumption, not evidence)",
+     "low": "0 (explicit metal-content floor; excludes support and manufacture)"
+    },
+    "P_Ni_usd_per_kg": {
+     "central": "LME cash 15,310 USD/t on 2026-11-20 (M5)",
+     "high": "USGS 2022 annual average 25,815 USD/t (same table as M4)",
+     "low": "USGS 2025e annual average 15,000 USD/t (M4)"
+    },
+    "P_Ru_usd_per_kg": {
+     "central": "JM Base 1,850 USD/oz on 2026-11-20 (M1)",
+     "high": "same as central: no sourced higher value; Ru rose about 3x in 18 months so upside risk is real and unquantified",
+     "low": "USGS/Engelhard 2025e annual average 690 USD/oz (M3)"
+    },
+    "troy_oz_g": 31.1034768
+   },
+   "levels": [
+    "central",
+    "low",
+    "high"
+   ],
+   "phase1_tea_note": "Phase 1 published TEA price: Ni 33.4 USD/kg (8 wt% Ni/Al2O3, Cho 2026) and Ru 542 USD/kg (Ru-K/CaO), selectable; the Ru value is below the Ru metal floor",
+   "statement": "derived from metal content (metal price times loading plus a non-metal term taken from one published TEA price), NOT supplier quotations; no quotation or published commercial price exists for any ammonia-cracking catalyst in the file"
+  },
+  "cost_basis": "mixed nominal USD: CAPEX 2024 USD (Cho 2026 analysis year); Singapore prices 2026; no escalation index",
   "economic_assumptions": {
    "ammonia_fuel_heat_efficiency": 1.0,
    "capacity_exponent": 0.7451,
@@ -123,6 +318,7 @@
    "plant_life_yr": 25.0,
    "plant_overhead_frac_labour_maint": 0.25
   },
+  "h2_selling_price_USD_per_kg": 3.06,
   "natural_gas_co2_factor_kg_per_GJ": 56.1,
   "nh3_price_scenarios_USD_per_t": {
    "blue": 487.0,
@@ -133,13 +329,13 @@
   },
   "reference_scenario": {
    "id": "amcrax_reference_2026_11_23",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0"
   },
   "sg_params": {
    "apply_threshold": true,
    "capacity_scale": 1.0,
-   "capex_mode": "equipment",
+   "capex_mode": "reference",
    "capex_scaling_exponent": null,
    "carbon_tax_SGD_per_t": 45.0,
    "electricity_price_USD_per_kWh": 0.14024,
@@ -157,12 +353,14 @@
    "transport_USD_per_kg_H2": null
   },
   "source_files": [
+   "backend/amcrax/data/reference_scenario.yaml",
    "backend/amcrax/data/singapore.yaml",
    "backend/amcrax/data/economics.yaml (via EconomicAssumptions)",
-   "backend/amcrax/data/reference_scenario.yaml"
+   "research/data/catalyst_prices.json"
   ],
   "source_functions": [
    "amcrax.economics.singapore.evaluate",
+   "amcrax.economics.reference.reference_capex",
    "amcrax.economics.lcoh.EconomicAssumptions"
   ]
  },
@@ -3784,6 +3982,8 @@
    "backend/amcrax/data/kinetics.yaml",
    "backend/amcrax/data/nasa7.json",
    "backend/amcrax/data/singapore.yaml",
+   "backend/amcrax/data/reference_scenario.yaml",
+   "research/data/catalyst_prices.json",
    "backend/amcrax/data/environmental.yaml",
    "config/flowsheet.json"
   ],
@@ -3797,7 +3997,292 @@
   "psa_h2_recovery_default": 0.85,
   "psa_n2_slip_default": 0.001,
   "purity_label": "assumption (follows from assumed recovery and N2 slip; no adsorption model)",
-  "source": "amcrax.schemas.CaseInputs; amcrax.process_model.flowsheet"
+  "source": "amcrax.schemas.CaseInputs; amcrax.process_model.flowsheet",
+  "stored_comparison": {
+   "basis": {
+    "baseline_lcoh_sgd": 5.173696960844288,
+    "baseline_lcoh_usd": 4.015461254695034,
+    "baseline_note": "plant gate, 19.5 bar, PSA at the 0.85 assumption; the purification LCOH values add delivery compression and recompute imported heat for each configuration",
+    "economics": "amcrax.economics.singapore.evaluate on results/simulations/baseline.json (reference scenario, capex_mode reference), through scripts/research/purification_study.py cost functions"
+   },
+   "file": "results/research/purification/phase2_comparison.json",
+   "script": "scripts/research/purification_phase2.py",
+   "source_type": "python",
+   "specs": {
+    "fuel_cell_grade_D": {
+     "configurations": {
+      "MEM_central": {
+       "capital_USD": 239338.83028955024,
+       "h2_purity_mole_frac": 0.9999902811881063,
+       "h2_recovery": 0.8999999999999968,
+       "lcoh_sgd_per_kg_usable": 5.595844648586402,
+       "lcoh_usd_per_kg_usable": 4.343102725913119,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 31.06301088507374,
+       "membrane_module_cost_USD": 310630.1088507374,
+       "n2_ppm": 9.693811894398252,
+       "nh3_ppm": 0.024999999375000016,
+       "purification_only_usd_per_kg": 0.5326964449627821,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 103543.36961691246
+      },
+      "MEM_cost_high": {
+       "capital_USD": 239338.83028955024,
+       "h2_purity_mole_frac": 0.9999129073589764,
+       "h2_recovery": 0.860000000001159,
+       "lcoh_sgd_per_kg_usable": 5.769491579429473,
+       "lcoh_usd_per_kg_usable": 4.477875312725639,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 35.242694677172025,
+       "membrane_module_cost_USD": 528640.4201575804,
+       "n2_ppm": 87.06764102426236,
+       "nh3_ppm": 0.024999999375000016,
+       "purification_only_usd_per_kg": 0.6147550011879621,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 264320.21007879014
+      },
+      "MEM_cost_low": {
+       "capital_USD": 239338.83028955024,
+       "h2_purity_mole_frac": 0.9999922199172661,
+       "h2_recovery": 0.9000000000000004,
+       "lcoh_sgd_per_kg_usable": 5.5613120938849985,
+       "lcoh_usd_per_kg_usable": 4.316300975350887,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 31.06303959254718,
+       "membrane_module_cost_USD": 232140.3074830236,
+       "n2_ppm": 7.755082734516059,
+       "nh3_ppm": 0.024999999375000016,
+       "purification_only_usd_per_kg": 0.5058946944007234,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "polishing_bed": "clinoptilolite NH3 polishing bed: laboratory bed (cechetto2023membrane p. 14, Sitar 2022); TRL not assessed",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 46428.061496604714
+      },
+      "PSA_central_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.99974990002501,
+       "h2_recovery": 0.7512760443382585,
+       "lcoh_sgd_per_kg_usable": 5.750918645688972,
+       "lcoh_usd_per_kg_usable": 4.463460302263019,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 249.9999749999749,
+       "nh3_ppm": 0.099999990000001,
+       "purification_only_usd_per_kg": 0.379591577724867,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "optimistic, flat by construction",
+        "source": "mass-balance relation, Cho anchor (Phase 1 PSA_D_MB)",
+        "source_type": "assumption"
+       },
+       "replacement_USD_per_yr": 0.0
+      },
+      "PSA_high_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.99974990002501,
+       "h2_recovery": 0.81,
+       "lcoh_sgd_per_kg_usable": 5.546203538362054,
+       "lcoh_usd_per_kg_usable": 4.3045747726420815,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 249.99997499997497,
+       "nh3_ppm": 0.099999990000001,
+       "purification_only_usd_per_kg": 0.3682402666314352,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "paper internally inconsistent; LOW confidence",
+        "source": "mehr2026highcapacity (S06): 81 % at 99.96 %",
+        "source_type": "literature (low confidence)"
+       },
+       "replacement_USD_per_yr": 0.0
+      },
+      "PSA_low_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.9997499000250101,
+       "h2_recovery": 0.555,
+       "lcoh_sgd_per_kg_usable": 7.683113488360799,
+       "lcoh_usd_per_kg_usable": 5.96309462294116,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 249.99997499997497,
+       "nh3_ppm": 0.09999999000000101,
+       "purification_only_usd_per_kg": 0.4349635581344017,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "PESSIMISTIC CASE, DIFFERENT FEED (purge gas, see above); applied at the modelled 99.975 %",
+        "source": "yanez2020 (S01): 55.5 % at 99.97 %",
+        "source_type": "literature"
+       },
+       "replacement_USD_per_yr": 0.0
+      }
+     },
+     "label": "ISO 14687:2019 Grade D, delivered at 350 bar"
+    },
+    "industrial_99.9": {
+     "configurations": {
+      "MEM_central": {
+       "capital_USD": 0.0,
+       "h2_purity_mole_frac": 0.9999874062243853,
+       "h2_recovery": 0.8999999999999968,
+       "lcoh_sgd_per_kg_usable": 5.31925521517126,
+       "lcoh_usd_per_kg_usable": 4.12843337791263,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 31.06301088507374,
+       "membrane_module_cost_USD": 310630.1088507374,
+       "n2_ppm": 9.693784024769876,
+       "nh3_ppm": 2.8999915900243893,
+       "purification_only_usd_per_kg": 0.31801701415520245,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 103543.36961691246
+      },
+      "MEM_cost_high": {
+       "capital_USD": 0.0,
+       "h2_purity_mole_frac": 0.9999100326177045,
+       "h2_recovery": 0.860000000001159,
+       "lcoh_sgd_per_kg_usable": 5.491838157847241,
+       "lcoh_usd_per_kg_usable": 4.262380171623478,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 35.242694677172025,
+       "membrane_module_cost_USD": 528640.4201575804,
+       "n2_ppm": 87.06739070552034,
+       "nh3_ppm": 2.899991590024389,
+       "purification_only_usd_per_kg": 0.3992497764984978,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 264320.21007879014
+      },
+      "MEM_cost_low": {
+       "capital_USD": 0.0,
+       "h2_purity_mole_frac": 0.9999893449479713,
+       "h2_recovery": 0.9000000000000004,
+       "lcoh_sgd_per_kg_usable": 5.284723152947776,
+       "lcoh_usd_per_kg_usable": 4.10163200957727,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 31.06303959254718,
+       "membrane_module_cost_USD": 232140.3074830236,
+       "n2_ppm": 7.755060438717856,
+       "nh3_ppm": 2.899991590024389,
+       "purification_only_usd_per_kg": 0.2912156458395638,
+       "readiness": {
+        "configuration": "Pd-Ag membrane separator downstream of a conventional cracker (hydrogen from cracker effluent, ceramic or metal-supported thin film)",
+        "source": "research/data/membrane_trl.json",
+        "trl": "4 to 5"
+       },
+       "replacement_USD_per_yr": 46428.061496604714
+      },
+      "PSA_central_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.9990999000900099,
+       "h2_recovery": 0.751626143976041,
+       "lcoh_sgd_per_kg_usable": 5.500692120378446,
+       "lcoh_usd_per_kg_usable": 4.26925199727613,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 899.9999100000209,
+       "nh3_ppm": 0.099999990000001,
+       "purification_only_usd_per_kg": 0.18728549630041277,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "no sourced recovery at 99.9 % for cracked ammonia; flat by construction (optimistic)",
+        "source": "mass-balance relation, tail-gas H2 fraction held at the Cho 2026 point (Phase 1 PSA_B_MB)",
+        "source_type": "assumption"
+       },
+       "replacement_USD_per_yr": 0.0
+      },
+      "PSA_high_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.9990999000900099,
+       "h2_recovery": 0.85,
+       "lcoh_sgd_per_kg_usable": 5.21336326400771,
+       "lcoh_usd_per_kg_usable": 4.04624746128486,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 899.9999100000209,
+       "nh3_ppm": 0.09999999000000098,
+       "purification_only_usd_per_kg": 0.16917317243247143,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "not supported by a source at this purity",
+        "source": "AmCraX Aspen splitter assumption F4 (PSA_AMCRAX, 99.96 %)",
+        "source_type": "assumption"
+       },
+       "replacement_USD_per_yr": 0.0
+      },
+      "PSA_low_recovery": {
+       "capital_USD": 1795041.2271716269,
+       "h2_purity_mole_frac": 0.9990999000900099,
+       "h2_recovery": 0.5715000000000013,
+       "lcoh_sgd_per_kg_usable": 7.221905784729071,
+       "lcoh_usd_per_kg_usable": 5.605137502855437,
+       "meets_spec_within_model_scope": true,
+       "membrane_area_m2": 0.0,
+       "membrane_module_cost_USD": 0.0,
+       "n2_ppm": 899.9999100000209,
+       "nh3_ppm": 0.099999990000001,
+       "purification_only_usd_per_kg": 0.23661127194074946,
+       "readiness": {
+        "configuration": "PSA on cracked ammonia (fuel-cell-grade or 99.9 % hydrogen), with NH3 removed upstream",
+        "source": "research/data/membrane_trl.json",
+        "trl": "PSA unit operation 9; integrated cracker + wash/TSA + PSA at fuel-cell grade: 6 to 7 (range, not a point)"
+       },
+       "recovery_source": {
+        "note": "PESSIMISTIC CASE, DIFFERENT FEED: ammonia-plant purge gas (58 % H2, 25 % N2, 15 % CH4, 2 % Ar), 9 bar, 5A; not cracked ammonia",
+        "source": "yanez2020 (S01/S02 in purification_literature.json): linear interpolation between 75.3 % at 99.25 % and 55.5 % at 99.97 % at the modelled purity 99.91 %",
+        "source_type": "literature (derived)"
+       },
+       "replacement_USD_per_yr": 0.0
+      }
+     },
+     "label": "Industrial 99.9 % (ISO 14687 grade B index), delivered at 30 bar"
+    }
+   },
+   "statement": "Stored Python results at the reference conditions (plant gate, reference scenario). They do not respond to the simulator controls; the browser has no membrane model."
+  }
  },
  "reactor": {
   "baseline_feed_kmol_h": {

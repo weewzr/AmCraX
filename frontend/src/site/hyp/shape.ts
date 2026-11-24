@@ -62,10 +62,46 @@ export function isoCheck(valuePpm: unknown, limitPpm: unknown): 'pass' | 'fail' 
   return v <= l ? 'pass' : 'fail'
 }
 
-/** Verdict vocabulary of the evidence matrix mapped to a status pill kind. Unknown strings stay neutral. */
-export function verdictKind(v: unknown): 'ok' | 'error' | 'warn' | 'neutral' {
-  const s = typeof v === 'string' ? v.trim().toUpperCase() : ''
-  return s === 'SUPPORTED' ? 'ok' : s === 'CONTRADICTED' ? 'error' : s === 'INCONCLUSIVE' ? 'warn' : 'neutral'
+/** Upper-case verdict with "_" read as a space ("PARTIALLY_SUPPORTED" -> "PARTIALLY SUPPORTED"); '' when not a string. */
+export function normVerdict(v: unknown): string {
+  return typeof v === 'string' ? v.trim().toUpperCase().replace(/_/g, ' ').replace(/\s+/g, ' ') : ''
+}
+
+/** Verdict vocabulary of the evidence matrix (v1 and v2) mapped to a status pill kind. Text that adds a qualifier
+ *  after the verdict word ("SUPPORTED (necessity)") keeps the kind of the verdict word. Unknown strings stay neutral. */
+export function verdictKind(v: unknown): 'ok' | 'error' | 'warn' | 'partial' | 'mixed' | 'neutral' {
+  const s = normVerdict(v)
+  if (s.startsWith('PARTIALLY SUPPORTED')) return 'partial'
+  if (s.startsWith('SUPPORTED')) return 'ok'
+  if (s.startsWith('CONTRADICTED')) return 'error'
+  if (s.startsWith('MIXED')) return 'mixed'
+  if (s.startsWith('INCONCLUSIVE')) return 'warn'
+  return 'neutral'
+}
+
+/**
+ * Linear interpolation in a stored grid (rows sorted or not by xKey). Returns null outside the grid or when a neighbour
+ * value is missing; an exact grid point returns the stored value unchanged. Used for Mode B of the carbon-pricing control.
+ */
+export function interpRows(rows: Record<string, unknown>[], xKey: string, yKey: string, x: number): number | null {
+  const pts = rows.map((r) => [num(r[xKey]), num(r[yKey])] as const).filter((p): p is readonly [number, number] => p[0] !== null && p[1] !== null)
+    .sort((a, b) => a[0] - b[0])
+  if (!pts.length || !Number.isFinite(x) || x < pts[0][0] || x > pts[pts.length - 1][0]) return null
+  for (let i = 0; i < pts.length; i++) {
+    if (pts[i][0] === x) return pts[i][1]
+    if (i > 0 && pts[i][0] > x) {
+      const [x0, y0] = pts[i - 1], [x1, y1] = pts[i]
+      return y0 + ((y1 - y0) * (x - x0)) / (x1 - x0)
+    }
+  }
+  return null
+}
+
+/** Stored row at the grid point nearest to x (for text columns such as the cheapest route). */
+export function nearestRow<R extends Record<string, unknown>>(rows: R[], xKey: string, x: number): R | null {
+  let best: R | null = null, d = Infinity
+  for (const r of rows) { const v = num(r[xKey]); if (v !== null && Math.abs(v - x) < d) { d = Math.abs(v - x); best = r } }
+  return best
 }
 
 /** Defensive text of any JSON value (the evidence matrix is written by another agent; fields can be strings, numbers, lists or objects). */

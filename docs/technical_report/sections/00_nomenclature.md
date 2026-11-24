@@ -28,7 +28,7 @@ Table: **Table N.1.** Abbreviations.
 | GHSV | Gas hourly space velocity of NH~3~ at standard conditions per bed volume (h^-1^) |
 | GUI | Graphical user interface |
 | GWP | Global-warming potential |
-| H1 to H4 | The four research hypotheses tested in Sections 24 to 31 |
+| H1 to H4 | The four research hypotheses tested in Sections 24 to 30 and 33 to 40 |
 | HeatX, Heater, Pump, Sep | Aspen Plus heat-exchanger, heater/cooler, pump and component-splitter blocks |
 | IEA | International Energy Agency |
 | ISO | International Organization for Standardization |

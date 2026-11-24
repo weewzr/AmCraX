@@ -1,0 +1,148 @@
+{
+ "provenance": {
+  "generated": "2026-11-23",
+  "workstream": "Phase 2 L1 part B (cost items)",
+  "access_date": "2026-11-23",
+  "evidence_grade_key": "cycle_simulation = agency or paper cost model; assumption = value adopted by the authors without a detailed cost build-up; vendor_claim; review_statement",
+  "currency_note": "Original currencies kept; price years are as stated by each source or marked 'not stated'. No conversion done here."
+ },
+ "entries": [
+  {
+   "id": "netl_nh3_tpc",
+   "item": "Total plant cost of ammonia-fired combined cycle (AFCC) against natural gas combined cycle (NGCC), no carbon capture",
+   "value": "12 to 16 per cent higher than NGCC",
+   "unit": "percent of NGCC total plant cost",
+   "currency": "USD",
+   "price_year": "not stated in the pages read (NETL FEB Rev. 4 basis)",
+   "source": "NETL (Oct 2024), Cooled Gas Turbine and Combined Cycle Analysis for NH3-CH4 Fuel Mixes",
+   "location": "Section 5.3 text, PDF p. 61 (printed 47); Exhibit 5-3 pie labels give TPC 789,992,000 USD (NGCC) and 968,530,000 USD (AFCC) with different net outputs (992 versus up to 1,379 MWe), so the dollar totals are not like-for-like per kilowatt",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim (percentage); totals as printed",
+   "notes": "Cost drivers named: fifth turbine stage, new combustor, advanced coatings, higher-grade HRSG duct materials. SCR electrical load is 3-5 kWe (Exhibit 4-6).",
+   "url": "https://netl.doe.gov/projects/files/CooledGasTurbineCombinedCycleAnalysisNH3CH4FuelMixesUp100NH3_103024.pdf"
+  },
+  {
+   "id": "netl_nh3_lcoe",
+   "item": "LCOE of 100 % NH3 combined cycle against H-class NGCC",
+   "value": {
+    "vs_NGCC_no_capture": "about 3.3 times",
+    "vs_NGCC_97pct_capture": "about 2 times",
+    "NH3_price_assumed_USD_per_kg": 0.39,
+    "NG_price_USD_per_MMBtu": 4.42,
+    "breakeven_NH3_price_vs_NGCC_97pct_capture": "USD 9/MMBtu (about USD 174/t) in section 5.3; USD 4.31/MMBtu (about USD 83/t) in the executive summary"
+   },
+   "unit": "ratio / price",
+   "currency": "USD",
+   "price_year": "not stated",
+   "source": "NETL (Oct 2024)",
+   "location": "Executive summary PDF p. 13; Section 5.3 PDF pp. 60-61",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "notes": "The two break-even prices in the report differ (USD 83/t in the summary, USD 174/t in the body); the report does not reconcile them in the pages read. Hydrogen 100 % case: about 2.9 times NGCC without capture, about 1.8 times with 97 % capture, hydrogen at USD 2.4/kg (hydrogen price stated in the NETL ammonia report, Exhibit 5-5 text, PDF p. 60; ratios from the NETL H2 report, Section 5.3)."
+  },
+  {
+   "id": "netl_capacity_factor",
+   "item": "Capacity factor treatment",
+   "value": "LCOE sensitivity run from 10 % upward; low end chosen 'as the AFCC can be used in the future together with the variable renewable energy systems'. Base-case capacity factor not located in the pages read.",
+   "unit": "percent",
+   "source": "NETL (Oct 2024)",
+   "location": "Section 5.4.2, PDF p. 64",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "notes": "Higher ammonia fraction means LCOE depends less on capacity factor (fuel-dominated cost)."
+  },
+  {
+   "id": "ahmad_tci_lcoe",
+   "item": "Ahmad et al. 2025 capital cost and LCOE, 43 MW-class combined cycle",
+   "value": {
+    "TCI_MUSD_case1_2a_2b": [
+     179.23,
+     181.25,
+     188.61
+    ],
+    "LCOE_USD_per_kWh": [
+     0.2871,
+     0.2798,
+     0.2876
+    ],
+    "TCI_alpha1_to_alpha0_MUSD": "180 to 230 (+28 %)",
+    "cracking_reactor_MUSD_alpha0": 45,
+    "NH3_price_USD_per_t": 480,
+    "sensitivity_USD_per_t": 320,
+    "WACC_percent": 10,
+    "life_years": 25,
+    "capacity_factor": "not stated in the main text",
+    "cracker_capex_correlation": "CAPEX [MUSD] = 18.171 * (t H2/h)^0.7451, adapted from Cesaro et al. 2021"
+   },
+   "currency": "USD",
+   "price_year": "equipment indexed to CEPCI 2024 = 800.3",
+   "source": "Ahmad et al. (2025), Int. J. Hydrogen Energy 173, 151337",
+   "location": "Sections 2.4 and 3.1.3, pp. 7-15 (project note research/notes/ahmad2025gtcc.md)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "notes": "At NH3 USD 320/t pure vaporised NH3 gives 0.217 versus 0.22 USD/kWh with full cracking (p. 15): the two routes are within about 1.5 per cent."
+  },
+  {
+   "id": "richard_lcoe_share",
+   "item": "Fuel share of LCOE at CCGT level",
+   "value": "ammonia about 80 % of LCOE; the cost gap between membrane and fired-tubular cracking narrows at plant level",
+   "unit": "percent",
+   "source": "Richard et al. (2024), Int. J. Hydrogen Energy 71, 571-587",
+   "location": "abstract; CCGT-level results p. 15 (project note research/notes/richard2024technoeconomic.md)",
+   "evidence_grade": "cycle_simulation",
+   "verbatim": "verbatim",
+   "doi": "10.1016/j.ijhydene.2024.05.308",
+   "notes": "30 vol% H2 / 70 % NH3 blend in a retrofitted CCGT; no heat integration with the CCGT; NOx treatment not included."
+  },
+  {
+   "id": "abuzayed_capex_uplift",
+   "item": "Capital cost uplift assumed for retrofitting a CCGT to low-carbon fuels",
+   "value": {
+    "hydrogen_cofiring_percent": 7.98,
+    "ammonia_percent": 11.34,
+    "ternary_without_ammonia_percent": 13.41,
+    "ternary_with_ammonia_percent": 16.77
+   },
+   "unit": "percent of gas-turbine-related capital cost",
+   "currency": "n/a",
+   "source": "Abuzayed, Pollitt, Liebensteiner and Hochgreb (2025), EPRG Working Paper EPRG2520 / CWPE2557, Cambridge",
+   "location": "Section 3, PDF pp. 9-10",
+   "evidence_grade": "assumption",
+   "verbatim": "verbatim",
+   "notes": "The authors say the uplifts rest on assumptions, not a detailed cost analysis, and that ammonia is higher because of SCR needs. Also assumed: 20 % energy loss for ammonia cracking to hydrogen (parameter table) and a 63 % CCGT efficiency.",
+   "url": "https://www.jbs.cam.ac.uk/wp-content/uploads/2025/09/eprg-wp2520.pdf"
+  },
+  {
+   "id": "scr_cost",
+   "item": "Selective catalytic reduction cost",
+   "value": {
+    "standard_SCR_EUR_per_kW": "15 to 36",
+    "advanced_SCR_90pct_removal_additional_EUR_per_kW": "up to 60"
+   },
+   "unit": "EUR per kW",
+   "price_year": "not stated",
+   "source": "Abuzayed et al. (2025), citing their reference [109]",
+   "location": "PDF p. 9",
+   "evidence_grade": "review_statement",
+   "verbatim": "verbatim",
+   "notes": "Secondary quotation; primary reference [109] not identified here. SCR reagent: SCR reduces NOx with injected ammonia (NETL H2 report, Section 2, PDF p. 27: 'In the SCR system, NH3 (ammonia) is injected to capture the NOx'); on an ammonia-fuelled plant the reagent is the same chemical as the fuel, and its stoichiometric demand is not quantified in any source read. NETL (2024) lists SCR catalyst consumption and disposal in variable operating cost, and SCR electrical load 3 to 5 kWe at 1 GW scale. Unquantified: reagent mass per tonne of NOx removed and its cost for ammonia plants."
+  },
+  {
+   "id": "cf_other",
+   "item": "Capacity factors used in the literature",
+   "value": "Ahmad et al. 2025: not stated in the main text; NETL 2024: base not located, sensitivity from 10 %; Richard et al. 2024: not recorded in the project note; Abuzayed et al. 2025: not recorded",
+   "evidence_grade": "n/a",
+   "notes": "A defensible sourced capacity factor for an ammonia or hydrogen combined cycle was NOT found. The NETL baselines normally use 85 % for NGCC (not verified in the pages read; do not cite without checking the FEB Rev. 4 report)."
+  },
+  {
+   "id": "halim_numbers",
+   "item": "Halim et al. (2025) figures quoted by the essay",
+   "value": "60.1 MW; LCOH 15.1 (green) and 10.1 (blue) USD/kg H2; direct ammonia combustion about 40 per cent cheaper than cracking-based power; H-25 turbine takes 30 to 60 vol% H2 in NH3-H2 blends",
+   "status": "Not obtained. Full text unavailable; abstract contains none of these numbers. The directional finding 'direct ammonia use is economically preferable because cracking has high capital and operating costs' is in the abstract.",
+   "location": "n/a",
+   "evidence_grade": "n/a",
+   "access_date": "2026-11-23",
+   "see_also": "The 30-60 vol% figure matches a NETL 2022 statement about hydrogen in natural gas for Baker Hughes turbines (turbine_efficiency_literature.json id h2_blend_limits_vendor), which suggests a mis-attribution in the essay; unverified."
+  }
+ ]
+}

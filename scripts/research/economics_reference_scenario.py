@@ -104,10 +104,47 @@ def baseline() -> None:
                                  "basis": "Farokhi 2025 PEC x 5.93 scaled by feed^0.8 (Phase 1 singapore.py default), at the reference FX and electricity"}},
         "inputs": flat_inputs(REF.raw),
         "boundary_notes": e["notes"],
+        "fuel_efficiency_sensitivity": fuel_efficiency_sensitivity(hi, nohi, s, e, e_nohi),
     }
     dump("baseline.json", out)
     dump("capex_audit.json", capex_audit(s, e, legacy, p1))
     print("baseline LCOH", e["lcoh_USD_per_kg"], "SGD", e["lcoh_SGD_per_kg"], "CAPEX", cap["total_capex_USD"])
+
+
+def fuel_efficiency_sensitivity(hi: dict, nohi: dict, s: dict, e: dict, e_nohi: dict) -> dict:
+    """Supplementary NH3 fuel delivered at less than 100 % of its LHV (review C, finding M1). The frozen baseline
+    counts the fuel at efficiency 1.0; this block reports the same baseline at the flowsheet's own tail-gas ratio and at
+    the 0.85 furnace efficiency used in the H3 catalyst comparison. The baseline itself is not changed."""
+    from amcrax.economics.singapore import breakeven_nh3_price
+    flow_eta = s["tailgas_heat_kW"] / s["tailgas_lhv_kW"]
+    marker = REF.h2_selling_price_USD_per_kg
+    cases = []
+    for label, eta in (("reference (fuel at 100 % of LHV, optimistic)", 1.0),
+                       ("flowsheet tail-gas ratio (tailgas_combustion_heat_kW / tailgas_lhv_kW)", round(flow_eta, 4)),
+                       ("H3 furnace efficiency (catalyst_comparison FURNACE_EFFICIENCY)", 0.85)):
+        o = {"fuel_efficiency": eta}
+        x = evaluate(hi, REF.default_nh3_scenario, o)
+        xn = evaluate(nohi, REF.default_nh3_scenario, o)
+        cases.append({"label": label, "fuel_efficiency": eta,
+                      "lcoh_USD_per_kg": x["lcoh_USD_per_kg"], "lcoh_SGD_per_kg": x["lcoh_SGD_per_kg"],
+                      "heat_fuel_USD_per_kg": x["breakdown_USD_per_kg"]["heat_fuel"],
+                      "npv_USD": x["npv_USD"],
+                      "breakeven_nh3_USD_per_t_vs_marker": breakeven_nh3_price(hi, marker, o),
+                      "lcoh_heat_integration_off_USD_per_kg": xn["lcoh_USD_per_kg"],
+                      "heat_integration_gross_saving_USD_per_kg": xn["lcoh_USD_per_kg"] - x["lcoh_USD_per_kg"]})
+    ref = cases[0]
+    assert abs(ref["lcoh_USD_per_kg"] - e["lcoh_USD_per_kg"]) < 1e-12, "efficiency 1.0 case must equal the baseline"
+    assert abs(cases[0]["lcoh_heat_integration_off_USD_per_kg"] - e_nohi["lcoh_USD_per_kg"]) < 1e-12
+    return {"description": "Computed. The reference LCOH counts supplementary NH3 fuel at 100 % of its lower heating value "
+                           "(ammonia_fuel_heat_efficiency 1.0, optimistic). The same stored Aspen baseline delivers "
+                           f"{s['tailgas_heat_kW']:.1f} of {s['tailgas_lhv_kW']:.1f} kW of tail-gas LHV ({flow_eta:.4f}); "
+                           "the H3 catalyst comparison uses 0.85. The baseline is frozen at efficiency 1.0; these cases are "
+                           "its envelope. Grey NH3 scenario, heat integration on unless stated.",
+            "flowsheet_tailgas_ratio_exact": flow_eta,
+            "h2_selling_price_USD_per_kg": marker,
+            "cases": cases,
+            "envelope_lcoh_USD_per_kg": [min(c["lcoh_USD_per_kg"] for c in cases), max(c["lcoh_USD_per_kg"] for c in cases)],
+            "source_type": "python"}
 
 
 def capex_audit(s: dict, e: dict, legacy: dict, p1: dict) -> dict:

@@ -1,8 +1,8 @@
-import { useEffect, useMemo, useState, type ReactNode } from 'react'
+import { useEffect, useMemo, useState, type KeyboardEvent, type ReactNode } from 'react'
 import { Bar, BarChart, CartesianGrid, ComposedChart, Legend, Line, LineChart, ReferenceDot, ReferenceLine, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 import { sweeps, type SimData, type SimInputs, type SourceLabel } from '../sim'
-import { splitExtrapolation, toSimInputs, type CaseResult, type SimState } from './model'
-import { SimBadge } from './Outputs'
+import { SOURCE_SHORT, SOURCE_TEXT, splitExtrapolation, toSimInputs, type CaseResult, type SimState } from './model'
+import { CostBreakdown, SimBadge } from './Outputs'
 
 type CostVariable = 'T_C' | 'P_bar' | 'W_kg' | 'psa_h2_recovery' | 'nh3_price_USD_per_t' | 'feed_total_kmol_h'
 
@@ -30,17 +30,74 @@ const worstOf = (pts: { source: SourceLabel }[]): SourceLabel | null => {
   return null
 }
 
-function ChartCard({ n, id, title, sources, desc, note, limit, controls, children, height = 280 }: { n: number; id: string; title: string; sources: (SourceLabel | null)[]; desc: string
-  note: ReactNode; limit: ReactNode; controls?: ReactNode; children: ReactNode; height?: number }) {
+/** A plotted series as data (table view and keyboard reading of a chart). */
+export interface TSeries { name: string; xLabel: string; yLabel: string; pts: { x: number | string; y: number | null; source?: SourceLabel | null }[] }
+export interface TRow { series: string; x: number | string; y: number; source: SourceLabel | null }
+
+/** Rows of the table view: every plotted point with a value, in series order (the same numbers as the chart). */
+export function tableRows(series: TSeries[]): TRow[] {
+  return series.flatMap((s) => s.pts.filter((p) => p.y !== null && Number.isFinite(p.y)).map((p) => ({ series: s.name, x: p.x, y: p.y as number, source: p.source ?? null })))
+}
+export const fmtCell = (v: number | string): string => (typeof v === 'number' ? String(Number(v.toPrecision(4))) : v)
+
+/** Map sweep points to table points, with an optional factor on y (fractions shown in %). */
+const pts = (a: { x: number | string; y: number | null; source?: SourceLabel }[] | null | undefined, k = 1) =>
+  (a ?? []).map((p) => ({ x: p.x, y: p.y === null || p.y === undefined ? null : p.y * k, source: p.source ?? null }))
+
+function ChartCard({ n, id, title, sources, desc, note, limit, controls, extra, children, height = 280, series = [] }: { n: number; id: string; title: string; sources: (SourceLabel | null)[]; desc: string
+  note: ReactNode; limit: ReactNode; controls?: ReactNode; extra?: ReactNode; children: ReactNode; height?: number; series?: TSeries[] }) {
   const uniq = [...new Set(sources.filter(Boolean))] as SourceLabel[]
+  const [table, setTable] = useState(false)
+  const [cur, setCur] = useState<{ s: number; i: number } | null>(null)
+  const live = series.filter((s) => s.pts.some((p) => p.y !== null))
+  const rows = useMemo(() => (table ? tableRows(series) : []), [table, series])
+  const read = (c: { s: number; i: number } | null) => {
+    if (!c) return ''
+    const s = live[c.s]
+    const p = s?.pts.filter((q) => q.y !== null)[c.i]
+    if (!s || !p) return ''
+    return `${s.name}: ${s.xLabel} ${fmtCell(p.x)}, ${s.yLabel} ${fmtCell(p.y as number)}, ${p.source ? SOURCE_TEXT[p.source] : 'source not given'} (point ${c.i + 1} of ${s.pts.filter((q) => q.y !== null).length})`
+  }
+  const onKey = (e: KeyboardEvent<HTMLDivElement>) => {
+    if (!live.length) return
+    const c = cur ?? { s: 0, i: -1 }
+    const len = (k: number) => live[k].pts.filter((q) => q.y !== null).length
+    let nx: { s: number; i: number } | null = null
+    if (e.key === 'ArrowRight') nx = { s: c.s, i: Math.min(len(c.s) - 1, c.i + 1) }
+    else if (e.key === 'ArrowLeft') nx = { s: c.s, i: Math.max(0, c.i - 1) }
+    else if (e.key === 'Home') nx = { s: c.s, i: 0 }
+    else if (e.key === 'End') nx = { s: c.s, i: len(c.s) - 1 }
+    else if (e.key === 'ArrowDown') { const s2 = (c.s + 1) % live.length; nx = { s: s2, i: Math.min(Math.max(0, c.i), len(s2) - 1) } }
+    else if (e.key === 'ArrowUp') { const s2 = (c.s - 1 + live.length) % live.length; nx = { s: s2, i: Math.min(Math.max(0, c.i), len(s2) - 1) } }
+    else if (e.key === 'Escape') { setCur(null); return }
+    if (nx) { e.preventDefault(); setCur(nx) }
+  }
   return (
     <figure className="card chart-card sim-chart" id={id} aria-labelledby={`${id}-t`} data-graph={n}>
       <figcaption>
         <span id={`${id}-t`}><span className="sim-gnum">{n}</span> {title}</span>
-        <span className="sim-gbadges">{uniq.map((s) => <SimBadge key={s} s={s} />)}</span>
+        <span className="sim-gbadges">{uniq.map((s) => <SimBadge key={s} s={s} />)}
+          {series.length ? <button type="button" className="chip sim-gtable" aria-pressed={table} onClick={() => setTable((t) => !t)}>{table ? 'Show chart' : 'Show table'}</button> : null}</span>
       </figcaption>
       {controls ? <div className="sim-gctl">{controls}</div> : null}
-      <div className="chart-box" style={{ height }} role="img" aria-label={desc}>{children}</div>
+      {table ? (
+        <div className="sim-gtable-box" style={{ maxHeight: height + 40 }} tabIndex={0} role="region" aria-label={`${title}: data table`}>
+          <table className="sim-dtable" data-table-graph={n}>
+            <caption className="sr-only">{desc}</caption>
+            <thead><tr><th scope="col">Series</th><th scope="col">{series[0]?.xLabel ?? 'x'}</th><th scope="col">Value</th><th scope="col">Source</th></tr></thead>
+            <tbody>{rows.map((r, i) => {
+              const s = series.find((x) => x.name === r.series)
+              return <tr key={i}><th scope="row">{r.series}</th><td className="sim-num">{fmtCell(r.x)}</td><td className="sim-num">{fmtCell(r.y)} <span className="sim-dunit">{s?.yLabel}</span></td><td title={r.source ? SOURCE_TEXT[r.source] : undefined}>{r.source ? SOURCE_SHORT[r.source] : 'not given'}</td></tr>
+            })}</tbody>
+          </table>
+          {!rows.length ? <p className="sim-nm-block">No computed points.</p> : null}
+        </div>
+      ) : (
+        <div className="chart-box" style={{ height }} role="img" aria-label={`${desc}. ${live.length ? 'Focus the chart and use the arrow keys to read the points, or open the table.' : ''}`}
+          tabIndex={live.length ? 0 : undefined} onKeyDown={onKey} onBlur={() => setCur(null)} aria-describedby={`${id}-read`}>{children}</div>
+      )}
+      <p id={`${id}-read`} className={`sim-gread ${cur && !table ? '' : 'sr-only'}`} aria-live="polite">{table ? '' : read(cur)}</p>
+      {extra}
       <p className="sim-gnote"><strong>Source.</strong> {note} <strong>Limitation.</strong> {limit}</p>
     </figure>
   )
@@ -84,7 +141,8 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
     const base = toSimInputs(s, 2)
     return {
       line: sweeps.costVsVariable(d, base, costVar, cv.values, [s.catalyst_id]).series[s.catalyst_id],
-      bars: sweeps.costVsVariable(d, base, 'T_C', [s.T_C], ids).series,
+      // an equilibrium reactor has no catalyst: the bars then use a kinetic reactor of each catalyst at the same T, P and mass
+      bars: sweeps.costVsVariable(d, eq ? kineticBase(s) : base, 'T_C', [s.T_C], ids).series,
     }
   }, 260)
   // 8. carbon by route
@@ -126,7 +184,13 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
         <ChartCard n={1} id="g-conv-T" title="NH3 conversion against temperature" sources={['browser-model', ...(g1 ? [worstOf(g1.b.equilibrium_aspen), worstOf(g1.b.kinetic)] : [])]}
           desc={`Equilibrium and kinetic NH3 conversion from 300 to 800 degC at ${s.P_bar} bar`}
           note={<>{eqNote}Equilibrium: ideal gas (browser) and Aspen RGibbs Peng-Robinson grid (dots, pure NH3). Kinetic: plug-flow outlet, {short(s.catalyst_id)}, {s.W_kg} kg, {s.P_bar} bar.</>}
-          limit="The kinetic curve is extrapolated wherever the temperature or pressure leaves the fitted range of the rate law.">
+          limit="The kinetic curve is extrapolated wherever the temperature or pressure leaves the fitted range of the rate law."
+          series={g1 ? [
+            { name: 'Equilibrium, ideal gas', xLabel: 'T (degC)', yLabel: '%', pts: pts(g1.b.equilibrium_browser, 100) },
+            { name: 'Equilibrium, Aspen grid', xLabel: 'T (degC)', yLabel: '%', pts: pts(g1.b.equilibrium_aspen, 100) },
+            { name: `Kinetic, ${short(s.catalyst_id)}`, xLabel: 'T (degC)', yLabel: '%', pts: pts(g1.b.kinetic, 100) },
+            ...(g1.a ? [{ name: 'Case A kinetic', xLabel: 'T (degC)', yLabel: '%', pts: pts(g1.a, 100) }] : []),
+          ] : []}>
           {g1 && c1 ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart margin={{ top: 8, right: 16, bottom: 30, left: 4 }}>
@@ -134,7 +198,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
                 <XAxis {...xT} label={{ value: 'Reactor temperature (degC)', position: 'insideBottom', offset: -16, fill: 'var(--muted)' }} />
                 <YAxis {...axis} domain={[0, 1]} tickFormatter={(v: number) => `${Math.round(v * 100)}`} label={{ value: 'Conversion (%)', angle: -90, position: 'insideLeft', fill: 'var(--muted)' }} />
                 <Tooltip {...tip} formatter={fmt} labelFormatter={(v) => `${v} degC`} />
-                <Legend verticalAlign="top" height={24} wrapperStyle={{ fontSize: 12 }} />
+                <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />
                 <Line data={g1.b.equilibrium_browser} dataKey="y" name="Equilibrium, ideal gas" stroke="var(--c-n2)" dot={false} isAnimationActive={false} strokeWidth={2} />
                 <Line data={g1.b.equilibrium_aspen} dataKey="y" name="Equilibrium, Aspen grid" stroke="var(--src-aspen)" strokeWidth={0} dot={{ r: 3 }} isAnimationActive={false} />
                 <Line data={c1.fit} dataKey="y" name="Kinetic (fitted range)" stroke="var(--accent)" dot={false} strokeWidth={2.4} isAnimationActive={false} connectNulls={false} />
@@ -151,6 +215,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
           desc={`Rate of NH3 decomposition for the selected catalysts at ${s.P_bar} bar and 10 % conversion`}
           note={<>Rate laws of the selected catalysts at {s.P_bar} bar, gas at 10 % conversion of the baseline feed, ideal gas. Logarithmic axis.</>}
           limit="Most laws were fitted at 1 atm: at higher pressure every point is an extrapolation (dashed)."
+          series={g2 ? Object.entries(g2.series).map(([id, p]) => ({ name: short(id), xLabel: 'T (degC)', yLabel: 'mol/(kg s)', pts: pts(p) })) : []}
           controls={<div className="sim-chips" role="group" aria-label="Catalysts shown">{ids.map((id) => (
             <button key={id} type="button" className="chip" aria-pressed={rateIds.includes(id)} onClick={() => setRateIds((r) => (r.includes(id) ? (r.length > 1 ? r.filter((x) => x !== id) : r) : [...r, id]))}>{short(id)}</button>
           ))}</div>}>
@@ -162,7 +227,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
                 <YAxis {...axis} scale="log" domain={['auto', 'auto']} allowDataOverflow tickFormatter={(v: number) => v.toExponential(0)} width={56}
                   label={{ value: 'mol/(kg s)', angle: -90, position: 'insideLeft', offset: -2, fill: 'var(--muted)' }} />
                 <Tooltip {...tip} formatter={fmt} labelFormatter={(v) => `${v} degC`} />
-                <Legend verticalAlign="top" height={36} wrapperStyle={{ fontSize: 11.5 }} />
+                <Legend verticalAlign="top" wrapperStyle={{ fontSize: 11.5 }} />
                 {Object.entries(c2).flatMap(([id, sp]) => {
                   const col = COLORS[ids.indexOf(id) % COLORS.length]
                   return [
@@ -179,14 +244,17 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
         <ChartCard n={3} id="g-conv-z" title="Conversion along the reactor" sources={[worstOf(prof.conversion_vs_length), prof.aspen ? 'aspen' : null]}
           desc="NH3 conversion against axial position in the catalyst bed"
           note={<>{eqNote}Browser plug-flow profile, {short(s.catalyst_id)}, {s.W_kg} kg in 50 tubes. {prof.aspen ? `Stored Aspen RPlug profile overlaid (case ${b.out.reactor.aspen?.case_id}).` : 'No stored Aspen case matches these inputs, so no Aspen profile is overlaid.'}</>}
-          limit="One-dimensional plug flow, no radial gradients or catalyst deactivation.">
+          limit="One-dimensional plug flow, no radial gradients or catalyst deactivation."
+          series={[{ name: 'Browser model', xLabel: 'Bed length (m)', yLabel: '%', pts: pts(prof.conversion_vs_length, 100) },
+            ...(prof.aspen ? [{ name: 'Aspen RPlug', xLabel: 'Bed length (m)', yLabel: '%', pts: pts(prof.aspen.conversion_vs_length, 100).map((p) => ({ ...p, source: 'aspen' as SourceLabel })) }] : []),
+            ...(profA ? [{ name: 'Case A', xLabel: 'Bed length (m)', yLabel: '%', pts: pts(profA.conversion_vs_length, 100) }] : [])]}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart margin={{ top: 8, right: 16, bottom: 30, left: 4 }}>
               <CartesianGrid stroke="var(--text)" strokeOpacity={0.08} />
               <XAxis type="number" dataKey="x" {...axis} domain={[0, 'dataMax']} tickFormatter={(v: number) => Number(v.toPrecision(2)).toString()} label={{ value: 'Bed length (m)', position: 'insideBottom', offset: -16, fill: 'var(--muted)' }} />
               <YAxis {...axis} domain={[0, 1]} tickFormatter={(v: number) => `${Math.round(v * 100)}`} label={{ value: 'Conversion (%)', angle: -90, position: 'insideLeft', fill: 'var(--muted)' }} />
               <Tooltip {...tip} formatter={fmt} labelFormatter={(v) => `${Number(v).toFixed(3)} m`} />
-              <Legend verticalAlign="top" height={24} wrapperStyle={{ fontSize: 12 }} />
+              <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />
               <Line data={c3.fit} dataKey="y" name="Browser model" stroke="var(--accent)" dot={false} strokeWidth={2.4} isAnimationActive={false} connectNulls={false} />
               <Line data={c3.ext} dataKey="y" name="Browser model (extrapolation)" stroke="var(--accent)" strokeDasharray="6 4" dot={false} strokeWidth={2} isAnimationActive={false} connectNulls={false} />
               {prof.aspen ? <Line data={prof.aspen.conversion_vs_length} dataKey="y" name="Aspen RPlug" stroke="var(--src-aspen)" dot={{ r: 2 }} strokeWidth={1.4} isAnimationActive={false} /> : null}
@@ -198,14 +266,17 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
         <ChartCard n={4} id="g-T-z" title="Temperature along the reactor" sources={[worstOf(prof.temperature_vs_length), prof.aspen ? 'aspen' : null]}
           desc="Gas temperature against axial position in the catalyst bed"
           note={<>{eqNote}Browser plug-flow profile ({s.reactor === 'equilibrium' ? 'isothermal' : s.reactor}). {prof.aspen ? 'Stored Aspen RPlug profile overlaid.' : 'No matching stored Aspen profile.'}</>}
-          limit="Isothermal mode holds the set temperature by definition; the furnace and tube wall are not modelled.">
+          limit="Isothermal mode holds the set temperature by definition; the furnace and tube wall are not modelled."
+          series={[{ name: 'Browser model', xLabel: 'Bed length (m)', yLabel: 'degC', pts: pts(prof.temperature_vs_length) },
+            ...(prof.aspen ? [{ name: 'Aspen RPlug', xLabel: 'Bed length (m)', yLabel: 'degC', pts: pts(prof.aspen.temperature_vs_length).map((p) => ({ ...p, source: 'aspen' as SourceLabel })) }] : []),
+            ...(profA ? [{ name: 'Case A', xLabel: 'Bed length (m)', yLabel: 'degC', pts: pts(profA.temperature_vs_length) }] : [])]}>
           <ResponsiveContainer width="100%" height="100%">
             <LineChart margin={{ top: 8, right: 16, bottom: 30, left: 4 }}>
               <CartesianGrid stroke="var(--text)" strokeOpacity={0.08} />
               <XAxis type="number" dataKey="x" {...axis} domain={[0, 'dataMax']} tickFormatter={(v: number) => Number(v.toPrecision(2)).toString()} label={{ value: 'Bed length (m)', position: 'insideBottom', offset: -16, fill: 'var(--muted)' }} />
               <YAxis {...axis} domain={['auto', 'auto']} label={{ value: 'T (degC)', angle: -90, position: 'insideLeft', fill: 'var(--muted)' }} />
               <Tooltip {...tip} formatter={fmt} labelFormatter={(v) => `${Number(v).toFixed(3)} m`} />
-              <Legend verticalAlign="top" height={24} wrapperStyle={{ fontSize: 12 }} />
+              <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />
               <Line data={c4.fit} dataKey="y" name="Browser model" stroke="var(--c-heat)" dot={false} strokeWidth={2.4} isAnimationActive={false} connectNulls={false} />
               <Line data={c4.ext} dataKey="y" name="Browser model (extrapolation)" stroke="var(--c-heat)" strokeDasharray="6 4" dot={false} strokeWidth={2} isAnimationActive={false} connectNulls={false} />
               {prof.aspen ? <Line data={prof.aspen.temperature_vs_length} dataKey="y" name="Aspen RPlug" stroke="var(--src-aspen)" dot={{ r: 2 }} strokeWidth={1.4} isAnimationActive={false} /> : null}
@@ -217,7 +288,9 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
         <ChartCard n={5} id="g-h2-Q" title="Hydrogen production against heat input" sources={g5 ? [worstOf(g5.b)] : []}
           desc="Hydrogen product rate against the heat supplied to the reactor"
           note={<>{memNote}Specified-duty plug flow (browser-only mode), {short(s.catalyst_id)}, {s.W_kg} kg, inlet {s.T_C} degC, {s.P_bar} bar, heat spread evenly over the catalyst; PSA recovery {s.psa_h2_recovery}.</>}
-          limit="The duty mode has no Aspen counterpart; downstream duties assume an outlet at the inlet temperature.">
+          limit="The duty mode has no Aspen counterpart; downstream duties assume an outlet at the inlet temperature."
+          series={g5 ? [{ name: 'Browser model', xLabel: 'Heat input (kW)', yLabel: 'kg/h H2', pts: pts(g5.b) },
+            ...(g5.a ? [{ name: 'Case A', xLabel: 'Heat input (kW)', yLabel: 'kg/h H2', pts: pts(g5.a) }] : [])] : []}>
           {g5 ? (
             <ResponsiveContainer width="100%" height="100%">
               <LineChart margin={{ top: 8, right: 16, bottom: 30, left: 4 }}>
@@ -225,7 +298,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
                 <XAxis type="number" dataKey="x" {...axis} domain={[0, 2500]} label={{ value: 'Heat input to the reactor (kW)', position: 'insideBottom', offset: -16, fill: 'var(--muted)' }} />
                 <YAxis {...axis} domain={[0, 'auto']} label={{ value: 'H2 (kg/h)', angle: -90, position: 'insideLeft', fill: 'var(--muted)' }} />
                 <Tooltip {...tip} formatter={fmt} labelFormatter={(v) => `${v} kW`} />
-                <Legend verticalAlign="top" height={24} wrapperStyle={{ fontSize: 12 }} />
+                <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />
                 <Line data={splitExtrapolation(g5.b).fit} dataKey="y" name="Browser model" stroke="var(--c-h2)" dot={false} strokeWidth={2.4} isAnimationActive={false} connectNulls={false} />
                 <Line data={splitExtrapolation(g5.b).ext} dataKey="y" name="Extrapolation" stroke="var(--c-h2)" strokeDasharray="6 4" dot={false} strokeWidth={2} isAnimationActive={false} connectNulls={false} />
                 {g5.a ? <Line data={g5.a} dataKey="y" name="Case A" stroke={A_COLOR} strokeDasharray="2 3" dot={false} isAnimationActive={false} /> : null}
@@ -237,12 +310,14 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
 
         <ChartCard n={6} id="g-cost" title={`Hydrogen production cost (${cur} per kg)`} sources={g6 ? [worstOf(g6.line)] : []}
           desc="Levelised hydrogen cost by catalyst and against a selected variable"
-          note={<>{memNote}AmCraX Singapore cost model, pre-unification Phase 1 equipment CAPEX, ammonia {s.nh3_price_USD_per_t ?? `${s.nh3_route} scenario`}{s.nh3_price_USD_per_t ? ' USD/t' : ''}; SGD at {d.model.fx.SGD_per_USD} SGD/USD. Ni-Ru catalysts priced as Ru (assumption).</>}
-          limit="Not the unified reference CAPEX; no IRR; points outside the process grid are omitted."
+          note={<>{memNote}{d.model.economics.basis_short} (CAPEX {d.model.economics.capex_reference.method}, {d.model.economics.capex_reference.cost_year} USD; Singapore prices 2026); ammonia {s.nh3_price_USD_per_t ?? `${s.nh3_route} scenario`}{s.nh3_price_USD_per_t ? ' USD/t' : ''}; SGD at {d.model.fx.SGD_per_USD} SGD/USD (ECB reference rate of {String(d.model.fx.date)}). Catalyst price: {eq ? 'reference inventory at the Phase 1 TEA Ni price (the equilibrium reactor has no catalyst)' : s.catalyst_price_source === 'phase1_tea' ? 'Phase 1 published TEA price' : `${s.catalyst_price_source} metal-content scenario, derived, not a supplier quotation`}. The bars in the right panel use a kinetic reactor of each catalyst.</>}
+          limit="No IRR; the catalyst term is small against ammonia, capital and fixed cost; points outside the process grid are omitted."
+          series={g6 ? [{ name: `LCOH against ${cv.label.toLowerCase()}, ${short(s.catalyst_id)}`, xLabel: `${cv.label} (${cv.unit})`, yLabel: `${cur}/kg`, pts: g6.line.map((p) => ({ x: p.x, y: lineY(p), source: p.source })) },
+            { name: 'LCOH by catalyst, current case', xLabel: 'Catalyst', yLabel: `${cur}/kg`, pts: ids.map((cid) => ({ x: short(cid), y: g6.bars[cid][0] ? (cur === 'SGD' ? g6.bars[cid][0].y_SGD : g6.bars[cid][0].y) : null, source: g6.bars[cid][0]?.source ?? null })) }] : []}
           controls={<>
             <label className="sim-gsel">Variable <select value={costVar} onChange={(e) => setCostVar(e.target.value as CostVariable)}>{COST_VARS.map((c) => <option key={c.id} value={c.id}>{c.label}</option>)}</select></label>
             <span className="sim-chips" role="group" aria-label="Currency">{(['SGD', 'USD'] as const).map((c) => <button key={c} type="button" className="chip" aria-pressed={cur === c} onClick={() => setCur(c)}>{c}</button>)}</span>
-          </>} height={300}>
+          </>} height={300} extra={<CostBreakdown b={b} a={a} cur={cur} />}>
           {g6 ? (
             <div className="sim-split">
               <ResponsiveContainer width="100%" height="100%">
@@ -273,7 +348,9 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
         <ChartCard n={7} id="g-energy" title="Energy balance" sources={eb ? [...new Set(eb.map((r) => r.source))] : [null]}
           desc="External heating, recovered heat, reactor duty, preheat and other duties of the current case"
           note={<>{memNote}Reduced Python flowsheet: reactor, hydrogen, tail gas and burner computed in the browser; pump, vaporiser, preheater, exchanger and cooler interpolated from the Python grid.{eb ? '' : ' Outside the process grid: not modelled.'}</>}
-          limit="First-law balance; flue heat credited regardless of its temperature level; FEHE approach, stack temperature and excess air fixed." height={300}>
+          limit="First-law balance; flue heat credited regardless of its temperature level; FEHE approach, stack temperature and excess air fixed." height={300}
+          series={eb ? [{ name: a ? 'Case B' : 'Current case', xLabel: 'Heat flow', yLabel: 'kW', pts: eb.map((r) => ({ x: r.label.replace(/ \(.*\)$/, ''), y: Number.isFinite(r.value) ? r.value : null, source: r.source })) },
+            ...(ebA ? [{ name: 'Case A', xLabel: 'Heat flow', yLabel: 'kW', pts: ebA.map((r) => ({ x: r.label.replace(/ \(.*\)$/, ''), y: Number.isFinite(r.value) ? r.value : null, source: r.source })) }] : [])] : []}>
           {eb ? (
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={energyData} layout="vertical" margin={{ top: 8, right: 16, bottom: 30, left: 4 }}>
@@ -281,7 +358,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
                 <XAxis type="number" {...axis} label={{ value: 'Heat flow (kW)', position: 'insideBottom', offset: -16, fill: 'var(--muted)' }} />
                 <YAxis type="category" dataKey="label" width={150} {...axis} tick={{ fill: 'var(--text-2)', fontSize: 11 }} interval={0} />
                 <Tooltip {...tip} formatter={fmt} />
-                {a ? <Legend verticalAlign="top" height={22} wrapperStyle={{ fontSize: 12 }} /> : null}
+                {a ? <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} /> : null}
                 {a ? <Bar dataKey="A" name="Case A" fill={A_COLOR} isAnimationActive={false} /> : null}
                 <Bar dataKey="B" name={a ? 'Case B' : 'Current case'} fill="var(--c-heat)" isAnimationActive={false} />
               </BarChart>
@@ -295,7 +372,11 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
           note={<>{memNote}Life-cycle carbon intensity (upstream ammonia, shipping, electricity, external heat). Carbon cost: {s.carbon_mode === 'hypothetical'
             ? <><strong>HYPOTHETICAL</strong> {s.carbon_price_SGD_per_t} SGD/tCO2e times the life-cycle intensity, not Singapore law.</>
             : 'actual Singapore carbon tax on direct facility emissions above the threshold (zero with ammonia self-firing).'}</>}
-          limit="Route emission factors are literature values with wide ranges; the actual boundary excludes upstream emissions." height={300}>
+          limit="Route emission factors are literature values with wide ranges; the actual boundary excludes upstream emissions." height={300}
+          series={g8 ? [{ name: 'Carbon intensity', xLabel: 'Ammonia route', yLabel: 'kg CO2e/kg H2', pts: g8.b.map((r) => ({ x: r.route, y: r.ci_kgCO2e_per_kgH2, source: r.source ?? null })) },
+            { name: s.carbon_mode === 'hypothetical' ? 'Carbon cost (HYPOTHETICAL price, not Singapore law)' : 'Carbon cost (actual Singapore tax)', xLabel: 'Ammonia route', yLabel: 'SGD/kg H2',
+              pts: g8.b.map((r) => ({ x: r.route, y: s.carbon_mode === 'hypothetical' ? r.hypothetical_cost_SGD_per_kg : r.actual_cost_SGD_per_kg, source: (s.carbon_mode === 'hypothetical' ? 'assumption' : r.source ?? null) as SourceLabel | null })) },
+            ...(g8.a ? [{ name: 'Carbon intensity, case A', xLabel: 'Ammonia route', yLabel: 'kg CO2e/kg H2', pts: g8.a.map((r) => ({ x: r.route, y: r.ci_kgCO2e_per_kgH2, source: r.source ?? null })) }] : [])] : []}>
           {g8 ? (
             <ResponsiveContainer width="100%" height="100%">
               <ComposedChart data={carbonData} margin={{ top: 8, right: 8, bottom: 30, left: 4 }}>
@@ -304,7 +385,7 @@ export default function Graphs({ d, b, a }: { d: SimData; b: CaseResult; a: Case
                 <YAxis yAxisId="ci" {...axis} label={{ value: 'kg CO2e/kg H2', angle: -90, position: 'insideLeft', fill: 'var(--muted)' }} />
                 <YAxis yAxisId="cost" orientation="right" {...axis} label={{ value: 'SGD/kg H2', angle: 90, position: 'insideRight', fill: 'var(--muted)' }} />
                 <Tooltip {...tip} formatter={fmt} />
-                <Legend verticalAlign="top" height={24} wrapperStyle={{ fontSize: 12 }} />
+                <Legend verticalAlign="top" wrapperStyle={{ fontSize: 12 }} />
                 {g8.a ? <Bar yAxisId="ci" dataKey="CI_A" name="Carbon intensity, case A" fill={A_COLOR} isAnimationActive={false} /> : null}
                 <Bar yAxisId="ci" dataKey="CI" name="Carbon intensity" fill="var(--c-n2)" isAnimationActive={false} />
                 <Bar yAxisId="cost" dataKey="cost" name={s.carbon_mode === 'hypothetical' ? 'Carbon cost (HYPOTHETICAL)' : 'Carbon cost (actual tax)'} fill="var(--c-o2)" isAnimationActive={false} />

@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:50:36Z",
+  "generated_utc": "2026-11-23T11:55:55Z",
   "script": "scripts/research/lca_run.py",
   "source_type": "python+literature",
   "inputs_summary": "route factors lca.FACTORS; cracker activities from stored Aspen baseline; comparators literature",
   "reference_scenario": {
    "file": "backend/amcrax/data/reference_scenario.yaml",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0",
    "id": "amcrax_reference_2026_11_23",
    "fx_SGD_per_USD": 1.288444,

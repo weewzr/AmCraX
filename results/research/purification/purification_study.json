@@ -1,6 +1,6 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T11:25:01Z",
+  "generated_utc": "2026-11-24T05:28:46Z",
   "script": "scripts/research/purification_study.py",
   "source_type": "python",
   "inputs_summary": "stored Aspen Plus V15 cracked gas; reduced-order purification models; Phase 2 unified reference scenario (data/reference_scenario.yaml) for every cost input",

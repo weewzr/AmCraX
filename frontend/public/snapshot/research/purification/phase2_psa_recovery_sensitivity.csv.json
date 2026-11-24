@@ -1,0 +1,673 @@
+{
+ "name": "phase2_psa_recovery_sensitivity",
+ "area": "purification",
+ "file": "phase2_psa_recovery_sensitivity.csv",
+ "columns": [
+  "spec",
+  "recovery",
+  "lcoh_usd",
+  "lcoh_sgd",
+  "net_heat_deficit_kW",
+  "surplus_heat_not_credited_kW"
+ ],
+ "rows": [
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.5,
+   "lcoh_usd": 6.402269791561103,
+   "lcoh_sgd": 8.248966099318153,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2411.6195495501056
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.51,
+   "lcoh_usd": 6.2773387335615745,
+   "lcoh_sgd": 8.087999427225009,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2320.634181432721
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.52,
+   "lcoh_usd": 6.157212716254336,
+   "lcoh_sgd": 7.933223780981601,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2229.6488133153366
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.53,
+   "lcoh_usd": 6.041619756203973,
+   "lcoh_sgd": 7.7842887251624715,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2138.6634451979503
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.54,
+   "lcoh_usd": 5.930308016896217,
+   "lcoh_sgd": 7.640869782521829,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2047.678077080565
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.55,
+   "lcoh_usd": 5.823043977199652,
+   "lcoh_sgd": 7.502666074159028,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1956.6927089631804
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.56,
+   "lcoh_usd": 5.719610796063679,
+   "lcoh_sgd": 7.369398212523471,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1865.707340845795
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.57,
+   "lcoh_usd": 5.619806849353531,
+   "lcoh_sgd": 7.240806416208461,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1774.7219727284114
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.58,
+   "lcoh_usd": 5.523444418047179,
+   "lcoh_sgd": 7.116648819766379,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1683.7366046110255
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.59,
+   "lcoh_usd": 5.430348509835957,
+   "lcoh_sgd": 6.996699955407079,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1592.7512364936406
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.6,
+   "lcoh_usd": 5.340355798565111,
+   "lcoh_sgd": 6.880749386526425,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1501.765868376256
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.61,
+   "lcoh_usd": 5.2533136679916685,
+   "lcoh_sgd": 6.768600475641857,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1410.7805002588716
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.62,
+   "lcoh_usd": 5.169079348081886,
+   "lcoh_sgd": 6.660069271560017,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1319.795132141487
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.63,
+   "lcoh_usd": 5.087519133566064,
+   "lcoh_sgd": 6.554983502528394,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1228.8097640241012
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.64,
+   "lcoh_usd": 5.008507675753862,
+   "lcoh_sgd": 6.4531816637790085,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1137.8243959067154
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.65,
+   "lcoh_usd": 4.931927339720497,
+   "lcoh_sgd": 6.354512189298836,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1046.8390277893304
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.66,
+   "lcoh_usd": 4.8576676199305675,
+   "lcoh_sgd": 6.25883269889382,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 955.8536596719464
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.67,
+   "lcoh_usd": 4.785624608194068,
+   "lcoh_sgd": 6.166009312679997,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 864.8682915545619
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.68,
+   "lcoh_usd": 4.715700508567466,
+   "lcoh_sgd": 6.075916026060701,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 773.8829234371756
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.69,
+   "lcoh_usd": 4.647803194437288,
+   "lcoh_sgd": 5.988434139053557,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 682.8975553197924
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.7,
+   "lcoh_usd": 4.581845803567972,
+   "lcoh_sgd": 5.903451734532331,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 591.912187202407
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.71,
+   "lcoh_usd": 4.517746367371031,
+   "lcoh_sgd": 5.820863200561001,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 500.9268190850221
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.72,
+   "lcoh_usd": 4.455427471068449,
+   "lcoh_sgd": 5.740568792533317,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 409.94145096763714
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.73,
+   "lcoh_usd": 4.394815941787855,
+   "lcoh_sgd": 5.662474231300911,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 318.9560828502513
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.74,
+   "lcoh_usd": 4.3358425619472785,
+   "lcoh_sgd": 5.586490333885599,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 227.97071473286724
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.75,
+   "lcoh_usd": 4.278441805569116,
+   "lcoh_sgd": 5.512532673734694,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 136.98534661548229
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.76,
+   "lcoh_usd": 4.222551595411432,
+   "lcoh_sgd": 5.440521267798287,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 45.999978498097335
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.77,
+   "lcoh_usd": 4.185302707095093,
+   "lcoh_sgd": 5.392528161140429,
+   "net_heat_deficit_kW": 44.985389619287616,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.78,
+   "lcoh_usd": 4.1663608867523525,
+   "lcoh_sgd": 5.368122686370747,
+   "net_heat_deficit_kW": 135.97075773667348,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.79,
+   "lcoh_usd": 4.147898606165125,
+   "lcoh_sgd": 5.344335071721818,
+   "net_heat_deficit_kW": 226.95612585405843,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.8,
+   "lcoh_usd": 4.129897882592578,
+   "lcoh_sgd": 5.321142147439112,
+   "net_heat_deficit_kW": 317.9414939714434,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.81,
+   "lcoh_usd": 4.112341621330464,
+   "lcoh_sgd": 5.298521887953508,
+   "net_heat_deficit_kW": 408.9268620888279,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.82,
+   "lcoh_usd": 4.095213561562549,
+   "lcoh_sgd": 5.276453342113896,
+   "net_heat_deficit_kW": 499.91223020621214,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.83,
+   "lcoh_usd": 4.07849822612639,
+   "lcoh_sgd": 5.25491656846319,
+   "net_heat_deficit_kW": 590.8975983235978,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.84,
+   "lcoh_usd": 4.062180874867282,
+   "lcoh_sgd": 5.2338925751375,
+   "net_heat_deficit_kW": 681.8829664409825,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.85,
+   "lcoh_usd": 4.04624746128486,
+   "lcoh_sgd": 5.21336326400771,
+   "net_heat_deficit_kW": 772.8683345583675,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.86,
+   "lcoh_usd": 4.030684592204354,
+   "lcoh_sgd": 5.193311378718146,
+   "net_heat_deficit_kW": 863.8537026757524,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.87,
+   "lcoh_usd": 4.015479490229147,
+   "lcoh_sgd": 5.173720456308803,
+   "net_heat_deficit_kW": 954.8390707931369,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.88,
+   "lcoh_usd": 4.000619958753377,
+   "lcoh_sgd": 5.154574782136035,
+   "net_heat_deficit_kW": 1045.824438910522,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.89,
+   "lcoh_usd": 3.986094349333243,
+   "lcoh_sgd": 5.13585934783232,
+   "net_heat_deficit_kW": 1136.8098070279077,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "industrial_99.9",
+   "recovery": 0.9,
+   "lcoh_usd": 3.9718915312335543,
+   "lcoh_sgd": 5.117559812068685,
+   "net_heat_deficit_kW": 1227.7951751452936,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.5,
+   "lcoh_usd": 6.59450294310094,
+   "lcoh_sgd": 8.496647750020747,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2411.6195499379314
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.51,
+   "lcoh_usd": 6.469571885101411,
+   "lcoh_sgd": 8.335681077927601,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2320.634181828303
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.52,
+   "lcoh_usd": 6.349445867794173,
+   "lcoh_sgd": 8.180905431684195,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2229.648813718675
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.53,
+   "lcoh_usd": 6.233852907743809,
+   "lcoh_sgd": 8.031970375865063,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2138.6634456090455
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.54,
+   "lcoh_usd": 6.122541168436053,
+   "lcoh_sgd": 7.888551433224421,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 2047.6780774994172
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.55,
+   "lcoh_usd": 6.015277128739489,
+   "lcoh_sgd": 7.750347724861621,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1956.692709389789
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.56,
+   "lcoh_usd": 5.911843947603515,
+   "lcoh_sgd": 7.617079863226063,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1865.7073412801606
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.57,
+   "lcoh_usd": 5.812040000893367,
+   "lcoh_sgd": 7.488488066911053,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1774.7219731705331
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.58,
+   "lcoh_usd": 5.715677569587015,
+   "lcoh_sgd": 7.364330470468972,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1683.736605060904
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.59,
+   "lcoh_usd": 5.6225816613757935,
+   "lcoh_sgd": 7.244381606109672,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1592.751236951276
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.6,
+   "lcoh_usd": 5.532588950104947,
+   "lcoh_sgd": 7.128431037229018,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1501.7658688416477
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.61,
+   "lcoh_usd": 5.445546819531505,
+   "lcoh_sgd": 7.01628212634445,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1410.7805007320194
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.62,
+   "lcoh_usd": 5.3613124996217225,
+   "lcoh_sgd": 6.90775092226261,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1319.795132622391
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.63,
+   "lcoh_usd": 5.279752285105901,
+   "lcoh_sgd": 6.802665153230987,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1228.8097645127614
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.64,
+   "lcoh_usd": 5.200740827293698,
+   "lcoh_sgd": 6.700863314481601,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1137.8243964031326
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.65,
+   "lcoh_usd": 5.124160491260334,
+   "lcoh_sgd": 6.602193840001429,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 1046.8390282935043
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.66,
+   "lcoh_usd": 5.049900771470404,
+   "lcoh_sgd": 6.506514349596413,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 955.853660183876
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.67,
+   "lcoh_usd": 4.977857759733904,
+   "lcoh_sgd": 6.4136909633825905,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 864.8682920742481
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.68,
+   "lcoh_usd": 4.907933660107303,
+   "lcoh_sgd": 6.323597676763294,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 773.8829239646188
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.69,
+   "lcoh_usd": 4.840036345977125,
+   "lcoh_sgd": 6.23611578975615,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 682.8975558549914
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.7,
+   "lcoh_usd": 4.774078955107808,
+   "lcoh_sgd": 6.151133385234925,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 591.9121877453626
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.71,
+   "lcoh_usd": 4.709979518910868,
+   "lcoh_sgd": 6.068544851263594,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 500.9268196357348
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.72,
+   "lcoh_usd": 4.647660622608286,
+   "lcoh_sgd": 5.98825044323591,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 409.94145152610645
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.73,
+   "lcoh_usd": 4.587049093327692,
+   "lcoh_sgd": 5.9101558820035045,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 318.9560834164772
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.74,
+   "lcoh_usd": 4.528075713487115,
+   "lcoh_sgd": 5.834171984588192,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 227.9707153068489
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.75,
+   "lcoh_usd": 4.470674957108953,
+   "lcoh_sgd": 5.760214324437287,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 136.98534719722056
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.76,
+   "lcoh_usd": 4.414784746951269,
+   "lcoh_sgd": 5.68820291850088,
+   "net_heat_deficit_kW": 0.0,
+   "surplus_heat_not_credited_kW": 45.99997908759224
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.77,
+   "lcoh_usd": 4.377535858406709,
+   "lcoh_sgd": 5.640209811548973,
+   "net_heat_deficit_kW": 44.98538902203609,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.78,
+   "lcoh_usd": 4.35859403806397,
+   "lcoh_sgd": 5.615804336779293,
+   "net_heat_deficit_kW": 135.97075713166532,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.79,
+   "lcoh_usd": 4.340131757476742,
+   "lcoh_sgd": 5.592016722130364,
+   "net_heat_deficit_kW": 226.95612524129365,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.8,
+   "lcoh_usd": 4.322131033904195,
+   "lcoh_sgd": 5.568823797847656,
+   "net_heat_deficit_kW": 317.941493350922,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.81,
+   "lcoh_usd": 4.3045747726420815,
+   "lcoh_sgd": 5.546203538362054,
+   "net_heat_deficit_kW": 408.9268614605503,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.82,
+   "lcoh_usd": 4.287446712874166,
+   "lcoh_sgd": 5.524134992522441,
+   "net_heat_deficit_kW": 499.91222957017794,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.83,
+   "lcoh_usd": 4.270731377438007,
+   "lcoh_sgd": 5.502598218871735,
+   "net_heat_deficit_kW": 590.8975976798067,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.84,
+   "lcoh_usd": 4.254414026178899,
+   "lcoh_sgd": 5.481574225546045,
+   "net_heat_deficit_kW": 681.882965789435,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.85,
+   "lcoh_usd": 4.238480612596478,
+   "lcoh_sgd": 5.461044914416256,
+   "net_heat_deficit_kW": 772.8683338990638,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.86,
+   "lcoh_usd": 4.222917743515971,
+   "lcoh_sgd": 5.440993029126692,
+   "net_heat_deficit_kW": 863.8537020086922,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.87,
+   "lcoh_usd": 4.207712641540764,
+   "lcoh_sgd": 5.421402106717348,
+   "net_heat_deficit_kW": 954.8390701183203,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.88,
+   "lcoh_usd": 4.192853110064994,
+   "lcoh_sgd": 5.402256432544581,
+   "net_heat_deficit_kW": 1045.8244382279488,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.89,
+   "lcoh_usd": 4.17832750064486,
+   "lcoh_sgd": 5.383540998240866,
+   "net_heat_deficit_kW": 1136.8098063375778,
+   "surplus_heat_not_credited_kW": 0.0
+  },
+  {
+   "spec": "fuel_cell_grade_D",
+   "recovery": 0.9,
+   "lcoh_usd": 4.164124682545171,
+   "lcoh_sgd": 5.36524146247723,
+   "net_heat_deficit_kW": 1227.795174447207,
+   "surplus_heat_not_credited_kW": 0.0
+  }
+ ],
+ "count": 82,
+ "source_note": "results/research/purification/phase2_psa_recovery_sensitivity.csv; values as stored, no post-processing"
+}

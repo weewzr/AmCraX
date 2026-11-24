@@ -1,0 +1,725 @@
+{
+ "schema": "phase2_purification_literature_v1",
+ "access_date": "2026-11-23",
+ "scope": "Hydrogen purification for cracked ammonia (about 75 % H2, 25 % N2, residual NH3): Pd and Pd-Ag membranes versus PSA. Every number carries its source, location, verbatim/derived flag and evidence grade.",
+ "evidence_grade_scale": [
+  "measured long-term",
+  "measured short-term",
+  "modelled",
+  "vendor claim",
+  "target"
+ ],
+ "note_on_grades": "'measured long-term' is used only for runs of about 500 h or more. Numbers read from a search-result excerpt (document not opened by this workstream) carry verbatim_or_derived = 'verbatim (secondary excerpt, primary not opened)'.",
+ "entries": [
+  {
+   "id": "P01",
+   "quantity": "H2 permeance, single gas, Pd-Ag double-skin on ceramic support, lower bound",
+   "value": 1.5e-06,
+   "value_qualifier": "greater than",
+   "unit": "mol m-2 s-1 Pa-1",
+   "conditions": "450 degC (max temperature of test series 390-490 degC), permeate at atmospheric pressure, feed 2-6 bar, 4.61 um Pd-Ag (thickness from Cechetto 2023 review Table 2), pressure exponent not stated in the text read",
+   "material_or_process": "Pd-Ag, double-skin (Al2O3-YSZ interlayer) on ceramic, dead-end and double-sealed tubes",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.1, p. 4 (pdf)",
+   "verbatim_or_derived": "verbatim (printed as '> 1.5.10^-6 mol/s/m2/Pa' at a maximum temperature of 450 degC; Phase 2 D2 re-check of the open-access publisher PDF: the exponent is printed, only the minus glyph is lost in text extraction)",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P02",
+   "quantity": "N2 permeance, single gas, dead-end membrane",
+   "value": 3e-12,
+   "unit": "mol m-2 s-1 Pa-1",
+   "conditions": "450 degC, permeate atmospheric",
+   "material_or_process": "Pd-Ag double-skin, dead-end sealing",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.1, p. 4",
+   "verbatim_or_derived": "verbatim (Phase 2 D2 re-check of the publisher PDF: printed '3.10^-12', minus glyph lost only in text extraction; 1.5E-6 / 3E-12 = 5E5 reproduces the stated 'above 500,000')",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P03",
+   "quantity": "N2 permeance, single gas, double-sealed membrane",
+   "value": 3.7e-11,
+   "unit": "mol m-2 s-1 Pa-1",
+   "conditions": "450 degC, permeate atmospheric",
+   "material_or_process": "Pd-Ag double-skin, double sealing",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.1, p. 4",
+   "verbatim_or_derived": "verbatim as printed (CORRECTED in Phase 2 task D2: re-read from the open-access CC BY publisher PDF, copy at https://dsp.tecnalia.com/bitstream/11556/1081/1/1-s2.0-S0378382021000515-main.pdf, accessed 2026-11-23; the paper prints '3.7.10^-11' for the double-sealed membrane and '3.10^-12' for the dead-end membrane; only the minus glyph is lost in text extraction, the digits 11 and 12 are printed. Round 1 had changed the printed -11 to -12 to match the stated selectivity. The printed value gives 1.5E-6 / 3.7E-11 = 4.05E4, which does NOT reproduce the paper's own 'above 400,000'; the paper is internally inconsistent for this membrane. AmCraX uses 40,500 as the sourced LOW value and 400,000 (stated) as central)",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P04",
+   "quantity": "Ideal H2/N2 perm-selectivity, dead-end membrane",
+   "value": 500000,
+   "value_qualifier": "greater than",
+   "unit": "-",
+   "conditions": "450 degC, single gas, new membrane",
+   "material_or_process": "Pd-Ag double-skin on ceramic",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.1, p. 4",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P05",
+   "quantity": "Ideal H2/N2 perm-selectivity, double-sealed membrane",
+   "value": 400000,
+   "value_qualifier": "greater than",
+   "unit": "-",
+   "conditions": "450 degC, single gas, new membrane",
+   "material_or_process": "Pd-Ag double-skin on ceramic",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.1, p. 4",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P06",
+   "quantity": "Stability of Pd-Ag membrane reactor in NH3 decomposition (no loss of H2 purity or H2 recovery)",
+   "value": 600,
+   "value_qualifier": "almost; discontinuous (membrane held at 450 degC in N2 over weekends)",
+   "unit": "h",
+   "conditions": "450 degC, 3 bar(a), 0.5 LN/min pure NH3, permeate atmospheric, Ru catalyst; text says 'more than 450 h' and 'almost 600 h'",
+   "material_or_process": "Pd-Ag double-skin, double sealing, membrane reactor",
+   "source_citekey": "cechetto2021fpt",
+   "location": "Sec. 3.2, p. 7 and Fig. 9",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P07",
+   "quantity": "H2 purity of permeate, membrane reactor",
+   "value": 99.995,
+   "unit": "% (NH3 2.9 ppm by FTIR)",
+   "conditions": "450 degC, 4.61 um Pd-Ag, pressure difference 1 bar (Table 10 of review); at 5 bar 99.980 % (source Table 4)",
+   "material_or_process": "Pd-Ag membrane reactor, Ru/Al2O3",
+   "source_citekey": "cechetto2023membrane",
+   "location": "Table 10, p. 17 (via library note); cechetto2021fpt Table 4 for 5 bar value",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P08",
+   "quantity": "H2 recovery and NH3 conversion, membrane reactor (best-case lab)",
+   "value": 90.5,
+   "unit": "% H2 recovery at 99.7 % conversion",
+   "conditions": "450 degC, 5 bar, permeate 1 bar, 0.5 LN/min NH3",
+   "material_or_process": "Pd-Ag 4.61 um, 2 wt% Ru/Al2O3",
+   "source_citekey": "cechetto2023membrane",
+   "location": "Table 8, p. 15 (via library note)",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P09",
+   "quantity": "Pd-Ag permeability pre-exponential and activation energy (fit used in AmCraX Phase 1)",
+   "value": {
+    "Pe0_mol_m-1_s-1_Pa-0.5": 4.57e-08,
+    "Ea_kJ_mol": 9.23,
+    "thickness_um": 5.2
+   },
+   "unit": "mol m-1 s-1 Pa-0.5; kJ/mol; um",
+   "conditions": "fit parameters taken from a model paper, not a measurement by the authors; pressure exponent 0.5 (Sieverts)",
+   "material_or_process": "Pd-Ag, Sieverts law",
+   "source_citekey": "richard2024technoeconomic",
+   "location": "Table 2, p. 7 (via library note and Phase 1 report)",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "P10",
+   "quantity": "H2 permeance of the Richard 2024 fit at 450 degC",
+   "value": 0.00189,
+   "unit": "mol m-2 s-1 Pa-0.5",
+   "conditions": "723.15 K; = Pe0 exp(-Ea/RT) / thickness = 4.57e-8 x 0.2154 / 5.2e-6",
+   "material_or_process": "Pd-Ag, Sieverts",
+   "source_citekey": "richard2024technoeconomic",
+   "location": "derived from P09",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "P11",
+   "quantity": "H2 flux cross-check at 5 bar feed / 1 bar permeate, 450 degC (two ways)",
+   "value": {
+    "from_P10_n0.5": 0.74,
+    "from_P01_n1_assumed_dP_4bar": 0.6
+   },
+   "unit": "mol m-2 s-1",
+   "conditions": "P10 x (sqrt(5e5) - sqrt(1e5)); P01 x 4e5 Pa. The second uses n = 1 only to give a magnitude check because Cechetto 2021 prints a permeance per Pa; the exponent actually used by the authors was not stated in the text read",
+   "material_or_process": "Pd-Ag, derived comparison",
+   "source_citekey": "richard2024technoeconomic; cechetto2021fpt",
+   "location": "derived",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "P12",
+   "quantity": "H2 flux, 2 um pure Pd on commercial substrate, with ideal H2/N2 above 6000",
+   "value": 210,
+   "unit": "SCFH ft-2 at 20 psig feed",
+   "conditions": "DOE-funded project; further statement that WPI membranes were stable over 6,000 h at 500 degC and 40 bar in natural-gas reforming",
+   "material_or_process": "Pd on Pall AccuSep substrate (pure Pd, not Pd-Ag; reforming, not NH3)",
+   "source_citekey": "doe_osti1460402",
+   "location": "text of search-result excerpt; document too large to open in this workstream",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P13",
+   "quantity": "Ideal H2/N2 separation factor, 2 um Pd on commercial substrate",
+   "value": 6000,
+   "value_qualifier": "greater than",
+   "unit": "-",
+   "conditions": "see P12",
+   "material_or_process": "Pd on porous substrate",
+   "source_citekey": "doe_osti1460402",
+   "location": "excerpt, see P12",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P14",
+   "quantity": "Membrane operating time without failure in natural-gas reforming",
+   "value": 6000,
+   "value_qualifier": "greater than",
+   "unit": "h",
+   "conditions": "500 degC, 40 bar, natural-gas reforming (not ammonia)",
+   "material_or_process": "WPI Pd-based composite membranes",
+   "source_citekey": "doe_osti1460402",
+   "location": "excerpt, see P12",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P15",
+   "quantity": "Time dependence of ideal H2/N2 selectivity in membrane reformers (about 1000 h tests)",
+   "value": {
+    "example_1": "6000 to 4300",
+    "example_2": "4300 to 1000"
+   },
+   "unit": "-",
+   "conditions": "a 2019 review table, causes given as pinholes and sintering; ammonia not specified",
+   "material_or_process": "Pd/Al2O3 membranes in membrane reformers",
+   "source_citekey": "unverified_review_table_2019",
+   "location": "search-result excerpt only; table and its primary sources NOT opened",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened); DO NOT USE as a sourced number until the table is read",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P16",
+   "quantity": "NH3 effect on H2 flux of a 10 um Pd77Ag23 membrane",
+   "value": {
+    "at_450C_200_to_500ppm_NH3": "no inhibition",
+    "at_lower_T_200ppm": "inhibition",
+    "largest_reported_loss": "about 36 % after 20 h at 300 degC (secondary excerpt)",
+    "recovery": "flux returned to original on heating back to 450 degC"
+   },
+   "unit": "qualitative / percent",
+   "conditions": "10-500 ppm NH3, 300-450 degC; trace NH3 only, not the 1 % or more of NH3 in a cracker effluent",
+   "material_or_process": "Pd77Ag23 10 um",
+   "source_citekey": "peters2016fpt",
+   "location": "abstract (via search-result excerpt; page not opened)",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P17",
+   "quantity": "Embrittlement and temperature window of Pd membranes",
+   "value": {
+    "embrittlement_below": "300 degC and 2 MPa (pure Pd)",
+    "defect_formation_above": "500-550 degC",
+    "recommended_max_in_membrane_reactor": "500 degC"
+   },
+   "unit": "degC, MPa",
+   "conditions": "review statements",
+   "material_or_process": "Pd and Pd alloys",
+   "source_citekey": "cechetto2023membrane",
+   "location": "Secs. 4.1.1, 4.3.1, p. 10 (via library note and PMC page)",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured short-term"
+  },
+  {
+   "id": "P18",
+   "quantity": "Ammogen (H2SITE) Pd-Ag membrane reactor, operating hours, whole system",
+   "value": 2068,
+   "unit": "h (test and operational)",
+   "conditions": "375-450 degC, 2-8 barg, started 24/7 operation 27 June 2024",
+   "material_or_process": "H2SITE membrane reactor, 200 kg/day design, Tyseley Energy Park",
+   "source_citekey": "ammogen2025",
+   "location": "Executive summary and Sec. 3 (p. 7 and p. 36 of report)",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P19",
+   "quantity": "Ammogen hydrogen produced in total",
+   "value": 5289,
+   "unit": "kg H2",
+   "conditions": "as P18",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "ammogen2025",
+   "location": "Executive summary",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P20",
+   "quantity": "Ammogen average H2 rate (derived)",
+   "value": {
+    "kg_per_h": 2.56,
+    "kg_per_day": 61
+   },
+   "unit": "kg/h; kg/day",
+   "conditions": "5289 kg / 2068 h; includes start-up and test periods, so not a steady-state rate. Target was 200 kg/day, not achieved",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "ammogen2025",
+   "location": "derived from P18, P19",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P21",
+   "quantity": "Ammogen minimum measured H2 purity and NH3 conversion",
+   "value": {
+    "min_purity_percent": 99.98,
+    "ammonia_conversion_percent": "always above 99.5"
+   },
+   "unit": "% vol",
+   "conditions": "as P18",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "ammogen2025",
+   "location": "Executive summary; Sec. 4.1",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "measured long-term"
+  },
+  {
+   "id": "P22",
+   "quantity": "Ammogen H2 recovery factor",
+   "value": null,
+   "unit": "%",
+   "conditions": "KPI >97 % (adapted from >82 % with burner); reported as 'not achieved'; no achieved number given in the pages read",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "ammogen2025",
+   "location": "KPI table (Objective 3)",
+   "verbatim_or_derived": "verbatim (target only)",
+   "evidence_grade": "target"
+  },
+  {
+   "id": "P23",
+   "quantity": "Ammogen expected commercial levelised cost of cracking, excluding NH3",
+   "value": {
+    "low_GBP_per_kg": 1.0,
+    "high_GBP_per_kg": 1.5
+   },
+   "unit": "GBP/kg H2",
+   "conditions": "expected for commercial-scale crackers; the project's own LCOH target of 2.54 GBP/kg was not achieved",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "ammogen2025",
+   "location": "Sec. 4.1",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "P24",
+   "quantity": "H2SITE earlier demonstration (Eindhoven/Tecnalia): H2 recovery, purity, hours",
+   "value": {
+    "recovery_percent": "more than 86",
+    "min_purity_percent": 99.998,
+    "hours": "more than 600"
+   },
+   "unit": "%; h",
+   "conditions": "Pd-Ag with silver on porous support, patented double-skin, 2009 demonstration per the article (the 2021 paper above reports 600 h)",
+   "material_or_process": "H2SITE / Eindhoven membrane reactor",
+   "source_citekey": "aea_h2site2024",
+   "location": "article text",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "P25",
+   "quantity": "H2SITE operating temperature and pressure rating",
+   "value": {
+    "temperature_degC": "425-450",
+    "membrane_dP_rating_bar": 100
+   },
+   "unit": "degC; bar",
+   "conditions": "company statement",
+   "material_or_process": "H2SITE membrane reactor",
+   "source_citekey": "aea_h2site2024",
+   "location": "article text",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "P26",
+   "quantity": "CSIRO vanadium-core membrane: scale of demonstrations",
+   "value": {
+    "2018_proof_of_concept_kg_per_day": 5,
+    "2022_pilot_kg_per_day": 40,
+    "next_pilot_kg_per_day": "200 (two 100 kg/day modules, Siemens Energy-led, commissioning end-2023/early-2024)"
+   },
+   "unit": "kg H2/day",
+   "conditions": "membrane tube about 9.5 mm diameter, 0.25 mm thick, up to 1,100 mm long, self-supporting V or V-alloy core with Pd catalyst layers; operating about 300-350 degC. NOT a supported thin-film Pd-Ag membrane",
+   "material_or_process": "CSIRO metal membrane technology",
+   "source_citekey": "wong2023csiro",
+   "location": "slides 4, 5, 7, 17, 18",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "M01",
+   "quantity": "Membrane cost, literature range, Pd-based supported membrane",
+   "value": {
+    "low": 5000,
+    "high": 15000
+   },
+   "unit": "USD/m2",
+   "conditions": "stated as 'reported between 5000 and 15000 USD/m2'; support layers dominate; price year not stated by the citing paper (cites refs from 2005 to 2021); used in the model: 10,000 USD/m2",
+   "material_or_process": "Pd-based membrane for membrane reactors",
+   "source_citekey": "sweeney2023",
+   "location": "Sec. 1 and Table 2",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "M02",
+   "quantity": "Membrane cost, future projection",
+   "value": {
+    "low": 1000,
+    "high": 5000
+   },
+   "unit": "USD/m2",
+   "conditions": "'expected to approach'; no year; citing a 2012 DOE plan and a 2015 review",
+   "material_or_process": "Pd-based membrane",
+   "source_citekey": "sweeney2023",
+   "location": "Sec. 1",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "target"
+  },
+  {
+   "id": "M03",
+   "quantity": "Membrane cost, ceramic-supported Pd-Ag, derived from reactor totals",
+   "value": 6800,
+   "unit": "EUR/m2",
+   "conditions": "Table 11 total membrane cost 22.8-37.4 kEUR divided by Table 7 areas 3.36-5.50 m2 gives 6.8 kEUR/m2 for both ceramic cases; cost data from the FERRET project report (2017)",
+   "material_or_process": "Pd-Ag 5 um on ceramic",
+   "source_citekey": "dimarcoberardino2019",
+   "location": "Tables 7 and 11 (derived)",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "M04",
+   "quantity": "Membrane cost, stainless-steel-supported Pd-Ag, derived from reactor totals",
+   "value": {
+    "low": 9300,
+    "high": 11200
+   },
+   "unit": "EUR/m2",
+   "conditions": "26.0-28.6 kEUR over 2.80 and 2.55 m2 (Table 7 cases 3 and 4); the paper itself notes an inconsistency in quoted areas",
+   "material_or_process": "Pd-Ag 5 um on stainless steel",
+   "source_citekey": "dimarcoberardino2019",
+   "location": "Tables 7 and 11 (derived)",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "M05",
+   "quantity": "Membrane cost used in AmCraX Phase 1",
+   "value": 6000,
+   "unit": "EUR/m2",
+   "conditions": "3-year life; Table 5 recovery factor 0.5 versus 0.8 in the text (inconsistent); price year not stated",
+   "material_or_process": "Pd membrane",
+   "source_citekey": "richard2024technoeconomic",
+   "location": "Table 5 / p. 9 (library note)",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "M06",
+   "quantity": "Membrane cost target for supported Pd-alloy membrane (patent)",
+   "value": 500,
+   "value_qualifier": "less than",
+   "unit": "USD/m2",
+   "conditions": "patent goal, support structure dominates cost",
+   "material_or_process": "supported Pd alloy",
+   "source_citekey": "us8177890patent",
+   "location": "search-result excerpt only; patent not opened",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "target"
+  },
+  {
+   "id": "L01",
+   "quantity": "Membrane lifetime, literature estimate",
+   "value": {
+    "low": 2,
+    "high": 3
+   },
+   "unit": "years",
+   "conditions": "'can be estimated to be about 2-3 years'",
+   "material_or_process": "Pd membranes in membrane reactors",
+   "source_citekey": "sweeney2023",
+   "location": "Sec. 1",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "L02",
+   "quantity": "Membrane lifetime, model assumption",
+   "value": 3,
+   "unit": "years",
+   "conditions": "base case; break-even membrane cost 25,000 / 32,000 / 35,000 USD/m2 at 1 / 2 / 3 years",
+   "material_or_process": "Pd membrane",
+   "source_citekey": "sweeney2023",
+   "location": "Sec. 2.3, Table 9",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "L03",
+   "quantity": "Membrane lifetime, model assumption",
+   "value": 5,
+   "unit": "years",
+   "conditions": "replacement cost 360 EUR/m2/y (ceramic) and 2040 EUR/m2/y (steel)",
+   "material_or_process": "Pd-Ag fluidised-bed membrane reactor",
+   "source_citekey": "dimarcoberardino2019",
+   "location": "Table 10",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "L04",
+   "quantity": "DOE membrane durability target",
+   "value": 5,
+   "value_qualifier": "greater than",
+   "unit": "years",
+   "conditions": "2015 target, with flux 300 SCFH/ft2 at 20 psi, 400 degC (target table in excerpt)",
+   "material_or_process": "H2 separation membranes",
+   "source_citekey": "doe_h2_separation_rpt",
+   "location": "search-result excerpt only; table not opened",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "target"
+  },
+  {
+   "id": "S01",
+   "quantity": "PSA H2 recovery versus purity, ammonia-plant purge gas, 4-column PSA, 5A zeolite",
+   "value": {
+    "purity_99.25_percent": 75.3,
+    "purity_99.97_percent": 55.5
+   },
+   "unit": "% recovery",
+   "conditions": "9 bar; feed 58 % H2, 25 % N2, 15 % CH4, 2 % Ar (NOT cracked ammonia: no NH3, 58 % not 75 % H2); breakthrough tests plus Aspen Adsorption",
+   "material_or_process": "PSA, 5A",
+   "source_citekey": "yanez2020",
+   "location": "abstract (repository page)",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S02",
+   "quantity": "PSA H2 recovery at 99.9 % purity (interpolated)",
+   "value": 57.4,
+   "unit": "% recovery",
+   "conditions": "linear interpolation between the two S01 points; different feed composition; a single source",
+   "material_or_process": "PSA, 5A",
+   "source_citekey": "yanez2020",
+   "location": "derived from S01",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S03",
+   "quantity": "PSA H2 recovery and purity used in Cho 2026 (from Yanez 2020 as cited there)",
+   "value": {
+    "recovery_percent": 75.6,
+    "purity_mol_percent": 99.11
+   },
+   "unit": "% ; mol %",
+   "conditions": "zeolite 5A, 4 beds, black-box model",
+   "material_or_process": "PSA on cracked ammonia (model input)",
+   "source_citekey": "cho2026nickel",
+   "location": "library note (PSA section)",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S04",
+   "quantity": "PSA H2 recovery at 99 mol % purity, cracked-ammonia Aspen model",
+   "value": 71,
+   "unit": "% recovery",
+   "conditions": "activated carbon, 2.5 bar, 20 degC (Cha et al. 2021, as quoted by Hansen 2024)",
+   "material_or_process": "PSA on cracked ammonia",
+   "source_citekey": "hansen2024hysys",
+   "location": "library note (literature section)",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S05",
+   "quantity": "PSA H2 recovery fixed in an induction-heated cracker study",
+   "value": 79,
+   "unit": "% recovery",
+   "conditions": "assumed, not computed (Lee et al. 2023 as quoted by Hansen 2024)",
+   "material_or_process": "PSA on cracked ammonia",
+   "source_citekey": "hansen2024hysys",
+   "location": "library note",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S06",
+   "quantity": "PSA purity and recovery, 2-bed 4-step, 5A, 1000 t/d NH3 plant model",
+   "value": {
+    "purity_mol_percent": 99.96,
+    "recovery_percent": 81
+   },
+   "unit": "% ",
+   "conditions": "internally inconsistent paper: also 99.81 % at about 25 % recovery (validation), outlet 99.9 % at 21 bar, 99.81 % at 1 bar, 99.97 % at 20 bar; PSA feed stated 231 kmol/h cannot match 5,726 kg/h H2",
+   "material_or_process": "PSA on cracked ammonia",
+   "source_citekey": "mehr2026highcapacity",
+   "location": "p. 5, Table 6 p. 8 (library note)",
+   "verbatim_or_derived": "verbatim (library)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S07",
+   "quantity": "PSA design optimum for cracked ammonia (Abdoos 2025)",
+   "value": null,
+   "unit": "-",
+   "conditions": "A search-result summary quoted about 99.99 % purity, about 77 % recovery, about 5.2 MJ/kg H2 and, for a four-layer bed at 35 bar, 99.97 % and 79 %. These numbers could NOT be confirmed: the publisher abstract and full text were not reachable (403) and the Crossref/Semantic Scholar records carry no abstract. They are NOT entered as values.",
+   "material_or_process": "PSA on cracked ammonia",
+   "source_citekey": "abdoos2025psa",
+   "location": "not read",
+   "verbatim_or_derived": "unverified",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S08",
+   "quantity": "PSA specific energy / power",
+   "value": null,
+   "unit": "kWh/kg H2",
+   "conditions": "No peer-reviewed, verified PSA-only specific power for cracked ammonia was obtained. Candidates, all NOT entered: Mehr 2026 overall plant SEC 1.12 kWh/kg at 100 % load (the same paper elsewhere gives 7.5 and 13.6 kWh/kg for the compressor, so it is inconsistent); Abdoos 2025 about 5.2 MJ/kg = 1.44 kWh/kg (unverified, see S07). AmCraX Phase 1 computed 0.22 kWh/kg (30 bar) to 1.59 kWh/kg (350 bar) for product compression, which is an AmCraX calculation, not a sourced PSA power.",
+   "material_or_process": "PSA",
+   "source_citekey": "mehr2026highcapacity",
+   "location": "library note",
+   "verbatim_or_derived": "verbatim (library, inconsistent)",
+   "evidence_grade": "modelled"
+  },
+  {
+   "id": "S09",
+   "quantity": "Commercial PSA reference for cracked ammonia (Air Products design, Rotterdam)",
+   "value": 99.97,
+   "unit": "mol % H2 after PSA",
+   "conditions": "design of a planned facility; tail-gas compressor recycles part of the PSA tail gas to raise recovery; no recovery figure",
+   "material_or_process": "PSA on cracked ammonia",
+   "source_citekey": "mer_airproducts_rotterdam",
+   "location": "search-result excerpt of a Dutch permitting note; document not opened",
+   "verbatim_or_derived": "verbatim (secondary excerpt, primary not opened)",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "S10",
+   "quantity": "PSA maturity statement",
+   "value": "mature and readily available for ISO 14687:2019 PEM grade (99.97 mol % H2)",
+   "unit": "-",
+   "conditions": "also: NH3 removal upstream by water wash column (Air Liquide process description) or adsorbent beds; no recovery or power figures",
+   "material_or_process": "PSA, wash column",
+   "source_citekey": "aea_industrial_demo; airliquide_cracking",
+   "location": "article text; process description page",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "S11",
+   "quantity": "Largest operating ammonia cracker found",
+   "value": 2400,
+   "unit": "t NH3/day (426 t H2/day)",
+   "conditions": "Topsoe Arroyito heavy-water plant, 120-150 bar, over 100,000 h on one catalyst loading; no hydrogen purification (heavy water use). Not a fuel-cell-grade plant",
+   "material_or_process": "fired cracker",
+   "source_citekey": "aea_industrial_demo",
+   "location": "article text",
+   "verbatim_or_derived": "verbatim",
+   "evidence_grade": "vendor claim"
+  },
+  {
+   "id": "ISO1",
+   "quantity": "Required ideal H2/N2 selectivity in Phase 1 membrane case for 300 ppm N2",
+   "value": 12919,
+   "unit": "-",
+   "conditions": "AmCraX result (results/research/purification); not a literature value",
+   "material_or_process": "Pd-Ag, Sieverts, finite-selectivity model",
+   "source_citekey": "amcrax_phase1_purification",
+   "location": "results/research/purification",
+   "verbatim_or_derived": "derived",
+   "evidence_grade": "modelled"
+  }
+ ],
+ "ranges": {
+  "_note": "low / central / high are drawn only from sourced entries; 'basis' names the entry ids. A null means the evidence is missing. Different units or bases are not mixed.",
+  "pd_ag_h2_permeance_400_500C": {
+   "unit": "mol m-2 s-1 Pa-1 (single gas, permeate at atmospheric pressure; exponent not stated)",
+   "low": 1.5e-06,
+   "central": null,
+   "high": null,
+   "basis": "low = P01 (a lower bound, measured, 450 degC, 4.61 um). No central or high measured value in the same units was found. A modelled alternative on a Sieverts basis is P10: 1.89e-3 mol m-2 s-1 Pa-0.5 at 450 degC (5.2 um, Richard fit). Flux cross-check P11 gives 0.60 to 0.74 mol m-2 s-1 at 5 bar feed / 1 bar permeate, so the two bases agree in magnitude."
+  },
+  "ideal_h2_n2_selectivity": {
+   "unit": "-",
+   "low": 6000,
+   "central": 400000,
+   "high": 500000,
+   "phase2_d2_correction": "Cechetto's own printed permeances give 40,500 for the double-sealed membrane (P03, printed 3.7e-11), not 400,000 as stated in the same paragraph. The Phase 2 comparison (results/research/purification/phase2_comparison.json) uses low 40,500 (derived from printed values), central 400,000 (stated), high 500,000 (stated, dead end); 6000 (secondary excerpt) is a stress value only. Requirement for Grade D: 12,919 (R 0.90, 1 bar permeate, 400 degC); every sourced value is above it, the printed-value low by a factor of about 3.1, not 30.",
+   "basis": "low = P13 (greater than 6000, 2 um Pd, secondary excerpt); central = P05 (greater than 400,000, double sealed, 450 degC); high = P04 (greater than 500,000, dead-end). All are single-gas ideal values on NEW membranes; all are lower bounds ('greater than'). Mixed-gas selectivity and its change with time: not found as numbers in verified sources; the only time-dependence numbers (P15, 6000 to 4300 and 4300 to 1000 in about 1000 h) come from an unopened review table and are not used. Indirect mixed-gas evidence: purity 99.995 % (P07) and Ammogen minimum 99.98 % (P21).",
+   "vs_phase1_requirement": "The Phase 1 membrane case required at least 12,919 (300 ppm N2). Cechetto 2021 reports ideal selectivity above 400,000 at 450 degC on a new membrane, which exceeds it by a factor of about 30, but this is a new-membrane single-gas value from one group. Ageing, sealing leaks and the mixed-gas case are not covered, so the requirement is supported by one measured source, conditionally."
+  },
+  "membrane_lifetime": {
+   "unit": "years (assumed in techno-economic papers)",
+   "low": 2,
+   "central": 3,
+   "high": 5,
+   "basis": "low = L01 lower end; central = L02 (also Richard 2024 in AmCraX Phase 1); high = L03 and the DOE target L04. These are assumptions or targets. Measured: about 600 h (P06, lab, NH3), 2068 h on a system (P18, Ammogen, not per membrane), over 6000 h (P14, Pd in natural-gas reforming, secondary excerpt). No source gives a measured degradation rate or a replacement interval for a Pd-Ag membrane in cracked ammonia beyond about 2000 h."
+  },
+  "membrane_cost_per_m2": {
+   "unit": "per m2 of membrane (currency as stated)",
+   "low": {
+    "value": 6800,
+    "unit": "EUR/m2",
+    "entry": "M03 (derived, ceramic support, cost data 2017)"
+   },
+   "central": {
+    "value": 10000,
+    "unit": "USD/m2",
+    "entry": "M01 (model value, midpoint of the 5000-15000 literature range)"
+   },
+   "high": {
+    "value": 15000,
+    "unit": "USD/m2",
+    "entry": "M01 upper end"
+   },
+   "basis": "No source gives a supplier quotation with year. The values are literature or model values; the Phase 1 value of 6000 EUR/m2 (M05) sits just below the low end. A currency conversion to USD or SGD is not applied here (no exchange rate in this file); the orchestrator should use the single sourced rate from the reference scenario. Projections 1000-5000 USD/m2 (M02) and a patent target below 500 USD/m2 (M06) are targets, not prices."
+  },
+  "psa_recovery_at_99_9_percent_purity": {
+   "unit": "% of H2 in feed",
+   "low": 57.4,
+   "central": null,
+   "high": null,
+   "basis": "low = S02 (derived interpolation of Yanez 2020; ammonia-plant purge gas feed, not cracked ammonia). No source gives a recovery at 99.9 % for cracked ammonia. Neighbouring points: 71 % at 99 % (S04), 75.3 % at 99.25 % (S01), 75.6 % at 99.11 % (S03)."
+  },
+  "psa_recovery_at_grade_d_purity": {
+   "unit": "% of H2 in feed (Grade D = 99.97 % H2 index)",
+   "low": 55.5,
+   "central": null,
+   "high": 81,
+   "basis": "low = S01 (99.97 %, purge-gas feed); high = S06 (99.96 %, modelled, internally inconsistent paper, LOW confidence). Central: none. The Phase 1 assumption of 0.85 recovery and the Phase 1 bounds 0.71 and 0.751 are not supported by a source at Grade D purity. NH3 must be removed upstream to 0.1 ppm; no source gives a measured NH3 value after a PSA/TSA train on cracked ammonia."
+  },
+  "psa_specific_power": {
+   "unit": "kWh/kg H2",
+   "low": null,
+   "central": null,
+   "high": null,
+   "basis": "Evidence missing (see S08). Candidates exist but are inconsistent or unverified."
+  }
+ }
+}

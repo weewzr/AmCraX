@@ -1,0 +1,564 @@
+{
+ "mapping": {
+  "actual_sg": "carbonCost mode 'actual'",
+  "factors": "m.carbon.accounting: ship_ef_kg_per_tkm, distance_km, electricity[grid], natural_gas_kg_per_TJ, fired_heater_efficiency_lhv, electric_heater_efficiency",
+  "hypothetical_lca": "carbonCost mode 'hypothetical'"
+ },
+ "n_vectors": 18,
+ "provenance": {
+  "hypothetical_warning": "Every quantity under mode 'hypothetical_lca' is a HYPOTHETICAL life-cycle carbon price, not Singapore law.",
+  "inputs_summary": "inputs and outputs of the Python functions for a TypeScript port check (frontend/src/sim/carbon.ts)",
+  "model_versions": {
+   "carbon_intensity": "carbon.ts-equivalent simplified accounting, gate factors amcrax.environmental.lca.route_spec",
+   "carbon_pricing": "amcrax.economics.carbon_pricing/1",
+   "economics": "amcrax.economics.singapore (reference scenario, default output unchanged)"
+  },
+  "reference_scenario": {
+   "capex_method": "cho2026_itemised_v1",
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "id": "amcrax_reference_2026_11_23",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0"
+  },
+  "script": "scripts/research/carbon_pricing_run.py",
+  "source_type": "python"
+ },
+ "schema": "amcrax.simulator/1",
+ "source_file": "results/research/carbon_pricing/test_vectors.json",
+ "tolerance_relative": 1e-09,
+ "vectors": [
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 0.002948486171406863,
+     "external_heat": 1.5784242519519822,
+     "transport": 0.37156104883278024,
+     "upstream_ammonia": 17.56470412664052
+    },
+    "heating": "self_firing",
+    "nh3_fuel_kg_h": 149.57178237478067,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 19.51763791359669
+   },
+   "function": "carbonIntensity",
+   "id": "CI01",
+   "inputs": {
+    "distance_km": 5000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "self_firing",
+    "nh3_ef_kg_per_kg": 2.6,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.7223297424187036,
+     "transport": 0.37156104883278024,
+     "upstream_ammonia": 7.836560302655001
+    },
+    "heating": "self_firing",
+    "nh3_fuel_kg_h": 149.57178237478067,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 8.933399580077891
+   },
+   "function": "carbonIntensity",
+   "id": "CI02",
+   "inputs": {
+    "distance_km": 5000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "self_firing",
+    "nh3_ef_kg_per_kg": 1.1600000000000001,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.19631661025959002,
+     "transport": 0.37156104883278024,
+     "upstream_ammonia": 1.8592629996519794
+    },
+    "heating": "self_firing",
+    "nh3_fuel_kg_h": 149.57178237478067,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 2.4300891449157564
+   },
+   "function": "carbonIntensity",
+   "id": "CI03",
+   "inputs": {
+    "distance_km": 5000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "self_firing",
+    "nh3_ef_kg_per_kg": 0.2752157829839704,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.6204115226599174,
+     "transport": 0.37156104883278024,
+     "upstream_ammonia": 17.56470412664052
+    },
+    "heating": "natural_gas",
+    "nh3_fuel_kg_h": 0.0,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 18.559625184304625
+   },
+   "function": "carbonIntensity",
+   "id": "CI04",
+   "inputs": {
+    "distance_km": 5000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "natural_gas",
+    "nh3_ef_kg_per_kg": 2.6,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 1.2378733827315516,
+     "external_heat": 0.0,
+     "transport": 0.37156104883278024,
+     "upstream_ammonia": 17.56470412664052
+    },
+    "heating": "electric",
+    "nh3_fuel_kg_h": 0.0,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 19.174138558204852
+   },
+   "function": "carbonIntensity",
+   "id": "CI05",
+   "inputs": {
+    "distance_km": 5000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "electric",
+    "nh3_ef_kg_per_kg": 2.6,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "breakdown_kgCO2e_per_kgH2": {
+     "electricity": 0.002948486171406863,
+     "external_heat": 0.7681070182756916,
+     "transport": 0.8917465171986725,
+     "upstream_ammonia": 7.836560302655001
+    },
+    "heating": "self_firing",
+    "nh3_fuel_kg_h": 149.57178237478067,
+    "statement": "simplified carbon-intensity accounting, not a life-cycle assessment",
+    "total_kgCO2e_per_kgH2": 9.499362324300773
+   },
+   "function": "carbonIntensity",
+   "id": "CI06",
+   "inputs": {
+    "distance_km": 12000.0,
+    "factors": {
+     "distance_km": 5000.0,
+     "electric_heater_efficiency": 1.0,
+     "fired_heater_efficiency_lhv": 1.0,
+     "grid_kg_per_kWh": 0.402,
+     "natural_gas_kg_per_TJ": 56100.0,
+     "ship_ef_kg_per_tkm": 0.011
+    },
+    "heating": "self_firing",
+    "nh3_ef_kg_per_kg": 1.1600000000000001,
+    "x": {
+     "h2_kg_h": 251.5883050542,
+     "heat_deficit_kW": 772.8673174,
+     "nh3_feed_kg_h": 1699.6439,
+     "pump_kW": 1.84528517
+    }
+   },
+   "python": "carbon_pricing.carbon_intensity_h2"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.0,
+    "USD_per_kg_H2": 0.0,
+    "hypothetical": false,
+    "label_contains": "actual boundary",
+    "lcoh_SGD_per_kg": 5.173696960844288,
+    "lcoh_USD_per_kg": 4.015461254695034,
+    "mode": "actual_sg"
+   },
+   "function": "carbonCost",
+   "id": "CC01",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 19.51763791359669,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 5.173696960844288,
+     "lcoh_USD_per_kg": 4.015461254695034
+    },
+    "evaluate_overrides": {},
+    "mode": "actual_sg",
+    "price_SGD_per_t": 0.0,
+    "route": "grey",
+    "ts_mode": "actual"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.8782937061118511,
+    "USD_per_kg_H2": 0.6816700656853159,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 6.05199066695614,
+    "lcoh_USD_per_kg": 4.69713132038035,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC02",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 19.51763791359669,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 5.173696960844288,
+     "lcoh_USD_per_kg": 4.015461254695034
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 45.0,
+    "route": "grey",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.7146719664062313,
+    "USD_per_kg_H2": 0.5546783301456885,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 6.238769163284904,
+    "lcoh_USD_per_kg": 4.84209570868808,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC03",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 8.933399580077891,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 5.524097196878673,
+     "lcoh_USD_per_kg": 4.287417378542392
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 80.0,
+    "route": "blue",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 1.2150445724578782,
+    "USD_per_kg_H2": 0.943032504678417,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 11.597393690570057,
+    "lcoh_USD_per_kg": 9.00108478953688,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC04",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 2.4300891449157564,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 10.382349118112177,
+     "lcoh_USD_per_kg": 8.058052284858464
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 500.0,
+    "route": "green_current",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.30969055100491094,
+    "USD_per_kg_H2": 0.24036011732361745,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 7.936189164089896,
+    "lcoh_USD_per_kg": 6.159514238950157,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC05",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 2.4300891449157564,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 7.626498613084985,
+     "lcoh_USD_per_kg": 5.91915412162654
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 127.43999603999998,
+    "route": "green_2030",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.0,
+    "USD_per_kg_H2": 0.0,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 5.173696960844288,
+    "lcoh_USD_per_kg": 4.015461254695034,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC06",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 19.51763791359669,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 5.173696960844288,
+     "lcoh_USD_per_kg": 4.015461254695034
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 0.0,
+    "route": "grey",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.027918518519696282,
+    "USD_per_kg_H2": 0.021668398874686277,
+    "hypothetical": false,
+    "label_contains": "actual boundary",
+    "lcoh_SGD_per_kg": 4.917476648883493,
+    "lcoh_USD_per_kg": 3.8166009922693527,
+    "mode": "actual_sg"
+   },
+   "function": "carbonCost",
+   "id": "CC07",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 18.559625184304625,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.021668398874686277
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 4.917476648883493,
+     "lcoh_USD_per_kg": 3.8166009922693527
+    },
+    "evaluate_overrides": {
+     "apply_threshold": false,
+     "heat_fuel": "natural_gas"
+    },
+    "mode": "actual_sg",
+    "price_SGD_per_t": 0.0,
+    "route": "grey",
+    "ts_mode": "actual"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 1.8559625184304624,
+    "USD_per_kg_H2": 1.4404681293331045,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 6.74552064879426,
+    "lcoh_USD_per_kg": 5.235400722727771,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC08",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 18.559625184304625,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.021668398874686277
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 4.917476648883493,
+     "lcoh_USD_per_kg": 3.8166009922693527
+    },
+    "evaluate_overrides": {
+     "apply_threshold": false,
+     "heat_fuel": "natural_gas"
+    },
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 100.0,
+    "route": "grey",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": {
+    "SGD_per_kg_H2": 0.6075222862289391,
+    "USD_per_kg_H2": 0.4715162523392085,
+    "hypothetical": true,
+    "label_contains": "HYPOTHETICAL",
+    "lcoh_SGD_per_kg": 5.904332843517742,
+    "lcoh_USD_per_kg": 4.582529658656288,
+    "mode": "hypothetical_lca"
+   },
+   "function": "carbonCost",
+   "id": "CC09",
+   "inputs": {
+    "ci_total_kgCO2e_per_kgH2": 2.4300891449157564,
+    "econ": {
+     "breakdown_USD_per_kg": {
+      "carbon_tax": 0.0
+     },
+     "fx_SGD_per_USD": 1.288444,
+     "lcoh_SGD_per_kg": 5.2968105572888025,
+     "lcoh_USD_per_kg": 4.111013406317079
+    },
+    "evaluate_overrides": {},
+    "mode": "hypothetical_lca",
+    "price_SGD_per_t": 250.0,
+    "route": "green_2050",
+    "ts_mode": "hypothetical"
+   },
+   "python": "carbon_pricing.carbon_cost"
+  },
+  {
+   "expected": 33.10585277777772,
+   "function": "crossoverPrice",
+   "id": "XO01",
+   "inputs": {
+    "ci_a": 8.933399580077891,
+    "ci_b": 19.51763791359669,
+    "fx": 1.288444,
+    "lcoh_a": 4.287417378542392,
+    "lcoh_b": 4.015461254695034
+   },
+   "python": "carbon_pricing.crossover_price"
+  },
+  {
+   "expected": 304.8214947491249,
+   "function": "crossoverPrice",
+   "id": "XO02",
+   "inputs": {
+    "ci_a": 2.4300891449157564,
+    "ci_b": 19.51763791359669,
+    "fx": 1.288444,
+    "lcoh_a": 8.058052284858464,
+    "lcoh_b": 4.015461254695034
+   },
+   "python": "carbon_pricing.crossover_price"
+  },
+  {
+   "expected": 143.5432129818606,
+   "function": "crossoverPrice",
+   "id": "XO03",
+   "inputs": {
+    "ci_a": 2.4300891449157564,
+    "ci_b": 19.51763791359669,
+    "fx": 1.288444,
+    "lcoh_a": 5.91915412162654,
+    "lcoh_b": 4.015461254695034
+   },
+   "python": "carbon_pricing.crossover_price"
+  }
+ ]
+}

@@ -3,7 +3,7 @@
  * and export. Every number in an output row comes from the browser simulation core (src/sim); this file only selects,
  * labels and formats. Where the core gives no value, the row value is null and the page shows "not modelled".
  */
-import { inletOutletRate, inputRanges, lhvEfficiency, simulate, ROUTE_PRICE_SCENARIO, type NH3Route, type SimData, type SimInputs, type SimOutputs, type SourceLabel } from '../sim'
+import { inletOutletRate, inputRanges, lhvEfficiency, simulate, ROUTE_PRICE_SCENARIO, type NH3Route, type SimData, type SimInputs, type SimOutputs, type SourceLabel, type CatalystPriceSource, type CostKey } from '../sim'
 
 export type ReactorMode = 'equilibrium' | 'isothermal' | 'adiabatic' | 'duty'
 export type Purification = 'psa' | 'membrane'
@@ -27,6 +27,8 @@ export interface SimState {
   nh3_price_USD_per_t: number | null
   carbon_mode: CarbonMode
   carbon_price_SGD_per_t: number
+  /** catalyst price of the economics (kinetic modes): metal-content derived scenario or the Phase 1 published TEA price */
+  catalyst_price_source: CatalystPriceSource
   /** id of the preset the state was loaded from; cleared by any edit */
   preset: string | null
 }
@@ -57,33 +59,75 @@ export function baselineState(d: SimData): SimState {
     nh3_price_USD_per_t: null,
     carbon_mode: 'actual',
     carbon_price_SGD_per_t: d.model.economics.carbon_tax.rate_2026_SGD_per_tCO2e,
+    catalyst_price_source: d.model.economics.catalyst_prices.default_level,
     preset: 'baseline',
   }
 }
 
-export interface Preset { id: string; label: string; caseId: string; kind: string; patch: Partial<SimState> }
+export interface Preset { id: string; label: string; caseId: string; kind: string; patch: Partial<SimState>; /** one sentence: what the stored case is and why it exists */ about: string }
 
 /**
  * Presets that reproduce stored Aspen Plus V15 cases exactly (inputs copied from aspen_anchors.json), so that the page
  * shows Aspen values. Each preset is checked against the data (presetMatches) before it is offered.
  */
 export const PRESETS: Preset[] = [
-  { id: 'baseline', label: 'Aspen baseline, equilibrium cracker 600 degC, 20 bar', caseId: 'baseline', kind: 'Aspen core flowsheet', patch: {} },
-  { id: 'baseline_no_hi', label: 'Baseline without heat recovery', caseId: 'baseline_no_hi', kind: 'Aspen core flowsheet', patch: { heat_integration: false } },
-  { id: 'scn_low_temperature', label: 'Equilibrium cracker at 500 degC', caseId: 'scn_low_temperature', kind: 'Aspen core flowsheet', patch: { T_C: 500 } },
-  { id: 'scn_high_temperature', label: 'Equilibrium cracker at 700 degC', caseId: 'scn_high_temperature', kind: 'Aspen core flowsheet', patch: { T_C: 700 } },
-  { id: 'scn_low_pressure', label: 'Equilibrium cracker at 5 bar', caseId: 'scn_low_pressure', kind: 'Aspen core flowsheet', patch: { P_bar: 5 } },
-  { id: 'ci_kum_T499_P20_W100_hi', label: 'Ru/Al2O3 kinetic cracker, 499 degC, integrated', caseId: 'ci_kum_T499_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
-    patch: { reactor: 'isothermal', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 499, P_bar: 20, W_kg: 100 } },
-  { id: 'ci_tni_T594_P20_W100_hi', label: 'Ni/MgO kinetic cracker, 594 degC, integrated', caseId: 'ci_tni_T594_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
-    patch: { reactor: 'isothermal', catalyst_id: 'ni_takahashi_microkinetic', T_C: 594, P_bar: 20, W_kg: 100 } },
-  { id: 'ci_luc5_T572_P20_W100_hi', label: '5Ni1Ru/CeO2 kinetic cracker, 572 degC, integrated', caseId: 'ci_luc5_T572_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
-    patch: { reactor: 'isothermal', catalyst_id: 'nire_ceo2_5ni1ru_lucentini_lhhw', T_C: 572, P_bar: 20, W_kg: 100 } },
-  { id: 'cv_kum_03_T450_P10_W200', label: 'Ru/Al2O3 inside its fitted range, 450 degC, 10 bar', caseId: 'cv_kum_03_T450_P10_W200', kind: 'Aspen RPlug, reactor only',
-    patch: { reactor: 'isothermal', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 450, P_bar: 10, W_kg: 200 } },
-  { id: 'cs_AD_kum_Tin650_P20_W100', label: 'Ru/Al2O3 adiabatic bed, inlet 650 degC', caseId: 'cs_AD_kum_Tin650_P20_W100', kind: 'Aspen RPlug, reactor only',
-    patch: { reactor: 'adiabatic', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 650, P_bar: 20, W_kg: 100 } },
+  { id: 'baseline', label: 'Aspen baseline, 600 degC, 20 bar', caseId: 'baseline', kind: 'Aspen core flowsheet', patch: {},
+    about: 'The reference flowsheet: equilibrium (RGibbs) cracker at 600 degC and 20 bar with heat recovery and PSA at 85 % recovery; every cost comparison starts here.' },
+  { id: 'baseline_no_hi', label: 'Baseline without heat recovery', caseId: 'baseline_no_hi', kind: 'Aspen core flowsheet', patch: { heat_integration: false },
+    about: 'The baseline with the feed-effluent exchanger bypassed, stored to show what heat integration is worth.' },
+  { id: 'scn_low_temperature', label: 'Equilibrium cracker, 500 degC', caseId: 'scn_low_temperature', kind: 'Aspen core flowsheet', patch: { T_C: 500 },
+    about: 'The baseline at 500 degC, stored to show the lower equilibrium conversion at a lower temperature.' },
+  { id: 'scn_high_temperature', label: 'Equilibrium cracker, 700 degC', caseId: 'scn_high_temperature', kind: 'Aspen core flowsheet', patch: { T_C: 700 },
+    about: 'The baseline at 700 degC, stored to show the conversion gain and the extra heat demand at a higher temperature.' },
+  { id: 'scn_low_pressure', label: 'Equilibrium cracker, 5 bar', caseId: 'scn_low_pressure', kind: 'Aspen core flowsheet', patch: { P_bar: 5 },
+    about: 'The baseline at 5 bar, stored to show the effect of pressure on equilibrium conversion.' },
+  { id: 'ci_kum_T499_P20_W100_hi', label: 'Ru/Al2O3 kinetic, 499 degC', caseId: 'ci_kum_T499_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
+    patch: { reactor: 'isothermal', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 499, P_bar: 20, W_kg: 100 },
+    about: 'An isothermal plug-flow reactor with the Ru/Al2O3 rate law inside the integrated flowsheet, 20 bar, 100 kg catalyst; a low-temperature catalyst case.' },
+  { id: 'ci_tni_T594_P20_W100_hi', label: 'Ni/MgO kinetic, 594 degC', caseId: 'ci_tni_T594_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
+    patch: { reactor: 'isothermal', catalyst_id: 'ni_takahashi_microkinetic', T_C: 594, P_bar: 20, W_kg: 100 },
+    about: 'An isothermal plug-flow reactor with the Ni/MgO rate law inside the integrated flowsheet, 20 bar, 100 kg catalyst; the nickel comparison case.' },
+  { id: 'ci_luc5_T572_P20_W100_hi', label: '5Ni1Ru/CeO2 kinetic, 572 degC', caseId: 'ci_luc5_T572_P20_W100_hi', kind: 'Aspen RPlug, integrated flowsheet',
+    patch: { reactor: 'isothermal', catalyst_id: 'nire_ceo2_5ni1ru_lucentini_lhhw', T_C: 572, P_bar: 20, W_kg: 100 },
+    about: 'An isothermal plug-flow reactor with the 5Ni1Ru/CeO2 rate law inside the integrated flowsheet, 20 bar, 100 kg catalyst; the bimetallic case.' },
+  { id: 'cv_kum_03_T450_P10_W200', label: 'Ru/Al2O3 in its fitted range, 450 degC', caseId: 'cv_kum_03_T450_P10_W200', kind: 'Aspen RPlug, reactor only',
+    patch: { reactor: 'isothermal', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 450, P_bar: 10, W_kg: 200 },
+    about: 'A reactor-only Aspen case at 450 degC and 10 bar with 200 kg catalyst, chosen inside the fitted range of the Ru/Al2O3 rate law (no extrapolation).' },
+  { id: 'cs_AD_kum_Tin650_P20_W100', label: 'Ru/Al2O3 adiabatic, inlet 650 degC', caseId: 'cs_AD_kum_Tin650_P20_W100', kind: 'Aspen RPlug, reactor only',
+    patch: { reactor: 'adiabatic', catalyst_id: 'ru_kum_temkin_pyzhev', T_C: 650, P_bar: 20, W_kg: 100 },
+    about: 'A reactor-only Aspen case with no heat added in the bed, inlet 650 degC: the gas cools as it reacts.' },
 ]
+
+/** Inputs the page holds fixed (C7), read from the exported Python defaults; nothing is hard-coded here. */
+export const FIXED_INPUTS: { key: string; label: string; unit: string }[] = [
+  { key: 'feed_h2o_mole_frac', label: 'Water in the ammonia feed (mole fraction)', unit: '-' },
+  { key: 'psa_feed_temperature_C', label: 'PSA feed temperature', unit: 'degC' },
+  { key: 'psa_n2_slip', label: 'Nitrogen slip to the product (PSA)', unit: '-' },
+  { key: 'stack_temperature_C', label: 'Stack temperature', unit: 'degC' },
+  { key: 'fehe_hot_end_approach_K', label: 'FEHE hot-end approach', unit: 'K' },
+  { key: 'burner_excess_air', label: 'Excess combustion air (fraction)', unit: '-' },
+  { key: 'property_method', label: 'Property method of the Aspen and Python flowsheets', unit: '' },
+]
+
+export function fixedValues(d: SimData): { key: string; label: string; unit: string; value: number | boolean | string }[] {
+  const def = d.model.process.inputs_defaults
+  return FIXED_INPUTS.filter((f) => def[f.key] !== undefined).map((f) => ({ ...f, value: def[f.key] }))
+}
+
+/** Controls the page does not offer, and why (C7). */
+export const WITHHELD: string[] = [
+  'Pd-Ag membrane model: not ported to the browser; a stored Python comparison is shown instead.',
+  'Ammonia feed composition: held at the baseline feed (no composition control).',
+  'Transient operation (start-up, load change): the simulator solves steady states only.',
+  'Catalyst deactivation, radial gradients and the tube wall: not in the one-dimensional plug-flow model.',
+  'Rate laws other than the five exported ones: catalysts without a fitted rate law are not offered.',
+]
+
+/** Export file name: amcrax_sim_<preset|custom>_<yyyymmddThhmm>.<ext> (UTC). */
+export function exportName(preset: string | null, iso: string, ext: 'csv' | 'json'): string {
+  const t = iso.replace(/[-:]/g, '').slice(0, 13)
+  return `amcrax_sim_${(preset ?? 'custom').replace(/[^A-Za-z0-9_]/g, '_')}_${t}.${ext}`
+}
 
 export function presetState(d: SimData, id: string): SimState {
   const p = PRESETS.find((x) => x.id === id)
@@ -130,7 +174,7 @@ export function toSimInputs(s: SimState, n_points = 101): SimInputs {
     pressure_drop: kinetic ? s.pressure_drop : false,
     feed_total_kmol_h: s.feed_total_kmol_h, heat_integration: s.heat_integration, psa_h2_recovery: s.psa_h2_recovery,
     nh3_route: s.nh3_route, ...(s.nh3_price_USD_per_t === null ? {} : { nh3_price_USD_per_t: s.nh3_price_USD_per_t }),
-    carbon_mode: s.carbon_mode, carbon_price_SGD_per_t: s.carbon_price_SGD_per_t, n_points,
+    carbon_mode: s.carbon_mode, carbon_price_SGD_per_t: s.carbon_price_SGD_per_t, catalyst_price_source: s.catalyst_price_source, n_points,
   }
 }
 
@@ -189,14 +233,39 @@ export function outputRows(s: SimState, r: SimOutputs, d: SimData): OutRow[] {
   add('h2_purity', 'Hydrogen purity', '%', 'frac', p?.h2_purity_mole_frac, noProc)
   add('h2_recovery', 'Hydrogen recovery (PSA)', '%', 'frac', mem ? null : { value: s.psa_h2_recovery, source: 'assumption', note: 'assumed input of the reduced-order PSA' }, MEMBRANE_NOTE)
   add('lhv_efficiency', 'Energy efficiency (LHV)', '%', 'frac', mem ? null : lhvEfficiency(d.model, r), noProc)
-  const basis = d.model.economics.basis === 'pre-unification' ? ' (pre-unification basis)' : ` (${d.model.economics.basis} basis)`
+  const basis = ` (${d.model.economics.basis_short})`
+  const e = mem ? null : r.economics
+  const econSrc = e?.label
   add('lcoh_USD', `Hydrogen production cost${basis}`, 'USD/kg H2', 'num', mem ? null : r.economics?.lcoh_USD, noProc)
   add('lcoh_SGD', `Hydrogen production cost${basis}`, 'SGD/kg H2', 'num', mem ? null : r.economics?.lcoh_SGD, noProc)
+  const fx = d.model.fx.SGD_per_USD
+  add('npv_MUSD', `Net present value, ${d.model.economics.economic_assumptions.plant_life_yr} yr at ${(Number(d.model.economics.economic_assumptions.discount_rate) * 100).toFixed(0)} %, H2 sold at ${e?.h2_price_USD_per_kg ?? d.model.economics.h2_selling_price_USD_per_kg} USD/kg (pre-tax)`,
+    'million USD', 'num', e && econSrc ? { value: e.npv_USD / 1e6, source: econSrc, note: `${(e.npv_USD * fx / 1e6).toFixed(2)} million SGD; constant prices, no depreciation, no working capital` } : null, noProc)
+  add('payback_yr', 'Simple payback (capital cost / annual net cash flow)', 'yr', 'num', e && econSrc && e.payback_yr !== null ? { value: e.payback_yr, source: econSrc } : null,
+    e && e.payback_yr === null ? 'not reached: annual revenue does not cover the operating cost at the assumed hydrogen price' : noProc)
+  add('capex_MUSD', `Capital cost (${d.model.economics.capex_reference.method}, ${d.model.economics.capex_reference.cost_year} USD)`, 'million USD', 'num',
+    e && econSrc ? { value: e.capex_total_USD / 1e6, source: econSrc, note: `${(e.capex_total_USD * fx / 1e6).toFixed(2)} million SGD` } : null, noProc)
   add('carbon_intensity', 'Carbon intensity (life cycle)', 'kg CO2e/kg H2', 'num',
     mem || !r.carbon ? null : { value: r.carbon.intensity.total_kgCO2e_per_kgH2, source: r.carbon.label }, noProc)
   add('carbon_cost', s.carbon_mode === 'hypothetical' ? 'Carbon cost (HYPOTHETICAL price, not Singapore law)' : 'Carbon cost (actual Singapore carbon tax)', 'SGD/kg H2', 'num',
     mem || !r.carbon ? null : { value: r.carbon.cost.SGD_per_kg_H2, source: s.carbon_mode === 'hypothetical' ? 'assumption' : r.carbon.label, note: r.carbon.cost.label }, noProc)
   return rows
+}
+
+/** Cost components of one case, from the same evaluate call as the LCOH (USD and SGD per kg H2). */
+export const COST_PARTS: { key: CostKey; label: string }[] = [
+  { key: 'ammonia_feed', label: 'Ammonia feed' }, { key: 'capex', label: 'Capital (annualised)' }, { key: 'fixed_opex', label: 'Fixed operating cost' },
+  { key: 'heat_fuel', label: 'Heat fuel' }, { key: 'catalyst', label: 'Catalyst' }, { key: 'electricity', label: 'Electricity' },
+  { key: 'cooling_water', label: 'Cooling water' }, { key: 'carbon_tax', label: 'Carbon' },
+]
+
+export interface CostPart { key: CostKey; label: string; usd: number; sgd: number; share: number }
+
+export function costBreakdown(r: SimOutputs): CostPart[] | null {
+  const e = r.economics
+  if (!e) return null
+  const tot = e.lcoh_USD_per_kg
+  return COST_PARTS.map((p) => ({ ...p, usd: e.breakdown_USD_per_kg[p.key], sgd: e.breakdown_SGD_per_kg[p.key], share: tot > 0 ? e.breakdown_USD_per_kg[p.key] / tot : 0 }))
 }
 
 export function formatValue(row: Pick<OutRow, 'value' | 'kind' | 'unit'>): string {
@@ -249,6 +318,12 @@ export function exportJSON(cases: ExportCase[], d: SimData, generated: string): 
     source_labels: SOURCE_TEXT,
     fx: { SGD_per_USD: d.model.fx.SGD_per_USD, rate_date: d.model.fx.date, source: d.model.fx.source },
     economics_basis: d.model.economics.basis,
+    economics_note: d.model.economics.basis_note,
+    catalyst_prices: d.model.economics.catalyst_prices.statement,
+    data_schema: d.model.schema,
+    reference_scenario: d.model.economics.reference_scenario ? { id: d.model.economics.reference_scenario.id, version: d.model.economics.reference_scenario.version } : null,
+    fixed_values: fixedValues(d).map((f) => ({ key: f.key, label: f.label, value: f.value, unit: f.unit || null, source: 'assumption' })),
+    controls_not_offered: WITHHELD,
     cases: cases.map((c) => ({
       case: c.name,
       inputs: Object.fromEntries((Object.keys(c.result.state) as (keyof SimState)[]).map((k) => [k, { value: c.result.state[k], unit: INPUT_UNITS[k] ?? null }])),

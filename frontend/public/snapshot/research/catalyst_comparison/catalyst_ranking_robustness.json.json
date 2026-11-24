@@ -1,12 +1,12 @@
 {
  "provenance": {
-  "generated_utc": "2026-11-23T08:50:29+00:00",
+  "generated_utc": "2026-11-23T11:25:10+00:00",
   "script": "scripts/research/catalyst_comparison.py",
   "source_type": "python",
   "inputs_summary": "re-optimised T per catalyst per case",
   "reference_scenario": {
    "file": "backend/amcrax/data/reference_scenario.yaml",
-   "sha256": "d0f27b7a689aa160a7e16f0b6c211242625c3e988e1fc0eac38fbb7a47af064e",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
    "version": "1.0.0",
    "id": "amcrax_reference_2026_11_23",
    "fx_SGD_per_USD": 1.288444,
@@ -27,484 +27,500 @@
    "case": "base",
    "ranking": [
     "Ni/MgO",
+    "2.5Ni0.5Ru/CeO2",
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
+   ],
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916101,
+   "spread_USD_per_kg": 0.01435286668039737,
+   "source_type": "python"
+  },
+  {
+   "case": "Ru_price_USGS_2025_average",
+   "ranking": [
+    "Ni/MgO",
+    "2.5Ni0.5Ru/CeO2",
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
+   ],
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0029017770019548195,
+   "spread_USD_per_kg": 0.007947863845051195,
+   "source_type": "python"
+  },
+  {
+   "case": "price_scenario_low_metal_floor",
+   "ranking": [
+    "Ni/MgO",
+    "2.5Ni0.5Ru/CeO2",
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
+   ],
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0074110900626882525,
+   "spread_USD_per_kg": 0.01362522046877146,
+   "source_type": "python"
+  },
+  {
+   "case": "price_scenario_high",
+   "ranking": [
+    "Ni/MgO",
+    "2.5Ni0.5Ru/CeO2",
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
+   ],
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007171270486917791,
+   "spread_USD_per_kg": 0.014076560720747366,
+   "source_type": "python"
+  },
+  {
+   "case": "published_TEA_prices_Cho_not_current",
+   "ranking": [
+    "Ni/MgO",
     "Ru/Al2O3",
     "Ru/MgO",
     "5Ni1Ru/CeO2",
     "2.5Ni0.5Ru/CeO2"
    ],
    "best": "Ni/MgO (Takahashi)",
-   "same_ranking_as_base": true,
+   "same_ranking_as_base": false,
    "same_best_as_base": true,
    "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
    "spread_USD_per_kg": 0.010543631943520815,
    "source_type": "python"
   },
   {
-   "case": "Ru_price_x0.5",
-   "ranking": [
-    "Ru/Al2O3",
-    "Ni/MgO",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
-   ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0028722412527519836,
-   "spread_USD_per_kg": 0.009541178987291232,
-   "source_type": "python"
-  },
-  {
-   "case": "Ru_price_x2",
+   "case": "Ni_price_low",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.004016056987230954,
-   "spread_USD_per_kg": 0.014490531596756284,
+   "best_low_T_minus_Ni_USD_per_kg": 0.013300718725146154,
+   "spread_USD_per_kg": 0.020210238806627423,
    "source_type": "python"
   },
   {
-   "case": "Ru_price_x4",
+   "case": "Ni_price_high",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.007780406879158264,
-   "spread_USD_per_kg": 0.01839267376894682,
-   "source_type": "python"
-  },
-  {
-   "case": "Ru_price_x8",
-   "ranking": [
-    "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
-   ],
-   "best": "Ni/MgO (Takahashi)",
-   "same_ranking_as_base": true,
-   "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.011647719178162319,
-   "spread_USD_per_kg": 0.023088914007113992,
-   "source_type": "python"
-  },
-  {
-   "case": "Ni_price_16.7",
-   "ranking": [
-    "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
-   ],
-   "best": "Ni/MgO (Takahashi)",
-   "same_ranking_as_base": true,
-   "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0025737334550344215,
-   "spread_USD_per_kg": 0.012704992643933544,
-   "source_type": "python"
-  },
-  {
-   "case": "Ni_price_66.8",
-   "ranking": [
-    "Ru/Al2O3",
-    "Ni/MgO",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
-   ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.001983737643363348,
-   "spread_USD_per_kg": 0.010131259188899122,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007167040639266098,
+   "spread_USD_per_kg": 0.014076560720747366,
    "source_type": "python"
   },
   {
    "case": "lifetime_1yr",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.001619946589245913,
-   "spread_USD_per_kg": 0.012094421198771244,
+   "best_low_T_minus_Ni_USD_per_kg": 0.008904117013353918,
+   "spread_USD_per_kg": 0.01698563034603051,
    "source_type": "python"
   },
   {
    "case": "lifetime_4yr",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0007108805523392547,
-   "spread_USD_per_kg": 0.009541178987291232,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.005824526960802601,
+   "spread_USD_per_kg": 0.01185913122413762,
    "source_type": "python"
   },
   {
    "case": "NH3_300USD_t",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0007457301790374515,
-   "spread_USD_per_kg": 0.007668342483264645,
+   "best_low_T_minus_Ni_USD_per_kg": 0.005561562073114423,
+   "spread_USD_per_kg": 0.010620879129528582,
    "source_type": "python"
   },
   {
    "case": "NH3_610USD_t",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.00013564166083579465,
-   "spread_USD_per_kg": 0.013419013272750746,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.00913955930599375,
+   "spread_USD_per_kg": 0.01791470758697855,
    "source_type": "python"
   },
   {
    "case": "NH3_1000USD_t",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0019238635547562666,
-   "spread_USD_per_kg": 0.020879714857574783,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.012381001569602645,
+   "spread_USD_per_kg": 0.02550882361214235,
    "source_type": "python"
   },
   {
    "case": "electricity_0.084",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
-   "spread_USD_per_kg": 0.010543631943520815,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916101,
+   "spread_USD_per_kg": 0.01435286668039737,
    "source_type": "python"
   },
   {
    "case": "electricity_0.221898",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
-   "spread_USD_per_kg": 0.010543631943520815,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916101,
+   "spread_USD_per_kg": 0.01435286668039737,
    "source_type": "python"
   },
   {
    "case": "P_10bar",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.00035185929668024585,
-   "spread_USD_per_kg": 0.009151295608155863,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.005626730736262964,
+   "spread_USD_per_kg": 0.014677629811304271,
    "source_type": "python"
   },
   {
    "case": "P_30bar",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0007932870591815799,
-   "spread_USD_per_kg": 0.011321218426239454,
+   "best_low_T_minus_Ni_USD_per_kg": 0.008284884915878976,
+   "spread_USD_per_kg": 0.013844361716021325,
    "source_type": "python"
   },
   {
    "case": "dTmin_10K",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
-   "spread_USD_per_kg": 0.010543631943520815,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916989,
+   "spread_USD_per_kg": 0.014352866680398257,
    "source_type": "python"
   },
   {
    "case": "dTmin_30K",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
-   "spread_USD_per_kg": 0.010543631943520815,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916101,
+   "spread_USD_per_kg": 0.01435286668039737,
    "source_type": "python"
   },
   {
    "case": "dTmin_50K",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00041237275462169265,
-   "spread_USD_per_kg": 0.010543631943520815,
+   "best_low_T_minus_Ni_USD_per_kg": 0.007443346598916101,
+   "spread_USD_per_kg": 0.01435286668039737,
    "source_type": "python"
   },
   {
    "case": "furnace_eff_0.65",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -5.3780344742015984e-05,
-   "spread_USD_per_kg": 0.012984155682183918,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.008907340296429922,
+   "spread_USD_per_kg": 0.017446637915248253,
    "source_type": "python"
   },
   {
    "case": "furnace_eff_1",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0005970190689081889,
-   "spread_USD_per_kg": 0.009298774268438947,
+   "best_low_T_minus_Ni_USD_per_kg": 0.006632212155274431,
+   "spread_USD_per_kg": 0.01272557475731162,
    "source_type": "python"
   },
   {
    "case": "X_0.9",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0007723166439319584,
-   "spread_USD_per_kg": 0.011663486140319534,
+   "best_low_T_minus_Ni_USD_per_kg": 0.008506256186134209,
+   "spread_USD_per_kg": 0.014546560473441161,
    "source_type": "python"
   },
   {
    "case": "X_0.97",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.00019474528426410842,
-   "spread_USD_per_kg": 0.009464318771460256,
+   "best_low_T_minus_Ni_USD_per_kg": 0.006476469151119879,
+   "spread_USD_per_kg": 0.01385885190714653,
    "source_type": "python"
   },
   {
    "case": "X_0.99",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0001277083580379923,
-   "spread_USD_per_kg": 0.0026752598116468462,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0014868167638608654,
+   "spread_USD_per_kg": 0.007270429488637653,
    "source_type": "python"
   },
   {
    "case": "no_heat_integration",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
     "2.5Ni0.5Ru/CeO2",
-    "5Ni1Ru/CeO2"
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.009086540701608747,
-   "spread_USD_per_kg": 0.04540176092228965,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.018992463352837774,
+   "spread_USD_per_kg": 0.0515752017260418,
    "source_type": "python"
   },
   {
    "case": "psa_recovery_0.756",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0001249634808235811,
-   "spread_USD_per_kg": 0.0008746640206096501,
+   "best_low_T_minus_Ni_USD_per_kg": 0.000515145287714347,
+   "spread_USD_per_kg": 0.002570787922285156,
    "source_type": "python"
   },
   {
    "case": "cracker_capex_scales_with_bed_volume",
    "ranking": [
     "Ru/Al2O3",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
     "Ni/MgO",
-    "2.5Ni0.5Ru/CeO2"
+    "5Ni1Ru/CeO2",
+    "2.5Ni0.5Ru/CeO2",
+    "Ru/MgO"
    ],
    "best": "Ru/Al2O3 (Kum)",
    "same_ranking_as_base": false,
    "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.008738377805539876,
-   "spread_USD_per_kg": 0.010569153517564267,
+   "best_low_T_minus_Ni_USD_per_kg": -0.0016115766393847153,
+   "spread_USD_per_kg": 0.0036113514514699574,
    "source_type": "python"
   },
   {
    "case": "all_rates_x0.2",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.0030292529021256343,
-   "spread_USD_per_kg": 0.01362881918079939,
+   "best_low_T_minus_Ni_USD_per_kg": 0.010467244286383348,
+   "spread_USD_per_kg": 0.022618333129305945,
    "source_type": "python"
   },
   {
    "case": "all_rates_x5",
    "ranking": [
-    "Ru/Al2O3",
     "Ni/MgO",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
-   "best": "Ru/Al2O3 (Kum)",
-   "same_ranking_as_base": false,
-   "same_best_as_base": false,
-   "best_low_T_minus_Ni_USD_per_kg": -0.0015315847800794202,
-   "spread_USD_per_kg": 0.007893589489357034,
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0036063198465621227,
+   "spread_USD_per_kg": 0.008898480855192403,
    "source_type": "python"
   },
   {
    "case": "Ru_NiRu_rates_div5_Ni_nominal",
    "ranking": [
     "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
+    "2.5Ni0.5Ru/CeO2",
     "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
+    "Ru/Al2O3",
+    "Ru/MgO"
    ],
    "best": "Ni/MgO (Takahashi)",
    "same_ranking_as_base": true,
    "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.009015022047865529,
-   "spread_USD_per_kg": 0.019614588326539284,
+   "best_low_T_minus_Ni_USD_per_kg": 0.01655289851110986,
+   "spread_USD_per_kg": 0.028703987354032456,
    "source_type": "python"
   },
   {
    "case": "Ni_rate_div5_others_nominal",
+   "ranking": [
+    "Ni/MgO",
+    "2.5Ni0.5Ru/CeO2",
+    "5Ni1Ru/CeO2",
+    "Ru/Al2O3",
+    "Ru/MgO"
+   ],
+   "best": "Ni/MgO (Takahashi)",
+   "same_ranking_as_base": true,
+   "same_best_as_base": true,
+   "best_low_T_minus_Ni_USD_per_kg": 0.0013576923741895897,
+   "spread_USD_per_kg": 0.008267212455670858,
+   "source_type": "python"
+  },
+  {
+   "case": "published_TEA_prices_and_Ni_rate_div5",
    "ranking": [
     "Ru/Al2O3",
     "Ru/MgO",
@@ -517,22 +533,6 @@
    "same_best_as_base": false,
    "best_low_T_minus_Ni_USD_per_kg": -0.005573396391118202,
    "spread_USD_per_kg": 0.010131259188899122,
-   "source_type": "python"
-  },
-  {
-   "case": "Ru_price_x4_and_rates_div5",
-   "ranking": [
-    "Ni/MgO",
-    "Ru/Al2O3",
-    "Ru/MgO",
-    "5Ni1Ru/CeO2",
-    "2.5Ni0.5Ru/CeO2"
-   ],
-   "best": "Ni/MgO (Takahashi)",
-   "same_ranking_as_base": true,
-   "same_best_as_base": true,
-   "best_low_T_minus_Ni_USD_per_kg": 0.016791941852286385,
-   "spread_USD_per_kg": 0.03622751612813868,
    "source_type": "python"
   }
  ],

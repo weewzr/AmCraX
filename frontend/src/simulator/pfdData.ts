@@ -3,33 +3,34 @@
  * flowsheet (frontend/public/snapshot/flowsheet.json, src/pfd/mapping.ts): FEED, S1-S7, H2PROD, TAILGAS, AIR, FLUE, STACK;
  * PUMP, VAPORIZR, FEHE, HEATER, CRACKER, COOLER, PSA, BURNER, FLUEHX.
  *
- * Numbers shown in the tooltips are taken from the core's outputs only. The particle mix of each stream is derived from
- * those outputs for the animation (colour and density), and is never displayed as a number.
+ * Numbers shown in the panels and tooltips are taken from the core's outputs, or follow from them by stoichiometry (stream
+ * compositions and total flows of S5, S6, S7 and the tail gas, labelled "stoichiometry"). The particle mix of the AIR, FLUE,
+ * STACK and H2PROD streams is an illustration for the animation only and is never displayed as a number.
  */
 import type { SimData, SourceLabel } from '../sim'
 import type { CaseResult } from './model'
 
 export type P = [number, number]
-export interface StreamGeom { id: string; pts: P[]; tag: P; bypassOnly?: boolean; hiOnly?: boolean }
+export interface StreamGeom { id: string; pts: P[]; tag: P; bypassOnly?: boolean; hiOnly?: boolean; /** where the flow value is printed ("Show values") */ val?: P }
 
 export const VIEW = { w: 1180, h: 490 }
 
 /** Stream polylines. Streams with hiOnly exist only with heat recovery; bypassOnly replace them when it is off. */
 export const STREAMS: StreamGeom[] = [
-  { id: 'FEED', pts: [[92, 360], [134, 360]], tag: [113, 343] },
-  { id: 'S1', pts: [[166, 360], [214, 360]], tag: [190, 343] },
-  { id: 'S2', pts: [[294, 360], [384, 360]], tag: [340, 343], hiOnly: true },
-  { id: 'S2', pts: [[294, 360], [340, 360], [340, 432], [506, 432], [506, 360], [530, 360]], tag: [423, 432], bypassOnly: true },
-  { id: 'S3', pts: [[476, 360], [530, 360]], tag: [506, 343], hiOnly: true },
-  { id: 'S4', pts: [[594, 360], [730, 360], [730, 342]], tag: [622, 343] },
-  { id: 'S5', pts: [[730, 150], [730, 90], [460, 90], [460, 340]], tag: [598, 90], hiOnly: true },
-  { id: 'S5', pts: [[730, 150], [730, 90], [858, 90], [858, 70], [880, 70]], tag: [798, 90], bypassOnly: true },
-  { id: 'S6', pts: [[400, 340], [400, 32], [858, 32], [858, 70], [880, 70]], tag: [630, 32], hiOnly: true },
-  { id: 'S7', pts: [[950, 70], [1030, 70], [1030, 108]], tag: [990, 70] },
-  { id: 'H2PROD', pts: [[1060, 140], [1168, 140]], tag: [1114, 140] },
-  { id: 'TAILGAS', pts: [[1030, 212], [1030, 468], [750, 468], [750, 418]], tag: [890, 468] },
+  { id: 'FEED', pts: [[92, 360], [134, 360]], tag: [113, 343], val: [110, 318] },
+  { id: 'S1', pts: [[166, 360], [214, 360]], tag: [190, 343], val: [196, 300] },
+  { id: 'S2', pts: [[294, 360], [384, 360]], tag: [340, 343], hiOnly: true, val: [340, 322] },
+  { id: 'S2', pts: [[294, 360], [340, 360], [340, 432], [506, 432], [506, 360], [530, 360]], tag: [423, 432], bypassOnly: true, val: [423, 456] },
+  { id: 'S3', pts: [[476, 360], [530, 360]], tag: [506, 343], hiOnly: true, val: [506, 322] },
+  { id: 'S4', pts: [[594, 360], [730, 360], [730, 342]], tag: [622, 343], val: [600, 322] },
+  { id: 'S5', pts: [[730, 150], [730, 90], [460, 90], [460, 340]], tag: [598, 90], hiOnly: true, val: [598, 112] },
+  { id: 'S5', pts: [[730, 150], [730, 90], [858, 90], [858, 70], [880, 70]], tag: [798, 90], bypassOnly: true, val: [790, 112] },
+  { id: 'S6', pts: [[400, 340], [400, 32], [858, 32], [858, 70], [880, 70]], tag: [630, 32], hiOnly: true, val: [630, 56] },
+  { id: 'S7', pts: [[950, 70], [1030, 70], [1030, 108]], tag: [990, 70], val: [990, 50] },
+  { id: 'H2PROD', pts: [[1060, 140], [1168, 140]], tag: [1114, 140], val: [1114, 164] },
+  { id: 'TAILGAS', pts: [[1030, 212], [1030, 468], [750, 468], [750, 418]], tag: [890, 468], val: [890, 450] },
   { id: 'AIR', pts: [[600, 452], [712, 452], [712, 418]], tag: [640, 452] },
-  { id: 'FLUE', pts: [[820, 250], [870, 250]], tag: [845, 250] },
+  { id: 'FLUE', pts: [[840, 250], [870, 250]], tag: [848, 224] },
   { id: 'STACK', pts: [[934, 250], [983, 250], [983, 168]], tag: [958, 250] },
 ]
 
@@ -98,7 +99,10 @@ export function streamViews(c: CaseResult, d: SimData): Record<string, StreamVie
   const p = mem ? null : r.process
   const R = s.psa_h2_recovery
   const h2p = out.H2 * R
-  const tail = { NH3: out.NH3, H2: out.H2 - h2p, N2: out.N2, H2O: out.H2O }
+  // N2 slip to the product follows from the computed purity (product = H2 + slipped N2 in the reduced-order PSA)
+  const pur = p ? p.h2_purity_mole_frac.value : 1
+  const n2slip = p && pur > 0 && pur < 1 ? p.h2_product_kmol_h.value * (1 - pur) / pur : 0
+  const tail = { NH3: out.NH3, H2: out.H2 - h2p, N2: Math.max(0, out.N2 - n2slip), H2O: out.H2O }
   const tailTot = tail.NH3 + tail.H2 + tail.N2 + tail.H2O
   const feedMix = norm({ NH3: nNH3, H2O: nH2O })
   const inFact = (): Fact => ({ label: 'Molar flow (input)', value: F, unit: 'kmol/h', source: 'assumption' })
@@ -114,20 +118,26 @@ export function streamViews(c: CaseResult, d: SimData): Record<string, StreamVie
   ]
   const noT = 'Temperature and pressure of this stream are not computed by the browser model (the reduced flowsheet interpolates duties only).'
   const burnerFlow = tailTot * 2.2
+  // composition by stoichiometry (2 NH3 -> N2 + 3 H2) from the computed conversion; browser computation, extrapolation when the conversion is
+  const xSrc: SourceLabel = (r.process ? r.process.conversion.source : rx.conversion.source) === 'extrapolation' ? 'extrapolation' : 'browser-model'
+  const comp = (m: Record<string, number>, tot: number, src: SourceLabel | null): Fact[] => (['H2', 'N2', 'NH3'] as const).map((k) => ({
+    label: `${k} mole fraction (stoichiometry)`, value: src && tot > 0 && Number.isFinite(m[k]) ? m[k] / tot : null, unit: '%', source: src, frac: true }))
+  const flowFact = (v: number, src: SourceLabel | null): Fact => ({ label: 'Total molar flow (stoichiometry)', value: src && Number.isFinite(v) ? v : null, unit: 'kmol/h', source: src })
+  const tailSrc: SourceLabel | null = mem ? null : xSrc
   return {
     FEED: { id: 'FEED', flow: F, mix: feedMix, facts: [inFact(), { label: 'NH3 mole fraction', value: 1 - xw, unit: '%', source: 'assumption', frac: true }], note: 'Baseline feed composition (NH3 99.8 / H2O 0.2 mol%); the browser model has no composition control.' },
     S1: { id: 'S1', flow: F, mix: feedMix, facts: [inFact(), { label: 'Pump power', value: p ? p.pump_power_kW.value : null, unit: 'kW', source: p ? p.pump_power_kW.source : null }], note: noT },
     S2: { id: 'S2', flow: F, mix: feedMix, facts: [inFact(), { label: 'Vaporiser duty', value: p ? p.vaporiser_duty_kW.value : null, unit: 'kW', source: p ? p.vaporiser_duty_kW.source : null }], note: noT },
     S3: { id: 'S3', flow: F, mix: feedMix, facts: [inFact(), { label: 'Heat recovered in FEHE', value: p ? p.recovered_heat_kW.value : null, unit: 'kW', source: p ? p.recovered_heat_kW.source : null }], note: noT },
     S4: { id: 'S4', flow: F, mix: feedMix, facts: [inFact(), { label: 'Temperature (reactor inlet, set)', value: s.T_C, unit: 'degC', source: 'assumption' }, { label: 'Pressure (reactor inlet, set)', value: s.P_bar, unit: 'bar', source: 'assumption' }] },
-    S5: { id: 'S5', flow: outTot, mix: norm(out), facts: outFacts },
-    S6: { id: 'S6', flow: outTot, mix: norm(out), facts: [{ label: 'H2 in cracked gas', value: r.process ? r.process.h2_in_cracked_gas_kmol_h.value : null, unit: 'kmol/h', source: r.process ? r.process.h2_in_cracked_gas_kmol_h.source : null }], note: noT },
-    S7: { id: 'S7', flow: outTot, mix: norm(out), facts: [{ label: 'Temperature (PSA feed, assumed)', value: d.model.process.inputs_defaults.psa_feed_temperature_C as number, unit: 'degC', source: 'assumption' }, { label: 'Cooler duty', value: p ? p.cooling_duty_kW.value : null, unit: 'kW', source: p ? p.cooling_duty_kW.source : null }] },
+    S5: { id: 'S5', flow: outTot, mix: norm(out), facts: [flowFact(outTot, xSrc), ...outFacts, ...comp(out, outTot, xSrc)] },
+    S6: { id: 'S6', flow: outTot, mix: norm(out), facts: [flowFact(outTot, xSrc), { label: 'H2 in cracked gas', value: r.process ? r.process.h2_in_cracked_gas_kmol_h.value : null, unit: 'kmol/h', source: r.process ? r.process.h2_in_cracked_gas_kmol_h.source : null }, ...comp(out, outTot, xSrc)], note: noT },
+    S7: { id: 'S7', flow: outTot, mix: norm(out), facts: [flowFact(outTot, xSrc), { label: 'Temperature (PSA feed, assumed)', value: d.model.process.inputs_defaults.psa_feed_temperature_C as number, unit: 'degC', source: 'assumption' }, { label: 'Cooler duty', value: p ? p.cooling_duty_kW.value : null, unit: 'kW', source: p ? p.cooling_duty_kW.source : null }, ...comp(out, outTot, xSrc)] },
     H2PROD: { id: 'H2PROD', flow: h2p, mix: { H2: 0.995, N2: 0.005 }, facts: [
       { label: 'Hydrogen product', value: p ? p.h2_product_kg_h.value : null, unit: 'kg/h', source: p ? p.h2_product_kg_h.source : null },
       { label: 'Hydrogen product', value: p ? p.h2_product_kmol_h.value : null, unit: 'kmol/h', source: p ? p.h2_product_kmol_h.source : null },
       { label: 'Purity (N2 slip assumed)', value: p ? p.h2_purity_mole_frac.value : null, unit: '%', source: p ? p.h2_purity_mole_frac.source : null, frac: true }], note: mem ? 'Membrane: not modelled in the browser.' : undefined },
-    TAILGAS: { id: 'TAILGAS', flow: tailTot, mix: norm(tail), facts: [
+    TAILGAS: { id: 'TAILGAS', flow: tailTot, mix: norm(tail), facts: [flowFact(tailTot, tailSrc), ...comp(tail, tailTot, tailSrc),
       { label: 'Tail-gas heating value (LHV)', value: p ? p.tailgas_lhv_kW.value : null, unit: 'kW', source: p ? p.tailgas_lhv_kW.source : null }], note: 'Unrecovered H2 and NH3 slip are burnt in the furnace burner.' },
     AIR: { id: 'AIR', flow: burnerFlow, mix: { N2: 0.79, O2: 0.21 }, facts: [], note: 'Air flow (15 % excess, assumed) is not reported by the browser model.' },
     FLUE: { id: 'FLUE', flow: burnerFlow, mix: { N2: 0.7, H2O: 0.3 }, facts: [{ label: 'Burner heat to the process', value: p ? p.tailgas_combustion_heat_kW.value : null, unit: 'kW', source: p ? p.tailgas_combustion_heat_kW.source : null }], note: 'Flue-gas flow is not reported by the browser model.' },
@@ -136,6 +146,20 @@ export function streamViews(c: CaseResult, d: SimData): Record<string, StreamVie
 }
 
 export interface UnitView { id: string; title: string; what: string; facts: Fact[]; bypassed?: boolean; notModelled?: boolean }
+
+/** Limitation of each unit's model in the browser (C5); sources are the Methodology and Aspen Evidence pages. */
+export const UNIT_LIMITS: Record<string, string> = {
+  TANK: 'Feed composition fixed at the baseline (NH3 99.8 / H2O 0.2 mol%); storage itself is not modelled.',
+  PUMP: 'Pump power from the Python process grid, scaled with the feed flow; no pump curve.',
+  VAPORIZR: 'Duty from the Python process grid; no exchanger sizing.',
+  FEHE: 'Hot-end approach 50 K assumed; duty from the Python process grid; no exchanger sizing.',
+  HEATER: 'Duty from the Python process grid; heat supplied by the furnace balance, not a fired-heater model.',
+  CRACKER: 'Equilibrium mode: ideal gas in the browser. Kinetic modes: one-dimensional plug flow, no radial gradients, no deactivation; most rate laws fitted at 1 atm, so higher pressure is an extrapolation.',
+  BURNER: 'First-law balance with 15 % excess air assumed; flue heat credited regardless of its temperature level.',
+  COOLER: 'Outlet at 40 degC assumed (PSA feed); duty from the Python process grid.',
+  PSA: 'Reduced-order splitter: hydrogen recovery and nitrogen slip are assumed inputs, not an adsorption model. The Pd-Ag membrane is not ported to the browser.',
+  FLUEHX: 'Stack at 150 degC assumed; no exchanger sizing.',
+}
 
 export function unitViews(c: CaseResult, d: SimData): Record<string, UnitView> {
   const s = c.state, r = c.out
@@ -166,6 +190,40 @@ export function unitViews(c: CaseResult, d: SimData): Record<string, UnitView> {
         facts: [f('Hydrogen recovery (assumed)', { value: s.psa_h2_recovery, source: 'assumption' }, '%', true), f('Hydrogen purity', p?.h2_purity_mole_frac, '%', true), f('Hydrogen product', p?.h2_product_kg_h, 'kg/h')] },
     FLUEHX: { id: 'FLUEHX', title: 'Flue-gas heat recovery (FLUEHX)', what: 'Cools the flue gas to the stack temperature (150 degC, assumed); the heat is credited to the process in the burner balance.', facts: [f('Burner heat credited', p?.tailgas_combustion_heat_kW, 'kW')] },
   }
+}
+
+/** One-letter source markers printed next to diagram values (explained in the legend). */
+export const SOURCE_MARK: Record<SourceLabel, string> = { aspen: 'A', interpolation: 'G', 'browser-model': 'B', extrapolation: 'E', assumption: 'S' }
+
+/** The value printed on the diagram for a stream (its first molar flow fact) or a unit (its first kW fact); null when none is computed. */
+export function labelValue(facts: Fact[] | undefined, unit: 'kmol/h' | 'kW'): { text: string; mark: string; fact: Fact } | null {
+  const f = facts?.find((x) => x.unit === unit && x.value !== null && Number.isFinite(x.value) && x.source)
+  if (!f || f.value === null || !f.source) return null
+  const a = Math.abs(f.value)
+  const t = a >= 100 ? f.value.toFixed(0) : a >= 10 ? f.value.toFixed(1) : f.value.toFixed(2)
+  return { text: `${t} ${unit}`, mark: SOURCE_MARK[f.source], fact: f }
+}
+
+/** Order used by the keyboard (arrow keys, Home, End) and the list view: units first, then streams. */
+export const STREAM_ORDER = Object.keys(STREAM_NAMES)
+
+/** Status text of a unit or stream for the list view (C6). */
+export function itemStatus(id: string, c: CaseResult, units: Record<string, UnitView>, streams: Record<string, StreamView>): string {
+  const s = c.state
+  if (UNITS.some((u) => u.id === id)) {
+    const u = units[id]
+    if (u?.bypassed) return 'bypassed: heat recovery off'
+    if (u?.notModelled) return 'not modelled in the browser'
+    if (u?.facts.some((f) => f.source === 'extrapolation')) return 'extrapolated'
+    if (u && u.facts.length && u.facts.every((f) => f.value === null)) return 'not modelled'
+    return 'computed'
+  }
+  if (!s.heat_integration && (id === 'S3' || id === 'S6')) return 'not present: heat recovery off'
+  const v = streams[id]
+  if (!v) return 'not modelled'
+  if (v.facts.some((f) => f.source === 'extrapolation')) return 'extrapolated'
+  if (!v.facts.length || v.facts.every((f) => f.value === null)) return 'not modelled'
+  return 'computed'
 }
 
 /** Polyline helpers for the particle animation (no DOM measurement). */

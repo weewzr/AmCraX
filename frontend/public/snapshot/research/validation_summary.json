@@ -151,6 +151,18 @@
     }
    ]
   },
+  "carbon_pricing": {
+   "n_items": 28,
+   "by_status": {
+    "pass": 27,
+    "fail": 0,
+    "informational": 0,
+    "not_available": 1
+   },
+   "file": "results/research/validation/carbon_pricing.json",
+   "failures": [],
+   "informational": []
+  },
   "catalyst_comparison": {
    "n_items": 75,
    "by_status": {
@@ -230,6 +242,22 @@
     }
    ]
   },
+  "catalyst_economics": {
+   "n_items": 142,
+   "by_status": {
+    "pass": 141,
+    "fail": 0,
+    "informational": 1
+   },
+   "file": "results/research/validation/catalyst_economics.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "CE-RESOLUTION",
+     "description": "Python vs Aspen LCOH at the same T, X, 100 kg (all five catalysts): demonstrated model offset"
+    }
+   ]
+  },
   "economics": {
    "n_items": 15,
    "by_status": {
@@ -267,11 +295,11 @@
    ]
   },
   "enduse": {
-   "n_items": 46,
+   "n_items": 75,
    "by_status": {
-    "pass": 41,
+    "pass": 69,
     "fail": 0,
-    "informational": 5
+    "informational": 6
    },
    "file": "results/research/validation/enduse.json",
    "failures": [],
@@ -295,6 +323,74 @@
     {
      "id": "EU-iso",
      "description": "Industrial and fuel-cell candidate purity against ISO 14687 Grade D (99.97 %, N2+Ar <= 300 ppm, NH3 <= 0.1 ppm)"
+    },
+    {
+     "id": "EU-P2-threshold-vs-literature",
+     "description": "Full exhaust-heated threshold system gain against the like-for-like literature gain (Ahmad 2025, 4.4-5.4 pp on LHV 18.8)"
+    }
+   ]
+  },
+  "heat_exchanger": {
+   "n_items": 37,
+   "by_status": {
+    "pass": 24,
+    "fail": 0,
+    "informational": 13
+   },
+   "file": "results/research/validation/heat_exchanger.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "HX-DIAG-CAUSE",
+     "description": "HCAT-ASPY-*-HI-heat failures: quantified cause (model-form, not an implementation error; checks kept failing, tolerance unchanged)"
+    },
+    {
+     "id": "HX-UA-SEG-VS-LMTD",
+     "description": "Segmented UA (H-T curves) vs Q/LMTD for the baseline FEHE (cp variation)"
+    },
+    {
+     "id": "HX-NET-baseline_aspen_600C",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ru_kum_temkin_pyzhev@499C_aspen_W100",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ru_takahashi_microkinetic@522C_aspen_W100",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-nire_ceo2_5ni1ru_lucentini_lhhw@572C_aspen_W100",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-nire_ceo2_2p5ni0p5ru_lucentini_lhhw@576C_aspen_W100",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ni_takahashi_microkinetic@594C_aspen_W100",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ru_kum_temkin_pyzhev@Topt_python",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ru_takahashi_microkinetic@Topt_python",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-nire_ceo2_5ni1ru_lucentini_lhhw@Topt_python",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-nire_ceo2_2p5ni0p5ru_lucentini_lhhw@Topt_python",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
+    },
+    {
+     "id": "HX-NET-ni_takahashi_microkinetic@Topt_python",
+     "description": "Net benefit of the FEHE (fuel saving minus annualised exchanger cost) at low/central/high U"
     }
    ]
   },
@@ -388,11 +484,11 @@
    ]
   },
   "purification": {
-   "n_items": 8,
+   "n_items": 17,
    "by_status": {
-    "pass": 4,
+    "pass": 10,
     "fail": 0,
-    "informational": 4
+    "informational": 7
    },
    "file": "results/research/validation/purification.json",
    "failures": [],
@@ -412,6 +508,18 @@
     {
      "id": "P-ISO-2",
      "description": "Aspen baseline H2PROD stream (N2 0.0489 kmol/h, NH3 0) against grade D N2 limit: N2 ppm (Aspen stream)"
+    },
+    {
+     "id": "P2-SEL-1",
+     "description": "Required ideal H2/N2 for Grade D N2 300 ppm against the sourced Cechetto 2021 values"
+    },
+    {
+     "id": "P2-SEL-3",
+     "description": "Cechetto 2021 double-sealed ratio of printed permeances against the stated selectivity above 400,000"
+    },
+    {
+     "id": "P2-PSA-1",
+     "description": "PSA recovery at Grade D against Yanez 2020 (55.5 % at 99.97 %)"
     }
    ]
   },
@@ -425,12 +533,49 @@
    "file": "results/research/validation/summary.json",
    "failures": [],
    "informational": []
+  },
+  "uq": {
+   "n_items": 84,
+   "by_status": {
+    "pass": 78,
+    "fail": 0,
+    "informational": 6
+   },
+   "file": "results/research/validation/uq.json",
+   "failures": [],
+   "informational": [
+    {
+     "id": "T2A-MONO-5Ni1Ru_CeO2",
+     "description": "T_required decreases as k0 increases (C1), rank correlation < -0.5 (informational)"
+    },
+    {
+     "id": "T2A-MONO-2p5Ni0p5Ru_CeO2",
+     "description": "T_required decreases as k0 increases (C1), rank correlation < -0.5 (informational)"
+    },
+    {
+     "id": "T2B-PPC-ni",
+     "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)"
+    },
+    {
+     "id": "T2B-PRIOR-ni",
+     "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)"
+    },
+    {
+     "id": "T2B-PPC-ru",
+     "description": "coverage of the 90 % posterior predictive interval (informational; no pass threshold on real data)"
+    },
+    {
+     "id": "T2B-PRIOR-ru",
+     "description": "prior sensitivity: dE prior sd 40 kJ/mol, change in posterior mean (informational)"
+    }
+   ]
   }
  },
  "totals": {
-  "pass": 300,
+  "pass": 604,
   "fail": 12,
-  "informational": 52
+  "informational": 76,
+  "not_available": 1
  },
- "n_items": 364
+ "n_items": 693
 }

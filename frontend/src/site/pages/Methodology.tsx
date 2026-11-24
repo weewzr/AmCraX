@@ -33,10 +33,10 @@ function BlockTable() {
 
 function Assumptions() {
   const { cases } = useData()
+  const mx = useMatrix()
   const b = cases.find((c) => c.case_id === 'baseline')
   if (!b) return <p className="muted">Baseline case not available.</p>
   const i = b.inputs
-  const mx = useMatrix()
   const dis = mx.byId.get('PHYS-FLAME-DISSOC')?.value ?? null
   const rows: { item: string; value: React.ReactNode; origin: React.ReactNode }[] = [
     { item: 'Feed', value: <><Value v={i.feed_total_kmol_h} unit="kmol/h" digits={0} source="assumption" showSource={false} />, <Value v={(1 - i.feed_h2o_mole_frac) * 100} unit="mol% NH3" digits={1} source="assumption" showSource={false} />, saturated liquid at 1.013 bar</>, origin: <>Engineering assumption: atmospheric refrigerated storage; a liquid NH3 inlet near -33 °C is also the boundary used by <Cite k="mehr2026highcapacity" />. Water stands for the impurity of commercial ammonia.</> },

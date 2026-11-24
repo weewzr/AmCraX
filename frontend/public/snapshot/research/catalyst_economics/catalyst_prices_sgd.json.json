@@ -1,0 +1,553 @@
+{
+ "provenance": {
+  "generated_utc": "2026-11-23T11:30:14+00:00",
+  "script": "scripts/research/catalyst_economics.py",
+  "source_type": "python",
+  "inputs_summary": "derived catalyst prices recomputed in SGD at the reference FX",
+  "reference_scenario": {
+   "file": "backend/amcrax/data/reference_scenario.yaml",
+   "sha256": "56f0cbf78e85315dbdf4d4fea2cf795b31ec1fd13163b2d4c75fc4cfe4db6df0",
+   "version": "1.0.0",
+   "id": "amcrax_reference_2026_11_23",
+   "fx_SGD_per_USD": 1.288444,
+   "fx_date": "2026-11-20",
+   "capex_method": "cho2026_itemised_v1"
+  },
+  "inputs": {
+   "prices": "research/data/catalyst_prices.json",
+   "kinetic_validity": "results/research/kinetics/validity_classification.json",
+   "exchanger": "amcrax.heat_integration.exchanger (task X1)",
+   "aspen": "results/research/aspen_kinetic/ci_*_P20_W100_{hi,nohi}.json (Aspen Plus V15, stored)",
+   "cho_rebuild": "results/research/catalyst_comparison/catalyst_cho_comparison.json"
+  },
+  "evidence_kind_note": "economic model results; not validation evidence. No experimental validation exists."
+ },
+ "fx_SGD_per_USD": 1.288444,
+ "usd_per_eur": 1.099,
+ "fx_note": "Reference scenario rate (ECB 20 Nov 2026). The 1.2801 SGD/USD of research/data/catalyst_prices.json is superseded for conversion; its SGD values are kept as price_file_SGD_per_kg_superseded_fx.",
+ "evidence_grade_note": "No grade A (quotation) or B (catalogue) price exists for any ammonia-cracking catalyst. Metal part grade E, non-metal part grade C-derived. 'low' is a metal-content floor.",
+ "catalysts": [
+  {
+   "catalyst": "Ru/Al2O3",
+   "catalyst_id": "ru_kum_temkin_pyzhev",
+   "modelled": true,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 8
+   },
+   "loading_basis": "8 wt% Ru, Hypermec 10010 per project source (line 118)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "modelled (rate law in kinetics.yaml)",
+   "low": {
+    "USD_per_kg": 1774.72,
+    "SGD_per_kg": 2286.6273356799998,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 1774.72,
+    "price_file_SGD_per_kg_superseded_fx": 2271.82,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 4790.512,
+    "SGD_per_kg": 6172.306443328,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 4790.51,
+    "price_file_SGD_per_kg_superseded_fx": 6132.33,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 4790.512,
+    "SGD_per_kg": 6172.306443328,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 4790.51,
+    "price_file_SGD_per_kg_superseded_fx": 6132.33,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   },
+   "published_TEA_case_USD_per_kg": 542.0,
+   "published_TEA_case_SGD_per_kg": 698.336648,
+   "published_TEA_case_label": "Cho 2026 Table 4 Ru-K/CaO 3 wt% (542 USD/kg), published TEA price, NOT a current price; below the Ru metal floor of the catalyst it is applied to",
+   "published_TEA_case_below_Ru_metal_floor": true
+  },
+  {
+   "catalyst": "Ru/MgO",
+   "catalyst_id": "ru_takahashi_microkinetic",
+   "modelled": true,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 5
+   },
+   "loading_basis": "5 wt% Ru from project kinetics source (line 81)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "modelled (rate law in kinetics.yaml)",
+   "low": {
+    "USD_per_kg": 1109.2,
+    "SGD_per_kg": 1429.1420848,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 1109.2,
+    "price_file_SGD_per_kg_superseded_fx": 1419.89,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 3006.145,
+    "SGD_per_kg": 3873.2494883799995,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 3006.14,
+    "price_file_SGD_per_kg_superseded_fx": 3848.17,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 3006.145,
+    "SGD_per_kg": 3873.2494883799995,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 3006.14,
+    "price_file_SGD_per_kg_superseded_fx": 3848.17,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   },
+   "published_TEA_case_USD_per_kg": 542.0,
+   "published_TEA_case_SGD_per_kg": 698.336648,
+   "published_TEA_case_label": "Cho 2026 Table 4 Ru-K/CaO 3 wt% (542 USD/kg), published TEA price, NOT a current price; below the Ru metal floor of the catalyst it is applied to",
+   "published_TEA_case_below_Ru_metal_floor": true
+  },
+  {
+   "catalyst": "5Ni1Ru/CeO2",
+   "catalyst_id": "nire_ceo2_5ni1ru_lucentini_lhhw",
+   "modelled": true,
+   "loading_wt_pct": {
+    "Ni": 5,
+    "Ru": 1
+   },
+   "loading_basis": "5 wt% Ni + 1 wt% Ru from name",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "modelled (rate law in kinetics.yaml)",
+   "low": {
+    "USD_per_kg": 222.59,
+    "SGD_per_kg": 286.79474996,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 222.59,
+    "price_file_SGD_per_kg_superseded_fx": 284.94,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 627.7545,
+    "SGD_per_kg": 808.826518998,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 627.75,
+    "price_file_SGD_per_kg_superseded_fx": 803.59,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 628.27975,
+    "SGD_per_kg": 809.503274209,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 628.28,
+    "price_file_SGD_per_kg_superseded_fx": 804.26,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   },
+   "published_TEA_case_USD_per_kg": 542.0,
+   "published_TEA_case_SGD_per_kg": 698.336648,
+   "published_TEA_case_label": "Cho 2026 Table 4 Ru-K/CaO 3 wt% (542 USD/kg), published TEA price, NOT a current price; below the Ru metal floor of the catalyst it is applied to",
+   "published_TEA_case_below_Ru_metal_floor": false
+  },
+  {
+   "catalyst": "2.5Ni0.5Ru/CeO2",
+   "catalyst_id": "nire_ceo2_2p5ni0p5ru_lucentini_lhhw",
+   "modelled": true,
+   "loading_wt_pct": {
+    "Ni": 2.5,
+    "Ru": 0.5
+   },
+   "loading_basis": "2.5 wt% Ni + 0.5 wt% Ru from name",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "modelled (rate law in kinetics.yaml)",
+   "low": {
+    "USD_per_kg": 111.295,
+    "SGD_per_kg": 143.39737498,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 111.3,
+    "price_file_SGD_per_kg_superseded_fx": 142.47,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 329.97724999999997,
+    "SGD_per_kg": 425.15720789899996,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 329.98,
+    "price_file_SGD_per_kg_superseded_fx": 422.4,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 330.239875,
+    "SGD_per_kg": 425.49558550449996,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 330.24,
+    "price_file_SGD_per_kg_superseded_fx": 422.74,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   },
+   "published_TEA_case_USD_per_kg": 542.0,
+   "published_TEA_case_SGD_per_kg": 698.336648,
+   "published_TEA_case_label": "Cho 2026 Table 4 Ru-K/CaO 3 wt% (542 USD/kg), published TEA price, NOT a current price; below the Ru metal floor of the catalyst it is applied to",
+   "published_TEA_case_below_Ru_metal_floor": false
+  },
+  {
+   "catalyst": "Ni/MgO",
+   "catalyst_id": "ni_takahashi_microkinetic",
+   "modelled": true,
+   "loading_wt_pct": {
+    "Ni": 30,
+    "Ru": 0
+   },
+   "loading_basis": "30 wt% Ni from project kinetics source (model_parameters.yaml line 28)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "modelled (rate law in kinetics.yaml)",
+   "low": {
+    "USD_per_kg": 4.5,
+    "SGD_per_kg": 5.797998,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 4.5,
+    "price_file_SGD_per_kg_superseded_fx": 5.76,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 36.793000000000006,
+    "SGD_per_kg": 47.405720092,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 36.79,
+    "price_file_SGD_per_kg_superseded_fx": 47.1,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 39.944500000000005,
+    "SGD_per_kg": 51.466251358,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 39.94,
+    "price_file_SGD_per_kg_superseded_fx": 51.13,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   },
+   "published_TEA_case_USD_per_kg": 33.4,
+   "published_TEA_case_SGD_per_kg": 43.0340296,
+   "published_TEA_case_label": "Cho 2026 Table 4 Ni/Al2O3 8 wt% (33.4 USD/kg), published TEA price, not a current price",
+   "published_TEA_case_below_Ru_metal_floor": false
+  },
+  {
+   "catalyst": "Ni/CeO2",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 5,
+    "Ru": 0
+   },
+   "loading_basis": "loading NOT specified in any source; ASSUMED 5 wt% Ni (monometallic counterpart of 5Ni1Ru); change in JSON to recompute",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 0.75,
+    "SGD_per_kg": 0.9663329999999999,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 0.75,
+    "price_file_SGD_per_kg_superseded_fx": 0.96,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 32.965500000000006,
+    "SGD_per_kg": 42.474200682,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 32.97,
+    "price_file_SGD_per_kg_superseded_fx": 42.2,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 33.490750000000006,
+    "SGD_per_kg": 43.150955893,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 33.49,
+    "price_file_SGD_per_kg_superseded_fx": 42.87,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  },
+  {
+   "catalyst": "Ru/CeO2",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 1
+   },
+   "loading_basis": "loading NOT specified; ASSUMED 1 wt% Ru (counterpart of 5Ni1Ru)",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 221.84,
+    "SGD_per_kg": 285.82841695999997,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 221.84,
+    "price_file_SGD_per_kg_superseded_fx": 283.98,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 626.989,
+    "SGD_per_kg": 807.840215116,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 626.99,
+    "price_file_SGD_per_kg_superseded_fx": 802.61,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 626.989,
+    "SGD_per_kg": 807.840215116,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 626.99,
+    "price_file_SGD_per_kg_superseded_fx": 802.61,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  },
+  {
+   "catalyst": "Ru-K/CaO",
+   "catalyst_id": null,
+   "modelled": false,
+   "loading_wt_pct": {
+    "Ni": 0,
+    "Ru": 3
+   },
+   "loading_basis": "3 wt% Ru (Cho et al. table); K promoter (10 wt% K2O/K in project source) priced at zero, below resolution",
+   "formula": "price_USD_per_kg = (wNi/100)*P_Ni + (wRu/100)*P_Ru + N",
+   "grade": "E (metal floor) + C-derived non-metal term; DERIVED, not a quote",
+   "quoted_or_derived": "derived (no supplier quotation exists)",
+   "performance": "unmodelled: price only, no performance (no published rate law; results/research/kinetics/validity_classification.json)",
+   "low": {
+    "USD_per_kg": 665.52,
+    "SGD_per_kg": 857.48525088,
+    "P_Ni_USD_per_kg": 15.0,
+    "P_Ru_USD_per_kg": 22184.0,
+    "N_USD_per_kg": 0.0,
+    "price_file_USD_per_kg": 665.52,
+    "price_file_SGD_per_kg_superseded_fx": 851.93,
+    "label": "metal-content floor (non-metal part N = 0): NOT a market price"
+   },
+   "central": {
+    "USD_per_kg": 1816.567,
+    "SGD_per_kg": 2340.544851748,
+    "P_Ni_USD_per_kg": 15.31,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 1816.57,
+    "price_file_SGD_per_kg_superseded_fx": 2325.39,
+    "label": "derived central: metal at Nov 2026 spot (JM Ru base, LME Ni) + N 32.2 USD/kg (Cho Ni/Al2O3 minus Ni metal)"
+   },
+   "high": {
+    "USD_per_kg": 1816.567,
+    "SGD_per_kg": 2340.544851748,
+    "P_Ni_USD_per_kg": 25.815,
+    "P_Ru_USD_per_kg": 59478.9,
+    "N_USD_per_kg": 32.2,
+    "price_file_USD_per_kg": 1816.57,
+    "price_file_SGD_per_kg_superseded_fx": 2325.39,
+    "label": "derived high: Ni at the 2022 USGS average; Ru = central (no sourced higher Ru price)"
+   }
+  }
+ ],
+ "published_TEA_prices": [
+  {
+   "id": "C1",
+   "material": "Ni/Al2O3 catalyst, 8 wt% Ni",
+   "price_value": 33.4,
+   "currency": "USD",
+   "unit": "USD per kg catalyst",
+   "price_date": "not stated (paper 2025/2026)",
+   "publication": "Cho, Lee & Lee (2026), Energy Conversion and Management 348, 120796",
+   "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+   "grade": "C",
+   "USD_per_kg": 33.4,
+   "SGD_per_kg": 43.0340296,
+   "fx_used": "none (USD)",
+   "Ru_wt_pct": null,
+   "Ru_metal_floor_USD_per_kg_USGS2025": null,
+   "below_Ru_metal_floor": null,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C2",
+   "material": "Ru-K/CaO catalyst, 3 wt% Ru",
+   "price_value": 542.0,
+   "currency": "USD",
+   "unit": "USD per kg catalyst",
+   "price_date": "not stated",
+   "publication": "Cho, Lee & Lee (2026), Energy Conversion and Management 348, 120796",
+   "url": "https://doi.org/10.1016/j.enconman.2025.120796",
+   "grade": "C",
+   "USD_per_kg": 542.0,
+   "SGD_per_kg": 698.336648,
+   "fx_used": "none (USD)",
+   "Ru_wt_pct": 3,
+   "Ru_metal_floor_USD_per_kg_USGS2025": 665.52,
+   "below_Ru_metal_floor": true,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C3",
+   "material": "Ru-based catalyst, 4 wt% Ru",
+   "price_value": 25.0,
+   "currency": "USD",
+   "unit": "USD per kg catalyst",
+   "price_date": "not stated",
+   "publication": "Kum et al. (2026), Applied Energy 406, 127210, citing Devkota et al. (2024) Applied Energy 358, 122605",
+   "url": "https://doi.org/10.1016/j.apenergy.2025.127210",
+   "grade": "C",
+   "USD_per_kg": 25.0,
+   "SGD_per_kg": 32.211099999999995,
+   "fx_used": "none (USD)",
+   "Ru_wt_pct": 4,
+   "Ru_metal_floor_USD_per_kg_USGS2025": 887.36,
+   "below_Ru_metal_floor": true,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C4",
+   "material": "Ru/C or Ru-type ammonia catalyst (Yoshida et al.), as cited",
+   "price_value": 295.0,
+   "currency": "EUR",
+   "unit": "EUR per kg catalyst",
+   "price_date": "2021 (publication)",
+   "publication": "Richard et al. (2024) Int. J. Hydrogen Energy 71, 571-587, citing Yoshida et al. (2021)",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "grade": "C",
+   "USD_per_kg": 324.205,
+   "SGD_per_kg": 417.71998701999996,
+   "fx_used": "USD/EUR 1.099 (reference scenario, ECB 20 Nov 2026)",
+   "Ru_wt_pct": null,
+   "Ru_metal_floor_USD_per_kg_USGS2025": null,
+   "below_Ru_metal_floor": null,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C5",
+   "material": "Catalyst for ammonia decomposition (type not specified), Richard et al. base case",
+   "price_value": 143.0,
+   "currency": "EUR",
+   "unit": "EUR per kg catalyst",
+   "price_date": "2024",
+   "publication": "Richard et al. (2024), Int. J. Hydrogen Energy 71, 571-587",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "grade": "C",
+   "USD_per_kg": 157.157,
+   "SGD_per_kg": 202.487993708,
+   "fx_used": "USD/EUR 1.099 (reference scenario, ECB 20 Nov 2026)",
+   "Ru_wt_pct": null,
+   "Ru_metal_floor_USD_per_kg_USGS2025": null,
+   "below_Ru_metal_floor": null,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C6",
+   "material": "Catalyst, Makhloufi & Kezibri (2021) as cited",
+   "price_value": 22.3,
+   "currency": "EUR",
+   "unit": "EUR per kg catalyst",
+   "price_date": "2021",
+   "publication": "Richard et al. (2024), citing Makhloufi & Kezibri (2021) Int. J. Hydrogen Energy 46(70)",
+   "url": "https://doi.org/10.1016/j.ijhydene.2024.05.308",
+   "grade": "C",
+   "USD_per_kg": 24.5077,
+   "SGD_per_kg": 31.5767990188,
+   "fx_used": "USD/EUR 1.099 (reference scenario, ECB 20 Nov 2026)",
+   "Ru_wt_pct": null,
+   "Ru_metal_floor_USD_per_kg_USGS2025": null,
+   "below_Ru_metal_floor": null,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  },
+  {
+   "id": "C7",
+   "material": "Catalyst, Chopra et al. (2026)",
+   "price_value": 24.0,
+   "currency": "USD",
+   "unit": "USD per kg catalyst",
+   "price_date": "not stated",
+   "publication": "Chopra, Srivastava & Arora (2026), Fuel, doi 10.1016/j.fuel.2026.138463",
+   "url": "https://doi.org/10.1016/j.fuel.2026.138463",
+   "grade": "C",
+   "USD_per_kg": 24.0,
+   "SGD_per_kg": 30.922655999999996,
+   "fx_used": "none (USD)",
+   "Ru_wt_pct": null,
+   "Ru_metal_floor_USD_per_kg_USGS2025": null,
+   "below_Ru_metal_floor": null,
+   "label": "published TEA price: shown as a separate case, NOT a current price"
+  }
+ ],
+ "lifetimes_yr": {
+  "1.0": {
+   "source_type": "literature (assumption in the source)",
+   "source": "cho2026nickel Table 4 p. 7: lifetime sensitivity 1-4 yr (lower bound)",
+   "measured": false
+  },
+  "2.0": {
+   "source_type": "literature (assumption in the source)",
+   "source": "cho2026nickel Table 4 p. 7: 'Catalyst lifetime 2 years Assumed' (base value)",
+   "measured": false
+  },
+  "4.0": {
+   "source_type": "literature (assumption in the source; vendor analogue)",
+   "source": "cho2026nickel Table 4 sensitivity upper bound; Shah (Johnson Matthey), Refining India Sept 2025 p. 25: steam-reforming Ni changeout cycle 4-6 yr (comparable service, not cracking)",
+   "measured": false
+  },
+  "5.0": {
+   "source_type": "literature (assumption in the source)",
+   "source": "richard2024 Table 5: 'Catalyst lifetime 5 years' (assumed)",
+   "measured": false
+  }
+ }
+}

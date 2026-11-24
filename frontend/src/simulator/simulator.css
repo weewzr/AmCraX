@@ -11,7 +11,7 @@
 .site .sim-play{background:var(--primary)!important;color:var(--primary-ink)!important;border-color:var(--primary)!important;min-width:92px}
 .site .sim-play.is-on{background:var(--surface)!important;color:var(--text)!important;border-color:var(--accent)!important}
 .site .sim-pin.is-on{border-color:var(--accent);color:var(--accent)}
-.sim-preset select{min-height:36px;max-width:290px;font-size:13.5px}
+.sim-preset select{min-height:36px;max-width:340px;font-size:13.5px}
 
 .sim-page .wrap{max-width:1760px}
 .sim-grid{display:grid;grid-template-columns:290px minmax(0,1fr);grid-template-areas:"ctl main" "ctl out";gap:var(--s4);align-items:start}
@@ -33,10 +33,23 @@
 }
 @media (max-width:700px){
   .sim-grid{grid-template-columns:minmax(0,1fr);grid-template-areas:"main" "out" "ctl"}
-  .site .sim-toolbar .btn{padding:6px 10px;font-size:13px}
-  .sim-toolbar{width:100%}
-  .sim-preset{flex:1 1 100%}.sim-preset select{max-width:none;width:100%}
+  .site .sim-toolbar .btn{padding:4px 9px;font-size:12.5px;min-height:34px}
+  .sim-toolbar{width:100%;gap:6px}
+  .sim-preset{flex:1 1 100%;order:3}.sim-preset select{max-width:none;width:100%;min-height:34px}
+  .sim-toolbar>.btn.sim-play{order:1}.sim-toolbar>.btn.sim-tour-btn{order:2}
+  .sim-toolbar>.btn{order:4}.sim-toolbar>.sim-valtoggle{order:5;min-height:34px}
+  .sim-lead{font-size:13.5px}
+  .sim-top{margin-bottom:var(--s2)}
+  /* phone order: KPIs, hint, legend, diagram, caption; the preset line moves below the diagram */
+  .sim-col-main{display:flex;flex-direction:column}
+  .sim-col-main>.sim-kpis{order:1}.sim-col-main>.sim-scroll-hint{order:2}.sim-col-main>.sim-legend-html{order:3}.sim-col-main>.sim-pfd-box{order:4}
+  .sim-col-main>.sim-caption{order:5}.sim-col-main>.sim-tour{order:6}.sim-col-main>.sim-status{order:7}.sim-col-main>.sim-preset-about{order:8}.sim-col-main>.sim-detail{order:9}
+  .sim-kpi{padding:6px 8px}
+  .sim-kpi-v{font-size:15px}
 }
+.sim-panel .sim-unit-lim{font-size:12.5px;color:var(--text-2);margin:8px 0 0}
+.sim-print-row{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;margin:10px 0 0!important;font-size:12px;color:var(--text-2)}
+.site .sim-print-row .btn{min-height:32px;padding:4px 10px;font-size:12.5px;border:1px solid var(--border-strong);background:var(--surface)}
 
 /* controls */
 .sim-sec{border-top:1px solid var(--border);padding:6px 0}
@@ -74,7 +87,7 @@
 .sim-case-a{color:var(--accent)}
 .sim-kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-bottom:8px}
 .sim-kpi{display:flex;flex-direction:column;gap:2px;padding:8px 10px;border:1px solid var(--border);border-radius:var(--r-sm);background:var(--surface);min-width:0}
-.sim-kpi-l{font-size:11.5px;color:var(--muted);line-height:1.25}
+.sim-kpi-l{font-size:12.5px;color:var(--text-2);line-height:1.25}
 .sim-kpi-v{font:500 18px/1.2 var(--font-mono);font-variant-numeric:tabular-nums;color:var(--text)}
 .sim-kpi .badge{align-self:flex-start;max-width:100%;white-space:normal;line-height:1.2}
 @media (max-width:700px){.sim-kpis{grid-template-columns:repeat(2,minmax(0,1fr))}}
@@ -85,15 +98,108 @@
 
 /* diagram */
 .sim-pfd text{font-family:var(--font-ui);fill:var(--text-2)}
-.sim-pfd .sim-label{font-size:14px;font-weight:600;fill:var(--text)}
+.sim-pfd .sim-label{font-size:15px;font-weight:600;fill:var(--text)}
 .sim-pfd .sim-label-l{text-anchor:start}
-.sim-pfd .sim-tag{font:11.5px var(--font-mono);fill:var(--muted)}
+.sim-pfd .sim-tag{font:12px var(--font-mono);fill:var(--text-2)}
 .sim-pfd .sim-h2{fill:var(--c-h2)}
-.sim-pfd .sim-xlabel{font:600 12.5px var(--font-mono);fill:var(--text)}
-.sim-legend text{font:12.5px var(--font-mono);fill:var(--text-2)}
-.sim-legend .sim-legend-note{font:12px var(--font-ui);fill:var(--muted)}
-.sim-scroll-hint{display:none;font-size:12px;color:var(--muted);margin:4px 0 0}
-@media (max-width:700px){.sim-scroll-hint{display:block}}
+.sim-pfd .sim-xlabel{font:600 13px var(--font-mono);fill:var(--text)}
+.sim-pfd .sim-val{font:600 12px var(--font-mono);fill:var(--text);paint-order:stroke;stroke:var(--bg);stroke-width:4px;stroke-linejoin:round}
+.sim-pfd .sim-val .sim-mark{fill:var(--accent);font-weight:700}
+.sim-legend text{font:13px var(--font-mono);fill:var(--text-2)}
+.sim-legend .sim-legend-note{font:13px var(--font-ui);fill:var(--text-2)}
+.sim-tags{pointer-events:none}
+.sim-scroll-hint{display:none;font-size:12.5px;color:var(--text-2);margin:0 0 4px!important}
+.sim-legend-html{display:none;list-style:none;margin:0 0 6px;padding:0;flex-wrap:wrap;gap:4px 12px;font:13px var(--font-mono);color:var(--text-2)}
+.sim-legend-html li{display:inline-flex;align-items:center;gap:5px}
+.sim-legend-html i{display:inline-block;width:11px;height:11px;border-radius:50%;border:1px solid var(--border-strong)}
+.sim-legend-html .sim-legend-txt{font:12.5px var(--font-ui);flex-basis:100%}
+@media (max-width:700px){.sim-scroll-hint{display:block}.sim-legend-html{display:flex}.sim-pfd .sim-legend{display:none}}
+.sim-preset-about{font-size:12.5px;color:var(--text-2);margin:-2px 0 6px!important;line-height:1.4}
+.sim-pfd-wrap{position:relative;min-width:640px}
+.sim-pfd-box{position:relative}
+.sim-pfd-box:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.sim-unit.is-dim,.sim-stream.is-dim,.sim-stag.is-dim{opacity:.28}
+.sim-pfd.is-touring .sim-unit.is-selected .sim-shell{stroke-width:3.4}
+@media (prefers-reduced-motion:no-preference){.sim-unit,.sim-stream,.sim-stag{transition:opacity .2s}}
+/* tooltip */
+.sim-tip{position:absolute;z-index:5;width:min(280px,calc(100vw - 48px));background:var(--surface);color:var(--text);border:1px solid var(--border-strong);border-radius:var(--r-sm);box-shadow:0 6px 20px rgba(0,0,0,.28);padding:8px 10px;font-size:12.5px;line-height:1.35;overflow:auto;overscroll-behavior:contain}
+.sim-tip{pointer-events:none}
+.sim-tip.is-pinned{border-color:var(--accent);pointer-events:auto}
+.sim-tip-head{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.sim-tip-head strong{font-size:13px}
+.sim-tip-btns{display:flex;gap:4px;flex:none}
+.sim-tip-btn{font:12px var(--font-ui);min-height:24px;padding:1px 7px;border:1px solid var(--border-strong);border-radius:6px;background:var(--surface-2);color:var(--text);cursor:pointer}
+.sim-tip-btn[aria-pressed=true]{border-color:var(--accent);color:var(--accent)}
+.sim-tip-sub{margin:2px 0 4px!important;color:var(--text-2);font-size:12px}
+.sim-tip-facts{margin:0;display:flex;flex-direction:column;gap:2px}
+.sim-tip-facts>div{display:flex;justify-content:space-between;gap:8px;border-top:1px dashed var(--border);padding-top:2px}
+.sim-tip-facts dt{color:var(--text-2);font-size:12px}
+.sim-tip-facts dd{margin:0;display:flex;gap:4px;align-items:baseline;white-space:nowrap}
+.sim-tip-facts .sim-num{font-size:12.5px}
+.sim-tip-hint{margin:4px 0 0!important;color:var(--muted);font-size:11.5px}
+/* tour */
+.sim-tour{border:1px solid var(--accent);border-radius:var(--r-md);background:var(--surface);padding:var(--s3);margin:0 0 8px}
+.sim-tour-top{display:flex;align-items:center;gap:10px;margin-bottom:4px}
+.sim-tour-count{font:600 12.5px var(--font-mono);color:var(--accent);flex:none}
+.sim-tour-track{display:flex;gap:3px;list-style:none;margin:0;padding:0;flex:1}
+.sim-tour-track li{flex:1;height:5px;border-radius:3px;background:var(--border-strong)}
+.sim-tour-track li.is-done{background:color-mix(in srgb,var(--accent) 45%,var(--border-strong))}
+.sim-tour-track li.is-on{background:var(--accent)}
+.site .sim-tour-h{font-size:15.5px;margin:2px 0 4px;outline:none}
+.sim-tour-text{font-size:13.5px;color:var(--text-2);margin:0 0 6px!important}
+.sim-tour-bar{display:flex;flex-wrap:wrap;gap:6px 8px;align-items:center;margin-top:8px}
+.site .sim-tour-bar .btn{min-height:34px;padding:5px 12px;font-size:13px;border:1px solid var(--border-strong);background:var(--surface)}
+.site .sim-tour-bar .sim-tour-next{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.sim-tour-auto{margin-left:auto}
+.sim-tour-note{font-size:12px;color:var(--muted);margin:6px 0 0!important}
+.site .sim-tour-btn.is-on{border-color:var(--accent)!important;color:var(--accent)}
+.sim-valtoggle{display:inline-flex;align-items:center;gap:6px;font-size:13px;min-height:36px;padding:0 4px;cursor:pointer}
+.sim-valtoggle input{accent-color:var(--primary);width:16px;height:16px}
+/* list view */
+.sim-list{margin:0 0 8px;font-size:13px}
+.sim-list summary{cursor:pointer;color:var(--text-2);font-weight:600}
+.sim-list ul{list-style:none;margin:6px 0 0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,260px),1fr));gap:4px}
+.sim-list-btn{display:flex;justify-content:space-between;gap:8px;width:100%;min-height:32px;text-align:left;padding:4px 8px;border:1px solid var(--border);border-radius:6px;background:var(--surface-2);color:var(--text);font:12.5px var(--font-ui);cursor:pointer}
+.sim-list-btn.is-on{border-color:var(--accent)}
+.sim-list-st{color:var(--text-2);font-size:12px;text-align:right}
+/* fixed values, basis chips */
+.sim-basis-chip{align-self:flex-start;font-size:11.5px;color:var(--text-2);border:1px solid var(--border);border-radius:999px;padding:1px 8px;line-height:1.35}
+.sim-fixed{width:100%;border-collapse:collapse;font-size:12px}
+.sim-fixed th,.sim-fixed td{padding:3px 4px;border-top:1px solid var(--border);text-align:left;vertical-align:top}
+.sim-fixed th{font-weight:500;color:var(--text-2)}
+.sim-fixed .sim-num{font-size:12.5px;white-space:nowrap}
+.sim-withheld{margin:0;padding-left:16px;font-size:12px;color:var(--text-2)}
+/* stored purification comparison */
+.sim-stored{margin-top:10px;border-top:1px solid var(--border);padding-top:8px}
+.site .sim-stored-h{font-size:14px;margin:0 0 4px}
+.sim-stored-warn{font-size:12px;color:var(--text-2);border-left:3px solid var(--warn);padding:4px 8px;margin:0 0 6px!important;background:color-mix(in srgb,var(--warn) 8%,transparent)}
+.sim-stored-spec h4{font-size:12.5px;margin:6px 0 2px}
+.sim-ptable{width:100%;border-collapse:collapse;font-size:12px}
+.sim-ptable th,.sim-ptable td{padding:4px;border-top:1px solid var(--border);text-align:left;vertical-align:top}
+.sim-ptable thead th{font-size:11.5px;color:var(--text-2);border-top:0}
+.sim-ptable tbody th{font-weight:500}
+.sim-ptable .sim-num{font-size:12px}
+.sim-stored-src{display:block;font-size:11px;color:var(--muted)}
+.sim-stored-note{font-size:11.5px;color:var(--muted);margin:6px 0 0!important;line-height:1.4}
+.sim-nm-block-l{font-size:12px;color:var(--muted);font-style:italic}
+/* graph table view */
+.site .sim-chips .chip.sim-gtable,.site .chip.sim-gtable{min-height:26px;padding:1px 9px;font-size:12px}
+.sim-gtable-box{overflow:auto;border:1px solid var(--border);border-radius:6px}
+.sim-dtable{width:100%;border-collapse:collapse;font-size:12px}
+.sim-dtable th,.sim-dtable td{padding:3px 6px;border-top:1px solid var(--border);text-align:left}
+.sim-dtable thead th{position:sticky;top:0;background:var(--surface);color:var(--text-2);border-top:0}
+.sim-dtable tbody th{font-weight:500;color:var(--text-2)}
+.sim-dunit{color:var(--muted);font-size:11px}
+.sim-gread{font:12.5px var(--font-mono);color:var(--text);margin:4px 0 0!important}
+.chart-box:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (forced-colors:active){
+  .sim-stream .sim-line{stroke:CanvasText}
+  .sim-unit .sim-shell{stroke:CanvasText}
+  .sim-unit.is-selected .sim-shell,.sim-unit:focus-visible .sim-shell,.sim-stream.is-selected .sim-line,.sim-stream:focus-visible .sim-line{stroke:Highlight}
+  .sim-stag rect{fill:Canvas;stroke:CanvasText}
+  .sim-pfd text,.sim-stag text{fill:CanvasText}
+  .sim-tip,.sim-tour{border-color:CanvasText}
+}
 .sim-furnace{fill:color-mix(in srgb,var(--c-heat) 6%,var(--surface));stroke:var(--c-heat);stroke-width:1.5;stroke-dasharray:7 4}
 .sim-shell{stroke:var(--text-2);stroke-width:1.6}
 .sim-pfd text{stroke:none}
@@ -124,8 +230,8 @@
 .sim-stream.is-bypass .sim-line{stroke-dasharray:8 5}
 .sim-stream:hover .sim-line,.sim-stream:focus-visible .sim-line,.sim-stream.is-selected .sim-line{stroke:var(--accent)}
 .sim-stag rect{fill:var(--surface);stroke:var(--border-strong);stroke-width:1}
-.sim-stag text{font:600 10px var(--font-mono);fill:var(--text)}
-.sim-stream.is-selected .sim-stag rect{stroke:var(--accent)}
+.sim-stag text{font:600 12px var(--font-mono);fill:var(--text)}
+.sim-stag.is-selected rect{stroke:var(--accent);stroke-width:1.6}
 .pfd-particle{pointer-events:none}
 
 /* detail panel */
@@ -193,3 +299,12 @@
 @media (max-width:600px){.site .sim-chart .chart-box{height:300px}}
 @media (max-width:600px){.site .sim-chart .chart-box:has(.sim-split){height:480px!important}}
 @media (prefers-reduced-motion:reduce){.sim-flame.is-live,.sim-glow-anim{animation:none}}
+
+/* cost breakdown (graph 6) and catalyst-price note */
+.sim-cost{margin-top:10px}
+.sim-cost-bar{display:flex;height:16px;border-radius:4px;overflow:hidden;border:1px solid var(--border);background:var(--surface-2)}
+.sim-cost-bar span{display:block;min-width:2px}
+.sim-cost-t{margin-top:6px}
+.sim-cost-t .sim-cost-sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.sim-cost-total th,.sim-cost-total td{font-weight:700}
+.sim-cat-note{font-size:11.5px;color:var(--muted);margin:4px 0 0!important;line-height:1.4}
