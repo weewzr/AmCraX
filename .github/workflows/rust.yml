@@ -156,9 +156,9 @@ jobs:
         run: python rust/tools/ziggurat_numpy_sha.py
       - name: Python timings
         working-directory: .
-        run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective --kinetic-draws 25 --output rust/target/bench_python.json
+        run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective,catalyst_economics --kinetic-draws 25 --output rust/target/bench_python.json
       - name: Rust timings
-        run: ./target/release/amcrax bench --root .. --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective --kinetic-draws 25 --threads 1,2,4 --output target/bench_rust.json
+        run: ./target/release/amcrax bench --root .. --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective,catalyst_economics --kinetic-draws 25 --threads 1,2,4 --output target/bench_rust.json
       - name: merge
         run: |
           python bench/merge_benchmark.py target/bench_python.json target/bench_rust.json target/benchmark_stage3.json

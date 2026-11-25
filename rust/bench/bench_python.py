@@ -106,6 +106,22 @@ def main():
         res = SimulationResult.model_validate(json.loads((REPO / "results/simulations/baseline.json").read_text(encoding="utf-8")))
         t, _ = timed(2001, lambda: PB.constraint_values(EV.evaluate_result(res), PB.DEFAULT_CONSTRAINTS))
         out["objective"] = {"evaluate_result_and_constraints_s": t, "reps": 2001}
+    if "catalyst_economics" in items:
+        try:
+            from amcrax.research import catalyst_comparison as cc2
+            from amcrax.research import catalyst_economics as ce
+
+            def ce_run():
+                ce.state.cache_clear()
+                ce._eqc.cache_clear()
+                cc2.required_mass_kg.cache_clear()
+                for cid in cc2.CATALYSTS:
+                    ce.optimise(cid, ce.price(cc2.CATALYSTS[cid]["price_key"], "central"), 2.0, mode="exchanger")
+            t, _ = timed(1, ce_run)
+            out["catalyst_economics"] = {"optimise_5_catalysts_s": t, "reps": 1,
+                                         "property_backend": "CoolProp 8.0.0 (Python wheel)"}
+        except Exception as e:  # noqa: BLE001  (CoolProp wheel missing on the runner)
+            out["catalyst_economics"] = {"error": str(e)[:200]}
     if "gsa" in items:
         gm = module("uq_gsa_sobol")
         s_hi = extract_summary(json.loads((REPO / "results/simulations/baseline.json").read_text(encoding="utf-8")))

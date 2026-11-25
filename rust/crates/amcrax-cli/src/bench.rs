@@ -213,6 +213,31 @@ pub fn run(
         })?;
         out.insert("mcmc".into(), json!({"run_chains_4x20000_s": t, "reps": 1}));
     }
+    if want("catalyst_economics") {
+        // cost-optimal designs (5 K grid refined on 1 K, exchanger mode, central prices, 2 yr) of
+        // the five catalysts with fresh caches, fluid properties from the tables back end
+        let g = amcrax_engine::verify::Golden::open(&root.join("rust/golden/stage5")).map_err(s)?;
+        let b = amcrax_engine::verify::stage4::tables_backend(&g).map_err(s)?;
+        let ctx = amcrax_engine::catalyst::Ctx {
+            reg: KineticsRegistry::embedded(),
+            sopt: SolverOptions::default(),
+            econ: d,
+            props: &b,
+        };
+        let (t, _) = time(1, || {
+            let e = amcrax_engine::catalyst_econ::Econ::new(&ctx, root).map_err(s)?;
+            let kw = amcrax_engine::catalyst_econ::DesignKw::default();
+            for c in amcrax_engine::catalyst::catalysts().map_err(s)? {
+                let p = e.price(c.price_key, "central").map_err(s)?;
+                e.optimise(c.id, p, 2.0, true, None, &kw).map_err(s)?;
+            }
+            Ok(())
+        })?;
+        out.insert(
+            "catalyst_economics".into(),
+            json!({"optimise_5_catalysts_s": t, "reps": 1, "property_backend": "tables"}),
+        );
+    }
     if want("objective") {
         // the optimisation objective on a flowsheet result: evaluate_result (LCOH, carbon
         // intensity, compression) and the constraint values, stored baseline result, ammonia heat,
