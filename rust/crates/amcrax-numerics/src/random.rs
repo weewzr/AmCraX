@@ -182,6 +182,31 @@ impl SeedSequence {
     }
 }
 
+/// The C-library calls of NumPy's ziggurat: `exp(-x^2/2)` of a wedge test (with the layer and
+/// the left-hand side it is compared with) and `log1p(-u)` of a tail attempt. NumPy calls the
+/// platform C library (`exp`, `npy_log1p`); [`NativeMath`] calls the Rust standard library, which
+/// calls the C library of the target.
+pub trait ZigMath {
+    fn exp(&mut self, arg: f64, layer: usize, lhs: f64) -> f64;
+    fn log1p(&mut self, arg: f64) -> f64;
+    /// Index of the draw about to be generated (for tracing).
+    fn set_draw(&mut self, _i: usize) {}
+}
+
+/// The native C-library functions.
+pub struct NativeMath;
+
+impl ZigMath for NativeMath {
+    #[inline]
+    fn exp(&mut self, arg: f64, _layer: usize, _lhs: f64) -> f64 {
+        arg.exp()
+    }
+    #[inline]
+    fn log1p(&mut self, arg: f64) -> f64 {
+        arg.ln_1p()
+    }
+}
+
 /// Port of NumPy's `PCG64` bit generator together with the `Generator` methods used by AmCraX.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct Pcg64 {
@@ -260,6 +285,12 @@ impl Pcg64 {
     /// `Generator.standard_normal()`: NumPy's 256-layer ziggurat (`random_standard_normal`,
     /// tables in `ziggurat_tables.rs`).
     pub fn standard_normal(&mut self) -> f64 {
+        self.standard_normal_with(&mut NativeMath)
+    }
+
+    /// [`Pcg64::standard_normal`] with the two C-library calls of the ziggurat (`exp` of a wedge
+    /// test, `log1p` of a tail attempt) supplied by `m` (for the platform experiment of stage 5).
+    pub fn standard_normal_with<M: ZigMath>(&mut self, m: &mut M) -> f64 {
         use crate::ziggurat_tables::{FI, KI, WI};
         const R: f64 = 3.654_152_885_361_009;
         const INV_R: f64 = 0.273_661_237_329_758_3;
@@ -278,8 +309,10 @@ impl Pcg64 {
             }
             if idx == 0 {
                 loop {
-                    let xx = -INV_R * (-self.random()).ln_1p();
-                    let yy = -(-self.random()).ln_1p();
+                    let l1 = m.log1p(-self.random());
+                    let l2 = m.log1p(-self.random());
+                    let xx = -INV_R * l1;
+                    let yy = -l2;
                     if yy + yy > xx * xx {
                         return if (rabs >> 8) & 0x1 == 1 {
                             -(R + xx)
@@ -288,10 +321,23 @@ impl Pcg64 {
                         };
                     }
                 }
-            } else if (FI[idx - 1] - FI[idx]) * self.random() + FI[idx] < (-0.5 * x * x).exp() {
-                return x;
+            } else {
+                let lhs = (FI[idx - 1] - FI[idx]) * self.random() + FI[idx];
+                if lhs < m.exp(-0.5 * x * x, idx, lhs) {
+                    return x;
+                }
             }
         }
+    }
+
+    /// `n` values of [`Pcg64::standard_normal_with`]; `m.set_draw(i)` before draw `i`.
+    pub fn standard_normal_vec_with<M: ZigMath>(&mut self, n: usize, m: &mut M) -> Vec<f64> {
+        let mut out = Vec::with_capacity(n);
+        for i in 0..n {
+            m.set_draw(i);
+            out.push(self.standard_normal_with(m));
+        }
+        out
     }
 
     /// `Generator.normal(loc, scale)` = `loc + scale * standard_normal()`.

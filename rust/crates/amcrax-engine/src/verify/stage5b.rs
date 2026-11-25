@@ -487,3 +487,222 @@ pub fn enduse(g: &Golden, d: &EconomicsData, root: &Path) -> Result<Report, Engi
     );
     Ok(rep)
 }
+
+// ===================================================================================== ziggurat experiment
+/// Replays NumPy's Windows libm values (in call order) while also evaluating the native ones.
+struct Replay<'a> {
+    wedge: &'a [(usize, usize, u64)],
+    tail: &'a [(usize, u64, u64)],
+    wi: usize,
+    ti: usize,
+    second: bool,
+    draw: usize,
+    misaligned: usize,
+    n_exp_diff: usize,
+    max_ulp_exp: u64,
+    flips: Vec<(usize, usize)>,
+    n_log: usize,
+    n_log_diff: usize,
+    max_ulp_log: u64,
+    first_log_diff: Option<usize>,
+}
+
+fn ulp(a: f64, b: f64) -> u64 {
+    (a.to_bits() as i64).abs_diff(b.to_bits() as i64)
+}
+
+impl amcrax_numerics::random::ZigMath for Replay<'_> {
+    fn exp(&mut self, arg: f64, layer: usize, lhs: f64) -> f64 {
+        let nat = arg.exp();
+        let Some(&(d, l, b)) = self.wedge.get(self.wi) else {
+            self.misaligned += 1;
+            return nat;
+        };
+        self.wi += 1;
+        if d != self.draw || l != layer {
+            self.misaligned += 1;
+        }
+        let w = f64::from_bits(b);
+        if w != nat {
+            self.n_exp_diff += 1;
+            self.max_ulp_exp = self.max_ulp_exp.max(ulp(w, nat));
+            if (lhs < w) != (lhs < nat) {
+                self.flips.push((self.draw, layer));
+            }
+        }
+        w
+    }
+    fn log1p(&mut self, arg: f64) -> f64 {
+        let nat = arg.ln_1p();
+        let Some(&(d, b1, b2)) = self.tail.get(self.ti) else {
+            self.misaligned += 1;
+            return nat;
+        };
+        if d != self.draw {
+            self.misaligned += 1;
+        }
+        let w = f64::from_bits(if self.second { b2 } else { b1 });
+        if self.second {
+            self.ti += 1;
+        }
+        self.second = !self.second;
+        self.n_log += 1;
+        if w != nat {
+            self.n_log_diff += 1;
+            self.max_ulp_log = self.max_ulp_log.max(ulp(w, nat));
+            self.first_log_diff.get_or_insert(self.draw);
+        }
+        w
+    }
+    fn set_draw(&mut self, i: usize) {
+        self.draw = i;
+    }
+}
+
+fn sha_le(v: &[f64]) -> String {
+    let b: Vec<u8> = v.iter().flat_map(|x| x.to_le_bytes()).collect();
+    crate::provenance::sha256_hex(&b)
+}
+
+fn hex_u64(v: &Value) -> u64 {
+    v.as_str()
+        .and_then(|s| u64::from_str_radix(s, 16).ok())
+        .unwrap_or(0)
+}
+
+/// The platform experiment on NumPy's normal stream: the ziggurat's `exp` and `log1p` values of
+/// this machine against those of the Windows machine that produced the reference, and a replay
+/// of the stream with the Windows values substituted (which must reproduce NumPy's Windows stream
+/// bit for bit if the libm values are the only difference).
+pub fn ziggurat(g: &Golden) -> Result<Report, EngineError> {
+    let t = g.load("ziggurat.json")?;
+    let mut rep = Report::new("ziggurat platform experiment");
+    let mut align = Acc::exact(
+        "ZIG-ALIGN",
+        "replay consumes the recorded exp/log1p calls at the same draw and layer, all of them",
+    );
+    let mut replay = Acc::exact(
+        "ZIG-REPLAY",
+        "SHA-256 of 10^6 draws with the Windows exp/log1p values substituted equals NumPy's Windows stream",
+    );
+    let mut native = Acc::info(
+        "ZIG-NATIVE-DRAWS",
+        "draws of the native stream (this platform's libm) that differ from the replayed Windows stream",
+    );
+    let target = format!("{} {}", std::env::consts::OS, std::env::consts::ARCH);
+    for s in t["seeds"].as_array().into_iter().flatten() {
+        let seed = s["seed"].as_u64().unwrap_or(0);
+        let n = s["n"].as_u64().unwrap_or(0) as usize;
+        let wedge: Vec<(usize, usize, u64)> = s["wedge"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(|e| {
+                (
+                    e[0].as_u64().unwrap_or(0) as usize,
+                    e[1].as_u64().unwrap_or(0) as usize,
+                    hex_u64(&e[2]),
+                )
+            })
+            .collect();
+        let tail: Vec<(usize, u64, u64)> = s["tail"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(|e| {
+                (
+                    e[0].as_u64().unwrap_or(0) as usize,
+                    hex_u64(&e[1]),
+                    hex_u64(&e[2]),
+                )
+            })
+            .collect();
+        let want = s["sha256_le_f8"].as_str().unwrap_or("");
+        let mut rp = Replay {
+            wedge: &wedge,
+            tail: &tail,
+            wi: 0,
+            ti: 0,
+            second: false,
+            draw: 0,
+            misaligned: 0,
+            n_exp_diff: 0,
+            max_ulp_exp: 0,
+            flips: Vec::new(),
+            n_log: 0,
+            n_log_diff: 0,
+            max_ulp_log: 0,
+            first_log_diff: None,
+        };
+        let mut gr = crate::calibration::Generator::new(seed as u128);
+        let rv = gr.bg.standard_normal_vec_with(n, &mut rp);
+        let mut gn = crate::calibration::Generator::new(seed as u128);
+        let nv = gn
+            .bg
+            .standard_normal_vec_with(n, &mut amcrax_numerics::random::NativeMath);
+        let case = format!("seed {seed}");
+        align.add_bool(
+            &case,
+            rp.misaligned == 0 && rp.wi == wedge.len() && rp.ti == tail.len(),
+            || {
+                format!(
+                    "misaligned {}, wedge {}/{}, tail {}/{}",
+                    rp.misaligned,
+                    rp.wi,
+                    wedge.len(),
+                    rp.ti,
+                    tail.len()
+                )
+            },
+        );
+        let rsha = sha_le(&rv);
+        replay.add_bool(&case, rsha == want, || format!("replay {rsha} want {want}"));
+        let ndiff = rv
+            .iter()
+            .zip(&nv)
+            .filter(|(a, b)| a.to_bits() != b.to_bits())
+            .count();
+        let first = rv
+            .iter()
+            .zip(&nv)
+            .position(|(a, b)| a.to_bits() != b.to_bits());
+        native.add(&case, ndiff as f64, 0.0);
+        let nsha = sha_le(&nv);
+        let branch = match first {
+            None => "none".to_string(),
+            Some(i) => {
+                if let Some((d, l)) = rp.flips.iter().find(|f| f.0 == i) {
+                    format!(
+                        "wedge test of layer {l} at draw {d}: exp() differs and flips the acceptance"
+                    )
+                } else if rp.first_log_diff == Some(i) {
+                    "tail (layer 0): log1p() differs and changes the returned value".to_string()
+                } else {
+                    "a later draw shifted by an earlier difference (see the counts)".to_string()
+                }
+            }
+        };
+        rep.findings.push(format!(
+            "{case} on {target}: native SHA-256 {} the Windows reference ({}); exp() differs from the Windows value in \
+             {} of {} wedge tests (max {} ulp) and flips {} acceptance decisions; log1p() differs in {} of {} tail calls \
+             (max {} ulp); {} of {} draws differ, the first at draw {} ({}).",
+            if nsha == want { "equals" } else { "differs from" },
+            t["platform"].as_str().unwrap_or("?"),
+            rp.n_exp_diff,
+            wedge.len(),
+            rp.max_ulp_exp,
+            rp.flips.len(),
+            rp.n_log_diff,
+            rp.n_log,
+            rp.max_ulp_log,
+            ndiff,
+            n,
+            first.map(|i| i.to_string()).unwrap_or_else(|| "none".into()),
+            branch
+        ));
+    }
+    rep.push(align);
+    rep.push(replay);
+    rep.push(native);
+    Ok(rep)
+}

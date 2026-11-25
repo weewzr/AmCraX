@@ -151,6 +151,9 @@ jobs:
           python -m pip install CoolProp==8.0.0 || echo "CoolProp 8.0.0 wheel not installable: the catalyst item is skipped on the Python side"
       - name: build (release)
         run: cargo build --release --locked -p amcrax-cli
+      - name: NumPy normal stream on Linux against the Windows reference (platform experiment)
+        working-directory: .
+        run: python rust/tools/ziggurat_numpy_sha.py
       - name: Python timings
         working-directory: .
         run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective --kinetic-draws 25 --output rust/target/bench_python.json
@@ -274,6 +277,8 @@ jobs:
           workspaces: rust
       - name: cargo test
         run: cargo test --workspace --all-features --profile ci --locked
+      - name: amcrax verify ziggurat (platform experiment on the MSVC C runtime)
+        run: cargo run --profile ci --locked -p amcrax-cli -- verify ziggurat --root ..
 
   wasm:
     name: wasm32-unknown-unknown build

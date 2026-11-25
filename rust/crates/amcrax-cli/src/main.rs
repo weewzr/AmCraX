@@ -60,6 +60,8 @@ VERIFY TARGETS:
                 objective conflicts from the stored design grid
     enduse      stage 5: end-use pathways (power and hydrogen), LCA, turbine thresholds: direct calls,
                 the three study drivers against the Python rerun and the stored results (alias lca)
+    ziggurat    stage 5: platform experiment on NumPy's normal stream (this platform's exp/log1p against the
+                Windows values of the reference; replay with the Windows values)
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -652,6 +654,9 @@ fn run_engine_target(
             )
             .map_err(s)?,
         );
+    }
+    if matches!(target, "ziggurat" | "stage5" | "all") {
+        out.push(ev::stage5b::ziggurat(&stage("stage5")?).map_err(s)?);
     }
     if matches!(target, "enduse" | "lca" | "stage5" | "all") {
         out.push(

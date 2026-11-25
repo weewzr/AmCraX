@@ -555,7 +555,60 @@ def enduse() -> None:
     print("stored:", json.dumps([{k: s[k] for k in ("file", "n", "max", "worst")} | {"n_other": len(s["other"]), "n_only": len(s["only"])} for s in stored], indent=1))
 
 
-TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation, "enduse": enduse}
+# ===================================================================================== ziggurat experiment
+def ziggurat() -> None:
+    """The libm values used by NumPy's ziggurat on this (Windows) machine, for the platform experiment of stage 5:
+    every exp() of a wedge test and every log1p() of a tail attempt in the first 10^6 draws of each seed, with the
+    draw index and layer, so that the Rust generator can (a) compare its own exp/log1p with them and (b) replay the
+    stream with these values substituted (which must give NumPy's Windows stream bit for bit)."""
+    import math
+    import struct
+    import numpy as np
+
+    z = _ziggurat_tables()
+    ki, wi, fi, R, INV_R = z["ki"], z["wi"], z["fi"], z["R"], z["INV_R"]
+    bits = lambda v: struct.unpack("<Q", struct.pack("<d", v))[0]  # noqa: E731
+    nd = lambda r: (int(r) >> 11) * (1.0 / 9007199254740992.0)  # noqa: E731
+    seeds = []
+    for seed in (20261123, 1, 12345):
+        n = 1_000_000
+        raw = np.random.PCG64(seed).random_raw(2 * n)
+        out, pos, wedge, tail = [], 0, [], []
+        while len(out) < n:
+            r = int(raw[pos]); pos += 1
+            idx = r & 0xff; r >>= 8; sign = r & 1; rabs = (r >> 1) & 0x000fffffffffffff
+            x = rabs * wi[idx]
+            x = -x if sign else x
+            if rabs < ki[idx]:
+                out.append(x); continue
+            if idx == 0:
+                while True:
+                    l1 = math.log1p(-nd(raw[pos])); pos += 1
+                    l2 = math.log1p(-nd(raw[pos])); pos += 1
+                    tail.append([len(out), f"{bits(l1):016x}", f"{bits(l2):016x}"])
+                    xx, yy = -INV_R * l1, -l2
+                    if yy + yy > xx * xx:
+                        out.append(-(R + xx) if ((rabs >> 8) & 1) else R + xx); break
+                continue
+            u = nd(raw[pos]); pos += 1
+            e = math.exp(-0.5 * x * x)
+            wedge.append([len(out), idx, f"{bits(e):016x}"])
+            if ((fi[idx - 1] - fi[idx]) * u + fi[idx]) < e:
+                out.append(x)
+        ref = np.random.Generator(np.random.PCG64(seed)).standard_normal(n)
+        got = np.array(out)
+        seeds.append({"seed": seed, "n": n, "emulation_mismatches": int((got != ref).sum()),
+                      "sha256_le_f8": hashlib.sha256(np.ascontiguousarray(ref, "<f8").tobytes()).hexdigest(),
+                      "wedge": wedge, "tail": tail})
+        print(f"seed {seed}: {len(wedge)} wedge tests, {len(tail)} tail attempts, emulation mismatches "
+              f"{seeds[-1]['emulation_mismatches']}")
+    import platform
+    write_table("ziggurat", {"platform": platform.platform(), "python": platform.python_version(),
+                             "numpy": np.__version__, "seeds": seeds},
+                sum(len(s["wedge"]) + len(s["tail"]) for s in seeds))
+
+
+TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation, "enduse": enduse, "ziggurat": ziggurat}
 
 
 def main() -> None:
@@ -575,6 +628,10 @@ def main() -> None:
         for r in old["states"]:
             k = (r["fluid"], r["out"], r["in"], r["phase"], float(r["a"]), float(r["b"]))
             G4.STATES.setdefault(k, r)
+    if prev.exists() and len(G4.STATES) == len(old["states"]):
+        print("no new CoolProp states: coolprop_states.json unchanged")
+        save_manifest()
+        return
     recs = sorted(G4.STATES.values(), key=lambda r: (r["fluid"], r["out"], r["in"], r["phase"], r["b"], r["a"]))
     write_table("coolprop_states", {
         "columns": "as rust/golden/stage4/coolprop_states.json",

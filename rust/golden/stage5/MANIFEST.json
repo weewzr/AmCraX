@@ -24,6 +24,11 @@
    "bytes": 739182,
    "cases": 456,
    "sha256": "1090c4446ff0f3f6e4034e2946f4c96792c97217fc6ff887ddde21816b3cf7b4"
+  },
+  "ziggurat.json": {
+   "bytes": 1390997,
+   "cases": 44869,
+   "sha256": "3395c3af3dc500cfdda103b54127fce01e88b3f851512e53bc2c7393d2e9790c"
   }
  },
  "meta": {
@@ -34,7 +39,7 @@
   "coolprop_reference_state": "CoolProp default reference state of each fluid file (the Python code never calls set_reference_state; the NH3 scale is anchored to NASA-7 by the Python model)",
   "coolprop_water_eos": "Wagner-JPCRD-2002",
   "generator": "rust/golden/generate_stage5_golden.py",
-  "git_head_at_generation": "170a3193dbabcdc656c5d1e787cdae853a3a2469",
+  "git_head_at_generation": "9fc303e98a6162122aa9e03753ec961b824a138c",
   "numpy": "2.5.5",
   "platform": "Windows AMD64",
   "pydantic": "2.14.4",
