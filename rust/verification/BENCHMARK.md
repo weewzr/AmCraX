@@ -37,3 +37,23 @@ on the same machine within the job time.
 
 Full Rust kinetic propagation study (16,000 draws, 2,085,296 PFR solves of which 141,592 used the Radau fallback; job "kinetic", 4 threads, not on the benchmark runner, so not a comparison): 820.4 s on an Intel Xeon 6975P-C runner (run 45413488525) and 1332.2 s on an AMD EPYC 7763 runner (run 45405266952). The stored Python study reports about 43 minutes with a multiprocessing pool on the generator machine; that figure is not a measurement of this benchmark.
 
+
+## Stage 5 items
+
+Source: the `benchmark_stage3.json` artifact of GitHub Actions run 45521208605 (commit 6173ba7,
+job "benchmark"); AMD EPYC 7763, 4 vCPUs, same image, toolchain and Python versions as above. The
+whole set was measured again in that job (economics 1.5 / 1.7 / 29.0, PFR 30.8 to 37.8, global
+sensitivity 7.1, kinetic slice 13.3); this runner is slower than the Xeon of the stage 3 run.
+
+| Item | Python (s) | Rust (s) | Python / Rust |
+|---|---|---|---|
+| catalyst comparison: one LCOH(T) curve (Ru Temkin-Pyzhev, 59 temperatures, heat integration; PFR mass search, kinetic flowsheet, heat accounting, economics) | 46.0 | 0.719 | 63.9 |
+| optimisation objective: `evaluate_result` and the constraint values on the stored baseline result (2001 repetitions) | 2.06e-4 | 1.31e-4 | 1.6 |
+| MCMC: four adaptive-Metropolis chains of 20,000 iterations on the bicubic surrogate of the main calibration grid | 5.94 | 0.180 | 33.1 |
+
+Notes: in the catalyst curve Python takes its fluid properties from the CoolProp 8.0.0 wheel and
+Rust from the recorded tables back end (CoolProp itself is not linked in the benchmark job), so
+part of the ratio is the cost of CoolProp calls; the verified agreement of the two back ends is
+in `stage5_report.json`. The objective item excludes the flowsheet solve, which dominates one
+optimiser evaluation in both implementations; like the dict-building `evaluate`, it is dominated
+by building the result dict.

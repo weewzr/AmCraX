@@ -360,7 +360,8 @@ What stays in Python, and why:
 
 New CLI commands of stage 5: `amcrax verify catalyst|mcmc|optimisation|stage5` (included in `verify
 all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `amcrax bench` items
-`catalyst` and `mcmc`.
+`catalyst`, `objective` and `mcmc` (timings in `verification/BENCHMARK.md`, run 45521208605: catalyst curve
+63.9 x, MCMC 33.1 x, objective 1.6 x faster than Python on the same runner).
 
 ## Stages
 
