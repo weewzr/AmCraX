@@ -505,6 +505,7 @@ struct Replay<'a> {
     n_log_diff: usize,
     max_ulp_log: u64,
     first_log_diff: Option<usize>,
+    log_diff_draws: Vec<usize>,
 }
 
 fn ulp(a: f64, b: f64) -> u64 {
@@ -551,6 +552,7 @@ impl amcrax_numerics::random::ZigMath for Replay<'_> {
             self.n_log_diff += 1;
             self.max_ulp_log = self.max_ulp_log.max(ulp(w, nat));
             self.first_log_diff.get_or_insert(self.draw);
+            self.log_diff_draws.push(self.draw);
         }
         w
     }
@@ -633,6 +635,7 @@ pub fn ziggurat(g: &Golden) -> Result<Report, EngineError> {
             n_log_diff: 0,
             max_ulp_log: 0,
             first_log_diff: None,
+            log_diff_draws: Vec::new(),
         };
         let mut gr = crate::calibration::Generator::new(seed as u128);
         let rv = gr.bg.standard_normal_vec_with(n, &mut rp);
@@ -675,7 +678,7 @@ pub fn ziggurat(g: &Golden) -> Result<Report, EngineError> {
                     format!(
                         "wedge test of layer {l} at draw {d}: exp() differs and flips the acceptance"
                     )
-                } else if rp.first_log_diff == Some(i) {
+                } else if rp.log_diff_draws.contains(&i) {
                     "tail (layer 0): log1p() differs and changes the returned value".to_string()
                 } else {
                     "a later draw shifted by an earlier difference (see the counts)".to_string()
@@ -683,10 +686,11 @@ pub fn ziggurat(g: &Golden) -> Result<Report, EngineError> {
             }
         };
         rep.findings.push(format!(
-            "{case} on {target}: native SHA-256 {} the Windows reference ({}); exp() differs from the Windows value in \
+            "{case} on {target}: native SHA-256 {} ({}) the Windows reference ({}); exp() differs from the Windows value in \
              {} of {} wedge tests (max {} ulp) and flips {} acceptance decisions; log1p() differs in {} of {} tail calls \
              (max {} ulp); {} of {} draws differ, the first at draw {} ({}).",
             if nsha == want { "equals" } else { "differs from" },
+            nsha,
             t["platform"].as_str().unwrap_or("?"),
             rp.n_exp_diff,
             wedge.len(),
