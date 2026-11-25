@@ -62,6 +62,8 @@ VERIFY TARGETS:
                 the three study drivers against the Python rerun and the stored results (alias lca)
     ziggurat    stage 5: platform experiment on NumPy's normal stream (this platform's exp/log1p against the
                 Windows values of the reference; replay with the Windows values)
+    catalyst-economics  stage 5: research/catalyst_economics.py (prices, states, designs, optima,
+                comparisons), the cost table and break-even searches of the study, stored CSV
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -654,6 +656,16 @@ fn run_engine_target(
             )
             .map_err(s)?,
         );
+    }
+    if matches!(target, "catalyst-economics" | "stage5" | "all") {
+        let b = make_backend_in(props, root, "stage5")?;
+        let ctx = amcrax_engine::catalyst::Ctx {
+            reg,
+            sopt,
+            econ: EconomicsData::embedded(),
+            props: b.as_ref(),
+        };
+        out.push(ev::stage5b::catalyst_economics(&stage("stage5")?, &ctx, root).map_err(s)?);
     }
     if matches!(target, "ziggurat" | "stage5" | "all") {
         out.push(ev::stage5b::ziggurat(&stage("stage5")?).map_err(s)?);

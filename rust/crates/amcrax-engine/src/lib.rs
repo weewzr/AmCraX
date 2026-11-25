@@ -17,6 +17,7 @@
 pub mod calibration;
 pub mod carbon;
 pub mod catalyst;
+pub mod catalyst_econ;
 pub mod data;
 pub mod economics;
 pub mod enduse;

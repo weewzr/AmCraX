@@ -706,3 +706,474 @@ pub fn ziggurat(g: &Golden) -> Result<Report, EngineError> {
     rep.push(native);
     Ok(rep)
 }
+
+// ===================================================================================== catalyst economics
+fn design_kw(a: &Value) -> crate::catalyst_econ::DesignKw {
+    use crate::catalyst_econ::{DesignKw, U};
+    let mut k = DesignKw::default();
+    if let Some(m) = a["mode"].as_str() {
+        k.mode = m.into();
+    }
+    if !a["U_case"].is_null() {
+        k.u = U::from_json(&a["U_case"]);
+    }
+    if let Some(h) = a["hi"].as_bool() {
+        k.hi = h;
+    }
+    if !a["scenario"].is_null() {
+        k.scenario = a["scenario"].clone();
+    }
+    if let Some(o) = a["econ_overrides"].as_object() {
+        k.econ_overrides = Some(o.clone());
+    }
+    if let Some(v) = opt(a, "kinetic_factor") {
+        k.kinetic_factor = v;
+    }
+    k.w_kg = opt(a, "W_kg");
+    k
+}
+
+fn opt_json(v: Option<Value>) -> Value {
+    v.unwrap_or(Value::Null)
+}
+
+fn econ_call(e: &crate::catalyst_econ::Econ, f: &str, a: &Value) -> Result<Value, EngineError> {
+    use crate::catalyst_econ as ce;
+    let s = |k: &str| a[k].as_str().unwrap_or("").to_string();
+    let fx = e.ctx.econ.reference.fx_sgd_per_usd;
+    Ok(match f {
+        "price_table" => Value::Array(e.price_table()?),
+        "published_tea_prices" => Value::Array(e.published_tea_prices()?),
+        "price" => json!(e.price(&s("name"), &s("scenario"))?),
+        "ru_metal_floor" => json!(e.ru_metal_floor(num(&a["wt_pct_ru"]), None)?),
+        "catalyst_cost" => e.catalyst_cost(
+            num(&a["W_kg"]),
+            num(&a["price"]),
+            num(&a["lifetime_yr"]),
+            num(&a["annual_h2_kg"]),
+        ),
+        "state" => e
+            .state(
+                num(&a["T_C"]),
+                ce::P_BAR,
+                ce::X_TARGET,
+                a["hi"].as_bool().unwrap_or(true),
+            )?
+            .v
+            .clone(),
+        "hx_size_ratio" => {
+            json!(e.hx_size_ratio(num(&a["fehe_tci_USD"]), num(&a["nh3_feed_kmol_h"]))?)
+        }
+        "design" => opt_json(e.design(
+            &s("cid"),
+            num(&a["T_C"]),
+            num(&a["price"]),
+            num(&a["lifetime_yr"]),
+            &design_kw(a),
+            None,
+        )?),
+        "optimise" => opt_json(e.optimise(
+            &s("cid"),
+            num(&a["price"]),
+            num(&a["lifetime_yr"]),
+            a["refine"].as_bool().unwrap_or(true),
+            None,
+            &design_kw(a),
+        )?),
+        "compare" => {
+            let kw = design_kw(a);
+            let lo = e.optimise(
+                &s("low"),
+                e.price(
+                    &crate::catalyst::catalyst(&s("low"))?.price_key.to_string(),
+                    "central",
+                )?,
+                2.0,
+                true,
+                None,
+                &kw,
+            )?;
+            let rf = e.optimise(
+                &s("ref"),
+                e.price(
+                    &crate::catalyst::catalyst(&s("ref"))?.price_key.to_string(),
+                    "central",
+                )?,
+                2.0,
+                true,
+                None,
+                &kw,
+            )?;
+            match (lo, rf) {
+                (Some(l), Some(r)) => ce::compare(&l, &r, fx)?,
+                _ => Value::Null,
+            }
+        }
+        "kinetics_label" => {
+            let ids: Vec<String> = a["cids"]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .filter_map(|v| v.as_str().map(String::from))
+                .collect();
+            let refs: Vec<&str> = ids.iter().map(String::as_str).collect();
+            ce::kinetics_label(e, &refs)?
+        }
+        other => {
+            return Err(EngineError::data(
+                "catalyst_economics.json",
+                format!("unknown function {other}"),
+            ));
+        }
+    })
+}
+
+const CE_NOTE: &str = "relative to max(|x|, 1); 1e-5 is the catalyst-mass gate of the PFR mass search (brentq xtol 1e-6 \
+                       on W), inherited by the catalyst cost, the mass-driven reactor CAPEX and the LCOH";
+
+/// Catalyst economics (`research/catalyst_economics.py`): direct calls, the cost table and the
+/// break-even searches of `scripts/research/catalyst_economics.py`, and the stored CSV tables.
+pub fn catalyst_economics(
+    g: &Golden,
+    ctx: &crate::catalyst::Ctx,
+    root: &Path,
+) -> Result<Report, EngineError> {
+    use crate::catalyst_econ as ce;
+    use amcrax_numerics::roots::{BrentError, BrentOptions, brentq_try};
+    let t = g.load("catalyst_economics.json")?;
+    let e = ce::Econ::new(ctx, root)?;
+    let fx = ctx.econ.reference.fx_sgd_per_usd;
+    let mut rep = Report::new("catalyst economics");
+    let mut calls = TreeAcc::new(
+        "CE-CALL",
+        "catalyst_economics functions (direct calls)",
+        1e-5,
+        CE_NOTE,
+    );
+    let mut exact = TreeAcc::new(
+        "CE-CALL-NOMASS",
+        "prices, costs, states, size ratios (no catalyst mass)",
+        1e-9,
+        "relative to max(|x|, 1)",
+    );
+    let mut prose = Acc::exact("CE-PROSE", "static prose fields (counted)");
+    let mut outcome = Acc::exact("CE-CALL-OUTCOME", "success, or the same exception class");
+    for (i, c) in t["calls"].as_array().into_iter().flatten().enumerate() {
+        let f = c["fn"].as_str().unwrap_or("");
+        let case = format!("{f}#{i} {}", c["args"]);
+        match (py_error(&c["out"]), econ_call(&e, f, &c["args"])) {
+            (Some(cls), Err(er)) => outcome.add_bool(&case, error_ok(cls, &er), || {
+                format!("python {cls}, rust {er}")
+            }),
+            (Some(cls), Ok(_)) => outcome.add_bool(&case, false, || format!("python raised {cls}")),
+            (None, Err(er)) => outcome.add_bool(&case, false, || format!("rust failed: {er}")),
+            (None, Ok(r)) => {
+                outcome.add_bool(&case, true, String::new);
+                let acc = if matches!(f, "design" | "optimise" | "compare") {
+                    &mut calls
+                } else {
+                    &mut exact
+                };
+                partial_tree(acc, &mut prose, &case, &c["out"], &r, 1.0);
+            }
+        }
+    }
+    exact.push(&mut rep);
+    calls.push(&mut rep);
+    rep.push(outcome);
+    // ---- cost table (section 2 of the script)
+    let mut cost = TreeAcc::new(
+        "CE-COST-TABLE",
+        "cost table: cost-optimal (reference mode) and fixed 100 kg designs",
+        1e-5,
+        CE_NOTE,
+    );
+    let asp = |cid: &str,
+               hi: bool|
+     -> Result<crate::process::result::SimulationResult, EngineError> {
+        let tag = match cid {
+            "ru_kum_temkin_pyzhev" => "kum_T499",
+            "nire_ceo2_5ni1ru_lucentini_lhhw" => "luc5_T572",
+            "nire_ceo2_2p5ni0p5ru_lucentini_lhhw" => "luc25_T576",
+            "ni_takahashi_microkinetic" => "tni_T594",
+            _ => "tru_T522",
+        };
+        let rel = format!(
+            "results/research/aspen_kinetic/ci_{tag}_P20_W100_{}.json",
+            if hi { "hi" } else { "nohi" }
+        );
+        let v = read_json(root, &rel)?;
+        crate::process::result::SimulationResult::from_sorted_value(&v["aspen"]["flowsheet_result"])
+    };
+    let mut asp_states = std::collections::HashMap::new();
+    let refkw = ce::DesignKw {
+        mode: "reference".into(),
+        ..ce::DesignKw::default()
+    };
+    for r in t["cost_table"].as_array().into_iter().flatten() {
+        let cid = r["catalyst_id"].as_str().unwrap_or("");
+        let p = num(&r["price_USD_per_kg"]);
+        let l = num(&r["lifetime_yr"]);
+        let case = format!("{cid}/{}/{l}", r["price_case"].as_str().unwrap_or(""));
+        if !asp_states.contains_key(cid) {
+            let st =
+                e.state_from_result(&asp(cid, true)?, 20.0, crate::catalyst::FURNACE_EFFICIENCY)?;
+            asp_states.insert(cid.to_string(), st);
+        }
+        let st = &asp_states[cid];
+        let o = e.optimise(cid, p, l, true, None, &refkw)?;
+        partial_tree(
+            &mut cost,
+            &mut prose,
+            &format!("{case}/costopt"),
+            &r["costopt"],
+            &opt_json(o),
+            1.0,
+        );
+        let fkw = ce::DesignKw {
+            w_kg: Some(100.0),
+            ..refkw.clone()
+        };
+        let fxd = e.design(cid, num(&st.v["T_C"]), p, l, &fkw, Some(st))?;
+        partial_tree(
+            &mut cost,
+            &mut prose,
+            &format!("{case}/fixed100kg"),
+            &r["fixed100kg"],
+            &opt_json(fxd),
+            1.0,
+        );
+    }
+    cost.push(&mut rep);
+    // ---- break-even searches (section 4)
+    let mut be = TreeAcc::new(
+        "CE-BREAKEVEN",
+        "cost-optimal designs and their comparison",
+        1e-5,
+        CE_NOTE,
+    );
+    let mut bp = Acc::abs(
+        "CE-BE-PRICE-REOPT",
+        "re-optimised break-even price, USD/kg (brentq xtol 0.05 on full re-optimisations)",
+        0.05,
+    )
+    .note("absolute: both roots satisfy the same brentq stopping rule (xtol 0.05 USD/kg)");
+    let mut bl = Acc::abs(
+        "CE-BE-LIFE-REOPT",
+        "re-optimised break-even lifetime, yr (brentq xtol 1e-3)",
+        1e-3,
+    );
+    let mut bt = Acc::exact(
+        "CE-BE-T",
+        "temperature of the re-optimised design at the break-even price; existence of each root",
+    );
+    let mut f0a = Acc::rel(
+        "CE-BE-F0",
+        "LCOH(low, zero catalyst price) - LCOH(ref), USD/kg",
+        1e-5,
+    );
+    let pcen = |cid: &str| -> Result<f64, EngineError> {
+        e.price(crate::catalyst::catalyst(cid)?.price_key, "central")
+    };
+    for r in t["breakeven"].as_array().into_iter().flatten() {
+        let mode = r["mode"].as_str().unwrap_or("");
+        let cid = r["catalyst_id"].as_str().unwrap_or("");
+        let case = format!("{mode}/{cid}");
+        let kw = ce::DesignKw {
+            mode: mode.into(),
+            ..ce::DesignKw::default()
+        };
+        let rf = e
+            .optimise(
+                crate::catalyst::REFERENCE_NI,
+                pcen(crate::catalyst::REFERENCE_NI)?,
+                2.0,
+                true,
+                None,
+                &kw,
+            )?
+            .unwrap_or(Value::Null);
+        let lo = e
+            .optimise(cid, pcen(cid)?, 2.0, true, None, &kw)?
+            .unwrap_or(Value::Null);
+        partial_tree(
+            &mut be,
+            &mut prose,
+            &format!("{case}/low"),
+            &r["low"],
+            &lo,
+            1.0,
+        );
+        partial_tree(
+            &mut be,
+            &mut prose,
+            &format!("{case}/ref"),
+            &r["ref"],
+            &rf,
+            1.0,
+        );
+        partial_tree(
+            &mut be,
+            &mut prose,
+            &format!("{case}/compare"),
+            &r["compare"],
+            &ce::compare(&lo, &rf, fx)?,
+            1.0,
+        );
+        let l_ref = num(&rf["lcoh_USD_per_kg"]);
+        let f = |p: f64| -> Result<f64, EngineError> {
+            let o = e
+                .optimise(cid, p, 2.0, true, None, &kw)?
+                .unwrap_or(Value::Null);
+            Ok(num(&o["lcoh_USD_per_kg"]) - l_ref)
+        };
+        let f0 = f(0.0)?;
+        f0a.add(
+            &case,
+            f0,
+            num(&r["lcoh_low_at_zero_price_minus_ref_USD_per_kg"]),
+        );
+        let root_of = |fun: &dyn Fn(f64) -> Result<f64, EngineError>,
+                       a: f64,
+                       b: f64,
+                       xtol: f64|
+         -> Result<Option<f64>, EngineError> {
+            match brentq_try(fun, a, b, BrentOptions::with_xtol(xtol)) {
+                Ok(r) => Ok(Some(r.x)),
+                Err(BrentError::Function(er)) => Err(er),
+                Err(_) => Ok(None),
+            }
+        };
+        let p_re = if f0 < 0.0 && 0.0 < f(2e5)? {
+            root_of(&f, 0.0, 2e5, 0.05)?
+        } else {
+            None
+        };
+        let py_p = &r["breakeven_price_reoptimised_USD_per_kg"];
+        bt.add_bool(
+            &format!("{case}/price exists"),
+            p_re.is_some() == !py_p.is_null(),
+            || format!("rust {p_re:?} python {py_p}"),
+        );
+        if let (Some(pr), false) = (p_re, py_p.is_null()) {
+            bp.add(&case, pr, num(py_p));
+            let o = e
+                .optimise(cid, pr, 2.0, true, None, &kw)?
+                .unwrap_or(Value::Null);
+            bt.add_bool(
+                &format!("{case}/T"),
+                num(&o["T_C"]) == num(&r["T_at_reoptimised_breakeven_C"]),
+                || {
+                    format!(
+                        "rust {} python {}",
+                        o["T_C"], r["T_at_reoptimised_breakeven_C"]
+                    )
+                },
+            );
+        }
+        let gfun = |l: f64| -> Result<f64, EngineError> {
+            let o = e
+                .optimise(cid, pcen(cid)?, l, true, None, &kw)?
+                .unwrap_or(Value::Null);
+            Ok(num(&o["lcoh_USD_per_kg"]) - l_ref)
+        };
+        let l_re = if gfun(200.0)? < 0.0 && 0.0 < gfun(0.05)? {
+            root_of(&gfun, 0.05, 200.0, 1e-3)?
+        } else {
+            None
+        };
+        let py_l = &r["breakeven_lifetime_reoptimised_yr"];
+        bt.add_bool(
+            &format!("{case}/lifetime exists"),
+            l_re.is_some() == !py_l.is_null(),
+            || format!("rust {l_re:?} python {py_l}"),
+        );
+        if let (Some(lr), false) = (l_re, py_l.is_null()) {
+            bl.add(&case, lr, num(py_l));
+        }
+    }
+    be.push(&mut rep);
+    rep.push(f0a);
+    rep.push(bp);
+    rep.push(bl);
+    rep.push(bt);
+    rep.push(prose);
+    // ---- the stored CSV tables of the script
+    let mut sc = Acc::rel("CE-STORED-COST", "stored catalyst_cost_table.csv: cost-optimal T, W, catalyst cost, LCOH; fixed-100 kg costs", 1e-5).note(CE_NOTE);
+    let rows = read_csv_rows(
+        root,
+        "results/research/catalyst_economics/catalyst_cost_table.csv",
+    )?;
+    for r in t["cost_table"].as_array().into_iter().flatten() {
+        let cid = r["catalyst_id"].as_str().unwrap_or("");
+        let case = r["price_case"].as_str().unwrap_or("");
+        let l = num(&r["lifetime_yr"]);
+        let Some(s) = rows.iter().find(|x| {
+            x.get("catalyst_id").map(String::as_str) == Some(cid)
+                && x.get("price_case").map(String::as_str) == Some(case)
+                && x.get("lifetime_yr").and_then(|v| v.parse::<f64>().ok()) == Some(l)
+        }) else {
+            sc.add_bool(&format!("{cid}/{case}/{l}"), false, || {
+                "row not in the stored table".into()
+            });
+            continue;
+        };
+        let pairs = [
+            ("costopt_T_C", &r["costopt"]["T_C"]),
+            ("costopt_W_kg", &r["costopt"]["W_kg"]),
+            (
+                "costopt_catalyst_USD_per_kg_H2",
+                &r["costopt"]["catalyst_cost"]["USD_per_kg_H2"],
+            ),
+            ("costopt_lcoh_USD_per_kg", &r["costopt"]["lcoh_USD_per_kg"]),
+            (
+                "fixed100kg_catalyst_USD_per_kg_H2",
+                &r["fixed100kg"]["catalyst_cost"]["USD_per_kg_H2"],
+            ),
+            (
+                "fixed100kg_lcoh_USD_per_kg",
+                &r["fixed100kg"]["lcoh_USD_per_kg"],
+            ),
+        ];
+        for (col, v) in pairs {
+            let st: f64 = s.get(col).and_then(|x| x.parse().ok()).unwrap_or(f64::NAN);
+            sc.add_scaled(&format!("{cid}/{case}/{l}/{col}"), num(v), st, 1.0);
+        }
+    }
+    rep.push(sc);
+    Ok(rep)
+}
+
+/// A CSV file as rows of strings by header.
+fn read_csv_rows(
+    root: &Path,
+    rel: &str,
+) -> Result<Vec<std::collections::BTreeMap<String, String>>, EngineError> {
+    let text = std::fs::read_to_string(root.join(rel))
+        .map_err(|e| EngineError::data(rel, e.to_string()))?;
+    let mut lines = text.lines();
+    let parse = |l: &str| -> Vec<String> {
+        let mut out = Vec::new();
+        let mut cur = String::new();
+        let mut q = false;
+        let mut it = l.chars().peekable();
+        while let Some(c) = it.next() {
+            match (c, q) {
+                ('"', true) if it.peek() == Some(&'"') => {
+                    cur.push('"');
+                    it.next();
+                }
+                ('"', _) => q = !q,
+                (',', false) => out.push(std::mem::take(&mut cur)),
+                _ => cur.push(c),
+            }
+        }
+        out.push(cur);
+        out
+    };
+    let head = parse(lines.next().unwrap_or(""));
+    Ok(lines
+        .filter(|l| !l.trim().is_empty())
+        .map(|l| head.iter().cloned().zip(parse(l)).collect())
+        .collect())
+}

@@ -608,7 +608,114 @@ def ziggurat() -> None:
                 sum(len(s["wedge"]) + len(s["tail"]) for s in seeds))
 
 
-TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation, "enduse": enduse, "ziggurat": ziggurat}
+# ===================================================================================== catalyst economics
+def catalyst_economics() -> None:
+    """research/catalyst_economics.py: direct calls of every function, and sections 2 (catalyst cost table) and 4
+    (break-even prices and lifetimes, fixed and re-optimised designs) of scripts/research/catalyst_economics.py,
+    recomputed with the module functions exactly as the script does (the script itself also draws figures and writes
+    results/, so its calculation is repeated here, not run)."""
+    import math
+    from scipy.optimize import brentq
+    from amcrax.research import catalyst_comparison as cc
+    from amcrax.research import catalyst_economics as ce
+    from amcrax.schemas import SimulationResult
+
+    calls = []
+
+    def rec(fn, args, out):
+        calls.append({"fn": fn, "args": args, "out": out})
+
+    CIDS = list(cc.CATALYSTS)
+    NI = cc.REFERENCE_NI
+    rec("price_table", {}, ce.price_table())
+    rec("published_tea_prices", {}, ce.published_tea_prices())
+    for name in list(ce.MODELLED.values()) + list(ce.UNMODELLED):
+        for sc in cc.PRICE_SCENARIOS:
+            rec("price", {"name": name, "scenario": sc}, ce.price(name, sc))
+    for w in (0.0, 1.5, 4.0):
+        rec("ru_metal_floor", {"wt_pct_ru": w}, ce.ru_metal_floor(w))
+    for W, p, L, H in ((100.0, 61.3, 2.0, 6.5e5), (37.2, 900.0, 4.0, 7.1e5)):
+        rec("catalyst_cost", {"W_kg": W, "price": p, "lifetime_yr": L, "annual_h2_kg": H}, ce.catalyst_cost(W, p, L, H))
+    for T in (520.0, 600.0, 680.0):
+        for hi in (True, False):
+            rec("state", {"T_C": T, "hi": hi}, call(ce.state, T, 20.0, 0.95, hi))
+    for fehe, nh3 in ((0.0, 99.8), (25000.0, 99.8), (80000.0, 60.0)):
+        rec("hx_size_ratio", {"fehe_tci_USD": fehe, "nh3_feed_kmol_h": nh3}, ce.hx_size_ratio(fehe, nh3))
+    pcen = {c: ce.price(cc.CATALYSTS[c]["price_key"], "central") for c in CIDS}
+    for cid in CIDS:
+        for T in (480.0, 560.0, 640.0, 735.0):
+            for kw in ({}, {"mode": "reference"}, {"mode": "exchanger_reactor_mass"}, {"U_case": "low"}, {"U_case": 75.0},
+                       {"hi": False}, {"scenario": 610.0}, {"econ_overrides": {"heat_fuel": "natural_gas"}},
+                       {"econ_overrides": {"discount_rate": 0.085}}, {"kinetic_factor": 0.2}, {"W_kg": 100.0}):
+                rec("design", {"cid": cid, "T_C": T, "price": pcen[cid], "lifetime_yr": 2.0, **kw},
+                    call(ce.design, cid, T, pcen[cid], 2.0, **kw))
+    opts = {}
+    for cid in CIDS:
+        for kw in ({"mode": "exchanger"}, {"mode": "reference"}, {"mode": "exchanger", "U_case": "high"},
+                   {"mode": "exchanger", "refine": False}):
+            o = ce.optimise(cid, pcen[cid], 2.0, **kw)
+            opts[(cid, json.dumps(kw, sort_keys=True))] = o
+            rec("optimise", {"cid": cid, "price": pcen[cid], "lifetime_yr": 2.0, **kw}, o)
+    for cid in ce.LOW_T:
+        for kw in ({"mode": "exchanger"}, {"mode": "reference"}):
+            k = json.dumps(kw, sort_keys=True)
+            rec("compare", {"low": cid, "ref": NI, **kw}, ce.compare(opts[(cid, k)], opts[(NI, k)]))
+    rec("kinetics_label", {"cids": CIDS}, ce.kinetics_label(*CIDS))
+    for cid in CIDS:
+        rec("kinetics_label", {"cids": [cid, NI]}, ce.kinetics_label(cid, NI))
+
+    # ---- section 2 of the script: catalyst cost table (cost-optimal and fixed 100 kg on the stored Aspen states)
+    ASPEN_CASES = {"ru_kum_temkin_pyzhev": "kum_T499", "nire_ceo2_5ni1ru_lucentini_lhhw": "luc5_T572",
+                   "nire_ceo2_2p5ni0p5ru_lucentini_lhhw": "luc25_T576", "ni_takahashi_microkinetic": "tni_T594",
+                   "ru_takahashi_microkinetic": "tru_T522"}
+
+    def load_aspen(cid, hi):
+        fn = f"results/research/aspen_kinetic/ci_{ASPEN_CASES[cid]}_P20_W100_{'hi' if hi else 'nohi'}.json"
+        return SimulationResult.model_validate(load(fn)["aspen"]["flowsheet_result"])
+
+    def pc(cid, case):
+        return cc.PUBLISHED_TEA_PRICE[cid] if case == "published_TEA" else ce.price(cc.CATALYSTS[cid]["price_key"], case)
+
+    asp_state = {(c, hi): ce.state_from_result(load_aspen(c, hi)) for c in CIDS for hi in (True, False)}
+    cost = []
+    for cid in CIDS:
+        for case in ("low", "central", "high", "published_TEA"):
+            p = pc(cid, case)
+            for L in sorted(ce.LIFETIMES_YR):
+                o = ce.optimise(cid, p, L, mode="reference")
+                fx = ce.design(cid, asp_state[(cid, True)]["T_C"], p, L, W_kg=100.0, mode="reference", st=asp_state[(cid, True)])
+                cost.append({"catalyst_id": cid, "price_case": case, "price_USD_per_kg": p, "lifetime_yr": L,
+                             "costopt": o, "fixed100kg": fx})
+    # ---- section 4: break-even prices and lifetimes of the cost-optimal designs (fixed design and re-optimised)
+    be = []
+    for mode in ("reference", "exchanger", "exchanger_reactor_mass"):
+        rf = ce.optimise(NI, pcen[NI], 2.0, mode=mode)
+        for cid in ce.LOW_T:
+            lo = ce.optimise(cid, pcen[cid], 2.0, mode=mode)
+            c = ce.compare(lo, rf)
+
+            def f(p, cid=cid, mode=mode, l_ref=rf["lcoh_USD_per_kg"]):
+                return ce.optimise(cid, p, 2.0, mode=mode)["lcoh_USD_per_kg"] - l_ref
+            f0 = f(0.0)
+            p_re = brentq(f, 0.0, 2e5, xtol=0.05) if f0 < 0 < f(2e5) else None
+
+            def g(L, cid=cid, mode=mode, l_ref=rf["lcoh_USD_per_kg"]):
+                return ce.optimise(cid, pcen[cid], L, mode=mode)["lcoh_USD_per_kg"] - l_ref
+            L_re = brentq(g, 0.05, 200.0, xtol=1e-3) if g(200.0) < 0 < g(0.05) else None
+            be.append({"mode": mode, "catalyst_id": cid, "low": lo, "ref": rf, "compare": c,
+                       "lcoh_low_at_zero_price_minus_ref_USD_per_kg": f0, "breakeven_price_reoptimised_USD_per_kg": p_re,
+                       "T_at_reoptimised_breakeven_C": ce.optimise(cid, p_re, 2.0, mode=mode)["T_C"] if p_re else None,
+                       "breakeven_lifetime_reoptimised_yr": L_re})
+    body = {"calls": calls, "cost_table": cost, "breakeven": be,
+            "constants": {"FX": ce.FX, "USD_PER_EUR": ce.USD_PER_EUR, "T_GRID": ce.T_GRID, "P_BAR": ce.P_BAR,
+                          "X_TARGET": ce.X_TARGET, "BASE_LIFETIME": ce.BASE_LIFETIME, "LOW_T": ce.LOW_T,
+                          "MODES": list(ce.MODES), "LIFETIMES_YR": sorted(ce.LIFETIMES_YR),
+                          "PUBLISHED_TEA_PRICE": cc.PUBLISHED_TEA_PRICE}}
+    write_table("catalyst_economics", _jsonable(enc(body)), len(calls) + len(cost) + len(be))
+
+
+TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation, "enduse": enduse, "ziggurat": ziggurat,
+          "catalyst_economics": catalyst_economics}
 
 
 def main() -> None:
