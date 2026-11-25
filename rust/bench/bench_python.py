@@ -98,7 +98,8 @@ def main():
         sur = U.Surrogate(np.array(c["grids"][0]))
         logp = U.make_logp(sur, run["idx"], np.array(run["y"]), 20.0)
         t, _ = timed(1, lambda: U.run_chains(logp, np.random.default_rng(20261123), 20000, 20.0))
-        out["mcmc"] = {"run_chains_4x20000_s": t, "reps": 1}    if "gsa" in items:
+        out["mcmc"] = {"run_chains_4x20000_s": t, "reps": 1}
+    if "gsa" in items:
         gm = module("uq_gsa_sobol")
         s_hi = extract_summary(json.loads((REPO / "results/simulations/baseline.json").read_text(encoding="utf-8")))
         s_no = extract_summary(json.loads((REPO / "results/simulations/baseline_no_hi.json").read_text(encoding="utf-8")))

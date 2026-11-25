@@ -26,6 +26,7 @@ pub mod kinetics;
 pub mod lca;
 pub mod mcmc;
 pub mod odata;
+#[cfg(feature = "yaml")]
 pub mod optim;
 pub mod process;
 pub mod props;

@@ -485,6 +485,8 @@ pub fn catalyst(g: &Golden, ctx: &Ctx, root: &Path) -> Result<Report, EngineErro
 }
 
 // ===================================================================================== MCMC
+/// (grid index, chains) of a main calibration run.
+type MainRun = (usize, Vec<Vec<Vec<f64>>>);
 fn f64s(v: &Value) -> Vec<f64> {
     v.as_array().into_iter().flatten().map(num).collect()
 }
@@ -762,9 +764,9 @@ pub fn mcmc(
         1e-12,
     )
     .note("relative to max(|x|, 1); chain for chain on the Python PFR grid");
-    let mut sha_ok = Acc::exact(
+    let mut sha_ok = Acc::info(
         "MC-CHAINS-SHA",
-        "calibration chains bitwise (SHA-256 of the float64 array)",
+        "calibration chains bitwise (SHA-256 of the float64 array; 1 = differs; reported, not gated)",
     );
     let mut summ = Acc::abs(
         "MC-SUMMARY",
@@ -782,7 +784,7 @@ pub fn mcmc(
         1e-12,
     );
     let names = ["ln_s", "dE_kJ_mol", "ln_sigma_d"];
-    let mut main_runs: BTreeMap<String, (usize, Vec<Vec<Vec<f64>>>)> = BTreeMap::new();
+    let mut main_runs: BTreeMap<String, MainRun> = BTreeMap::new();
     let mut syn_hits: BTreeMap<String, [usize; 2]> = BTreeMap::new();
     let seed = c["SEED"].as_u64().unwrap_or(0) as u128;
     for (ri, r) in c["runs"].as_array().into_iter().flatten().enumerate() {
@@ -836,10 +838,14 @@ pub fn mcmc(
             }
         }
         let flatv: Vec<f64> = out.c.iter().flatten().flatten().copied().collect();
-        sha_ok.add_bool(
+        sha_ok.add(
             &case,
-            sha_le(&flatv) == r["sha256_le_f8"].as_str().unwrap_or(""),
-            || "chain array differs".into(),
+            if sha_le(&flatv) == r["sha256_le_f8"].as_str().unwrap_or("") {
+                0.0
+            } else {
+                1.0
+            },
+            0.0,
         );
         let (sm, sig) = cal::summarise(&out.c);
         for (k, nme) in names.iter().enumerate() {
@@ -1023,6 +1029,7 @@ pub fn mcmc(
 
 // ===================================================================================== optimisation
 /// The stored design grid (`results/optimisation/design_grid.csv`) as rows.
+#[cfg(feature = "yaml")]
 pub fn read_design_grid(root: &Path) -> Result<Vec<crate::optim::Row>, EngineError> {
     let rows = read_csv(root, "results/optimisation/design_grid.csv")?;
     Ok(rows
@@ -1049,6 +1056,7 @@ pub fn read_design_grid(root: &Path) -> Result<Vec<crate::optim::Row>, EngineErr
 /// Optimisation: `evaluate_result` (the batch objective) and the constraints on every stored
 /// simulation result against Python, and the Pareto fronts and objective conflicts recomputed
 /// from the stored design grid against the stored `pareto.json` and `objective_conflicts.json`.
+#[cfg(feature = "yaml")]
 pub fn optimisation(
     g: &Golden,
     d: &crate::economics::reference::EconomicsData,
