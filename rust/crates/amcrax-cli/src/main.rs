@@ -58,6 +58,8 @@ VERIFY TARGETS:
                 PFR grid and chains of the Takahashi calibration, stored calibration results
     optimisation stage 5: evaluate_result (batch objective) on the stored results; Pareto fronts and
                 objective conflicts from the stored design grid
+    enduse      stage 5: end-use pathways (power and hydrogen), LCA, turbine thresholds: direct calls,
+                the three study drivers against the Python rerun and the stored results (alias lca)
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -92,6 +94,8 @@ STUDY (writes the study's JSON; --report also compares it with the stored Python
                           --threads N (default: all cores), --limit M (first M draws of each case));
                           always compared with the stored samples and summaries
     mc-singapore          scripts/research/economics_singapore.py Monte Carlo (5000 draws, 4 scenarios)
+    enduse                scripts/research/lca_run.py, enduse_run.py and enduse_threshold.py (numbers,
+                          decisions and computed labels of their documents and CSV tables)
 ";
 
 #[derive(Debug, PartialEq, Eq)]
@@ -649,10 +653,15 @@ fn run_engine_target(
             .map_err(s)?,
         );
     }
+    if matches!(target, "enduse" | "lca" | "stage5" | "all") {
+        out.push(
+            ev::stage5b::enduse(&stage("stage5")?, EconomicsData::embedded(), root).map_err(s)?,
+        );
+    }
     if out.is_empty() {
         return Err(format!(
             "unknown target {target} (available: numerics, thermo, kinetics, reactor, economics, carbon, uq, \
-             flowsheet, props, all, studies)"
+             flowsheet, props, catalyst, mcmc, optimisation, enduse, stage5, all, studies)"
         ));
     }
     Ok(out)
@@ -735,8 +744,35 @@ fn study(name: &str, root: &Path, output: Option<&Path>, report: Option<&Path>) 
                 r,
             ))
         }
+        "enduse" => {
+            // lca_run.py, enduse_run.py and enduse_threshold.py in one document
+            use amcrax_engine::enduse_study as es;
+            let ctx = amcrax_engine::enduse::Ctx::new(d, root).map_err(s)?;
+            let lca = es::lca_run(&ctx).map_err(s)?;
+            let eu = es::enduse_run(&ctx, root).map_err(s)?;
+            let th = es::enduse_threshold(&ctx, root, &eu).map_err(s)?;
+            let csv: serde_json::Map<String, serde_json::Value> = th
+                .csv
+                .iter()
+                .map(|(k, v)| (k.clone(), serde_json::Value::Array(v.clone())))
+                .collect();
+            let r = if report.is_some() {
+                let golden = ev::Golden::open(&default_golden_dir(root, "stage5")).map_err(s)?;
+                Some(ev::stage5b::enduse(&golden, d, root).map_err(s)?)
+            } else {
+                None
+            };
+            Ok((
+                serde_json::json!({"source_type": "rust",
+                    "lca_results": lca.results, "lca_assumptions": lca.assumptions,
+                    "lca_validation": lca.validation, "enduse_results": eu.results,
+                    "enduse_assumptions": eu.assumptions, "turbine_threshold": th.results,
+                    "nox_n2o_blends": th.nox, "validation_enduse": th.validation, "csv": csv}),
+                r,
+            ))
+        }
         other => Err(format!(
-            "unknown study {other} (available: gsa, mc-singapore)"
+            "unknown study {other} (available: gsa, mc-singapore, enduse, kinetic-propagation)"
         )),
     })();
     match res {

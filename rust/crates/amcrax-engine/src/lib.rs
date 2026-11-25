@@ -20,6 +20,8 @@ pub mod catalyst;
 pub mod data;
 pub mod economics;
 pub mod enduse;
+#[cfg(feature = "yaml")]
+pub mod enduse_study;
 pub mod error;
 pub mod heat;
 pub mod kinetics;

@@ -393,7 +393,169 @@ def optimisation() -> None:
                                  "grey_price": nh3_price_for_route("grey")}, len(calls))
 
 
-TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation}
+# ===================================================================================== end use and LCA
+def tree_diff(stored, new, path=""):
+    """Compare a stored result file with the rerun output: (numbers compared, max relative deviation, worst path,
+    differing non-number leaves, paths only in one of the two). Provenance blocks are skipped."""
+    st = {"n": 0, "max": 0.0, "worst": "", "other": [], "only": []}
+
+    def walk(a, b, p):
+        if isinstance(a, dict) and isinstance(b, dict):
+            for k in a:
+                if k == "provenance" or k == "generated_utc":
+                    continue
+                if k not in b:
+                    st["only"].append(f"{p}/{k} (stored only)")
+                else:
+                    walk(a[k], b[k], f"{p}/{k}")
+            for k in b:
+                if k not in a and k != "provenance":
+                    st["only"].append(f"{p}/{k} (rerun only)")
+        elif isinstance(a, list) and isinstance(b, list):
+            if len(a) != len(b):
+                st["only"].append(f"{p} (lengths {len(a)} {len(b)})")
+            for i, (x, y) in enumerate(zip(a, b)):
+                walk(x, y, f"{p}[{i}]")
+        elif isinstance(a, (int, float)) and isinstance(b, (int, float)) and not isinstance(a, bool) and not isinstance(b, bool):
+            st["n"] += 1
+            if a != b:
+                d = abs(a - b) / max(abs(a), 1e-300)
+                if d > st["max"]:
+                    st["max"], st["worst"] = d, p
+        elif a != b:
+            st["other"].append(p)
+
+    walk(stored, new, path)
+    st["other"] = st["other"][:50]
+    st["only"] = st["only"][:50]
+    return st
+
+
+def _jsonable(o):
+    return json.loads(json.dumps(o, default=float))
+
+
+def enduse() -> None:
+    import tempfile
+    import numpy as np
+    from amcrax.enduse import pathways as pw
+    from amcrax.enduse import params as P
+
+    calls = []
+
+    def rec(fn, args, out):
+        calls.append({"fn": fn, "args": args, "out": out})
+
+    def act_dict(a):
+        return {k: getattr(a, k) for k in ("id", "label", "product", "functional_unit", "nh3_kg", "aux_kWh", "efficiency",
+                                           "n2o_kgCO2e", "no_kg", "cracker_h2_kg_h", "capex_kind", "h2_fraction_vol",
+                                           "cracked_share", "purity_note", "heat_mode", "cracker_nh3_kg_h")}
+
+    def act_call(**kw):
+        try:
+            return act_dict(pw.power_activity(**kw))
+        except Exception as e:  # noqa: BLE001
+            return err(e)
+
+    # ---- direct calls: stoichiometry
+    for y in (0.0, 0.1, 0.3, 0.4, 0.6, 0.74, 0.75, 0.8, -0.1):
+        for X in (1.0, 0.97, 0.9936, 0.5):
+            rec("cracked_share_for_h2_fraction", {"y_h2": y, "conversion": X}, call(pw.cracked_share_for_h2_fraction, y, X))
+    for f_ in (0.0, 0.25, 0.5, 1.0):
+        for X in (1.0, 0.97):
+            rec("h2_fraction_of_blend", {"f": f_, "conversion": X}, pw.h2_fraction_of_blend(f_, X))
+            rec("alpha_of_cracked_share", {"f": f_, "conversion": X}, pw.alpha_of_cracked_share(f_, X))
+            rec("fuel_lhv_mj_per_kg_nh3_fed", {"f": f_, "conversion": X}, pw.fuel_lhv_mj_per_kg_nh3_fed(f_, X))
+    # ---- crackers of the stored cases
+    cases = ("baseline", "baseline_no_hi", "scn_fuel_cell_grade", "scn_low_temperature", "scn_high_temperature")
+    for c in cases:
+        cr = call(pw.load_cracker, c)
+        rec("load_cracker", {"case": c}, cr if isinstance(cr, dict) else {**cr.__dict__, "crack_heat_MJ_per_kg_nh3": cr.crack_heat_MJ_per_kg_nh3,
+                                                                       "deficit_MJ_per_kg_nh3": cr.deficit_MJ_per_kg_nh3,
+                                                                       "h2_product_per_kg_nh3": cr.h2_product_per_kg_nh3,
+                                                                       "pump_kWh_per_kg_nh3": cr.pump_kWh_per_kg_nh3})
+    # ---- power activities over kinds, H2 fractions, cases, gain, eta and heat-fuel efficiency
+    kinds = [("direct", None), ("full_exhaust", None), ("full_fired", None), ("full_purified", None)]
+    kinds += [(k, y) for k in ("partial_exhaust", "partial_fired", "blend_purified") for y in (0.2, 0.3, 0.4, 0.6, 0.7)]
+    kinds += [("partial_fired", 0.76), ("bogus", None)]
+    for c in cases:
+        for k, y in kinds:
+            rec("power_activity", {"kind": k, "y_h2": y, "case": c}, act_call(kind=k, y_h2=y, case=c))
+    for k, y in kinds[:-2]:
+        for g in (0.0, 0.5, 1.7, -1.0):
+            rec("power_activity", {"kind": k, "y_h2": y, "gain_scale": g}, act_call(kind=k, y_h2=y, gain_scale=g))
+        for e in (0.45, 0.55, 0.62):
+            rec("power_activity", {"kind": k, "y_h2": y, "eta_h2_fuel": e}, act_call(kind=k, y_h2=y, eta_h2_fuel=e))
+        for h in (0.85, 0.9225, 1.2):
+            rec("power_activity", {"kind": k, "y_h2": y, "heat_fuel_efficiency": h}, act_call(kind=k, y_h2=y, heat_fuel_efficiency=h))
+    # ---- power cost
+    for k, y in kinds[:-2]:
+        a = pw.power_activity(k, y)
+        for kw in ({}, {"hours": 5000.0}, {"discount": 0.07, "life": 30.0}, {"mass_basis_kg_s": 2.0},
+                   {"electricity_price": 0.2}, {"unpurified_full_correlation": True}, {"cracker_capex_factor": 2.0},
+                   {"plant_capex_factor": 1.12}, {"extra_capex_USD_per_kW": 40.0}):
+            for price in (450.0, 1000.0):
+                rec("power_cost", {"kind": k, "y_h2": y, "nh3_price": price, **kw}, call(pw.power_cost, a, price, **kw))
+    # ---- hydrogen
+    for c in cases:
+        a = call(pw.hydrogen_activity, c, "h", "lab", "note")
+        rec("hydrogen_activity", {"case": c}, a if isinstance(a, dict) else act_dict(a))
+        for price in (300.0, 450.0, 1000.0):
+            for kw in ({}, {"hours": 5000.0}, {"electricity": 0.2}, {"capex_mode": "legacy"}):
+                rec("hydrogen_cost", {"case": c, "nh3_price": price, **kw}, call(pw.hydrogen_cost, c, price, **kw))
+    for cfg, gk in (("PSA_AMCRAX", "industrial_99.9"), ("PSA_D_MB", "fuel_cell_grade_D")):
+        a, cost = pw.hydrogen_activity_purification(cfg, gk, "i", "l")
+        rec("hydrogen_activity_purification", {"config_id": cfg, "grade_key": gk}, {"activity": act_dict(a), "cost": cost})
+    # ---- carbon intensity and break-even factor
+    for k, y in (("direct", None), ("full_purified", None), ("partial_fired", 0.4)):
+        a = pw.power_activity(k, y)
+        for ef, d, kw in ((1.16, 5000.0, {}), (2.6, 12000.0, {"grid": 0.5}), (0.0, 0.0, {"boil_off": 0.02, "ship_ef": 0.02})):
+            rec("carbon_intensity", {"kind": k, "y_h2": y, "route_ef": ef, "distance_km": d, **kw}, pw.carbon_intensity(a, ef, d, **kw))
+        for alt, d in ((367.2, 5000.0), (402.0, 2000.0)):
+            rec("breakeven_ef", {"kind": k, "y_h2": y, "alt_ci": alt, "distance_km": d}, pw.breakeven_ef(a, alt, d))
+
+    # ---- the three drivers, run with their outputs redirected to a scratch directory
+    scratch = Path(tempfile.mkdtemp(prefix="amcrax_stage5_enduse_"))
+    (scratch / "validation").mkdir()
+    (scratch / "fig").mkdir()
+    csv_rows: dict[str, list] = {}
+    runs = {}
+    for script in ("lca_run", "enduse_run", "enduse_threshold"):
+        spec = importlib.util.spec_from_file_location(f"eu_{script}", REPO / f"scripts/research/{script}.py")
+        m = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(m)
+        m.OUT, m.FIG = scratch, scratch / "fig"
+        m.VAL = scratch / "validation" / "enduse.json" if script == "enduse_threshold" else scratch / "validation"
+        real_csv = m.write_csv
+
+        def wcsv(path, rows, _real=real_csv, _s=script):
+            csv_rows[f"{_s}/{Path(path).name}"] = _jsonable(rows)
+            _real(path, rows)
+        m.write_csv = wcsv
+        m.main()
+    for rel in ("lca_results.json", "assumptions.json", "enduse_results.json", "turbine_threshold.json", "nox_n2o_blends.json",
+                "validation/lca.json", "validation/enduse.json"):
+        runs[rel] = json.loads((scratch / rel).read_text(encoding="utf-8"))
+    # lca_run and enduse_run both write assumptions.json in their OUT; the second overwrites the first in the scratch
+    # directory, so the LCA register is re-read from the module call below
+    from amcrax.environmental import lca as L
+    runs["lca_assumptions_factors"] = {k: v["value"] for k, v in L.FACTORS.items()}
+    stored = []
+    for rel, srel in (("lca_results.json", "results/research/lca/lca_results.json"),
+                      ("enduse_results.json", "results/research/enduse/enduse_results.json"),
+                      ("turbine_threshold.json", "results/research/enduse/turbine_threshold.json"),
+                      ("nox_n2o_blends.json", "results/research/enduse/nox_n2o_blends.json"),
+                      ("validation/lca.json", "results/research/validation/lca.json"),
+                      ("validation/enduse.json", "results/research/validation/enduse.json")):
+        d = tree_diff(load(srel), runs[rel])
+        stored.append({"file": srel, "rerun": rel, **d})
+    body = {"calls": calls, "runs": runs, "csv_rows": csv_rows, "stored": stored,
+            "params": {k: getattr(P, k) for k in dir(P) if k.isupper() and isinstance(getattr(P, k), (int, float))}}
+    write_table("enduse", _jsonable(body), len(calls) + len(runs) + len(csv_rows))
+    print("stored:", json.dumps([{k: s[k] for k in ("file", "n", "max", "worst")} | {"n_other": len(s["other"]), "n_only": len(s["only"])} for s in stored], indent=1))
+
+
+TABLES = {"catalyst": catalyst, "mcmc": mcmc, "optimisation": optimisation, "enduse": enduse}
 
 
 def main() -> None:
@@ -405,14 +567,18 @@ def main() -> None:
     finally:
         G4.remove_recorder()
     prev = OUT / "coolprop_states.json"
+    recorded = list(names)
     if prev.exists():  # keep the states recorded by tables generated in earlier invocations
-        for r in json.loads(prev.read_text(encoding="utf-8"))["states"]:
+        old = json.loads(prev.read_text(encoding="utf-8"))
+        before = old.get("recorded_from", "").split(": ", 1)[-1]
+        recorded = [x for x in before.split(", ") if x] + [n for n in names if n not in before.split(", ")]
+        for r in old["states"]:
             k = (r["fluid"], r["out"], r["in"], r["phase"], float(r["a"]), float(r["b"]))
             G4.STATES.setdefault(k, r)
     recs = sorted(G4.STATES.values(), key=lambda r: (r["fluid"], r["out"], r["in"], r["phase"], r["b"], r["a"]))
     write_table("coolprop_states", {
         "columns": "as rust/golden/stage4/coolprop_states.json",
-        "recorded_from": "the tables of this generator run: " + ", ".join(names),
+        "recorded_from": "the tables of this generator run: " + ", ".join(recorded),
         "states": recs}, len(recs))
     save_manifest()
 
