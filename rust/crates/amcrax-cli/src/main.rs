@@ -64,6 +64,8 @@ VERIFY TARGETS:
                 Windows values of the reference; replay with the Windows values)
     catalyst-economics  stage 5: research/catalyst_economics.py (prices, states, designs, optima,
                 comparisons), the cost table and break-even searches of the study, stored CSV
+    calibration stage 5: the Takahashi calibration end to end on the Rust PFR grid (screening, full grids,
+                every MCMC run, surrogate accuracy) against the stored calibration
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -666,6 +668,9 @@ fn run_engine_target(
             props: b.as_ref(),
         };
         out.push(ev::stage5b::catalyst_economics(&stage("stage5")?, &ctx, root).map_err(s)?);
+    }
+    if matches!(target, "calibration" | "stage5" | "all") {
+        out.push(ev::stage5b::calibration_e2e(&stage("stage5")?, reg, root).map_err(s)?);
     }
     if matches!(target, "ziggurat" | "stage5" | "all") {
         out.push(ev::stage5b::ziggurat(&stage("stage5")?).map_err(s)?);

@@ -1177,3 +1177,391 @@ fn read_csv_rows(
         .map(|l| head.iter().cloned().zip(parse(l)).collect())
         .collect())
 }
+
+// ===================================================================================== calibration end to end
+fn f64v(v: &Value) -> Vec<f64> {
+    v.as_array().into_iter().flatten().map(num).collect()
+}
+
+fn point(p: &Value) -> crate::calibration::Point {
+    crate::calibration::Point {
+        t_c: num(&p["T_C"]),
+        sv_h_inv: num(&p["SV_h_inv"]),
+        y_nh3: num(&p["y_NH3"]),
+        y_h2: num(&p["y_H2"]),
+        y_ar: num(&p["y_Ar"]),
+    }
+}
+
+/// The Takahashi calibration run end to end in Rust: the local rate-constant screening that picks
+/// the calibrated constant, the full PFR grids with the Rust PFR, the surrogate-accuracy check
+/// against direct solves, and every recorded MCMC run on the surrogate of the Rust grid, compared
+/// with the stored Python calibration.
+pub fn calibration_e2e(
+    g: &Golden,
+    reg: &crate::kinetics::KineticsRegistry,
+    root: &Path,
+) -> Result<Report, EngineError> {
+    use crate::calibration::{self as cal, Generator, Posterior, Surrogate};
+    use amcrax_numerics::random::{Pcg64, SeedSequence};
+    let t = g.load("mcmc.json")?;
+    let c = &t["calibration"];
+    let lns = f64v(&c["LNS_GRID"]);
+    let de = f64v(&c["DE_GRID"]);
+    let sopt = crate::reactor::SolverOptions::default();
+    let rk = reg.r_kin_j_mol_k;
+    let mut rep = Report::new("Takahashi calibration end to end (Rust PFR grid)");
+    let cat = |key: &str| -> (&'static str, f64, &'static str) {
+        if key == "ni" {
+            ("ni_takahashi_microkinetic", 773.15, "2")
+        } else {
+            ("ru_takahashi_microkinetic", 723.15, "3")
+        }
+    };
+    // ---- screening
+    let mut sc = Acc::abs("CAL-SCREEN", "local screening dX/dln k at the calibration points (stored)", 1e-5)
+        .note("absolute; central difference over ln 1.05 of two PFR solves at the stage 2 PFR tolerance (1e-7 in X)");
+    let mut scd = Acc::exact(
+        "CAL-SCREEN-DECISION",
+        "most sensitive quantity and rate constant (selects the calibrated constant)",
+    );
+    let mut stored = std::collections::BTreeMap::new();
+    for key in ["ni", "ru"] {
+        let sv = read_json(
+            root,
+            &format!("results/research/uq/takahashi_calibration_{key}.json"),
+        )?;
+        let (cid, tref, rds) = cat(key);
+        let par = reg.get(cid)?.params.clone();
+        let pts: Vec<&Value> = c["points"][key].as_array().into_iter().flatten().collect();
+        let calp: Vec<usize> = (0..pts.len())
+            .filter(|i| pts[*i]["role"].as_str() == Some("calibration"))
+            .collect();
+        let base = cal::overrides(&par, rds, tref, rk, 0.0, 0.0);
+        let mut means = Vec::new();
+        for (name, pk) in [
+            ("k1", "A1"),
+            ("k2", "A2"),
+            ("k3", "A3"),
+            ("k4", "A4"),
+            ("K1", "A5"),
+            ("K4", "A6"),
+        ] {
+            let v0 = base
+                .get(pk)
+                .copied()
+                .unwrap_or_else(|| par.get(pk).copied().unwrap_or(f64::NAN));
+            let mut sens = Vec::new();
+            for i in &calp {
+                let p = point(pts[*i]);
+                let mut op = base.clone();
+                op.insert(pk.into(), v0 * 1.05);
+                let mut om = base.clone();
+                om.insert(pk.into(), v0 / 1.05);
+                let xp = cal::x_direct(reg, &sopt, cid, &op, &p)?;
+                let xm = cal::x_direct(reg, &sopt, cid, &om, &p)?;
+                sens.push((xp - xm) / (2.0 * 1.05f64.ln()));
+            }
+            let st = &sv["screening"]["dX_dlnk_at_calibration_points"][name];
+            for (k, s) in sens.iter().enumerate() {
+                sc.add(&format!("{key}/{name}/{k}"), *s, num(&st["per_point"][k]));
+            }
+            let m = amcrax_numerics::stats::mean(&sens.iter().map(|v| v.abs()).collect::<Vec<_>>());
+            sc.add(
+                &format!("{key}/{name}/mean_abs"),
+                m,
+                num(&st["mean_abs_dX_dlnk"]),
+            );
+            means.push((name, m));
+        }
+        let argmax = |v: &[(&str, f64)]| -> String {
+            let mut b = v[0];
+            for e in &v[1..] {
+                if e.1 > b.1 {
+                    b = *e;
+                }
+            }
+            b.0.to_string()
+        };
+        let most = argmax(&means);
+        let most_rate = argmax(&means[..4]);
+        let sm = sv["screening"]["most_sensitive_overall"]
+            .as_str()
+            .unwrap_or("");
+        let sr = sv["calibrated_constant"].as_str().unwrap_or("");
+        scd.add_bool(&format!("{key}/most_sensitive_overall"), most == sm, || {
+            format!("rust {most} stored {sm}")
+        });
+        scd.add_bool(
+            &format!("{key}/calibrated_constant"),
+            most_rate == sr,
+            || format!("rust {most_rate} stored {sr}"),
+        );
+        stored.insert(
+            key.to_string(),
+            (
+                sv,
+                most_rate.trim_start_matches('k').to_string(),
+                rds.to_string(),
+            ),
+        );
+    }
+    rep.push(sc);
+    rep.push(scd);
+    // ---- the grids (the order of the Python run: calibrated constant, then the RDS grid if different)
+    let mut spec: Vec<(String, String)> = Vec::new();
+    for key in ["ni", "ru"] {
+        let (_, jc, rds) = &stored[key];
+        spec.push((key.to_string(), jc.clone()));
+        if jc != rds {
+            spec.push((key.to_string(), rds.clone()));
+        }
+    }
+    let nthreads = std::thread::available_parallelism()
+        .map(|n| n.get())
+        .unwrap_or(1)
+        .max(1);
+    let mut gx = Acc::abs(
+        "CAL-GRID",
+        "full PFR grids (every node and point) vs Python LSODA",
+        1e-7,
+    )
+    .note("absolute in X (stage 2 PFR gate); nodes where Python failed are compared as failures");
+    let mut grids: Vec<Vec<Vec<Vec<f64>>>> = Vec::new();
+    let mut n_fail_r = 0usize;
+    for (gi, (key, jc)) in spec.iter().enumerate() {
+        let (cid, tref, _) = cat(key);
+        let par = reg.get(cid)?.params.clone();
+        let pts: Vec<crate::calibration::Point> = c["points"][key.as_str()]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(point)
+            .collect();
+        let nodes: Vec<(usize, usize)> = (0..lns.len())
+            .flat_map(|i| (0..de.len()).map(move |j| (i, j)))
+            .collect();
+        let mut gr = vec![vec![vec![f64::NAN; pts.len()]; de.len()]; lns.len()];
+        let chunks: Vec<Vec<(usize, usize, Vec<f64>)>> = std::thread::scope(|s| {
+            let hs: Vec<_> = (0..nthreads)
+                .map(|w| {
+                    let nodes = &nodes;
+                    let pts = &pts;
+                    let par = &par;
+                    let lns = &lns;
+                    let de = &de;
+                    s.spawn(move || {
+                        nodes
+                            .iter()
+                            .skip(w)
+                            .step_by(nthreads)
+                            .map(|&(i, j)| {
+                                let ov = cal::overrides(par, jc, tref, rk, lns[i], de[j]);
+                                let xs = pts
+                                    .iter()
+                                    .map(|p| {
+                                        cal::x_direct(reg, &sopt, cid, &ov, p).unwrap_or(f64::NAN)
+                                    })
+                                    .collect();
+                                (i, j, xs)
+                            })
+                            .collect()
+                    })
+                })
+                .collect();
+            hs.into_iter()
+                .map(|h| h.join().unwrap_or_default())
+                .collect()
+        });
+        for ch in chunks {
+            for (i, j, xs) in ch {
+                gr[i][j] = xs;
+            }
+        }
+        for i in 0..lns.len() {
+            for j in 0..de.len() {
+                for k in 0..pts.len() {
+                    let py = num(&c["grids"][gi][i][j][k]);
+                    let r = gr[i][j][k];
+                    if r.is_nan() {
+                        n_fail_r += 1;
+                    }
+                    // the Python grid stores failed solves as 1e-7
+                    let rr = if r.is_nan() { 1e-7 } else { r };
+                    gx.add(&format!("grid{gi}/{i},{j}/{k}"), rr, py);
+                    gr[i][j][k] = rr;
+                }
+            }
+        }
+        grids.push(gr);
+    }
+    rep.push(gx);
+    if n_fail_r > 0 {
+        rep.findings.push(format!(
+            "{n_fail_r} Rust PFR solves of the grids failed (replaced by 1e-7 as in Python)"
+        ));
+    }
+    let surs_r: Vec<Surrogate> = grids
+        .iter()
+        .map(|gr| Surrogate::new(&lns, &de, gr))
+        .collect::<Result<_, _>>()?;
+    let surs_p: Vec<Surrogate> = (0..spec.len())
+        .map(|gi| {
+            let gr: Vec<Vec<Vec<f64>>> = c["grids"][gi]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .map(|r| r.as_array().into_iter().flatten().map(f64v).collect())
+                .collect();
+            Surrogate::new(&lns, &de, &gr)
+        })
+        .collect::<Result<_, _>>()?;
+    // ---- every recorded run on the Rust surrogate
+    let mut post_acc = Acc::rel(
+        "CAL-E2E-SUMMARY",
+        "posterior summaries of every run on the Rust grid against Python, in units of the Monte Carlo bound",
+        1.0,
+    )
+    .note(
+        "deviation / (5 k sd sqrt(2 / ESS)): k = 1 (mean), 0.71 (sd), 1.25 (p50), 2.11 (p5, p95), ESS the Python bulk ESS \
+         of the parameter in that run; a surrogate that differs at the PFR tolerance can flip single Metropolis decisions, \
+         after which the chains are different samples of nearly the same posterior",
+    );
+    let mut same = Acc::info(
+        "CAL-E2E-CHAIN-DEV",
+        "largest |state difference| between the Rust-grid and Python chains, per run",
+    );
+    let seed = c["SEED"].as_u64().unwrap_or(0) as u128;
+    let names = ["ln_s", "dE_kJ_mol", "ln_sigma_d"];
+    let mut main_flat: std::collections::BTreeMap<String, Vec<Vec<f64>>> =
+        std::collections::BTreeMap::new();
+    for (ri, r) in c["runs"].as_array().into_iter().flatten().enumerate() {
+        let gi = r["grid"].as_u64().unwrap_or(0) as usize;
+        let key = spec.get(gi).map(|x| x.0.clone()).unwrap_or_default();
+        let idx: Vec<usize> = r["idx"]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .filter_map(Value::as_u64)
+            .map(|v| v as usize)
+            .collect();
+        let ent = r["rng"]["entropy"].as_u64().unwrap_or(0) as u128;
+        let spawned = r["rng"]["n_children_spawned"].as_u64().unwrap_or(0);
+        let mk = |sur: &Surrogate| -> cal::Chains {
+            let post = Posterior {
+                sur,
+                idx: idx.clone(),
+                y: f64v(&r["y"]),
+                de_sd: num(&r["dE_sd"]),
+                lns_grid: (lns[0], lns[lns.len() - 1]),
+                de_grid: (de[0], de[de.len() - 1]),
+            };
+            let mut ss = SeedSequence::new(ent);
+            ss.set_children_spawned(spawned);
+            let bg = Pcg64::from_seed_sequence(&SeedSequence::new(ent));
+            let mut rng = Generator { ss, bg };
+            cal::run_chains(
+                &post,
+                &mut rng,
+                r["n_iter"].as_u64().unwrap_or(0) as usize,
+                num(&r["dE_sd_init"]),
+            )
+        };
+        let out = mk(&surs_r[gi]);
+        let case = format!("run{ri}/{key}/seed{ent}/spawned{spawned}");
+        let (sm, _) = cal::summarise(&out.c);
+        for (k, nme) in names.iter().enumerate() {
+            let sd = num(&r["summary"][nme]["sd"]);
+            let ess = num(&r["diag"][nme]["ess_bulk"]).max(1.0);
+            for (q, (lab, kq)) in [
+                ("mean", 1.0),
+                ("sd", 0.71),
+                ("p5", 2.11),
+                ("p50", 1.25),
+                ("p95", 2.11),
+            ]
+            .iter()
+            .enumerate()
+            {
+                let bound = 5.0 * kq * sd * (2.0 / ess).sqrt();
+                let d = (sm[k][q] - num(&r["summary"][nme][lab])).abs();
+                post_acc.add(&format!("{case}/{nme}/{lab}"), d / bound, 0.0);
+            }
+        }
+        let mut dmax = 0.0f64;
+        let head = &r["head"];
+        for m in 0..4 {
+            for s in 0..5 {
+                for k in 0..3 {
+                    dmax = dmax.max((out.c[m][s][k] - num(&head[m][s][k])).abs());
+                }
+            }
+        }
+        same.add(&case, dmax, 0.0);
+        if (ent == seed || ent == seed + 1) && spawned == 0 {
+            // the main run on the Python grid (chain for chain with Python) for the surrogate check
+            main_flat.insert(key.clone(), cal::flat(&mk(&surs_p[gi]).c));
+        }
+    }
+    rep.push(post_acc);
+    rep.push(same);
+    // ---- surrogate accuracy against direct solves (25 posterior draws x all points)
+    let mut se = Acc::abs(
+        "CAL-SURROGATE-ERR",
+        "maximum |direct PFR - surrogate| at 25 posterior draws x all points (stored)",
+        1e-7,
+    )
+    .note("absolute in X: both terms are PFR values at the stage 2 PFR tolerance");
+    let mut ses = Acc::exact(
+        "CAL-SURROGATE-STATUS",
+        "T2B-SURROGATE status (tolerance 0.002)",
+    );
+    for key in ["ni", "ru"] {
+        let (sv, jc, _) = &stored[key];
+        let gi = spec
+            .iter()
+            .position(|s| s.0 == key && &s.1 == jc)
+            .unwrap_or(0);
+        let Some(fl) = main_flat.get(key) else {
+            ses.add_bool(key, false, || "main run not found".into());
+            continue;
+        };
+        let (cid, tref, _) = cat(key);
+        let par = reg.get(cid)?.params.clone();
+        let pts: Vec<crate::calibration::Point> = c["points"][key]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(point)
+            .collect();
+        let mut vrng = Pcg64::from_seed(seed);
+        let sel: Vec<usize> = (0..25)
+            .map(|_| vrng.integers_below(fl.len() as u64) as usize)
+            .collect();
+        let mut emax = 0.0f64;
+        for s in &sel {
+            let th = &fl[*s];
+            let ov = cal::overrides(&par, jc, tref, rk, th[0], th[1]);
+            for (i, p) in pts.iter().enumerate() {
+                let xd = cal::x_direct(reg, &sopt, cid, &ov, p)?;
+                let xs = surs_p[gi].eval(th[0], th[1], &[i])[0];
+                emax = emax.max((xd - xs).abs());
+            }
+        }
+        se.add(key, emax, num(&sv["grid"]["surrogate_max_abs_error"]));
+        let st = if emax <= 0.002 { "pass" } else { "fail" };
+        let checks = read_json(root, "results/research/uq/checks_t2b.json")?;
+        let py = checks
+            .as_array()
+            .and_then(|v| {
+                v.iter()
+                    .find(|x| x["id"].as_str() == Some(&format!("T2B-SURROGATE-{key}")))
+            })
+            .map(|x| x["status"].as_str().unwrap_or("").to_string())
+            .unwrap_or_default();
+        ses.add_bool(key, st == py, || format!("rust {st} stored {py}"));
+    }
+    rep.push(se);
+    rep.push(ses);
+    Ok(rep)
+}
