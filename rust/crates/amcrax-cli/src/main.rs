@@ -66,6 +66,8 @@ VERIFY TARGETS:
                 comparisons), the cost table and break-even searches of the study, stored CSV
     calibration stage 5: the Takahashi calibration end to end on the Rust PFR grid (screening, full grids,
                 every MCMC run, surrogate accuracy) against the stored calibration
+    design-grid stage 5: the 6120-flowsheet design grid recomputed and compared with the stored
+                design_grid.csv (needs --props coolprop; part of stage5 on the CoolProp back end)
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -671,6 +673,13 @@ fn run_engine_target(
     }
     if matches!(target, "calibration" | "stage5" | "all") {
         out.push(ev::stage5b::calibration_e2e(&stage("stage5")?, reg, root).map_err(s)?);
+    }
+    if target == "design-grid" || (target == "stage5" && props == Some("coolprop")) {
+        if props != Some("coolprop") {
+            return Err("verify design-grid recomputes 6120 flowsheets off the recorded states: use --props coolprop".into());
+        }
+        let b = make_backend(props, root)?;
+        out.push(ev::stage5b::design_grid(&stage("stage5")?, b.as_ref(), root).map_err(s)?);
     }
     if matches!(target, "ziggurat" | "stage5" | "all") {
         out.push(ev::stage5b::ziggurat(&stage("stage5")?).map_err(s)?);

@@ -1565,3 +1565,165 @@ pub fn calibration_e2e(
     rep.push(ses);
     Ok(rep)
 }
+
+// ===================================================================================== design grid
+/// `pareto.design_grid()` recomputed (17 x 10 x 6 x 6 = 6120 flowsheets on the given property back
+/// end) and compared with the stored `results/optimisation/design_grid.csv`. Needs CoolProp: the
+/// tables back end holds only recorded states.
+pub fn design_grid(
+    g: &Golden,
+    props: &dyn crate::props::FluidProps,
+    root: &Path,
+) -> Result<Report, EngineError> {
+    use crate::optim::{EvalOpts, constraint_values, evaluate_result};
+    use crate::process::flowsheet::run_python_case;
+    use crate::process::result::CaseInputs;
+    let d = crate::economics::reference::EconomicsData::embedded();
+    let sp = crate::separation::SepParams::embedded();
+    let opt = g.load("optimisation.json")?;
+    let green = num(&opt["green_price"]);
+    let grey = num(&opt["grey_price"]);
+    let stored = super::stage5::read_design_grid(root)?;
+    let mut rep = Report::new(&format!("design grid ({})", props.backend()));
+    let mut acc = TreeAcc::new(
+        "DG",
+        "design_grid.csv recomputed (all 6120 rows)",
+        1e-9,
+        "relative to max(|x|, 1e-6); stage 4 KPI gate",
+    );
+    let mut nrow = Acc::exact("DG-ROWS", "number of rows and their order (grid values)");
+    let temps: Vec<f64> = (0..17).map(|i| 400.0 + 25.0 * i as f64).collect();
+    let pres = [5.0, 7.5, 10.0, 12.5, 15.0, 20.0, 25.0, 30.0, 35.0, 40.0];
+    let recs = [0.70, 0.75, 0.80, 0.85, 0.90, 0.95];
+    let apps = [20.0, 35.0, 50.0, 75.0, 100.0, 150.0];
+    let keep = [
+        "lcoh_USD_per_kg",
+        "carbon_intensity_kgCO2e_per_kgH2",
+        "lhv_efficiency",
+        "nh3_conversion",
+        "h2_yield_overall",
+        "h2_product_kg_h",
+        "h2_purity_mole_frac",
+        "nh3_feed_kg_per_kgH2",
+        "nh3_total_kg_per_kgH2",
+        "total_external_heating_kW",
+        "net_fuel_heat_deficit_kW",
+        "specific_heat_demand_kWh_per_kgH2",
+        "cracked_gas_nh3_mole_frac",
+        "compression_power_kW",
+        "fehe_min_internal_dT_K",
+    ];
+    let overlays = [
+        ("ng_grey", "natural_gas", "grey", grey),
+        ("nh3_green", "ammonia", "green", green),
+        ("ng_green", "natural_gas", "green", green),
+    ];
+    let mut i = 0usize;
+    let mut prose = Acc::exact("DG-PROSE", "infeasibility texts (counted)");
+    for t in &temps {
+        for p in &pres {
+            for r in &recs {
+                for a in &apps {
+                    let ci = CaseInputs {
+                        case_id: "grid".into(),
+                        reactor_temperature_c: *t,
+                        reactor_pressure_bar: *p,
+                        psa_h2_recovery: *r,
+                        fehe_hot_end_approach_k: *a,
+                        ..CaseInputs::default()
+                    };
+                    let mut row = serde_json::Map::new();
+                    row.insert("reactor_temperature_C".into(), json!(t));
+                    row.insert("reactor_pressure_bar".into(), json!(p));
+                    row.insert("psa_h2_recovery".into(), json!(r));
+                    row.insert("fehe_hot_end_approach_K".into(), json!(a));
+                    match run_python_case(&ci, crate::thermo::equilibrium::Eos::Ideal, props) {
+                        Err(EngineError::Spec(msg)) => {
+                            row.insert("model_ok".into(), json!(false));
+                            row.insert("feasible".into(), json!(false));
+                            let m: String = msg.chars().take(120).collect();
+                            row.insert("infeasibility".into(), json!(m));
+                        }
+                        Err(e) => return Err(e),
+                        Ok(res) => {
+                            let m = evaluate_result(d, sp, &res, &EvalOpts::default())?;
+                            for k in keep {
+                                row.insert(k.into(), m.get(k).cloned().unwrap_or(Value::Null));
+                            }
+                            for (suf, hs, route, price) in overlays {
+                                let o = EvalOpts {
+                                    heat_source: hs.into(),
+                                    nh3_route: route.into(),
+                                    nh3_price_usd_per_t: Some(price),
+                                    ..EvalOpts::default()
+                                };
+                                let mo = evaluate_result(d, sp, &res, &o)?;
+                                row.insert(
+                                    format!("lcoh_USD_per_kg_{suf}"),
+                                    mo["lcoh_USD_per_kg"].clone(),
+                                );
+                                row.insert(
+                                    format!("carbon_intensity_{suf}"),
+                                    mo["carbon_intensity_kgCO2e_per_kgH2"].clone(),
+                                );
+                            }
+                            let gv = constraint_values(sp, &m)?;
+                            let bad: Vec<&str> = gv
+                                .iter()
+                                .filter(|x| x.1 < -1e-9)
+                                .map(|x| x.0.as_str())
+                                .collect();
+                            row.insert("model_ok".into(), json!(true));
+                            row.insert("feasible".into(), json!(bad.is_empty()));
+                            row.insert(
+                                "infeasibility".into(),
+                                if bad.is_empty() {
+                                    Value::Null
+                                } else {
+                                    json!(bad.join(";"))
+                                },
+                            );
+                        }
+                    }
+                    let case = format!("row{i} T{t} P{p} r{r} a{a}");
+                    match stored.get(i) {
+                        Some(s) => {
+                            let same = [
+                                ("reactor_temperature_C", *t),
+                                ("reactor_pressure_bar", *p),
+                                ("psa_h2_recovery", *r),
+                                ("fehe_hot_end_approach_K", *a),
+                            ]
+                            .iter()
+                            .all(|(k, v)| num(&s[*k]) == *v);
+                            nrow.add_bool(&case, same, || "grid values differ".into());
+                            let sv = Value::Object(s.clone());
+                            // the CSV writes an empty infeasibility as "" and a model failure's message as text
+                            let mut rv = Value::Object(row);
+                            if sv["model_ok"] == json!(false) && rv["model_ok"] == json!(false) {
+                                rv["infeasibility"] = sv["infeasibility"].clone();
+                                prose.add_bool(&case, true, String::new);
+                                // the metric columns of a failed row are empty in the CSV
+                                for (k, v) in s {
+                                    if v.is_null() && rv.get(k).is_none() {
+                                        rv[k.as_str()] = Value::Null;
+                                    }
+                                }
+                            }
+                            super::stage4::tree(&mut acc, &case, "", &sv, &rv);
+                        }
+                        None => nrow.add_bool(&case, false, || "row not in the stored grid".into()),
+                    }
+                    i += 1;
+                }
+            }
+        }
+    }
+    nrow.add_bool("count", i == stored.len(), || {
+        format!("rust {i} stored {}", stored.len())
+    });
+    acc.push(&mut rep);
+    rep.push(nrow);
+    rep.push(prose);
+    Ok(rep)
+}
