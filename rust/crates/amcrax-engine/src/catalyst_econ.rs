@@ -117,12 +117,15 @@ impl Default for DesignKw {
     }
 }
 
+/// state() cache: (T, P, X bits, heat integration) to the state.
+type StateCache = HashMap<(u64, u64, u64, bool), Rc<State>>;
+
 /// The study context with the Python caches.
 pub struct Econ<'a, 'b> {
     pub ctx: &'a Ctx<'b>,
     prices: Value,
     validity: Value,
-    states: RefCell<HashMap<(u64, u64, u64, bool), Rc<State>>>,
+    states: RefCell<StateCache>,
     masses: RefCell<HashMap<(String, u64), f64>>,
     eqc: RefCell<HashMap<u64, f64>>,
 }
