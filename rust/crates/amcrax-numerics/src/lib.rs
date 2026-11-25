@@ -14,6 +14,8 @@
 //! | [`poly`] | [`poly::cubic_real_roots`] | `numpy.roots` | 1e-10 relative |
 //! | [`stats`] | sum, mean, var, std, median, quantile | NumPy (`method="linear"`) | bit for bit |
 //! | [`random`] | [`random::SeedSequence`], [`random::Pcg64`] | `numpy.random.default_rng` | bit for bit for `random()`, `uniform()`, raw output |
+//! | [`random`] | [`random::Pcg64::standard_normal`] | `Generator.standard_normal` (ziggurat) | bit for bit (3 x 10^6 draws checked) |
+//! | [`spline`] | [`spline::RectBivariateSpline`] | `scipy.interpolate.RectBivariateSpline` (s = 0, cubic) | 1e-10 |
 //! | [`special`] | [`special::ndtri`] | `scipy.special.ndtri` (Cephes) | bit for bit |
 //! | [`qmc`] | [`qmc::Sobol`], [`qmc::latin_hypercube`] | `scipy.stats.qmc` | bit for bit for the recorded versions |
 //!
@@ -33,4 +35,6 @@ pub mod random;
 pub mod roots;
 mod sobol_directions;
 pub mod special;
+pub mod spline;
 pub mod stats;
+mod ziggurat_tables;

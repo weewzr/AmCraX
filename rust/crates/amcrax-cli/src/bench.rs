@@ -139,6 +139,80 @@ pub fn run(
         let (t, _) = time(1, || crate::run_gsa(root).map(|_| ()))?;
         out.insert("gsa".into(), json!({"full_study_s": t, "reps": 1}));
     }
+    if want("catalyst") {
+        // one LCOH(T) curve of the catalyst comparison (59 temperatures: PFR mass search, kinetic
+        // flowsheet, heat accounting, economics), fluid properties from the tables back end
+        let g = amcrax_engine::verify::Golden::open(&root.join("rust/golden/stage5")).map_err(s)?;
+        let b = amcrax_engine::verify::stage4::tables_backend(&g).map_err(s)?;
+        let ctx = amcrax_engine::catalyst::Ctx {
+            reg: KineticsRegistry::embedded(),
+            sopt: SolverOptions::default(),
+            econ: d,
+            props: &b,
+        };
+        let grid: Vec<f64> = (0..59).map(|i| 470.0 + 5.0 * i as f64).collect();
+        let (t, _) = time(1, || {
+            amcrax_engine::catalyst::lcoh_curve(
+                &ctx,
+                "ru_kum_temkin_pyzhev",
+                &grid,
+                &amcrax_engine::catalyst::CurveOpts::default(),
+            )
+            .map(|_| ())
+            .map_err(s)
+        })?;
+        out.insert(
+            "catalyst".into(),
+            json!({"lcoh_curve_59T_s": t, "reps": 1, "property_backend": "tables"}),
+        );
+    }
+    if want("mcmc") {
+        // four adaptive-Metropolis chains of 20,000 iterations on the bicubic surrogate of the
+        // first calibration grid (the main Ni posterior)
+        let g = amcrax_engine::verify::Golden::open(&root.join("rust/golden/stage5")).map_err(s)?;
+        let t5 = g.load("mcmc.json").map_err(s)?;
+        let c = &t5["calibration"];
+        let v = |x: &Value| -> Vec<f64> {
+            x.as_array()
+                .into_iter()
+                .flatten()
+                .filter_map(Value::as_f64)
+                .collect()
+        };
+        let lns = v(&c["LNS_GRID"]);
+        let de = v(&c["DE_GRID"]);
+        let grid: Vec<Vec<Vec<f64>>> = c["grids"][0]
+            .as_array()
+            .into_iter()
+            .flatten()
+            .map(|r| r.as_array().into_iter().flatten().map(v).collect())
+            .collect();
+        let run = c["runs"]
+            .as_array()
+            .and_then(|r| r.iter().find(|x| x["grid"] == 0 && x["n_iter"] == 20000))
+            .ok_or("no 20,000-iteration run on grid 0")?;
+        let sur = amcrax_engine::calibration::Surrogate::new(&lns, &de, &grid).map_err(s)?;
+        let post = amcrax_engine::calibration::Posterior {
+            sur: &sur,
+            idx: run["idx"]
+                .as_array()
+                .into_iter()
+                .flatten()
+                .filter_map(Value::as_u64)
+                .map(|x| x as usize)
+                .collect(),
+            y: v(&run["y"]),
+            de_sd: 20.0,
+            lns_grid: (lns[0], lns[lns.len() - 1]),
+            de_grid: (de[0], de[de.len() - 1]),
+        };
+        let (t, _) = time(1, || {
+            let mut rng = amcrax_engine::calibration::Generator::new(20261123);
+            let _ = amcrax_engine::calibration::run_chains(&post, &mut rng, 20000, 20.0);
+            Ok(())
+        })?;
+        out.insert("mcmc".into(), json!({"run_chains_4x20000_s": t, "reps": 1}));
+    }
     if want("kinetic") {
         let reg = KineticsRegistry::embedded();
         let ky = amcrax_engine::odata::OValue::from_yaml(

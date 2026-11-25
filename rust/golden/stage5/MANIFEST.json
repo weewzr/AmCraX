@@ -6,9 +6,19 @@
    "sha256": "5c77d9a841e165a3c2f943756773816d54b9251657c79819dd1946e8cf9a59e8"
   },
   "coolprop_states.json": {
-   "bytes": 3552732,
+   "bytes": 3552736,
    "cases": 21794,
-   "sha256": "d46d9d37f1495591b01395604f084bc409c39e048c52c82f13e3f23656510596"
+   "sha256": "cb35931ac1a7c20422821e2886477e6c352e762b3ef5de6666ec487eebb6e38e"
+  },
+  "mcmc.json": {
+   "bytes": 3013928,
+   "cases": 1263,
+   "sha256": "780a9a29ecd557bc6f4433482e3038825c7cf24efcd7f32699e0acd85578d0c7"
+  },
+  "optimisation.json": {
+   "bytes": 739182,
+   "cases": 456,
+   "sha256": "1090c4446ff0f3f6e4034e2946f4c96792c97217fc6ff887ddde21816b3cf7b4"
   }
  },
  "meta": {
@@ -19,7 +29,7 @@
   "coolprop_reference_state": "CoolProp default reference state of each fluid file (the Python code never calls set_reference_state; the NH3 scale is anchored to NASA-7 by the Python model)",
   "coolprop_water_eos": "Wagner-JPCRD-2002",
   "generator": "rust/golden/generate_stage5_golden.py",
-  "git_head_at_generation": "04446b421e9b8b2d4a55e3b1bf2ebec6f8dcc733",
+  "git_head_at_generation": "803e53aa105a35b1c76c3357a3c1a0b20acb2693",
   "numpy": "2.5.5",
   "platform": "Windows AMD64",
   "pydantic": "2.14.4",

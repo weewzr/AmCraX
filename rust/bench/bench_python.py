@@ -72,7 +72,33 @@ def main():
         m["batch_isothermal_s"], _ = timed(3, lambda: [simulate_pfr("ru_takahashi_microkinetic", W_kg=50.0, n_tubes=50,
                                                                     T_in_C=500.0 + i) for i in range(n)])
         out["pfr"] = m
-    if "gsa" in items:
+    if "catalyst" in items:
+        try:
+            from amcrax.research import catalyst_comparison as cc
+        except Exception as e:  # noqa: BLE001
+            cc = None
+            out["catalyst"] = {"error": str(e)[:200]}
+        T_GRID = [float(t) for t in range(470, 761, 5)]
+
+        def curve():
+            if cc is None:
+                raise RuntimeError("catalyst_comparison not importable")
+            cc.required_mass_kg.cache_clear()
+            cc._heat_cost_at.cache_clear()
+            cc.lcoh_curve("ru_kum_temkin_pyzhev", T_GRID, hi=True)
+        try:
+            t, _ = timed(1, curve)
+            out["catalyst"] = {"lcoh_curve_59T_s": t, "reps": 1, "property_backend": "CoolProp 8.0.0 (Python wheel)"}
+        except Exception as e:  # noqa: BLE001  (CoolProp wheel missing on the runner)
+            out["catalyst"] = {"error": str(e)[:200]}
+    if "mcmc" in items:
+        U = module("uq_takahashi_calibration")
+        c = json.loads((REPO / "rust/golden/stage5/mcmc.json").read_text(encoding="utf-8"))["calibration"]
+        run = next(r for r in c["runs"] if r["grid"] == 0 and r["n_iter"] == 20000)
+        sur = U.Surrogate(np.array(c["grids"][0]))
+        logp = U.make_logp(sur, run["idx"], np.array(run["y"]), 20.0)
+        t, _ = timed(1, lambda: U.run_chains(logp, np.random.default_rng(20261123), 20000, 20.0))
+        out["mcmc"] = {"run_chains_4x20000_s": t, "reps": 1}    if "gsa" in items:
         gm = module("uq_gsa_sobol")
         s_hi = extract_summary(json.loads((REPO / "results/simulations/baseline.json").read_text(encoding="utf-8")))
         s_no = extract_summary(json.loads((REPO / "results/simulations/baseline_no_hi.json").read_text(encoding="utf-8")))

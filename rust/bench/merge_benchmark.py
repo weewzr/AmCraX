@@ -40,7 +40,11 @@ def main():
                       ("PFR batch of 200 isothermal", ("pfr", "batch_isothermal_s"), ("pfr", "batch_isothermal_s")),
                       ("global sensitivity study (17 analyses)", ("gsa", "full_study_s"), ("gsa", "full_study_s")),
                       ("kinetic propagation slice, 1 thread", ("kinetic_slice", "threads_1", "seconds"),
-                       ("kinetic_slice", "threads_1", "seconds"))):
+                       ("kinetic_slice", "threads_1", "seconds")),
+                      ("catalyst LCOH(T) curve, 59 temperatures (stage 5)", ("catalyst", "lcoh_curve_59T_s"),
+                       ("catalyst", "lcoh_curve_59T_s")),
+                      ("MCMC, 4 chains x 20,000 iterations on the surrogate (stage 5)", ("mcmc", "run_chains_4x20000_s"),
+                       ("mcmc", "run_chains_4x20000_s"))):
         def get(d, path):
             for x in path:
                 d = (d or {}).get(x)

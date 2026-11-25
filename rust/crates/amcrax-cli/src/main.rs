@@ -54,6 +54,10 @@ VERIFY TARGETS:
     stage4      flowsheet, heat and separation in one report
     catalyst    stage 5: catalyst comparison (masses, LCOH curves and optima, design points,
                 heat accounting on the stored Aspen results, stored catalyst_comparison files)
+    mcmc        stage 5: NumPy normal stream, R-hat and ESS, adaptive Metropolis, FITPACK spline,
+                PFR grid and chains of the Takahashi calibration, stored calibration results
+    optimisation stage 5: evaluate_result (batch objective) on the stored results; Pareto fronts and
+                objective conflicts from the stored design grid
     stage5      every stage 5 target in one report
     all         every engine target above in one report (props excepted)
     studies     stage 3: run the Monte Carlo and the global sensitivity study and compare them with
@@ -67,6 +71,9 @@ VERIFY TARGETS:
                 the stored states) or coolprop (CoolProp 8.0.0 C++ library)
 
 EVAL:
+    objective   read {\"cases\": [CaseInputs, ...], \"options\": {\"heat_source\", \"nh3_route\",
+                \"nh3_price_USD_per_t\", \"include_compression\"}} and write one evaluate_result dict per case
+                (the batch objective of the SciPy optimiser)
     flowsheet   read a CaseInputs JSON object (or {\"inputs\": {...}, \"eos\": \"ideal\"|\"pr\"}) and
                 write the SimulationResult of Python run_python_case (source python_model; the
                 engine is the Rust port), plus \"property_backend\"
@@ -97,6 +104,12 @@ enum Command {
         root: Option<PathBuf>,
         report: Option<PathBuf>,
         props: Option<String>,
+    },
+    EvalObjective {
+        input: PathBuf,
+        output: Option<PathBuf>,
+        props: Option<String>,
+        root: Option<PathBuf>,
     },
     EvalFlowsheet {
         input: PathBuf,
@@ -262,7 +275,7 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
         }
         Some("eval") => {
             let model = match it.next().map(String::as_str) {
-                Some(m @ ("pfr" | "economics" | "flowsheet")) => m.to_string(),
+                Some(m @ ("pfr" | "economics" | "flowsheet" | "objective")) => m.to_string(),
                 Some(other) => {
                     return Err(format!(
                         "unknown eval model {other} (available: pfr, economics, flowsheet)"
@@ -281,17 +294,17 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
                     "--output" => {
                         output = Some(PathBuf::from(it.next().ok_or("--output needs a file")?))
                     }
-                    "--eos" if model == "flowsheet" => {
+                    "--eos" if model == "flowsheet" || model == "objective" => {
                         eos = Some(it.next().ok_or("--eos needs ideal or pr")?.to_string())
                     }
-                    "--props" if model == "flowsheet" => {
+                    "--props" if model == "flowsheet" || model == "objective" => {
                         props = Some(
                             it.next()
                                 .ok_or("--props needs tables or coolprop")?
                                 .to_string(),
                         )
                     }
-                    "--root" if model == "flowsheet" => {
+                    "--root" if model == "flowsheet" || model == "objective" => {
                         root = Some(PathBuf::from(it.next().ok_or("--root needs a directory")?))
                     }
                     s => return Err(format!("unexpected argument {s}")),
@@ -301,6 +314,12 @@ fn parse_args(args: &[String]) -> Result<Command, String> {
             Ok(match model.as_str() {
                 "pfr" => Command::EvalPfr { input, output },
                 "economics" => Command::EvalEconomics { input, output },
+                "objective" => Command::EvalObjective {
+                    input,
+                    output,
+                    props,
+                    root,
+                },
                 _ => Command::EvalFlowsheet {
                     input,
                     output,
@@ -403,6 +422,63 @@ fn make_backend_in(
             "unknown property back end {other} (tables, coolprop)"
         )),
     }
+}
+
+/// `amcrax eval objective`: the batch objective of the optimiser. Input
+/// `{"cases": [CaseInputs, ...], "options": {"heat_source", "nh3_route", "nh3_price_USD_per_t",
+/// "include_compression"}}`; output one `evaluate_result` dict per case (or `{"error": ...}` for an
+/// infeasible specification, as Python's FlowsheetSpecError).
+fn eval_objective(
+    input: &Path,
+    output: Option<&Path>,
+    props: Option<&str>,
+    root: &Path,
+) -> ExitCode {
+    use amcrax_engine::optim::{EvalOpts, evaluate_result};
+    use amcrax_engine::process::{CaseInputs, run_python_case};
+    let result = (|| -> Result<serde_json::Value, String> {
+        let v = read_value(input)?;
+        let o = &v["options"];
+        let opts = EvalOpts {
+            heat_source: o["heat_source"].as_str().unwrap_or("ammonia").to_string(),
+            nh3_route: o["nh3_route"].as_str().unwrap_or("grey").to_string(),
+            include_compression: o["include_compression"].as_bool().unwrap_or(true),
+            nh3_price_usd_per_t: o["nh3_price_USD_per_t"].as_f64(),
+            ..EvalOpts::default()
+        };
+        let b = make_backend_in(props, root, "stage5")?;
+        let d = EconomicsData::embedded();
+        let sp = amcrax_engine::separation::SepParams::embedded();
+        let mut out = Vec::new();
+        for c in v["cases"].as_array().into_iter().flatten() {
+            let r = CaseInputs::from_value(c)
+                .and_then(|ci| {
+                    run_python_case(
+                        &ci,
+                        amcrax_engine::thermo::equilibrium::Eos::Ideal,
+                        b.as_ref(),
+                    )
+                })
+                .and_then(|res| evaluate_result(d, sp, &res, &opts));
+            out.push(match r {
+                Ok(x) => x,
+                Err(e) => serde_json::json!({"error": error_kind(&e), "message": e.to_string()}),
+            });
+        }
+        Ok(serde_json::Value::Array(out))
+    })();
+    let (v, code) = match result {
+        Ok(v) => (v, ExitCode::SUCCESS),
+        Err(e) => (
+            serde_json::json!({"error": "input", "message": e}),
+            ExitCode::FAILURE,
+        ),
+    };
+    if let Err(e) = write_json(output, &v) {
+        eprintln!("amcrax eval objective: cannot write output: {e}");
+        return ExitCode::from(2);
+    }
+    code
 }
 
 /// `amcrax eval flowsheet`: JSON case in (a CaseInputs object, or {"inputs": {...}, "eos": ...}),
@@ -557,6 +633,21 @@ fn run_engine_target(
             props: b.as_ref(),
         };
         out.push(ev::stage5::catalyst(&stage("stage5")?, &ctx, root).map_err(s)?);
+    }
+    if matches!(target, "mcmc" | "stage5" | "all") {
+        // every third node of the 31 x 25 PFR grid in each direction (about 1/9 of the solves)
+        out.push(ev::stage5::mcmc(&stage("stage5")?, reg, root, 3).map_err(s)?);
+    }
+    if matches!(target, "optimisation" | "stage5" | "all") {
+        out.push(
+            ev::stage5::optimisation(
+                &stage("stage5")?,
+                EconomicsData::embedded(),
+                amcrax_engine::separation::SepParams::embedded(),
+                root,
+            )
+            .map_err(s)?,
+        );
     }
     if out.is_empty() {
         return Err(format!(
@@ -915,6 +1006,15 @@ fn main() -> ExitCode {
                 return kinetic_study(&root, output.as_deref(), report.as_deref(), threads, limit);
             }
             study(&name, &root, output.as_deref(), report.as_deref())
+        }
+        Ok(Command::EvalObjective {
+            input,
+            output,
+            props,
+            root,
+        }) => {
+            let root = root.unwrap_or_else(ev::default_repo_root);
+            eval_objective(&input, output.as_deref(), props.as_deref(), &root)
         }
         Ok(Command::EvalFlowsheet {
             input,

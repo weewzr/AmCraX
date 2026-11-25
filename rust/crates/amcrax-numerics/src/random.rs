@@ -157,6 +157,16 @@ impl SeedSequence {
             .collect()
     }
 
+    /// The number of children spawned so far (`SeedSequence.n_children_spawned`).
+    pub fn n_children_spawned(&self) -> u64 {
+        self.n_children_spawned
+    }
+
+    /// Set the spawn counter (to resume a sequence whose earlier children were spawned elsewhere).
+    pub fn set_children_spawned(&mut self, n: u64) {
+        self.n_children_spawned = n;
+    }
+
     /// `spawn(n_children)`: children with spawn keys `spawn_key + (i,)` continuing the count.
     pub fn spawn(&mut self, n_children: usize) -> Vec<SeedSequence> {
         let start = self.n_children_spawned;
@@ -245,6 +255,48 @@ impl Pcg64 {
     #[inline]
     pub fn random(&mut self) -> f64 {
         (self.next_u64() >> 11) as f64 * (1.0 / 9_007_199_254_740_992.0)
+    }
+
+    /// `Generator.standard_normal()`: NumPy's 256-layer ziggurat (`random_standard_normal`,
+    /// tables in `ziggurat_tables.rs`).
+    pub fn standard_normal(&mut self) -> f64 {
+        use crate::ziggurat_tables::{FI, KI, WI};
+        const R: f64 = 3.654_152_885_361_009;
+        const INV_R: f64 = 0.273_661_237_329_758_3;
+        loop {
+            let mut r = self.next_u64();
+            let idx = (r & 0xff) as usize;
+            r >>= 8;
+            let sign = r & 0x1;
+            let rabs = (r >> 1) & 0x000f_ffff_ffff_ffff;
+            let mut x = rabs as f64 * WI[idx];
+            if sign & 0x1 == 1 {
+                x = -x;
+            }
+            if rabs < KI[idx] {
+                return x;
+            }
+            if idx == 0 {
+                loop {
+                    let xx = -INV_R * (-self.random()).ln_1p();
+                    let yy = -(-self.random()).ln_1p();
+                    if yy + yy > xx * xx {
+                        return if (rabs >> 8) & 0x1 == 1 {
+                            -(R + xx)
+                        } else {
+                            R + xx
+                        };
+                    }
+                }
+            } else if (FI[idx - 1] - FI[idx]) * self.random() + FI[idx] < (-0.5 * x * x).exp() {
+                return x;
+            }
+        }
+    }
+
+    /// `Generator.normal(loc, scale)` = `loc + scale * standard_normal()`.
+    pub fn normal(&mut self, loc: f64, scale: f64) -> f64 {
+        loc + scale * self.standard_normal()
     }
 
     /// `n` values of [`Pcg64::random`].

@@ -145,14 +145,16 @@ jobs:
           python-version: "3.12"
       - name: Python reference dependencies (pinned as requirements.txt)
         working-directory: .
-        run: python -m pip install numpy==2.5.5 scipy==1.18.1 pydantic==2.14.4 PyYAML==6.0.4 cantera==3.2.0
+        run: |
+          python -m pip install numpy==2.5.5 scipy==1.18.1 pydantic==2.14.4 PyYAML==6.0.4 cantera==3.2.0
+          python -m pip install CoolProp==8.0.0 || echo "CoolProp 8.0.0 wheel not installable: the catalyst item is skipped on the Python side"
       - name: build (release)
         run: cargo build --release --locked -p amcrax-cli
       - name: Python timings
         working-directory: .
-        run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic --kinetic-draws 25 --output rust/target/bench_python.json
+        run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic,catalyst,mcmc --kinetic-draws 25 --output rust/target/bench_python.json
       - name: Rust timings
-        run: ./target/release/amcrax bench --root .. --items economics,pfr,gsa,kinetic --kinetic-draws 25 --threads 1,2,4 --output target/bench_rust.json
+        run: ./target/release/amcrax bench --root .. --items economics,pfr,gsa,kinetic,catalyst,mcmc --kinetic-draws 25 --threads 1,2,4 --output target/bench_rust.json
       - name: merge
         run: |
           python bench/merge_benchmark.py target/bench_python.json target/bench_rust.json target/benchmark_stage3.json

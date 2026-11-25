@@ -14,6 +14,7 @@
 //! * Reference data are read from the repository (`AMCRAX_ROOT`), never copied; every file read
 //!   carries its SHA-256 for provenance.
 
+pub mod calibration;
 pub mod carbon;
 pub mod catalyst;
 pub mod data;
@@ -23,6 +24,7 @@ pub mod error;
 pub mod heat;
 pub mod kinetics;
 pub mod lca;
+pub mod mcmc;
 pub mod odata;
 pub mod optim;
 pub mod process;
