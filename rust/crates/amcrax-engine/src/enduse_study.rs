@@ -166,7 +166,7 @@ pub fn lca_factor_values() -> Vec<(&'static str, Value)> {
 /// `environmental.reference_lines()`: (label, kg CO2e/kg H2).
 pub fn reference_lines() -> R<Vec<(String, f64)>> {
     let f = crate::carbon::embedded_factors();
-    let n = |p: &[&str]| f.num_v("environmental.yaml", p);
+    let n = |p: &[&str]| f.num("environmental.yaml", p);
     let lhv = crate::enduse::lhv_h2_mj_kg();
     let eu = n(&["reference_lines", "eu_rfnbo", "fossil_comparator_g_per_MJ"])?
         * (1.0 - n(&["reference_lines", "eu_rfnbo", "required_saving"])?)
@@ -573,7 +573,7 @@ pub fn enduse_run(ctx: &Ctx, root: &Path) -> R<EnduseRun> {
         let c = power_cost(ctx, &a, price, &CostOpts::new(p))?;
         let h = a.h2_fraction_vol.unwrap_or(0.0);
         let flex = if a.h2_fraction_vol.is_some() && h > 0.0 {
-            if 0.3 - 1e-9 <= h && h <= 0.6 + 1e-9 {
+            if (0.3 - 1e-9..=0.6 + 1e-9).contains(&h) {
                 "inside the essay's 30-60 vol% H2 range (not found for the H-25 or for NH3-H2 blends; NETL 2022 gives 30-60 % for H2 in natural gas, Baker Hughes)"
             } else if h < 0.3 {
                 "below 30 vol%: NG-combustor-compatible range"
@@ -2085,7 +2085,7 @@ pub fn enduse_threshold(ctx: &Ctx, root: &Path, enduse: &EnduseRun) -> R<Thresho
         s_cap.push(row_all(
             vec![("scenario".into(), json!(nm))],
             RowKw {
-                basis: *cb,
+                basis: cb,
                 ckw: *ck,
                 dkw: *dk,
                 ..dflt()

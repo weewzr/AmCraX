@@ -244,7 +244,6 @@ const NOTE: &str = "relative to max(|x|, 1): costs, intensities, efficiencies an
 
 /// End use and LCA: direct calls of the pathway functions, the three study drivers against the
 /// Python rerun (golden) and against the stored files.
-#[cfg(feature = "yaml")]
 pub fn enduse(g: &Golden, d: &EconomicsData, root: &Path) -> Result<Report, EngineError> {
     use crate::enduse_study as st;
     let t = g.load("enduse.json")?;
@@ -289,9 +288,41 @@ pub fn enduse(g: &Golden, d: &EconomicsData, root: &Path) -> Result<Report, Engi
     calls.push(&mut rep);
     rep.push(outcome);
     // ---- the drivers
-    let lca = st::lca_run(&ctx)?;
-    let eur = st::enduse_run(&ctx, root)?;
-    let thr = st::enduse_threshold(&ctx, root, &eur)?;
+    // a failing driver is a failed check (the other drivers are still compared)
+    let mut run_ok = Acc::exact("EU-RUN", "the three study drivers run to completion");
+    let lca = st::lca_run(&ctx).unwrap_or_else(|e| {
+        run_ok.add_bool("lca_run", false, || e.to_string());
+        st::LcaRun {
+            results: Value::Null,
+            assumptions: Value::Null,
+            validation: Value::Null,
+        }
+    });
+    let empty = || st::EnduseRun {
+        results: Value::Null,
+        assumptions: Value::Null,
+        validation: Vec::new(),
+    };
+    let eur = st::enduse_run(&ctx, root).unwrap_or_else(|e| {
+        run_ok.add_bool("enduse_run", false, || e.to_string());
+        empty()
+    });
+    let thr = if eur.results.is_null() {
+        run_ok.add_bool("enduse_threshold", false, || "enduse_run failed".into());
+        None
+    } else {
+        st::enduse_threshold(&ctx, root, &eur)
+            .map_err(|e| run_ok.add_bool("enduse_threshold", false, || e.to_string()))
+            .ok()
+    };
+    let thr = thr.unwrap_or(st::ThresholdRun {
+        results: Value::Null,
+        nox: Value::Null,
+        validation: Vec::new(),
+        csv: Vec::new(),
+    });
+    run_ok.add_bool("drivers", true, String::new);
+    rep.push(run_ok);
     let runs = &t["runs"];
     let val_enduse = Value::Array(thr.validation.clone());
     let mut prose = Acc::exact(

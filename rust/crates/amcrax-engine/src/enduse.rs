@@ -239,7 +239,7 @@ impl Params {
 // ===================================================================================== stoichiometry
 /// `cracked_share_for_h2_fraction(y_h2, conversion)`.
 pub fn cracked_share_for_h2_fraction(y_h2: f64, conversion: f64) -> Result<f64, EngineError> {
-    if !(0.0 <= y_h2 && y_h2 < 0.75 + 1e-12) {
+    if !(0.0..0.75 + 1e-12).contains(&y_h2) {
         return Err(verr(
             "H2 fraction must be in [0, 0.75] for unpurified cracked NH3",
         ));

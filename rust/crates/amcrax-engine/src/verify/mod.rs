@@ -17,6 +17,7 @@ pub mod stage2;
 pub mod stage3;
 pub mod stage4;
 pub mod stage5;
+#[cfg(feature = "yaml")]
 pub mod stage5b;
 
 use crate::error::EngineError;
