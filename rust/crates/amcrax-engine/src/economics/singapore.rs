@@ -5,7 +5,7 @@
 //! payback, the purification memo, and the break-even ammonia price.
 //!
 //! The result is the Python dict as JSON (same keys, same nesting), so the comparison with the
-//! golden tables is key by key and the CLI output can replace the Python output.
+//! golden tables is key by key and the CLI output has the same shape as the Python output.
 
 use super::lcoh::{EconAssumptions, crf, estimate_capex};
 use super::reference::{EconomicsData, RefCapex, RefCapexArgs, SINGAPORE_YAML};

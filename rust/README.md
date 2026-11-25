@@ -1,8 +1,11 @@
 # AmCraX Rust workspace
 
-The Rust implementation of the AmCraX numerical engine. Python stays the reference: every Rust
-routine is checked against golden tables produced by the Python code, and a Python module is
-retired only after its Rust port has passed its gate.
+A Rust port of parts of the AmCraX numerical engine (migration stages 0 to 5 of 6; stage 6 has not
+started). Python remains the reference and the authoritative implementation: every published
+result, the website and the API come from the Python (and TypeScript) code, and no Python module
+has been retired or replaced. Each Rust routine is checked against golden tables produced by the
+Python code. This is verification of the port against Python, not experimental validation of the
+models; the models' agreement with experiments is only what the Python project itself documents.
 
 ## Layout
 
@@ -22,14 +25,15 @@ rust/
       src/qmc.rs             Sobol' (SciPy, Joe-Kuo directions) and Latin hypercube sampling
       src/sobol_directions.rs  generated from SciPy's direction-number table (do not edit)
       tests/golden.rs        all golden-table comparisons
-    amcrax-engine/           AmCraX science (stage 0: module layout, data types, units, errors)
-    amcrax-cli/              binary `amcrax` (stage 0: --version, verify)
+    amcrax-engine/           AmCraX science ported in stages 1 to 5 (see Stages)
+    amcrax-cli/              binary `amcrax` (verify, eval, study, bench)
     amcrax-wasm/             wasm-bindgen facade for the browser (wasm32-unknown-unknown)
     amcrax-coolprop/         CoolProp 8.0.0 FFI back end (not a workspace member; feature
                              `coolprop` of amcrax-cli; the C++ library is built in CI only)
   golden/
     generate_numerics_golden.py   writes the golden tables (NumPy/SciPy only)
     numerics/*.json               golden tables, MANIFEST.json with SHA-256 and case counts
+    stage1/ .. stage5/            engine golden tables, written by generate_stage*_golden.py
 ```
 
 Dependency graph: `amcrax-cli -> amcrax-engine[yaml] -> amcrax-numerics`,
@@ -82,8 +86,10 @@ workflow result.
 CI jobs: `cargo fmt --check`; `cargo clippy --all-targets --all-features -- -D warnings`;
 `cargo test --workspace --profile ci` (optimised, debug assertions and overflow checks on) on
 Linux and on Windows (MSVC); `cargo doc`; `amcrax --version` and `amcrax verify numerics`; the
-`amcrax-wasm` build for `wasm32-unknown-unknown` with a 400 KB size budget; `cargo audit`. The
-toolchain is pinned to Rust 1.100.0 (`rust-version` in `Cargo.toml`), warnings are errors.
+`amcrax-wasm` build for `wasm32-unknown-unknown` with a 400 KB size budget; `cargo audit`; the
+kinetic propagation study (release build); the benchmark (Python and Rust in one job); the
+CoolProp 8.0.0 back end built from the pinned sources with verify stage4 and stage5. Tests run with
+`--all-features`. The toolchain is pinned to Rust 1.100.0 (`rust-version` in `Cargo.toml`), warnings are errors.
 
 ## Building elsewhere
 
@@ -181,7 +187,7 @@ and `amcrax study gsa|mc-singapore|kinetic-propagation --report`.
 | LCA factors, carbon intensity, carbon cost, Mode A threshold test, route cases, crossover | 1e-12 relative | same closed forms |
 | Sobol' indices, bootstrap intervals on fixed output matrices | 1e-12 relative; bootstrap index stream identical | NumPy pairwise sums and `integers` stream ported |
 | Sobol' base samples of the studies | SHA-256 of the float64 bytes identical | SciPy scrambling; the legacy `seed=` keyword seeds `default_rng(seed)` without spawn |
-| `ndtri`, `triang.ppf`, `lognorm.ppf`, `norm.ppf` | 1e-12 relative | Cephes ndtri port, checked bitwise on 250,006 arguments before the port |
+| `ndtri`, `triang.ppf`, `lognorm.ppf`, `norm.ppf` | 1e-12 relative | Cephes ndtri port (a pre-port bitwise check on 250,006 arguments is not recorded in the verification reports) |
 | global sensitivity study (16 cases + dummy, N = 8192, 1000 bootstraps) | 1e-10 relative (indices and intervals relative to max(\|S\|, 1e-6)) | sample and bootstrap stream reproduced exactly; libm exp/log/pow ulps in the lognormal cases move near-zero indices by about 1e-18 absolute |
 | Monte Carlo of the Singapore economics (5000 draws) | 1e-12 relative, sample for sample | NumPy uniform/triangular/random streams reproduced exactly (not a statistical comparison) |
 | stiff PFR cases (750-900 degC) | stage 2 gates (X 1e-7, T 1e-4 K, P 1e-6 bar) | LSODA rtol 1e-8 against DOPRI5 or the Radau fallback at rtol 1e-10 |
@@ -193,7 +199,8 @@ the result does not depend on the thread count, which the tests check). `amcrax 
 `bench/bench_python.py` time the Rust release build and the Python reference in one CI job
 (`verification/BENCHMARK.md`).
 
-Not promised bit-identical across library versions: normal and other non-uniform variates (not
+Not promised bit-identical across library versions: normal variates (ported in stage 5; bit-identical
+only within one platform's C library, see the ziggurat experiment), other non-uniform variates (not
 ported), shuffles and bounded integers (NumPy does not freeze these streams), and therefore the
 scrambled Sobol' and LHS designs. For those, the promise is statistical equivalence (balance and
 stratification properties, tested in the unit tests).
@@ -243,7 +250,7 @@ Gates (CI run 45479664142 on ff8929c, all seven jobs green; `verification/stage4
 | flowsheet: KPIs | 1,548 | 1.4e-14 | 1e-9 relative | |
 | flowsheet: pressures; closure residuals | 1,874; 172 | 0; 2.5e-16 | 1e-12 relative; 1e-12 absolute | arithmetic on inputs; residuals are rounding noise |
 | flowsheet: texts, flags, error classes, stored python_baseline*.json | 10,390 texts, 96 outcomes, 4 files | identical; stored: within the gates above | exact | |
-| heat integration (analysis): every number | 311,742 | 4.5e-12 | 1e-10 relative (degC to max(\|x\|, 273.15 K), kW, m2, USD to max(\|x\|, 1), fractions to max(\|x\|, 1)) | NASA-7 + PR + CoolProp curves, numpy.interp, problem table |
+| heat integration (analysis): every number | 311,742 | 4.5e-12 | 1e-10 relative (degC to max(\|x\|, 273.15 K); kW, m2, USD to max(\|x\|, 1); the two duty-difference fractions rel_deviation and reduction_vs_no_recovery to max(\|x\|, 1); all other quantities to max(\|x\|, 1e-6)) | NASA-7 + PR + CoolProp curves, numpy.interp, problem table |
 | heat integration: decisions, texts, stored heat_integration_*.json | 575 flags, 6,228 texts, 2 files | identical (1 tie, below) | exact | |
 | exchanger sizing, cost, break-even U and CRF | 2,139 calls, 26,785 numbers, 5,235 decisions (shells, units, ranges) | 2.2e-15 | 1e-10 relative; identical shell counts and feasibility | closed forms; the break-even U bisection stops at hi/lo < 1 + 1e-10 |
 | separation, algebraic (compression, PSA, ISO evaluation, recovery-purity, splits, slip) | 2,389 | 0 | 1e-10 relative | same operation order |
@@ -300,7 +307,8 @@ written by the same generator: `wi` is recovered exactly from NumPy's output (th
 reproduces every observed `rabs * wi[idx]` is unique), `ki` and `fi` come from the Marsaglia-Tsang
 recurrence; the generator checks 3 x 10^6 draws against NumPy on the generating machine.
 
-Gates (CI run 45519747051 on 1dbb6db; `verification/stage5_report.json`; the same checks pass on the
+Gates (first measured in CI run 45519747051 on 1dbb6db; the values below are those of the committed
+`verification/stage5_report.json`, run 45537898469 on 2fc58cc; the same checks pass on the
 `tables` and the `coolprop` back end):
 
 | Quantity | Cases | Max. deviation | Gate | Why |
@@ -325,18 +333,24 @@ Gates (CI run 45519747051 on 1dbb6db; `verification/stage5_report.json`; the sam
 | constraint values | 1,296 | 0 | 1e-9 relative | |
 | Pareto fronts from the stored design grid; objective conflicts | 12 fronts (38 checks); 10 pairs | identical point sets; Spearman 2.4e-16 | exact; 1e-12 | |
 
+MC-NORMAL gates the first 50 draws only; its report label still names the SHA-256 of 10^6 draws,
+which has been a reported finding, not a gate, since commit 1dbb6db.
+
 Findings (reported, not gated; no Python code changed):
 
 * The calibration chains agree with the stored Python chains to 1e-12 but not bit for bit on the
   Linux runners, and the SHA-256 of 10^6 normal draws differs for two of three seeds while the
   first 50 draws are bitwise equal. The ziggurat slow path compares with `exp()` and the tail uses
   `log1p()`; the most likely cause is that glibc and the MSVC runtime of the Windows machine that
-  produced the reference round some of these values differently (not proven here).
+  produced the reference round some of these values differently (not proven here). The second part
+  (ziggurat experiment below) establishes this: the cause is the C library, not the port.
 * FEHE approach flags and warnings decided on a tie (minimum internal approach equal to dT_min
   within 1e-9 K, stage 4) also occur in the heat accounting of the Aspen Ni case `tni_T594` (with and without heat integration) at
   dT_min = 50 K on the CoolProp back end; Python's warning list is adopted and the tie reported.
 
-What stays in Python, and why:
+What stays in Python after the first part (the second part below ports the end-use pathways, the
+LCA, end-use and threshold drivers, and the catalyst economics with its break-even searches), and
+why:
 
 * The optimiser: `differential_evolution` with Sobol initialisation, deferred updating and a
   `NonlinearConstraint`, the SLSQP polish and the epsilon-constraint SLSQP of
@@ -349,7 +363,7 @@ What stays in Python, and why:
   grid instead.
 * The end-use pathways (`enduse/pathways.py`: power and hydrogen activities, LCOE, break-even
   factors) and the LCA study driver (`scripts/research/lca_run.py`, `enduse_run.py`,
-  `enduse_threshold.py`) are not ported in this stage; Rust has `enduse::carbon_intensity` and the
+  `enduse_threshold.py`) are not ported; Rust has `enduse::carbon_intensity` and the
   `Activity` record that the catalyst study needs.
 * The break-even catalyst price searches and the ranking robustness of
   `scripts/research/catalyst_comparison.py`, `research/catalyst_economics.py` and
@@ -360,8 +374,10 @@ What stays in Python, and why:
 
 New CLI commands of stage 5: `amcrax verify catalyst|mcmc|optimisation|stage5` (included in `verify
 all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `amcrax bench` items
-`catalyst`, `objective` and `mcmc` (timings in `verification/BENCHMARK.md`, run 45521208605: catalyst curve
-63.9 x, MCMC 33.1 x, objective 1.6 x faster than Python on the same runner).
+`catalyst`, `objective` and `mcmc` (timings in `verification/BENCHMARK.md`: GitHub Actions run 45521208605, job "benchmark", one
+shared runner, ratios valid for that run only: catalyst curve 63.9 x, where Python calls the
+CoolProp 8.0.0 wheel and Rust reads the pre-computed tables back end, so part of the ratio is the
+cost of CoolProp calls; MCMC 33.1 x; objective 1.6 x).
 
 ### Engine golden tables (stage 5, second part)
 
@@ -376,12 +392,12 @@ ziggurat in the first 10^6 draws of three seeds on the Windows reference machine
 checks reuse `mcmc.json`.
 
 Gates (CI run 45537898469 on 2fc58cc, all seven jobs green; `verification/stage5_report.json`, 332
-checks; the same maxima on the `tables` and `coolprop` back ends unless stated):
+checks; the larger of the two back ends' maxima is shown; both pass the same gates):
 
 | Quantity | Cases | Max. deviation | Gate | Why |
 |---|---|---|---|---|
 | end-use pathway functions (activities, LCOE, hydrogen cost, break-even factor, stoichiometry), direct calls | 5,781 numbers, 784 outcomes | 0 | 1e-12 relative | same expressions in the same order |
-| LCA, end-use and threshold documents, validation items, threshold CSV tables, against the rerun and the stored files | 8,598 numbers (and the same leaves of the stored files) | 0 | 1e-9 relative to max(\|x\|, 1) | brentq roots and pow() of the C library would agree far inside it |
+| LCA, end-use and threshold documents, validation items, threshold CSV tables, against the rerun and the stored files | 8,557 numbers and 41 assumption-register factors (and the same leaves of the stored files) | 0 | 1e-9 relative to max(\|x\|, 1); factors identical | brentq roots and pow() of the C library would agree far inside it |
 | catalyst economics: prices, states, size ratios | 542 | 1.1e-12 | 1e-9 relative | |
 | catalyst economics: designs, optima, comparisons; cost table; break-even designs | 12,095; 10,240; 1,950 | 2.3e-7; 1.5e-7; 2.9e-6 | 1e-5 relative | catalyst-mass gate of the PFR mass search, inherited by the catalyst cost and the LCOH |
 | re-optimised break-even price; lifetime | 12; 12 | 1.1e-4 USD/kg; 1.2e-6 yr | 0.05; 1e-3 absolute | the brentq stopping rule of the Python script |
@@ -394,10 +410,11 @@ checks; the same maxima on the `tables` and `coolprop` back ends unless stated):
 
 Ziggurat experiment (block E): the replay of the Rust generator with the Windows `exp`/`log1p`
 values reproduces NumPy's Windows stream bit for bit for all three seeds (ZIG-REPLAY), and the
-native Rust stream on the MSVC runner equals it. On Linux, glibc returns different values (1 ulp)
+native Rust stream on the MSVC runner equals it (windows job log of run 45537898469; not in the
+committed report). On Linux, glibc returns different values (1 ulp)
 in about 0.6 % of the wedge tests and 6 to 9 % of the tail calls; no acceptance decision flips, but a
 different `log1p` in a tail draw changes that draw: 1 and 2 of 10^6 draws differ for two seeds, none
-for the third. NumPy 2.5.5 on the same Linux runner gives exactly the Rust Linux stream (identical
+for the third. NumPy 2.5.5 on a Linux runner of the same run (benchmark job log) gives exactly the Rust Linux stream (identical
 SHA-256 for all three seeds). Cause established: the C library, not the port; seeded normal streams
 are bit-identical only within one platform's libm, for NumPy and Rust alike.
 
@@ -430,7 +447,12 @@ New commands: `amcrax verify enduse` (alias `lca`), `catalyst-economics`, `calib
    (`verification/stage5_report.json`); second part: end use and LCA, catalyst economics, the
    calibration end to end, the design grid, the ziggurat platform experiment. The SciPy optimiser
    driver stays in Python (see above).
-6. WebAssembly replaces the TypeScript numerics; the API calls Rust.
+6. Not started (planned): a WebAssembly engine in the browser in place of the TypeScript numerics,
+   and the API calling Rust. Until then the website and the API do not use the Rust engine.
+
+Not ported and staying in Python: the SciPy optimiser driver, some study scripts (see the lists
+above), all plotting and figures, and the Aspen Plus COM automation. Python is authoritative for
+every published result.
 
 New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,
 `amcrax eval economics --input case.json`, `amcrax study gsa|mc-singapore|kinetic-propagation`,

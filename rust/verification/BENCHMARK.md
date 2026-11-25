@@ -1,4 +1,4 @@
-# Stage 3 benchmark
+# Benchmarks of stages 3 and 5
 
 Source: `benchmark_stage3.json` (GitHub Actions run 45405266952, commit a542cca, job "benchmark").
 Python reference and Rust release build ran one after the other in the same job, so the hardware
@@ -35,8 +35,7 @@ kinetic propagation study (16,000 draws) runs in its own job ("kinetic"), whose 
 report; it is not part of this comparison, which uses a fixed slice so both implementations run
 on the same machine within the job time.
 
-Full Rust kinetic propagation study (16,000 draws, 2,085,296 PFR solves of which 141,592 used the Radau fallback; job "kinetic", 4 threads, not on the benchmark runner, so not a comparison): 820.4 s on an Intel Xeon 6975P-C runner (run 45413488525) and 1332.2 s on an AMD EPYC 7763 runner (run 45405266952). The stored Python study reports about 43 minutes with a multiprocessing pool on the generator machine; that figure is not a measurement of this benchmark.
-
+Full Rust kinetic propagation study (16,000 draws, 2,085,296 PFR solves of which 141,592 used the Radau fallback; job "kinetic", 4 threads, not on the benchmark runner, so not a comparison): 820.4 s on an Intel Xeon 6975P-C runner (run 45413488525) and 1332.2 s on an AMD EPYC 7763 runner (run 45405266952); figures from the kinetic-study job logs, not committed.
 
 ## Stage 5 items
 
@@ -44,6 +43,8 @@ Source: the `benchmark_stage3.json` artifact of GitHub Actions run 45521208605 (
 job "benchmark"); AMD EPYC 7763, 4 vCPUs, same image, toolchain and Python versions as above. The
 whole set was measured again in that job (economics 1.5 / 1.7 / 29.0, PFR 30.8 to 37.8, global
 sensitivity 7.1, kinetic slice 13.3); this runner is slower than the Xeon of the stage 3 run.
+The raw timings are in the CI artifact 'benchmark' of that run (kept until 2027-02-23); they are
+not committed to the repository.
 
 | Item | Python (s) | Rust (s) | Python / Rust |
 |---|---|---|---|
@@ -57,9 +58,12 @@ part of the ratio is the cost of CoolProp calls; the verified agreement of the t
 in `stage5_report.json`. The objective item excludes the flowsheet solve, which dominates one
 optimiser evaluation in both implementations; like the dict-building `evaluate`, it is dominated
 by building the result dict.
+
 ## Stage 5, second part
 
 Source: run 45537898469 (commit 2fc58cc, job "benchmark"), Intel Xeon Platinum 8370C, 4 vCPUs.
+The raw timings are in the CI artifact 'benchmark' of that run (kept until 2027-02-23); they are
+not committed to the repository.
 
 | Item | Python (s) | Rust (s) | Python / Rust |
 |---|---|---|---|
