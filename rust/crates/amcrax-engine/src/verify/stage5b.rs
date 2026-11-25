@@ -788,7 +788,7 @@ fn econ_call(e: &crate::catalyst_econ::Econ, f: &str, a: &Value) -> Result<Value
             let kw = design_kw(a);
             let lo = e.optimise(
                 &s("low"),
-                e.price(&crate::catalyst::catalyst(&s("low"))?.price_key, "central")?,
+                e.price(crate::catalyst::catalyst(&s("low"))?.price_key, "central")?,
                 2.0,
                 true,
                 None,
@@ -796,7 +796,7 @@ fn econ_call(e: &crate::catalyst_econ::Econ, f: &str, a: &Value) -> Result<Value
             )?;
             let rf = e.optimise(
                 &s("ref"),
-                e.price(&crate::catalyst::catalyst(&s("ref"))?.price_key, "central")?,
+                e.price(crate::catalyst::catalyst(&s("ref"))?.price_key, "central")?,
                 2.0,
                 true,
                 None,
