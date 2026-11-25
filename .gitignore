@@ -40,3 +40,6 @@ docs/screenshots/qa/
 docs/technical_report/sections_v1/
 
 docs/technical_report/_qa/
+# Rust workspace build output and Rust result staging directory
+rust/target/
+results_rust/

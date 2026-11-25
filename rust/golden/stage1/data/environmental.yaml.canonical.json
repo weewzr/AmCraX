@@ -1,0 +1,186 @@
+{
+ "electricity": {
+  "eu_average": {
+   "note": "European grid factor used by Kum et al.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "kum2026heatintegrated",
+    "locator": "Sec. 4.7 (EEA indicator; Li et al. 2023)",
+    "page": 17
+   },
+   "unit": "kg CO2/kWh",
+   "value": 0.207
+  },
+  "low_carbon_nuclear": {
+   "note": "Converted by AmCraX: 0.002 kg/MJ x 3.6 MJ/kWh = 0.0072 kg/kWh.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "lee2022ammonia",
+    "locator": "LCA results: nuclear electricity 0.002 kg CO2e/MJ (GREET)",
+    "page": 13
+   },
+   "unit": "kg CO2e/kWh",
+   "value": 0.0072
+  },
+  "singapore_2024": {
+   "note": "Operating-margin average of grid-connected generation (combustion CO2). Default grid.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "ema2025ses",
+    "locator": "Singapore Energy Statistics Ch. 2, average Grid Emission Factor 2024 (0.412 in 2023)",
+    "page": null
+   },
+   "unit": "kg CO2/kWh",
+   "value": 0.402
+  }
+ },
+ "heating": {
+  "ammonia_self_firing": {
+   "note": "Extra NH3 burnt to cover the heat deficit: NH3 combustion emits no CO2, but the extra NH3 carries its upstream and transport emissions (counted). N2O and NOx from NH3/tail-gas combustion are OUTSIDE the model (not counted); kum2026heatintegrated p. 17 reports negligible N2O from an equilibrium-based estimate, cho2026nickel p. 13 Table 7 reports 863-1517 mg/Nm3 NOx in boiler flue gas."
+  },
+  "electric_heater_efficiency": {
+   "note": "ASSUMPTION: resistive electric heating converts electricity to process heat with efficiency 1 (first-law ideal).",
+   "provenance": "assumption",
+   "source": null,
+   "unit": "-",
+   "value": 1.0
+  },
+  "fired_heater_efficiency_lhv": {
+   "note": "ASSUMPTION: the net heat deficit (KPI net_fuel_heat_deficit_kW) is supplied as fuel LHV with no additional furnace loss, so fuel-based cases are a lower bound. The tail-gas heat in the deficit already reflects stack losses (flue cooled to stack_temperature_C). Override with fired_heater_efficiency=...",
+   "provenance": "assumption",
+   "source": null,
+   "unit": "-",
+   "value": 1.0
+  },
+  "natural_gas_combustion": {
+   "note": "Combustion CO2 only. CH4 (1 kg/TJ) and N2O (0.1 kg/TJ) from the same table are < 0.1 % of the CO2e and are not counted. Upstream natural-gas supply-chain emissions (extraction, LNG, methane leakage) are EXCLUDED - no sourced factor in the AmCraX registry; this underestimates the natural-gas case.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "ipcc2006v2ch2",
+    "locator": "Table 2.2, Natural Gas, default CO2 EF",
+    "page": "2.16"
+   },
+   "unit": "kg CO2/TJ (LHV basis)",
+   "value": 56100.0
+  }
+ },
+ "reference_lines": {
+  "eu_rfnbo": {
+   "fossil_comparator_g_per_MJ": 94.0,
+   "note": "Threshold = 94 x (1 - 0.70) g/MJ x LHV(H2) = approx. 3.38 kg CO2e/kg H2 (computed in code from amcrax.schemas.LHV_KJ_PER_MOL). The EU boundary is well-to-wheel incl. delivery, broader than AmCraX's: comparison is indicative only.",
+   "provenance": "literature",
+   "required_saving": 0.7,
+   "source": {
+    "citekey": "eu2023_1185",
+    "locator": "Annex, fossil fuel comparator; RED Art. 25(2) 70 % saving",
+    "page": null
+   }
+  },
+  "iea_low_emission": {
+   "note": "'H2 with a total carbon intensity below 4 kg CO2/kg H2 is regarded as low-emission H2' (as quoted by Kum et al.).",
+   "provenance": "literature",
+   "source": {
+    "citekey": "kum2026heatintegrated",
+    "locator": "Sec. 4.7, citing IEA Global Hydrogen Review 2024 (ref. [52])",
+    "page": 17
+   },
+   "unit": "kg CO2e/kg H2",
+   "value": 4.0
+  }
+ },
+ "references": {
+  "ema2025ses": {
+   "checked": "The URL returns HTTP 200 but the page is rendered by script (the automated fetch got no text). The value comes from the search-engine extract of this EMA page: 'Singapore's average GEF decreased from 0.412 kg CO2/kWh in 2023 to 0.402 kg CO2/kWh in 2024'. Re-check by hand before the final report.",
+   "text": "Energy Market Authority (Singapore). Singapore Energy Statistics, Chapter 2 (Energy Transformation), Grid Emission Factor.",
+   "url": "https://www.ema.gov.sg/singapore-energy-statistics/Ch02/index2"
+  },
+  "eu2023_1185": {
+   "checked": "EUR-Lex page did not return text to the automated fetch (HTTP 202). The values 94 g CO2eq/MJ and 70 % were confirmed through search-engine extracts of the regulation's annex and of secondary briefings (IEA policy page 27699, Baker McKenzie, T&E). AmCraX derives the kg CO2e/kg H2 threshold from these two numbers and the H2 LHV in amcrax.schemas.",
+   "text": "Commission Delegated Regulation (EU) 2023/1185 (RFNBO GHG methodology): fossil-fuel comparator 94 g CO2eq/MJ; RFNBOs must save at least 70 % (RED II/III Art. 25(2)).",
+   "url": "https://eur-lex.europa.eu/eli/reg_del/2023/1185/oj/eng"
+  },
+  "glec2023v3": {
+   "checked": "Secondary listing (Climatiq) of the GLEC v3.0 value; the page loaded (HTTP 200) and shows 0.011 kg CO2e/tonne-km, WTW, Global, 2023. The primary GLEC v3.0 PDF was not opened.",
+   "text": "Smart Freight Centre. Global Logistics Emissions Council (GLEC) Framework v3.0 (2023), default fuel-efficiency and GHG-intensity values; entry 'Liquefied gas tanker 100000-199999 cbm - VLSFO', well-to-wheel.",
+   "url": "https://www.climatiq.io/data/emission-factor/f2a5f2ee-bd03-40f8-961e-474090423429"
+  },
+  "ipcc2006v2ch2": {
+   "checked": "PDF downloaded and its text parsed; Table 2.2 on p. 2.16, row 'Natural Gas': CO2 56 100 kg/TJ (range 54 300-58 300), CH4 1, N2O 0.1 kg/TJ (net calorific value basis).",
+   "text": "IPCC 2006 Guidelines for National Greenhouse Gas Inventories, Vol. 2 Energy, Ch. 2 Stationary Combustion, Table 2.2.",
+   "url": "https://www.ipcc-nggip.iges.or.jp/public/2006gl/pdf/2_Volume2/V2_2_Ch2_Stationary_Combustion.pdf"
+  },
+  "lee2022ammonia": {
+   "checked": "Accepted-manuscript PDF from OSTI downloaded and its text parsed; numbers below quoted from manuscript p. 13 (LCA results, Fig. 8). Boundary: well-to-plant-gate (WTG); equipment manufacture excluded (manuscript p. 9). Also cited as ref. [45] in kum2026heatintegrated p. 17.",
+   "doi": "10.1039/D2GC00843B",
+   "text": "Lee K, Liu X, Vyawahare P, Sun P, Elgowainy A, Wang M. Techno-economic performances and life cycle greenhouse gas emissions of various ammonia production pathways including conventional, carbon-capturing, nuclear-powered, and renewable production. Green Chem. 2022;24:4830-4844.",
+   "url": "https://www.osti.gov/pages/servlets/purl/1960296"
+  }
+ },
+ "schema": "amcrax-environmental-1",
+ "transport": {
+  "distance_km": {
+   "note": "ASSUMPTION: illustrative one-way sea distance for imported NH3 (order of magnitude of intra-Asia-Pacific / Middle-East-to-Asia voyages). Override with distance_km=...; set 0 to exclude transport. Boil-off and port handling are not counted.",
+   "provenance": "assumption",
+   "source": null,
+   "unit": "km",
+   "value": 5000.0
+  },
+  "ship_ef": {
+   "note": "Generic liquefied-gas carrier on fossil fuel oil; not ammonia-specific (no ammonia-tanker value was found). Applies per tonne of NH3 cargo.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "glec2023v3",
+    "locator": "Liquefied gas tanker 100000-199999 cbm, VLSFO, WTW (via Climatiq listing)",
+    "page": null
+   },
+   "unit": "kg CO2e/(t km)",
+   "value": 0.011
+  }
+ },
+ "upstream_ammonia": {
+  "blue": {
+   "note": "Capture of aMDEA process CO2 only (1.49 t CO2/t NH3 captured).",
+   "provenance": "literature",
+   "source": {
+    "citekey": "lee2022ammonia",
+    "locator": "LCA results; Fig. 8 (carbon-capturing NH3 version 1: process CO2 captured)",
+    "page": 13
+   },
+   "unit": "kg CO2e/kg NH3",
+   "value": 1.16
+  },
+  "blue_high_capture": {
+   "note": "Sensitivity case; not used in the default scenario matrix.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "lee2022ammonia",
+    "locator": "LCA results; Fig. 8 (carbon-capturing NH3 version 2: process + flue-gas CO2 captured)",
+    "page": 13
+   },
+   "unit": "kg CO2e/kg NH3",
+   "value": 0.77
+  },
+  "green": {
+   "note": "Zero only because Lee et al. exclude manufacture of solar panels / wind turbines (manuscript p. 9). kum2026heatintegrated p. 17 quotes 'below 0.01 kg CO2/kg NH3' for renewable or nuclear NH3. The true cradle-to-gate value of renewable NH3 is >0; this is a boundary limitation, not a claim that green NH3 is emission-free.",
+   "provenance": "literature",
+   "source": {
+    "citekey": "lee2022ammonia",
+    "locator": "LCA results (renewable NH3: WTG GHG emissions zero)",
+    "page": 13
+   },
+   "unit": "kg CO2e/kg NH3",
+   "value": 0.0
+  },
+  "grey": {
+   "note": "Natural-gas SMR + Haber-Bosch, no capture. Within the range in kum2026heatintegrated p. 17 (gray NH3 approx. 2.6) and cechetto2023membrane p. 19 (2.0-4.6 t CO2/t NH3).",
+   "provenance": "literature",
+   "source": {
+    "citekey": "lee2022ammonia",
+    "locator": "LCA results; Fig. 8 (conventional NG-based NH3, WTG)",
+    "page": 13
+   },
+   "unit": "kg CO2e/kg NH3",
+   "value": 2.6
+  }
+ }
+}

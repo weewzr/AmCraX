@@ -1,0 +1,165 @@
+{
+ "schema": "amcrax.benchmark/1",
+ "description": "Stage 3 benchmark: Python reference against the Rust release build, measured in one GitHub Actions job",
+ "github_run_id": "45405266952",
+ "github_sha": "a542cca94488bc800e87404ae299ba73c4e9aaf1",
+ "runner": {
+  "os": "Linux-7.0.0-1020-azure-x86_64-with-glibc2.43",
+  "runner_os": "Linux",
+  "runner_name": "GitHub Actions 1000003546",
+  "cpu_model": "Intel(R) Xeon(R) Platinum 8370C CPU @ 2.80GHz",
+  "cpu_count": 4,
+  "image": "ubuntu26",
+  "image_version": "20261116.202.1"
+ },
+ "rustc": "rustc 1.100.0 (0ef1bc386 2026-11-09)",
+ "cargo_profile": "release (opt-level 3, thin LTO, codegen-units 1)",
+ "rustflags": "-D warnings",
+ "python": "3.12.16",
+ "numpy": "2.5.5",
+ "scipy": "1.18.1",
+ "timing": "wall clock (Rust std::time::Instant, Python time.perf_counter); median of the repetitions in each raw block",
+ "comparison": {
+  "economics one evaluate": {
+   "python_s": 4.092400000388352e-05,
+   "rust_s": 2.6938e-05,
+   "speedup_python_over_rust": 1.519192219314111
+  },
+  "economics batch 1e5 (dict output)": {
+   "python_s": 4.736151264,
+   "rust_s": 2.799352216,
+   "speedup_python_over_rust": 1.6918740117552968
+  },
+  "economics batch 1e5 (Rust typed path)": {
+   "python_s": 4.736151264,
+   "rust_s": 0.178861123,
+   "speedup_python_over_rust": 26.47948969883187
+  },
+  "PFR isothermal one solve": {
+   "python_s": 0.06252520699999309,
+   "rust_s": 0.002031531,
+   "speedup_python_over_rust": 30.77738267345814
+  },
+  "PFR adiabatic one solve": {
+   "python_s": 0.08377733099999318,
+   "rust_s": 0.002223142,
+   "speedup_python_over_rust": 37.684201459013046
+  },
+  "PFR external one solve": {
+   "python_s": 0.08141263200000992,
+   "rust_s": 0.002250897,
+   "speedup_python_over_rust": 36.16897263624676
+  },
+  "PFR batch of 200 isothermal": {
+   "python_s": 12.399520392999989,
+   "rust_s": 0.371946082,
+   "speedup_python_over_rust": 33.33687594268029
+  },
+  "global sensitivity study (17 analyses)": {
+   "python_s": 187.834811416,
+   "rust_s": 29.961183637,
+   "speedup_python_over_rust": 6.269272058532325
+  },
+  "kinetic propagation slice, 1 thread": {
+   "python_s": 250.86962361899998,
+   "rust_s": 19.42411212,
+   "speedup_python_over_rust": 12.915371475882933
+  }
+ },
+ "rust_kinetic_slice_thread_curve": {
+  "threads_1": {
+   "seconds": 19.42411212,
+   "speedup_vs_1_thread": 1.0,
+   "identical_results": true
+  },
+  "threads_2": {
+   "seconds": 10.331107271,
+   "speedup_vs_1_thread": 1.8801578195325275,
+   "identical_results": true
+  },
+  "threads_4": {
+   "seconds": 9.674766801,
+   "speedup_vs_1_thread": 2.007708559754876,
+   "identical_results": true
+  }
+ },
+ "peak_rss_kB": {
+  "python": 169704,
+  "rust": 15240
+ },
+ "raw": {
+  "python": {
+   "python": "3.12.16",
+   "numpy": "2.5.5",
+   "scipy": "1.18.1",
+   "economics": {
+    "one_evaluate_s": 4.092400000388352e-05,
+    "one_evaluate_reps": 2001,
+    "batch_n": 100000,
+    "batch_evaluate_dict_s": 4.736151264,
+    "batch_reps": 3
+   },
+   "pfr": {
+    "one_isothermal_s": 0.06252520699999309,
+    "one_adiabatic_s": 0.08377733099999318,
+    "one_external_s": 0.08141263200000992,
+    "batch_n": 200,
+    "batch_isothermal_s": 12.399520392999989
+   },
+   "gsa": {
+    "full_study_s": 187.834811416,
+    "reps": 1,
+    "note": "cases and dummy run (figures and file writes not timed)"
+   },
+   "kinetic_slice": {
+    "threads_1": {
+     "seconds": 250.86962361899998
+    },
+    "slice": "first 25 draws of C1 and C2 of both catalysts (4 x 25 draws)",
+    "note": "single process (the stored study used a multiprocessing pool)"
+   },
+   "peak_rss_kB": 169704
+  },
+  "rust": {
+   "economics": {
+    "batch_evaluate_dict_s": 2.799352216,
+    "batch_evaluate_typed_s": 0.178861123,
+    "batch_n": 100000,
+    "batch_reps": 3,
+    "note": "evaluate() builds the full Python-shaped dict; the typed path is what the studies use",
+    "one_evaluate_reps": 2001,
+    "one_evaluate_s": 2.6938e-05
+   },
+   "gsa": {
+    "full_study_s": 29.961183637,
+    "reps": 1
+   },
+   "kinetic_slice": {
+    "slice": "first 25 draws of C1 and C2 of both catalysts (4 x 25 draws)",
+    "threads_1": {
+     "identical_to_first_thread_count": true,
+     "pfr_solves": 12958,
+     "seconds": 19.42411212
+    },
+    "threads_2": {
+     "identical_to_first_thread_count": true,
+     "pfr_solves": 12958,
+     "seconds": 10.331107271
+    },
+    "threads_4": {
+     "identical_to_first_thread_count": true,
+     "pfr_solves": 12958,
+     "seconds": 9.674766801
+    }
+   },
+   "peak_rss_kB": 15240,
+   "pfr": {
+    "batch_isothermal_s": 0.371946082,
+    "batch_n": 200,
+    "one_adiabatic_s": 0.002223142,
+    "one_external_s": 0.002250897,
+    "one_isothermal_s": 0.002031531
+   }
+  }
+ }
+}

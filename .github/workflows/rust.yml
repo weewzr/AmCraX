@@ -1,0 +1,317 @@
+name: Rust
+
+# Builds and tests the Rust workspace in rust/. All Rust compilation for this project happens here
+# (see rust/README.md, "Build policy").
+
+on:
+  push:
+    paths:
+      - "rust/**"
+      - "backend/amcrax/data/**"
+      - ".github/workflows/rust.yml"
+  pull_request:
+    paths:
+      - "rust/**"
+      - "backend/amcrax/data/**"
+      - ".github/workflows/rust.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: rust-${{ github.ref }}
+  # a later push waits instead of cancelling, so a proving run always completes
+  cancel-in-progress: false
+
+env:
+  CARGO_TERM_COLOR: always
+  CARGO_INCREMENTAL: "0"
+  RUSTFLAGS: "-D warnings"
+  RUSTDOCFLAGS: "-D warnings"
+  # pinned toolchain; keep equal to rust-version in rust/Cargo.toml
+  RUST_TOOLCHAIN: "1.100.0"
+
+defaults:
+  run:
+    working-directory: rust
+    shell: bash
+
+jobs:
+  check:
+    name: fmt, clippy, test (Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          components: rustfmt, clippy
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo fmt --check
+        run: cargo fmt --all -- --check
+      - name: cargo clippy
+        run: cargo clippy --workspace --all-targets --all-features --locked -- -D warnings
+      - name: cargo test (optimised, debug assertions on)
+        run: cargo test --workspace --all-features --profile ci --locked -- --nocapture
+      - name: cargo doc
+        run: cargo doc --workspace --no-deps --locked
+      - name: amcrax --version and verify numerics
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- --version
+          cargo run --profile ci --locked -p amcrax-cli -- verify numerics --golden golden/numerics
+      - name: amcrax verify (Python versus Rust comparison report, stages 1 to 4)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- verify all --root .. --report target/verification/verify_all_report.json
+          echo "===== BEGIN verify_all_report.json"; cat target/verification/verify_all_report.json; echo "===== END verify_all_report.json"
+      - name: amcrax verify stage4 (flowsheet, heat integration, separation; tables back end)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- verify stage4 --root .. --report target/verification/stage4_report.json
+          echo "===== BEGIN stage4_report.json"; cat target/verification/stage4_report.json; echo "===== END stage4_report.json"
+      - name: amcrax verify stage5 (catalyst, end use, LCA, optimisation, MCMC; tables back end)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- verify stage5 --root .. --report target/verification/stage5_report.json
+          echo "===== BEGIN stage5_report.json"; cat target/verification/stage5_report.json; echo "===== END stage5_report.json"
+      - name: amcrax study mc-singapore and gsa (stored Python results reproduced)
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli -- study mc-singapore --root .. --output target/studies/monte_carlo.json --report target/verification/study_mc_singapore_report.json
+          cargo run --profile ci --locked -p amcrax-cli -- study gsa --root .. --output target/studies/gsa_sobol.json --report target/verification/study_gsa_report.json
+          echo "===== BEGIN study reports"; cat target/verification/study_mc_singapore_report.json target/verification/study_gsa_report.json; echo "===== END study reports"
+      - name: amcrax eval pfr (smoke test of the JSON interface)
+        run: |
+          echo '{"catalyst_id": "ru_takahashi_microkinetic", "W_kg": 50.0, "n_tubes": 50, "n_points": 3}' > target/case.json
+          cargo run --profile ci --locked -p amcrax-cli -- eval pfr --input target/case.json --output target/verification/eval_pfr_example.json
+          head -c 600 target/verification/eval_pfr_example.json
+      - name: amcrax eval flowsheet (smoke test, tables back end at the stored baseline state)
+        run: |
+          echo '{"inputs": {"case_id": "smoke"}, "eos": "ideal"}' > target/fs_case.json
+          cargo run --profile ci --locked -p amcrax-cli -- eval flowsheet --input target/fs_case.json --root .. --output target/verification/eval_flowsheet_example.json
+          head -c 800 target/verification/eval_flowsheet_example.json
+      - name: upload comparison report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: verification-report
+          path: rust/target/verification/
+          if-no-files-found: warn
+
+  kinetic:
+    name: kinetic parameter propagation study (release, all cores)
+    runs-on: ubuntu-latest
+    timeout-minutes: 150
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: release
+      - name: build (release)
+        run: cargo build --release --locked -p amcrax-cli
+      - name: amcrax study kinetic-propagation (16,000 draws, compared with the stored Python samples)
+        run: |
+          nproc; lscpu | grep -E "Model name|^CPU\(s\)" || true
+          ./target/release/amcrax study kinetic-propagation --root .. --output target/studies/kinetic_param_propagation.json --report target/verification/study_kinetic_report.json
+          echo "===== BEGIN kinetic report"; cat target/verification/study_kinetic_report.json; echo "===== END kinetic report"
+      - name: upload kinetic study
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kinetic-study
+          path: |
+            rust/target/verification/
+            rust/target/studies/
+          if-no-files-found: warn
+
+  benchmark:
+    name: benchmark (Python reference against the Rust release build, same job)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: release
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Python reference dependencies (pinned as requirements.txt)
+        working-directory: .
+        run: |
+          python -m pip install numpy==2.5.5 scipy==1.18.1 pydantic==2.14.4 PyYAML==6.0.4 cantera==3.2.0
+          python -m pip install CoolProp==8.0.0 || echo "CoolProp 8.0.0 wheel not installable: the catalyst item is skipped on the Python side"
+      - name: build (release)
+        run: cargo build --release --locked -p amcrax-cli
+      - name: NumPy normal stream on Linux against the Windows reference (platform experiment)
+        working-directory: .
+        run: python rust/tools/ziggurat_numpy_sha.py
+      - name: Python timings
+        working-directory: .
+        run: python rust/bench/bench_python.py --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective,catalyst_economics --kinetic-draws 25 --output rust/target/bench_python.json
+      - name: Rust timings
+        run: ./target/release/amcrax bench --root .. --items economics,pfr,gsa,kinetic,catalyst,mcmc,objective,catalyst_economics --kinetic-draws 25 --threads 1,2,4 --output target/bench_rust.json
+      - name: merge
+        run: |
+          python bench/merge_benchmark.py target/bench_python.json target/bench_rust.json target/benchmark_stage3.json
+          echo "===== BEGIN benchmark_stage3.json"; cat target/benchmark_stage3.json; echo "===== END benchmark_stage3.json"
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: benchmark
+          path: rust/target/benchmark_stage3.json
+          if-no-files-found: warn
+
+  coolprop:
+    name: CoolProp 8.0.0 back end (C++ built from the pinned sources, Linux)
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      # commit of the CoolProp 8.0.0 Python wheel that produced the golden tables
+      # (CoolProp.__gitrevision__); the git object id is the checksum of the source tree
+      COOLPROP_COMMIT: ae81610e7d23efc57f9d051c8e70a4d66e87537f
+      COOLPROP_TAG: v8.0.0
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: coolprop
+      - name: cache the CoolProp static library
+        id: cpcache
+        uses: actions/cache@v4
+        with:
+          path: ${{ runner.temp }}/coolprop-dist
+          key: coolprop-${{ env.COOLPROP_COMMIT }}-static-pic-externc-v2
+      - name: fetch CoolProp at the pinned commit (with submodules)
+        if: steps.cpcache.outputs.cache-hit != 'true'
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          git init -q coolprop-src
+          cd coolprop-src
+          git remote add origin https://github.com/CoolProp/CoolProp.git
+          git fetch -q --depth 1 origin "$COOLPROP_COMMIT"
+          git checkout -q --detach FETCH_HEAD
+          test "$(git rev-parse HEAD)" = "$COOLPROP_COMMIT"
+          echo "tag $COOLPROP_TAG on origin (expected to resolve to $COOLPROP_COMMIT):"
+          git ls-remote origin "refs/tags/$COOLPROP_TAG" "refs/tags/$COOLPROP_TAG^{}" || true
+          git submodule update --init --recursive --depth 1 || git submodule update --init --recursive
+          git submodule status --recursive
+      - name: build CoolProp (static library, position independent, Release)
+        if: steps.cpcache.outputs.cache-hit != 'true'
+        working-directory: ${{ runner.temp }}
+        run: |
+          set -euo pipefail
+          # COOLPROP_EXTERNC_LIBRARY / EXTERNC: export the C interface of CoolPropLib.h with C linkage
+          # from the static library (without it the functions are C++-mangled)
+          cmake -S coolprop-src -B coolprop-build -DCOOLPROP_STATIC_LIBRARY=ON -DCOOLPROP_EXTERNC_LIBRARY=ON \
+            -DCMAKE_CXX_FLAGS=-DEXTERNC -DCMAKE_BUILD_TYPE=Release -DCMAKE_POSITION_INDEPENDENT_CODE=ON
+          cmake --build coolprop-build --config Release -j "$(nproc)"
+          mkdir -p coolprop-dist
+          find coolprop-build -name 'libCoolProp*.a' -exec cp {} coolprop-dist/ \;
+          echo "C symbols of the interface:"; nm -g --defined-only coolprop-dist/libCoolProp.a | grep -E ' T (PropsSI|Props1SI|AbstractState_factory|AbstractState_update|AbstractState_keyed_output|AbstractState_specify_phase|get_param_index|get_input_pair_index|get_global_param_string)$' || true
+          cp coolprop-src/LICENSE coolprop-dist/LICENSE
+          (cd coolprop-src && echo "commit $(git rev-parse HEAD)" && git submodule status --recursive) > coolprop-dist/SOURCE.txt
+          sha256sum coolprop-dist/* | tee coolprop-dist/SHA256SUMS.txt
+      - name: build amcrax with the CoolProp back end
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cat "$COOLPROP_LIB_DIR/SOURCE.txt" "$COOLPROP_LIB_DIR/SHA256SUMS.txt" || true
+          cargo build --profile ci --locked -p amcrax-cli --features coolprop
+      - name: amcrax verify props (CoolProp back end against Python CoolProp, dense grid)
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify props --props coolprop --root .. --report target/verification/verify_props_coolprop.json
+      - name: amcrax verify stage4 (flowsheet, heat integration, separation) on the CoolProp back end
+        if: always()
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify stage4 --props coolprop --root .. --report target/verification/verify_stage4_coolprop.json
+      - name: amcrax verify stage5 on the CoolProp back end
+        if: always()
+        env:
+          COOLPROP_LIB_DIR: ${{ runner.temp }}/coolprop-dist
+          COOLPROP_LICENCE_FILE: ${{ runner.temp }}/coolprop-dist/LICENSE
+        run: |
+          cargo run --profile ci --locked -p amcrax-cli --features coolprop -- verify stage5 --props coolprop --root .. --report target/verification/verify_stage5_coolprop.json
+      - name: print the reports
+        if: always()
+        run: |
+          for f in target/verification/*.json; do echo "===== BEGIN $f"; cat "$f"; echo "===== END $f"; done
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: verification-report-coolprop
+          path: rust/target/verification/
+          if-no-files-found: warn
+
+  windows:
+    name: test (Windows, MSVC)
+    runs-on: windows-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+      - name: cargo test
+        run: cargo test --workspace --all-features --profile ci --locked
+      - name: amcrax verify ziggurat (platform experiment on the MSVC C runtime)
+        run: cargo run --profile ci --locked -p amcrax-cli -- verify ziggurat --root ..
+
+  wasm:
+    name: wasm32-unknown-unknown build
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: ${{ env.RUST_TOOLCHAIN }}
+          targets: wasm32-unknown-unknown
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: rust
+          key: wasm
+      - name: cargo build amcrax-wasm
+        run: cargo build -p amcrax-wasm --target wasm32-unknown-unknown --profile wasm --locked
+      - name: size budget (400 KB raw)
+        run: |
+          f=target/wasm32-unknown-unknown/wasm/amcrax_wasm.wasm
+          size=$(stat -c %s "$f")
+          echo "amcrax_wasm.wasm: $size bytes"
+          echo "### amcrax_wasm.wasm: $size bytes (budget 409600)" >> "$GITHUB_STEP_SUMMARY"
+          test "$size" -le 409600
+
+  audit:
+    name: RustSec advisories
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-audit
+      - name: cargo audit
+        run: cargo audit --deny warnings

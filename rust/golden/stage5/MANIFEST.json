@@ -1,0 +1,57 @@
+{
+ "files": {
+  "catalyst.json": {
+   "bytes": 578187,
+   "cases": 647,
+   "sha256": "5c77d9a841e165a3c2f943756773816d54b9251657c79819dd1946e8cf9a59e8"
+  },
+  "catalyst_economics.json": {
+   "bytes": 1067523,
+   "cases": 386,
+   "sha256": "c722576ac3356c85df92e0e28e60d453f7e9863d5cb7b65d3e49936c739906e3"
+  },
+  "coolprop_states.json": {
+   "bytes": 9110879,
+   "cases": 55873,
+   "sha256": "adfd9a4c45acbb52db8efcf5136b48fc2ecc3f62cc70e7d437b57e9ec26df3e5"
+  },
+  "enduse.json": {
+   "bytes": 887381,
+   "cases": 809,
+   "sha256": "01a5b14bc94d728964e2bdd8ea0ba1d7bb1c002d608b37e0a5168141601169ee"
+  },
+  "mcmc.json": {
+   "bytes": 3013928,
+   "cases": 1263,
+   "sha256": "780a9a29ecd557bc6f4433482e3038825c7cf24efcd7f32699e0acd85578d0c7"
+  },
+  "optimisation.json": {
+   "bytes": 739182,
+   "cases": 456,
+   "sha256": "1090c4446ff0f3f6e4034e2946f4c96792c97217fc6ff887ddde21816b3cf7b4"
+  },
+  "ziggurat.json": {
+   "bytes": 1390997,
+   "cases": 44869,
+   "sha256": "3395c3af3dc500cfdda103b54127fce01e88b3f851512e53bc2c7393d2e9790c"
+  }
+ },
+ "meta": {
+  "amcrax_source": "backend/amcrax (this repository)",
+  "coolprop": "8.0.0",
+  "coolprop_ammonia_eos": "Gao-JPCRD-2020",
+  "coolprop_gitrevision": "ae81610e7d23efc57f9d051c8e70a4d66e87537f",
+  "coolprop_reference_state": "CoolProp default reference state of each fluid file (the Python code never calls set_reference_state; the NH3 scale is anchored to NASA-7 by the Python model)",
+  "coolprop_water_eos": "Wagner-JPCRD-2002",
+  "generator": "rust/golden/generate_stage5_golden.py",
+  "git_head_at_generation": "58d4b908ab92bba150be0e24fee9b738f801bf06",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "pydantic": "2.14.4",
+  "python": "3.12.10",
+  "python_reference_tag": "amcrax-phase2-reviewed-2026-11-24",
+  "pyyaml": "6.0.4",
+  "science_diff_vs_tag": "backend/amcrax/data/singapore.yaml | 4 ++--\n backend/amcrax/enduse/params.py    | 2 +-\n 2 files changed, 3 insertions(+), 3 deletions(-)",
+  "scipy": "1.18.1"
+ }
+}

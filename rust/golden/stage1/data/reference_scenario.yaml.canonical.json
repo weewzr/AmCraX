@@ -1,0 +1,462 @@
+{
+ "base_currency": "USD",
+ "capex": {
+  "contingency_frac_isbl_osbl": {
+   "note": "",
+   "source": "Cho 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.18
+  },
+  "cost_year": {
+   "note": "no escalation applied",
+   "source": "Cho 2026 Table 4 (year of analysis)",
+   "source_type": "literature",
+   "unit": "year",
+   "value": 2024
+  },
+  "engineering_frac_isbl_osbl": {
+   "note": "",
+   "source": "Cho 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.1
+  },
+  "excluded_items": {
+   "note": "A pathway needing compression adds it as a NAMED extra item (purification: compression electricity).",
+   "source": "AmCraX flowsheet has no product compressor (PSA at cracker pressure; Cho Comp2 compresses H2 to 180 bar)",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": [
+    "compressor"
+   ]
+  },
+  "location_factor_singapore": {
+   "note": "CAPEX multiplier 0.5-1.5 (Cho Table 8) covers it in sensitivity.",
+   "source": "No sourced Singapore location factor; Korea-based Cho costs used as is",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": 1.0
+  },
+  "method": {
+   "note": "Rejected: legacy plant-level correlation (Ahmad 2025 Fig. 6; lcoh.py) and the Phase 1 Farokhi feed-scaled estimate (singapore.py capex_mode 'equipment'). Both remain selectable for comparison.",
+   "source": "AmCraX Phase 2 selection (docs/research/unified_baseline.md): itemised installed cost of the Cho et al. 2026 Ni-24.34 bar plant, each item scaled to AmCraX with the equipment exponent, product compressor removed, Cho OSBL/engineering/contingency factors applied",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": "cho2026_itemised_v1"
+  },
+  "osbl_frac_isbl": {
+   "note": "",
+   "source": "Cho 2026 p. 7 Table 4 (Noh 2024)",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.12
+  },
+  "reference_discount_rate": {
+   "note": "used only to convert Cho unit CAPEX to installed cost",
+   "source": "Cho 2026 Table 4",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.085
+  },
+  "reference_operating_hours_h_per_yr": {
+   "note": "used only to convert Cho unit CAPEX to installed cost",
+   "source": "Cho 2026 Table 4",
+   "source_type": "literature",
+   "unit": "h/yr",
+   "value": 8000
+  },
+  "reference_plant_h2_kg_h": {
+   "note": "Cho does not tabulate H2 output in the main text.",
+   "source": "Cho 2026 Ni-24.34 bar: (630 kg/h NH3 feed + 1.736 kmol/h x 17.031 fuel NH3) / 8.011 kg NH3/kg H2 (p. 6 Table 2, p. 13 Table 7); research/notes/cho2026nickel.md",
+   "source_type": "derived",
+   "unit": "kg/h H2",
+   "value": 82.3
+  },
+  "reference_plant_life_yr": {
+   "note": "used only to convert Cho unit CAPEX to installed cost",
+   "source": "Cho 2026 Table 4",
+   "source_type": "literature",
+   "unit": "yr",
+   "value": 25
+  },
+  "reference_plant_nh3_feed_kmol_h": {
+   "note": "Size driver of every scaled item.",
+   "source": "Cho 2026 p. 6 Table 2: NH3 feed 630 kg/h / 17.031 kg/kmol",
+   "source_type": "derived",
+   "unit": "kmol/h NH3",
+   "value": 36.9914
+  },
+  "scaling_exponent": {
+   "note": "Sensitivity 0.6 (six-tenths rule) and 0.7451 (Ahmad 2025 Fig. 6, plant level).",
+   "source": "Chopra et al. 2026 p. 4 Eq. 5 (equipment-level)",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.8
+  },
+  "size_driver": {
+   "note": "reactor may be switched to 'catalyst_mass' (ratio of catalyst inventories, Cho inventory from its 9000 mL/(g h) space velocity) by override reactor_size_driver; heat exchangers and PSA accept caller size ratios (e.g. area) via item_size_ratio.",
+   "source": "AmCraX choice: equipment throughput follows the NH3 feed (cracked gas = 2 mol per mol NH3)",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": {
+    "adsorber": "nh3_feed",
+    "boiler": "nh3_feed",
+    "heat_exchangers": "nh3_feed",
+    "other_isbl": "nh3_feed",
+    "psa": "nh3_feed",
+    "reactor": "nh3_feed"
+   }
+  },
+  "tpsa_split_psa_adsorber": {
+   "note": "Needed because purification and singapore.py report PSA and adsorber separately.",
+   "source": "Chopra 2026 p. 5 Fig. 5(a) PSA 26 % : adsorber 4 % of TCI, used only to split the Cho T/PSA item",
+   "source_type": "derived",
+   "unit": "share",
+   "value": {
+    "adsorber": 4,
+    "psa": 26
+   }
+  },
+  "unit_capex_USD_per_kg_h2": {
+   "note": "ISBL = total / ((1+OSBL)(1+eng+cont)) = 0.409; the 0.015 ISBL not itemised in the table is carried as 'other_isbl' (derived).",
+   "source": "Cho 2026 p. 13 Table 7 / Fig. 8, Ni-24.34 bar column (as recorded in research/notes/cho2026nickel.md)",
+   "source_type": "literature",
+   "unit": "USD/kg H2 (annualised)",
+   "value": {
+    "boiler": 0.126,
+    "compressor": 0.05,
+    "heat_exchangers": 0.098,
+    "osbl_engineering_contingency": 0.177,
+    "reactor": 0.036,
+    "total": 0.586,
+    "tpsa": 0.084
+   }
+  }
+ },
+ "carbon_pricing": {
+  "rate_SGD_per_tCO2e": {
+   "note": "SGD 45/tCO2e for emissions year 2026 and any later year; no later step is legislated (50 to 80 by 2030 is a stated aim only)",
+   "source": "Carbon Pricing Act 2018, Third Schedule Part 1 para 1(c)",
+   "source_type": "official",
+   "unit": "SGD/tCO2e",
+   "value": 45
+  },
+  "threshold_tCO2e_per_yr": {
+   "note": "",
+   "source": "NEA",
+   "source_type": "official",
+   "unit": "tCO2e/yr",
+   "value": 25000
+  },
+  "treatment": {
+   "note": "Default. A hypothetical life-cycle carbon price is a separate, labelled case and is never described as Singapore law.",
+   "source": "NEA carbon tax: Scope 1 facility emissions, threshold 25,000 tCO2e/yr (data/singapore.yaml)",
+   "source_type": "official",
+   "unit": "-",
+   "value": "actual_singapore_boundary"
+  }
+ },
+ "currency": {
+  "fx_SGD_per_USD": {
+   "access_date": "2026-11-23",
+   "date": "2026-11-20",
+   "note": "Read at the source on 2026-11-23 (latest published reference date 2026-11-20). Cross-check: ADB Asian Bonds Online shows 1.290 at the close of 20 Nov 2026 (singapore.yaml, Phase 1 value), difference 0.12 %. Supersedes the Phase 1 rate 1.290.",
+   "source": "European Central Bank euro foreign exchange reference rates, 20 Nov 2026: 1 EUR = 1.0990 USD and 1.4160 SGD; cross rate 1.4160 / 1.0990 = 1.288444 SGD per USD",
+   "source_type": "derived",
+   "unit": "SGD per USD",
+   "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+   "value": 1.288444
+  },
+  "usd_per_eur": {
+   "access_date": "2026-11-23",
+   "date": "2026-11-20",
+   "note": "Used to convert EUR-denominated literature prices (Pd membrane, Richard 2024). Supersedes the Phase 1 parity assumption 1.0 in purification_study.py.",
+   "source": "European Central Bank euro foreign exchange reference rate, 20 Nov 2026",
+   "source_type": "official",
+   "unit": "USD per EUR",
+   "url": "https://www.ecb.europa.eu/stats/eurofxref/eurofxref-daily.xml",
+   "value": 1.099
+  }
+ },
+ "finance": {
+  "discount_rate": {
+   "note": "No Singapore WACC sourced. Cho 2026 uses 0.085 (sensitivity).",
+   "source": "Kum et al. 2026 p. 8 Table 5 (also Farokhi 2025 Table 4, Chopra 2026 Table 2, Ahmad 2025 Eq. 12)",
+   "source_type": "literature",
+   "unit": "-",
+   "value": 0.1
+  },
+  "g_and_a_frac_fixed_opex": {
+   "note": "Applied to labour + maintenance + insurance + overhead (AmCraX interpretation, unchanged from Phase 1).",
+   "source": "Cho 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "fraction of other fixed opex",
+   "value": 0.06
+  },
+  "insurance_frac_capex_per_yr": {
+   "note": "",
+   "source": "Chopra et al. 2026 p. 4 Table 2",
+   "source_type": "literature",
+   "unit": "1/yr of TCI",
+   "value": 0.015
+  },
+  "labour_USD_per_yr": {
+   "note": "No Singapore labour rate sourced; kept from the Phase 1 library. Not scaled with capacity.",
+   "source": "Chopra et al. 2026 p. 4 Table 2 (India basis, 4 per shift)",
+   "source_type": "literature",
+   "unit": "USD/yr",
+   "value": 109756
+  },
+  "maintenance_frac_capex_per_yr": {
+   "note": "Range 0.025 (Richard 2024) to 0.05 (Kum 2026).",
+   "source": "Chopra et al. 2026 p. 4 Table 2",
+   "source_type": "literature",
+   "unit": "1/yr of TCI",
+   "value": 0.03
+  },
+  "plant_life_yr": {
+   "note": "Chopra 2026 uses 20 yr (sensitivity).",
+   "source": "Kum 2026 Table 5; Cho 2026 Table 4",
+   "source_type": "literature",
+   "unit": "yr",
+   "value": 25
+  },
+  "plant_overhead_frac_labour_maint": {
+   "note": "",
+   "source": "Cho 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "fraction of (labour + maintenance)",
+   "value": 0.25
+  }
+ },
+ "id": "amcrax_reference_2026_11_23",
+ "literature_reproduction": {
+  "cho2026": {
+   "note": "Used by the catalyst-comparison Cho reconstruction.",
+   "source": "Cho 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "-",
+   "value": {
+    "discount_rate": 0.085,
+    "electricity_price_USD_per_kWh": 0.084,
+    "plant_life_yr": 25
+   }
+  },
+  "legacy_v1": {
+   "note": "Only to reproduce the legacy stored LCOH 3.918842 USD/kg (version 1 basis).",
+   "source": "data/economics.yaml defaults (Cho 2026 Table 4)",
+   "source_type": "literature",
+   "unit": "-",
+   "value": {
+    "electricity_price_USD_per_kWh": 0.084,
+    "nh3_price_USD_per_t": 450
+   }
+  }
+ },
+ "operation": {
+  "capacity_factor": {
+   "note": "Reported only; calculations use operating_hours_h_per_yr.",
+   "source": "8000 / 8760",
+   "source_type": "derived",
+   "unit": "-",
+   "value": 0.91324
+  },
+  "operating_hours_h_per_yr": {
+   "note": "Capacity factor 0.913 (8000/8760, derived). Range 7000 (Kum 2026 Table 5) to 8000.",
+   "source": "Cho et al. 2026 p. 7 Table 4",
+   "source_type": "literature",
+   "unit": "h/yr",
+   "value": 8000
+  }
+ },
+ "plant": {
+  "h2_product_kg_h": {
+   "note": "PSA product at 0.85 recovery (assumption F4 of the stored model), 99.96 mol% H2.",
+   "source": "results/simulations/baseline.json kpis.h2_product_kg_h",
+   "source_type": "aspen",
+   "unit": "kg/h H2",
+   "value": 251.5883050542
+  },
+  "nh3_feed_kmol_h": {
+   "note": "Plant capacity basis of the reference scenario (1,700 kg/h NH3).",
+   "source": "results/simulations/baseline.json streams.FEED component NH3",
+   "source_type": "aspen",
+   "unit": "kmol/h NH3",
+   "value": 99.8
+  },
+  "stored_baseline": {
+   "note": "No-heat-integration variant: results/simulations/baseline_no_hi.json",
+   "source": "Aspen Plus V15 stored baseline (600 degC, 20 bar, heat integration on); case_id baseline",
+   "source_type": "aspen",
+   "unit": "file",
+   "value": "results/simulations/baseline.json"
+  }
+ },
+ "power_plant": {
+  "ahmad_reproduction_hours": {
+   "note": "used only to reproduce Ahmad's LCOE",
+   "source": "Ahmad 2025: TCI x CRF(10 %, 25 y) / (0.06433 USD/kWh x 43.1 MW)",
+   "source_type": "derived",
+   "unit": "h/yr",
+   "value": 7200
+  },
+  "ahmad_reproduction_nh3_price_USD_per_t": {
+   "note": "",
+   "source": "Ahmad 2025 Sec. 2.4",
+   "source_type": "literature",
+   "unit": "USD/t",
+   "value": 480
+  },
+  "cracker_fixed_om_frac_tci": {
+   "note": "",
+   "source": "Ahmad 2025 p. 8: maintenance 2.5 % + insurance 2 % of TCI",
+   "source_type": "literature",
+   "unit": "1/yr",
+   "value": 0.045
+  },
+  "discount_rate": {
+   "note": "no deviation",
+   "source": "finance.discount_rate",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": "from_finance"
+  },
+  "operating_hours_h_per_yr": {
+   "note": "Ahmad 2025 implies 7200 h (named field ahmad_reproduction_hours); hours sensitivity 3000-8000 in enduse_run.py.",
+   "source": "Same as the cracker (one price set for the H1 comparison, Phase 1 choice)",
+   "source_type": "assumption",
+   "unit": "h/yr",
+   "value": 8000
+  },
+  "plant_life_yr": {
+   "note": "no deviation",
+   "source": "finance.plant_life_yr",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": "from_finance"
+  },
+  "scale_exponent": {
+   "note": "unchanged from Phase 1",
+   "source": "typical Ahmad 2025 Table 4 exponent (ST/HRSG/BOP)",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": 0.67
+  }
+ },
+ "price_year_label": "mixed nominal USD: CAPEX 2024 USD (Cho 2026 analysis year); Singapore prices 2026; no escalation index",
+ "prices": {
+  "default_nh3_scenario": {
+   "note": "Reference baseline numbers are quoted at the grey scenario.",
+   "source": "AmCraX choice, unchanged from Phase 1",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": "grey"
+  },
+  "electricity_USD_per_kWh": {
+   "note": "Not an industrial contract price (none found). Supersedes 0.084 (Cho 2026, used by the Phase 1 purification study and the legacy model) and 0.14013 (same derivation at FX 1.290).",
+   "source": "EMA USEP 2025 monthly mean (116.6 SGD/MWh, secondary_web) + SP Group network 0.0610 + fees 0.0031 SGD/kWh (Q4 2026, official), divided by fx_SGD_per_USD; components in data/singapore.yaml",
+   "source_type": "derived",
+   "unit": "USD/kWh",
+   "value": 0.14024
+  },
+  "h2_selling_price_USD_per_kg": {
+   "note": "Used only for NPV, IRR and payback. Production-cost marker, not a Singapore price.",
+   "source": "Argus Hydrogen and Future Fuels 26-01 (6 Jan 2026) p. 2, NE Asia SMR incl. capex (PDF read by the independent review)",
+   "source_type": "secondary_web",
+   "unit": "USD/kg H2",
+   "value": 3.06
+  },
+  "nh3_price_scenarios_USD_per_t": {
+   "blue": {
+    "note": "see data/singapore.yaml",
+    "source": "S&P Global Platts blue ammonia, July 2025: mean of Far East Asia 400 and NW Europe 574 (search-result snippet)",
+    "source_type": "secondary_web",
+    "unit": "USD/t NH3",
+    "value": 487
+   },
+   "green_2030": {
+    "note": "projection",
+    "source": "Cho 2026 p. 17; Table 9 (IRENA 2022)",
+    "source_type": "literature",
+    "unit": "USD/t NH3",
+    "value": 709
+   },
+   "green_2050": {
+    "note": "projection",
+    "source": "Cho 2026 p. 17; Table 9 (IRENA 2022)",
+    "source_type": "literature",
+    "unit": "USD/t NH3",
+    "value": 463
+   },
+   "green_current": {
+    "note": "",
+    "source": "Cho 2026 p. 17 Fig. 11",
+    "source_type": "literature",
+    "unit": "USD/t NH3",
+    "value": 1000
+   },
+   "grey": {
+    "note": "Default scenario. International basis, not a Singapore transaction price.",
+    "source": "Cho 2026 p. 7 Table 4 (assumed); range 300-610 Table 8",
+    "source_type": "literature",
+    "unit": "USD/t NH3",
+    "value": 450
+   }
+  }
+ },
+ "schema": "amcrax.reference_scenario/1",
+ "sensitivity_ranges": {
+  "capex_scaling_exponent": {
+   "note": "0.7451 (Ahmad) also reported",
+   "source": "six-tenths rule; Chopra Eq. 5",
+   "source_type": "assumption",
+   "unit": "-",
+   "value": [
+    0.6,
+    0.8
+   ]
+  },
+  "discount_rate": {
+   "note": "",
+   "source": "Cho 2026; Kum 2026",
+   "source_type": "literature",
+   "unit": "-",
+   "value": [
+    0.085,
+    0.1
+   ]
+  },
+  "electricity_USD_per_kWh": {
+   "note": "",
+   "source": "low: Cho 2026 Table 4; high: SP Group regulated tariff Q4 2026 0.2859 SGD/kWh / fx",
+   "source_type": "derived",
+   "unit": "USD/kWh",
+   "value": [
+    0.084,
+    0.221898
+   ]
+  },
+  "operating_hours_h_per_yr": {
+   "note": "",
+   "source": "Kum 2026; Cho 2026",
+   "source_type": "literature",
+   "unit": "h/yr",
+   "value": [
+    7000,
+    8000
+   ]
+  },
+  "plant_life_yr": {
+   "note": "",
+   "source": "Chopra 2026; Kum/Cho",
+   "source_type": "literature",
+   "unit": "yr",
+   "value": [
+    20,
+    25
+   ]
+  }
+ },
+ "version": "1.0.0"
+}

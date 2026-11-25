@@ -1,0 +1,25 @@
+[package]
+name = "amcrax-engine"
+description = "AmCraX science engine: data loading, thermodynamics, kinetics, reactor, process, economics, carbon and UQ (stage 0: module layout, data types and unit conventions only)"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+license.workspace = true
+repository.workspace = true
+publish.workspace = true
+
+[features]
+default = ["yaml"]
+# YAML data files (backend/amcrax/data/*.yaml); not needed by the browser build, which reads JSON
+yaml = ["dep:serde-saphyr"]
+
+[dependencies]
+amcrax-numerics.workspace = true
+serde.workspace = true
+serde_json.workspace = true
+thiserror.workspace = true
+sha2.workspace = true
+serde-saphyr = { workspace = true, optional = true }
+
+[lints]
+workspace = true

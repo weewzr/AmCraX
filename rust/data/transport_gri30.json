@@ -1,0 +1,77 @@
+{
+ "provenance": {
+  "source": "Cantera gri30.yaml (GRI-Mech 3.0 transport data), mixture-averaged model",
+  "cantera_version": "3.2.0",
+  "transport_model": "mixture-averaged",
+  "extracted_by": "rust/golden/generate_stage2_golden.py (programmatic export, no manual typing)",
+  "form": "sqrt(mu_k) = T^(1/4) * sum_{n=0..4} c_n (ln T)^n, mu in Pa s (Cantera GasTransport::updateSpeciesViscosities); mixture: Wilke rule as Cantera MixTransport::viscosity, phi_kj = (1 + sqrt(mu_k/mu_j) (M_j/M_k)^(1/4))^2 / sqrt(8 (1 + M_k/M_j))"
+ },
+ "species": {
+  "NH3": {
+   "index": 33,
+   "molecular_weight_kg_kmol": 17.031,
+   "viscosity_polynomial": [
+    0.01861714057083811,
+    -0.010804540244547313,
+    0.0023586489008967453,
+    -0.00022110384039343656,
+    7.633677807888787e-06
+   ]
+  },
+  "H2": {
+   "index": 0,
+   "molecular_weight_kg_kmol": 2.016,
+   "viscosity_polynomial": [
+    -0.00044135740261480713,
+    0.0005414323063317691,
+    -0.00010356810956996873,
+    9.673877158687428e-06,
+    -3.323040125664145e-07
+   ]
+  },
+  "N2": {
+   "index": 47,
+   "molecular_weight_kg_kmol": 28.014,
+   "viscosity_polynomial": [
+    -0.005349912337329212,
+    0.0031950685178390352,
+    -0.0006125055865557548,
+    5.344876287075944e-05,
+    -1.7418174930263008e-06
+   ]
+  },
+  "H2O": {
+   "index": 5,
+   "molecular_weight_kg_kmol": 18.015,
+   "viscosity_polynomial": [
+    0.0062144659897519034,
+    -0.003007552407908267,
+    0.000531748893035712,
+    -3.274425664684852e-05,
+    4.616673944991318e-07
+   ]
+  },
+  "O2": {
+   "index": 3,
+   "molecular_weight_kg_kmol": 31.998,
+   "viscosity_polynomial": [
+    -0.006280860305787691,
+    0.0036755258105182066,
+    -0.0006989155537477931,
+    6.042267922488221e-05,
+    -1.951788060135764e-06
+   ]
+  },
+  "AR": {
+   "index": 48,
+   "molecular_weight_kg_kmol": 39.95,
+   "viscosity_polynomial": [
+    -0.007835654210101678,
+    0.0043766680228846735,
+    -0.0008083518167531149,
+    6.775526176776369e-05,
+    -2.1226072139579367e-06
+   ]
+  }
+ }
+}

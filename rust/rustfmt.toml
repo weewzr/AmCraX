@@ -1,0 +1,3 @@
+# Stable rustfmt options only. LF line endings on every platform (golden hashes and diffs).
+edition = "2024"
+newline_style = "Unix"

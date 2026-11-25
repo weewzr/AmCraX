@@ -1,0 +1,24 @@
+[package]
+name = "amcrax-coolprop"
+description = "CoolProp 8.0.0 fluid-property back end of the AmCraX engine (thin FFI to the C++ library built in CI; feature `coolprop` of amcrax-cli)"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.100"
+# This crate's own code is MIT (as the workspace). CoolProp itself is MIT licensed; its licence
+# text is embedded into every build that links CoolProp (see build.rs and `licence()`).
+license = "MIT"
+repository = "https://github.com/weewzr/AmCraX"
+publish = false
+build = "build.rs"
+
+# Not a workspace member (rust/Cargo.toml `exclude`): it is never part of the default build,
+# of rust-analyzer's local analysis or of the WebAssembly build; only `amcrax-cli --features
+# coolprop` pulls it in. Without COOLPROP_LIB_DIR it compiles in stub mode (no FFI, no linking):
+# `CoolPropBackend::new()` then returns an error.
+
+[dependencies]
+amcrax-engine = { path = "../amcrax-engine", version = "0.1.0", default-features = false }
+
+[lints.rust]
+unsafe_code = "deny"
+unused_must_use = "deny"

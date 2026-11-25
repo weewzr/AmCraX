@@ -1,0 +1,70 @@
+{
+ "files": {
+  "data/critical_properties.json.canonical.json": {
+   "bytes": 1215,
+   "sha256": "00e5bd5346855c506fcc6a19bc44e0188f4ae444401d80fc77730546d236b4a2"
+  },
+  "data/economics.yaml.canonical.json": {
+   "bytes": 15054,
+   "sha256": "a9a586ebc5d7ed040e56b842e69927300350757722d997fadd6f0d69f19dad6a"
+  },
+  "data/environmental.yaml.canonical.json": {
+   "bytes": 9042,
+   "sha256": "1b3b1aa91cedc6742d084b65027bd9b29266be9891254b639d69ca39cc0129f5"
+  },
+  "data/kinetics.yaml.canonical.json": {
+   "bytes": 20960,
+   "sha256": "9c6301a0aa54a2a85a5b81cfabdb492945c198a2093705a061dbd4d1f5977566"
+  },
+  "data/nasa7.json.canonical.json": {
+   "bytes": 3046,
+   "sha256": "3597c6f643d7c2d62d02285b696acfc12a29ac6c64b1db13cd3093391658f411"
+  },
+  "data/reference_scenario.yaml.canonical.json": {
+   "bytes": 15316,
+   "sha256": "bb9eae2ad41a819e1196213a2c0a71840909cf29a86997103378bd2a3c6deb54"
+  },
+  "data/separation.yaml.canonical.json": {
+   "bytes": 7571,
+   "sha256": "890e85849b74063fa131ef66eb6967a890660b413563f319f11ca8d044273f5c"
+  },
+  "data/singapore.yaml.canonical.json": {
+   "bytes": 13736,
+   "sha256": "bf00b3b0300ad13b904be75eadc26d2d6d42c656befbfe27e9cd61209f9c64ac"
+  },
+  "data_files.json": {
+   "bytes": 4141,
+   "sha256": "1633a091690a80befecf76c36f0ab082f31dc653ce59752aedf15b4ce9c66ad4"
+  },
+  "dew_point.json": {
+   "bytes": 330936,
+   "sha256": "3b10cd4fd2fdba2094c77c66a44d694f044b6559fb12184c1b797943f7b83f98"
+  },
+  "equilibrium_ideal.json": {
+   "bytes": 1339338,
+   "sha256": "1fd3c5c3ccecf215c83bfb3002e637c101e8b19f2e49febb3301aac5d0fadc44"
+  },
+  "equilibrium_pr.json": {
+   "bytes": 355616,
+   "sha256": "dcba007d114428ac4cd4785abb00218b3a0e391d9233ec1140aeed923f45548e"
+  },
+  "nasa7.json": {
+   "bytes": 54267,
+   "sha256": "f0533da15d9d09f65230806cdea724472674828801c1540711b1473dd2a3b467"
+  },
+  "peng_robinson.json": {
+   "bytes": 873592,
+   "sha256": "b5afb9a740ac8595269bbdf09ba7f2475c2b9ae3fefd0830394b2faef3abaf19"
+  }
+ },
+ "meta": {
+  "amcrax_source": "backend/amcrax (this repository)",
+  "generator": "rust/golden/generate_stage1_golden.py",
+  "git_head_at_generation": "f06e329f899da2f0e2824aae3cad9e95128a4def",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "python": "3.12.10",
+  "pyyaml": "6.0.4",
+  "scipy": "1.18.1"
+ }
+}

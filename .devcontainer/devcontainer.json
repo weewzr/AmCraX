@@ -1,0 +1,26 @@
+{
+  // Cloud or container workspace (GitHub Codespaces, VS Code Dev Containers) with a normal Rust
+  // toolchain: here compiled code may run, so rust-analyzer runs with all features. Untested from the
+  // machine that wrote it; GitHub Actions (.github/workflows/rust.yml) stays the authority.
+  "name": "AmCraX (Rust engine, Python reference, frontend)",
+  "image": "mcr.microsoft.com/devcontainers/rust:1-bookworm",
+  "features": {
+    "ghcr.io/devcontainers/features/python:1": { "version": "3.12" },
+    "ghcr.io/devcontainers/features/node:1": { "version": "lts" }
+  },
+  // toolchain pinned to rust-version in rust/Cargo.toml (and RUST_TOOLCHAIN in the workflow);
+  // Python packages: the pinned versions of requirements.txt that the golden generators import
+  "postCreateCommand": "rustup toolchain install 1.100.0 --profile minimal --component clippy,rustfmt --target wasm32-unknown-unknown && rustup default 1.100.0 && python -m pip install numpy==2.5.5 scipy==1.18.1 PyYAML==6.0.4 cantera==3.2.0 pydantic==2.14.4 && cd rust && cargo fetch",
+  "customizations": {
+    "vscode": {
+      "extensions": ["rust-lang.rust-analyzer"],
+      "settings": {
+        "rust-analyzer.linkedProjects": ["rust/Cargo.toml"],
+        "rust-analyzer.cargo.buildScripts.enable": true,
+        "rust-analyzer.procMacro.enable": true,
+        "rust-analyzer.checkOnSave": true,
+        "rust-analyzer.server.extraEnv": {}
+      }
+    }
+  }
+}

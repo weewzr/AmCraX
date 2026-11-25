@@ -1,0 +1,459 @@
+# AmCraX Rust workspace
+
+A Rust port of parts of the AmCraX numerical engine (migration stages 0 to 5 of 6; stage 6 has not
+started). Python remains the reference and the authoritative implementation: every published
+result, the website and the API come from the Python (and TypeScript) code, and no Python module
+has been retired or replaced. Each Rust routine is checked against golden tables produced by the
+Python code. This is verification of the port against Python, not experimental validation of the
+models; the models' agreement with experiments is only what the Python project itself documents.
+
+## Layout
+
+```
+rust/
+  Cargo.toml                 workspace: members, shared dependencies, lints, profiles
+  Cargo.lock                 committed (reproducible builds, audited in CI)
+  rustfmt.toml
+  crates/
+    amcrax-numerics/         numerical methods, no dependencies, no I/O, no AmCraX physics
+      src/roots.rs           brentq (exact port of SciPy brentq.c)
+      src/ode.rs             Dormand-Prince 5(4), dense output, events (port of solve_ivp RK45)
+      src/interp.rs          PCHIP (SciPy), linear (numpy.interp), bilinear (browser model)
+      src/poly.rs            real roots of cubics (analytic + Newton polishing)
+      src/stats.rs           sum, mean, var, std, median, quantile (NumPy, method "linear")
+      src/random.rs          SeedSequence and PCG64 (NumPy)
+      src/qmc.rs             Sobol' (SciPy, Joe-Kuo directions) and Latin hypercube sampling
+      src/sobol_directions.rs  generated from SciPy's direction-number table (do not edit)
+      tests/golden.rs        all golden-table comparisons
+    amcrax-engine/           AmCraX science ported in stages 1 to 5 (see Stages)
+    amcrax-cli/              binary `amcrax` (verify, eval, study, bench)
+    amcrax-wasm/             wasm-bindgen facade for the browser (wasm32-unknown-unknown)
+    amcrax-coolprop/         CoolProp 8.0.0 FFI back end (not a workspace member; feature
+                             `coolprop` of amcrax-cli; the C++ library is built in CI only)
+  golden/
+    generate_numerics_golden.py   writes the golden tables (NumPy/SciPy only)
+    numerics/*.json               golden tables, MANIFEST.json with SHA-256 and case counts
+    stage1/ .. stage5/            engine golden tables, written by generate_stage*_golden.py
+```
+
+Dependency graph: `amcrax-cli -> amcrax-engine[yaml] -> amcrax-numerics`,
+`amcrax-wasm -> amcrax-engine (no yaml) -> amcrax-numerics`.
+
+## Dependencies
+
+| Crate | Version | Used by | Why |
+|---|---|---|---|
+| serde (derive) | 1.0.229 | engine | typed data and result structures |
+| serde_json (`float_roundtrip`) | 1.0.154 | engine, cli; numerics tests | JSON data, golden tables; `float_roundtrip` parses every float exactly |
+| thiserror | 2.0.21 | engine | `EngineError` |
+| sha2 | 0.11.1 | engine; numerics tests | SHA-256 provenance of input files and golden tables |
+| serde-saphyr (`deserialize` only) | 2.2.0 | engine, feature `yaml` | YAML 1.2 into serde types (the YAML data files) |
+| wasm-bindgen | 0.2.130 | wasm | JavaScript bindings |
+
+`amcrax-numerics` has no dependencies at all: PCG64, SeedSequence, Sobol' and the solvers are
+implemented in the crate (each a few dozen lines, ported from the reference so that the output is
+identical). `cargo audit --deny warnings` runs in CI against the RustSec advisory database.
+
+## Build policy
+
+**All compilation and testing runs in GitHub Actions** (`.github/workflows/rust.yml`, Linux and
+Windows runners). On development machines where endpoint protection blocks freshly compiled
+executables (cargo build scripts and test binaries are such executables), do not run
+`cargo build`, `cargo check`, `cargo test`, `cargo run`, `cargo clippy`, `cargo bench` or
+`cargo install`, and keep rust-analyzer from building (on such machines the VS Code *user*
+settings disable build scripts, proc-macro expansion and check-on-save; the repository's
+`.vscode/settings.json` only links `rust/Cargo.toml`, so it does not cripple rust-analyzer in a
+container). These commands are safe there, because they do not compile or run crate code:
+`cargo fmt`, `cargo metadata --no-deps`, `cargo generate-lockfile`, `cargo update`,
+`rustc --version`, and `rust/tools/ra_check.ps1`.
+
+The feedback loop is: edit, `cargo fmt`, `rust/tools/ra_check.ps1`, commit, push, read the
+workflow result.
+
+### Where to build
+
+* **GitHub Actions** is the authority for build, lint and test (`.github/workflows/rust.yml`).
+* **A Codespace or Dev Container** (`.devcontainer/devcontainer.json`: Rust 1.100 with clippy,
+  rustfmt and the wasm target, Python 3.12 with the generator dependencies, Node) or any machine
+  with a normal Rust toolchain gives an interactive build with full rust-analyzer.
+* **Machines with restrictive endpoint security**: before every push run
+  `rust/tools/ra_check.ps1`. It runs rust-analyzer's own diagnostics with build scripts and proc
+  macros disabled (nothing is compiled or executed besides rust-analyzer itself) and reports syntax
+  errors, type mismatches, wrong argument counts, unknown methods and unresolved names. It cannot
+  see code generated by derive macros (it hides the resulting "trait not implemented" noise) and
+  skips `#[cfg(test)]` code, so CI stays the authority.
+
+CI jobs: `cargo fmt --check`; `cargo clippy --all-targets --all-features -- -D warnings`;
+`cargo test --workspace --profile ci` (optimised, debug assertions and overflow checks on) on
+Linux and on Windows (MSVC); `cargo doc`; `amcrax --version` and `amcrax verify numerics`; the
+`amcrax-wasm` build for `wasm32-unknown-unknown` with a 400 KB size budget; `cargo audit`; the
+kinetic propagation study (release build); the benchmark (Python and Rust in one job); the
+CoolProp 8.0.0 back end built from the pinned sources with verify stage4 and stage5. Tests run with
+`--all-features`. The toolchain is pinned to Rust 1.100.0 (`rust-version` in `Cargo.toml`), warnings are errors.
+
+## Building elsewhere
+
+On a machine where compiling is allowed, with Rust 1.100 or later:
+
+```
+cd rust
+cargo test --workspace --profile ci          # all tests including the golden tables
+cargo run -p amcrax-cli -- verify numerics   # integrity and spot checks of the golden tables
+rustup target add wasm32-unknown-unknown
+cargo build -p amcrax-wasm --target wasm32-unknown-unknown --profile wasm
+```
+
+## Golden tables and tolerances
+
+The tables in `golden/numerics/` are generated **once** by Python with
+`python rust/golden/generate_numerics_golden.py` (project virtual environment; it imports only
+the standard library, NumPy and SciPy) and committed. They are never regenerated from Rust.
+Floats are written with `repr()` (shortest round-trip form), non-finite values as `"nan"`,
+`"inf"`, `"-inf"`; `MANIFEST.json` records the library versions (NumPy 2.5.5, SciPy 1.18.1,
+Python 3.12.10), the case counts and the SHA-256 of every table, and the tests check those
+hashes before using a table. `.gitattributes` fixes LF line endings for `rust/**`, and disables
+line-ending conversion for the Python data files, so hashes do not depend on the platform.
+
+| Routine | Reference | Rule | Why |
+|---|---|---|---|
+| brentq | `scipy.optimize.brentq` | bitwise: root, iterations, calls, flag and the whole evaluation trace | exact port of `brentq.c`; transcendental test functions are replayed from the recorded trace so libm differences cannot hide an algorithm difference |
+| DOPRI5 | `solve_ivp(method="RK45")` | identical RHS count and accepted steps; values at `t_eval` and event times within 0.05 x (atol + rtol abs(y)); analytic solutions within 200 x (atol + rtol max abs(y)) | same method and controller, but NumPy's BLAS dot products sum in a different order, so the error estimate (a cancelling sum) and hence the step sizes differ in the last digits |
+| PCHIP | `PchipInterpolator` | bitwise values; knot derivatives within 1e-12 x max abs(d) | same operations in SciPy's order; SciPy re-evaluates derivatives through the derivative polynomial |
+| linear | `numpy.interp` | bitwise | same formula and fallbacks |
+| bilinear | browser model (`frontend/src/sim`) | bitwise | same expression |
+| cubic roots | `numpy.roots`, real if abs(imag) < 1e-10 | same number of real roots; 1e-10 relative | different algorithm (analytic vs eigenvalues), both backward stable |
+| sum, mean, var, std, median, quantile | NumPy | bitwise | port of pairwise summation and of `_quantile`/`_lerp` |
+| PCG64, SeedSequence, random, uniform, shuffle | NumPy | bitwise (including 3 streams of 10^6 draws by SHA-256) | integer algorithms ported exactly |
+| Sobol' unscrambled | `qmc.Sobol(scramble=False)` | bitwise, d up to 1111 | integer recurrence, exact scale |
+| Sobol' scrambled (LMS + shift), LHS | `qmc.Sobol(rng=seed)`, `qmc.LatinHypercube(rng=seed)` | bitwise for the recorded versions | exact port of SciPy's scrambling and NumPy's bounded integers / shuffle |
+
+### Engine golden tables (stages 1 and 2)
+
+`golden/stage1/` (data loading, thermodynamics) is written by `golden/generate_stage1_golden.py`,
+which imports the `amcrax` package of this repository (`backend/`) and refuses to run otherwise.
+The comparisons live in `amcrax_engine::verify` and run both as integration tests
+(`crates/amcrax-engine/tests/stage1.rs`) and as `amcrax verify thermo --report <file>`, which
+writes the machine-readable Python-versus-Rust report (per quantity: cases, maximum deviation,
+gate, pass or fail; uploaded by CI as the `verification-report` artifact).
+
+| Quantity | Gate | Why |
+|---|---|---|
+| data files | SHA-256 identical; every parsed value identical (type, value, floats bitwise) | YAML: PyYAML (1.1) versus serde-saphyr (1.2); documented differences listed per path |
+| NASA-7 cp, h, s, g; dH, dG, dS | 1e-12 relative to max(\|value\|, sum of \|terms\|) | same operations; only libm pow/log ulps differ |
+| Kp | 1e-12 relative | idem |
+| equilibrium conversion, y | 1e-10 absolute | same brentq on ln n_NH3 (xtol 1e-13) |
+| Peng-Robinson phi, Z, H_dep | 1e-10 relative | analytic cubic versus numpy.roots, BLAS sum order |
+| root counts, dew-point scan decisions and brackets | identical | |
+| dew-point and saturation temperature | 1e-8 relative | brentq xtol 1e-9 K / 1e-11 K |
+
+`golden/stage2/` (rate laws, viscosity, reactor, searches) is written by
+`golden/generate_stage2_golden.py`, which also exports Cantera's viscosity polynomials and molar
+masses to `data/transport_gri30.json` (embedded by the engine). Checked by
+`crates/amcrax-engine/tests/stage2.rs` and `amcrax verify kinetics|reactor|all`.
+
+| Quantity | Gate | Why |
+|---|---|---|
+| rate laws (5 laws, options, overrides, edge cases) | 1e-12 relative to max(\|r\|, term scale) | same closed forms; near equilibrium the rate is a cancelling difference |
+| viscosity, pure and mixture | 1e-10 relative to Cantera | exact port of Cantera's polynomial and Wilke rule |
+| PFR outlet conversion / T / P | 1e-7 / 1e-4 K / 1e-6 bar absolute | Python LSODA (rtol 1e-8) versus DOPRI5 (rtol 1e-10) |
+| PFR profiles X, T, P, y | 1e-6 / 1e-4 K / 1e-6 bar / 1e-6 | idem |
+| hydraulic-limit flag, output points, W grid | identical | |
+| catalyst mass for a target | 1e-5 relative, same reachable/hydraulic flags | brentq xtol 1e-6 W |
+| temperature for a target conversion | 0.05 K, same bracket outcome | brentq xtol 0.05 K |
+
+`amcrax eval pfr --input case.json [--output result.json]` runs one reactor case from the
+keyword arguments of Python `simulate_pfr` (unknown keys are an error) and writes the result
+(Python `PFRResult` fields plus solver statistics; NaN as null).
+
+### Engine golden tables (stage 3)
+
+`golden/stage3/` is written by `golden/generate_stage3_golden.py` (tables `economics`, `carbon`, `uq`,
+`stiff`; the generator imports this repository's `amcrax` at the tagged Phase 2 baseline
+`amcrax-phase2-reviewed-2026-11-24` and records `science_diff_vs_tag` in the metadata). Besides the
+tables, the verifier reads the stored results in `results/` (read only) and recomputes them: every
+number of `results/research/reference_scenario/{baseline,capex_audit}.json`,
+`results/research/singapore/{scenario_results,tornado,breakeven_ammonia_price,monte_carlo}.json`,
+`results/simulations/economics_baseline*.json`, the carbon-pricing `scenarios.json`,
+`thresholds.json`, `carbon_intensity.json` and both `test_vectors.json` files, the global
+sensitivity study `results/research/uq/gsa_sobol.json` and the kinetic propagation samples and
+summaries. Checked by `crates/amcrax-engine/tests/stage3.rs`, `amcrax verify economics|carbon|uq|stiff|all`
+and `amcrax study gsa|mc-singapore|kinetic-propagation --report`.
+
+| Quantity | Gate | Why |
+|---|---|---|
+| `singapore.evaluate`, every output key (all capex modes, overrides, errors) | 1e-12 relative; keys, notes, booleans, None identical | same operation order (Python `sum` as Neumaier), only libm `pow` could differ |
+| reference CAPEX, equipment CAPEX, CRF, IRR, break-even, legacy `compute_lcoh` | 1e-12 relative | idem |
+| stored research results (recipes) | 1e-12 relative | the generator proves the tagged Python reproduces each stored value |
+| LCA factors, carbon intensity, carbon cost, Mode A threshold test, route cases, crossover | 1e-12 relative | same closed forms |
+| Sobol' indices, bootstrap intervals on fixed output matrices | 1e-12 relative; bootstrap index stream identical | NumPy pairwise sums and `integers` stream ported |
+| Sobol' base samples of the studies | SHA-256 of the float64 bytes identical | SciPy scrambling; the legacy `seed=` keyword seeds `default_rng(seed)` without spawn |
+| `ndtri`, `triang.ppf`, `lognorm.ppf`, `norm.ppf` | 1e-12 relative | Cephes ndtri port (a pre-port bitwise check on 250,006 arguments is not recorded in the verification reports) |
+| global sensitivity study (16 cases + dummy, N = 8192, 1000 bootstraps) | 1e-10 relative (indices and intervals relative to max(\|S\|, 1e-6)) | sample and bootstrap stream reproduced exactly; libm exp/log/pow ulps in the lognormal cases move near-zero indices by about 1e-18 absolute |
+| Monte Carlo of the Singapore economics (5000 draws) | 1e-12 relative, sample for sample | NumPy uniform/triangular/random streams reproduced exactly (not a statistical comparison) |
+| stiff PFR cases (750-900 degC) | stage 2 gates (X 1e-7, T 1e-4 K, P 1e-6 bar) | LSODA rtol 1e-8 against DOPRI5 or the Radau fallback at rtol 1e-10 |
+| kinetic propagation, draw for draw | draws 1e-12 rel; X_lab 1e-7; T_required 0.05 K; mass 1e-5 rel; decisions identical | stage 2 reactor and search gates |
+
+`amcrax study kinetic-propagation [--threads N] [--limit M]` runs the 16,000-draw study on
+`std::thread` with fixed contiguous chunks (no new dependency; each draw writes its own slot, so
+the result does not depend on the thread count, which the tests check). `amcrax bench` and
+`bench/bench_python.py` time the Rust release build and the Python reference in one CI job
+(`verification/BENCHMARK.md`).
+
+Not promised bit-identical across library versions: normal variates (ported in stage 5; bit-identical
+only within one platform's C library, see the ziggurat experiment), other non-uniform variates (not
+ported), shuffles and bounded integers (NumPy does not freeze these streams), and therefore the
+scrambled Sobol' and LHS designs. For those, the promise is statistical equivalence (balance and
+stratification properties, tested in the unit tests).
+
+### Engine golden tables (stage 4)
+
+`golden/stage4/` is written by `golden/generate_stage4_golden.py` (Python 3.12, CoolProp 8.0.0 at
+git revision `ae81610e7d23efc57f9d051c8e70a4d66e87537f`, NumPy, SciPy, pydantic, PyYAML; it imports
+this repository's `amcrax`). Tables: `coolprop_grid` (4,335 CoolProp calls on a dense grid, made the
+way the Python code makes them), `coolprop_states` (8,556 CoolProp calls recorded while the
+flowsheet and heat-integration cases ran, each with the derivative of the output with respect to
+the input that root searches vary), `flowsheet` (96 `run_python_case` cases: the four stored
+`results/simulations/python_baseline*.json`, the inputs of the 20 stored Aspen cases in both eos
+modes, the FEHE approach sweep of `heat_exchanger_study.py`, branch-covering variations and
+infeasible specifications), `heat` (116 `analyse` cases on the Python results and the stored Aspen
+results, 2,139 `exchanger.py` calls including the argument sets of `heat_exchanger_study.py`) and
+`separation` (549 calls of compression, PSA, membrane, purification and slip functions, and
+`compare_purification` on the two stored baselines). The generator checked that the current
+Python reproduces every stored file it recomputes bit for bit (`stored` entries).
+
+**Fluid properties.** `amcrax_engine::props::FluidProps` covers exactly the CoolProp calls of
+`process_model/properties.py` and `heat_integration/streams.py` (listed in `props.rs`), always on
+CoolProp's default reference state (the Python code never changes it; the model anchors the NH3
+scale to NASA-7 itself). Two back ends:
+
+* `coolprop`: crate `crates/amcrax-coolprop` (not a workspace member; only
+  `amcrax-cli --features coolprop` builds it, so it is outside the default build, rust-analyzer's
+  local analysis and the wasm build). CI job `coolprop` fetches CoolProp at the pinned commit
+  (checked equal to the commit of tag `v8.0.0`), builds the static library with C linkage of
+  `CoolPropLib.h`, links it through a thin FFI (`PropsSI`, `Props1SI`, `AbstractState_*`;
+  `unsafe` only in that crate's private `ffi` module, every other crate forbids it) and embeds
+  CoolProp's MIT licence text (`amcrax_coolprop::licence()`). Imposed-phase states are one reused
+  `AbstractState("HEOS")` per fluid and phase, as in Python.
+* `tables` (default; tests and the main CI job): **tabulated CoolProp values, exact only at stored
+  states**. A query returns the recorded value for identical inputs, the first-order Taylor value
+  within 1e-7 (relative) of a recorded state, and an error otherwise. It reproduces the stored
+  cases only; new states need the `coolprop` back end.
+
+Gates (CI run 45479664142 on ff8929c, all seven jobs green; `verification/stage4_report.json`):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| CoolProp back end vs Python CoolProp, dense grid (14 output/fluid/phase groups) | 4,335 | 6.2e-12 | 1e-10 relative (enthalpies to max(\|h\|, 1 J/mol)); identical success or failure | same C++ sources; compilers and libm differ by ulps, iterative flashes converge to the same root |
+| flowsheet: stream flows, compositions, extents | 19,490 | 1.4e-15 | 1e-10 relative | equilibrium brentq on ln n (xtol 1e-13) as stage 1 |
+| flowsheet: temperatures and approaches | 2,532 | 6.8e-13 K | 1e-6 K | brentq xtol 1e-10 K |
+| flowsheet: stream enthalpies / block duties and basis offsets | 1,106 / 1,364 | 1.5e-13 / 3.5e-14 | 1e-9 relative (duties to max(\|Q\|, largest \|H\| of the block's streams)) | a duty is a difference of stream enthalpies |
+| flowsheet: KPIs | 1,548 | 1.4e-14 | 1e-9 relative | |
+| flowsheet: pressures; closure residuals | 1,874; 172 | 0; 2.5e-16 | 1e-12 relative; 1e-12 absolute | arithmetic on inputs; residuals are rounding noise |
+| flowsheet: texts, flags, error classes, stored python_baseline*.json | 10,390 texts, 96 outcomes, 4 files | identical; stored: within the gates above | exact | |
+| heat integration (analysis): every number | 311,742 | 4.5e-12 | 1e-10 relative (degC to max(\|x\|, 273.15 K); kW, m2, USD to max(\|x\|, 1); the two duty-difference fractions rel_deviation and reduction_vs_no_recovery to max(\|x\|, 1); all other quantities to max(\|x\|, 1e-6)) | NASA-7 + PR + CoolProp curves, numpy.interp, problem table |
+| heat integration: decisions, texts, stored heat_integration_*.json | 575 flags, 6,228 texts, 2 files | identical (1 tie, below) | exact | |
+| exchanger sizing, cost, break-even U and CRF | 2,139 calls, 26,785 numbers, 5,235 decisions (shells, units, ranges) | 2.2e-15 | 1e-10 relative; identical shell counts and feasibility | closed forms; the break-even U bisection stops at hi/lo < 1 + 1e-10 |
+| separation, algebraic (compression, PSA, ISO evaluation, recovery-purity, splits, slip) | 2,389 | 0 | 1e-10 relative | same operation order |
+| membrane ODE at a fixed area (Sieverts; finite N2 selectivity) | 24,225 | 3.6e-8 | 1e-7 relative (leakage model flows relative to the feed flow of the species) | Python LSODA at rtol 1e-10 against DOPRI5 at rtol 1e-12; the worst case is the recovery 1 - n/n_in at the first profile point, a cancelling difference |
+| membrane area and selectivity searches, values at the found area, stored separation_*.json | 1,335 | 5.4e-9 | 1e-5 relative | brentq xtol 1e-6 m2 / 1e-9 m2 and 80 bisections of log alpha on top of the ODE error |
+
+The same flowsheet, heat and separation gates pass on the `coolprop` back end (job `coolprop`,
+same run); the known Python-versus-Aspen FEHE duty offset (vaporiser outlet state and the
+reference-EOS residual on the cold side, `results/research/heat_exchanger/fehe_duty_diagnosis.json`)
+is reproduced exactly as Python has it, because the property bases are ported unchanged.
+
+Findings (reported, not gated; no Python code changed):
+
+* `thermodynamics/equilibrium.py` (upper bracket end, already recorded in stage 1): with
+  `eos="pr"` the state at `z = ln n_max` can have `exp(ln n) > n` and mole fractions of -1e-16,
+  which `peng_robinson` rejects; `run_python_case(eos="pr")` therefore raises `ValueError` for a
+  dry feed, 15 mol% water, 10 and 1000 kmol/h (4 of 96 cases). Rust raises the same. No stored
+  result is affected (all stored cases run).
+* `heat_integration/exchanger.py` `_f_12` (line 119): at `P R = 1` exactly, `(1 - P R)` is a zero
+  divisor and Python raises `ZeroDivisionError` instead of reporting the arrangement infeasible.
+  Rust raises the same. Only the synthetic F grid reaches it; no stored result is affected.
+* `heat_integration/analysis.py` `approach_violation = min dT < dT_min` is decided on a tie for
+  the stored Aspen case `opt_par_3` (approach 20 K = dT_min): the minimum internal approach is
+  20 K within 1e-13 K and the flag (and its warning) depends on the last bit (Python false, Rust
+  true). The verifier takes Python's flag at such ties (within 1e-9 K) and reports them.
+* `backend/amcrax/data/separation.yaml` `membrane.flux_law.n`: serde-saphyr reads the plain key
+  `n` as the boolean false, PyYAML as the string "n"; `SepParams` restores the Python key.
+
+New CLI commands: `amcrax verify props --props coolprop`, `amcrax verify flowsheet|heat|separation|stage4`
+(`--props tables|coolprop`), `amcrax eval flowsheet --input case.json [--eos ideal|pr]
+[--props tables|coolprop]` (a CaseInputs object or `{"inputs": {...}, "eos": ...}` in, the
+SimulationResult JSON out).
+
+### Engine golden tables (stage 5)
+
+`golden/stage5/` is written by `golden/generate_stage5_golden.py` (same conventions as stage 4; it
+loads the stage 4 generator for the CoolProp recorder). Tables: `catalyst` (LCOH(T) curves of the
+five catalysts with and without heat integration on the 470-760 degC grid of
+`scripts/research/catalyst_comparison.py`, the optima and their 1 K refinement, design points at
+the optima, at the Aspen operating points (on the stored Aspen results) and of the fixed Ni
+designs, heat accounting on the stored Aspen results for dT_min 10-50 K, catalyst masses, the
+kinetic flowsheets), `mcmc` (NumPy normal stream and spawn, R-hat and ESS on fixed arrays, adaptive
+Metropolis on a Gaussian target, dense SciPy spline evaluations, the PFR grids of the Takahashi
+calibration and a digest of every chain the calibration script ran: first and last states,
+SHA-256, summaries, diagnostics), `optimisation` (`evaluate_result` and the constraints on every
+stored simulation result for three heat sources, three ammonia routes and two prices),
+`coolprop_states` (the CoolProp calls of the new flowsheet states). The generator confirmed that
+the current Python reproduces the stored `catalyst_design_curves.csv`, the 22 rows of
+`catalyst_comparison.json` and both `takahashi_calibration_*.json` with their posterior CSV files
+exactly (it reruns the calibration script with its outputs redirected to a scratch directory).
+
+The ziggurat tables of NumPy's `standard_normal` (`amcrax-numerics/src/ziggurat_tables.rs`) are
+written by the same generator: `wi` is recovered exactly from NumPy's output (the double that
+reproduces every observed `rabs * wi[idx]` is unique), `ki` and `fi` come from the Marsaglia-Tsang
+recurrence; the generator checks 3 x 10^6 draws against NumPy on the generating machine.
+
+Gates (first measured in CI run 45519747051 on 1dbb6db; the values below are those of the committed
+`verification/stage5_report.json`, run 45537898469 on 2fc58cc; the same checks pass on the
+`tables` and the `coolprop` back end):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| catalyst mass (PFR mass search) | 30 | 1.0e-7 | 1e-5 relative | stage 2 gate (brentq xtol 1e-6 W) |
+| LCOH curves: mass and the quantities that scale with it | 3,840 | 1.8e-7 | 1e-5 relative | proportional to the catalyst mass |
+| LCOH curves: flowsheet, heat and fuel quantities | 4,480 | 2.5e-15 | 1e-9 relative | stage 4 gates |
+| feasible temperature sets and cost-optimal temperatures (5 K grid and 1 K refinement) | 20 + 20 | identical | exact | |
+| design points, heat accounting on the stored Aspen results, kinetic flowsheets | 1,858 + 1,105 + 2,120 flows | 2.5e-12 | 1e-9 / 1e-10 relative, stage 4 flowsheet gates | |
+| stored `catalyst_design_curves.csv` (531 rows) and `catalyst_comparison.json` (22 rows) | 6,360 + 1,278 | 1.8e-7 (mass columns), 2.5e-15, 2.5e-12 | as above | |
+| normal stream: first 50 draws, three seeds; `spawn` children | 3 + 6 | identical | bitwise | |
+| R-hat and bulk ESS on fixed arrays | 10 | 1.4e-16 | 1e-10 relative | radix-2 FFT here, pocketfft in NumPy |
+| adaptive Metropolis on a Gaussian target, chain for chain | 48,000 | 2.4e-14 | 1e-12 relative | same streams; hand Cholesky against LAPACK |
+| bicubic spline against SciPy `RectBivariateSpline` (s = 0), dense points | 1,209 | 4.4e-15 | 1e-10 absolute (logit) | not-a-knot interpolant, collocation LU against FITPACK Givens |
+| PFR on the calibration grid (every third node in each direction) | 9,108 | 1.3e-8 | 1e-7 absolute | stage 2 PFR gate (LSODA rtol 1e-8 against DOPRI5) |
+| calibration chains (first and last states of every chain of the 47 runs) | 5,640 | 1.9e-13 | 1e-12 relative | chain for chain on the Python grid |
+| posterior summaries of every run; acceptance rates | 893; 188 | 2.4e-13; 0 | 1e-9 absolute; 1e-12 | |
+| R-hat and bulk ESS of the runs | 282 | 2.0e-5 | 1e-4 relative | rank statistics reorder nearly equal states when chains agree to 1e-12 but not bit for bit |
+| stored `takahashi_calibration_*.json` (posterior, predictive check, thinned posterior CSV) | 12,278 | 1.9e-13 | 1e-9 absolute | |
+| stored coverage counts, inside-90 flags, synthetic-recovery hits | 68 | identical | exact | |
+| `evaluate_result` on every stored simulation result (18 option sets each) | 13,214 | 0 | 1e-9 relative | |
+| constraint values | 1,296 | 0 | 1e-9 relative | |
+| Pareto fronts from the stored design grid; objective conflicts | 12 fronts (38 checks); 10 pairs | identical point sets; Spearman 2.4e-16 | exact; 1e-12 | |
+
+MC-NORMAL gates the first 50 draws only; its report label still names the SHA-256 of 10^6 draws,
+which has been a reported finding, not a gate, since commit 1dbb6db.
+
+Findings (reported, not gated; no Python code changed):
+
+* The calibration chains agree with the stored Python chains to 1e-12 but not bit for bit on the
+  Linux runners, and the SHA-256 of 10^6 normal draws differs for two of three seeds while the
+  first 50 draws are bitwise equal. The ziggurat slow path compares with `exp()` and the tail uses
+  `log1p()`; the most likely cause is that glibc and the MSVC runtime of the Windows machine that
+  produced the reference round some of these values differently (not proven here). The second part
+  (ziggurat experiment below) establishes this: the cause is the C library, not the port.
+* FEHE approach flags and warnings decided on a tie (minimum internal approach equal to dT_min
+  within 1e-9 K, stage 4) also occur in the heat accounting of the Aspen Ni case `tni_T594` (with and without heat integration) at
+  dT_min = 50 K on the CoolProp back end; Python's warning list is adopted and the tie reported.
+
+What stays in Python after the first part (the second part below ports the end-use pathways, the
+LCA, end-use and threshold drivers, and the catalyst economics with its break-even searches), and
+why:
+
+* The optimiser: `differential_evolution` with Sobol initialisation, deferred updating and a
+  `NonlinearConstraint`, the SLSQP polish and the epsilon-constraint SLSQP of
+  `optimisation/problems.py`. A port that reproduces the stored optima (same active bounds, 1e-4
+  on the objectives) needs SciPy's DE population updates and SLSQP's finite-difference details
+  bit for bit; a different optimiser would be weaker evidence, so SciPy stays the driver and Rust
+  provides the batch objective (`amcrax eval objective`) and the grid and Pareto analysis.
+* The full-factorial design grid (6,120 flowsheet evaluations) is not recomputed in CI: the
+  tables back end holds only recorded states, and the Pareto fronts are recomputed from the stored
+  grid instead.
+* The end-use pathways (`enduse/pathways.py`: power and hydrogen activities, LCOE, break-even
+  factors) and the LCA study driver (`scripts/research/lca_run.py`, `enduse_run.py`,
+  `enduse_threshold.py`) are not ported; Rust has `enduse::carbon_intensity` and the
+  `Activity` record that the catalyst study needs.
+* The break-even catalyst price searches and the ranking robustness of
+  `scripts/research/catalyst_comparison.py`, `research/catalyst_economics.py` and
+  `scenarios/__init__.py` are not ported; the Rust catalyst functions they call are.
+* In the calibration, the local screening of the rate constants (which picks the calibrated
+  constant) and the surrogate-accuracy check against direct PFR solves are not re-run; the
+  surrogate is built from the Python PFR grid, and the Rust PFR is checked on that grid separately.
+
+New CLI commands of stage 5: `amcrax verify catalyst|mcmc|optimisation|stage5` (included in `verify
+all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `amcrax bench` items
+`catalyst`, `objective` and `mcmc` (timings in `verification/BENCHMARK.md`: GitHub Actions run 45521208605, job "benchmark", one
+shared runner, ratios valid for that run only: catalyst curve 63.9 x, where Python calls the
+CoolProp 8.0.0 wheel and Rust reads the pre-computed tables back end, so part of the ratio is the
+cost of CoolProp calls; MCMC 33.1 x; objective 1.6 x).
+
+### Engine golden tables (stage 5, second part)
+
+The same generator writes `enduse` (direct calls of every function of `enduse/pathways.py` and the
+documents of `lca_run.py`, `enduse_run.py` and `enduse_threshold.py`, rerun with their outputs
+redirected to a scratch directory; the rerun reproduces every stored file under
+`results/research/lca`, `results/research/enduse` and the two validation files exactly),
+`catalyst_economics` (direct calls of `research/catalyst_economics.py`, the catalyst cost table and
+the break-even searches of `scripts/research/catalyst_economics.py`; 34,079 new CoolProp states were
+recorded in `coolprop_states.json`) and `ziggurat` (every `exp()` and `log1p()` value of NumPy's
+ziggurat in the first 10^6 draws of three seeds on the Windows reference machine). The calibration
+checks reuse `mcmc.json`.
+
+Gates (CI run 45537898469 on 2fc58cc, all seven jobs green; `verification/stage5_report.json`, 332
+checks; the larger of the two back ends' maxima is shown; both pass the same gates):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| end-use pathway functions (activities, LCOE, hydrogen cost, break-even factor, stoichiometry), direct calls | 5,781 numbers, 784 outcomes | 0 | 1e-12 relative | same expressions in the same order |
+| LCA, end-use and threshold documents, validation items, threshold CSV tables, against the rerun and the stored files | 8,557 numbers and 41 assumption-register factors (and the same leaves of the stored files) | 0 | 1e-9 relative to max(\|x\|, 1); factors identical | brentq roots and pow() of the C library would agree far inside it |
+| catalyst economics: prices, states, size ratios | 542 | 1.1e-12 | 1e-9 relative | |
+| catalyst economics: designs, optima, comparisons; cost table; break-even designs | 12,095; 10,240; 1,950 | 2.3e-7; 1.5e-7; 2.9e-6 | 1e-5 relative | catalyst-mass gate of the PFR mass search, inherited by the catalyst cost and the LCOH |
+| re-optimised break-even price; lifetime | 12; 12 | 1.1e-4 USD/kg; 1.2e-6 yr | 0.05; 1e-3 absolute | the brentq stopping rule of the Python script |
+| stored `catalyst_cost_table.csv` columns | 480 | 0 | 1e-5 relative | |
+| calibration screening dX/dln k | 96 | 1.5e-7 | 1e-5 absolute | central difference of two PFR solves (1e-7 in X) over ln 1.05 |
+| full calibration PFR grids (Rust PFR) | 71,300 | 1.7e-8 | 1e-7 absolute in X | stage 2 PFR gate |
+| posterior summaries of all 47 runs on the Rust-grid surrogate | 705 | 2.2e-13 of the bound | Monte Carlo bound 5 k sd sqrt(2/ESS) | the chains agree with Python to 2e-13: no Metropolis decision flips |
+| surrogate accuracy (25 draws x all points) | 2 | 8.0e-9 | 1e-7 absolute | |
+| design grid, 6120 flowsheets (CoolProp job only) | 153,000 numbers, 12,240 flags | 9.1e-13 | 1e-9 relative | stage 4 KPI gate |
+
+Ziggurat experiment (block E): the replay of the Rust generator with the Windows `exp`/`log1p`
+values reproduces NumPy's Windows stream bit for bit for all three seeds (ZIG-REPLAY), and the
+native Rust stream on the MSVC runner equals it (windows job log of run 45537898469; not in the
+committed report). On Linux, glibc returns different values (1 ulp)
+in about 0.6 % of the wedge tests and 6 to 9 % of the tail calls; no acceptance decision flips, but a
+different `log1p` in a tail draw changes that draw: 1 and 2 of 10^6 draws differ for two seeds, none
+for the third. NumPy 2.5.5 on a Linux runner of the same run (benchmark job log) gives exactly the Rust Linux stream (identical
+SHA-256 for all three seeds). Cause established: the C library, not the port; seeded normal streams
+are bit-identical only within one platform's libm, for NumPy and Rust alike.
+
+Still in Python after the second part: the catalyst_comparison script's break-even price search
+and ranking robustness (`catalyst_breakeven_price.json`, `catalyst_ranking_robustness.json`),
+`scenarios`, the catalyst-kinetic parts of `heat_exchanger_study.py`, and sections 3, 5 and 6 of
+`catalyst_economics.py` (design comparisons, crossover map, sensitivities); the functions they call
+are ported and verified. The static prose fields of the end-use documents and all figures are not
+produced by Rust.
+
+New commands: `amcrax verify enduse` (alias `lca`), `catalyst-economics`, `calibration`,
+`design-grid` (needs `--props coolprop`), `ziggurat`; all in `verify stage5` and `verify all`
+(the design grid only on the CoolProp back end); `amcrax study enduse`; benchmark item
+`catalyst_economics`.
+
+## Stages
+
+0. Workspace, CI, numerics. Done.
+1. Data loading, thermodynamics (NASA-7), ideal-gas and Peng-Robinson equilibrium. Done.
+2. Kinetics and the plug-flow reactor. Done.
+3. Economics (reference CAPEX, `evaluate`, legacy LCOH), LCA gate factors and carbon pricing, Sobol'
+   estimators, the global sensitivity study, the economics Monte Carlo, the stiff (Radau IIA)
+   fallback of the reactor and the kinetic parameter propagation study; benchmark
+   (`verification/BENCHMARK.md`) and comparison report (`verification/stage3_report.json`). Done.
+4. Fluid properties (CoolProp 8.0.0 FFI back end and tabulated back end), process flowsheet
+   (`run_python_case`, KPIs), heat integration (pinch analysis, exchanger sizing, costing and
+   break-even solves), separation and compression; comparison report
+   (`verification/stage4_report.json`). Done.
+5. Catalyst comparison, MCMC calibration, optimisation objective and Pareto analysis; comparison report
+   (`verification/stage5_report.json`); second part: end use and LCA, catalyst economics, the
+   calibration end to end, the design grid, the ziggurat platform experiment. The SciPy optimiser
+   driver stays in Python (see above).
+6. Not started (planned): a WebAssembly engine in the browser in place of the TypeScript numerics,
+   and the API calling Rust. Until then the website and the API do not use the Rust engine.
+
+Not ported and staying in Python: the SciPy optimiser driver, some study scripts (see the lists
+above), all plotting and figures, and the Aspen Plus COM automation. Python is authoritative for
+every published result.
+
+New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,
+`amcrax eval economics --input case.json`, `amcrax study gsa|mc-singapore|kinetic-propagation`,
+`amcrax bench`.

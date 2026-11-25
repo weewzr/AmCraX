@@ -1,0 +1,45 @@
+{
+ "provenance": {
+  "coolprop_version": "8.0.0",
+  "extracted_utc": "2026-11-21T07:37:39+00:00",
+  "keys": "Tc_K = PropsSI('Tcrit'), Pc_bar = PropsSI('pcrit')/1e5, omega = PropsSI('acentric')",
+  "source": "CoolProp (Bell et al., Ind. Eng. Chem. Res. 53 (2014) 2498-2508), fluid-specific reference EOS"
+ },
+ "species": {
+  "H2": {
+   "Pc_bar": 12.963576060553084,
+   "Tc_K": 33.1443326883113,
+   "coolprop_fluid": "Hydrogen",
+   "eos_bibtex_key": "Leachman-JPCRD-2009",
+   "omega": -0.219
+  },
+  "H2O": {
+   "Pc_bar": 220.63999999997753,
+   "Tc_K": 647.0959999999873,
+   "coolprop_fluid": "Water",
+   "eos_bibtex_key": "Wagner-JPCRD-2002",
+   "omega": 0.3442920843
+  },
+  "N2": {
+   "Pc_bar": 33.95800444647145,
+   "Tc_K": 126.19199999958556,
+   "coolprop_fluid": "Nitrogen",
+   "eos_bibtex_key": "Span-JPCRD-2000",
+   "omega": 0.0372
+  },
+  "NH3": {
+   "Pc_bar": 113.63391157414672,
+   "Tc_K": 405.55999997326353,
+   "coolprop_fluid": "Ammonia",
+   "eos_bibtex_key": "Gao-JPCRD-2020",
+   "omega": 0.2556905229865023
+  },
+  "O2": {
+   "Pc_bar": 50.46410521187217,
+   "Tc_K": 154.59938983528554,
+   "coolprop_fluid": "Oxygen",
+   "eos_bibtex_key": "Schmidt-FPE-1985,Stewart-JPCRD-1991",
+   "omega": 0.0222
+  }
+ }
+}

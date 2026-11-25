@@ -1,0 +1,37 @@
+{
+ "files": {
+  "carbon.json": {
+   "bytes": 2312819,
+   "cases": 1240,
+   "sha256": "91af1fd8df910ba80a88adeb9eeb583dfad8d59f46d3b8552a644447334598cb"
+  },
+  "economics.json": {
+   "bytes": 4151748,
+   "cases": 1658,
+   "sha256": "ed36b0234b752ed701312aecccb185a92c15177be74da89a987fd48d56971bd1"
+  },
+  "stiff.json": {
+   "bytes": 34286,
+   "cases": 64,
+   "sha256": "19a92e024800059bc0954c0d8e633eb4b23f0659db588da4f9fcb2693cbb7e0e"
+  },
+  "uq.json": {
+   "bytes": 747063,
+   "cases": 24008,
+   "sha256": "fa930ccd7dff01c7eb2d219e3434314105dee7c9ff4254f0b81210ef8bcf0db8"
+  }
+ },
+ "meta": {
+  "amcrax_source": "backend/amcrax (this repository)",
+  "generator": "rust/golden/generate_stage3_golden.py",
+  "git_head_at_generation": "bc85e2805d80257e72a01dba25f08b5c97eb7466",
+  "numpy": "2.5.5",
+  "platform": "Windows AMD64",
+  "pydantic": "2.14.4",
+  "python": "3.12.10",
+  "python_reference_tag": "amcrax-phase2-reviewed-2026-11-24",
+  "pyyaml": "6.0.4",
+  "science_diff_vs_tag": "none",
+  "scipy": "1.18.1"
+ }
+}
