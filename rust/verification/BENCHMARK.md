@@ -57,3 +57,17 @@ part of the ratio is the cost of CoolProp calls; the verified agreement of the t
 in `stage5_report.json`. The objective item excludes the flowsheet solve, which dominates one
 optimiser evaluation in both implementations; like the dict-building `evaluate`, it is dominated
 by building the result dict.
+## Stage 5, second part
+
+Source: run 45537898469 (commit 2fc58cc, job "benchmark"), Intel Xeon Platinum 8370C, 4 vCPUs.
+
+| Item | Python (s) | Rust (s) | Python / Rust |
+|---|---|---|---|
+| catalyst economics: cost-optimal designs of the five catalysts (exchanger mode, central prices, 2 yr, fresh caches: 5 K grid refined on 1 K, PFR mass searches, kinetic flowsheets, FEHE sizing, economics) | 111.4 | 2.98 | 37.4 |
+| catalyst comparison LCOH(T) curve (as above) | 40.2 | 0.659 | 61.0 |
+| MCMC, 4 x 20,000 iterations | 4.90 | 0.165 | 29.7 |
+| optimisation objective | 1.73e-4 | 1.22e-4 | 1.4 |
+
+As for the catalyst curve, Python takes its properties from the CoolProp wheel and Rust from the
+tables back end. The end-use studies are not timed: the Python drivers draw their figures in the
+same functions, so no like-for-like Python time exists.

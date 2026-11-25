@@ -363,6 +363,56 @@ all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `am
 `catalyst`, `objective` and `mcmc` (timings in `verification/BENCHMARK.md`, run 45521208605: catalyst curve
 63.9 x, MCMC 33.1 x, objective 1.6 x faster than Python on the same runner).
 
+### Engine golden tables (stage 5, second part)
+
+The same generator writes `enduse` (direct calls of every function of `enduse/pathways.py` and the
+documents of `lca_run.py`, `enduse_run.py` and `enduse_threshold.py`, rerun with their outputs
+redirected to a scratch directory; the rerun reproduces every stored file under
+`results/research/lca`, `results/research/enduse` and the two validation files exactly),
+`catalyst_economics` (direct calls of `research/catalyst_economics.py`, the catalyst cost table and
+the break-even searches of `scripts/research/catalyst_economics.py`; 34,079 new CoolProp states were
+recorded in `coolprop_states.json`) and `ziggurat` (every `exp()` and `log1p()` value of NumPy's
+ziggurat in the first 10^6 draws of three seeds on the Windows reference machine). The calibration
+checks reuse `mcmc.json`.
+
+Gates (CI run 45537898469 on 2fc58cc, all seven jobs green; `verification/stage5_report.json`, 332
+checks; the same maxima on the `tables` and `coolprop` back ends unless stated):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| end-use pathway functions (activities, LCOE, hydrogen cost, break-even factor, stoichiometry), direct calls | 5,781 numbers, 784 outcomes | 0 | 1e-12 relative | same expressions in the same order |
+| LCA, end-use and threshold documents, validation items, threshold CSV tables, against the rerun and the stored files | 8,598 numbers (and the same leaves of the stored files) | 0 | 1e-9 relative to max(\|x\|, 1) | brentq roots and pow() of the C library would agree far inside it |
+| catalyst economics: prices, states, size ratios | 542 | 1.1e-12 | 1e-9 relative | |
+| catalyst economics: designs, optima, comparisons; cost table; break-even designs | 12,095; 10,240; 1,950 | 2.3e-7; 1.5e-7; 2.9e-6 | 1e-5 relative | catalyst-mass gate of the PFR mass search, inherited by the catalyst cost and the LCOH |
+| re-optimised break-even price; lifetime | 12; 12 | 1.1e-4 USD/kg; 1.2e-6 yr | 0.05; 1e-3 absolute | the brentq stopping rule of the Python script |
+| stored `catalyst_cost_table.csv` columns | 480 | 0 | 1e-5 relative | |
+| calibration screening dX/dln k | 96 | 1.5e-7 | 1e-5 absolute | central difference of two PFR solves (1e-7 in X) over ln 1.05 |
+| full calibration PFR grids (Rust PFR) | 71,300 | 1.7e-8 | 1e-7 absolute in X | stage 2 PFR gate |
+| posterior summaries of all 47 runs on the Rust-grid surrogate | 705 | 2.2e-13 of the bound | Monte Carlo bound 5 k sd sqrt(2/ESS) | the chains agree with Python to 2e-13: no Metropolis decision flips |
+| surrogate accuracy (25 draws x all points) | 2 | 8.0e-9 | 1e-7 absolute | |
+| design grid, 6120 flowsheets (CoolProp job only) | 153,000 numbers, 12,240 flags | 9.1e-13 | 1e-9 relative | stage 4 KPI gate |
+
+Ziggurat experiment (block E): the replay of the Rust generator with the Windows `exp`/`log1p`
+values reproduces NumPy's Windows stream bit for bit for all three seeds (ZIG-REPLAY), and the
+native Rust stream on the MSVC runner equals it. On Linux, glibc returns different values (1 ulp)
+in about 0.6 % of the wedge tests and 6 to 9 % of the tail calls; no acceptance decision flips, but a
+different `log1p` in a tail draw changes that draw: 1 and 2 of 10^6 draws differ for two seeds, none
+for the third. NumPy 2.5.5 on the same Linux runner gives exactly the Rust Linux stream (identical
+SHA-256 for all three seeds). Cause established: the C library, not the port; seeded normal streams
+are bit-identical only within one platform's libm, for NumPy and Rust alike.
+
+Still in Python after the second part: the catalyst_comparison script's break-even price search
+and ranking robustness (`catalyst_breakeven_price.json`, `catalyst_ranking_robustness.json`),
+`scenarios`, the catalyst-kinetic parts of `heat_exchanger_study.py`, and sections 3, 5 and 6 of
+`catalyst_economics.py` (design comparisons, crossover map, sensitivities); the functions they call
+are ported and verified. The static prose fields of the end-use documents and all figures are not
+produced by Rust.
+
+New commands: `amcrax verify enduse` (alias `lca`), `catalyst-economics`, `calibration`,
+`design-grid` (needs `--props coolprop`), `ziggurat`; all in `verify stage5` and `verify all`
+(the design grid only on the CoolProp back end); `amcrax study enduse`; benchmark item
+`catalyst_economics`.
+
 ## Stages
 
 0. Workspace, CI, numerics. Done.
@@ -377,8 +427,9 @@ all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `am
    break-even solves), separation and compression; comparison report
    (`verification/stage4_report.json`). Done.
 5. Catalyst comparison, MCMC calibration, optimisation objective and Pareto analysis; comparison report
-   (`verification/stage5_report.json`). The optimiser driver, the end-use pathways and the LCA and
-   end-use study drivers stay in Python (see above).
+   (`verification/stage5_report.json`); second part: end use and LCA, catalyst economics, the
+   calibration end to end, the design grid, the ziggurat platform experiment. The SciPy optimiser
+   driver stays in Python (see above).
 6. WebAssembly replaces the TypeScript numerics; the API calls Rust.
 
 New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,
