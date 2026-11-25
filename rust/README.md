@@ -277,6 +277,91 @@ New CLI commands: `amcrax verify props --props coolprop`, `amcrax verify flowshe
 [--props tables|coolprop]` (a CaseInputs object or `{"inputs": {...}, "eos": ...}` in, the
 SimulationResult JSON out).
 
+### Engine golden tables (stage 5)
+
+`golden/stage5/` is written by `golden/generate_stage5_golden.py` (same conventions as stage 4; it
+loads the stage 4 generator for the CoolProp recorder). Tables: `catalyst` (LCOH(T) curves of the
+five catalysts with and without heat integration on the 470-760 degC grid of
+`scripts/research/catalyst_comparison.py`, the optima and their 1 K refinement, design points at
+the optima, at the Aspen operating points (on the stored Aspen results) and of the fixed Ni
+designs, heat accounting on the stored Aspen results for dT_min 10-50 K, catalyst masses, the
+kinetic flowsheets), `mcmc` (NumPy normal stream and spawn, R-hat and ESS on fixed arrays, adaptive
+Metropolis on a Gaussian target, dense SciPy spline evaluations, the PFR grids of the Takahashi
+calibration and a digest of every chain the calibration script ran: first and last states,
+SHA-256, summaries, diagnostics), `optimisation` (`evaluate_result` and the constraints on every
+stored simulation result for three heat sources, three ammonia routes and two prices),
+`coolprop_states` (the CoolProp calls of the new flowsheet states). The generator confirmed that
+the current Python reproduces the stored `catalyst_design_curves.csv`, the 22 rows of
+`catalyst_comparison.json` and both `takahashi_calibration_*.json` with their posterior CSV files
+exactly (it reruns the calibration script with its outputs redirected to a scratch directory).
+
+The ziggurat tables of NumPy's `standard_normal` (`amcrax-numerics/src/ziggurat_tables.rs`) are
+written by the same generator: `wi` is recovered exactly from NumPy's output (the double that
+reproduces every observed `rabs * wi[idx]` is unique), `ki` and `fi` come from the Marsaglia-Tsang
+recurrence; the generator checks 3 x 10^6 draws against NumPy on the generating machine.
+
+Gates (CI run 45519747051 on 1dbb6db; `verification/stage5_report.json`; the same checks pass on the
+`tables` and the `coolprop` back end):
+
+| Quantity | Cases | Max. deviation | Gate | Why |
+|---|---|---|---|---|
+| catalyst mass (PFR mass search) | 30 | 1.0e-7 | 1e-5 relative | stage 2 gate (brentq xtol 1e-6 W) |
+| LCOH curves: mass and the quantities that scale with it | 3,840 | 1.8e-7 | 1e-5 relative | proportional to the catalyst mass |
+| LCOH curves: flowsheet, heat and fuel quantities | 4,480 | 2.5e-15 | 1e-9 relative | stage 4 gates |
+| feasible temperature sets and cost-optimal temperatures (5 K grid and 1 K refinement) | 20 + 20 | identical | exact | |
+| design points, heat accounting on the stored Aspen results, kinetic flowsheets | 1,858 + 1,105 + 2,120 flows | 2.5e-12 | 1e-9 / 1e-10 relative, stage 4 flowsheet gates | |
+| stored `catalyst_design_curves.csv` (531 rows) and `catalyst_comparison.json` (22 rows) | 6,360 + 1,278 | 1.8e-7 (mass columns), 2.5e-15, 2.5e-12 | as above | |
+| normal stream: first 50 draws, three seeds; `spawn` children | 3 + 6 | identical | bitwise | |
+| R-hat and bulk ESS on fixed arrays | 10 | 1.4e-16 | 1e-10 relative | radix-2 FFT here, pocketfft in NumPy |
+| adaptive Metropolis on a Gaussian target, chain for chain | 48,000 | 2.4e-14 | 1e-12 relative | same streams; hand Cholesky against LAPACK |
+| bicubic spline against SciPy `RectBivariateSpline` (s = 0), dense points | 1,209 | 4.4e-15 | 1e-10 absolute (logit) | not-a-knot interpolant, collocation LU against FITPACK Givens |
+| PFR on the calibration grid (every third node in each direction) | 9,108 | 1.3e-8 | 1e-7 absolute | stage 2 PFR gate (LSODA rtol 1e-8 against DOPRI5) |
+| calibration chains (first and last states of every chain of the 47 runs) | 5,640 | 1.9e-13 | 1e-12 relative | chain for chain on the Python grid |
+| posterior summaries of every run; acceptance rates | 893; 188 | 2.4e-13; 0 | 1e-9 absolute; 1e-12 | |
+| R-hat and bulk ESS of the runs | 282 | 2.0e-5 | 1e-4 relative | rank statistics reorder nearly equal states when chains agree to 1e-12 but not bit for bit |
+| stored `takahashi_calibration_*.json` (posterior, predictive check, thinned posterior CSV) | 12,278 | 1.9e-13 | 1e-9 absolute | |
+| stored coverage counts, inside-90 flags, synthetic-recovery hits | 68 | identical | exact | |
+| `evaluate_result` on every stored simulation result (18 option sets each) | 13,214 | 0 | 1e-9 relative | |
+| constraint values | 1,296 | 0 | 1e-9 relative | |
+| Pareto fronts from the stored design grid; objective conflicts | 12 fronts (38 checks); 10 pairs | identical point sets; Spearman 2.4e-16 | exact; 1e-12 | |
+
+Findings (reported, not gated; no Python code changed):
+
+* The calibration chains agree with the stored Python chains to 1e-12 but not bit for bit on the
+  Linux runners, and the SHA-256 of 10^6 normal draws differs for two of three seeds while the
+  first 50 draws are bitwise equal. The ziggurat slow path compares with `exp()` and the tail uses
+  `log1p()`; the most likely cause is that glibc and the MSVC runtime of the Windows machine that
+  produced the reference round some of these values differently (not proven here).
+* FEHE approach flags and warnings decided on a tie (minimum internal approach equal to dT_min
+  within 1e-9 K, stage 4) also occur in the heat accounting of the Aspen Ni case `tni_T594` (with and without heat integration) at
+  dT_min = 50 K on the CoolProp back end; Python's warning list is adopted and the tie reported.
+
+What stays in Python, and why:
+
+* The optimiser: `differential_evolution` with Sobol initialisation, deferred updating and a
+  `NonlinearConstraint`, the SLSQP polish and the epsilon-constraint SLSQP of
+  `optimisation/problems.py`. A port that reproduces the stored optima (same active bounds, 1e-4
+  on the objectives) needs SciPy's DE population updates and SLSQP's finite-difference details
+  bit for bit; a different optimiser would be weaker evidence, so SciPy stays the driver and Rust
+  provides the batch objective (`amcrax eval objective`) and the grid and Pareto analysis.
+* The full-factorial design grid (6,120 flowsheet evaluations) is not recomputed in CI: the
+  tables back end holds only recorded states, and the Pareto fronts are recomputed from the stored
+  grid instead.
+* The end-use pathways (`enduse/pathways.py`: power and hydrogen activities, LCOE, break-even
+  factors) and the LCA study driver (`scripts/research/lca_run.py`, `enduse_run.py`,
+  `enduse_threshold.py`) are not ported in this stage; Rust has `enduse::carbon_intensity` and the
+  `Activity` record that the catalyst study needs.
+* The break-even catalyst price searches and the ranking robustness of
+  `scripts/research/catalyst_comparison.py`, `research/catalyst_economics.py` and
+  `scenarios/__init__.py` are not ported; the Rust catalyst functions they call are.
+* In the calibration, the local screening of the rate constants (which picks the calibrated
+  constant) and the surrogate-accuracy check against direct PFR solves are not re-run; the
+  surrogate is built from the Python PFR grid, and the Rust PFR is checked on that grid separately.
+
+New CLI commands of stage 5: `amcrax verify catalyst|mcmc|optimisation|stage5` (included in `verify
+all`), `amcrax eval objective --input cases.json [--props tables|coolprop]`; `amcrax bench` items
+`catalyst` and `mcmc`.
+
 ## Stages
 
 0. Workspace, CI, numerics. Done.
@@ -290,7 +375,9 @@ SimulationResult JSON out).
    (`run_python_case`, KPIs), heat integration (pinch analysis, exchanger sizing, costing and
    break-even solves), separation and compression; comparison report
    (`verification/stage4_report.json`). Done.
-5. Catalyst studies, end use, optimisation objectives, MCMC.
+5. Catalyst comparison, MCMC calibration, optimisation objective and Pareto analysis; comparison report
+   (`verification/stage5_report.json`). The optimiser driver, the end-use pathways and the LCA and
+   end-use study drivers stay in Python (see above).
 6. WebAssembly replaces the TypeScript numerics; the API calls Rust.
 
 New CLI commands of stage 3: `amcrax verify economics|carbon|uq|stiff|studies`,

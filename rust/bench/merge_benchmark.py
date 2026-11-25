@@ -43,6 +43,8 @@ def main():
                        ("kinetic_slice", "threads_1", "seconds")),
                       ("catalyst LCOH(T) curve, 59 temperatures (stage 5)", ("catalyst", "lcoh_curve_59T_s"),
                        ("catalyst", "lcoh_curve_59T_s")),
+                      ("optimisation objective: evaluate_result and constraints on a flowsheet result (stage 5)",
+                       ("objective", "evaluate_result_and_constraints_s"), ("objective", "evaluate_result_and_constraints_s")),
                       ("MCMC, 4 chains x 20,000 iterations on the surrogate (stage 5)", ("mcmc", "run_chains_4x20000_s"),
                        ("mcmc", "run_chains_4x20000_s"))):
         def get(d, path):

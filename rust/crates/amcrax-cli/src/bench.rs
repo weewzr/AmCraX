@@ -213,6 +213,28 @@ pub fn run(
         })?;
         out.insert("mcmc".into(), json!({"run_chains_4x20000_s": t, "reps": 1}));
     }
+    if want("objective") {
+        // the optimisation objective on a flowsheet result: evaluate_result (LCOH, carbon
+        // intensity, compression) and the constraint values, stored baseline result, ammonia heat,
+        // grey route (the flowsheet solve itself is not included)
+        let raw = std::fs::read_to_string(root.join("results/simulations/baseline.json"))
+            .map_err(|e| e.to_string())?;
+        let ov: amcrax_engine::odata::OValue =
+            serde_json::from_str(&raw).map_err(|e| e.to_string())?;
+        let res = amcrax_engine::process::SimulationResult::from_ov(&ov).map_err(s)?;
+        let sp = amcrax_engine::separation::SepParams::embedded();
+        let o = amcrax_engine::optim::EvalOpts::default();
+        let (t, _) = time(2001, || {
+            let m = amcrax_engine::optim::evaluate_result(d, sp, &res, &o).map_err(s)?;
+            let g = amcrax_engine::optim::constraint_values(sp, &m).map_err(s)?;
+            std::hint::black_box(g);
+            Ok(())
+        })?;
+        out.insert(
+            "objective".into(),
+            json!({"evaluate_result_and_constraints_s": t, "reps": 2001}),
+        );
+    }
     if want("kinetic") {
         let reg = KineticsRegistry::embedded();
         let ky = amcrax_engine::odata::OValue::from_yaml(
