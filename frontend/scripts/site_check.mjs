@@ -5,8 +5,9 @@
 //                               [--routes why,results,platform/pfd] [--no-shots] [--fullpage]
 //
 // For every viewport and every route it checks: renders (one h1 / platform title), no console errors, no failed or 4xx/5xx requests,
-// no request outside the base path (so no API call and no absolute "/..." URL), no horizontal overflow. Plus interaction checks
-// (mobile menu, nav reaches ten sections, PFD equipment + stream panels on site and platform, calculator, anchors, downloads).
+// no request outside the base path (so no API call, no absolute "/..." URL and no third-party host), no horizontal overflow, the
+// headline basis strip read from the snapshot. Plus interaction checks (five navigation groups and the mobile menu, command palette,
+// scenario deep link, redirects, evidence lightbox, PFD equipment + stream panels on site and platform, calculator, anchors, downloads).
 // Screenshots: full-page site routes at the desktop viewport go to <shots>/site_<page>_desktop.png (default docs/screenshots); every other
 // viewport and the platform / calculator captures go to <shots>/qa/ (git-ignored QA captures). Exit code 1 when a check fails.
 import { mkdirSync } from 'node:fs'
@@ -34,7 +35,8 @@ const shotPath = (route, label, isPlat, kind = 'page') => path.join((label === '
 
 const results = []
 const record = (vp, id, ok, detail = '') => { results.push({ vp, id, ok, detail }); console.log(`${ok ? 'PASS' : 'FAIL'} [${vp}] ${id}${detail ? ' - ' + detail : ''}`) }
-const external = /^https:\/\/(fonts\.googleapis\.com|fonts\.gstatic\.com)\//
+// Fonts are self-hosted (Fontsource); no third-party host is allowed any more, so every request outside the base path is reported.
+const external = /(?!)/
 
 const LEGACY = ['overview', 'results', 'methodology', 'research']
 /** Same text as the site's fmt(): en-US grouping, fixed digits. */
@@ -78,11 +80,14 @@ for (const vp of VIEWPORTS) {
     if (route === 'pfd' || route === 'platform/pfd') await page.waitForSelector('.react-flow__node', { timeout: 20000 }).catch(() => pushP('no PFD nodes'))
     if (route === '') {
       await page.waitForSelector('.sim-pfd', { timeout: 30000 }).catch(() => pushP('no simulator diagram'))
-      // the eight graphs are a lazy chunk with debounced sweeps: wait until every card has data marks
+      // the eight graphs are a lazy chunk loaded when they come near the viewport, with debounced sweeps: scroll to them, then
+      // wait until every card has data marks
+      await page.evaluate(() => document.querySelector('.sim-graphs-wait, .sim-graphs')?.scrollIntoView({ block: 'start' }))
       await page.waitForFunction(() => {
         const cards = [...document.querySelectorAll('.sim-graphs .sim-chart')]
         return cards.length === 8 && cards.every((c) => c.querySelector('svg .recharts-line, svg .recharts-bar-rectangle, svg .recharts-dot, svg path.recharts-curve, svg .recharts-rectangle'))
       }, null, { timeout: 30000 }).catch(() => pushP('simulator graphs did not finish'))
+      await page.evaluate(() => window.scrollTo(0, 0))
     }
     await page.waitForTimeout(route === 'results' ? 2500 : 1200)
   }
@@ -249,6 +254,30 @@ for (const vp of VIEWPORTS) {
       const gn = await tid('green-ci-note')
       record(vp.label, `${id}: both green-ammonia carbon intensities labelled with their boundary`, !!ci && gn.includes(loc(ci.routes?.green?.ci_kgCO2e_per_kgH2?.central, 2)) && gn.includes(loc(ci.routes?.green_lee?.ci_kgCO2e_per_kgH2?.central, 2)), gn.slice(0, 120))
     }
+    if (route === 'hypotheses') {
+      const otp = await page.$$eval('nav.otp a', (as) => as.map((a) => a.getAttribute('href')))
+      // the first sentence of the stored verdict conditions (the aggregation rule, the same for every hypothesis) appears once on the page
+      const em = await snap('research/evidence_matrix.json')
+      const firstSentence = String(em?.hypotheses?.[0]?.verdict_conditions ?? '').split(/(?<=\.)\s+(?=[A-Z])/)[0]
+      const shared = (em?.hypotheses ?? []).every((h) => String(h.verdict_conditions ?? '').includes(firstSentence))
+      const times = firstSentence ? body.split(firstSentence).length - 1 : -1
+      const own = await page.$$eval('[data-testid^="conditions-"]', (ps) => ps.length)
+      // main's headline-answer list (one item per hypothesis in the matrix) replaced the refresh's verdict table in the merge of the Phase 2 addendum
+      const tiles = await page.$$eval('[role=list][aria-label="Headline answer per hypothesis"] > [role=listitem]', (xs) => xs.length)
+      const nh = (em?.hypotheses ?? []).length
+      record(vp.label, `${id}: "on this page" list, headline answer per hypothesis first, aggregation rule stated once with each hypothesis's own conditions`, otp.length >= 5 && otp.some((h) => /#H1$/.test(h ?? '')) && nh > 0 && tiles === nh && (shared ? times === 1 && own === 4 : times === 4), `${otp.length} entries; ${tiles}/${nh} headline answers; rule printed ${times}x; own conditions ${own}`)
+    }
+    if (route === 'hypotheses/aspen-evidence') {
+      const thumb = page.locator('.hyp-thumb').first()
+      await thumb.scrollIntoViewIfNeeded(); await thumb.click(); await page.waitForTimeout(400)
+      const lb = await page.evaluate(() => { const d = document.querySelector('dialog.lightbox[open]'); const img = d?.querySelector('img'); return { open: !!d, w: img?.naturalWidth ?? 0, alt: img?.getAttribute('alt') ?? '', count: d?.querySelector('.lightbox-count')?.textContent ?? '', cap: d?.querySelector('.lightbox-cap')?.textContent?.length ?? 0 } })
+      record(vp.label, `${id}: thumbnail opens a full-size view with alt text and caption`, lb.open && lb.w > 0 && lb.alt.length > 10 && lb.cap > 20 && /^1 of \d+/.test(lb.count), JSON.stringify(lb))
+      await page.keyboard.press('ArrowRight'); await page.waitForTimeout(200)
+      const c2 = await page.locator('dialog.lightbox .lightbox-count').innerText().catch(() => '')
+      await page.keyboard.press('Escape'); await page.waitForTimeout(250)
+      const back = await page.evaluate(() => ({ open: !!document.querySelector('dialog.lightbox[open]'), focusThumb: document.activeElement?.classList.contains('hyp-thumb') ?? false }))
+      record(vp.label, `${id}: arrow keys step, Escape closes and returns focus to the thumbnail`, /^2 of/.test(c2) && !back.open && back.focusThumb, `${c2} ${JSON.stringify(back)}`)
+    }
     if (route === 'hypotheses/validation') {
       const kinds = await Promise.all(['numerical_verification', 'python_vs_aspen', 'literature_comparison', 'experimental_validation'].map((k) => tid(`kind-${k}`)))
       const bk = await snap('research/validation/by_kind.json')
@@ -282,6 +311,17 @@ for (const vp of VIEWPORTS) {
     if (isPlat) record(vp.label, `${id}: SNAPSHOT mode badge + static-site banner`, /PUBLISHED RESULTS/.test(info.badge ?? '') && /Published results - static site\. Live Aspen Plus runs need the local platform\./.test(info.banner ?? '') || /Published results - static site\. Live Aspen Plus runs need the local platform\./.test(info.bodyText), `${info.badge} | ${info.banner}`)
     else record(vp.label, `${id}: header notice says static site`, /Published results - static site\. Live Aspen Plus runs need the local platform\./.test(info.noteBar ?? ''), info.noteBar ?? '')
     record(vp.label, `${id}: no "undefined"/"NaN"/"[object" text`, !/\bundefined\b|\bNaN\b|\[object /.test(info.bodyText))
+    {
+      // one headline basis on every page: unified reference cost in USD first with SGD in brackets, carbon intensity with its route
+      const bl = await snap('research/reference_scenario/baseline.json.json')
+      const ci = await snap('research/carbon_pricing/carbon_intensity.json.json')
+      const ciC = ci?.routes?.[bl?.scenario]?.ci_kgCO2e_per_kgH2?.central
+      await page.waitForSelector('[data-testid="headline-ci"]', { timeout: 5000 }).catch(() => {})
+      const hc = await tid('headline-cost'), hi = await tid('headline-ci')
+      record(vp.label, `${id}: headline basis strip from the snapshot (unified USD/kg first, SGD in brackets; carbon intensity with its route)`,
+        !!bl && hc.includes(`${loc(bl.lcoh_USD_per_kg, 3)} USD/kg`) && hc.includes(`(${loc(bl.lcoh_SGD_per_kg, 3)} SGD/kg)`) && /unified reference/.test(hc)
+        && !!ci && typeof ciC === 'number' && hi.includes(loc(ciC, 2)) && /route/.test(hi), `${hc.replace(/\n/g, ' ').slice(0, 120)} | ${hi.replace(/\n/g, ' ').slice(0, 120)}`)
+    }
     if (route === 'results') record(vp.label, `${id}: charts drawn (${info.charts} cards, ${info.emptyCharts} without data marks)`, info.charts >= 9 && info.emptyCharts === 0)
     if (route.startsWith('hypotheses')) {
       const hy = await page.evaluate(() => ({
@@ -389,7 +429,10 @@ for (const vp of VIEWPORTS) {
     const dlPath = await dl.path().catch(() => null)
     const csv = dlPath ? (await import('node:fs')).readFileSync(dlPath, 'utf-8') : ''
     record(vp.label, 'simulator: Export CSV downloads inputs and outputs of cases A and B with source labels', /\.csv$/.test(dl.suggestedFilename()) && /^case,section,key,label,value,unit,source,note/.test(csv) && /\nA,output,/.test(csv) && /\nB,output,/.test(csv), `${dl.suggestedFilename()} ${csv.length} bytes`)
-    const [dj] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), page.locator('button:has-text("Export JSON")').click()])
+    // the second download starts only after the first one has been saved and its button is in view (phone layout)
+    const expJson = page.locator('button:has-text("Export JSON")')
+    await expJson.scrollIntoViewIfNeeded(); await page.waitForTimeout(300)
+    const [dj] = await Promise.all([page.waitForEvent('download', { timeout: 10000 }), expJson.click()])
     record(vp.label, 'simulator: Export JSON downloads a file', /\.json$/.test(dj.suggestedFilename()))
     await page.locator('button:has-text("Stop comparing")').click()
     await page.locator('button:has-text("Reset to baseline")').click(); await page.waitForTimeout(400)
@@ -420,23 +463,60 @@ for (const vp of VIEWPORTS) {
   if (!only || only.has('home') || only.has('overview')) {
     cur = 'interaction'
     await go('')
-    // nav: eleven primary items in the top bar (desktop) or the menu (smaller screens), the other pages under "More pages"
-    const wide = vp.w >= 1200
-    if (!wide) { await page.click('.nav-toggle'); await page.waitForTimeout(300) }
-    const links = await page.$$eval('.site-nav a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
-    record(vp.label, `nav: ${wide ? 'top bar shows the eleven primary items' : 'mobile menu shows the eleven items and the eight further pages'}`, links.length === (wide ? 11 : 19) && links[0] === 'Simulator', links.join(', '))
+    // nav: five labelled groups (disclosure buttons) in the top bar on wide screens; below 1100 px the menu lists every page under its group
+    const GROUPS = ['Simulator', 'Findings', 'Results', 'Methods and validation', 'Docs and downloads']
+    const wide = vp.w >= 1100
     if (wide) {
-      await page.click('.nav-more-btn'); await page.waitForTimeout(200)
-      const more = await page.$$eval('.nav-more-list a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
-      record(vp.label, 'nav: "More pages" menu lists Overview and the other seven pages', more.length === 8 && more[0] === 'Overview' && (await page.getAttribute('.nav-more-btn', 'aria-expanded')) === 'true', more.join(', '))
-      await page.click('.nav-more-list a:has-text("Overview")'); await page.waitForTimeout(600)
-      record(vp.label, 'nav: "Overview" opens /overview', page.url().endsWith('#/overview'), page.url())
+      const btns = await page.$$eval('.nav-group-btn', (bs) => bs.filter((b) => b.getBoundingClientRect().width > 0).map((b) => b.firstChild?.textContent?.trim() ?? ''))
+      record(vp.label, 'nav: top bar shows the five labelled groups', JSON.stringify(btns) === JSON.stringify(GROUPS), btns.join(', '))
+      const visibleBefore = await page.$$eval('.site-nav a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).length)
+      await page.click('#nav-btn-results'); await page.waitForTimeout(200)
+      const listed = await page.$$eval('#nav-list-results a .nav-label', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).map((a) => a.textContent))
+      record(vp.label, 'nav: a group opens its page list (aria-expanded=true) and the lists are closed before', visibleBefore === 0 && listed.length >= 2 && listed.includes('Overview') && (await page.getAttribute('#nav-btn-results', 'aria-expanded')) === 'true', listed.join(', '))
+      await page.keyboard.press('Escape'); await page.waitForTimeout(150)
+      record(vp.label, 'nav: Escape closes the group and returns focus to its button', (await page.getAttribute('#nav-btn-results', 'aria-expanded')) === 'false' && (await page.evaluate(() => document.activeElement?.id)) === 'nav-btn-results')
+      await page.click('#nav-btn-results'); await page.waitForTimeout(150)
+      await page.click('#nav-list-results a:has-text("Overview")'); await page.waitForTimeout(600)
+      record(vp.label, 'nav: "Overview" opens /overview, the group is marked current and the list closes', page.url().endsWith('#/overview') && (await page.$('.nav-group.is-current #nav-btn-results')) !== null && (await page.getAttribute('#nav-btn-results', 'aria-expanded')) === 'false', page.url())
     } else {
+      await page.click('.nav-toggle'); await page.waitForTimeout(300)
       const expanded = await page.getAttribute('.nav-toggle', 'aria-expanded')
       record(vp.label, 'mobile menu: toggle has aria-expanded=true when open', expanded === 'true')
-      await page.click('.site-nav a:text-is("Results")'); await page.waitForTimeout(600)
+      const links = await page.$$eval('.site-nav a', (as) => as.filter((a) => a.getBoundingClientRect().width > 0).length)
+      const lists = await page.$$eval('.site-nav .nav-list', (ls) => ls.map((l) => l.getAttribute('aria-label')))
+      record(vp.label, 'mobile menu: every page under its labelled group', links === 19 && JSON.stringify(lists) === JSON.stringify(GROUPS), `${links} links; ${lists.join(', ')}`)
+      await page.click('.site-nav a:has-text("Engineering results")'); await page.waitForTimeout(600)
       record(vp.label, 'mobile menu: link navigates and menu closes', page.url().endsWith('#/results') && !(await page.$eval('.site-nav', (n) => n.classList.contains('open'))), page.url())
     }
+    // section numbers derived from the route table: /results is the second page of the third group
+    await go('results')
+    record(vp.label, 'breadcrumb above the title comes from the route table', (await page.locator('.page-hero .eyebrow').innerText()) === 'Section 3.2 · Results')
+    const fonts = await page.evaluate(async () => { await document.fonts.ready; return { inter: document.fonts.check('400 16px Inter'), grotesk: document.fonts.check('600 16px "Space Grotesk"'), mono: document.fonts.check('500 16px "JetBrains Mono"'), loaded: [...document.fonts].filter((f) => f.status === 'loaded').map((f) => `${f.family} ${f.weight}`) } })
+    record(vp.label, 'fonts: Inter, Space Grotesk and JetBrains Mono load from the site itself', fonts.inter && fonts.grotesk && fonts.mono && fonts.loaded.length >= 3, fonts.loaded.join(', '))
+    // command palette: Ctrl+K, combobox filtering, Enter navigates, Escape closes; the header button opens it too
+    await page.keyboard.press('Control+k'); await page.waitForTimeout(250)
+    const pal = await page.evaluate(() => ({ open: !!document.querySelector('dialog.palette[open]'), focus: document.activeElement?.getAttribute('role'), opts: document.querySelectorAll('.palette [role=option]').length }))
+    record(vp.label, 'command palette: Ctrl+K opens it with the combobox focused and the pages listed', pal.open && pal.focus === 'combobox' && pal.opts >= 19, JSON.stringify(pal))
+    await page.keyboard.type('purification'); await page.waitForTimeout(200)
+    const act = await page.evaluate(() => { const i = document.querySelector('.palette [role=combobox]'); const id = i?.getAttribute('aria-activedescendant'); return { id, text: id ? document.getElementById(id)?.textContent : null, sel: id ? document.getElementById(id)?.getAttribute('aria-selected') : null } })
+    record(vp.label, 'command palette: typing filters and marks the active option (aria-activedescendant, aria-selected)', /Purification/.test(act.text ?? '') && act.sel === 'true', JSON.stringify(act))
+    await page.keyboard.press('Enter'); await page.waitForTimeout(700)
+    record(vp.label, 'command palette: Enter opens the page and closes the dialog', page.url().endsWith('#/hypotheses/purification') && !(await page.$('dialog.palette[open]')), page.url())
+    await page.click('.search-btn'); await page.waitForTimeout(250)
+    await page.keyboard.type('700'); await page.waitForTimeout(600)
+    const scn = await page.$$eval('.palette [role=option]', (os) => os.map((o) => o.textContent))
+    record(vp.label, 'command palette: lists the stored simulator scenarios', scn.some((t) => /700 degC/.test(t ?? '')), scn.slice(0, 3).join(' | '))
+    await page.keyboard.press('Escape'); await page.waitForTimeout(150)
+    record(vp.label, 'command palette: Escape clears the text first', (await page.inputValue('.palette [role=combobox]')) === '' && !!(await page.$('dialog.palette[open]')))
+    await page.keyboard.press('Escape'); await page.waitForTimeout(150)
+    record(vp.label, 'command palette: second Escape closes it', !(await page.$('dialog.palette[open]')))
+    // scenario deep link used by the palette, and a redirect for an alternative path
+    await page.evaluate(() => { window.location.hash = '#/?preset=scn_high_temperature' }); await page.waitForSelector('.sim-status', { timeout: 30000 }).catch(() => {}); await page.waitForTimeout(500)
+    record(vp.label, 'simulator: #/?preset=<id> opens the stored scenario', /Preset: Equilibrium cracker, 700 degC/.test(await page.locator('.sim-status').innerText().catch(() => '')))
+    const usd = await page.locator('[data-kpi="lcoh_USD"] .sim-kpi-v').innerText().catch(() => '')
+    record(vp.label, 'simulator: headline cost in USD first with SGD in brackets', /USD\/kg H2\s*\(.*SGD\/kg H2\)/.test(usd), usd)
+    await page.evaluate(() => { window.location.hash = '#/environment' }); await page.waitForTimeout(900)
+    record(vp.label, 'redirect: #/environment goes to the environmental analysis', page.url().endsWith('#/hypotheses/end-use#lca'), page.url())
     await go('overview')
     // calculator
     await page.locator('#try').scrollIntoViewIfNeeded()

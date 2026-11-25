@@ -1,6 +1,7 @@
 ﻿import { Link, NavLink, Outlet } from 'react-router-dom'
 import { IS_PAGES } from '../api/url'
 import { useData } from '../data/DataContext'
+import { HeadlineBasis } from '../site/HeadlineBasis'
 import { platformPath } from '../site/routes'
 import { useTheme } from '../site/theme'
 import { StatusPill, SourceBadge } from './ui'
@@ -82,11 +83,12 @@ export function Shell() {
           </label>
           {active ? <SourceBadge source={active.source} /> : null}
           <Link className="btn btn-sm" to="/">Project website</Link>
-          <button type="button" className="btn btn-sm" onClick={toggleTheme} aria-label="Toggle light or dark theme">
-            {theme === 'dark' ? 'Light theme' : 'Dark theme'}
+          <button type="button" className="btn btn-sm" onClick={toggleTheme} aria-label={theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme'}>
+            {theme === 'dark' ? 'Light' : 'Dark'}
           </button>
         </div>
       </header>
+      <HeadlineBasis compact />
       <div className="body">
         <nav className="sidebar" aria-label="Platform sections">
           <ul>

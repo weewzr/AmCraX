@@ -30,21 +30,27 @@ function Val({ r }: { r: Pick<OutRow, 'value' | 'kind' | 'unit' | 'note'> }) {
   return r.value === null ? <span className="sim-nm" title={r.note}>{r.note?.startsWith('not reached') ? 'not reached' : 'not modelled'}</span> : <span className="sim-num">{formatValue(r)}</span>
 }
 
-/** Headline outputs with short card labels; the full row label (with the cost basis) is in the title and the output list. */
-export const HEADLINE: { key: string; short: string }[] = [
+/**
+ * Headline outputs with short card labels; the full row label (with the cost basis) is in the title and the output list.
+ * The cost card shows USD first with SGD in brackets (`alt`), both rows of the same browser evaluation; the carbon card
+ * names the ammonia route of the case.
+ */
+export const HEADLINE: { key: string; short: string; alt?: string }[] = [
   { key: 'conversion', short: 'NH3 conversion' }, { key: 'h2_kg_h', short: 'Hydrogen production' },
-  { key: 'lcoh_SGD', short: 'Hydrogen cost' }, { key: 'carbon_intensity', short: 'Carbon intensity' },
+  { key: 'lcoh_USD', short: 'Hydrogen cost, this case', alt: 'lcoh_SGD' }, { key: 'carbon_intensity', short: 'Carbon intensity' },
 ]
 
-export function KpiStrip({ c }: { c: CaseResult }) {
+export function KpiStrip({ c, route }: { c: CaseResult; route?: string }) {
   return (
     <div className="sim-kpis" aria-live="polite" aria-label="Key results">
-      {HEADLINE.map(({ key: k, short }) => {
+      {HEADLINE.map(({ key: k, short, alt }) => {
         const r = c.rows.find((x) => x.key === k)!
+        const a = alt ? c.rows.find((x) => x.key === alt) : undefined
+        const label = k === 'carbon_intensity' && route ? `${short}, ${route.replace(/_/g, ' ')} NH3` : short
         return (
           <div key={k} className="sim-kpi" data-kpi={k} title={r.label}>
-            <span className="sim-kpi-l">{short}</span>
-            <span className="sim-kpi-v"><Val r={r} /></span>
+            <span className="sim-kpi-l">{label}</span>
+            <span className="sim-kpi-v"><Val r={r} />{a && a.value !== null && r.value !== null ? <span className="sim-kpi-alt"> ({formatValue(a)})</span> : null}</span>
             <SimBadge s={r.source} short />
           </div>
         )

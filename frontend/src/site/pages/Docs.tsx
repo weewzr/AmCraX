@@ -42,7 +42,7 @@ export default function Docs() {
   const shown = availableDownloads(copied)
   return (
     <>
-      <PageHero eyebrow="Section 8 - Documentation and downloads" title="Read, download, reproduce"
+      <PageHero title="Read, download, reproduce"
         lead="The technical report, the short paper, the executive summary and the pitch deck are generated from the same stored results as this site. The repository holds the rest of the documentation." />
       <Section id="downloads" title="Downloads" intro="Files are copied into the site at build time from the repository, so they are the versions that were committed with the results shown here. A document that did not exist at build time is not listed. The 23 November 2026 release of the report is preserved unchanged; the current report carries the Phase 2 results.">
         <ul className="dl-grid">

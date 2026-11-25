@@ -15,7 +15,6 @@ export default function PfdSite() {
   return (
     <>
       <PageHero
-        eyebrow="Section 3 - Interactive process flow diagram"
         title="The flowsheet, as an interactive diagram"
         lead="Click any piece of equipment or any stream. Values come from the stored Aspen Plus V15 run of the baseline case; nothing on this page is recalculated."
       />

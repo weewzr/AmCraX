@@ -1,5 +1,5 @@
-:root{color-scheme:dark;--bg:#0b1020;--surface:#121a2f;--surface-2:#1a2542;--border:#2a3658;--border-strong:#3b4a75;--text:#eef2fb;--text-2:#c3cce3;--muted:#8e9bbd;--primary:#38bdf8;--primary-ink:#04202e;--accent:#ff7a3d;--focus:#9be7ff;--c-nh3:#4ade80;--c-h2:#f472b6;--c-n2:#a5b4fc;--c-h2o:#22d3ee;--c-o2:#fbbf24;--c-heat:#ff6b3d;--c-cold:#60a5fa;--ok:#3fcf8e;--warn:#f5b73b;--error:#ff6b6b;--info:#38bdf8;--src-aspen:#38bdf8;--src-python:#a78bfa;--src-literature:#3fcf8e;--src-assumption:#f5b73b;--src-demo:#8e9bbd;--r-sm:6px;--r-md:10px;--r-lg:14px;--gutter:20px;--gap:12px;--shadow-float:0 10px 30px rgba(0,0,0,.55);--font-ui:Inter,"Segoe UI",system-ui,sans-serif;--font-head:"Space Grotesk",Inter,"Segoe UI",system-ui,sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--fs-base:14.5px;--fs-kpi:26px}
-:root[data-theme=light]{color-scheme:light;--bg:#f5f7fc;--surface:#fff;--surface-2:#eef2fb;--border:#d6ddee;--border-strong:#b4bfda;--text:#121a2f;--text-2:#33415f;--muted:#5b6788;--primary:#0369a1;--primary-ink:#fff;--accent:#c2410c;--focus:#0369a1;--c-nh3:#15803d;--c-h2:#be185d;--c-n2:#4f46e5;--c-h2o:#0e7490;--c-o2:#b45309;--c-heat:#c2410c;--c-cold:#1d4ed8;--ok:#15803d;--warn:#a16207;--error:#b91c1c;--info:#0369a1;--src-aspen:#0369a1;--src-python:#6d28d9;--src-literature:#15803d;--src-assumption:#a16207;--src-demo:#5b6788;--shadow-float:0 10px 30px rgba(18,26,47,.18)}
+:root{color-scheme:dark;--bg:#0b1020;--surface:#121a2f;--surface-2:#1a2542;--border:#2a3658;--border-strong:#3b4a75;--text:#eef2fb;--text-2:#c3cce3;--muted:#8e9bbd;--primary:#38bdf8;--primary-ink:#04202e;--accent:#ff7a3d;--focus:#9be7ff;--c-nh3:#4ade80;--c-h2:#f472b6;--c-n2:#a5b4fc;--c-h2o:#22d3ee;--c-o2:#fbbf24;--c-heat:#ff6b3d;--c-cold:#60a5fa;--ok:#3fcf8e;--warn:#f5b73b;--error:#ff6b6b;--info:#38bdf8;--src-aspen:#a3b8ff;--src-python:#a78bfa;--src-literature:#3fcf8e;--src-assumption:#f5b73b;--src-demo:#8e9bbd;--r-sm:6px;--r-md:10px;--r-lg:14px;--gutter:20px;--gap:12px;--shadow-float:0 10px 30px rgba(0,0,0,.55);--font-ui:Inter,"Segoe UI",system-ui,sans-serif;--font-head:"Space Grotesk",Inter,"Segoe UI",system-ui,sans-serif;--font-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;--fs-base:14.5px;--fs-kpi:26px}
+:root[data-theme=light]{color-scheme:light;--bg:#f5f7fc;--surface:#fff;--surface-2:#eef2fb;--border:#d6ddee;--border-strong:#b4bfda;--text:#121a2f;--text-2:#33415f;--muted:#5b6788;--primary:#0369a1;--primary-ink:#fff;--accent:#c2410c;--focus:#0369a1;--c-nh3:#15803d;--c-h2:#be185d;--c-n2:#4f46e5;--c-h2o:#0e7490;--c-o2:#b45309;--c-heat:#c2410c;--c-cold:#1d4ed8;--ok:#15803d;--warn:#a16207;--error:#b91c1c;--info:#0369a1;--src-aspen:#1e3a8a;--src-python:#6d28d9;--src-literature:#15803d;--src-assumption:#a16207;--src-demo:#5b6788;--shadow-float:0 10px 30px rgba(18,26,47,.18)}
 *{box-sizing:border-box}
 html,body,#root{height:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:var(--fs-base)/1.45 var(--font-ui)}
@@ -46,7 +46,7 @@ main{flex:1;min-width:0;padding:var(--gutter);max-width:1700px}
 .value .num{font-family:var(--font-mono);font-variant-numeric:tabular-nums}
 .value .na{color:var(--muted)}
 .value .unit{color:var(--muted);font-size:.85em;margin:0 4px 0 3px}
-.badge{display:inline-block;font-size:10.5px;line-height:1;padding:3px 6px;border-radius:999px;border:1px solid currentColor;font-weight:600;letter-spacing:.02em;white-space:nowrap;vertical-align:middle}
+.badge{display:inline-block;font-size:12px;line-height:1;padding:3px 6px;border-radius:999px;border:1px solid currentColor;font-weight:600;letter-spacing:.02em;white-space:nowrap;vertical-align:middle}
 .badge-aspen_plus_v15{color:var(--src-aspen)}.badge-python_model{color:var(--src-python)}.badge-literature{color:var(--src-literature)}
 .badge-assumption{color:var(--src-assumption)}.badge-demo{color:var(--src-demo);border-style:dashed}.badge-none{color:var(--muted);border-style:dotted}
 .pill{display:inline-flex;gap:4px;align-items:center;font-size:12px;font-weight:600;padding:3px 9px;border-radius:999px;border:1px solid currentColor;white-space:nowrap}
@@ -81,3 +81,11 @@ table.data .r,.r{text-align:right;font-variant-numeric:tabular-nums}
 @media (max-width:640px){.value{white-space:normal}main .card{max-width:100%;overflow-x:auto}}
 
 .field select,.controls .field{max-width:100%;min-width:0}.kpi{min-width:0}.kpi .value{white-space:normal}
+
+/* Provenance glyphs (2026-11 refresh): colour is never the only cue. Aspen square, Python or browser model circle, literature
+   triangle, assumption diamond. The glyph is generated content with empty alternative text, so screen readers read only the word. */
+.badge-aspen_plus_v15::before,.src-aspen::before,.src-interpolation::before{content:"\25A0" / "";margin-right:4px;font-size:.85em}
+.badge-python_model::before,.src-browser-model::before{content:"\25CF" / "";margin-right:4px;font-size:.85em}
+.badge-literature::before{content:"\25B2" / "";margin-right:4px;font-size:.8em}
+.badge-assumption::before,.src-assumption::before{content:"\25C6" / "";margin-right:4px;font-size:.85em}
+.src-extrapolation::before{content:"\2192" / "";margin-right:4px}

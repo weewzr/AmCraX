@@ -7,7 +7,7 @@ import { useData } from '../../data/DataContext'
 import { EquilibriumCalculatorLazy } from '../EquilibriumCalculatorLazy'
 import { countAspenRuns, exportDate, useJson, useValidationSummary, type DatasetIndexItem } from '../data'
 import { REPORT_PDF, downloadUrl } from '../downloads'
-import { platformPath, SITE_ROUTES } from '../routes'
+import { NAV_GROUPS, platformPath, SITE_ROUTES } from '../routes'
 import { Callout, ExtLink, Section } from '../ui'
 
 const CARDS: { to: string; title: string; text: string }[] = [
@@ -101,12 +101,12 @@ export default function Home() {
         <EquilibriumCalculatorLazy />
       </Section>
 
-      <Section id="explore" title="Explore the project" intro="Nine sections, one page each. The top navigation reaches all of them.">
+      <Section id="explore" title="Explore the project" intro={`${SITE_ROUTES.length} pages in ${NAV_GROUPS.length} groups. The top navigation reaches all of them; Ctrl + K searches them.`}>
         <ul className="card-grid" aria-label="Sections of the website">
           {CARDS.map((c) => (
             <li key={c.to}>
               <Link to={c.to} className="card link-card">
-                <span className="link-card-num">{String(SITE_ROUTES.find((r) => r.path === c.to)?.section).padStart(2, '0')}</span>
+                <span className="link-card-num">{SITE_ROUTES.find((r) => r.path === c.to)?.section ?? ''}</span>
                 <h3>{c.title}</h3>
                 <p>{c.text}</p>
                 <span className="link-card-go" aria-hidden="true">Read more</span>

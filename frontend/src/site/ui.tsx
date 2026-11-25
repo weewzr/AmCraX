@@ -1,9 +1,10 @@
 import { useMemo, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import type { DataSource } from '../api/types'
 import { SourceBadge } from '../components/ui'
 import { citeLabel } from './cite'
 import { useRefs } from './data'
+import { eyebrowFor } from './routes'
 
 export function Wordmark({ className = '' }: { className?: string }) {
   return (
@@ -22,12 +23,18 @@ export function ExtLink({ href, children, className }: { href: string; children:
   )
 }
 
-/** Page title block for the non-landing routes (the page's only h1). */
-export function PageHero({ eyebrow, title, lead, children }: { eyebrow: string; title: string; lead?: ReactNode; children?: ReactNode }) {
+/**
+ * Page title block for the non-landing routes (the page's only h1). The line above the title ("Section 3.2 · Results") is
+ * derived from the route table (routes.eyebrowFor), so it cannot go stale; the `eyebrow` prop is used only on locations
+ * outside the table (the 404 page).
+ */
+export function PageHero({ eyebrow, title, lead, children }: { eyebrow?: string; title: string; lead?: ReactNode; children?: ReactNode }) {
+  const { pathname } = useLocation()
+  const line = eyebrowFor(pathname) ?? eyebrow
   return (
     <header className="page-hero">
       <div className="wrap">
-        <p className="eyebrow">{eyebrow}</p>
+        {line ? <p className="eyebrow">{line}</p> : null}
         <h1>{title}</h1>
         {lead ? <p className="lead">{lead}</p> : null}
         {children}

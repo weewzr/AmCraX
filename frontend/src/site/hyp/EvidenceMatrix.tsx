@@ -3,6 +3,7 @@ import { GITHUB_URL } from '../../api/url'
 import { staticAssetUrl } from '../../api/client'
 import { AsyncView } from '../../features/common/Notice'
 import { useJson } from '../data'
+import { splitShared } from '../siteHelpers'
 import { Callout, ExtLink } from '../ui'
 import { downloadByKey, downloadUrl } from '../downloads'
 import { DTable, SrcTag } from './parts'
@@ -230,6 +231,8 @@ function RowGroups({ rows }: { rows: MatrixRow[] }) {
     <>
       <h4>Primary rows (they vote)</h4>
       {prim.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}
+      {/* secondary rows stay listed like the primary ones (ID and verdict visible in each summary line), so a row
+          that goes against the essay is never hidden behind a closed group */}
       {sec.length ? <><h4>Secondary rows (reported, they do not vote)</h4>{sec.map((r, i) => <RowView key={`${r.row_id ?? i}`} row={r} />)}</> : null}
     </>
   )
@@ -243,6 +246,9 @@ export function EvidenceMatrix() {
       if (!hs.length) return <p className="prose-p">The evidence matrix file is present but lists no hypotheses.</p>
       const v2 = d.methodology_version === 2
       const meth = safeRepoPath(d.methodology) ?? 'docs/research/verdict_methodology_v2.md'
+      // the aggregation rule is stored with every hypothesis; when it is the same text for all, it is stated once here
+      const cond = splitShared(hs.map((h) => show(h.verdict_conditions)))
+      const rule = cond.shared.length ? cond.shared.join(' ') : null
       return (
         <>
           <p className="prose-p" data-testid="matrix-version">
@@ -261,7 +267,12 @@ export function EvidenceMatrix() {
               </a>
             ))}
           </div>
-          {hs.map((h) => (
+          {rule ? (
+            <div className="callout hyp-rule" id="aggregation-rule">
+              <strong>How a hypothesis verdict is derived (the same rule for all {hs.length} hypotheses).</strong> {rule}
+            </div>
+          ) : null}
+          {hs.map((h, hi) => (
             <article key={h.id} id={String(h.id)} className="card hyp-card">
               <header>
                 <h3>{h.id}: {show(h.statement)}</h3>
@@ -275,8 +286,12 @@ export function EvidenceMatrix() {
               {list(h.findings_against_essay).length ? <div className="p2-against"><strong>Findings against the essay.</strong><ul className="hyp-list">{list(h.findings_against_essay).map((x, i) => <li key={i}>{x}</li>)}</ul></div> : null}
               {show(h.cross_claim) ? <p><strong>Cross-claim.</strong> {show(h.cross_claim)}</p> : null}
               {show(h.verdict_v1_rule_on_current_rows) ? <p className="muted small">Version 1 rule applied to the current rows: {show(h.verdict_v1_rule_on_current_rows)}</p> : null}
-              {show(h.verdict_conditions) ? <p><strong>Conditions of the verdict.</strong> {show(h.verdict_conditions)}</p> : null}
-              {show(h.summary) ? <p>{show(h.summary)}</p> : null}
+              {show(h.verdict_conditions) && !rule ? <p><strong>Conditions of the verdict.</strong> {show(h.verdict_conditions)}</p> : null}
+              {rule && show(h.verdict_conditions) ? (
+                <p data-testid={`conditions-${h.id}`}><strong>Conditions of the verdict.</strong> {cond.own[hi].join(' ')}{' '}
+                  <span className="muted small">(Aggregation rule: <a href="#/hypotheses#aggregation-rule" onClick={(e) => { e.preventDefault(); document.getElementById('aggregation-rule')?.scrollIntoView({ block: 'start' }) }}>stated once above the hypotheses</a>.)</span></p>
+              ) : null}
+              {show(h.summary) && show(h.summary) !== show(h.strongest_defensible_statement) ? <p>{show(h.summary)}</p> : null}
               <RowGroups rows={h.rows ?? []} />
             </article>
           ))}

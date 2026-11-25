@@ -8,6 +8,7 @@ import { CarbonIntensityTable, CatalystPhase2, EconomicsPhase2, EndUsePhase2, Pu
 import { PlainAnswers } from '../hyp/PlainAnswers'
 import { PurificationView } from '../hyp/PurificationView'
 import { AspenGallery, ValidationView } from '../hyp/ValidationAspen'
+import { OnThisPage } from '../OnThisPage'
 import { HYPOTHESIS_PAGES } from '../routes'
 import { PageHero, Section } from '../ui'
 
@@ -31,10 +32,13 @@ export default function Hypotheses() {
   if (!p) return <Navigate to="/hypotheses" replace />
   return (
     <>
-      <PageHero eyebrow="Section 10: hypothesis testing" title={p.slug ? p.title : 'Hypothesis testing'} lead={LEAD[p.slug]}>
+      <PageHero title={p.slug ? p.title : 'Hypothesis testing'} lead={LEAD[p.slug]}>
         <SubNav current={p.slug} />
       </PageHero>
-      <div className="wrap" style={{ paddingTop: 'var(--s5, 24px)' }}><StoredNote extrapolated={p.slug === 'catalyst' || p.slug === ''} /></div>
+      <div className="wrap hyp-intro">
+        <StoredNote extrapolated={p.slug === 'catalyst' || p.slug === ''} />
+        <OnThisPage />
+      </div>
       {p.slug === '' || PLAIN_IDS[p.slug] ? (
         <Section id="plain-answers" title={p.slug === '' ? 'Plain answers' : `Plain answers for ${PLAIN_IDS[p.slug].join(' and ')}`}>
           <PlainAnswers ids={p.slug === '' ? undefined : PLAIN_IDS[p.slug]} />

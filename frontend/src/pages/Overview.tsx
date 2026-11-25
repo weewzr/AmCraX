@@ -89,9 +89,9 @@ export default function Overview() {
             <KpiTile label="External heating demand" v={k?.total_external_heating_kW} unit="kW" source={src} hint="VAPORIZR + HEATER + CRACKER duties" />
             <KpiTile label="Specific heat demand" v={k?.specific_heat_demand_kWh_per_kgH2} unit="kWh/kg H2" digits={2} source={src} />
             <KpiTile label="LHV efficiency" v={k?.lhv_efficiency === null || k === undefined ? null : k.lhv_efficiency * 100} unit="%" digits={1} source={src} />
-            <KpiTile label="LCOH (assumption-based)" v={econ.state === 'ok' ? (econ.v.lcoh_USD_per_kg ?? null) : null} unit="USD/kg H2" digits={2} source={lcohSrc}
-              hint={naWhy(econ) ?? 'Levelised cost of hydrogen from analysis/economics_<case>.json; depends on cost assumptions listed on the Techno-Economics page'} />
-            <KpiTile label="Carbon intensity, green NH3 + self-firing" v={ciRow?.total_kgCO2e_per_kgH2 ?? null} unit="kg CO2e/kg H2" digits={2} source={ciSrc}
+            <KpiTile label="LCOH, legacy core result (superseded; headline basis above)" v={econ.state === 'ok' ? (econ.v.lcoh_USD_per_kg ?? null) : null} unit="USD/kg H2" digits={2} source={lcohSrc}
+              hint={naWhy(econ) ?? 'Legacy core result: levelised cost of hydrogen from analysis/economics_<case>.json (plant-level correlation). Superseded for research outputs by the unified reference shown in the headline strip.'} />
+            <KpiTile label="Carbon intensity, green NH3 route with self-firing (legacy core file; not the headline route)" v={ciRow?.total_kgCO2e_per_kgH2 ?? null} unit="kg CO2e/kg H2" digits={2} source={ciSrc}
               hint={naWhy(env) ?? (ciVals.length ? `Range over all NH3 routes and heating options: ${fmt(Math.min(...ciVals), 2)} to ${fmt(Math.max(...ciVals), 2)} kg CO2e/kg H2. Simplified accounting, not an LCA.` : 'no scenario rows')} />
           </div>
           {(econ.state === 'na' || env.state === 'na') && (
